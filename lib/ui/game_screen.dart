@@ -155,6 +155,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _game = _lesson?.build() ?? _stage?.build() ?? GameState(widget.p0, widget.p1);
     _stageStart = _game.copy();
     if (_tutorial || _staged) WidgetsBinding.instance.addPostFrameCallback((_) => _introScene());
+    if (_staged && !_stage!.isPuzzle && _stage!.intro != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _showStageIntro());
+    }
     final nick = AppSettings.instance.nickname;
     final m = widget.match;
     if (m != null) {
@@ -232,8 +235,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   bool get _isAiTurn => widget.aiPlayer != null && _game.current == widget.aiPlayer;
 
   /// Bloquea la interacción mientras juega la IA.
-  bool get _locked =>
-      _isAiTurn || _aiThinking || _resigned || _stageOver || (_tutorial && _coach != CoachState.doing);
+  bool get _locked => _isAiTurn || _aiThinking || _resigned || _stageOver || (_tutorial && _coach != CoachState.doing);
 
   bool _isHuman(int p) => widget.aiPlayer != p;
 
@@ -432,6 +434,42 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       Haptics.heavy();
       _showStageResult(ok);
     });
+  }
+
+  /// Presentación de un desafío o batalla: historia y objetivo.
+  void _showStageIntro() {
+    if (!mounted) return;
+    final s = _stage!;
+    final t = HexTheme.of(context);
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        icon: Icon(
+          s.kind == StageKind.campaign ? Icons.auto_stories_rounded : Icons.emoji_events_outlined,
+          color: t.gold,
+          size: 36,
+        ),
+        title: Text(s.title),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(s.intro!),
+            const SizedBox(height: 12),
+            Text(
+              s.goal,
+              style: TextStyle(fontWeight: FontWeight.w800, color: t.text),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Rival: ${widget.p1.displayName} · ${widget.aiLevel.displayName}',
+              style: TextStyle(fontSize: 12, color: t.textMuted),
+            ),
+          ],
+        ),
+        actions: [FilledButton(onPressed: () => Navigator.pop(ctx), child: const Text('Comenzar'))],
+      ),
+    );
   }
 
   String _stageWinText() {
@@ -1124,12 +1162,17 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final siege = g.rules.siegeRound;
     final toSiege = siege == null ? null : siege - g.round;
     final active = g.inSiege;
-    final soon = !active && toSiege != null && toSiege <= 3;
-    final color = active ? t.danger : (soon ? t.gold : t.textMuted);
+    final soon = !active && toSiege != null && toSiege <= 3 && toSiege < (g.roundsLeft ?? 99);
+    final ending = !active && (g.roundsLeft ?? 99) <= 3;
+    final color = active ? t.danger : (soon || ending ? t.gold : t.textMuted);
+    final limit = g.rules.roundLimit;
     final text = active
-        ? 'ASEDIO · ${g.round}/${g.rules.roundLimit}'
+        ? 'ASEDIO · ${g.round}/$limit'
         : soon
         ? (toSiege == 1 ? 'Asedio en 1 ronda' : 'Asedio en $toSiege rondas')
+        // Sin Asedio por delante (o con objetivo de rondas), el límite es lo que importa.
+        : siege == null || siege > limit! || _staged
+        ? 'Ronda ${g.round}/$limit'
         : 'Ronda ${g.round}';
     return Tooltip(
       message: [
@@ -1143,7 +1186,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         decoration: BoxDecoration(
           color: active ? t.danger.withValues(alpha: 0.12) : t.surface,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: active || soon ? color : t.outline),
+          border: Border.all(color: active || soon || ending ? color : t.outline),
         ),
         child: Text(
           text,

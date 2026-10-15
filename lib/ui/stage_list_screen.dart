@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../engine/ai.dart';
 import '../engine/pieces.dart';
 import '../solo/catalog.dart';
 import 'fx/sfx.dart';
@@ -153,6 +154,6 @@ class StageListScreen extends StatelessWidget {
 
   String _detail(Stage st) => switch (st.kind) {
     StageKind.puzzle => 'Cerco en ${st.puzzleTurns} · ${st.you.displayName}',
-    _ => '${st.you.displayName} vs ${st.opp.displayName}',
+    _ => '${st.you.displayName} vs ${st.opp.displayName} · ${st.level.displayName}',
   };
 }

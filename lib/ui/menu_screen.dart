@@ -117,6 +117,11 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                               onPressed: _puzzles,
                             ),
                             TextButton.icon(
+                              icon: const Icon(Icons.emoji_events_outlined),
+                              label: const Text('Desafíos'),
+                              onPressed: _challenges,
+                            ),
+                            TextButton.icon(
                               icon: const Icon(Icons.menu_book_outlined),
                               label: const Text('Reglas'),
                               onPressed: () => _rules(context),
@@ -286,7 +291,19 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => StageListScreen(title: 'Problemas', subtitle: 'Rodeá al Líder en pocos turnos', stages: puzzles),
+        builder: (_) =>
+            StageListScreen(title: 'Problemas', subtitle: 'Rodeá al Líder en pocos turnos', stages: puzzles),
+      ),
+    );
+  }
+
+  void _challenges() {
+    Haptics.select();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            StageListScreen(title: 'Desafíos', subtitle: 'Reglas especiales contra el Sensei', stages: challenges),
       ),
     );
   }

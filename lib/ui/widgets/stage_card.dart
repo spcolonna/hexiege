@@ -59,10 +59,7 @@ class StageCard extends StatelessWidget {
               ],
             ),
           ),
-          if (turnsLeft != null) ...[
-            const SizedBox(width: 10),
-            _TurnsBadge(turnsLeft!),
-          ],
+          if (turnsLeft != null) ...[const SizedBox(width: 10), _TurnsBadge(turnsLeft!)],
         ],
       ),
     );
