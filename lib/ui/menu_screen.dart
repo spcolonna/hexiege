@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import '../engine/pieces.dart';
 import '../engine/rules.dart';
 import '../solo/catalog.dart';
-import 'campaign_screen.dart';
 import 'fx/sfx.dart';
 import 'game_screen.dart';
 import 'matchmaking_screen.dart';
 import 'piece_chip.dart';
-import 'stage_list_screen.dart';
+import 'solo_screen.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'widgets/arena_backdrop.dart';
@@ -97,6 +96,27 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                             onPressed: _findMatch,
                           ),
                         ),
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 50,
+                          child: OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: t.text,
+                              side: BorderSide(color: t.gold, width: 1.5),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                            ),
+                            icon: Icon(Icons.auto_stories_rounded, color: t.gold),
+                            label: ListenableBuilder(
+                              listenable: AppSettings.instance,
+                              builder: (context, _) => Text(
+                                'Un jugador · ${_soloProgress()}',
+                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+                              ),
+                            ),
+                            onPressed: _solo,
+                          ),
+                        ),
                         const SizedBox(height: 8),
                         Wrap(
                           alignment: WrapAlignment.center,
@@ -111,24 +131,6 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                               icon: const Icon(Icons.school_outlined),
                               label: const Text('Tutorial'),
                               onPressed: _tutorial,
-                            ),
-                            TextButton.icon(
-                              icon: const Icon(Icons.extension_outlined),
-                              label: const Text('Problemas'),
-                              onPressed: _puzzles,
-                            ),
-                            TextButton.icon(
-                              icon: const Icon(Icons.auto_stories_outlined),
-                              label: const Text('Campaña'),
-                              onPressed: () {
-                                Haptics.select();
-                                Navigator.push(context, MaterialPageRoute(builder: (_) => const CampaignScreen()));
-                              },
-                            ),
-                            TextButton.icon(
-                              icon: const Icon(Icons.emoji_events_outlined),
-                              label: const Text('Desafíos'),
-                              onPressed: _challenges,
                             ),
                             TextButton.icon(
                               icon: const Icon(Icons.menu_book_outlined),
@@ -295,26 +297,15 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
     Navigator.push(context, MaterialPageRoute(builder: (_) => const GameScreen.tutorial()));
   }
 
-  void _puzzles() {
+  void _solo() {
     Haptics.select();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) =>
-            StageListScreen(title: 'Problemas', subtitle: 'Rodeá al Líder en pocos turnos', stages: puzzles),
-      ),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (_) => const SoloScreen()));
   }
 
-  void _challenges() {
-    Haptics.select();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) =>
-            StageListScreen(title: 'Desafíos', subtitle: 'Reglas especiales contra el Sensei', stages: challenges),
-      ),
-    );
+  /// Etapas superadas sobre el total de campaña, desafíos y problemas.
+  String _soloProgress() {
+    final all = stageLists.expand((l) => l);
+    return '${all.where((s) => AppSettings.instance.isCleared(s.id)).length}/${all.length}';
   }
 
   /// Invitación al tutorial mientras no se haya completado.

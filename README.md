@@ -65,6 +65,7 @@ Pendiente: en Maestro Ninja gana ~60–66% en todas las variantes probadas (tamb
 - Agregar una lección = otro `Lesson` en la lista; `test/tutorial/lessons_test.dart` verifica que cada una se pueda resolver en una acción.
 
 ## Un jugador (`lib/solo/`)
+- Entrada única desde el menú: **Un jugador** (`ui/solo_screen.dart`) muestra el progreso total y por modo, y **Continuar** abre la próxima etapa disponible (campaña Shaolin, luego Ninja, desafíos y problemas).
 - Todo el contenido es una `Stage`: posición inicial (`build`), objetivo, facciones y nivel de IA. `GameScreen.stage` la juega y `StageListScreen` la lista; se desbloquean de a una y el progreso se guarda en `AppSettings` (`cleared`).
 - **Problemas** (`puzzles.dart`): 18 "cerco en N" (12 en 1 turno, uno por ficha o habilidad, y 6 en 2). El rival defiende con `solver.dart`, que busca por fuerza bruta la respuesta que evita el cerco. `test/solo/puzzles_test.dart` exige que cada uno tenga cerco forzado en N y no antes. Los de 2 turnos p13–p18 salieron de `tool/puzzle_gen.dart`.
 - **Desafíos** (`challenges.dart`): 10 partidas contra la IA con reglas u objetivos especiales: límite de rondas, Asedio temprano, sin habilidad, sin Dragones, 3 Tengu rivales, espejos Shaolin/Ninja, una posición de arranque con el Monje rodeado y el nivel Maestro. Ganar los supera; empatar o llegar al límite, no. Se calibraron simulando un jugador Normal contra cada uno (ganables, ninguno trivial).

@@ -12,6 +12,7 @@ import 'package:hexiege/ui/game_screen.dart';
 import 'package:hexiege/ui/matchmaking_screen.dart';
 import 'package:hexiege/ui/menu_screen.dart';
 import 'package:hexiege/ui/onboarding_screen.dart';
+import 'package:hexiege/ui/solo_screen.dart';
 import 'package:hexiege/ui/stage_list_screen.dart';
 import 'package:hexiege/ui/theme/hex_theme.dart';
 import 'package:hexiege/ui/theme/settings.dart';
@@ -292,5 +293,30 @@ void main() {
       expect(find.byIcon(Icons.play_arrow_rounded), findsWidgets);
       expect(find.byIcon(Icons.lock_rounded), findsWidgets);
     });
+  });
+
+  testWidgets('menú → Un jugador muestra los tres modos y Continuar', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.light));
+    await tester.pump(const Duration(seconds: 2));
+    await tester.ensureVisible(find.textContaining('Un jugador'));
+    await tester.pump(const Duration(seconds: 1));
+    await tester.tap(find.textContaining('Un jugador'));
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 50));
+    }
+    expect(find.byType(SoloScreen), findsOneWidget);
+    for (final m in ['Campaña', 'Desafíos', 'Problemas', 'Continuar']) {
+      expect(find.text(m), findsOneWidget);
+    }
+  });
+
+  test('Continuar sigue la campaña Shaolin y después la Ninja', () {
+    expect(SoloScreen.nextUp((_) => false)?.id, 's1');
+    expect(SoloScreen.nextUp((id) => id == 's1')?.id, 's2');
+    expect(SoloScreen.nextUp((id) => id.startsWith('s'))?.id, 'n1');
+    expect(SoloScreen.nextUp((_) => true), isNull);
   });
 }
