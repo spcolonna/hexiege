@@ -59,6 +59,15 @@ class GameState {
 
   GameState copy() => GameState._copy(this);
 
+  /// Saca una ficha de la mano de [owner] y la pone en [at] sin validar reglas.
+  /// Solo para armar escenarios (tutorial, tests).
+  Piece setupPut(int owner, PieceType type, Hex at) {
+    hands[owner][type] = hands[owner][type]! - 1;
+    final p = Piece(_nextId++, type, owner);
+    board.push(at, p);
+    return p;
+  }
+
   bool get isOver => winner != null || draw;
   Faction get currentFaction => factions[current];
   int get opponent => 1 - current;

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'ui/fx/sfx.dart';
 import 'ui/menu_screen.dart';
+import 'ui/onboarding_screen.dart';
 import 'ui/theme/hex_theme.dart';
 import 'ui/theme/settings.dart';
 
@@ -11,11 +12,14 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await AppSettings.instance.load();
   SoundBoard.instance.init(); // en segundo plano: no frena el arranque
-  runApp(const HexiegeApp());
+  runApp(HexiegeApp(onboarding: !AppSettings.instance.onboarded));
 }
 
 class HexiegeApp extends StatelessWidget {
-  const HexiegeApp({super.key});
+  /// Primer arranque: bienvenida antes del menú. Se decide una sola vez para que
+  /// guardar la preferencia no reemplace la pantalla raíz en caliente.
+  final bool onboarding;
+  const HexiegeApp({super.key, this.onboarding = false});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,7 @@ class HexiegeApp extends StatelessWidget {
         // Fundido lento: el cambio de tema en plena partida se siente intencional.
         themeAnimationDuration: const Duration(milliseconds: 450),
         themeAnimationCurve: Curves.easeInOut,
-        home: const MenuScreen(),
+        home: onboarding ? const OnboardingScreen() : const MenuScreen(),
       ),
     );
   }

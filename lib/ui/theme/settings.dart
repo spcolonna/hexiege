@@ -13,11 +13,17 @@ class AppSettings extends ChangeNotifier {
   bool _sound = true;
   bool _haptics = true;
   String _nickname = 'Vos';
+  bool _onboarded = false;
+  bool _tutorialDone = false;
 
   ThemeMode get themeMode => _themeMode;
   bool get sound => _sound;
   bool get haptics => _haptics;
   String get nickname => _nickname;
+
+  /// Ya vio la bienvenida del primer arranque.
+  bool get onboarded => _onboarded;
+  bool get tutorialDone => _tutorialDone;
 
   Future<void> load() async {
     try {
@@ -33,6 +39,8 @@ class AppSettings extends ChangeNotifier {
     _sound = p.getBool('sound') ?? true;
     _haptics = p.getBool('haptics') ?? true;
     _nickname = p.getString('nickname') ?? 'Vos';
+    _onboarded = p.getBool('onboarded') ?? false;
+    _tutorialDone = p.getBool('tutorialDone') ?? false;
   }
 
   set themeMode(ThemeMode m) {
@@ -63,6 +71,18 @@ class AppSettings extends ChangeNotifier {
     final clean = v.trim();
     _nickname = clean.isEmpty ? 'Vos' : (clean.length > 16 ? clean.substring(0, 16) : clean);
     _prefs?.setString('nickname', _nickname);
+    notifyListeners();
+  }
+
+  set onboarded(bool v) {
+    _onboarded = v;
+    _prefs?.setBool('onboarded', v);
+    notifyListeners();
+  }
+
+  set tutorialDone(bool v) {
+    _tutorialDone = v;
+    _prefs?.setBool('tutorialDone', v);
     notifyListeners();
   }
 }

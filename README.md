@@ -30,9 +30,15 @@ dart run tool/balance.dart 5 normal 120 --sin-habilidades  # mide el impacto de 
 - **Fichas con volumen** (`fx/piece_renderer.dart`): canto, sombra que se difumina con la altura, vetas y brillo.
 - **Sonido** (`fx/sfx.dart`): efectos sintetizados por `tool/gen_sfx.py` (golpe grave al colocar, más liviano al mover, "clack" al apilar, campana de habilidad, gong de victoria). Para regenerarlos: `python3 tool/gen_sfx.py`.
 
+## Onboarding y tutorial
+- **Primer arranque** (`ui/onboarding_screen.dart`): 3 pantallas (objetivo animado, facciones, nombre) y la invitación al tutorial. Se muestra una sola vez (`AppSettings.onboarded`).
+- **Tutorial** (`tutorial/lessons.dart` + `GameScreen.tutorial`): 7 lecciones de una jugada sobre escenarios armados (colocar, Líder, One-Hive, movimiento, victoria, habilidad). El Sensei explica y marca la casilla clave; si la jugada no es la pedida, las fichas vuelven a su lugar y se reintenta. Al final ofrece una partida contra el Sensei en Fácil.
+- Agregar una lección = otro `Lesson` en la lista; `test/tutorial/lessons_test.dart` verifica que cada una se pueda resolver en una acción.
+
 ## Estructura
 - `lib/engine/` — reglas en Dart puro (sin Flutter): `hex.dart`, `board.dart`, `moves.dart`, `game_state.dart`, `pieces.dart`.
-- `lib/ui/` — menú, pantalla de juego y `BoardPainter` (CustomPainter).
+- `lib/ui/` — bienvenida, menú, pantalla de juego y `BoardPainter` (CustomPainter).
+- `lib/tutorial/` — lecciones del tutorial.
 - `test/engine/` — tests del motor.
 
 ## Interpretaciones de reglas (MVP)

@@ -103,6 +103,12 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                         const SizedBox(height: 14),
                         for (var p = 0; p < 2; p++) ...[_factionPicker(t, p), const SizedBox(height: 12)],
                         const SizedBox(height: 10),
+                        ListenableBuilder(
+                          listenable: AppSettings.instance,
+                          builder: (context, _) => AppSettings.instance.tutorialDone
+                              ? const SizedBox.shrink()
+                              : Padding(padding: const EdgeInsets.only(bottom: 12), child: _tutorialInvite(t)),
+                        ),
                         SizedBox(
                           width: double.infinity,
                           height: 56,
@@ -119,10 +125,21 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                           ),
                         ),
                         const SizedBox(height: 8),
-                        TextButton.icon(
-                          icon: const Icon(Icons.menu_book_outlined),
-                          label: const Text('Reglas'),
-                          onPressed: () => _rules(context),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton.icon(
+                              icon: const Icon(Icons.school_outlined),
+                              label: const Text('Tutorial'),
+                              onPressed: _tutorial,
+                            ),
+                            const SizedBox(width: 8),
+                            TextButton.icon(
+                              icon: const Icon(Icons.menu_book_outlined),
+                              label: const Text('Reglas'),
+                              onPressed: () => _rules(context),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -183,6 +200,50 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
       ),
     );
   }
+
+  void _tutorial() {
+    Haptics.select();
+    Navigator.push(context, MaterialPageRoute(builder: (_) => const GameScreen.tutorial()));
+  }
+
+  /// Invitación al tutorial mientras no se haya completado.
+  Widget _tutorialInvite(HexTheme t) => Material(
+    color: t.gold.withValues(alpha: 0.12),
+    borderRadius: BorderRadius.circular(16),
+    child: InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: _tutorial,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: t.gold.withValues(alpha: 0.6)),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.school_rounded, color: t.gold),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '¿Primera vez?',
+                    style: TextStyle(fontWeight: FontWeight.w900, color: t.text),
+                  ),
+                  Text(
+                    'Aprendé a jugar en 2 minutos con el Sensei.',
+                    style: TextStyle(fontSize: 12.5, color: t.textMuted),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right_rounded, color: t.textMuted),
+          ],
+        ),
+      ),
+    ),
+  );
 
   Widget _logo(HexTheme t) {
     return Column(

@@ -8,6 +8,7 @@ import '../engine/ai.dart';
 import '../engine/game_state.dart';
 import '../engine/hex.dart';
 import '../engine/pieces.dart';
+import '../tutorial/lessons.dart';
 import 'board_painter.dart';
 import 'fx/board_fx.dart';
 import 'fx/sfx.dart';
@@ -16,6 +17,7 @@ import 'piece_chip.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'widgets/arena_backdrop.dart';
+import 'widgets/coach_card.dart';
 import 'widgets/emotes.dart';
 import 'widgets/player_banner.dart';
 
@@ -32,7 +34,19 @@ class GameScreen extends StatefulWidget {
   /// Jugador controlado por la IA (null = Pass & Play).
   final int? aiPlayer;
   final AiLevel aiLevel;
-  const GameScreen({super.key, required this.p0, required this.p1, this.aiPlayer, this.aiLevel = AiLevel.normal});
+
+  /// Índice de la lección inicial en modo tutorial (null = partida normal).
+  final int? lesson;
+
+  const GameScreen({super.key, required this.p0, required this.p1, this.aiPlayer, this.aiLevel = AiLevel.normal})
+    : lesson = null;
+
+  /// Tutorial: vos (Shaolin) contra el Sensei, con escenarios armados.
+  const GameScreen.tutorial({super.key, this.lesson = 0})
+    : p0 = Faction.shaolin,
+      p1 = Faction.ninja,
+      aiPlayer = 1,
+      aiLevel = AiLevel.easy;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -64,13 +78,27 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   final _emoteTimers = <Timer?>[null, null];
   DateTime _lastEmote = DateTime(2000);
 
+  // Tutorial
+  int? _lessonIdx;
+  CoachState _coach = CoachState.doing;
+  Timer? _retryTimer;
+  Lesson? get _lesson => _lessonIdx == null ? null : lessons[_lessonIdx!];
+  bool get _tutorial => _lessonIdx != null;
+
   @override
   void initState() {
     super.initState();
     _fx = BoardFx(this, _layout);
-    _game = GameState(widget.p0, widget.p1);
+    _lessonIdx = widget.lesson;
+    _game = _lesson?.build() ?? GameState(widget.p0, widget.p1);
+    if (_tutorial) WidgetsBinding.instance.addPostFrameCallback((_) => _introLesson());
     final nick = AppSettings.instance.nickname;
-    _profiles = widget.aiPlayer == null
+    _profiles = _tutorial
+        ? [
+            PlayerProfile(nickname: nick, faction: widget.p0),
+            PlayerProfile(nickname: 'Sensei', faction: widget.p1, isAi: true),
+          ]
+        : widget.aiPlayer == null
         ? [PlayerProfile(nickname: nick, faction: widget.p0), PlayerProfile(nickname: 'Jugador 2', faction: widget.p1)]
         : [
             PlayerProfile(nickname: nick, faction: widget.p0),
@@ -84,6 +112,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     for (final t in _emoteTimers) {
       t?.cancel();
     }
+    _retryTimer?.cancel();
     _fx.dispose();
     _transform.dispose();
     super.dispose();
@@ -114,7 +143,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   bool get _isAiTurn => widget.aiPlayer != null && _game.current == widget.aiPlayer;
 
   /// Bloquea la interacción mientras juega la IA.
-  bool get _locked => _isAiTurn || _aiThinking;
+  bool get _locked => _isAiTurn || _aiThinking || (_tutorial && _coach != CoachState.doing);
 
   bool _isHuman(int p) => widget.aiPlayer != p;
 
@@ -159,7 +188,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   };
 
   String get _hint {
-    if (_game.isOver) return '';
+    if (_game.isOver || (_tutorial && _coach != CoachState.doing)) return '';
     if (_isAiTurn) return '${_profiles[_game.current].nickname} está pensando…';
     return switch (_mode) {
       _Mode.placing => 'Tocá una casilla para colocar ${_placing!.displayName}',
@@ -173,6 +202,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _Mode.jadeSwap => 'Elegí una ficha aliada para intercambiar',
       _Mode.jadeSwapTarget => 'Elegí la ficha aliada adyacente',
       _Mode.kawarimi => 'Elegí una ficha perimetral para devolver a la mano',
+      _Mode.idle when _tutorial => '', // el Sensei ya dice qué hacer
       _Mode.idle =>
         _game.mainActionDone
             ? (_game.abilityAvailable ? 'Podés usar la habilidad o terminar el turno' : 'Terminá el turno')
@@ -202,8 +232,111 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _lastMove = lastMove;
       _reset();
     });
-    if (_game.isOver) _showGameOver(after: dur);
+    if (_tutorial) {
+      _checkLesson(before, after: dur);
+    } else if (_game.isOver) {
+      _showGameOver(after: dur);
+    }
     return dur;
+  }
+
+  // ----------------------------------------------------------- tutorial
+
+  /// Las fichas del escenario caen una tras otra sobre el tablero vacío.
+  void _introLesson() {
+    if (!mounted) return;
+    _fx.clear();
+    _fx.animate(GameState(widget.p0, widget.p1), _game);
+  }
+
+  void _checkLesson(GameState before, {required double after}) {
+    final l = _lesson!;
+    if (l.done(_history.first, _game)) {
+      setState(() => _coach = CoachState.done);
+      Future.delayed(Duration(milliseconds: (after * 1000).round() + 120), () {
+        if (!mounted) return;
+        SoundBoard.instance.play(_game.winner == 0 ? Sfx.victory : Sfx.ability);
+        Haptics.medium();
+      });
+    } else if (_game.mainActionDone || _game.abilityUsedThisTurn || _game.isOver) {
+      // Jugada válida pero no la pedida: el Sensei lo marca y rearma la escena.
+      setState(() => _coach = CoachState.retry);
+      _retryTimer?.cancel();
+      _retryTimer = Timer(Duration(milliseconds: (after * 1000).round() + 900), _restartLesson);
+    }
+  }
+
+  void _restartLesson() {
+    if (!mounted || _lesson == null) return;
+    _retryTimer?.cancel();
+    final fresh = _lesson!.build();
+    // Mismos ids que el escenario original: las fichas vuelven volando a su lugar.
+    _fx.animate(_game, fresh);
+    setState(() {
+      _game = fresh;
+      _history.clear();
+      _lastMove = {};
+      _reset();
+      _coach = CoachState.doing;
+    });
+  }
+
+  void _nextLesson() {
+    final next = _lessonIdx! + 1;
+    if (next >= lessons.length) {
+      _finishTutorial();
+      return;
+    }
+    Haptics.select();
+    setState(() {
+      _lessonIdx = next;
+      _coach = CoachState.doing;
+      _game = _lesson!.build();
+      _history.clear();
+      _lastMove = {};
+      _reset();
+    });
+    _introLesson();
+  }
+
+  void _finishTutorial() {
+    AppSettings.instance.tutorialDone = true;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        icon: Icon(Icons.workspace_premium_rounded, color: HexTheme.of(ctx).gold, size: 40),
+        title: const Text('¡Listo para jugar!'),
+        content: const Text(
+          'Ya sabés lo esencial. El resto lo vas a descubrir jugando: '
+          'mantené apretada cualquier ficha para leer cómo se mueve.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              Navigator.pop(context);
+            },
+            child: const Text('Menú'),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 450),
+                  pageBuilder: (_, _, _) =>
+                      const GameScreen(p0: Faction.shaolin, p1: Faction.ninja, aiPlayer: 1, aiLevel: AiLevel.easy),
+                  transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
+                ),
+              );
+            },
+            child: const Text('Jugar vs Sensei'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _reset() {
@@ -559,7 +692,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final t = HexTheme.of(context);
     final g = _game;
     final targets = _targets;
-    _fx.ambient = _selected != null || targets.isNotEmpty || _hasSiege;
+    _fx.ambient = _selected != null || targets.isNotEmpty || _hasSiege || _spotlight.isNotEmpty;
     if (_fx.ambient) _fx.wake();
     return Scaffold(
       body: ArenaBackdrop(
@@ -571,7 +704,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               child: Column(
                 children: [
                   _toolbar(t),
-                  _banner(1, top: true),
+                  if (_tutorial) _coachCard() else _banner(1, top: true),
                   const Spacer(),
                   _hintPill(t),
                   const SizedBox(height: 8),
@@ -582,6 +715,22 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           ],
         ),
       ),
+    );
+  }
+
+  Set<Hex> get _spotlight => _tutorial && _coach == CoachState.doing ? _lesson!.spotlight : const {};
+
+  Widget _coachCard() {
+    final l = _lesson!;
+    return CoachCard(
+      step: _lessonIdx! + 1,
+      total: lessons.length,
+      title: l.title,
+      body: l.body,
+      goal: l.goal,
+      retry: l.retry,
+      state: _coach,
+      onNext: _nextLesson,
     );
   }
 
@@ -618,7 +767,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             },
           ),
           const SizedBox(width: 6),
-          _roundButton(t, Icons.undo_rounded, 'Deshacer', _history.isEmpty || _aiThinking ? null : _undo),
+          if (_tutorial)
+            _roundButton(t, Icons.replay_rounded, 'Reiniciar lección', _restartLesson)
+          else
+            _roundButton(t, Icons.undo_rounded, 'Deshacer', _history.isEmpty || _aiThinking ? null : _undo),
         ],
       ),
     );
@@ -647,7 +799,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   Widget _banner(int p, {required bool top}) {
     final g = _game;
     final handCount = g.hands[p].values.fold(0, (a, b) => a + b);
-    final canEmote = _isHuman(p) && (widget.aiPlayer != null || p == g.current);
+    final canEmote = !_tutorial && _isHuman(p) && (widget.aiPlayer != null || p == g.current);
     return PlayerBanner(
       profile: _profiles[p],
       owner: p,
@@ -716,7 +868,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           _transform.value = Matrix4.identity()
             ..translateByDouble(
               constraints.maxWidth / 2 - _canvas / 2,
-              constraints.maxHeight / 2 - _canvas / 2 - 20,
+              constraints.maxHeight / 2 - _canvas / 2 + (_tutorial ? 50 : -20),
               0,
               1,
             );
@@ -741,6 +893,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 targets: targets,
                 targetColor: _targetColor(t),
                 lastMove: _lastMove,
+                spotlight: _spotlight,
               ),
             ),
           ),
@@ -755,10 +908,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final me = widget.aiPlayer != null ? 1 - widget.aiPlayer! : g.current;
     final faction = g.factions[me];
     final color = HexTheme.faction(faction);
-    final placeable = me == g.current ? g.placeableTypes() : const <PieceType>{};
+    final allowed = _lesson?.hand;
+    final placeable = me == g.current
+        ? g.placeableTypes().where((p) => allowed == null || allowed.contains(p)).toSet()
+        : const <PieceType>{};
     final hand = g.hands[me].entries.where((e) => e.value > 0).toList();
     final cd = g.cooldowns[me];
-    final abilityReady = me == g.current && g.abilityAvailable && !_locked;
+    final abilityReady = me == g.current && g.abilityAvailable && !_locked && (!_tutorial || _lesson!.ability);
+    final showHand = !_tutorial || hand.any((e) => placeable.contains(e.key));
+    final showActions = !_tutorial || _lesson!.ability;
+    if (!showHand && !showActions) return _banner(0, top: false);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -774,56 +933,61 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                height: 84,
-                child: hand.isEmpty
-                    ? Center(
-                        child: Text('Mano vacía', style: TextStyle(color: t.textMuted)),
+              if (showHand) ...[
+                SizedBox(
+                  height: 84,
+                  child: hand.isEmpty
+                      ? Center(
+                          child: Text('Mano vacía', style: TextStyle(color: t.textMuted)),
+                        )
+                      : ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            for (final e in hand)
+                              if (!_tutorial || placeable.contains(e.key))
+                                _handItem(t, e.key, e.value, me, enabled: placeable.contains(e.key) && !_locked),
+                          ],
+                        ),
+                ),
+                if (showActions) const SizedBox(height: 6),
+              ],
+              if (showActions)
+                Row(
+                  children: [
+                    if (_mode == _Mode.effect)
+                      Expanded(
+                        child: OutlinedButton(onPressed: () => _applyEffect(null), child: const Text('Omitir efecto')),
                       )
-                    : ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          for (final e in hand)
-                            _handItem(t, e.key, e.value, me, enabled: placeable.contains(e.key) && !_locked),
-                        ],
-                      ),
-              ),
-              const SizedBox(height: 6),
-              Row(
-                children: [
-                  if (_mode == _Mode.effect)
-                    Expanded(
-                      child: OutlinedButton(onPressed: () => _applyEffect(null), child: const Text('Omitir efecto')),
-                    )
-                  else
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: color,
-                          side: BorderSide(color: abilityReady ? color : t.outline),
-                        ),
-                        onPressed: abilityReady ? _startAbility : null,
-                        icon: const Icon(Icons.auto_awesome),
-                        label: Text(
-                          me == g.current && g.abilityUsedThisTurn
-                              ? 'Habilidad usada'
-                              : cd > 0
-                              ? '${faction.abilityName} ($cd)'
-                              : faction.abilityName,
-                          overflow: TextOverflow.ellipsis,
+                    else
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: color,
+                            side: BorderSide(color: abilityReady ? color : t.outline),
+                          ),
+                          onPressed: abilityReady ? _startAbility : null,
+                          icon: const Icon(Icons.auto_awesome),
+                          label: Text(
+                            me == g.current && g.abilityUsedThisTurn
+                                ? 'Habilidad usada'
+                                : cd > 0
+                                ? '${faction.abilityName} ($cd)'
+                                : faction.abilityName,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ),
-                    ),
-                  const SizedBox(width: 8),
-                  if (_mode != _Mode.idle && _mode != _Mode.effect)
-                    IconButton(onPressed: () => setState(_reset), icon: const Icon(Icons.close)),
-                  FilledButton(
-                    style: FilledButton.styleFrom(backgroundColor: color, foregroundColor: Colors.white),
-                    onPressed: g.canEndTurn && _mode != _Mode.effect && !_locked ? _endTurn : null,
-                    child: Text(g.mainActionDone ? 'Terminar turno' : 'Pasar'),
-                  ),
-                ],
-              ),
+                    const SizedBox(width: 8),
+                    if (_mode != _Mode.idle && _mode != _Mode.effect)
+                      IconButton(onPressed: () => setState(_reset), icon: const Icon(Icons.close)),
+                    if (!_tutorial)
+                      FilledButton(
+                        style: FilledButton.styleFrom(backgroundColor: color, foregroundColor: Colors.white),
+                        onPressed: g.canEndTurn && _mode != _Mode.effect && !_locked ? _endTurn : null,
+                        child: Text(g.mainActionDone ? 'Terminar turno' : 'Pasar'),
+                      ),
+                  ],
+                ),
             ],
           ),
         ),

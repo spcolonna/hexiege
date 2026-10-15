@@ -19,6 +19,9 @@ class BoardPainter extends CustomPainter {
   final Color targetColor;
   final Set<Hex> lastMove;
 
+  /// Casillas que el tutorial quiere señalar (onda dorada).
+  final Set<Hex> spotlight;
+
   BoardPainter({
     required this.game,
     required this.layout,
@@ -27,6 +30,7 @@ class BoardPainter extends CustomPainter {
     required this.targets,
     required this.targetColor,
     required this.lastMove,
+    this.spotlight = const {},
     this.fx,
   }) : super(repaint: fx);
 
@@ -56,6 +60,7 @@ class BoardPainter extends CustomPainter {
     _paintPieces(canvas);
     _paintImpacts(canvas);
     _paintTargets(canvas);
+    _paintSpotlight(canvas);
     _paintFlights(canvas);
     canvas.restore();
   }
@@ -189,6 +194,23 @@ class BoardPainter extends CustomPainter {
       );
       if (!occupied) {
         canvas.drawCircle(c, layout.size * (0.12 + 0.03 * pulse), Paint()..color = targetColor);
+      }
+    }
+  }
+
+  void _paintSpotlight(Canvas canvas) {
+    for (final h in spotlight) {
+      final c = layout.toPixel(h) - Offset(0, game.board.isOccupied(h) ? layout.size * 0.08 : 0);
+      // Dos ondas desfasadas que se expanden y se apagan: "mirá acá".
+      for (var k = 0; k < 2; k++) {
+        final p = (_now * 0.7 + k * 0.5) % 1;
+        canvas.drawPath(
+          PieceRenderer.hexAt(c, layout.size * (0.95 + 0.55 * p)),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1 + 3 * (1 - p)
+            ..color = theme.gold.withValues(alpha: 0.85 * (1 - p)),
+        );
       }
     }
   }
