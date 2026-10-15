@@ -26,8 +26,8 @@ import 'widgets/player_banner.dart';
 import 'widgets/ranked_result.dart';
 
 /// Función top-level: el closure no captura el State (que no es enviable entre isolates).
-Future<List<AiAction>> _thinkInIsolate(GameState snapshot, AiLevel level) =>
-    Isolate.run(() => AiPlayer(level).chooseTurn(snapshot));
+Future<List<AiAction>> _thinkInIsolate(GameState snapshot, AiLevel level, Map<String, int> seen) =>
+    Isolate.run(() => AiPlayer(level, seen: seen).chooseTurn(snapshot));
 
 enum _Mode { idle, placing, moving, effect, jadeRelocate, jadeRelocateTarget, jadeSwap, jadeSwapTarget, kawarimi }
 
@@ -179,6 +179,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   bool _aiThinking = false;
 
+  /// Posiciones que dejó la IA (evita que repita idas y vueltas).
+  final Map<String, int> _aiSeen = {};
+
   bool get _isAiTurn => widget.aiPlayer != null && _game.current == widget.aiPlayer;
 
   /// Bloquea la interacción mientras juega la IA.
@@ -194,10 +197,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final started = DateTime.now();
     List<AiAction> actions;
     try {
-      actions = await _thinkInIsolate(snapshot, level);
+      actions = await _thinkInIsolate(snapshot, level, Map.of(_aiSeen));
     } catch (e) {
       debugPrint('IA en isolate falló ($e); calculando en el hilo principal');
-      actions = AiPlayer(level).chooseTurn(snapshot);
+      actions = AiPlayer(level, seen: Map.of(_aiSeen)).chooseTurn(snapshot);
     }
     // Pausa mínima para que se perciba el "pensamiento". En partidas por
     // puntos el rival se toma tiempos de persona.
@@ -213,6 +216,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     }
     if (!mounted) return;
     if (!_game.isOver && !_resigned) {
+      final key = _game.board.key;
+      _aiSeen[key] = (_aiSeen[key] ?? 0) + 1;
       _maybeAiTaunt();
       _commit((g) => g.endTurn(), lastMove: _lastMove);
     }
@@ -277,8 +282,22 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _checkLesson(before, after: dur);
     } else if (_game.isOver) {
       _showGameOver(after: dur);
+    } else if (!before.inSiege && _game.inSiege) {
+      _announceSiege();
     }
     return dur;
+  }
+
+  void _announceSiege() {
+    Haptics.heavy();
+    SoundBoard.instance.play(Sfx.ability);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(seconds: 4),
+        content: Text('¡Empieza el Asedio! Desde ahora alcanza con ocupar 5 lados del Líder.'),
+      ),
+    );
   }
 
   // ----------------------------------------------------------- tutorial
@@ -604,9 +623,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _showRankedResult();
       return;
     }
-    final text = _game.draw
+    final text = _game.endedByLimit
+        ? '¡Empate! Se jugaron las ${_game.rules.roundLimit} rondas sin capturar a ningún Líder.'
+        : _game.draw
         ? '¡Empate! Ambos Líderes quedaron rodeados.'
-        : '¡Gana ${_profiles[w!].nickname}!\n${_game.factions[w].displayName} rodeó al Líder enemigo.';
+        : '¡Gana ${_profiles[w!].nickname}!\n${_game.factions[w].displayName} ${_game.inSiege ? 'sitió' : 'rodeó'} al Líder enemigo.';
     if (!mounted) return;
     showDialog(
       context: context,
@@ -634,6 +655,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               _fx.clear();
               setState(() {
                 _game = GameState(widget.p0, widget.p1);
+                _aiSeen.clear();
                 _aiThinking = false;
                 _history.clear();
                 _lastMove = {};
@@ -706,11 +728,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         title: won ? 'Victoria' : (draw ? 'Empate' : 'Derrota'),
         subtitle: _resigned
             ? 'Abandonaste contra ${opp.nickname}.'
+            : _game.endedByLimit
+            ? 'Se jugaron las ${_game.rules.roundLimit} rondas sin capturas.'
             : draw
             ? 'Ambos Líderes quedaron rodeados.'
             : won
-            ? 'Rodeaste al Líder de ${opp.nickname}.'
-            : '${opp.nickname} rodeó a tu Líder.',
+            ? '${_game.inSiege ? 'Sitiaste' : 'Rodeaste'} al Líder de ${opp.nickname}.'
+            : '${opp.nickname} ${_game.inSiege ? 'sitió' : 'rodeó'} a tu Líder.',
         before: before,
         after: after,
         onMenu: () {
@@ -885,6 +909,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       child: Row(
         children: [
           _roundButton(t, Icons.arrow_back_rounded, 'Menú', () => Navigator.maybePop(context)),
+          if (!_tutorial && _game.roundsLeft != null) ...[const SizedBox(width: 8), _roundChip(t)],
           const Spacer(),
           _roundButton(
             t,
@@ -910,6 +935,41 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           else
             _roundButton(t, Icons.undo_rounded, 'Deshacer', _history.isEmpty || _aiThinking ? null : _undo),
         ],
+      ),
+    );
+  }
+
+  /// Ronda actual; avisa cuando se acerca el Asedio y cuando ya empezó.
+  Widget _roundChip(HexTheme t) {
+    final g = _game;
+    final siege = g.rules.siegeRound;
+    final toSiege = siege == null ? null : siege - g.round;
+    final active = g.inSiege;
+    final soon = !active && toSiege != null && toSiege <= 3;
+    final color = active ? t.danger : (soon ? t.gold : t.textMuted);
+    final text = active
+        ? 'ASEDIO · ${g.round}/${g.rules.roundLimit}'
+        : soon
+        ? (toSiege == 1 ? 'Asedio en 1 ronda' : 'Asedio en $toSiege rondas')
+        : 'Ronda ${g.round}';
+    return Tooltip(
+      message: [
+        if (siege != null) 'Desde la ronda $siege, Asedio: alcanza con ocupar 5 lados del Líder.',
+        'Al terminar la ronda ${g.rules.roundLimit}, empate.',
+      ].join('\n'),
+      triggerMode: TooltipTriggerMode.tap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: active ? t.danger.withValues(alpha: 0.12) : t.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: active || soon ? color : t.outline),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w700),
+        ),
       ),
     );
   }
@@ -945,6 +1005,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       top: top,
       handCount: handCount,
       cooldown: g.cooldowns[p],
+      charges: g.abilityChargesLeft(p),
       emote: _emote[p],
       emoteKey: _emoteKey[p],
       onEmote: canEmote ? () => _pickEmote(p) : null,
@@ -1052,6 +1113,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         : const <PieceType>{};
     final hand = g.hands[me].entries.where((e) => e.value > 0).toList();
     final cd = g.cooldowns[me];
+    final charges = g.abilityChargesLeft(me);
     final abilityReady = me == g.current && g.abilityAvailable && !_locked && (!_tutorial || _lesson!.ability);
     final showHand = !_tutorial || hand.any((e) => placeable.contains(e.key));
     final showActions = !_tutorial || _lesson!.ability;
@@ -1106,11 +1168,15 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                           onPressed: abilityReady ? _startAbility : null,
                           icon: const Icon(Icons.auto_awesome),
                           label: Text(
-                            me == g.current && g.abilityUsedThisTurn
+                            charges == 0
+                                ? '${faction.abilityName} · agotada'
+                                : me == g.current && g.abilityUsedThisTurn
                                 ? 'Habilidad usada'
-                                : cd > 0
-                                ? '${faction.abilityName} ($cd)'
-                                : faction.abilityName,
+                                : [
+                                    faction.abilityName,
+                                    if (cd > 0) '($cd)',
+                                    if (charges != null) '×$charges',
+                                  ].join(' '),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),

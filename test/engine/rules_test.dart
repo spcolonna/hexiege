@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hexiege/engine/board.dart';
 import 'package:hexiege/engine/game_state.dart';
 import 'package:hexiege/engine/hex.dart';
+import 'package:hexiege/engine/moves.dart';
 import 'package:hexiege/engine/pieces.dart';
 
 var _id = 1000;
@@ -140,16 +141,17 @@ void main() {
       expect(g.board.isConnected(), isTrue);
     });
 
-    test('Tengu se teletransporta a huecos que tocan 2 fichas', () {
+    test('Tengu se teletransporta a huecos que tocan 3 fichas', () {
       final g = GameState(Faction.ninja, Faction.shaolin);
       put(g, PieceType.shogun, 0, h(0, 0));
       put(g, PieceType.tengu, 0, h(-1, 0));
       put(g, PieceType.monk, 1, h(1, 0));
       put(g, PieceType.serpent, 1, h(2, 0));
+      put(g, PieceType.serpent, 1, h(1, -1));
       final t = g.moveTargets(h(-1, 0));
-      expect(t, contains(h(1, -1))); // toca (0,0),(1,0)
-      expect(t, contains(h(2, -1))); // toca (1,0),(2,0)
-      expect(t.contains(h(3, 0)), isFalse); // solo toca 1
+      expect(t, contains(h(2, -1))); // toca (1,-1),(1,0),(2,0)
+      expect(t.contains(h(0, -1)), isFalse); // toca (0,0),(1,-1); (-1,0) es el propio Tengu
+      expect(t.contains(h(3, -1)), isFalse); // solo toca 1
     });
   });
 
@@ -227,7 +229,7 @@ void main() {
       expect(g.kawarimiTargets(), {h(2, 0)}, reason: 'Líderes excluidos');
       expect(g.kawarimi(h(2, 0)), isTrue);
       expect(g.hands[1][PieceType.dragon], before + 1);
-      expect(g.cooldowns[0], abilityCooldown);
+      expect(g.cooldowns[0], Rules.standard.abilityCooldown);
       expect(g.abilityAvailable, isFalse);
     });
 
@@ -235,7 +237,7 @@ void main() {
       final g = GameState(Faction.ninja, Faction.shaolin);
       put(g, PieceType.shogun, 0, h(0, 0));
       put(g, PieceType.monk, 1, h(1, 0));
-      g.cooldowns[0] = abilityCooldown;
+      g.cooldowns[0] = Rules.standard.abilityCooldown;
       for (var i = 0; i < 3; i++) {
         g.mainActionDone = true;
         g.endTurn();
@@ -282,6 +284,86 @@ void main() {
       b.push(h(0, 0), const Piece(1, PieceType.monk, 0));
       b.push(h(2, 0), const Piece(2, PieceType.monk, 1));
       expect(b.isConnected(), isFalse);
+    });
+  });
+
+  group('Parámetros de balance', () {
+    test('la habilidad tiene usos limitados por partida', () {
+      final g = GameState(Faction.ninja, Faction.shaolin, rules: const Rules(abilityCharges: 1));
+      put(g, PieceType.shogun, 0, h(0, 0));
+      put(g, PieceType.monk, 1, h(1, 0));
+      put(g, PieceType.dragon, 1, h(2, 0));
+      expect(g.abilityChargesLeft(0), 1);
+      expect(g.kawarimi(h(2, 0)), isTrue);
+      expect(g.abilityChargesLeft(0), 0);
+      g.cooldowns[0] = 0;
+      g.abilityUsedThisTurn = false;
+      expect(g.abilityAvailable, isFalse, reason: 'sin usos aunque no haya recarga');
+    });
+
+    test('Asedio: desde su ronda alcanzan 5 lados para capturar al Líder', () {
+      final g = GameState(Faction.shaolin, Faction.ninja, rules: const Rules(siegeRound: 2, roundLimit: 9));
+      put(g, PieceType.monk, 0, h(-3, 0));
+      put(g, PieceType.shogun, 1, h(0, 0));
+      final ring = h(0, 0).neighbors;
+      for (var i = 0; i < 4; i++) {
+        put(g, PieceType.serpent, i.isEven ? 0 : 1, ring[i]);
+      }
+      put(g, PieceType.dragon, 0, h(-2, 0));
+      put(g, PieceType.tiger, 0, h(-2, 1)); // puede embestir a ring[4] = (-1,1)
+      expect(g.inSiege, isFalse);
+      expect(g.captureThreshold, 6);
+      g.mainActionDone = true;
+      g.endTurn();
+      g.mainActionDone = true;
+      g.endTurn();
+      expect(g.round, 2);
+      expect(g.inSiege, isTrue);
+      expect(g.captureThreshold, 5);
+      expect(g.move(h(-2, 1), ring[4]), isTrue);
+      expect(g.leaderPressure(1), 5);
+      expect(g.winner, 0);
+    });
+
+    test('al terminar la última ronda la partida es empate', () {
+      final g = GameState(Faction.shaolin, Faction.ninja, rules: const Rules(siegeRound: null, roundLimit: 1));
+      put(g, PieceType.monk, 0, h(0, 0));
+      put(g, PieceType.shogun, 1, h(1, 0));
+      g.mainActionDone = true;
+      g.endTurn();
+      expect(g.isOver, isFalse);
+      g.mainActionDone = true;
+      g.endTurn();
+      expect(g.draw, isTrue);
+      expect(g.endedByLimit, isTrue);
+    });
+
+    test('alcance del Shinobi, salto corto de la Grulla y contacto del Tengu', () {
+      final b = Board();
+      for (var q = 0; q < 8; q++) {
+        b.push(h(q, 0), Piece(_id++, PieceType.serpent, 0));
+      }
+      final far = destinationsFor(PieceType.shinobi, b, h(-1, 0), Rules.classic);
+      final near = destinationsFor(PieceType.shinobi, b, h(-1, 0), const Rules(shinobiRange: 2));
+      expect(near.length, lessThan(far.length));
+      expect(near.every((d) => d.distanceTo(h(-1, 0)) <= 2), isTrue);
+
+      final line = Board()
+        ..push(h(1, 0), Piece(_id++, PieceType.serpent, 0))
+        ..push(h(3, 0), Piece(_id++, PieceType.serpent, 0));
+      expect(destinationsFor(PieceType.crane, line, h(0, 0), Rules.classic).contains(h(2, 0)), isFalse);
+      expect(
+        destinationsFor(PieceType.crane, line, h(0, 0), const Rules(craneShortJump: true)).contains(h(2, 0)),
+        isTrue,
+      );
+
+      // h(1,-1) toca 2 fichas (0,0)/(1,0); con contacto 3 deja de ser destino.
+      final tri = Board()
+        ..push(h(0, 0), Piece(_id++, PieceType.serpent, 0))
+        ..push(h(1, 0), Piece(_id++, PieceType.serpent, 0))
+        ..push(h(5, 0), Piece(_id++, PieceType.serpent, 0));
+      expect(destinationsFor(PieceType.tengu, tri, h(5, 0), Rules.classic).contains(h(1, -1)), isTrue);
+      expect(destinationsFor(PieceType.tengu, tri, h(5, 0), const Rules(tenguMinTouch: 3)).contains(h(1, -1)), isFalse);
     });
   });
 }

@@ -2,8 +2,9 @@ import 'board.dart';
 import 'hex.dart';
 import 'moves.dart';
 import 'pieces.dart';
+import 'rules.dart';
 
-const int abilityCooldown = 3;
+export 'rules.dart';
 
 /// El Líder debe estar en el tablero al terminar este número de turnos propios.
 const int leaderDeadlineTurn = 4;
@@ -13,6 +14,7 @@ const int leaderDeadlineTurn = 4;
 /// Turno: una acción principal (colocar o mover) + opcionalmente la habilidad
 /// de facción (antes o después), y luego [endTurn].
 class GameState {
+  final Rules rules;
   final List<Faction> factions;
   Board board;
   final List<Map<PieceType, int>> hands;
@@ -23,25 +25,31 @@ class GameState {
   final Map<int, int> paralyzedUntil; // pieceId -> último ply en que está paralizada
   final Map<Hex, int> seals; // celda -> dueño del sello
   final List<bool> shogunSwapUsed;
+  final List<int> abilityUses;
   bool mainActionDone = false;
   bool abilityUsedThisTurn = false;
   int? winner;
   bool draw = false;
+
+  /// La partida terminó en empate por el límite de rondas.
+  bool endedByLimit = false;
   int _nextId;
 
-  GameState(Faction p0, Faction p1)
+  GameState(Faction p0, Faction p1, {this.rules = Rules.standard})
     : factions = [p0, p1],
       board = Board(),
-      hands = [Map.of(startingHands[p0]!), Map.of(startingHands[p1]!)],
+      hands = [Map.of(rules.hands[p0]!), Map.of(rules.hands[p1]!)],
       turnsTaken = [0, 0],
       cooldowns = [0, 0],
       paralyzedUntil = {},
       seals = {},
       shogunSwapUsed = [false, false],
+      abilityUses = [0, 0],
       _nextId = 0;
 
   GameState._copy(GameState o)
-    : factions = o.factions,
+    : rules = o.rules,
+      factions = o.factions,
       board = Board.copy(o.board),
       hands = [Map.of(o.hands[0]), Map.of(o.hands[1])],
       current = o.current,
@@ -51,10 +59,12 @@ class GameState {
       paralyzedUntil = Map.of(o.paralyzedUntil),
       seals = Map.of(o.seals),
       shogunSwapUsed = List.of(o.shogunSwapUsed),
+      abilityUses = List.of(o.abilityUses),
       mainActionDone = o.mainActionDone,
       abilityUsedThisTurn = o.abilityUsedThisTurn,
       winner = o.winner,
       draw = o.draw,
+      endedByLimit = o.endedByLimit,
       _nextId = o._nextId;
 
   GameState copy() => GameState._copy(this);
@@ -69,6 +79,25 @@ class GameState {
   }
 
   bool get isOver => winner != null || draw;
+
+  /// Ronda en curso (empieza en 1).
+  int get round => ply ~/ 2 + 1;
+
+  /// Rondas que faltan para el límite, contando la actual (null = sin límite).
+  int? get roundsLeft => rules.roundLimit == null ? null : rules.roundLimit! - round + 1;
+
+  /// Asedio: alcanza con ocupar 5 lados del Líder.
+  bool get inSiege => rules.siegeRound != null && round >= rules.siegeRound!;
+
+  /// Vecinos ocupados que capturan al Líder ahora mismo.
+  int get captureThreshold => inSiege ? 5 : 6;
+
+  /// Vecinos ocupados del Líder de [p] (0 si no está en el tablero).
+  int leaderPressure(int p) {
+    final h = board.locateLeader(p);
+    return h == null ? 0 : board.occupiedNeighbors(h);
+  }
+
   Faction get currentFaction => factions[current];
   int get opponent => 1 - current;
 
@@ -146,7 +175,7 @@ class GameState {
     if (!_canMoveFrom(src)) return {};
     final lifted = Board.copy(board);
     final p = lifted.pop(src);
-    final dests = destinationsFor(p.type, lifted, src);
+    final dests = destinationsFor(p.type, lifted, src, rules);
     // Defensa extra: la colmena resultante debe quedar conectada.
     return dests.where((d) {
       final b = Board.copy(lifted)..push(d, p);
@@ -252,7 +281,15 @@ class GameState {
 
   // ---------------------------------------------------------------- Habilidades
 
-  bool get abilityAvailable => !isOver && !abilityUsedThisTurn && cooldowns[current] == 0 && leaderPlaced(current);
+  /// Usos de habilidad que le quedan a [p] (null = ilimitados).
+  int? abilityChargesLeft(int p) => rules.abilityCharges == null ? null : rules.abilityCharges! - abilityUses[p];
+
+  bool get abilityAvailable =>
+      !isOver &&
+      !abilityUsedThisTurn &&
+      cooldowns[current] == 0 &&
+      leaderPlaced(current) &&
+      (abilityChargesLeft(current) ?? 1) > 0;
 
   /// Ficha perimetral: sola en su celda, removible sin romper la colmena y con algún hueco al lado.
   bool _isPerimeter(Hex h) => board.height(h) == 1 && board.canLift(h) && h.neighbors.any((n) => !board.isOccupied(n));
@@ -329,7 +366,8 @@ class GameState {
 
   void _useAbility() {
     abilityUsedThisTurn = true;
-    cooldowns[current] = abilityCooldown;
+    cooldowns[current] = rules.abilityCooldown;
+    abilityUses[current]++;
     _checkWin();
   }
 
@@ -341,6 +379,11 @@ class GameState {
     if (!canEndTurn) return false;
     turnsTaken[current]++;
     ply++;
+    if (rules.roundLimit != null && ply >= rules.roundLimit! * 2) {
+      endedByLimit = true;
+      draw = true;
+      return true;
+    }
     current = opponent;
     mainActionDone = false;
     abilityUsedThisTurn = false;
@@ -369,7 +412,7 @@ class GameState {
       for (var p = 0; p < 2; p++)
         () {
           final h = board.locateLeader(p);
-          return h != null && board.isSurrounded(h);
+          return h != null && board.occupiedNeighbors(h) >= captureThreshold;
         }(),
     ];
     if (lost[0] && lost[1]) {

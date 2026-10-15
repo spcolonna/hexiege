@@ -152,7 +152,8 @@ final lessons = <Lesson>[
   Lesson(
     title: 'Habilidad de facción',
     body:
-        'Además de tu jugada, cada facción tiene una habilidad que se recarga en 3 turnos. '
+        'Además de tu jugada, cada facción tiene una habilidad: ${Rules.standard.abilityCharges} usos por partida, '
+        'con ${Rules.standard.abilityCooldown} turnos de recarga. '
         'Shaolin tiene la Meditación de Jade. Tu Monje tiene 5 vecinos: ¡está en peligro!',
     goal: 'Usá la habilidad para reubicar una ficha enemiga lejos del Monje.',
     retry: 'Tu Monje sigue en peligro. Probá de nuevo.',

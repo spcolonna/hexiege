@@ -72,12 +72,12 @@ extension PieceTypeInfo on PieceType {
     PieceType.wukong =>
       'Avanza 1 casilla y puede subirse encima de fichas (las bloquea). En el suelo, puede copiar el movimiento de una ficha adyacente.',
     PieceType.tiger => 'Embiste 1–3 casillas en línea recta. Si queda frente a una ficha enemiga, la empuja 1 casilla.',
-    PieceType.crane => 'Salta exactamente sobre 2 fichas en línea recta.',
+    PieceType.crane => 'Salta en línea recta sobre 1 o 2 fichas.',
     PieceType.serpent => 'Se desliza 1 o 2 casillas. Las fichas enemigas adyacentes pierden sus efectos especiales.',
     PieceType.shogun => 'Líder. Se desliza 1 casilla. Una vez por partida, intercambia lugar con un Shinobi adyacente.',
-    PieceType.shinobi => 'Se desliza cualquier distancia por el perímetro, incluso por huecos estrechos.',
+    PieceType.shinobi => 'Se desliza hasta 4 casillas por el perímetro, incluso por huecos estrechos.',
     PieceType.kunoichi => 'Se desliza hasta 2 casillas y paraliza a una ficha enemiga adyacente por 1 turno.',
-    PieceType.tengu => 'Se teletransporta a cualquier hueco que toque al menos 2 fichas.',
+    PieceType.tengu => 'Se teletransporta a cualquier hueco que toque al menos 3 fichas.',
     PieceType.kitsune => 'Se desliza 1 o 2 casillas.',
     PieceType.shadow =>
       'Se desliza 1 casilla y puede dejar un Sello de Sombra adyacente: la ficha enemiga que caiga ahí queda paralizada.',

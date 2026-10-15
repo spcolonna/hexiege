@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../engine/pieces.dart';
+import '../engine/rules.dart';
 import 'fx/sfx.dart';
 import 'game_screen.dart';
 import 'matchmaking_screen.dart';
@@ -501,13 +502,16 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
           children: [
             const Text('Reglas básicas', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               '• Cada turno: colocá una ficha de tu mano (tocando solo fichas propias) o mové una del tablero.\n'
-              '• Además, una vez por turno podés usar la habilidad de tu facción si no está en recarga (3 turnos).\n'
+              '• Además, una vez por turno podés usar la habilidad de tu facción: ${_r.abilityCharges} usos por partida, '
+              'con ${_r.abilityCooldown} turnos de recarga entre uno y otro.\n'
               '• Colmena única: ninguna acción puede dividir el tablero en dos grupos.\n'
               '• No podés mover fichas hasta colocar a tu Líder, y debés colocarlo antes de tu 4.º turno.\n'
               '• Las fichas no pueden deslizarse entre dos fichas (huecos estrechos), salvo el Shinobi.\n'
               '• Ganás si los 6 lados del Líder enemigo quedan ocupados. Si ambos quedan rodeados: empate.\n'
+              '• Asedio: desde la ronda ${_r.siegeRound} alcanza con ocupar 5 lados. '
+              'Si nadie gana en ${_r.roundLimit} rondas: empate.\n'
               '• Mantené presionada una ficha para ver qué hace.',
             ),
             for (final f in Faction.values) ...[
@@ -537,3 +541,5 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
     );
   }
 }
+
+const _r = Rules.standard;

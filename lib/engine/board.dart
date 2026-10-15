@@ -40,6 +40,15 @@ class Board {
 
   Iterable<MapEntry<Hex, Piece>> get tops => _stacks.entries.map((e) => MapEntry(e.key, e.value.last));
 
+  /// Huella de la posición (independiente de los ids de las fichas).
+  String get key {
+    final cells = [
+      for (final e in _stacks.entries)
+        '${e.key.q},${e.key.r}:${e.value.map((p) => '${p.type.index}.${p.owner}').join('/')}',
+    ]..sort();
+    return cells.join(' ');
+  }
+
   int occupiedNeighbors(Hex h) => h.neighbors.where(isOccupied).length;
 
   bool isSurrounded(Hex h) => h.neighbors.every(isOccupied);

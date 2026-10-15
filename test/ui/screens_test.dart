@@ -125,7 +125,7 @@ void main() {
     }
 
     Future<void> relocate(WidgetTester tester, Offset Function(int, int) at, (int, int) to) async {
-      await tester.tap(find.text('Meditación de Jade'));
+      await tester.tap(find.text('Meditación de Jade ×3'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
       await tester.tap(find.text('Reubicar ficha enemiga'));

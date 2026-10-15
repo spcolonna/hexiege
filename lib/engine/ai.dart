@@ -84,6 +84,10 @@ const _budgets = <AiLevel, _Budget>{
 
 class _Timeout implements Exception {}
 
+/// Castigo por volver a una posición que la IA ya produjo: evita que las
+/// partidas se estanquen en idas y vueltas.
+const double _repeatPenalty = 12;
+
 /// IA: genera turnos candidatos (habilidad opcional + acción principal).
 /// - Aprendiz / Fácil: codiciosa con ruido.
 /// - Normal: minimax a 2 capas (mi turno + mejor respuesta rival).
@@ -99,10 +103,16 @@ class AiPlayer {
   /// Profundidad completada en la última búsqueda (diagnóstico / tests).
   int lastDepth = 0;
 
+  /// Posiciones que dejó esta IA al terminar sus turnos (huella → veces).
+  /// Quien recrea la IA en cada turno (la UI) debe pasar el historial.
+  final Map<String, int> seen;
+
   late Stopwatch _clock;
   late int _deadlineMs;
 
-  AiPlayer(this.level, {int? seed, this.useAbilities = true}) : _rng = Random(seed);
+  AiPlayer(this.level, {int? seed, this.useAbilities = true, Map<String, int>? seen})
+    : _rng = Random(seed),
+      seen = seen ?? {};
 
   /// Acciones a aplicar en orden; después hay que llamar a [GameState.endTurn].
   List<AiAction> chooseTurn(GameState g) {
@@ -114,30 +124,37 @@ class AiPlayer {
       if (c.state.winner == me) return c.actions;
     }
     for (final c in candidates) {
-      c.score = evaluate(c.state, me) + _rng.nextDouble();
+      c.penalty = _repeatPenalty * (seen[c.state.board.key] ?? 0);
+      c.score = evaluate(c.state, me) - c.penalty + _rng.nextDouble();
     }
     candidates.sort((a, b) => b.score.compareTo(a.score));
+    final chosen = _pick(candidates, me);
+    final key = chosen.state.board.key;
+    seen[key] = (seen[key] ?? 0) + 1;
+    return chosen.actions;
+  }
 
+  _Candidate _pick(List<_Candidate> candidates, int me) {
     switch (level) {
       case AiLevel.novice:
         // Juega "a ojo": rara vez la mejor y a veces se olvida del peligro.
         final pool = candidates.take(8).toList();
-        return (_rng.nextDouble() < 0.35 ? pool.first : pool[_rng.nextInt(pool.length)]).actions;
+        return _rng.nextDouble() < 0.35 ? pool.first : pool[_rng.nextInt(pool.length)];
       case AiLevel.easy:
         // Greedy con algo de ruido: a veces elige una de las mejores 4.
         final pool = candidates.take(4).toList();
-        return (_rng.nextDouble() < 0.6 ? pool.first : pool[_rng.nextInt(pool.length)]).actions;
+        return _rng.nextDouble() < 0.6 ? pool.first : pool[_rng.nextInt(pool.length)];
       case AiLevel.normal:
         var best = candidates.first;
         var bestScore = double.negativeInfinity;
         for (final c in candidates.take(20)) {
-          final v = _worstReply(c.state, me, bestScore);
+          final v = _worstReply(c.state, me, bestScore + c.penalty) - c.penalty;
           if (v > bestScore) {
             bestScore = v;
             best = c;
           }
         }
-        return best.actions;
+        return best;
       case AiLevel.hard:
       case AiLevel.master:
         return _deepSearch(candidates, me, _budgets[level]!);
@@ -170,7 +187,7 @@ class AiPlayer {
 
   /// Profundización iterativa: busca a 2, 3, ... turnos hasta agotar la
   /// profundidad o el tiempo, y devuelve lo mejor de la última vuelta completa.
-  List<AiAction> _deepSearch(List<_Candidate> root, int me, _Budget b) {
+  _Candidate _deepSearch(List<_Candidate> root, int me, _Budget b) {
     _clock = Stopwatch()..start();
     _deadlineMs = b.ms;
     var best = root.first;
@@ -181,7 +198,10 @@ class AiPlayer {
         var alpha = double.negativeInfinity;
         _Candidate? iterBest;
         for (final c in pool) {
-          final v = _afterTurn(c, depth - 1, 1, alpha, double.infinity, me, b) + _rng.nextDouble() * 0.5;
+          final v =
+              _afterTurn(c, depth - 1, 1, alpha + c.penalty, double.infinity, me, b) -
+              c.penalty +
+              _rng.nextDouble() * 0.5;
           c.score = v;
           if (v > alpha) {
             alpha = v;
@@ -197,7 +217,7 @@ class AiPlayer {
         break;
       }
     }
-    return best.actions;
+    return best;
   }
 
   /// Valor de un turno ya jugado ([c]) mirando [depth] turnos más.
@@ -284,6 +304,7 @@ class _Candidate {
   final List<AiAction> actions;
   final GameState state;
   double score = 0;
+  double penalty = 0;
   _Candidate(this.actions, this.state);
 }
 
@@ -372,7 +393,8 @@ const _surroundValue = <double>[0, 4, 12, 30, 70, 160, 0];
 double _leaderDanger(GameState g, int p) {
   final h = g.board.locateLeader(p);
   if (h == null) return 0;
-  final n = g.board.occupiedNeighbors(h);
+  // En el Asedio cada vecino vale como uno más (5 lados ya capturan).
+  final n = min(g.board.occupiedNeighbors(h) + (g.inSiege ? 1 : 0), 6);
   var d = _surroundValue[n];
   if (g.board.height(h) > 1) d += 20; // tiene un Rey Mono encima
   if (n >= 3 && !g.board.canLift(h)) d += 10; // inmovilizado

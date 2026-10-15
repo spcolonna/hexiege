@@ -32,6 +32,9 @@ class PlayerBanner extends StatefulWidget {
   final bool top;
   final int handCount;
   final int cooldown;
+
+  /// Usos de habilidad restantes (null = ilimitados).
+  final int? charges;
   final Emote? emote;
   final int emoteKey;
   final VoidCallback? onEmote;
@@ -45,6 +48,7 @@ class PlayerBanner extends StatefulWidget {
     required this.top,
     required this.handCount,
     required this.cooldown,
+    this.charges,
     this.emote,
     this.emoteKey = 0,
     this.onEmote,
@@ -230,9 +234,15 @@ class _PlayerBannerState extends State<PlayerBanner> with SingleTickerProviderSt
 
   /// Tres pips de recarga de la habilidad; brillan cuando está lista.
   Widget _cooldown(HexTheme t, Color color) {
-    final ready = widget.cooldown == 0;
+    final spent = widget.charges == 0;
+    final ready = widget.cooldown == 0 && !spent;
+    final uses = widget.charges == null ? '' : ' · usos: ${widget.charges}';
     return Tooltip(
-      message: ready ? '${widget.profile.faction.abilityName}: lista' : 'Recarga: ${widget.cooldown}',
+      message: spent
+          ? '${widget.profile.faction.abilityName}: agotada'
+          : ready
+          ? '${widget.profile.faction.abilityName}: lista$uses'
+          : 'Recarga: ${widget.cooldown}$uses',
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -246,7 +256,11 @@ class _PlayerBannerState extends State<PlayerBanner> with SingleTickerProviderSt
               margin: const EdgeInsets.symmetric(horizontal: 1.5),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: ready || i >= widget.cooldown ? (ready ? t.gold : color) : t.outline,
+                color: spent
+                    ? t.outline
+                    : ready || i >= widget.cooldown
+                    ? (ready ? t.gold : color)
+                    : t.outline,
               ),
             ),
         ],

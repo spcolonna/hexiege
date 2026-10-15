@@ -3,6 +3,7 @@ import 'dart:math';
 import 'board.dart';
 import 'hex.dart';
 import 'pieces.dart';
+import 'rules.dart';
 
 /// Paso deslizante en el suelo. [b] debe tener la ficha que se mueve ya levantada.
 /// - Libertad de movimiento: no puede pasar entre dos fichas (salvo [ignoreGate]).
@@ -62,8 +63,9 @@ Set<Hex> climbSteps(Board b, Hex src) {
   return result;
 }
 
-/// Salta en línea recta sobre >=1 fichas contiguas ([exactly] = cantidad exacta a saltar).
-Set<Hex> jumps(Board b, Hex src, {int? exactly}) {
+/// Salta en línea recta sobre >=1 fichas contiguas ([exactly] = cantidad exacta,
+/// [upTo] = cantidad máxima a saltar).
+Set<Hex> jumps(Board b, Hex src, {int? exactly, int? upTo}) {
   final result = <Hex>{};
   for (final d in Hex.directions) {
     var c = src + d;
@@ -74,6 +76,7 @@ Set<Hex> jumps(Board b, Hex src, {int? exactly}) {
     }
     if (count == 0) continue;
     if (exactly != null && count != exactly) continue;
+    if (upTo != null && count > upTo) continue;
     result.add(c);
   }
   return result;
@@ -94,12 +97,12 @@ Set<Hex> charges(Board b, Hex src, {int maxSteps = 3}) {
   return result;
 }
 
-/// Teletransporte: cualquier hueco que toque al menos 2 fichas.
-Set<Hex> teleports(Board b, Hex src) {
+/// Teletransporte: cualquier hueco que toque al menos [minTouch] fichas.
+Set<Hex> teleports(Board b, Hex src, {int minTouch = 2}) {
   final candidates = <Hex>{};
   for (final h in b.occupied) {
     for (final n in h.neighbors) {
-      if (!b.isOccupied(n) && n != src && b.occupiedNeighbors(n) >= 2) candidates.add(n);
+      if (!b.isOccupied(n) && n != src && b.occupiedNeighbors(n) >= minTouch) candidates.add(n);
     }
   }
   return candidates;
@@ -107,23 +110,23 @@ Set<Hex> teleports(Board b, Hex src) {
 
 /// Destinos de movimiento normal de una ficha de tipo [type] en [src].
 /// [b] ya tiene la ficha levantada. No incluye efectos ni el intercambio del Shogun.
-Set<Hex> destinationsFor(PieceType type, Board b, Hex src) {
+Set<Hex> destinationsFor(PieceType type, Board b, Hex src, [Rules rules = Rules.standard]) {
   final Set<Hex> dests = switch (type) {
     PieceType.monk || PieceType.shogun => slideReach(b, src, maxSteps: 1),
     PieceType.dragon => jumps(b, src),
-    PieceType.wukong => _wukong(b, src),
+    PieceType.wukong => _wukong(b, src, rules),
     PieceType.tiger => charges(b, src),
-    PieceType.crane => jumps(b, src, exactly: 2),
+    PieceType.crane => rules.craneShortJump ? jumps(b, src, upTo: 2) : jumps(b, src, exactly: 2),
     PieceType.serpent || PieceType.kunoichi || PieceType.kitsune => slideReach(b, src, maxSteps: 2),
-    PieceType.shinobi => slideReach(b, src, ignoreGate: true),
-    PieceType.tengu => teleports(b, src),
+    PieceType.shinobi => slideReach(b, src, maxSteps: rules.shinobiRange, ignoreGate: true),
+    PieceType.tengu => teleports(b, src, minTouch: rules.tenguMinTouch),
     PieceType.shadow => slideReach(b, src, maxSteps: 1),
   };
   dests.remove(src);
   return dests;
 }
 
-Set<Hex> _wukong(Board b, Hex src) {
+Set<Hex> _wukong(Board b, Hex src, Rules rules) {
   final result = climbSteps(b, src);
   if (b.height(src) == 0) {
     // En el suelo: puede copiar el patrón de una ficha adyacente.
@@ -133,7 +136,7 @@ Set<Hex> _wukong(Board b, Hex src) {
       if (t != null && t != PieceType.wukong) copied.add(t);
     }
     for (final t in copied) {
-      result.addAll(destinationsFor(t, b, src));
+      result.addAll(destinationsFor(t, b, src, rules));
     }
   }
   return result;
