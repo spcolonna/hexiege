@@ -5,7 +5,7 @@ Diseño original: [`../HexaGame.md`](../HexaGame.md).
 
 ## Estado: MVP
 - Facciones: **Templo Shaolin** y **Sombras Ninja**, 11 fichas cada una.
-- Modos: **Buscar partida** (por puntos, contra rivales simulados por la IA), **Local** (Pass & Play) y tutorial. Sin backend.
+- Modos: **Buscar partida** (por puntos, contra rivales simulados por la IA), **Local** (Pass & Play), tutorial y **Problemas**. Sin backend.
 
 ## Correr
 ```
@@ -14,6 +14,8 @@ flutter run           # en simulador iOS / emulador Android
 dart run tool/balance.dart 60 normal                  # IA vs IA en paralelo: victorias por facción, Asedio, quién empieza
 dart run tool/balance.dart 60 easy 300 --shinobi=3 --detalle  # prueba una variante de reglas (ver opciones en el archivo)
 dart run tool/arena.dart hard normal 10                # nivel contra nivel: victorias y ms por jugada
+dart run tool/puzzles.dart [p12]                       # dibuja cada problema y lista sus soluciones
+dart run tool/puzzle_gen.dart 1400 15                  # busca problemas "cerco en 2" en partidas IA vs IA
 ```
 
 ## IA (`lib/engine/ai.dart`)
@@ -61,6 +63,10 @@ Pendiente: en Maestro Ninja gana ~60–66% en todas las variantes probadas (tamb
 - **Tutorial** (`tutorial/lessons.dart` + `GameScreen.tutorial`): 7 lecciones de una jugada sobre escenarios armados (colocar, Líder, One-Hive, movimiento, victoria, habilidad). El Sensei explica y marca la casilla clave; si la jugada no es la pedida, las fichas vuelven a su lugar y se reintenta. Al final ofrece una partida contra el Sensei en Fácil.
 - Agregar una lección = otro `Lesson` en la lista; `test/tutorial/lessons_test.dart` verifica que cada una se pueda resolver en una acción.
 
+## Un jugador (`lib/solo/`)
+- Todo el contenido es una `Stage`: posición inicial (`build`), objetivo, facciones y nivel de IA. `GameScreen.stage` la juega y `StageListScreen` la lista; se desbloquean de a una y el progreso se guarda en `AppSettings` (`cleared`).
+- **Problemas** (`puzzles.dart`): 18 "cerco en N" (12 en 1 turno, uno por ficha o habilidad, y 6 en 2). El rival defiende con `solver.dart`, que busca por fuerza bruta la respuesta que evita el cerco. `test/solo/puzzles_test.dart` exige que cada uno tenga cerco forzado en N y no antes. Los de 2 turnos p13–p18 salieron de `tool/puzzle_gen.dart`.
+
 ## Buscar partida (`lib/match/`)
 - **Sin selector de dificultad**: el nivel de la IA sale de los puntos del jugador (`LadderRecord`, cinco rangos de Novicio a Leyenda, uno por nivel) y se corre un escalón por rachas: 3+ victorias seguidas → más difícil; 3+ derrotas → más fácil (5+ → dos escalones). Ganar suma 25 (+5 por victoria en racha, hasta +15); perder resta 20.
 - **Emparejamiento detrás de una interfaz** (`Matchmaker`): hoy `BotMatchmaker` simula la espera (2,5–7 s, ampliando el rango de puntos) y arma un rival con nick, avatar, facción y puntos creíbles (`Opponent.bot` = nivel de IA). El online real será otro `Matchmaker` que devuelva rivales con `bot == null`; la UI no cambia.
@@ -71,6 +77,7 @@ Pendiente: en Maestro Ninja gana ~60–66% en todas las variantes probadas (tamb
 - `lib/ui/` — bienvenida, menú, pantalla de juego y `BoardPainter` (CustomPainter).
 - `lib/tutorial/` — lecciones del tutorial.
 - `lib/match/` — puntos/rachas (`ladder.dart`) y emparejamiento (`matchmaker.dart`).
+- `lib/solo/` — contenido de un jugador: etapas, problemas y el solver de cercos.
 - `test/engine/` — tests del motor.
 
 ## Interpretaciones de reglas (MVP)

@@ -20,6 +20,7 @@ class AppSettings extends ChangeNotifier {
   bool _onboarded = false;
   bool _tutorialDone = false;
   LadderRecord _ladder = const LadderRecord();
+  Set<String> _cleared = {};
 
   ThemeMode get themeMode => _themeMode;
   bool get sound => _sound;
@@ -32,6 +33,15 @@ class AppSettings extends ChangeNotifier {
 
   /// Puntos, récord y racha en partidas por puntos.
   LadderRecord get ladder => _ladder;
+
+  /// Problemas, desafíos y batallas de campaña superados (por id).
+  bool isCleared(String stageId) => _cleared.contains(stageId);
+
+  void markCleared(String stageId) {
+    if (!_cleared.add(stageId)) return;
+    _prefs?.setStringList('cleared', _cleared.toList());
+    notifyListeners();
+  }
 
   Future<void> load() async {
     try {
@@ -49,6 +59,7 @@ class AppSettings extends ChangeNotifier {
     _nickname = p.getString('nickname') ?? 'Vos';
     _onboarded = p.getBool('onboarded') ?? false;
     _tutorialDone = p.getBool('tutorialDone') ?? false;
+    _cleared = (p.getStringList('cleared') ?? const []).toSet();
     final ladder = p.getString('ladder');
     if (ladder != null) {
       try {

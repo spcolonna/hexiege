@@ -10,6 +10,8 @@ import '../engine/hex.dart';
 import '../engine/pieces.dart';
 import '../match/ladder.dart';
 import '../match/matchmaker.dart';
+import '../solo/catalog.dart';
+import '../solo/solver.dart';
 import '../tutorial/lessons.dart';
 import 'board_painter.dart';
 import 'fx/board_fx.dart';
@@ -24,10 +26,15 @@ import 'widgets/coach_card.dart';
 import 'widgets/emotes.dart';
 import 'widgets/player_banner.dart';
 import 'widgets/ranked_result.dart';
+import 'widgets/stage_card.dart';
 
 /// Función top-level: el closure no captura el State (que no es enviable entre isolates).
 Future<List<AiAction>> _thinkInIsolate(GameState snapshot, AiLevel level, Map<String, int> seen) =>
     Isolate.run(() => AiPlayer(level, seen: seen).chooseTurn(snapshot));
+
+/// Defensa del rival en un problema: busca la respuesta que evita el cerco.
+Future<List<AiAction>> _defendInIsolate(GameState snapshot, int attackerTurns) =>
+    Isolate.run(() => defend(snapshot, attackerTurns));
 
 enum _Mode { idle, placing, moving, effect, jadeRelocate, jadeRelocateTarget, jadeSwap, jadeSwapTarget, kawarimi }
 
@@ -45,8 +52,25 @@ class GameScreen extends StatefulWidget {
   /// Partida por puntos (null = casual).
   final MatchFound? match;
 
+  /// Problema, desafío o batalla de campaña (null = partida libre).
+  final Stage? stage;
+
+  /// Etapa que sigue a [stage] en su lista, para el botón "Siguiente".
+  final Stage? nextStage;
+
   const GameScreen({super.key, required this.p0, required this.p1, this.aiPlayer, this.aiLevel = AiLevel.normal})
     : lesson = null,
+      match = null,
+      stage = null,
+      nextStage = null;
+
+  /// Contenido de un jugador: vos sos el jugador 0 y la IA el 1.
+  GameScreen.stage({super.key, required Stage this.stage, this.nextStage})
+    : p0 = stage.you,
+      p1 = stage.opp,
+      aiPlayer = 1,
+      aiLevel = stage.level,
+      lesson = null,
       match = null;
 
   /// Tutorial: vos (Shaolin) contra el Sensei, con escenarios armados.
@@ -55,7 +79,9 @@ class GameScreen extends StatefulWidget {
       p1 = Faction.ninja,
       aiPlayer = 1,
       aiLevel = AiLevel.easy,
-      match = null;
+      match = null,
+      stage = null,
+      nextStage = null;
 
   /// Partida por puntos contra el rival del emparejamiento. Quien empieza
   /// juega con las fichas claras (jugador 0).
@@ -64,7 +90,9 @@ class GameScreen extends StatefulWidget {
       p1 = match.youFirst ? match.opponent.faction : match.yourFaction,
       aiPlayer = match.youFirst ? 1 : 0,
       aiLevel = match.opponent.bot ?? AiLevel.normal,
-      lesson = null;
+      lesson = null,
+      stage = null,
+      nextStage = null;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -109,6 +137,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   bool _resigned = false;
   LadderRecord? _ladderBefore;
 
+  // Problemas, desafíos y campaña
+  Stage? get _stage => widget.stage;
+  bool get _staged => widget.stage != null;
+  late GameState _stageStart;
+  bool _stageOver = false;
+
   /// Asiento del jugador local (abajo) y del rival (arriba).
   int get _mySeat => widget.aiPlayer == null ? 0 : 1 - widget.aiPlayer!;
   int get _oppSeat => 1 - _mySeat;
@@ -118,8 +152,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     super.initState();
     _fx = BoardFx(this, _layout);
     _lessonIdx = widget.lesson;
-    _game = _lesson?.build() ?? GameState(widget.p0, widget.p1);
-    if (_tutorial) WidgetsBinding.instance.addPostFrameCallback((_) => _introLesson());
+    _game = _lesson?.build() ?? _stage?.build() ?? GameState(widget.p0, widget.p1);
+    _stageStart = _game.copy();
+    if (_tutorial || _staged) WidgetsBinding.instance.addPostFrameCallback((_) => _introScene());
     final nick = AppSettings.instance.nickname;
     final m = widget.match;
     if (m != null) {
@@ -128,7 +163,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       final opp = PlayerProfile(nickname: o.nickname, faction: o.faction, avatar: o.avatar, rating: o.rating);
       _profiles = _mySeat == 0 ? [me, opp] : [opp, me];
     } else {
-      _profiles = _tutorial
+      _profiles = _staged
+          ? [
+              PlayerProfile(nickname: nick, faction: widget.p0),
+              PlayerProfile(
+                nickname: _stage!.isPuzzle ? 'Sensei' : 'Sensei · ${widget.aiLevel.displayName}',
+                faction: widget.p1,
+                isAi: true,
+              ),
+            ]
+          : _tutorial
           ? [
               PlayerProfile(nickname: nick, faction: widget.p0),
               PlayerProfile(nickname: 'Sensei', faction: widget.p1, isAi: true),
@@ -179,13 +223,17 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   bool _aiThinking = false;
 
+  /// Cambia al reiniciar la partida: descarta lo que la IA estaba pensando.
+  int _epoch = 0;
+
   /// Posiciones que dejó la IA (evita que repita idas y vueltas).
   final Map<String, int> _aiSeen = {};
 
   bool get _isAiTurn => widget.aiPlayer != null && _game.current == widget.aiPlayer;
 
   /// Bloquea la interacción mientras juega la IA.
-  bool get _locked => _isAiTurn || _aiThinking || _resigned || (_tutorial && _coach != CoachState.doing);
+  bool get _locked =>
+      _isAiTurn || _aiThinking || _resigned || _stageOver || (_tutorial && _coach != CoachState.doing);
 
   bool _isHuman(int p) => widget.aiPlayer != p;
 
@@ -195,13 +243,20 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final snapshot = _game.copy();
     final level = widget.aiLevel;
     final started = DateTime.now();
+    final epoch = _epoch;
+    final puzzleTurns = _stage?.turnsLeft(_stageStart, snapshot);
     List<AiAction> actions;
     try {
-      actions = await _thinkInIsolate(snapshot, level, Map.of(_aiSeen));
+      actions = puzzleTurns != null
+          ? await _defendInIsolate(snapshot, puzzleTurns)
+          : await _thinkInIsolate(snapshot, level, Map.of(_aiSeen));
     } catch (e) {
       debugPrint('IA en isolate falló ($e); calculando en el hilo principal');
-      actions = AiPlayer(level, seen: Map.of(_aiSeen)).chooseTurn(snapshot);
+      actions = puzzleTurns != null
+          ? defend(snapshot, puzzleTurns)
+          : AiPlayer(level, seen: Map.of(_aiSeen)).chooseTurn(snapshot);
     }
+    if (epoch != _epoch) return; // se reinició la partida mientras pensaba
     // Pausa mínima para que se perciba el "pensamiento". En partidas por
     // puntos el rival se toma tiempos de persona.
     final minThink = Duration(milliseconds: _ranked ? 900 + _rng.nextInt(1800) : 650);
@@ -210,11 +265,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       await Future.delayed(minThink - elapsed);
     }
     for (final a in actions) {
-      if (!mounted || _game.isOver || _resigned) break;
+      if (!mounted || _game.isOver || _resigned || epoch != _epoch) break;
       final dur = _commit((g) => a.apply(g), lastMove: _actionCells(a));
       await Future.delayed(Duration(milliseconds: max(550, (dur * 1000).round() + 300)));
     }
-    if (!mounted) return;
+    if (!mounted || epoch != _epoch) return;
     if (!_game.isOver && !_resigned) {
       final key = _game.board.key;
       _aiSeen[key] = (_aiSeen[key] ?? 0) + 1;
@@ -234,7 +289,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   };
 
   String get _hint {
-    if (_game.isOver || _resigned || (_tutorial && _coach != CoachState.doing)) return '';
+    if (_game.isOver || _resigned || _stageOver || (_tutorial && _coach != CoachState.doing)) return '';
     if (_isAiTurn) return '${_profiles[_game.current].nickname} está pensando…';
     return switch (_mode) {
       _Mode.placing => 'Tocá una casilla para colocar ${_placing!.displayName}',
@@ -280,11 +335,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     });
     if (_tutorial) {
       _checkLesson(before, after: dur);
+    } else if (_staged) {
+      _checkStage(after: dur);
     } else if (_game.isOver) {
       _showGameOver(after: dur);
-    } else if (!before.inSiege && _game.inSiege) {
-      _announceSiege();
     }
+    if (!_tutorial && !_game.isOver && !before.inSiege && _game.inSiege) _announceSiege();
     return dur;
   }
 
@@ -303,7 +359,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   // ----------------------------------------------------------- tutorial
 
   /// Las fichas del escenario caen una tras otra sobre el tablero vacío.
-  void _introLesson() {
+  void _introScene() {
     if (!mounted) return;
     _fx.clear();
     _fx.animate(GameState(widget.p0, widget.p1), _game);
@@ -356,7 +412,106 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _lastMove = {};
       _reset();
     });
-    _introLesson();
+    _introScene();
+  }
+
+  // ----------------------------------------------------------- un jugador
+
+  void _checkStage({required double after}) {
+    if (_stageOver) return;
+    final ok = _stage!.verdict(_stageStart, _game);
+    if (ok == null) return;
+    setState(() {
+      _stageOver = true;
+      _reset();
+    });
+    if (ok) AppSettings.instance.markCleared(_stage!.id);
+    Future.delayed(Duration(milliseconds: (after * 1000).round() + 500), () {
+      if (!mounted) return;
+      SoundBoard.instance.play(ok ? Sfx.victory : Sfx.defeat);
+      Haptics.heavy();
+      _showStageResult(ok);
+    });
+  }
+
+  String _stageWinText() {
+    final s = _stage!;
+    if (!s.isPuzzle) return '${s.title}: ${_game.inSiege ? 'sitiaste' : 'rodeaste'} al Líder enemigo.';
+    final used = s.puzzleTurns! - s.turnsLeft(_stageStart, _game)! + 1;
+    return 'Cerco cerrado en ${used == 1 ? '1 turno' : '$used turnos'}.';
+  }
+
+  String _stageFailText() {
+    if (_game.endedByLimit) return 'Se terminaron las rondas sin capturar al Líder.';
+    if (_game.draw) return 'Ambos Líderes quedaron rodeados: es empate.';
+    if (_game.winner == 1) return 'Rodearon a tu Líder.';
+    return _stage!.isPuzzle ? 'Se acabaron los turnos y el Líder sigue libre.' : 'No se cumplió el objetivo.';
+  }
+
+  void _showStageResult(bool ok) {
+    final next = widget.nextStage;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        icon: Icon(
+          ok ? Icons.workspace_premium_rounded : Icons.replay_rounded,
+          color: ok ? HexTheme.of(ctx).gold : HexTheme.of(ctx).textMuted,
+          size: 40,
+        ),
+        title: Text(ok ? '¡Superado!' : 'Esta vez no'),
+        content: Text(ok ? _stageWinText() : _stageFailText()),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              Navigator.pop(context);
+            },
+            child: const Text('Volver'),
+          ),
+          if (ok && next != null)
+            FilledButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+                Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 400),
+                    pageBuilder: (_, _, _) => GameScreen.stage(stage: next, nextStage: stageAfter(next)),
+                    transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
+                  ),
+                );
+              },
+              child: const Text('Siguiente'),
+            )
+          else
+            FilledButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+                _restartStage();
+              },
+              child: Text(ok ? 'Jugar de nuevo' : 'Reintentar'),
+            ),
+        ],
+      ),
+    );
+  }
+
+  void _restartStage() {
+    if (!mounted || !_staged) return;
+    final fresh = _stage!.build();
+    _epoch++;
+    _fx.animate(_game, fresh);
+    setState(() {
+      _game = fresh;
+      _stageStart = fresh.copy();
+      _stageOver = false;
+      _aiThinking = false;
+      _aiSeen.clear();
+      _history.clear();
+      _lastMove = {};
+      _reset();
+    });
   }
 
   void _finishTutorial() {
@@ -653,6 +808,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             onPressed: () {
               Navigator.pop(ctx);
               _fx.clear();
+              _epoch++;
               setState(() {
                 _game = GameState(widget.p0, widget.p1);
                 _aiSeen.clear();
@@ -863,7 +1019,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 child: Column(
                   children: [
                     _toolbar(t),
-                    if (_tutorial) _coachCard() else _banner(_oppSeat, top: true),
+                    if (_tutorial)
+                      _coachCard()
+                    else if (_staged) ...[
+                      _stageCard(),
+                      if (!_stage!.isPuzzle) _banner(_oppSeat, top: true),
+                    ] else
+                      _banner(_oppSeat, top: true),
                     const Spacer(),
                     _hintPill(t),
                     const SizedBox(height: 8),
@@ -891,6 +1053,21 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       retry: l.retry,
       state: _coach,
       onNext: _nextLesson,
+    );
+  }
+
+  Widget _stageCard() {
+    final s = _stage!;
+    return StageCard(
+      label: switch (s.kind) {
+        StageKind.puzzle => 'Problema',
+        StageKind.challenge => 'Desafío',
+        StageKind.campaign => 'Campaña',
+      },
+      title: s.title,
+      goal: s.goal,
+      hint: s.isPuzzle ? s.intro : null,
+      turnsLeft: s.turnsLeft(_stageStart, _game),
     );
   }
 
@@ -930,6 +1107,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           const SizedBox(width: 6),
           if (_tutorial)
             _roundButton(t, Icons.replay_rounded, 'Reiniciar lección', _restartLesson)
+          else if (_staged)
+            _roundButton(t, Icons.replay_rounded, 'Reiniciar', _aiThinking ? null : _restartStage)
           else if (_ranked)
             _roundButton(t, Icons.flag_outlined, 'Abandonar', _reported ? null : _confirmResign)
           else
@@ -997,7 +1176,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   Widget _banner(int p, {required bool top}) {
     final g = _game;
     final handCount = g.hands[p].values.fold(0, (a, b) => a + b);
-    final canEmote = !_tutorial && _isHuman(p) && (widget.aiPlayer != null || p == g.current);
+    final canEmote = !_tutorial && !_staged && _isHuman(p) && (widget.aiPlayer != null || p == g.current);
     return PlayerBanner(
       profile: _profiles[p],
       owner: p,
@@ -1067,7 +1246,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           _transform.value = Matrix4.identity()
             ..translateByDouble(
               constraints.maxWidth / 2 - _canvas / 2,
-              constraints.maxHeight / 2 - _canvas / 2 + (_tutorial ? 50 : -20),
+              constraints.maxHeight / 2 - _canvas / 2 + (_tutorial ? 50 : (_staged ? 30 : -20)),
               0,
               1,
             );
@@ -1115,7 +1294,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final cd = g.cooldowns[me];
     final charges = g.abilityChargesLeft(me);
     final abilityReady = me == g.current && g.abilityAvailable && !_locked && (!_tutorial || _lesson!.ability);
-    final showHand = !_tutorial || hand.any((e) => placeable.contains(e.key));
+    final showHand = _tutorial
+        ? hand.any((e) => placeable.contains(e.key))
+        : !(_stage?.isPuzzle ?? false) || hand.isNotEmpty;
     final showActions = !_tutorial || _lesson!.ability;
     if (!showHand && !showActions) return _banner(_mySeat, top: false);
     return Column(

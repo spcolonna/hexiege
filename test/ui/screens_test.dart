@@ -6,11 +6,13 @@ import 'package:hexiege/engine/ai.dart';
 import 'package:hexiege/engine/pieces.dart';
 import 'package:hexiege/match/ladder.dart';
 import 'package:hexiege/match/matchmaker.dart';
+import 'package:hexiege/solo/catalog.dart';
 import 'package:hexiege/tutorial/lessons.dart';
 import 'package:hexiege/ui/game_screen.dart';
 import 'package:hexiege/ui/matchmaking_screen.dart';
 import 'package:hexiege/ui/menu_screen.dart';
 import 'package:hexiege/ui/onboarding_screen.dart';
+import 'package:hexiege/ui/stage_list_screen.dart';
 import 'package:hexiege/ui/theme/hex_theme.dart';
 import 'package:hexiege/ui/theme/settings.dart';
 
@@ -211,5 +213,84 @@ void main() {
     expect(find.text('Discípulo'), findsOneWidget);
     expect(find.text('1000'), findsOneWidget);
     expect(find.text('Fácil'), findsNothing);
+  });
+
+  group('problemas', () {
+    Future<Offset Function(int, int)> open(WidgetTester tester, Stage stage) async {
+      tester.view.physicalSize = const Size(1170, 2532);
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(_app(GameScreen.stage(stage: stage, nextStage: stageAfter(stage)), ThemeMode.dark));
+      await tester.pump(const Duration(seconds: 2));
+      final c = tester.getCenter(find.byType(InteractiveViewer)) + const Offset(0, 50);
+      return (q, r) => c + Offset(34 * sqrt(3) * (q + r / 2), 51.0 * r);
+    }
+
+    testWidgets('resolver el problema lo marca como superado', (tester) async {
+      final p = puzzles.firstWhere((s) => s.id == 'p02');
+      final at = await open(tester, p);
+      expect(find.text('Vuelo del Dragón'), findsOneWidget);
+      expect(find.text('turno'), findsOneWidget);
+      await tester.tapAt(at(0, -2));
+      await tester.pump();
+      await tester.tapAt(at(0, 1));
+      await tester.pump(const Duration(seconds: 3));
+      expect(find.text('¡Superado!'), findsOneWidget);
+      expect(find.text('Siguiente'), findsOneWidget);
+      expect(AppSettings.instance.isCleared('p02'), isTrue);
+    });
+
+    testWidgets('gastar el último turno sin cercar es fallar', (tester) async {
+      final p = puzzles.firstWhere((s) => s.id == 'p01');
+      final at = await open(tester, p);
+      await tester.tapAt(at(-1, 1)); // la Grulla, lejos del hueco
+      await tester.pump();
+      await tester.tapAt(at(2, -2));
+      await tester.pump(const Duration(seconds: 1));
+      await tester.tap(find.text('Terminar turno'));
+      await tester.pump(const Duration(seconds: 3));
+      expect(find.text('Esta vez no'), findsOneWidget);
+      await tester.tap(find.text('Reintentar'));
+      await tester.pump(const Duration(seconds: 2));
+      expect(find.text('Primer cerco'), findsOneWidget);
+    });
+
+    testWidgets('cerco en 2: el rival defiende y la jugada correcta igual gana', (tester) async {
+      final p = puzzles.firstWhere((s) => s.id == 'p12');
+      final at = await open(tester, p);
+      expect(find.text('turnos'), findsOneWidget);
+      // Kunoichi al hueco paralizando al Tigre.
+      await tester.tapAt(at(-1, -1));
+      await tester.pump();
+      await tester.tapAt(at(-1, 0));
+      await tester.pump(const Duration(seconds: 1));
+      await tester.tapAt(at(0, -1));
+      await tester.pump(const Duration(seconds: 1));
+      await tester.tap(find.text('Terminar turno'));
+      // La defensa corre en un isolate: hay que dejar pasar tiempo real.
+      for (var i = 0; i < 40 && find.text('turno').evaluate().isEmpty; i++) {
+        await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 100)));
+        await tester.pump(const Duration(milliseconds: 500));
+      }
+      for (var i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 300));
+      }
+      expect(find.text('turno'), findsOneWidget);
+      // El Tengu cierra el cerco.
+      await tester.tapAt(at(2, -1));
+      await tester.pump();
+      await tester.tapAt(at(-1, 1));
+      await tester.pump(const Duration(seconds: 3));
+      expect(find.text('¡Superado!'), findsOneWidget);
+    });
+
+    testWidgets('la lista bloquea los que siguen al primero sin resolver', (tester) async {
+      await tester.pumpWidget(
+        _app(StageListScreen(title: 'Problemas', subtitle: '', stages: puzzles), ThemeMode.light),
+      );
+      await tester.pump();
+      expect(find.byIcon(Icons.play_arrow_rounded), findsWidgets);
+      expect(find.byIcon(Icons.lock_rounded), findsWidgets);
+    });
   });
 }
