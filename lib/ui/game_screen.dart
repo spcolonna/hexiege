@@ -474,6 +474,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   String _stageWinText() {
     final s = _stage!;
+    if (s.kind == StageKind.campaign && widget.nextStage == null) {
+      return '¡Campaña completada! ${_game.inSiege ? 'Sitiaste' : 'Rodeaste'} al Líder en la batalla final.';
+    }
     if (!s.isPuzzle) return '${s.title}: ${_game.inSiege ? 'sitiaste' : 'rodeaste'} al Líder enemigo.';
     final used = s.puzzleTurns! - s.turnsLeft(_stageStart, _game)! + 1;
     return 'Cerco cerrado en ${used == 1 ? '1 turno' : '$used turnos'}.';

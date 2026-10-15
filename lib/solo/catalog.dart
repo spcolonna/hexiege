@@ -1,13 +1,15 @@
+import 'campaign.dart';
 import 'challenges.dart';
 import 'puzzles.dart';
 import 'stage.dart';
 
+export 'campaign.dart';
 export 'challenges.dart';
 export 'puzzles.dart';
 export 'stage.dart';
 
 /// Listas de contenido de un jugador, en orden de desbloqueo.
-final List<List<Stage>> stageLists = [puzzles, challenges];
+final List<List<Stage>> stageLists = [puzzles, challenges, shaolinCampaign, ninjaCampaign];
 
 /// La etapa que sigue a [s] en su lista (null si es la última).
 Stage? stageAfter(Stage s) {

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../engine/pieces.dart';
 import '../engine/rules.dart';
 import '../solo/catalog.dart';
+import 'campaign_screen.dart';
 import 'fx/sfx.dart';
 import 'game_screen.dart';
 import 'matchmaking_screen.dart';
@@ -115,6 +116,14 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                               icon: const Icon(Icons.extension_outlined),
                               label: const Text('Problemas'),
                               onPressed: _puzzles,
+                            ),
+                            TextButton.icon(
+                              icon: const Icon(Icons.auto_stories_outlined),
+                              label: const Text('Campaña'),
+                              onPressed: () {
+                                Haptics.select();
+                                Navigator.push(context, MaterialPageRoute(builder: (_) => const CampaignScreen()));
+                              },
                             ),
                             TextButton.icon(
                               icon: const Icon(Icons.emoji_events_outlined),
