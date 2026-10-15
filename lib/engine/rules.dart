@@ -1,5 +1,14 @@
 import 'pieces.dart';
 
+/// Huecos junto al Líder rival a los que puede teletransportarse el Tengu.
+enum TenguNearLeader {
+  allowed,
+
+  /// Sí, salvo que con eso complete el cerco (el teletransporte no da el golpe final).
+  notClosing,
+  never,
+}
+
 /// Parámetros de balance. [Rules.standard] es el juego oficial; las variantes
 /// sirven para simular ajustes (tool/balance.dart) o armar desafíos.
 class Rules {
@@ -28,6 +37,17 @@ class Rules {
   /// Al terminar esta ronda, la partida es empate. null = sin límite.
   final int? roundLimit;
 
+  /// Si el Tengu puede teletransportarse a un hueco junto al Líder rival.
+  final TenguNearLeader tenguNearLeader;
+
+  /// El Shinobi puede cruzar compuertas para entrar a un hueco junto al Líder rival.
+  final bool shinobiGateNextToLeader;
+
+  /// Interruptores de efectos de unidad (para medir su peso con tool/balance.dart).
+  final bool shogunSwap;
+  final bool kunoichiParalysis;
+  final bool shadowSeal;
+
   const Rules({
     this.abilityCooldown = 3,
     this.abilityCharges = 3,
@@ -37,18 +57,24 @@ class Rules {
     this.tenguMinTouch = 3,
     this.siegeRound = 35,
     this.roundLimit = 50,
+    this.tenguNearLeader = TenguNearLeader.notClosing,
+    this.shinobiGateNextToLeader = true,
+    this.shogunSwap = true,
+    this.kunoichiParalysis = true,
+    this.shadowSeal = true,
   });
 
   /// Reglas oficiales, ajustadas con tool/balance.dart (ver README).
   static const standard = Rules();
 
   /// Las reglas del prototipo, sin límites: habilidades infinitas, Shinobi y
-  /// Tengu sin restricción, Grulla de salto fijo y sin Asedio.
+  /// Tengu sin restricción (el Tengu puede cerrar el cerco), Grulla de salto fijo y sin Asedio.
   static const classic = Rules(
     abilityCharges: null,
     shinobiRange: null,
     craneShortJump: false,
     tenguMinTouch: 2,
+    tenguNearLeader: TenguNearLeader.allowed,
     siegeRound: null,
     roundLimit: null,
   );
@@ -62,6 +88,11 @@ class Rules {
     int? tenguMinTouch,
     int? Function()? siegeRound,
     int? Function()? roundLimit,
+    TenguNearLeader? tenguNearLeader,
+    bool? shinobiGateNextToLeader,
+    bool? shogunSwap,
+    bool? kunoichiParalysis,
+    bool? shadowSeal,
   }) => Rules(
     abilityCooldown: abilityCooldown ?? this.abilityCooldown,
     abilityCharges: abilityCharges != null ? abilityCharges() : this.abilityCharges,
@@ -71,11 +102,18 @@ class Rules {
     tenguMinTouch: tenguMinTouch ?? this.tenguMinTouch,
     siegeRound: siegeRound != null ? siegeRound() : this.siegeRound,
     roundLimit: roundLimit != null ? roundLimit() : this.roundLimit,
+    tenguNearLeader: tenguNearLeader ?? this.tenguNearLeader,
+    shinobiGateNextToLeader: shinobiGateNextToLeader ?? this.shinobiGateNextToLeader,
+    shogunSwap: shogunSwap ?? this.shogunSwap,
+    kunoichiParalysis: kunoichiParalysis ?? this.kunoichiParalysis,
+    shadowSeal: shadowSeal ?? this.shadowSeal,
   );
 
   @override
   String toString() =>
       'cd=$abilityCooldown cargas=${abilityCharges ?? '∞'} shinobi=${shinobiRange ?? '∞'} '
       'grulla=${craneShortJump ? '1-2' : '2'} tengu=$tenguMinTouch asedio=${siegeRound ?? '-'} rondas=${roundLimit ?? '∞'} '
+      'tengu-lider=${tenguNearLeader.name} ${shinobiGateNextToLeader ? '' : 'shinobi-no-lider '}'
+      '${shogunSwap ? '' : 'sin-intercambio '}${kunoichiParalysis ? '' : 'sin-paralisis '}${shadowSeal ? '' : 'sin-sello '}'
       'manos=${hands.map((f, h) => MapEntry(f.name, h.map((t, n) => MapEntry(t.name, n))))}';
 }

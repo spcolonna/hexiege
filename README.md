@@ -36,6 +36,7 @@ Las reglas ajustables viven en `Rules`; `Rules.standard` es el juego oficial y `
 | Sin habilidades, Ninja ganaba 67–91%: Shinobi y Tengu llegaban junto al Líder rival en el 72% de sus jugadas (Shaolin ~25%) | **Shinobi**: hasta 4 casillas. **Tengu**: hueco que toque 3 fichas. **Grulla**: salta 1 o 2 |
 | Partidas trabadas con el Líder a 5 vecinos y el último hueco inalcanzable | **Asedio**: desde la ronda 35 alcanzan 5 lados; en la ronda 50, empate |
 | La IA iba y venía con la misma ficha | Castigo por repetir posiciones |
+| En Maestro Ninja ganaba ~70% (ver abajo) | **Tengu**: puede llegar junto al Líder rival, pero no cerrar el cerco con el teletransporte (`TenguNearLeader.notClosing`) |
 
 Se descartó desempatar por "Líder más rodeado" al llegar al límite: quien movía último ganaba 24 de 28 veces.
 
@@ -43,13 +44,31 @@ Resultado con las reglas oficiales (Shaolin / Ninja, resto empates o límite):
 
 | Nivel | Shaolin | Ninja | Empieza y gana | Terminan en Asedio |
 |---|---|---|---|---|
-| Aprendiz (120) | 22% | 53% | 46% | 33% |
-| Fácil (120) | 38% | 42% | 52% | 38% |
-| Normal (120) | 34% | 40% | 47% | 37% |
-| Difícil (70) | 44% | 27% | 52% | 33% |
-| Maestro (56) | 38% | 61% | 55% | 9% |
+| Aprendiz (120) | 22% | 48% | 45% | 37% |
+| Fácil (120) | 39% | 37% | 55% | 44% |
+| Normal (120) | 37% | 34% | 48% | 43% |
+| Difícil (56) | 39% | 34% | 39% | 38% |
+| Maestro (56) | 36% | 54% | 34% | 18% |
 
-Pendiente: en Maestro Ninja gana ~60–66% en todas las variantes probadas (también sin habilidades, con 1 Tengu o Shinobi a 3), así que la ventaja no viene de esas piezas. En Difícil el ruido es de ±15 puntos con ~60 partidas.
+Con ~60 partidas el ruido es de ±15 puntos (Maestro con las mismas reglas dio 77%, 66% y 66% para Ninja en tres corridas).
+
+### Ventaja Ninja en Maestro
+`--detalle` cuenta cada efecto (usos, partidas en que aparece, % de victoria de quien lo usa, usos en los 2 últimos turnos antes de ganar), qué ficha cierra el cerco ganador y la profundidad media de la búsqueda. Para ablaciones: `--sin-intercambio`, `--sin-paralisis`, `--sin-sello`, `--tengu-lider=allowed|notClosing|never`, `--shinobi-lider=0`.
+
+Maestro, 28 partidas por orden (Shaolin / Ninja):
+
+| Variante | Maestro | Lectura |
+|---|---|---|
+| Reglas previas | 18–27% / 66–77% | — |
+| Sin intercambio del Shogun | 25% / 66% | Se usa 5 veces en 56 partidas: irrelevante |
+| Sin parálisis de la Kunoichi | 14% / 82% | Gana quien paraliza ~73%, igual que la media Ninja: no decide |
+| Sin Sello de Sombra | 25% / 70% | 1 sello activado en 56 partidas |
+| Shinobi sin cruzar compuertas junto al Líder | 29% / 55% | Algo, dentro del ruido |
+| Tengu nunca junto al Líder | 52% / 39% | Corrige, pero hunde a Ninja en Fácil–Difícil (16–23%) |
+| **Tengu sin cerrar el cerco** | **36% / 54%** | Elegida: corrige Maestro sin tocar los demás niveles |
+| Tengu sin cerrar + Shinobi | 34% / 48% | Igual a la anterior dentro del ruido; no compensa otra regla |
+
+Causa: el cierre del cerco. El Tengu y el Shinobi cerraban 22 de las 37 victorias Ninja en Maestro: el último hueco junto al Líder casi siempre toca 3 fichas, así que el Tengu llegaba desde cualquier lado. La búsqueda a 4 turnos de Maestro lo planifica; los niveles bajos lo encuentran menos. No era una asimetría de la IA: la profundidad media es la misma para las dos facciones (~2,9 turnos en Maestro, ~2,6 en Difícil).
 
 ## Visual y game feel (`lib/ui/`)
 - **Temas** (`theme/hex_theme.dart`): claro "papel de arroz" y oscuro "tinta". Son un `ThemeExtension`, así que el cambio en plena partida es un fundido (botón sol/luna). Preferencia persistida en `theme/settings.dart` (tema, sonido, vibración, nombre).
@@ -95,4 +114,5 @@ Pendiente: en Maestro Ninja gana ~60–66% en todas las variantes probadas (tamb
 - **Serpiente**: anula efectos de unidad de enemigas adyacentes (parálisis, empuje, sello, intercambio del Shogun). No afecta habilidades de facción.
 - **Kitsune**: sin disfraz en el MVP (rompería "cero azar" y no se puede ocultar en Pass & Play).
 - **Sello de Sombra**: visible; uno activo por jugador; paraliza 1 turno a la ficha enemiga que caiga ahí.
+- **Tengu**: puede teletransportarse junto al Líder rival, pero no al hueco que completaría el cerco.
 - **Kawarimi / Meditación de Jade**: nunca sobre Líderes; solo fichas perimetrales (solas en su celda, removibles sin romper la colmena).

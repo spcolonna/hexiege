@@ -365,5 +365,79 @@ void main() {
       expect(destinationsFor(PieceType.tengu, tri, h(5, 0), Rules.classic).contains(h(1, -1)), isTrue);
       expect(destinationsFor(PieceType.tengu, tri, h(5, 0), const Rules(tenguMinTouch: 3)).contains(h(1, -1)), isFalse);
     });
+
+    test('Tengu y Shinobi junto al Líder rival, según las reglas', () {
+      GameState tengu(Rules r) {
+        final g = GameState(Faction.ninja, Faction.shaolin, rules: r);
+        put(g, PieceType.shogun, 0, h(0, 0));
+        put(g, PieceType.tengu, 0, h(-1, 0));
+        put(g, PieceType.monk, 1, h(1, 0));
+        put(g, PieceType.serpent, 1, h(2, 0));
+        put(g, PieceType.serpent, 1, h(1, -1));
+        put(g, PieceType.serpent, 1, h(2, -2));
+        put(g, PieceType.kitsune, 0, h(0, -1));
+        return g;
+      }
+
+      // (2,-1) toca al Monje; (1,-2) toca 3 fichas pero no al Monje.
+      expect(tengu(Rules.standard).moveTargets(h(-1, 0)), contains(h(2, -1)));
+      final far = tengu(const Rules(tenguNearLeader: TenguNearLeader.never)).moveTargets(h(-1, 0));
+      expect(far.contains(h(2, -1)), isFalse);
+      expect(far, contains(h(1, -2)));
+
+      // Hueco (0,0) rodeado: el Shinobi entra por la compuerta (-1,0)/(0,1).
+      GameState shinobi(Rules r) {
+        final g = GameState(Faction.ninja, Faction.shaolin, rules: r);
+        put(g, PieceType.shogun, 0, h(-1, 0));
+        put(g, PieceType.kitsune, 0, h(0, 1));
+        put(g, PieceType.shinobi, 0, h(-1, 1));
+        put(g, PieceType.monk, 1, h(1, 0));
+        put(g, PieceType.serpent, 1, h(0, -1));
+        put(g, PieceType.serpent, 1, h(1, -1));
+        return g;
+      }
+
+      expect(shinobi(Rules.standard).moveTargets(h(-1, 1)), contains(h(0, 0)));
+      final gated = shinobi(const Rules(shinobiGateNextToLeader: false)).moveTargets(h(-1, 1));
+      expect(gated.contains(h(0, 0)), isFalse);
+      expect(gated, isNotEmpty);
+    });
+
+    test('Tengu notClosing: puede ir junto al Líder pero no cerrar el cerco', () {
+      GameState g(bool fifth) {
+        final g = GameState(Faction.ninja, Faction.shaolin, rules: const Rules(tenguNearLeader: TenguNearLeader.notClosing));
+        put(g, PieceType.monk, 1, h(0, 0));
+        put(g, PieceType.serpent, 1, h(1, 0));
+        put(g, PieceType.serpent, 1, h(-1, 0));
+        put(g, PieceType.shogun, 0, h(-1, 1));
+        put(g, PieceType.kitsune, 0, h(0, -1));
+        if (fifth) put(g, PieceType.kitsune, 0, h(0, 1));
+        put(g, PieceType.tengu, 0, h(2, 0));
+        return g;
+      }
+
+      // (1,-1) es el último hueco libre del Monje: con 5 vecinos, cerraría el cerco.
+      expect(g(true).moveTargets(h(2, 0)).contains(h(1, -1)), isFalse);
+      expect(g(false).moveTargets(h(2, 0)), contains(h(1, -1)));
+      final free = GameState(Faction.ninja, Faction.shaolin, rules: const Rules(tenguNearLeader: TenguNearLeader.allowed));
+      put(free, PieceType.monk, 1, h(0, 0));
+      put(free, PieceType.serpent, 1, h(1, 0));
+      put(free, PieceType.serpent, 1, h(-1, 0));
+      put(free, PieceType.shogun, 0, h(-1, 1));
+      put(free, PieceType.kitsune, 0, h(0, -1));
+      put(free, PieceType.kitsune, 0, h(0, 1));
+      put(free, PieceType.tengu, 0, h(2, 0));
+      expect(free.moveTargets(h(2, 0)), contains(h(1, -1)));
+    });
+
+    test('los efectos de unidad se pueden apagar', () {
+      final g = GameState(Faction.ninja, Faction.shaolin, rules: const Rules(kunoichiParalysis: false, shogunSwap: false));
+      put(g, PieceType.shogun, 0, h(0, 0));
+      put(g, PieceType.kunoichi, 0, h(-1, 0));
+      put(g, PieceType.shinobi, 0, h(0, -1));
+      put(g, PieceType.monk, 1, h(1, 0));
+      expect(g.effectOptions(h(-1, 0), h(0, 1)).paralyze, isEmpty);
+      expect(g.shogunSwapTargets(h(0, 0)), isEmpty);
+    });
   });
 }

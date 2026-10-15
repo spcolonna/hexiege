@@ -4,7 +4,11 @@
 // Opciones de reglas (por defecto, las oficiales; --clasicas parte de las del prototipo):
 //   --sin-habilidades   --cd=N   --cargas=N   --shinobi=N   --grulla=2|12   --tengu=N   --asedio=N --rondas=N (0 = sin)
 //   --mano=shinobi:2,kitsune:3   (cambia cantidades; la facción sale del tipo de ficha)
-//   --detalle           uso de habilidades y llegada de cada ficha al Líder rival
+//   --tengu-lider=allowed|notClosing|never   (Tengu junto al Líder rival; notClosing = sin cerrar el cerco)
+//   --shinobi-lider=0|1 (0: el Shinobi no cruza compuertas para llegar junto al Líder rival)
+//   --sin-intercambio   --sin-paralisis   --sin-sello   (apagan efectos de unidad Ninja)
+//   --detalle           uso de habilidades y efectos (y si preceden a una victoria) y
+//                       llegada de cada ficha al Líder rival
 import 'dart:io';
 import 'dart:isolate';
 
@@ -29,6 +33,11 @@ Rules parseRules(List<String> flags) {
   if (opt('tengu') case final v?) r = r.copyWith(tenguMinTouch: int.parse(v));
   if (opt('asedio') case final v?) r = r.copyWith(siegeRound: () => v == '0' ? null : int.parse(v));
   if (opt('rondas') case final v?) r = r.copyWith(roundLimit: () => v == '0' ? null : int.parse(v));
+  if (opt('tengu-lider') case final v?) r = r.copyWith(tenguNearLeader: TenguNearLeader.values.byName(v));
+  if (opt('shinobi-lider') case final v?) r = r.copyWith(shinobiGateNextToLeader: v == '1');
+  if (flags.contains('--sin-intercambio')) r = r.copyWith(shogunSwap: false);
+  if (flags.contains('--sin-paralisis')) r = r.copyWith(kunoichiParalysis: false);
+  if (flags.contains('--sin-sello')) r = r.copyWith(shadowSeal: false);
   if (opt('mano') case final v?) {
     final hands = {for (final e in r.hands.entries) e.key: Map.of(e.value)};
     for (final kv in v.split(',')) {
@@ -51,10 +60,18 @@ class Stats {
       bySiege = 0,
       firstSiegeWins = 0,
       siegeDecided = 0;
-  final abilities = <String, int>{};
   final arrivals = <String, int>{};
   final uses = <String, int>{};
+
+  /// Por "facción efecto": usos totales, partidas con ≥1 uso, de esas cuántas
+  /// ganó quien lo usó, y usos en los últimos 2 turnos propios antes de ganar.
+  /// Ficha cuya llegada completa el cerco ganador ("facción tipo").
+  final closers = <String, int>{};
+  final fxUses = <String, int>{}, fxGames = <String, int>{}, fxWins = <String, int>{}, fxFinal = <String, int>{};
   final lengths = <int>[];
+
+  /// Profundidad completada por la búsqueda (Difícil/Maestro): suma y turnos.
+  final depthSum = <String, int>{}, depthTurns = <String, int>{};
 
   void add(String k, Map<String, int> m, [int n = 1]) => m[k] = (m[k] ?? 0) + n;
 
@@ -68,10 +85,16 @@ class Stats {
     bySiege += o.bySiege;
     firstSiegeWins += o.firstSiegeWins;
     siegeDecided += o.siegeDecided;
-    o.abilities.forEach((k, v) => add(k, abilities, v));
     o.arrivals.forEach((k, v) => add(k, arrivals, v));
     o.uses.forEach((k, v) => add(k, uses, v));
+    o.closers.forEach((k, v) => add(k, closers, v));
+    o.fxUses.forEach((k, v) => add(k, fxUses, v));
+    o.fxGames.forEach((k, v) => add(k, fxGames, v));
+    o.fxWins.forEach((k, v) => add(k, fxWins, v));
+    o.fxFinal.forEach((k, v) => add(k, fxFinal, v));
     lengths.addAll(o.lengths);
+    o.depthSum.forEach((k, v) => add(k, depthSum, v));
+    o.depthTurns.forEach((k, v) => add(k, depthTurns, v));
   }
 }
 
@@ -88,14 +111,30 @@ Stats simulate(Rules rules, AiLevel level, int from, int to, int maxPlies, bool 
         AiPlayer(level, seed: i * 2, useAbilities: abilities),
         AiPlayer(level, seed: i * 2 + 1, useAbilities: abilities),
       ];
+      final events = <(int, int, String)>[]; // (jugador, ply, "facción efecto")
       var ply = 0;
       for (; ply < maxPlies && !g.isOver; ply++) {
         final me = g.current;
-        for (final a in ais[me].chooseTurn(g)) {
-          _record(st, g, a);
-          a.apply(g);
+        final turn = ais[me].chooseTurn(g);
+        if (ais[me].lastDepth > 0) {
+          st.add(g.factions[me].name, st.depthSum, ais[me].lastDepth);
+          st.add(g.factions[me].name, st.depthTurns);
+        }
+        for (final a in turn) {
+          for (final (p, fx) in _record(st, g, a)) {
+            events.add((p, g.ply, '${g.factions[p].name} $fx'));
+          }
+          if (g.winner == me) st.add('${g.factions[me].name} ${_closer(g, a)}', st.closers);
         }
         if (!g.isOver) g.endTurn();
+      }
+      for (final (p, at, k) in events) {
+        st.add(k, st.fxUses);
+        if (g.winner == p && g.ply - at < 4) st.add(k, st.fxFinal);
+      }
+      for (final (p, k) in {for (final (p, _, k) in events) (p, k)}) {
+        st.add(k, st.fxGames);
+        if (g.winner == p) st.add(k, st.fxWins);
       }
       if (g.endedByLimit) st.timeouts++;
       if (g.isOver && g.inSiege && !g.endedByLimit) {
@@ -119,30 +158,58 @@ Stats simulate(Rules rules, AiLevel level, int from, int to, int maxPlies, bool 
   return st;
 }
 
-/// Clasifica cada acción: si una habilidad salva al propio Líder y qué fichas
-/// alcanzan al Líder rival.
-void _record(Stats st, GameState g, AiAction a) {
-  final me = g.current;
-  final mine = g.board.locateLeader(me), theirs = g.board.locateLeader(1 - me);
+/// Aplica [a] y devuelve los efectos que produjo (jugador, efecto). También
+/// cuenta qué fichas alcanzan al Líder rival.
+List<(int, String)> _record(Stats st, GameState g, AiAction a) {
+  final me = g.current, opp = 1 - me;
+  final mine = g.board.locateLeader(me), theirs = g.board.locateLeader(opp);
   bool near(Hex? l, Hex h) => l != null && l.distanceTo(h) == 1;
-  final f = g.factions[me].name;
+  final fx = <(int, String)>[];
+  String leader(Hex h) => g.board.top(h)!.type.isLeader ? ' al Líder' : '';
+  final sealsBefore = Map.of(g.seals);
+  final enemyBefore = {for (final e in g.board.tops) if (e.value.owner == opp) e.key};
+  final pressureBefore = g.leaderPressure(me);
   switch (a) {
     case KawarimiAction(:final at):
-      st.add('$f kawarimi ${near(mine, at) ? 'defensiva' : 'otra'}', st.abilities);
+      fx.add((me, 'kawarimi ${near(mine, at) ? 'defensiva' : (near(theirs, at) ? 'ofensiva' : 'otra')}'));
     case JadeRelocateAction(:final from, :final to):
-      st.add('$f jade ${near(mine, from) ? 'defensiva' : (near(theirs, to) ? 'ofensiva' : 'otra')}', st.abilities);
+      fx.add((me, 'jade ${near(mine, from) ? 'defensiva' : (near(theirs, to) ? 'ofensiva' : 'otra')}'));
     case JadeSwapAction():
-      st.add('$f jade intercambio', st.abilities);
+      fx.add((me, 'jade intercambio'));
     case PlaceAction(:final type, :final at):
       st.add(type.name, st.uses);
       if (near(theirs, at)) st.add(type.name, st.arrivals);
-    case MoveAction(:final from, :final to):
-      final t = g.board.top(from)!.type.name;
-      st.add(t, st.uses);
-      if (near(theirs, to) && !near(theirs, from)) st.add(t, st.arrivals);
+    case MoveAction(:final from, :final to, :final paralyze, :final seal):
+      final t = g.board.top(from)!.type;
+      st.add(t.name, st.uses);
+      if (near(theirs, to) && !near(theirs, from)) st.add(t.name, st.arrivals);
+      if (paralyze != null) fx.add((me, 'parálisis Kunoichi${leader(paralyze)}'));
+      if (seal != null) fx.add((me, 'sello colocado'));
     case SwapAction():
   }
+  a.apply(g);
+  if (a is SwapAction) {
+    final after = g.leaderPressure(me);
+    fx.add((me, 'intercambio Shogun ${after < pressureBefore ? 'escape' : 'otro'} ($pressureBefore→$after)'));
+  }
+  for (final e in sealsBefore.entries) {
+    if (!g.seals.containsKey(e.key) && e.value != me) fx.add((e.value, 'sello activado${leader(e.key)}'));
+  }
+  if (a is MoveAction && g.board.top(a.to)?.type == PieceType.tiger) {
+    final enemyAfter = {for (final e in g.board.tops) if (e.value.owner == opp) e.key};
+    if (enemyAfter.difference(enemyBefore).isNotEmpty) fx.add((me, 'empuje Tigre'));
+  }
+  return fx;
 }
+
+String _closer(GameState g, AiAction a) => switch (a) {
+  PlaceAction(:final type) => '${type.name} (colocada)',
+  MoveAction(:final to) => g.board.top(to)!.type.name,
+  SwapAction() => 'intercambio Shogun',
+  KawarimiAction() => 'kawarimi',
+  JadeRelocateAction() => 'jade',
+  JadeSwapAction() => 'jade intercambio',
+};
 
 Future<void> main(List<String> allArgs) async {
   final flags = allArgs.where((a) => a.startsWith('--')).toList();
@@ -189,9 +256,23 @@ Future<void> main(List<String> allArgs) async {
     );
   }
   if (flags.contains('--detalle')) {
-    print('  Habilidades:');
-    for (final e in st.abilities.entries.toList()..sort((a, b) => a.key.compareTo(b.key))) {
-      print('    ${e.key}: ${e.value}');
+    if (st.depthTurns.isNotEmpty) {
+      print(
+        '  Profundidad media de búsqueda: '
+        '${st.depthTurns.keys.map((f) => '$f ${(st.depthSum[f]! / st.depthTurns[f]!).toStringAsFixed(2)}').join(' · ')}',
+      );
+    }
+    print('  Cierra el cerco ganador:');
+    for (final e in st.closers.entries.toList()..sort((a, b) => b.value - a.value)) {
+      print('    ${e.key.padRight(28)} ${e.value}');
+    }
+    print('  Efectos: usos · partidas con uso · gana quien lo usa · usos en sus 2 últimos turnos antes de ganar');
+    for (final k in st.fxUses.keys.toList()..sort()) {
+      final games = st.fxGames[k]!, wins = st.fxWins[k] ?? 0;
+      print(
+        '    ${k.padRight(40)} ${'${st.fxUses[k]}'.padLeft(5)} · ${'$games'.padLeft(3)} · '
+        '${pct(wins, games).padLeft(4)} · ${st.fxFinal[k] ?? 0}',
+      );
     }
     print('  Llega junto al Líder rival (veces / % de sus jugadas):');
     final rows = st.uses.keys.toList()

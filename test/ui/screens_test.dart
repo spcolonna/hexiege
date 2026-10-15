@@ -277,8 +277,8 @@ void main() {
         await tester.pump(const Duration(milliseconds: 300));
       }
       expect(find.text('turno'), findsOneWidget);
-      // El Tengu cierra el cerco.
-      await tester.tapAt(at(2, -1));
+      // La Kitsune cierra el cerco.
+      await tester.tapAt(at(0, 2));
       await tester.pump();
       await tester.tapAt(at(-1, 1));
       await tester.pump(const Duration(seconds: 3));

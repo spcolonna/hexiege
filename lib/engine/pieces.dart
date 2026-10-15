@@ -77,7 +77,7 @@ extension PieceTypeInfo on PieceType {
     PieceType.shogun => 'Líder. Se desliza 1 casilla. Una vez por partida, intercambia lugar con un Shinobi adyacente.',
     PieceType.shinobi => 'Se desliza hasta 4 casillas por el perímetro, incluso por huecos estrechos.',
     PieceType.kunoichi => 'Se desliza hasta 2 casillas y paraliza a una ficha enemiga adyacente por 1 turno.',
-    PieceType.tengu => 'Se teletransporta a cualquier hueco que toque al menos 3 fichas.',
+    PieceType.tengu => 'Se teletransporta a cualquier hueco que toque al menos 3 fichas, pero no puede cerrar así el cerco del Líder rival.',
     PieceType.kitsune => 'Se desliza 1 o 2 casillas.',
     PieceType.shadow =>
       'Se desliza 1 casilla y puede dejar un Sello de Sombra adyacente: la ficha enemiga que caiga ahí queda paralizada.',

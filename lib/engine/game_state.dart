@@ -176,6 +176,22 @@ class GameState {
     final lifted = Board.copy(board);
     final p = lifted.pop(src);
     final dests = destinationsFor(p.type, lifted, src, rules);
+    final limited =
+        (p.type == PieceType.tengu && rules.tenguNearLeader != TenguNearLeader.allowed) ||
+        (p.type == PieceType.shinobi && !rules.shinobiGateNextToLeader);
+    final enemyLeader = limited ? lifted.locateLeader(1 - p.owner) : null;
+    if (enemyLeader != null) {
+      bool nextToLeader(Hex d) => d.distanceTo(enemyLeader) == 1;
+      if (p.type == PieceType.tengu) {
+        // notClosing: prohibido solo el hueco que completaría el cerco.
+        final closes = lifted.occupiedNeighbors(enemyLeader) + 1 >= captureThreshold;
+        if (rules.tenguNearLeader == TenguNearLeader.never || closes) dests.removeWhere(nextToLeader);
+      }
+      if (p.type == PieceType.shinobi && !rules.shinobiGateNextToLeader) {
+        final gated = slideReach(lifted, src, maxSteps: rules.shinobiRange);
+        dests.removeWhere((d) => nextToLeader(d) && !gated.contains(d));
+      }
+    }
     // Defensa extra: la colmena resultante debe quedar conectada.
     return dests.where((d) {
       final b = Board.copy(lifted)..push(d, p);
@@ -185,7 +201,7 @@ class GameState {
 
   /// Intercambio del Shogun con un Shinobi adyacente (1 vez por partida).
   Set<Hex> shogunSwapTargets(Hex src) {
-    if (isOver || mainActionDone || shogunSwapUsed[current]) return {};
+    if (isOver || mainActionDone || !rules.shogunSwap || shogunSwapUsed[current]) return {};
     final p = board.top(src);
     if (p == null || p.owner != current || p.type != PieceType.shogun) return {};
     if (isParalyzed(p) || board.height(src) > 1 || isSuppressed(src, current)) return {};
@@ -217,7 +233,7 @@ class GameState {
       return t != null && t.type == PieceType.serpent && t.owner != p.owner;
     });
     if (suppressed) return (paralyze: <Hex>{}, seal: <Hex>{});
-    if (p.type == PieceType.kunoichi) {
+    if (p.type == PieceType.kunoichi && rules.kunoichiParalysis) {
       return (
         paralyze: at.neighbors.where((n) {
           final t = b.top(n);
@@ -226,7 +242,7 @@ class GameState {
         seal: <Hex>{},
       );
     }
-    if (p.type == PieceType.shadow) {
+    if (p.type == PieceType.shadow && rules.shadowSeal) {
       return (
         paralyze: <Hex>{},
         seal: at.neighbors.where((n) => n != at && !b.isOccupied(n) && !seals.containsKey(n)).toSet(),
