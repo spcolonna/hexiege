@@ -1,0 +1,48 @@
+# Hexiege
+
+Juego de estrategia abstracta por facciones sobre tablero hexagonal sin límites (inspirado en *Hive*).
+Diseño original: [`../HexaGame.md`](../HexaGame.md).
+
+## Estado: MVP
+- Facciones: **Templo Shaolin** y **Sombras Ninja**, 11 fichas cada una.
+- Modos: **vs IA** (Fácil / Normal; vos sos el Jugador 1) y **Pass & Play** local. Sin backend.
+
+## Correr
+```
+flutter test          # motor de reglas (incluye 300 partidas aleatorias)
+flutter run           # en simulador iOS / emulador Android
+dart run tool/balance.dart 20 easy                    # IA vs IA: tasas de victoria por facción
+dart run tool/balance.dart 5 normal 120 --sin-habilidades  # mide el impacto de las habilidades
+```
+
+## IA (`lib/engine/ai.dart`)
+- Turnos candidatos = acción principal, o habilidad (las 2–4 mejores) + acción principal.
+- **Fácil**: greedy con ruido. **Normal**: minimax de 2 capas (mi turno + mejor respuesta rival) con poda.
+- El rival simulado solo considera acciones principales (no habilidades).
+- Evaluación: presión sobre los Líderes (vecinos ocupados, inmovilizado, Rey Mono encima), desarrollo, movilidad aproximada, parálisis y cercanía de las fichas al Líder rival.
+- Corre en un isolate para no congelar la UI.
+
+## Visual y game feel (`lib/ui/`)
+- **Temas** (`theme/hex_theme.dart`): claro "papel de arroz" y oscuro "tinta". Son un `ThemeExtension`, así que el cambio en plena partida es un fundido (botón sol/luna). Preferencia persistida en `theme/settings.dart` (tema, sonido, vibración, nombre).
+- **Cosméticos a futuro**: una arena/skin nueva = otra instancia de `HexTheme` (fondo, materiales de fichas). `PlayerProfile` (nick, avatar, IA) y `Emote` (vectoriales, no emojis del sistema) ya son modelos separados de la UI.
+- **Layout**: tablero a pantalla completa; arriba el oponente, abajo vos + mano + acciones (listo para avatares y emotes online).
+- **Animación por diff** (`fx/board_fx.dart`): se compara el tablero antes/después de cualquier acción (tuya, de la IA o una habilidad) y se anima sola: caída con gravedad al colocar, levantar → arco → caer al mover, rebote al asentarse, onda + polvo, temblor de cámara, empujón a las vecinas. Parálisis = escarcha, sello = estampado.
+- **Fichas con volumen** (`fx/piece_renderer.dart`): canto, sombra que se difumina con la altura, vetas y brillo.
+- **Sonido** (`fx/sfx.dart`): efectos sintetizados por `tool/gen_sfx.py` (golpe grave al colocar, más liviano al mover, "clack" al apilar, campana de habilidad, gong de victoria). Para regenerarlos: `python3 tool/gen_sfx.py`.
+
+## Estructura
+- `lib/engine/` — reglas en Dart puro (sin Flutter): `hex.dart`, `board.dart`, `moves.dart`, `game_state.dart`, `pieces.dart`.
+- `lib/ui/` — menú, pantalla de juego y `BoardPainter` (CustomPainter).
+- `test/engine/` — tests del motor.
+
+## Interpretaciones de reglas (MVP)
+- Turno = 1 acción principal (colocar o mover) + habilidad de facción opcional (antes o después).
+- Colocación al estilo Hive: tocando solo fichas propias. Líder obligatorio en el 4.º turno; sin Líder no se mueve ni se usa la habilidad.
+- Libertad de movimiento: nadie se desliza por un hueco estrecho, salvo el Shinobi.
+- Cooldown 3: la habilidad vuelve a estar disponible 3 turnos propios después.
+- **Rey Mono**: al copiar a otra ficha copia solo el movimiento, no sus efectos.
+- **Tigre**: empuja automáticamente si termina frente a una enemiga sola en su celda y el empuje no rompe la colmena.
+- **Serpiente**: anula efectos de unidad de enemigas adyacentes (parálisis, empuje, sello, intercambio del Shogun). No afecta habilidades de facción.
+- **Kitsune**: sin disfraz en el MVP (rompería "cero azar" y no se puede ocultar en Pass & Play).
+- **Sello de Sombra**: visible; uno activo por jugador; paraliza 1 turno a la ficha enemiga que caiga ahí.
+- **Kawarimi / Meditación de Jade**: nunca sobre Líderes; solo fichas perimetrales (solas en su celda, removibles sin romper la colmena).
