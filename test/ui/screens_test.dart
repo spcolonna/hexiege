@@ -2,13 +2,39 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hexiege/engine/ai.dart';
 import 'package:hexiege/engine/pieces.dart';
+import 'package:hexiege/match/ladder.dart';
+import 'package:hexiege/match/matchmaker.dart';
 import 'package:hexiege/tutorial/lessons.dart';
 import 'package:hexiege/ui/game_screen.dart';
+import 'package:hexiege/ui/matchmaking_screen.dart';
 import 'package:hexiege/ui/menu_screen.dart';
 import 'package:hexiege/ui/onboarding_screen.dart';
 import 'package:hexiege/ui/theme/hex_theme.dart';
 import 'package:hexiege/ui/theme/settings.dart';
+
+/// Rival fijo y sin esperas: empezás vos, el bot es Fácil.
+class _FakeMatchmaker implements Matchmaker {
+  @override
+  Stream<MatchmakingEvent> search(MatchRequest request) async* {
+    yield const Searching(50);
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    yield Found(
+      MatchFound(
+        opponent: const Opponent(
+          nickname: 'KenjiAzul',
+          avatar: '龍',
+          faction: Faction.ninja,
+          rating: 1012,
+          bot: AiLevel.easy,
+        ),
+        yourFaction: request.faction,
+        youFirst: true,
+      ),
+    );
+  }
+}
 
 Widget _app(Widget home, ThemeMode mode) => MaterialApp(
   theme: HexTheme.light.toThemeData(),
@@ -129,5 +155,61 @@ void main() {
       }
       expect(find.textContaining('Usá la habilidad'), findsOneWidget);
     });
+  });
+
+  testWidgets('partida por puntos: buscar, encontrar rival, abandonar resta puntos', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    AppSettings.instance.ladder = const LadderRecord();
+    await tester.pumpWidget(
+      _app(MatchmakingScreen(faction: Faction.shaolin, matchmaker: _FakeMatchmaker()), ThemeMode.dark),
+    );
+    await tester.pump();
+    expect(find.text('Buscando rival…'), findsOneWidget);
+    expect(find.text('Rivales de 950–1050 pts'), findsOneWidget);
+
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(find.text('¡Rival encontrado!'), findsOneWidget);
+    expect(find.text('KenjiAzul'), findsOneWidget);
+    expect(find.text('Empezás vos · fichas claras'), findsOneWidget);
+
+    // Cuenta regresiva 3-2-1 y arranca la partida.
+    for (var i = 0; i < 4; i++) {
+      await tester.pump(const Duration(seconds: 1));
+    }
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(find.byType(GameScreen), findsOneWidget);
+    expect(find.text('KenjiAzul'), findsOneWidget);
+    expect(find.text('1012'), findsOneWidget);
+    expect(find.text('IA'), findsNothing);
+
+    await tester.tap(find.byTooltip('Abandonar'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.widgetWithText(FilledButton, 'Abandonar'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 300));
+
+    final l = AppSettings.instance.ladder;
+    expect(l.losses, 1);
+    expect(l.rating, 980);
+    expect(find.text('Derrota'), findsOneWidget);
+    expect(find.text('Buscar otra'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 3)); // timers de emotes
+  });
+
+  testWidgets('menú: búsqueda de partida en lugar de elegir dificultad', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    AppSettings.instance.ladder = const LadderRecord();
+    await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.light));
+    await tester.pump();
+    expect(find.text('Buscar partida'), findsOneWidget);
+    expect(find.text('Discípulo'), findsOneWidget);
+    expect(find.text('1000'), findsOneWidget);
+    expect(find.text('Fácil'), findsNothing);
   });
 }

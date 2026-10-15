@@ -5,7 +5,7 @@ Diseño original: [`../HexaGame.md`](../HexaGame.md).
 
 ## Estado: MVP
 - Facciones: **Templo Shaolin** y **Sombras Ninja**, 11 fichas cada una.
-- Modos: **vs IA** (Fácil / Normal; vos sos el Jugador 1) y **Pass & Play** local. Sin backend.
+- Modos: **Buscar partida** (por puntos, contra rivales simulados por la IA), **Local** (Pass & Play) y tutorial. Sin backend.
 
 ## Correr
 ```
@@ -13,12 +13,13 @@ flutter test          # motor de reglas (incluye 300 partidas aleatorias)
 flutter run           # en simulador iOS / emulador Android
 dart run tool/balance.dart 20 easy                    # IA vs IA: tasas de victoria por facción
 dart run tool/balance.dart 5 normal 120 --sin-habilidades  # mide el impacto de las habilidades
+dart run tool/arena.dart hard normal 10                # nivel contra nivel: victorias y ms por jugada
 ```
 
 ## IA (`lib/engine/ai.dart`)
-- Turnos candidatos = acción principal, o habilidad (las 2–4 mejores) + acción principal.
-- **Fácil**: greedy con ruido. **Normal**: minimax de 2 capas (mi turno + mejor respuesta rival) con poda.
-- El rival simulado solo considera acciones principales (no habilidades).
+- Turnos candidatos = acción principal, o habilidad (las 2–5 mejores) + acción principal.
+- Cinco niveles: **Aprendiz** y **Fácil** (greedy con ruido), **Normal** (minimax de 2 capas, el rival sin habilidades), **Difícil** y **Maestro** (alfa-beta por turnos completos con profundización iterativa, haz acotado y tiempo límite de 1,2 s / 2,5 s; el rival también usa habilidades).
+- Medido con `tool/arena.dart`: Difícil le gana a Normal 4–0 (2 sin terminar, ~0,35 s por jugada) y Maestro a Difícil 3–1.
 - Evaluación: presión sobre los Líderes (vecinos ocupados, inmovilizado, Rey Mono encima), desarrollo, movilidad aproximada, parálisis y cercanía de las fichas al Líder rival.
 - Corre en un isolate para no congelar la UI.
 
@@ -35,10 +36,16 @@ dart run tool/balance.dart 5 normal 120 --sin-habilidades  # mide el impacto de 
 - **Tutorial** (`tutorial/lessons.dart` + `GameScreen.tutorial`): 7 lecciones de una jugada sobre escenarios armados (colocar, Líder, One-Hive, movimiento, victoria, habilidad). El Sensei explica y marca la casilla clave; si la jugada no es la pedida, las fichas vuelven a su lugar y se reintenta. Al final ofrece una partida contra el Sensei en Fácil.
 - Agregar una lección = otro `Lesson` en la lista; `test/tutorial/lessons_test.dart` verifica que cada una se pueda resolver en una acción.
 
+## Buscar partida (`lib/match/`)
+- **Sin selector de dificultad**: el nivel de la IA sale de los puntos del jugador (`LadderRecord`, cinco rangos de Novicio a Leyenda, uno por nivel) y se corre un escalón por rachas: 3+ victorias seguidas → más difícil; 3+ derrotas → más fácil (5+ → dos escalones). Ganar suma 25 (+5 por victoria en racha, hasta +15); perder resta 20.
+- **Emparejamiento detrás de una interfaz** (`Matchmaker`): hoy `BotMatchmaker` simula la espera (2,5–7 s, ampliando el rango de puntos) y arma un rival con nick, avatar, facción y puntos creíbles (`Opponent.bot` = nivel de IA). El online real será otro `Matchmaker` que devuelva rivales con `bot == null`; la UI no cambia.
+- Flujo: radar de búsqueda → presentación VS con quién empieza → cuenta regresiva → partida sin deshacer, con abandono (cuenta como derrota) → resultado con puntos animados, cambio de rango y "Buscar otra". El rival piensa con tiempos de persona (1–2,7 s).
+
 ## Estructura
 - `lib/engine/` — reglas en Dart puro (sin Flutter): `hex.dart`, `board.dart`, `moves.dart`, `game_state.dart`, `pieces.dart`.
 - `lib/ui/` — bienvenida, menú, pantalla de juego y `BoardPainter` (CustomPainter).
 - `lib/tutorial/` — lecciones del tutorial.
+- `lib/match/` — puntos/rachas (`ladder.dart`) y emparejamiento (`matchmaker.dart`).
 - `test/engine/` — tests del motor.
 
 ## Interpretaciones de reglas (MVP)

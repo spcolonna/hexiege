@@ -8,11 +8,14 @@ import '../engine/ai.dart';
 import '../engine/game_state.dart';
 import '../engine/hex.dart';
 import '../engine/pieces.dart';
+import '../match/ladder.dart';
+import '../match/matchmaker.dart';
 import '../tutorial/lessons.dart';
 import 'board_painter.dart';
 import 'fx/board_fx.dart';
 import 'fx/sfx.dart';
 import 'hex_layout.dart';
+import 'matchmaking_screen.dart';
 import 'piece_chip.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
@@ -20,6 +23,7 @@ import 'widgets/arena_backdrop.dart';
 import 'widgets/coach_card.dart';
 import 'widgets/emotes.dart';
 import 'widgets/player_banner.dart';
+import 'widgets/ranked_result.dart';
 
 /// Función top-level: el closure no captura el State (que no es enviable entre isolates).
 Future<List<AiAction>> _thinkInIsolate(GameState snapshot, AiLevel level) =>
@@ -38,15 +42,29 @@ class GameScreen extends StatefulWidget {
   /// Índice de la lección inicial en modo tutorial (null = partida normal).
   final int? lesson;
 
+  /// Partida por puntos (null = casual).
+  final MatchFound? match;
+
   const GameScreen({super.key, required this.p0, required this.p1, this.aiPlayer, this.aiLevel = AiLevel.normal})
-    : lesson = null;
+    : lesson = null,
+      match = null;
 
   /// Tutorial: vos (Shaolin) contra el Sensei, con escenarios armados.
   const GameScreen.tutorial({super.key, this.lesson = 0})
     : p0 = Faction.shaolin,
       p1 = Faction.ninja,
       aiPlayer = 1,
-      aiLevel = AiLevel.easy;
+      aiLevel = AiLevel.easy,
+      match = null;
+
+  /// Partida por puntos contra el rival del emparejamiento. Quien empieza
+  /// juega con las fichas claras (jugador 0).
+  GameScreen.ranked({super.key, required MatchFound this.match})
+    : p0 = match.youFirst ? match.yourFaction : match.opponent.faction,
+      p1 = match.youFirst ? match.opponent.faction : match.yourFaction,
+      aiPlayer = match.youFirst ? 1 : 0,
+      aiLevel = match.opponent.bot ?? AiLevel.normal,
+      lesson = null;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -85,6 +103,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   Lesson? get _lesson => _lessonIdx == null ? null : lessons[_lessonIdx!];
   bool get _tutorial => _lessonIdx != null;
 
+  // Partida por puntos
+  bool get _ranked => widget.match != null;
+  bool _reported = false;
+  bool _resigned = false;
+  LadderRecord? _ladderBefore;
+
+  /// Asiento del jugador local (abajo) y del rival (arriba).
+  int get _mySeat => widget.aiPlayer == null ? 0 : 1 - widget.aiPlayer!;
+  int get _oppSeat => 1 - _mySeat;
+
   @override
   void initState() {
     super.initState();
@@ -93,17 +121,28 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _game = _lesson?.build() ?? GameState(widget.p0, widget.p1);
     if (_tutorial) WidgetsBinding.instance.addPostFrameCallback((_) => _introLesson());
     final nick = AppSettings.instance.nickname;
-    _profiles = _tutorial
-        ? [
-            PlayerProfile(nickname: nick, faction: widget.p0),
-            PlayerProfile(nickname: 'Sensei', faction: widget.p1, isAi: true),
-          ]
-        : widget.aiPlayer == null
-        ? [PlayerProfile(nickname: nick, faction: widget.p0), PlayerProfile(nickname: 'Jugador 2', faction: widget.p1)]
-        : [
-            PlayerProfile(nickname: nick, faction: widget.p0),
-            PlayerProfile(nickname: 'Sensei · ${widget.aiLevel.displayName}', faction: widget.p1, isAi: true),
-          ];
+    final m = widget.match;
+    if (m != null) {
+      final me = PlayerProfile(nickname: nick, faction: m.yourFaction, rating: AppSettings.instance.ladder.rating);
+      final o = m.opponent;
+      final opp = PlayerProfile(nickname: o.nickname, faction: o.faction, avatar: o.avatar, rating: o.rating);
+      _profiles = _mySeat == 0 ? [me, opp] : [opp, me];
+    } else {
+      _profiles = _tutorial
+          ? [
+              PlayerProfile(nickname: nick, faction: widget.p0),
+              PlayerProfile(nickname: 'Sensei', faction: widget.p1, isAi: true),
+            ]
+          : widget.aiPlayer == null
+          ? [
+              PlayerProfile(nickname: nick, faction: widget.p0),
+              PlayerProfile(nickname: 'Jugador 2', faction: widget.p1),
+            ]
+          : [
+              PlayerProfile(nickname: nick, faction: widget.p0),
+              PlayerProfile(nickname: 'Sensei · ${widget.aiLevel.displayName}', faction: widget.p1, isAi: true),
+            ];
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
   }
 
@@ -143,7 +182,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   bool get _isAiTurn => widget.aiPlayer != null && _game.current == widget.aiPlayer;
 
   /// Bloquea la interacción mientras juega la IA.
-  bool get _locked => _isAiTurn || _aiThinking || (_tutorial && _coach != CoachState.doing);
+  bool get _locked => _isAiTurn || _aiThinking || _resigned || (_tutorial && _coach != CoachState.doing);
 
   bool _isHuman(int p) => widget.aiPlayer != p;
 
@@ -160,18 +199,20 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       debugPrint('IA en isolate falló ($e); calculando en el hilo principal');
       actions = AiPlayer(level).chooseTurn(snapshot);
     }
-    // Pausa mínima para que se perciba el "pensamiento".
+    // Pausa mínima para que se perciba el "pensamiento". En partidas por
+    // puntos el rival se toma tiempos de persona.
+    final minThink = Duration(milliseconds: _ranked ? 900 + _rng.nextInt(1800) : 650);
     final elapsed = DateTime.now().difference(started);
-    if (elapsed < const Duration(milliseconds: 650)) {
-      await Future.delayed(const Duration(milliseconds: 650) - elapsed);
+    if (elapsed < minThink) {
+      await Future.delayed(minThink - elapsed);
     }
     for (final a in actions) {
-      if (!mounted || _game.isOver) break;
+      if (!mounted || _game.isOver || _resigned) break;
       final dur = _commit((g) => a.apply(g), lastMove: _actionCells(a));
       await Future.delayed(Duration(milliseconds: max(550, (dur * 1000).round() + 300)));
     }
     if (!mounted) return;
-    if (!_game.isOver) {
+    if (!_game.isOver && !_resigned) {
       _maybeAiTaunt();
       _commit((g) => g.endTurn(), lastMove: _lastMove);
     }
@@ -188,7 +229,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   };
 
   String get _hint {
-    if (_game.isOver || (_tutorial && _coach != CoachState.doing)) return '';
+    if (_game.isOver || _resigned || (_tutorial && _coach != CoachState.doing)) return '';
     if (_isAiTurn) return '${_profiles[_game.current].nickname} está pensando…';
     return switch (_mode) {
       _Mode.placing => 'Tocá una casilla para colocar ${_placing!.displayName}',
@@ -558,6 +599,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     SoundBoard.instance.play(humanLost ? Sfx.defeat : Sfx.victory);
     Haptics.heavy();
     if (widget.aiPlayer != null) _showEmote(widget.aiPlayer!, humanLost ? Emote.smug : Emote.gg);
+    if (_ranked) {
+      _report(_game.draw ? MatchResult.draw : (humanLost ? MatchResult.loss : MatchResult.win));
+      _showRankedResult();
+      return;
+    }
     final text = _game.draw
         ? '¡Empate! Ambos Líderes quedaron rodeados.'
         : '¡Gana ${_profiles[w!].nickname}!\n${_game.factions[w].displayName} rodeó al Líder enemigo.';
@@ -598,6 +644,90 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             child: const Text('Revancha'),
           ),
         ],
+      ),
+    );
+  }
+
+  // ----------------------------------------------------------- por puntos
+
+  /// Registra el resultado una sola vez (fin de partida o abandono).
+  void _report(MatchResult r) {
+    if (!_ranked || _reported) return;
+    _reported = true;
+    final s = AppSettings.instance;
+    _ladderBefore = s.ladder;
+    s.ladder = s.ladder.apply(r);
+  }
+
+  /// Abandonar cuenta como derrota; se confirma antes.
+  Future<void> _confirmResign() async {
+    if (_reported) {
+      Navigator.pop(context);
+      return;
+    }
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        icon: Icon(Icons.flag_rounded, color: HexTheme.of(ctx).danger, size: 36),
+        title: const Text('¿Abandonar la partida?'),
+        content: const Text('Cuenta como derrota y perdés puntos.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Seguir jugando')),
+          FilledButton(
+            style: FilledButton.styleFrom(backgroundColor: HexTheme.of(ctx).danger),
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Abandonar'),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !mounted) return;
+    setState(() {
+      _resigned = true;
+      _reset();
+    });
+    _report(MatchResult.loss);
+    SoundBoard.instance.play(Sfx.defeat);
+    Haptics.heavy();
+    _showEmote(_oppSeat, Emote.gg);
+    _showRankedResult();
+  }
+
+  void _showRankedResult() {
+    final before = _ladderBefore!;
+    final after = AppSettings.instance.ladder;
+    final opp = widget.match!.opponent;
+    final won = after.wins > before.wins;
+    final draw = after.draws > before.draws;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => RankedResultDialog(
+        title: won ? 'Victoria' : (draw ? 'Empate' : 'Derrota'),
+        subtitle: _resigned
+            ? 'Abandonaste contra ${opp.nickname}.'
+            : draw
+            ? 'Ambos Líderes quedaron rodeados.'
+            : won
+            ? 'Rodeaste al Líder de ${opp.nickname}.'
+            : '${opp.nickname} rodeó a tu Líder.',
+        before: before,
+        after: after,
+        onMenu: () {
+          Navigator.pop(ctx);
+          Navigator.pop(context);
+        },
+        onAgain: () {
+          Navigator.pop(ctx);
+          Navigator.pushReplacement(
+            context,
+            PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 400),
+              pageBuilder: (_, _, _) => MatchmakingScreen(faction: widget.match!.yourFaction),
+              transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
+            ),
+          );
+        },
       ),
     );
   }
@@ -694,25 +824,31 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final targets = _targets;
     _fx.ambient = _selected != null || targets.isNotEmpty || _hasSiege || _spotlight.isNotEmpty;
     if (_fx.ambient) _fx.wake();
-    return Scaffold(
-      body: ArenaBackdrop(
-        accent: HexTheme.faction(g.currentFaction),
-        child: Stack(
-          children: [
-            Positioned.fill(child: _board(t, targets)),
-            SafeArea(
-              child: Column(
-                children: [
-                  _toolbar(t),
-                  if (_tutorial) _coachCard() else _banner(1, top: true),
-                  const Spacer(),
-                  _hintPill(t),
-                  const SizedBox(height: 8),
-                  _bottomSection(t),
-                ],
+    return PopScope(
+      canPop: !_ranked || _reported,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _confirmResign();
+      },
+      child: Scaffold(
+        body: ArenaBackdrop(
+          accent: HexTheme.faction(g.currentFaction),
+          child: Stack(
+            children: [
+              Positioned.fill(child: _board(t, targets)),
+              SafeArea(
+                child: Column(
+                  children: [
+                    _toolbar(t),
+                    if (_tutorial) _coachCard() else _banner(_oppSeat, top: true),
+                    const Spacer(),
+                    _hintPill(t),
+                    const SizedBox(height: 8),
+                    _bottomSection(t),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -748,7 +884,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
       child: Row(
         children: [
-          _roundButton(t, Icons.arrow_back_rounded, 'Menú', () => Navigator.pop(context)),
+          _roundButton(t, Icons.arrow_back_rounded, 'Menú', () => Navigator.maybePop(context)),
           const Spacer(),
           _roundButton(
             t,
@@ -769,6 +905,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           const SizedBox(width: 6),
           if (_tutorial)
             _roundButton(t, Icons.replay_rounded, 'Reiniciar lección', _restartLesson)
+          else if (_ranked)
+            _roundButton(t, Icons.flag_outlined, 'Abandonar', _reported ? null : _confirmResign)
           else
             _roundButton(t, Icons.undo_rounded, 'Deshacer', _history.isEmpty || _aiThinking ? null : _undo),
         ],
@@ -917,11 +1055,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final abilityReady = me == g.current && g.abilityAvailable && !_locked && (!_tutorial || _lesson!.ability);
     final showHand = !_tutorial || hand.any((e) => placeable.contains(e.key));
     final showActions = !_tutorial || _lesson!.ability;
-    if (!showHand && !showActions) return _banner(0, top: false);
+    if (!showHand && !showActions) return _banner(_mySeat, top: false);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _banner(0, top: false),
+        _banner(_mySeat, top: false),
         Container(
           margin: const EdgeInsets.fromLTRB(10, 2, 10, 6),
           padding: const EdgeInsets.fromLTRB(8, 6, 8, 8),

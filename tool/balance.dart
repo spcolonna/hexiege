@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 // Simulación de balance IA vs IA.
-// Uso: dart run tool/balance.dart [partidas por orden=20] [nivel=easy|normal] [maxTurnos=120] [--sin-habilidades]
+// Uso: dart run tool/balance.dart [partidas por orden=20] [nivel=novice|easy|normal|hard|master] [maxTurnos=120] [--sin-habilidades]
 import 'package:hexiege/engine/ai.dart';
 import 'package:hexiege/engine/game_state.dart';
 import 'package:hexiege/engine/pieces.dart';

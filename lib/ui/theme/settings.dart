@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../match/ladder.dart';
 
 /// Preferencias del usuario (persistidas). Un único notifier global que la app
 /// escucha: cambiar el tema acá lo cambia en vivo en cualquier pantalla.
@@ -15,6 +19,7 @@ class AppSettings extends ChangeNotifier {
   String _nickname = 'Vos';
   bool _onboarded = false;
   bool _tutorialDone = false;
+  LadderRecord _ladder = const LadderRecord();
 
   ThemeMode get themeMode => _themeMode;
   bool get sound => _sound;
@@ -24,6 +29,9 @@ class AppSettings extends ChangeNotifier {
   /// Ya vio la bienvenida del primer arranque.
   bool get onboarded => _onboarded;
   bool get tutorialDone => _tutorialDone;
+
+  /// Puntos, récord y racha en partidas por puntos.
+  LadderRecord get ladder => _ladder;
 
   Future<void> load() async {
     try {
@@ -41,6 +49,14 @@ class AppSettings extends ChangeNotifier {
     _nickname = p.getString('nickname') ?? 'Vos';
     _onboarded = p.getBool('onboarded') ?? false;
     _tutorialDone = p.getBool('tutorialDone') ?? false;
+    final ladder = p.getString('ladder');
+    if (ladder != null) {
+      try {
+        _ladder = LadderRecord.fromJson(jsonDecode(ladder) as Map<String, dynamic>);
+      } catch (_) {
+        // Dato corrupto: se arranca de cero.
+      }
+    }
   }
 
   set themeMode(ThemeMode m) {
@@ -83,6 +99,12 @@ class AppSettings extends ChangeNotifier {
   set tutorialDone(bool v) {
     _tutorialDone = v;
     _prefs?.setBool('tutorialDone', v);
+    notifyListeners();
+  }
+
+  set ladder(LadderRecord v) {
+    _ladder = v;
+    _prefs?.setString('ladder', jsonEncode(v.toJson()));
     notifyListeners();
   }
 }

@@ -58,31 +58,56 @@ class JadeSwapAction extends AiAction {
   bool apply(GameState g) => g.jadeSwap(a, b);
 }
 
-enum AiLevel { easy, normal }
+/// Niveles de la IA, de más débil a más fuerte. No se eligen a mano: el
+/// emparejamiento los asigna según el rendimiento del jugador.
+enum AiLevel { novice, easy, normal, hard, master }
 
 extension AiLevelInfo on AiLevel {
   String get displayName => switch (this) {
+    AiLevel.novice => 'Aprendiz',
     AiLevel.easy => 'Fácil',
     AiLevel.normal => 'Normal',
+    AiLevel.hard => 'Difícil',
+    AiLevel.master => 'Maestro',
   };
 }
 
 const double _win = 1e6;
 
-/// IA: genera turnos candidatos (habilidad opcional + acción principal) y
-/// en nivel Normal hace minimax a 2 capas (mi turno + mejor respuesta rival).
+/// Presupuesto de los niveles que buscan en profundidad: turnos máximos a
+/// mirar, cuántas jugadas se exploran en cada capa (haz) y tiempo límite.
+typedef _Budget = ({int depth, List<int> beam, int ms});
+const _budgets = <AiLevel, _Budget>{
+  AiLevel.hard: (depth: 3, beam: [12, 8], ms: 1200),
+  AiLevel.master: (depth: 4, beam: [16, 10, 6], ms: 2500),
+};
+
+class _Timeout implements Exception {}
+
+/// IA: genera turnos candidatos (habilidad opcional + acción principal).
+/// - Aprendiz / Fácil: codiciosa con ruido.
+/// - Normal: minimax a 2 capas (mi turno + mejor respuesta rival).
+/// - Difícil / Maestro: alfa-beta por turnos completos con profundización
+///   iterativa, haz acotado y tiempo límite; el rival también usa habilidades.
 class AiPlayer {
   final AiLevel level;
 
   /// Si es false, nunca usa la habilidad de facción (útil para medir su impacto).
   final bool useAbilities;
   final Random _rng;
+
+  /// Profundidad completada en la última búsqueda (diagnóstico / tests).
+  int lastDepth = 0;
+
+  late Stopwatch _clock;
+  late int _deadlineMs;
+
   AiPlayer(this.level, {int? seed, this.useAbilities = true}) : _rng = Random(seed);
 
   /// Acciones a aplicar en orden; después hay que llamar a [GameState.endTurn].
   List<AiAction> chooseTurn(GameState g) {
     final me = g.current;
-    final candidates = _candidateTurns(g);
+    final candidates = _candidateTurns(g, abilityBeam: _abilityBeam);
     if (candidates.isEmpty) return const [];
 
     for (final c in candidates) {
@@ -93,23 +118,37 @@ class AiPlayer {
     }
     candidates.sort((a, b) => b.score.compareTo(a.score));
 
-    if (level == AiLevel.easy) {
-      // Greedy con algo de ruido: a veces elige una de las mejores 4.
-      final pool = candidates.take(4).toList();
-      return (_rng.nextDouble() < 0.6 ? pool.first : pool[_rng.nextInt(pool.length)]).actions;
+    switch (level) {
+      case AiLevel.novice:
+        // Juega "a ojo": rara vez la mejor y a veces se olvida del peligro.
+        final pool = candidates.take(8).toList();
+        return (_rng.nextDouble() < 0.35 ? pool.first : pool[_rng.nextInt(pool.length)]).actions;
+      case AiLevel.easy:
+        // Greedy con algo de ruido: a veces elige una de las mejores 4.
+        final pool = candidates.take(4).toList();
+        return (_rng.nextDouble() < 0.6 ? pool.first : pool[_rng.nextInt(pool.length)]).actions;
+      case AiLevel.normal:
+        var best = candidates.first;
+        var bestScore = double.negativeInfinity;
+        for (final c in candidates.take(20)) {
+          final v = _worstReply(c.state, me, bestScore);
+          if (v > bestScore) {
+            bestScore = v;
+            best = c;
+          }
+        }
+        return best.actions;
+      case AiLevel.hard:
+      case AiLevel.master:
+        return _deepSearch(candidates, me, _budgets[level]!);
     }
-
-    var best = candidates.first;
-    var bestScore = double.negativeInfinity;
-    for (final c in candidates.take(20)) {
-      final v = _worstReply(c.state, me, bestScore);
-      if (v > bestScore) {
-        bestScore = v;
-        best = c;
-      }
-    }
-    return best.actions;
   }
+
+  int get _abilityBeam => switch (level) {
+    AiLevel.novice || AiLevel.easy => 2,
+    AiLevel.normal => 4,
+    AiLevel.hard || AiLevel.master => 5,
+  };
 
   /// Valor del peor caso tras la mejor respuesta del rival (poda alfa).
   double _worstReply(GameState afterMine, int me, double alpha) {
@@ -129,7 +168,83 @@ class AiPlayer {
     return worst == double.infinity ? evaluate(opp, me) : worst;
   }
 
-  List<_Candidate> _candidateTurns(GameState g) {
+  /// Profundización iterativa: busca a 2, 3, ... turnos hasta agotar la
+  /// profundidad o el tiempo, y devuelve lo mejor de la última vuelta completa.
+  List<AiAction> _deepSearch(List<_Candidate> root, int me, _Budget b) {
+    _clock = Stopwatch()..start();
+    _deadlineMs = b.ms;
+    var best = root.first;
+    lastDepth = 1;
+    final pool = root.take(b.beam[0]).toList();
+    for (var depth = 2; depth <= b.depth; depth++) {
+      try {
+        var alpha = double.negativeInfinity;
+        _Candidate? iterBest;
+        for (final c in pool) {
+          final v = _afterTurn(c, depth - 1, 1, alpha, double.infinity, me, b) + _rng.nextDouble() * 0.5;
+          c.score = v;
+          if (v > alpha) {
+            alpha = v;
+            iterBest = c;
+          }
+        }
+        best = iterBest ?? best;
+        lastDepth = depth;
+        // La próxima vuelta empieza por las mejores: más podas.
+        pool.sort((a, b) => b.score.compareTo(a.score));
+        if (alpha >= _win / 2) break; // victoria forzada encontrada
+      } on _Timeout {
+        break;
+      }
+    }
+    return best.actions;
+  }
+
+  /// Valor de un turno ya jugado ([c]) mirando [depth] turnos más.
+  double _afterTurn(_Candidate c, int depth, int layer, double alpha, double beta, int me, _Budget b) {
+    if (c.state.isOver || depth == 0) return _terminal(c.state, me, depth);
+    final next = c.state.copy();
+    if (!next.endTurn()) return evaluate(c.state, me);
+    return _search(next, depth, layer, alpha, beta, me, b);
+  }
+
+  /// Minimax con poda alfa-beta; [g] está al inicio del turno de quien mueve.
+  double _search(GameState g, int depth, int layer, double alpha, double beta, int me, _Budget b) {
+    if (_clock.elapsedMilliseconds > _deadlineMs) throw _Timeout();
+    final maximizing = g.current == me;
+    final cands = _candidateTurns(g, abilityBeam: 2);
+    if (cands.isEmpty) return evaluate(g, me);
+    for (final c in cands) {
+      c.score = _terminal(c.state, me, depth - 1);
+    }
+    cands.sort((a, b) => maximizing ? b.score.compareTo(a.score) : a.score.compareTo(b.score));
+    // Última capa (o victoria inmediata): alcanza con la evaluación estática.
+    if (depth == 1 || cands.first.state.isOver) return cands.first.score;
+
+    final width = layer < b.beam.length ? b.beam[layer] : 4;
+    var v = maximizing ? double.negativeInfinity : double.infinity;
+    for (final c in cands.take(width)) {
+      final s = _afterTurn(c, depth - 1, layer + 1, alpha, beta, me, b);
+      if (maximizing) {
+        if (s > v) v = s;
+        if (v > alpha) alpha = v;
+      } else {
+        if (s < v) v = s;
+        if (v < beta) beta = v;
+      }
+      if (alpha >= beta) break;
+    }
+    return v;
+  }
+
+  /// Evaluación que prefiere ganar pronto y perder lo más tarde posible.
+  double _terminal(GameState s, int me, int depthLeft) {
+    final v = evaluate(s, me);
+    if (s.winner == null) return v;
+    return v > 0 ? v + depthLeft : v - depthLeft;
+  }
+
+  List<_Candidate> _candidateTurns(GameState g, {required int abilityBeam}) {
     final result = <_Candidate>[];
     void addMains(GameState base, List<AiAction> prefix) {
       final mains = mainActions(base);
@@ -153,7 +268,7 @@ class AiPlayer {
         if (a.apply(s)) abilities.add(_Candidate([a], s)..score = evaluate(s, me));
       }
       abilities.sort((a, b) => b.score.compareTo(a.score));
-      for (final a in abilities.take(level == AiLevel.easy ? 2 : 4)) {
+      for (final a in abilities.take(abilityBeam)) {
         if (a.state.isOver) {
           result.add(a);
         } else {

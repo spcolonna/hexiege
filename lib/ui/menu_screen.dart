@@ -2,14 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../engine/ai.dart';
 import '../engine/pieces.dart';
 import 'fx/sfx.dart';
 import 'game_screen.dart';
+import 'matchmaking_screen.dart';
 import 'piece_chip.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'widgets/arena_backdrop.dart';
+import 'widgets/rank_badge.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -19,9 +20,7 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateMixin {
-  final _factions = [Faction.shaolin, Faction.ninja];
-  bool _vsAi = true;
-  AiLevel _level = AiLevel.normal;
+  Faction _faction = Faction.shaolin;
   late final _float = AnimationController(vsync: this, duration: const Duration(seconds: 4))..repeat();
   late final _nick = TextEditingController(text: AppSettings.instance.nickname);
 
@@ -63,45 +62,12 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                             ),
                             onChanged: (v) => AppSettings.instance.nickname = v,
                           ),
-                          const SizedBox(height: 14),
-                          SizedBox(
-                            width: double.infinity,
-                            child: SegmentedButton<bool>(
-                              segments: const [
-                                ButtonSegment(value: true, icon: Icon(Icons.smart_toy_outlined), label: Text('vs IA')),
-                                ButtonSegment(
-                                  value: false,
-                                  icon: Icon(Icons.people_outline),
-                                  label: Text('Pass & Play'),
-                                ),
-                              ],
-                              selected: {_vsAi},
-                              onSelectionChanged: (s) => _tap(() => _vsAi = s.first),
-                            ),
-                          ),
-                          AnimatedSize(
-                            duration: const Duration(milliseconds: 220),
-                            curve: Curves.easeOut,
-                            child: _vsAi
-                                ? Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: SizedBox(
-                                      width: double.infinity,
-                                      child: SegmentedButton<AiLevel>(
-                                        segments: [
-                                          for (final l in AiLevel.values)
-                                            ButtonSegment(value: l, label: Text(l.displayName)),
-                                        ],
-                                        selected: {_level},
-                                        onSelectionChanged: (s) => _tap(() => _level = s.first),
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox(width: double.infinity),
-                          ),
+                          const SizedBox(height: 12),
+                          ListenableBuilder(listenable: AppSettings.instance, builder: (context, _) => _rankRow(t)),
                         ]),
                         const SizedBox(height: 14),
-                        for (var p = 0; p < 2; p++) ...[_factionPicker(t, p), const SizedBox(height: 12)],
+                        _factionPicker(t),
+                        const SizedBox(height: 12),
                         const SizedBox(height: 10),
                         ListenableBuilder(
                           listenable: AppSettings.instance,
@@ -119,21 +85,29 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                               elevation: 4,
                             ),
-                            icon: const Icon(Icons.play_arrow_rounded, size: 28),
-                            label: const Text('Jugar', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900)),
-                            onPressed: _play,
+                            icon: const Icon(Icons.search_rounded, size: 26),
+                            label: const Text(
+                              'Buscar partida',
+                              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900),
+                            ),
+                            onPressed: _findMatch,
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 4,
                           children: [
+                            TextButton.icon(
+                              icon: const Icon(Icons.people_outline),
+                              label: const Text('Local'),
+                              onPressed: _passAndPlay,
+                            ),
                             TextButton.icon(
                               icon: const Icon(Icons.school_outlined),
                               label: const Text('Tutorial'),
                               onPressed: _tutorial,
                             ),
-                            const SizedBox(width: 8),
                             TextButton.icon(
                               icon: const Icon(Icons.menu_book_outlined),
                               label: const Text('Reglas'),
@@ -180,24 +154,117 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
     setState(f);
   }
 
-  void _play() {
+  void _findMatch() {
     SoundBoard.instance.play(Sfx.place);
     Haptics.heavy();
     FocusScope.of(context).unfocus();
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 450),
-        pageBuilder: (_, _, _) =>
-            GameScreen(p0: _factions[0], p1: _factions[1], aiPlayer: _vsAi ? 1 : null, aiLevel: _level),
-        transitionsBuilder: (_, a, _, child) => FadeTransition(
-          opacity: CurvedAnimation(parent: a, curve: Curves.easeOut),
-          child: ScaleTransition(
-            scale: Tween(begin: 1.04, end: 1.0).animate(CurvedAnimation(parent: a, curve: Curves.easeOutCubic)),
-            child: child,
+    Navigator.push(context, _fade(MatchmakingScreen(faction: _faction)));
+  }
+
+  /// Partida local en un mismo dispositivo: el Jugador 2 elige su facción.
+  void _passAndPlay() {
+    Haptics.select();
+    FocusScope.of(context).unfocus();
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Partida local', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+              const SizedBox(height: 4),
+              Text(
+                'Dos jugadores en este dispositivo. Vos jugás ${_faction.displayName}; '
+                '¿qué facción usa el Jugador 2?',
+                style: TextStyle(color: HexTheme.of(ctx).textMuted),
+              ),
+              const SizedBox(height: 14),
+              Row(
+                children: [
+                  for (final f in Faction.values) ...[
+                    Expanded(
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: HexTheme.faction(f),
+                          side: BorderSide(color: HexTheme.faction(f)),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(ctx);
+                          Navigator.push(context, _fade(GameScreen(p0: _faction, p1: f)));
+                        },
+                        child: Text(f.displayName, style: const TextStyle(fontWeight: FontWeight.w800)),
+                      ),
+                    ),
+                    if (f != Faction.values.last) const SizedBox(width: 10),
+                  ],
+                ],
+              ),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Route<void> _fade(Widget page) => PageRouteBuilder(
+    transitionDuration: const Duration(milliseconds: 450),
+    pageBuilder: (_, _, _) => page,
+    transitionsBuilder: (_, a, _, child) => FadeTransition(
+      opacity: CurvedAnimation(parent: a, curve: Curves.easeOut),
+      child: ScaleTransition(
+        scale: Tween(begin: 1.04, end: 1.0).animate(CurvedAnimation(parent: a, curve: Curves.easeOutCubic)),
+        child: child,
+      ),
+    ),
+  );
+
+  /// Rango, puntos, récord y racha del jugador.
+  Widget _rankRow(HexTheme t) {
+    final l = AppSettings.instance.ladder;
+    return Row(
+      children: [
+        RankBadge(rank: l.rank, size: 40),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l.rank.displayName,
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15, color: l.rank.textOn(t.isDark)),
+              ),
+              Text(
+                l.games == 0
+                    ? 'Jugá tu primera partida'
+                    : '${l.wins}V · ${l.losses}D${l.draws > 0 ? ' · ${l.draws}E' : ''}',
+                style: TextStyle(fontSize: 12, color: t.textMuted),
+              ),
+            ],
+          ),
+        ),
+        if (l.streak >= 2)
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Text(
+              '🔥 ${l.streak}',
+              style: TextStyle(fontWeight: FontWeight.w900, color: t.text),
+            ),
+          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              '${l.rating}',
+              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20, color: t.text, height: 1.1),
+            ),
+            Text('puntos', style: TextStyle(fontSize: 11, color: t.textMuted)),
+          ],
+        ),
+      ],
     );
   }
 
@@ -295,13 +362,12 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
     child: Column(children: children),
   );
 
-  Widget _factionPicker(HexTheme t, int p) {
-    final label = _vsAi ? (p == 0 ? 'Tu facción · empezás vos' : 'Facción del Sensei (IA)') : 'Jugador ${p + 1}';
+  Widget _factionPicker(HexTheme t) {
     return _card(t, [
       Align(
         alignment: Alignment.centerLeft,
         child: Text(
-          label,
+          'Tu facción',
           style: TextStyle(color: t.textMuted, fontWeight: FontWeight.w700, fontSize: 12, letterSpacing: 0.5),
         ),
       ),
@@ -309,7 +375,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
       Row(
         children: [
           for (final f in Faction.values) ...[
-            Expanded(child: _factionTile(t, p, f)),
+            Expanded(child: _factionTile(t, f)),
             if (f != Faction.values.last) const SizedBox(width: 10),
           ],
         ],
@@ -317,12 +383,12 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
     ]);
   }
 
-  Widget _factionTile(HexTheme t, int p, Faction f) {
-    final selected = _factions[p] == f;
+  Widget _factionTile(HexTheme t, Faction f) {
+    final selected = _faction == f;
     final color = HexTheme.faction(f);
     final leader = f == Faction.shaolin ? PieceType.monk : PieceType.shogun;
     return GestureDetector(
-      onTap: () => _tap(() => _factions[p] = f),
+      onTap: () => _tap(() => _faction = f),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 220),
         curve: Curves.easeOut,
@@ -338,7 +404,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               tween: Tween(end: selected ? 0.35 : 0),
               duration: const Duration(milliseconds: 260),
               curve: Curves.easeOutBack,
-              builder: (_, lift, _) => PieceChip(type: leader, owner: p, size: 17, lift: lift),
+              builder: (_, lift, _) => PieceChip(type: leader, owner: 0, size: 17, lift: lift),
             ),
             const SizedBox(width: 6),
             Expanded(

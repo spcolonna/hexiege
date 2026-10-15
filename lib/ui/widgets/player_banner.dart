@@ -16,7 +16,10 @@ class PlayerProfile {
   /// Avatar: por ahora un glifo/emoji; luego una imagen o un cosmético.
   final String avatar;
 
-  const PlayerProfile({required this.nickname, required this.faction, this.isAi = false, String? avatar})
+  /// Puntos de la partida por puntos (null = partida casual).
+  final int? rating;
+
+  const PlayerProfile({required this.nickname, required this.faction, this.isAi = false, String? avatar, this.rating})
     : avatar = avatar ?? (faction == Faction.shaolin ? '僧' : '将');
 }
 
@@ -116,6 +119,10 @@ class _PlayerBannerState extends State<PlayerBanner> with SingleTickerProviderSt
                       ),
                     ),
                     if (widget.profile.isAi) ...[const SizedBox(width: 6), _tag('IA', t)],
+                    if (widget.profile.rating != null) ...[
+                      const SizedBox(width: 6),
+                      _tag('${widget.profile.rating}', t),
+                    ],
                   ],
                 ),
                 const SizedBox(height: 2),
