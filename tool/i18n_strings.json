@@ -1998,5 +1998,25 @@
   "es": "Campaña, desafíos y problemas",
   "en": "Campaign, challenges and puzzles",
   "zh": "战役、挑战与残局"
+ },
+ "common.close": {
+  "es": "Cerrar",
+  "en": "Close",
+  "zh": "关闭"
+ },
+ "game.more": {
+  "es": "Más opciones",
+  "en": "More options",
+  "zh": "更多选项"
+ },
+ "stage.goal": {
+  "es": "Objetivo",
+  "en": "Goal",
+  "zh": "目标"
+ },
+ "stage.showIntro": {
+  "es": "Ver la presentación",
+  "en": "Show the briefing",
+  "zh": "查看简介"
  }
 }

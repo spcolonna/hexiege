@@ -17,6 +17,7 @@ import 'package:hexiege/ui/stage_list_screen.dart';
 import 'package:hexiege/ui/theme/hex_theme.dart';
 import 'package:hexiege/ui/theme/settings.dart';
 import 'package:hexiege/ui/theme/ui_style.dart';
+import 'package:hexiege/ui/widgets/duel_scoreboard.dart';
 import 'package:hexiege/ui/widgets/skin_kit.dart';
 
 /// Rival fijo y sin esperas: empezás vos, el bot es Fácil.
@@ -62,7 +63,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(_app(const GameScreen(p0: Faction.shaolin, p1: Faction.ninja), mode));
       await tester.pump();
-      await tester.tap(find.text('Dragón'));
+      await tester.tap(find.byTooltip('Dragón Celestial'));
       await tester.pump();
       expect(find.textContaining('Tocá una casilla'), findsOneWidget);
       // La primera ficha va al origen = centro del lienzo.
@@ -107,7 +108,7 @@ void main() {
     await tester.pumpWidget(_app(const GameScreen.tutorial(), ThemeMode.light));
     await tester.pump();
     expect(find.text('LECCIÓN 1 DE 7'), findsOneWidget);
-    await tester.tap(find.text('Dragón'));
+    await tester.tap(find.byTooltip('Dragón Celestial'));
     await tester.pump();
     final board = tester.getCenter(find.byType(InteractiveViewer));
     await tester.tapAt(board + const Offset(0, 50));
@@ -132,7 +133,7 @@ void main() {
     }
 
     Future<void> relocate(WidgetTester tester, Offset Function(int, int) at, (int, int) to) async {
-      await tester.tap(find.text('Meditación de Jade ×3'));
+      await tester.tap(find.byTooltip('Meditación de Jade ×3'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
       await tester.tap(find.text('Reubicar ficha enemiga'));
@@ -194,7 +195,10 @@ void main() {
     expect(find.text('1012'), findsOneWidget);
     expect(find.text('IA'), findsNothing);
 
-    await tester.tap(find.byTooltip('Abandonar'));
+    await tester.tap(find.byTooltip('Más opciones'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.tap(find.text('Abandonar'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
     await tester.tap(find.widgetWithText(SkinPrimaryButton, 'Abandonar'));
@@ -228,15 +232,21 @@ void main() {
       tester.view.devicePixelRatio = 3;
       addTearDown(tester.view.reset);
       await tester.pumpWidget(_app(GameScreen.stage(stage: stage, nextStage: stageAfter(stage)), ThemeMode.dark));
+      await tester.pump();
+      // Primero la presentación: título y objetivo, y recién ahí la partida.
+      expect(find.text(stage.title), findsOneWidget);
+      await tester.tap(find.text('Comenzar'));
       await tester.pump(const Duration(seconds: 2));
-      final c = tester.getCenter(find.byType(InteractiveViewer)) + const Offset(0, 50);
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(find.text(stage.title), findsNothing);
+      final c = tester.getCenter(find.byType(InteractiveViewer)) + const Offset(0, 35);
       return (q, r) => c + Offset(34 * sqrt(3) * (q + r / 2), 51.0 * r);
     }
 
     testWidgets('resolver el problema lo marca como superado', (tester) async {
       final p = puzzles.firstWhere((s) => s.id == 'p02');
+      expect(p.title, 'Vuelo del Dragón');
       final at = await open(tester, p);
-      expect(find.text('Vuelo del Dragón'), findsOneWidget);
       expect(find.text('turno'), findsOneWidget);
       await tester.tapAt(at(0, -2));
       await tester.pump();
@@ -258,7 +268,9 @@ void main() {
       expect(find.text('Esta vez no'), findsOneWidget);
       await tester.tap(find.text('Reintentar'));
       await tester.pump(const Duration(seconds: 2));
-      expect(find.text('Primer cerco'), findsOneWidget);
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(find.text('Esta vez no'), findsNothing);
+      expect(find.text('turno'), findsOneWidget);
     });
 
     testWidgets('cerco en 2: el rival defiende y la jugada correcta igual gana', (tester) async {
@@ -338,6 +350,36 @@ void main() {
           await tester.pump(const Duration(milliseconds: 500));
           expect(find.text('Reglas básicas'), findsOneWidget);
           expect(tester.takeException(), isNull);
+        });
+
+        testWidgets('partida de campaña en ${style.name} ($mode)', (tester) async {
+          tester.view.physicalSize = const Size(1170, 2532);
+          tester.view.devicePixelRatio = 3;
+          addTearDown(tester.view.reset);
+          AppSettings.instance.uiStyle = style;
+          addTearDown(() => AppSettings.instance.uiStyle = UiStyle.box);
+          final stage = shaolinCampaign.first;
+          await tester.pumpWidget(_app(GameScreen.stage(stage: stage, nextStage: stageAfter(stage)), mode));
+          await tester.pump(const Duration(milliseconds: 400));
+          // Presentación a pantalla completa con el objetivo.
+          expect(find.text(stage.title), findsOneWidget);
+          expect(find.text('Objetivo'), findsOneWidget);
+          await tester.tap(find.text('Comenzar'));
+          await tester.pump(const Duration(seconds: 2));
+          await tester.pump(const Duration(milliseconds: 500));
+          // En la partida: marcador, objetivo en un chip y la mano en el dock.
+          expect(find.byType(DuelScoreboard), findsOneWidget);
+          expect(find.text(stage.goal), findsOneWidget);
+          expect(find.byTooltip('Dragón Celestial'), findsOneWidget);
+          expect(tester.takeException(), isNull);
+          // Tocar el objetivo vuelve a abrir la presentación.
+          await tester.tap(find.text(stage.goal));
+          await tester.pump(const Duration(milliseconds: 500));
+          expect(find.text(stage.title), findsOneWidget);
+          await tester.tap(find.byTooltip('Cerrar'));
+          await tester.pump(const Duration(milliseconds: 500));
+          await tester.pump(const Duration(milliseconds: 500));
+          expect(find.text(stage.title), findsNothing);
         });
       }
     }

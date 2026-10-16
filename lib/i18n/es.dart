@@ -401,4 +401,8 @@ const es = <String, String>{
   'menu.ranked': 'por puntos',
   'menu.switchFaction': 'cambiar',
   'menu.soloSub': 'Campaña, desafíos y problemas',
+  'common.close': 'Cerrar',
+  'game.more': 'Más opciones',
+  'stage.goal': 'Objetivo',
+  'stage.showIntro': 'Ver la presentación',
 };

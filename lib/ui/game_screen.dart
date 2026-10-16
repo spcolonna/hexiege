@@ -22,14 +22,14 @@ import 'matchmaking_screen.dart';
 import 'piece_chip.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
+import 'theme/ui_style.dart';
 import 'widgets/arena_backdrop.dart';
 import 'widgets/coach_card.dart';
 import 'widgets/emotes.dart';
-import 'widgets/player_banner.dart';
+import 'widgets/duel_scoreboard.dart';
 import 'widgets/skin_kit.dart';
 import 'widgets/ranked_result.dart';
-import 'widgets/stage_card.dart';
-import 'widgets/tabletop.dart';
+import 'widgets/stage_intro.dart';
 
 /// Función top-level: el closure no captura el State (que no es enviable entre isolates).
 Future<List<AiAction>> _thinkInIsolate(GameState snapshot, AiLevel level, Map<String, int> seen) =>
@@ -157,6 +157,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   late GameState _stageStart;
   bool _stageOver = false;
 
+  /// Presentación de la etapa a la vista, y si ya se cerró alguna vez.
+  bool _intro = false;
+  bool _introSeen = false;
+
   /// Asiento del jugador local (abajo) y del rival (arriba).
   int get _mySeat => widget.aiPlayer == null ? 0 : 1 - widget.aiPlayer!;
   int get _oppSeat => 1 - _mySeat;
@@ -168,10 +172,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _lessonIdx = widget.lesson;
     _game = _lesson?.build() ?? _stage?.build() ?? GameState(widget.p0, widget.p1);
     _stageStart = _game.copy();
-    if (_tutorial || _staged) WidgetsBinding.instance.addPostFrameCallback((_) => _introScene());
-    if (_staged && !_stage!.isPuzzle) {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _showStageIntro());
-    }
+    // Las etapas arrancan con su presentación; la escena se arma al cerrarla.
+    _intro = _staged;
+    if (_tutorial) WidgetsBinding.instance.addPostFrameCallback((_) => _introScene());
     final nick = AppSettings.instance.nickname;
     final m = widget.match;
     if (m != null) {
@@ -264,7 +267,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   bool _isHuman(int p) => widget.aiPlayer != p;
 
   Future<void> _maybeRunAi() async {
-    if (!mounted || !_isAiTurn || _game.isOver || _aiThinking) return;
+    if (!mounted || !_isAiTurn || _game.isOver || _aiThinking || _intro) return;
     setState(() => _aiThinking = true);
     final snapshot = _game.copy();
     final level = widget.aiLevel;
@@ -503,32 +506,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     });
   }
 
-  /// Presentación de un desafío o batalla: historia y objetivo.
+  /// Vuelve a mostrar la presentación de la etapa (historia y objetivo).
   void _showStageIntro() {
     if (!mounted) return;
-    final s = _stage!;
-    final t = HexTheme.of(context);
-    showSkinDialog<void>(
-      context,
-      builder: (ctx) => SkinDialog(
-        glyph: s.kind == StageKind.campaign ? '記' : '試',
-        title: s.title,
-        align: CrossAxisAlignment.start,
-        message: s.intro,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(s.goal, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: t.text)),
-            const SizedBox(height: 4),
-            Text(
-              tr('game.rivalLine', {'faction': widget.p1.displayName, 'level': widget.aiLevel.displayName}),
-              style: TextStyle(fontSize: 12.5, color: t.textMuted),
-            ),
-          ],
-        ),
-        actions: [SkinAction(tr('common.start'), () => Navigator.pop(ctx), primary: true, glyph: '始')],
-      ),
-    );
+    Haptics.select();
+    setState(() => _intro = true);
   }
 
   String _stageWinText() {
@@ -616,18 +598,23 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             Navigator.pop(ctx);
             Navigator.pop(context);
           }),
-          SkinAction(tr('tutorial.playSensei'), () {
-            Navigator.pop(ctx);
-            Navigator.pushReplacement(
-              context,
-              PageRouteBuilder(
-                transitionDuration: const Duration(milliseconds: 450),
-                pageBuilder: (_, _, _) =>
-                    const GameScreen(p0: Faction.shaolin, p1: Faction.ninja, aiPlayer: 1, aiLevel: AiLevel.easy),
-                transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
-              ),
-            );
-          }, primary: true, glyph: '戦'),
+          SkinAction(
+            tr('tutorial.playSensei'),
+            () {
+              Navigator.pop(ctx);
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 450),
+                  pageBuilder: (_, _, _) =>
+                      const GameScreen(p0: Faction.shaolin, p1: Faction.ninja, aiPlayer: 1, aiLevel: AiLevel.easy),
+                  transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
+                ),
+              );
+            },
+            primary: true,
+            glyph: '戦',
+          ),
         ],
       ),
     );
@@ -802,28 +789,28 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     showSkinSheet<void>(
       context,
       builder: (ctx) => Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              for (final p in stack.reversed) ...[
-                Row(
-                  children: [
-                    PieceChip(type: p.type, owner: p.owner, size: 22, mirror: _game.factions[0] == _game.factions[1]),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        '${p.type.displayName} — ${_profiles[p.owner].nickname}'
-                        '${_game.isParalyzed(p) ? tr('game.paralyzedTag') : ''}'
-                        '${p == stack.last && _game.isNullified(h) ? tr('game.nullifiedTag') : ''}',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (final p in stack.reversed) ...[
+            Row(
+              children: [
+                PieceChip(type: p.type, owner: p.owner, size: 22, mirror: _game.factions[0] == _game.factions[1]),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    '${p.type.displayName} — ${_profiles[p.owner].nickname}'
+                    '${_game.isParalyzed(p) ? tr('game.paralyzedTag') : ''}'
+                    '${p == stack.last && _game.isNullified(h) ? tr('game.nullifiedTag') : ''}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
-                Padding(padding: const EdgeInsets.only(top: 6, bottom: 12), child: Text(p.type.rulesText)),
               ],
-            ],
-          ),
+            ),
+            Padding(padding: const EdgeInsets.only(top: 6, bottom: 12), child: Text(p.type.rulesText)),
+          ],
+        ],
+      ),
     );
   }
 
@@ -857,19 +844,24 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         title: tr(humanLost ? 'common.defeat' : (_game.draw ? 'common.draw' : 'common.victory')),
         message: text,
         actions: [
-          SkinAction(tr('common.rematch'), () {
-            Navigator.pop(ctx);
-            _fx.clear();
-            _epoch++;
-            setState(() {
-              _game = GameState(widget.p0, widget.p1);
-              _aiSeen.clear();
-              _aiThinking = false;
-              _clearHistory();
-              _reset();
-            });
-            WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
-          }, primary: true, glyph: '戦'),
+          SkinAction(
+            tr('common.rematch'),
+            () {
+              Navigator.pop(ctx);
+              _fx.clear();
+              _epoch++;
+              setState(() {
+                _game = GameState(widget.p0, widget.p1);
+                _aiSeen.clear();
+                _aiThinking = false;
+                _clearHistory();
+                _reset();
+              });
+              WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
+            },
+            primary: true,
+            glyph: '戦',
+          ),
           SkinAction(tr('common.undo'), () {
             Navigator.pop(ctx);
             _undo();
@@ -1055,13 +1047,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     // La mesa es la de la facción con la que jugás, aunque en el menú esté elegida otra.
     final theme = HexTheme.forFaction(_game.factions[_mySeat], Theme.of(context).brightness);
+    final skin = Skin.forStyle(AppSettings.instance.uiStyle);
     return Theme(
-      data: _themes[theme] ??= theme.toThemeData(),
+      data: _themes[(theme, skin)] ??= theme.toThemeData(skin),
       child: Builder(builder: _build),
     );
   }
 
-  static final _themes = <HexTheme, ThemeData>{};
+  static final _themes = <(HexTheme, Skin), ThemeData>{};
 
   Widget _build(BuildContext context) {
     final t = HexTheme.of(context);
@@ -1083,20 +1076,26 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               SafeArea(
                 child: Column(
                   children: [
-                    _toolbar(t),
-                    if (_tutorial)
-                      _coachCard()
-                    else if (_staged) ...[
-                      _stageCard(),
-                      if (!_stage!.isPuzzle) _banner(_oppSeat, top: true),
-                    ] else
-                      _banner(_oppSeat, top: true),
+                    _topBar(t),
+                    if (_tutorial) _coachCard() else if (_staged) _goalChip(t),
                     _noticeCard(t),
                     const Spacer(),
-                    _hintPill(t),
+                    _hintLine(t),
                     const SizedBox(height: 8),
-                    _bottomSection(t),
+                    _dock(t),
                   ],
+                ),
+              ),
+              // Presentación de la etapa, encima de todo hasta tocar Comenzar.
+              Positioned.fill(
+                child: IgnorePointer(
+                  ignoring: !_intro,
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 350),
+                    child: _intro
+                        ? ArenaBackdrop(key: const ValueKey('intro'), accent: t.accent, child: _stageIntro())
+                        : const SizedBox.shrink(),
+                  ),
                 ),
               ),
             ],
@@ -1122,18 +1121,94 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _stageCard() {
+  Widget _stageIntro() {
     final s = _stage!;
-    return StageCard(
+    // La primera vez, volver es salir de la etapa; después solo cierra la presentación.
+    final first = !_introSeen;
+    return StageIntro(
+      glyph: s.kind == StageKind.campaign ? '記' : '試',
       label: switch (s.kind) {
         StageKind.puzzle => tr('stageKind.puzzle'),
         StageKind.challenge => tr('stageKind.challenge'),
         StageKind.campaign => tr('stageKind.campaign'),
       },
       title: s.title,
+      story: s.intro,
       goal: s.goal,
-      hint: s.isPuzzle ? s.intro : null,
-      turnsLeft: s.turnsLeft(_stageStart, _game),
+      me: _profiles[_mySeat],
+      rival: _profiles[_oppSeat],
+      rivalLine: s.isPuzzle ? null : widget.p1.displayName,
+      backTooltip: tr(first ? 'common.menu' : 'common.close'),
+      onBack: first ? () => Navigator.maybePop(context) : _startStage,
+      onStart: _startStage,
+    );
+  }
+
+  /// Cierra la presentación; la primera vez arma la escena y deja jugar a la IA.
+  void _startStage() {
+    Haptics.select();
+    final first = !_introSeen;
+    setState(() {
+      _intro = false;
+      _introSeen = true;
+    });
+    if (first) {
+      _introScene();
+      _maybeRunAi();
+    }
+  }
+
+  /// Objetivo de la etapa; tocarlo vuelve a abrir la presentación.
+  Widget _goalChip(HexTheme t) {
+    final s = _stage!;
+    final turns = s.turnsLeft(_stageStart, _game);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 6, 24, 0),
+      child: Tooltip(
+        message: tr('stage.showIntro'),
+        child: Pressable(
+          onTap: _showStageIntro,
+          child: SkinBar(
+            radius: 14,
+            highlight: t.gold.withValues(alpha: 0.7),
+            padding: const EdgeInsets.fromLTRB(10, 5, 12, 5),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.flag_rounded, size: 15, color: t.gold),
+                const SizedBox(width: 6),
+                Flexible(
+                  child: Text(
+                    s.goal,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: t.text, fontSize: 12.5, fontWeight: FontWeight.w700),
+                  ),
+                ),
+                if (turns != null) ...[
+                  const SizedBox(width: 10),
+                  Tooltip(
+                    message: tr('stage.turnsLeftTip'),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Text('$turns', style: Skin.of(context).display(16, color: turns <= 1 ? t.danger : t.gold)),
+                        const SizedBox(width: 3),
+                        Text(
+                          trN('stage.turn', turns),
+                          style: TextStyle(color: t.textMuted, fontSize: 11.5, fontWeight: FontWeight.w700),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -1145,85 +1220,128 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     return false;
   }
 
-  Widget _toolbar(HexTheme t) {
-    final dark = t.isDark;
+  /// Barra superior: volver, marcador de duelo (o nada en el tutorial) y más opciones.
+  Widget _topBar(HexTheme t) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
       child: Row(
         children: [
           _roundButton(t, Icons.arrow_back_rounded, tr('common.menu'), () => Navigator.maybePop(context)),
-          if (!_tutorial && _game.roundsLeft != null) ...[const SizedBox(width: 8), _roundChip(t)],
-          const Spacer(),
-          if (!_tutorial) ...[
-            _roundButton(t, Icons.receipt_long_rounded, tr('common.log'), _log.isEmpty ? null : _showLog),
-            const SizedBox(width: 6),
-          ],
-          _roundButton(
-            t,
-            AppSettings.instance.sound ? Icons.volume_up_rounded : Icons.volume_off_rounded,
-            tr('common.sound'),
-            () => setState(() => AppSettings.instance.sound = !AppSettings.instance.sound),
+          const SizedBox(width: 6),
+          Expanded(
+            child: _tutorial
+                ? const SizedBox()
+                : DuelScoreboard(me: _side(_mySeat), rival: _side(_oppSeat), center: _roundMark(t)),
           ),
           const SizedBox(width: 6),
-          _roundButton(
-            t,
-            dark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
-            tr(dark ? 'common.lightTheme' : 'common.darkTheme'),
-            () {
-              Haptics.select();
-              AppSettings.instance.toggleBrightness(context);
-            },
-          ),
-          const SizedBox(width: 6),
-          if (_tutorial)
-            _roundButton(t, Icons.replay_rounded, tr('tutorial.restartLesson'), _restartLesson)
-          else if (_staged)
-            _roundButton(t, Icons.replay_rounded, tr('common.restart'), _aiThinking ? null : _restartStage)
-          else if (_ranked)
-            _roundButton(t, Icons.flag_outlined, tr('common.resign'), _reported ? null : _confirmResign)
-          else
-            _roundButton(t, Icons.undo_rounded, tr('common.undo'), _history.isEmpty || _aiThinking ? null : _undo),
+          _roundButton(t, Icons.more_horiz_rounded, tr('game.more'), _openMore),
         ],
       ),
     );
   }
 
-  /// Ronda actual; avisa cuando se acerca el Asedio y cuando ya empezó.
-  Widget _roundChip(HexTheme t) {
+  /// Sonido, tema, registro y abandonar: lo que no hace falta tener a la vista.
+  void _openMore() {
+    final dark = HexTheme.of(context).isDark;
+    final sound = AppSettings.instance.sound;
+    void run(BuildContext ctx, VoidCallback action) {
+      Navigator.pop(ctx);
+      action();
+    }
+
+    showSkinSheet<void>(
+      context,
+      builder: (ctx) => Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (!_tutorial && _log.isNotEmpty) ...[
+            SkinTile(title: tr('common.log'), glyph: '録', onTap: () => run(ctx, _showLog)),
+            const SizedBox(height: 10),
+          ],
+          SkinTile(
+            title: tr('common.sound'),
+            glyph: sound ? '音' : '静',
+            trailing: Icon(sound ? Icons.volume_up_rounded : Icons.volume_off_rounded),
+            onTap: () => run(ctx, () => setState(() => AppSettings.instance.sound = !sound)),
+          ),
+          const SizedBox(height: 10),
+          SkinTile(
+            title: tr(dark ? 'common.lightTheme' : 'common.darkTheme'),
+            glyph: dark ? '陽' : '陰',
+            onTap: () => run(ctx, () {
+              Haptics.select();
+              AppSettings.instance.toggleBrightness(context);
+            }),
+          ),
+          if (_ranked && !_reported) ...[
+            const SizedBox(height: 10),
+            SkinTile(title: tr('common.resign'), glyph: '降', onTap: () => run(ctx, _confirmResign)),
+          ],
+        ],
+      ),
+    );
+  }
+
+  DuelSide _side(int p) {
     final g = _game;
+    final canEmote = !_tutorial && !_staged && _isHuman(p) && (widget.aiPlayer != null || p == g.current);
+    return DuelSide(
+      profile: _profiles[p],
+      active: g.current == p && !g.isOver,
+      handCount: g.hands[p].values.fold(0, (a, b) => a + b),
+      cooldown: g.cooldowns[p],
+      charges: g.abilityChargesLeft(p),
+      emote: _emote[p],
+      emoteKey: _emoteKey[p],
+      onEmote: canEmote ? () => _pickEmote(p) : null,
+    );
+  }
+
+  /// Ronda en el centro del marcador; cambia de color cuando se acerca el
+  /// Asedio y cuando ya empezó. El detalle va en el tooltip.
+  Widget _roundMark(HexTheme t) {
+    final g = _game;
+    final skin = Skin.of(context);
+    final limit = g.rules.roundLimit;
+    if (limit == null) return Text('対', style: skin.glyph(18, color: t.gold));
     final siege = g.rules.siegeRound;
     final toSiege = siege == null ? null : siege - g.round;
     final active = g.inSiege;
     final soon = !active && toSiege != null && toSiege <= 3 && toSiege < (g.roundsLeft ?? 99);
     final ending = !active && (g.roundsLeft ?? 99) <= 3;
-    final color = active ? t.danger : (soon || ending ? t.gold : t.textMuted);
-    final limit = g.rules.roundLimit;
-    final text = active
-        ? tr('round.siegeActive', {'round': g.round, 'limit': limit!})
+    final color = active ? t.danger : (soon || ending ? t.gold : t.text);
+    final status = active
+        ? tr('round.siegeActive', {'round': g.round, 'limit': limit})
         : soon
         ? trN('round.siegeIn', toSiege)
-        // Sin Asedio por delante (o con objetivo de rondas), el límite es lo que importa.
-        : siege == null || siege > limit! || _staged
-        ? tr('round.ofLimit', {'round': g.round, 'limit': limit!})
-        : tr('round.n', {'round': g.round});
+        : tr('round.ofLimit', {'round': g.round, 'limit': limit});
     return Tooltip(
       message: [
+        status,
         if (siege != null) tr('round.siegeTip', {'n': siege}),
-        tr('round.limitTip', {'n': g.rules.roundLimit!}),
+        tr('round.limitTip', {'n': limit}),
       ].join('\n'),
       triggerMode: TooltipTriggerMode.tap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        decoration: BoxDecoration(
-          color: active ? t.danger.withValues(alpha: 0.12) : t.surface,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: active || soon || ending ? color : t.outline),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w700),
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedDefaultTextStyle(
+            duration: const Duration(milliseconds: 300),
+            style: skin.display(19, color: color, height: 1),
+            child: Text('${g.round}'),
+          ),
+          const SizedBox(height: 1),
+          Text(
+            '/$limit',
+            style: TextStyle(
+              color: active || soon || ending ? color : t.textMuted,
+              fontSize: 9.5,
+              fontWeight: FontWeight.w800,
+              height: 1,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -1245,24 +1363,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           child: Icon(icon, key: ValueKey(icon), color: onTap == null ? t.outline : t.text, size: 22),
         ),
       ),
-    );
-  }
-
-  Widget _banner(int p, {required bool top}) {
-    final g = _game;
-    final handCount = g.hands[p].values.fold(0, (a, b) => a + b);
-    final canEmote = !_tutorial && !_staged && _isHuman(p) && (widget.aiPlayer != null || p == g.current);
-    return PlayerBanner(
-      profile: _profiles[p],
-      owner: p,
-      active: g.current == p && !g.isOver,
-      top: top,
-      handCount: handCount,
-      cooldown: g.cooldowns[p],
-      charges: g.abilityChargesLeft(p),
-      emote: _emote[p],
-      emoteKey: _emoteKey[p],
-      onEmote: canEmote ? () => _pickEmote(p) : null,
     );
   }
 
@@ -1395,50 +1495,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _hintPill(HexTheme t) {
-    final text = _hint;
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 220),
-      transitionBuilder: (c, a) => FadeTransition(
-        opacity: a,
-        child: SlideTransition(
-          position: Tween(begin: const Offset(0, 0.3), end: Offset.zero).animate(a),
-          child: c,
-        ),
-      ),
-      child: text.isEmpty
-          ? const SizedBox(height: 32)
-          : Container(
-              key: ValueKey(text),
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-              decoration: BoxDecoration(
-                color: t.surface,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: t.outline),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (_isAiTurn) ...[
-                    SizedBox(
-                      width: 12,
-                      height: 12,
-                      child: CircularProgressIndicator(strokeWidth: 2, color: t.textMuted),
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                  Flexible(
-                    child: Text(
-                      text,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: t.text, fontSize: 13, fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-    );
+  /// Ayuda de la jugada: aparece sobre el tablero y se desvanece sola. Mientras
+  /// piensa la IA o hay un efecto por resolver, queda fija.
+  Widget _hintLine(HexTheme t) {
+    if (_mode == _Mode.effect) {
+      return SizedBox(
+        width: 230,
+        child: SkinButton(label: tr('game.skipEffect'), height: 40, onPressed: () => _applyEffect(null)),
+      );
+    }
+    return _FadingHint(text: _hint, thinking: _isAiTurn, hold: _isAiTurn);
   }
 
   Widget _board(HexTheme t, Set<Hex> targets) {
@@ -1450,7 +1516,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           _transform.value = Matrix4.identity()
             ..translateByDouble(
               constraints.maxWidth / 2 - _canvas / 2,
-              constraints.maxHeight / 2 - _canvas / 2 + (_tutorial ? 50 : (_staged ? 30 : -20)),
+              constraints.maxHeight / 2 - _canvas / 2 + (_tutorial ? 50 : (_staged ? 15 : 0)),
               0,
               1,
             );
@@ -1485,184 +1551,305 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _bottomSection(HexTheme t) {
+  /// Abajo: deshacer o reiniciar, la mano en un dock y el sello de la habilidad.
+  Widget _dock(HexTheme t) {
     final g = _game;
     // Contra la IA la mano es siempre la tuya; en Pass & Play, la del turno.
     final me = widget.aiPlayer != null ? 1 - widget.aiPlayer! : g.current;
-    final faction = g.factions[me];
-    final color = HexTheme.faction(faction);
     final allowed = _lesson?.hand;
     final placeable = me == g.current
         ? g.placeableTypes().where((p) => allowed == null || allowed.contains(p)).toSet()
         : const <PieceType>{};
-    final hand = g.hands[me].entries.where((e) => e.value > 0).toList();
+    final hand = g.hands[me].entries.where((e) => e.value > 0 && (!_tutorial || placeable.contains(e.key))).toList();
+    final showHand = _tutorial ? hand.isNotEmpty : !(_stage?.isPuzzle ?? false) || hand.isNotEmpty;
+    final showAbility = !_tutorial || _lesson!.ability;
+    final secondary = _secondaryAction(t);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(10, 0, 10, 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            child: !showHand
+                ? const SizedBox(height: 56)
+                : Center(
+                    child: SkinBar(
+                      radius: 22,
+                      padding: const EdgeInsets.fromLTRB(6, 8, 6, 6),
+                      child: SizedBox(
+                        height: 52,
+                        child: hand.isEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 14),
+                                child: Center(
+                                  widthFactor: 1,
+                                  child: Text(tr('game.emptyHand'), style: TextStyle(color: t.textMuted)),
+                                ),
+                              )
+                            : SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    for (final e in hand)
+                                      _handItem(t, e.key, e.value, me, enabled: placeable.contains(e.key) && !_locked),
+                                  ],
+                                ),
+                              ),
+                      ),
+                    ),
+                  ),
+          ),
+          const SizedBox(width: 8),
+          // Deshacer/reiniciar arriba del sello: la mano se queda con todo el ancho.
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [?secondary, if (showAbility) _abilitySeal(t, me) else const SizedBox(width: 52, height: 56)],
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// Deshacer (casual), reiniciar (etapas y lecciones). En partidas por puntos
+  /// no hay: abandonar vive en el menú de más opciones.
+  Widget? _secondaryAction(HexTheme t) {
+    final Widget? b = _tutorial
+        ? _roundButton(t, Icons.replay_rounded, tr('tutorial.restartLesson'), _restartLesson)
+        : _staged
+        ? _roundButton(t, Icons.replay_rounded, tr('common.restart'), _aiThinking ? null : _restartStage)
+        : _ranked
+        ? null
+        : _roundButton(t, Icons.undo_rounded, tr('common.undo'), _history.isEmpty || _aiThinking ? null : _undo);
+    if (b == null) return null;
+    return Padding(padding: const EdgeInsets.only(bottom: 6), child: b);
+  }
+
+  bool get _inAbility => switch (_mode) {
+    _Mode.jadeRelocate || _Mode.jadeRelocateTarget || _Mode.jadeSwap || _Mode.jadeSwapTarget || _Mode.kawarimi => true,
+    _ => false,
+  };
+
+  /// Sello de la habilidad: listo, en recarga (número) o gastado. Durante la
+  /// habilidad, tocarlo la cancela.
+  Widget _abilitySeal(HexTheme t, int me) {
+    final g = _game;
+    final faction = g.factions[me];
+    final color = HexTheme.faction(faction);
     final cd = g.cooldowns[me];
     final charges = g.abilityChargesLeft(me);
-    final abilityReady = me == g.current && g.abilityAvailable && !_locked && (!_tutorial || _lesson!.ability);
-    final showHand = _tutorial
-        ? hand.any((e) => placeable.contains(e.key))
-        : !(_stage?.isPuzzle ?? false) || hand.isNotEmpty;
-    final showActions = !_tutorial || _lesson!.ability;
-    if (!showHand && !showActions) return _banner(_mySeat, top: false);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _banner(_mySeat, top: false),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(10, 2, 10, 6),
-          child: Tray(
-            padding: const EdgeInsets.fromLTRB(8, 6, 8, 8),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+    final ready = me == g.current && g.abilityAvailable && !_locked && (!_tutorial || _lesson!.ability);
+    final cancel = _inAbility;
+    final label = charges == 0
+        ? tr('game.abilitySpent', {'ability': faction.abilityName})
+        : [faction.abilityName, if (cd > 0) '($cd)', if (charges != null) '×$charges'].join(' ');
+    return Tooltip(
+      message: cancel ? tr('common.cancel') : label,
+      child: Pressable(
+        onTap: cancel ? () => setState(_reset) : (ready ? _startAbility : null),
+        child: SizedBox(
+          width: 52,
+          height: 56,
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              AnimatedOpacity(
+                duration: const Duration(milliseconds: 250),
+                opacity: ready || cancel ? 1 : 0.4,
+                child: KanjiBadge(faction == Faction.shaolin ? '玉' : '変', size: 46, color: color),
+              ),
+              if (cancel)
+                const Icon(Icons.close_rounded, color: Colors.white, size: 28)
+              else if (cd > 0 && charges != 0)
+                Positioned(top: 0, right: 0, child: _sealTag(t, '$cd', t.text)),
+              if (!cancel && charges != null) Positioned(bottom: 0, right: -2, child: _sealTag(t, '×$charges', t.gold)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _sealTag(HexTheme t, String s, Color bg) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+    decoration: BoxDecoration(
+      color: bg,
+      borderRadius: BorderRadius.circular(8),
+      border: Border.all(color: t.surfaceHigh, width: 1.5),
+    ),
+    child: Text(
+      s,
+      style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.w900, color: t.surfaceHigh, height: 1.1),
+    ),
+  );
+
+  Widget _handItem(HexTheme t, PieceType type, int count, int owner, {required bool enabled}) {
+    final selected = _mode == _Mode.placing && _placing == type;
+    // Sin nombre a la vista: el tooltip (manual) lo da a lectores de pantalla
+    // y mantener apretado abre la ficha con sus reglas.
+    return Tooltip(
+      message: type.displayName,
+      triggerMode: TooltipTriggerMode.manual,
+      child: GestureDetector(
+        onTap: enabled
+            ? () => setState(() {
+                _reset();
+                if (!selected) {
+                  _mode = _Mode.placing;
+                  _placing = type;
+                  SoundBoard.instance.play(Sfx.tick);
+                  Haptics.select();
+                }
+              })
+            : null,
+        onLongPress: () => showSkinDialog<void>(
+          context,
+          builder: (ctx) => SkinDialog(
+            title: type.displayName,
+            message: type.rulesText,
+            body: PieceChip(type: type, owner: _game.current, size: 26),
+          ),
+        ),
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 200),
+          opacity: enabled ? 1 : 0.35,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            width: 44,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: selected ? t.highlight.withValues(alpha: 0.14) : Colors.transparent,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: selected ? t.highlight : Colors.transparent, width: 1.6),
+            ),
+            child: Stack(
+              clipBehavior: Clip.none,
               children: [
-                if (showHand) ...[
-                  SizedBox(
-                    height: 84,
-                    child: hand.isEmpty
-                        ? Center(
-                            child: Text(tr('game.emptyHand'), style: TextStyle(color: t.textMuted)),
-                          )
-                        : ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              for (final e in hand)
-                                if (!_tutorial || placeable.contains(e.key))
-                                  _handItem(t, e.key, e.value, me, enabled: placeable.contains(e.key) && !_locked),
-                            ],
-                          ),
+                // La ficha elegida "se levanta" de la mano.
+                TweenAnimationBuilder<double>(
+                  tween: Tween(end: selected ? 0.4 : 0),
+                  duration: const Duration(milliseconds: 260),
+                  curve: selected ? Curves.easeOutBack : Curves.easeIn,
+                  builder: (_, lift, _) => PieceChip(
+                    type: type,
+                    owner: owner,
+                    size: 19,
+                    lift: lift,
+                    mirror: _game.factions[0] == _game.factions[1],
                   ),
-                  if (showActions) const SizedBox(height: 6),
-                ],
-                if (showActions)
-                  Row(
-                    children: [
-                      if (_mode == _Mode.effect)
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () => _applyEffect(null),
-                            child: Text(tr('game.skipEffect')),
-                          ),
-                        )
-                      else
-                        Expanded(
-                          child: OutlinedButton.icon(
-                            style: OutlinedButton.styleFrom(
-                              foregroundColor: color,
-                              side: BorderSide(color: abilityReady ? color : t.outline),
-                            ),
-                            onPressed: abilityReady ? _startAbility : null,
-                            icon: const Icon(Icons.auto_awesome),
-                            label: Text(
-                              charges == 0
-                                  ? tr('game.abilitySpent', {'ability': faction.abilityName})
-                                  : [
-                                      faction.abilityName,
-                                      if (cd > 0) '($cd)',
-                                      if (charges != null) '×$charges',
-                                    ].join(' '),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                      const SizedBox(width: 8),
-                      if (_mode != _Mode.idle && _mode != _Mode.effect)
-                        IconButton(onPressed: () => setState(_reset), icon: const Icon(Icons.close)),
-                    ],
+                ),
+                if (count > 1)
+                  Positioned(
+                    right: -9,
+                    top: -5,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+                      decoration: BoxDecoration(color: t.text, borderRadius: BorderRadius.circular(8)),
+                      child: Text(
+                        '×$count',
+                        style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.w900, color: t.surfaceHigh),
+                      ),
+                    ),
                   ),
               ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
+}
 
-  Widget _handItem(HexTheme t, PieceType type, int count, int owner, {required bool enabled}) {
-    final selected = _mode == _Mode.placing && _placing == type;
-    return GestureDetector(
-      onTap: enabled
-          ? () => setState(() {
-              _reset();
-              if (!selected) {
-                _mode = _Mode.placing;
-                _placing = type;
-                SoundBoard.instance.play(Sfx.tick);
-                Haptics.select();
-              }
-            })
-          : null,
-      onLongPress: () => showSkinDialog<void>(
-        context,
-        builder: (ctx) => SkinDialog(
-          title: type.displayName,
-          message: type.rulesText,
-          body: PieceChip(type: type, owner: _game.current, size: 26),
-        ),
-      ),
+/// Texto de ayuda que entra con un fundido y se va a los pocos segundos.
+class _FadingHint extends StatefulWidget {
+  final String text;
+  final bool thinking;
+
+  /// No se desvanece (por ejemplo, mientras piensa la IA).
+  final bool hold;
+  const _FadingHint({required this.text, required this.thinking, required this.hold});
+
+  @override
+  State<_FadingHint> createState() => _FadingHintState();
+}
+
+class _FadingHintState extends State<_FadingHint> {
+  Timer? _timer;
+  bool _visible = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _arm();
+  }
+
+  @override
+  void didUpdateWidget(_FadingHint old) {
+    super.didUpdateWidget(old);
+    if (old.text != widget.text || old.hold != widget.hold) {
+      _visible = true;
+      _arm();
+    }
+  }
+
+  void _arm() {
+    _timer?.cancel();
+    if (widget.hold) return;
+    _timer = Timer(const Duration(seconds: 4), () {
+      if (mounted) setState(() => _visible = false);
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = HexTheme.of(context);
+    final text = widget.text;
+    return SizedBox(
+      height: 30,
       child: AnimatedOpacity(
-        duration: const Duration(milliseconds: 200),
-        opacity: enabled ? 1 : 0.35,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
-          width: 74,
-          margin: const EdgeInsets.only(right: 6),
-          decoration: BoxDecoration(
-            color: selected ? t.highlight.withValues(alpha: 0.12) : Colors.transparent,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: selected ? t.highlight : t.outline, width: selected ? 2 : 1),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  // La ficha elegida "se levanta" de la mano.
-                  TweenAnimationBuilder<double>(
-                    tween: Tween(end: selected ? 0.4 : 0),
-                    duration: const Duration(milliseconds: 260),
-                    curve: selected ? Curves.easeOutBack : Curves.easeIn,
-                    builder: (_, lift, _) => PieceChip(
-                      type: type,
-                      owner: owner,
-                      size: 19,
-                      lift: lift,
-                      mirror: _game.factions[0] == _game.factions[1],
-                    ),
+        duration: Duration(milliseconds: _visible ? 200 : 900),
+        opacity: _visible && text.isNotEmpty ? 1 : 0,
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 220),
+          child: text.isEmpty
+              ? const SizedBox.shrink()
+              : Container(
+                  key: ValueKey(text),
+                  margin: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: t.surface.withValues(alpha: 0.82),
+                    borderRadius: BorderRadius.circular(14),
                   ),
-                  if (count > 1)
-                    Positioned(
-                      right: -12,
-                      top: -4,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-                        decoration: BoxDecoration(color: t.text, borderRadius: BorderRadius.circular(8)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.thinking) ...[
+                        SizedBox(
+                          width: 11,
+                          height: 11,
+                          child: CircularProgressIndicator(strokeWidth: 1.8, color: t.textMuted),
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                      Flexible(
                         child: Text(
-                          '×$count',
-                          style: TextStyle(fontSize: 10, fontWeight: FontWeight.w900, color: t.surfaceHigh),
+                          text,
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: t.textMuted, fontSize: 12.5, fontWeight: FontWeight.w700),
                         ),
                       ),
-                    ),
-                ],
-              ),
-              const SizedBox(height: 2),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 3),
-                child: Text(
-                  type.shortName,
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 11.5,
-                    height: 1.1,
-                    color: selected ? t.text : t.textMuted,
-                    fontWeight: FontWeight.w700,
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
         ),
       ),
     );

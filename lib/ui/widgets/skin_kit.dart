@@ -251,6 +251,72 @@ class SkinPanel extends StatelessWidget {
   }
 }
 
+/// Superficie fina que flota sobre el tablero (marcador, mano, chips): menos
+/// peso que [SkinPanel] para no tapar la partida.
+class SkinBar extends StatelessWidget {
+  final Widget child;
+  final EdgeInsetsGeometry padding;
+  final double radius;
+  final Color? highlight;
+  const SkinBar({
+    super.key,
+    required this.child,
+    this.padding = const EdgeInsets.all(6),
+    this.radius = 16,
+    this.highlight,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final t = HexTheme.of(context);
+    final shadow = BoxShadow(
+      color: t.shadow.withValues(alpha: t.shadow.a * 0.4),
+      blurRadius: 12,
+      offset: const Offset(0, 4),
+    );
+    return switch (Skin.of(context).style) {
+      UiStyle.box => Container(
+        padding: padding,
+        decoration: BoxDecoration(
+          color: t.surface,
+          borderRadius: BorderRadius.circular(radius),
+          border: Border.all(color: highlight ?? t.outline),
+          boxShadow: _boxLip(t),
+        ),
+        child: child,
+      ),
+      UiStyle.ema => Container(
+        padding: padding,
+        decoration: BoxDecoration(
+          color: t.surfaceHigh,
+          border: Border(
+            top: BorderSide(color: highlight ?? inkOf(t).withValues(alpha: 0.55), width: 1.2),
+            bottom: BorderSide(color: highlight ?? inkOf(t).withValues(alpha: 0.55), width: 1.2),
+          ),
+          boxShadow: [shadow],
+        ),
+        child: child,
+      ),
+      UiStyle.comb => Container(
+        padding: padding,
+        decoration: ShapeDecoration(
+          shape: combShape(
+            radius * 0.6,
+            side: BorderSide(color: highlight ?? t.gold.withValues(alpha: 0.75), width: 1.2),
+          ),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [t.surfaceHigh, t.surface],
+          ),
+          shadows: [shadow],
+        ),
+        child: child,
+      ),
+    };
+  }
+}
+
 // ------------------------------------------------------------------ botones
 
 /// Acción principal de una pantalla o popup.

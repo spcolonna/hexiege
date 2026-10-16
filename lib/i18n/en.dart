@@ -401,4 +401,8 @@ const en = <String, String>{
   'menu.ranked': 'ranked',
   'menu.switchFaction': 'switch',
   'menu.soloSub': 'Campaign, challenges and puzzles',
+  'common.close': 'Close',
+  'game.more': 'More options',
+  'stage.goal': 'Goal',
+  'stage.showIntro': 'Show the briefing',
 };

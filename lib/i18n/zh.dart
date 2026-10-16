@@ -401,4 +401,8 @@ const zh = <String, String>{
   'menu.ranked': '排位',
   'menu.switchFaction': '切换',
   'menu.soloSub': '战役、挑战与残局',
+  'common.close': '关闭',
+  'game.more': '更多选项',
+  'stage.goal': '目标',
+  'stage.showIntro': '查看简介',
 };
