@@ -21,8 +21,8 @@ CANDIDATES = os.path.join(os.path.dirname(__file__), 'sfx_candidates')
 # Variante que va a assets/sfx/. Para cambiar: editar la letra y volver a correr el script.
 TURN_VARIANT = 'b'    # a = cuenco, b = gong chico, c = cuenco doble
 # Fichas: a–d = mármol (a equilibrado, b brillante, c cuerpo, d grave);
-#         e–g = dominó (e seco, f con rebote, g más grave con rebote)
-MARBLE_VARIANT = 'f'
+#         h–j = dominó (h seco, i con rebote, j ficha más gruesa y grave)
+MARBLE_VARIANT = 'j'
 
 
 def t_axis(dur):
@@ -100,34 +100,41 @@ def marble_tap(seed, variant='a', weight=1.0, pitch=1.0, dur=0.3):
     return x
 
 
-# Fichas de dominó chocando: clic seco de hueso/resina, resonancias muy amortiguadas
-# (lo que suena a metal es que los parciales sigan sonando) y a veces un rebote.
+# Fichas de dominó chocando. Nada de senoidales puras (suenan a lata): un golpe de
+# ruido excita resonadores de Q bajo, que dan el "toc" opaco de hueso/resina.
+# modes = (frecuencia, Q, ganancia); Q más alto = más tono, más bajo = más seco.
 DOMINO = {
-    'e': dict(modes=[(1650, 0.009, 1.0), (2900, 0.006, 0.6), (4300, 0.004, 0.35)],
-              band=(1000, 5500), knock=(260, 0.012, 0.35), bounce=None),
-    'f': dict(modes=[(1650, 0.009, 1.0), (2900, 0.006, 0.6), (4300, 0.004, 0.35)],
-              band=(1000, 5500), knock=(260, 0.012, 0.35), bounce=(0.032, 0.4)),
-    'g': dict(modes=[(1250, 0.011, 1.0), (2250, 0.007, 0.55), (3500, 0.005, 0.3)],
-              band=(700, 4200), knock=(190, 0.016, 0.55), bounce=(0.038, 0.3)),
+    'h': dict(modes=[(1150, 12, 0.7), (2100, 18, 1.0), (3400, 14, 0.45), (5000, 10, 0.15)],
+              knock=(320, 4, 0.8), bounce=None),
+    'i': dict(modes=[(1150, 12, 0.7), (2100, 18, 1.0), (3400, 14, 0.45), (5000, 10, 0.15)],
+              knock=(320, 4, 0.8), bounce=(0.03, 0.3)),
+    'j': dict(modes=[(850, 12, 0.8), (1600, 16, 1.0), (2700, 12, 0.4), (4100, 9, 0.12)],
+              knock=(240, 4, 1.1), bounce=None),
 }
 
 
-def domino_clack(seed, variant='f', weight=1.0, pitch=1.0, dur=0.16):
-    """Ficha contra ficha, como dos dominós: 'tac' corto y seco, sin cola que resuene."""
+def resonate(x, f, q):
+    from scipy.signal import iirpeak, lfilter
+    b, a = iirpeak(min(f, SR / 2 - 100), q, fs=SR)
+    return lfilter(b, a, x)
+
+
+def domino_clack(seed, variant='h', weight=1.0, pitch=1.0, dur=0.14):
+    """Ficha contra ficha, como dos dominós: 'toc' corto, opaco y sin cola que resuene."""
     v = DOMINO[variant]
     rng = np.random.default_rng(seed)
     t = t_axis(dur)
     p = pitch * rng.uniform(0.95, 1.05)
 
     def hit(tt, amp):
+        exc = noise_burst(tt, 0.002 * weight, rng)
+        exc[:2] += 1.0  # impulso del choque
         x = np.zeros_like(tt)
-        for f, d, a in v['modes']:
-            x += partial(tt, f * p * rng.uniform(0.97, 1.03), d * weight, a, phase=rng.uniform(0, 2 * np.pi))
-        kf, kd, ka = v['knock']
-        x += partial(tt, kf * p, kd * weight, ka * weight, drop=0.25, drop_time=0.004)
-        lo, hi = v['band']
-        x += lowpass(lowpass(highpass(noise_burst(tt, 0.0018, rng), lo), hi), hi) * 1.3
-        return x * amp
+        for f, q, g in v['modes']:
+            x += resonate(exc, f * p * rng.uniform(0.97, 1.03), q) * g
+        kf, kq, kg = v['knock']
+        x += resonate(exc, kf * p, kq) * kg * weight
+        return lowpass(x, 7000) * amp
 
     x = hit(t, 1.0)
     if v['bounce']:
@@ -244,7 +251,7 @@ def write_stones(variant, out):
     for i in range(3):
         if variant in DOMINO:
             write(f'place_{i}', domino_clack(100 + i, variant, weight=1.15, pitch=0.95), out=out)
-            write(f'land_{i}', domino_clack(200 + i, variant, weight=0.85, pitch=1.06, dur=0.12), peak=0.8, out=out)
+            write(f'land_{i}', domino_clack(200 + i, variant, weight=0.85, pitch=1.06, dur=0.1), peak=0.8, out=out)
         else:
             write(f'place_{i}', marble_tap(100 + i, variant, weight=1.25, pitch=0.9), out=out)
             write(f'land_{i}', marble_tap(200 + i, variant, weight=0.85, pitch=1.06, dur=0.22), peak=0.8, out=out)
@@ -252,7 +259,7 @@ def write_stones(variant, out):
 
 def candidates():
     os.makedirs(CANDIDATES, exist_ok=True)
-    for v in 'abcdefg':
+    for v in 'abcdhij':
         if v in 'abc':
             write(f'turn_{v}', turn_chime(v), peak=0.45, out=CANDIDATES)
         d = os.path.join(CANDIDATES, f'marble_{v}' if v in MARBLE else f'domino_{v}')
