@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'i18n/i18n.dart';
 
 import 'ui/fx/sfx.dart';
 import 'ui/menu_screen.dart';
@@ -28,6 +31,9 @@ class HexiegeApp extends StatelessWidget {
       listenable: settings,
       builder: (context, _) => MaterialApp(
         title: 'Hexiege',
+        locale: settings.locale,
+        supportedLocales: [for (final l in supportedLanguages) Locale(l)],
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
         debugShowCheckedModeBanner: false,
         theme: HexTheme.light.toThemeData(),
         darkTheme: HexTheme.dark.toThemeData(),

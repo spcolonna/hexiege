@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../../i18n/i18n.dart';
+
 /// Emotes del juego. Son vectoriales (no emojis del sistema) para verse igual
 /// en todos los dispositivos y poder convertirse en cosméticos desbloqueables.
 enum Emote {
-  hello('Hola', Icons.waving_hand_rounded, Color(0xFFF2B33D)),
-  nice('Buena', Icons.thumb_up_alt_rounded, Color(0xFF3DBE7A)),
-  wow('¡Wow!', Icons.bolt_rounded, Color(0xFFF5D547)),
-  think('Hmm…', Icons.psychology_alt_rounded, Color(0xFF7FA8F0)),
-  fire('¡Fuego!', Icons.local_fire_department_rounded, Color(0xFFF2703D)),
-  smug('Je', Icons.sentiment_very_satisfied_rounded, Color(0xFFE05A8C)),
-  oops('Uy', Icons.sentiment_dissatisfied_rounded, Color(0xFFB08CF0)),
-  gg('GG', null, Color(0xFFE3BE5A));
+  hello(Icons.waving_hand_rounded, Color(0xFFF2B33D)),
+  nice(Icons.thumb_up_alt_rounded, Color(0xFF3DBE7A)),
+  wow(Icons.bolt_rounded, Color(0xFFF5D547)),
+  think(Icons.psychology_alt_rounded, Color(0xFF7FA8F0)),
+  fire(Icons.local_fire_department_rounded, Color(0xFFF2703D)),
+  smug(Icons.sentiment_very_satisfied_rounded, Color(0xFFE05A8C)),
+  oops(Icons.sentiment_dissatisfied_rounded, Color(0xFFB08CF0)),
+  gg(null, Color(0xFFE3BE5A));
 
-  final String label;
+  String get label => tr('emote.$name');
   final IconData? icon;
   final Color color;
-  const Emote(this.label, this.icon, this.color);
+  const Emote(this.icon, this.color);
 }
 
 class EmoteGlyph extends StatelessWidget {

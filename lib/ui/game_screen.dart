@@ -8,6 +8,7 @@ import '../engine/ai.dart';
 import '../engine/game_state.dart';
 import '../engine/hex.dart';
 import '../engine/pieces.dart';
+import '../i18n/i18n.dart';
 import '../match/ladder.dart';
 import '../match/matchmaker.dart';
 import '../solo/catalog.dart';
@@ -166,7 +167,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _game = _lesson?.build() ?? _stage?.build() ?? GameState(widget.p0, widget.p1);
     _stageStart = _game.copy();
     if (_tutorial || _staged) WidgetsBinding.instance.addPostFrameCallback((_) => _introScene());
-    if (_staged && !_stage!.isPuzzle && _stage!.intro != null) {
+    if (_staged && !_stage!.isPuzzle) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _showStageIntro());
     }
     final nick = AppSettings.instance.nickname;
@@ -181,7 +182,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           ? [
               PlayerProfile(nickname: nick, faction: widget.p0),
               PlayerProfile(
-                nickname: _stage!.isPuzzle ? 'Sensei' : 'Sensei · ${widget.aiLevel.displayName}',
+                nickname: _stage!.isPuzzle ? tr('common.sensei') : '${tr('common.sensei')} · ${widget.aiLevel.displayName}',
                 faction: widget.p1,
                 isAi: true,
               ),
@@ -189,16 +190,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           : _tutorial
           ? [
               PlayerProfile(nickname: nick, faction: widget.p0),
-              PlayerProfile(nickname: 'Sensei', faction: widget.p1, isAi: true),
+              PlayerProfile(nickname: tr('common.sensei'), faction: widget.p1, isAi: true),
             ]
           : widget.aiPlayer == null
           ? [
               PlayerProfile(nickname: nick, faction: widget.p0),
-              PlayerProfile(nickname: 'Jugador 2', faction: widget.p1),
+              PlayerProfile(nickname: tr('common.player2'), faction: widget.p1),
             ]
           : [
               PlayerProfile(nickname: nick, faction: widget.p0),
-              PlayerProfile(nickname: 'Sensei · ${widget.aiLevel.displayName}', faction: widget.p1, isAi: true),
+              PlayerProfile(nickname: '${tr('common.sensei')} · ${widget.aiLevel.displayName}', faction: widget.p1, isAi: true),
             ];
     }
     WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
@@ -307,29 +308,29 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   String get _hint {
     if (_game.isOver || _resigned || _stageOver || (_tutorial && _coach != CoachState.doing)) return '';
-    if (_isAiTurn) return '${_profiles[_game.current].nickname} está pensando…';
+    if (_isAiTurn) return tr('game.thinking', {'name': _profiles[_game.current].nickname});
     return switch (_mode) {
-      _Mode.placing => 'Tocá una casilla para colocar ${_placing!.displayName}',
-      _Mode.moving when _swapTargets.isNotEmpty => 'Mové al Shogun o tocá un Shinobi dorado para intercambiar (1 vez)',
-      _Mode.moving => 'Elegí destino para ${_game.board.top(_selected!)!.type.displayName}',
+      _Mode.placing => tr('game.hint.place', {'piece': _placing!.displayName}),
+      _Mode.moving when _swapTargets.isNotEmpty => tr('game.hint.shogunSwap'),
+      _Mode.moving => tr('game.hint.moveTo', {'piece': _game.board.top(_selected!)!.type.displayName}),
       _Mode.effect =>
         _effects!.paralyze.isNotEmpty
-            ? 'Elegí una ficha enemiga para paralizar'
-            : 'Elegí dónde dejar el Sello de Sombra',
-      _Mode.jadeRelocate => 'Elegí una ficha enemiga perimetral',
-      _Mode.jadeRelocateTarget => 'Elegí el nuevo lugar de la ficha enemiga',
-      _Mode.jadeSwap => 'Elegí una ficha aliada para intercambiar',
-      _Mode.jadeSwapTarget => 'Elegí la ficha aliada adyacente',
-      _Mode.kawarimi => 'Elegí una ficha perimetral para devolver a la mano',
+            ? tr('game.hint.paralyze')
+            : tr('game.hint.seal'),
+      _Mode.jadeRelocate => tr('game.hint.jadeRelocate'),
+      _Mode.jadeRelocateTarget => tr('game.hint.jadeRelocateTarget'),
+      _Mode.jadeSwap => tr('game.hint.jadeSwap'),
+      _Mode.jadeSwapTarget => tr('game.hint.jadeSwapTarget'),
+      _Mode.kawarimi => tr('game.hint.kawarimi'),
       _Mode.idle when _tutorial => '', // el Sensei ya dice qué hacer
       _Mode.idle =>
         _game.mustPlaceLeader
-            ? '¡Debés colocar a tu Líder este turno!'
+            ? tr('game.hint.mustLeader')
             : !_game.hasAnyAction()
-            ? 'Sin jugadas posibles: pasás el turno'
+            ? tr('game.hint.noMoves')
             : _game.abilityAvailable
-            ? 'Colocá, mové o usá la habilidad (una sola acción)'
-            : 'Colocá una ficha o mové una del tablero',
+            ? tr('game.hint.withAbility')
+            : tr('game.hint.idle'),
     };
   }
 
@@ -413,10 +414,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     Haptics.heavy();
     SoundBoard.instance.play(Sfx.ability);
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
+      SnackBar(
         behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 4),
-        content: Text('¡Empieza el Asedio! Desde ahora alcanza con ocupar 5 lados del Líder.'),
+        duration: const Duration(seconds: 4),
+        content: Text(tr('game.siegeStarts')),
       ),
     );
   }
@@ -515,7 +516,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(s.intro!),
+            Text(s.intro),
             const SizedBox(height: 12),
             Text(
               s.goal,
@@ -523,12 +524,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             ),
             const SizedBox(height: 4),
             Text(
-              'Rival: ${widget.p1.displayName} · ${widget.aiLevel.displayName}',
+              tr('game.rivalLine', {'faction': widget.p1.displayName, 'level': widget.aiLevel.displayName}),
               style: TextStyle(fontSize: 12, color: t.textMuted),
             ),
           ],
         ),
-        actions: [FilledButton(onPressed: () => Navigator.pop(ctx), child: const Text('Comenzar'))],
+        actions: [FilledButton(onPressed: () => Navigator.pop(ctx), child: Text(tr('common.start')))],
       ),
     );
   }
@@ -536,18 +537,18 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   String _stageWinText() {
     final s = _stage!;
     if (s.kind == StageKind.campaign && widget.nextStage == null) {
-      return '¡Campaña completada! ${_game.inSiege ? 'Sitiaste' : 'Rodeaste'} al Líder en la batalla final.';
+      return tr(_game.inSiege ? 'stage.campaignDone.siege' : 'stage.campaignDone');
     }
-    if (!s.isPuzzle) return '${s.title}: ${_game.inSiege ? 'sitiaste' : 'rodeaste'} al Líder enemigo.';
+    if (!s.isPuzzle) return tr(_game.inSiege ? 'stage.won.siege' : 'stage.won', {'title': s.title});
     final used = s.puzzleTurns! - s.turnsLeft(_stageStart, _game)! + 1;
-    return 'Cerco cerrado en ${used == 1 ? '1 turno' : '$used turnos'}.';
+    return trN('stage.closedIn', used);
   }
 
   String _stageFailText() {
-    if (_game.endedByLimit) return 'Se terminaron las rondas sin capturar al Líder.';
-    if (_game.draw) return 'Ambos Líderes quedaron rodeados: es empate.';
-    if (_game.winner == 1) return 'Rodearon a tu Líder.';
-    return _stage!.isPuzzle ? 'Se acabaron los turnos y el Líder sigue libre.' : 'No se cumplió el objetivo.';
+    if (_game.endedByLimit) return tr('stage.lost.limit');
+    if (_game.draw) return tr('stage.lost.draw');
+    if (_game.winner == 1) return tr('stage.lost.surrounded');
+    return tr(_stage!.isPuzzle ? 'stage.lost.puzzle' : 'stage.lost');
   }
 
   void _showStageResult(bool ok) {
@@ -561,7 +562,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           color: ok ? HexTheme.of(ctx).gold : HexTheme.of(ctx).textMuted,
           size: 40,
         ),
-        title: Text(ok ? '¡Superado!' : 'Esta vez no'),
+        title: Text(tr(ok ? 'stage.cleared' : 'stage.notThisTime')),
         content: Text(ok ? _stageWinText() : _stageFailText()),
         actions: [
           TextButton(
@@ -569,7 +570,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               Navigator.pop(ctx);
               Navigator.pop(context);
             },
-            child: const Text('Volver'),
+            child: Text(tr('common.back')),
           ),
           if (ok && next != null)
             FilledButton(
@@ -584,7 +585,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   ),
                 );
               },
-              child: const Text('Siguiente'),
+              child: Text(tr('common.next')),
             )
           else
             FilledButton(
@@ -592,7 +593,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 Navigator.pop(ctx);
                 _restartStage();
               },
-              child: Text(ok ? 'Jugar de nuevo' : 'Reintentar'),
+              child: Text(tr(ok ? 'common.playAgain' : 'common.retry')),
             ),
         ],
       ),
@@ -622,18 +623,15 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
         icon: Icon(Icons.workspace_premium_rounded, color: HexTheme.of(ctx).gold, size: 40),
-        title: const Text('¡Listo para jugar!'),
-        content: const Text(
-          'Ya sabés lo esencial. El resto lo vas a descubrir jugando: '
-          'mantené apretada cualquier ficha para leer cómo se mueve.',
-        ),
+        title: Text(tr('tutorial.readyTitle')),
+        content: Text(tr('tutorial.readyBody')),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
               Navigator.pop(context);
             },
-            child: const Text('Menú'),
+            child: Text(tr('common.menu')),
           ),
           FilledButton(
             onPressed: () {
@@ -648,7 +646,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 ),
               );
             },
-            child: const Text('Jugar vs Sensei'),
+            child: Text(tr('tutorial.playSensei')),
           ),
         ],
       ),
@@ -793,8 +791,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           children: [
             ListTile(
               leading: const Icon(Icons.open_with),
-              title: const Text('Reubicar ficha enemiga'),
-              subtitle: Text('${_game.jadeRelocateSources().length} opciones'),
+              title: Text(tr('game.jadeRelocate')),
+              subtitle: Text(trN('common.options', _game.jadeRelocateSources().length)),
               enabled: _game.jadeRelocateSources().isNotEmpty,
               onTap: () {
                 Navigator.pop(ctx);
@@ -806,8 +804,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             ),
             ListTile(
               leading: const Icon(Icons.swap_horiz),
-              title: const Text('Intercambiar fichas aliadas'),
-              subtitle: Text('${_game.jadeSwapSources().length} opciones'),
+              title: Text(tr('game.jadeSwap')),
+              subtitle: Text(trN('common.options', _game.jadeSwapSources().length)),
               enabled: _game.jadeSwapSources().isNotEmpty,
               onTap: () {
                 Navigator.pop(ctx);
@@ -844,8 +842,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     Expanded(
                       child: Text(
                         '${p.type.displayName} — ${_profiles[p.owner].nickname}'
-                        '${_game.isParalyzed(p) ? ' (paralizada)' : ''}'
-                        '${p == stack.last && _game.isNullified(h) ? ' (efecto anulado por la Serpiente)' : ''}',
+                        '${_game.isParalyzed(p) ? tr('game.paralyzedTag') : ''}'
+                        '${p == stack.last && _game.isNullified(h) ? tr('game.nullifiedTag') : ''}',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -874,15 +872,15 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       return;
     }
     final text = _game.endedByLimit
-        ? '¡Empate! Se jugaron las ${_game.rules.roundLimit} rondas sin capturar a ningún Líder.'
+        ? tr('game.over.drawLimit', {'n': _game.rules.roundLimit!})
         : _game.draw
-        ? '¡Empate! Ambos Líderes quedaron rodeados.'
-        : '¡Gana ${_profiles[w!].nickname}!\n${_game.factions[w].displayName} ${_game.inSiege ? 'sitió' : 'rodeó'} al Líder enemigo.';
+        ? tr('game.over.drawBoth')
+        : tr(_game.inSiege ? 'game.over.win.siege' : 'game.over.win', {'name': _profiles[w!].nickname, 'faction': _game.factions[w].displayName});
     if (!mounted) return;
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(humanLost ? 'Derrota' : (_game.draw ? 'Empate' : 'Victoria')),
+        title: Text(tr(humanLost ? 'common.defeat' : (_game.draw ? 'common.draw' : 'common.victory'))),
         content: Text(text),
         actions: [
           TextButton(
@@ -890,14 +888,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               Navigator.pop(ctx);
               _undo();
             },
-            child: const Text('Deshacer'),
+            child: Text(tr('common.undo')),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
               Navigator.pop(context);
             },
-            child: const Text('Menú'),
+            child: Text(tr('common.menu')),
           ),
           FilledButton(
             onPressed: () {
@@ -913,7 +911,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               });
               WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
             },
-            child: const Text('Revancha'),
+            child: Text(tr('common.rematch')),
           ),
         ],
       ),
@@ -941,14 +939,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       context: context,
       builder: (ctx) => AlertDialog(
         icon: Icon(Icons.flag_rounded, color: HexTheme.of(ctx).danger, size: 36),
-        title: const Text('¿Abandonar la partida?'),
-        content: const Text('Cuenta como derrota y perdés puntos.'),
+        title: Text(tr('game.resignTitle')),
+        content: Text(tr('game.resignBody')),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Seguir jugando')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(tr('game.keepPlaying'))),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: HexTheme.of(ctx).danger),
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Abandonar'),
+            child: Text(tr('common.resign')),
           ),
         ],
       ),
@@ -975,16 +973,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       context: context,
       barrierDismissible: false,
       builder: (ctx) => RankedResultDialog(
-        title: won ? 'Victoria' : (draw ? 'Empate' : 'Derrota'),
+        title: tr(won ? 'common.victory' : (draw ? 'common.draw' : 'common.defeat')),
         subtitle: _resigned
-            ? 'Abandonaste contra ${opp.nickname}.'
+            ? tr('ranked.resigned', {'name': opp.nickname})
             : _game.endedByLimit
-            ? 'Se jugaron las ${_game.rules.roundLimit} rondas sin capturas.'
+            ? tr('ranked.drawLimit', {'n': _game.rules.roundLimit!})
             : draw
-            ? 'Ambos Líderes quedaron rodeados.'
+            ? tr('ranked.drawBoth')
             : won
-            ? '${_game.inSiege ? 'Sitiaste' : 'Rodeaste'} al Líder de ${opp.nickname}.'
-            : '${opp.nickname} ${_game.inSiege ? 'sitió' : 'rodeó'} a tu Líder.',
+            ? tr(_game.inSiege ? 'ranked.won.siege' : 'ranked.won', {'name': opp.nickname})
+            : tr(_game.inSiege ? 'ranked.lost.siege' : 'ranked.lost', {'name': opp.nickname}),
         before: before,
         after: after,
         onMenu: () {
@@ -1155,9 +1153,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final s = _stage!;
     return StageCard(
       label: switch (s.kind) {
-        StageKind.puzzle => 'Problema',
-        StageKind.challenge => 'Desafío',
-        StageKind.campaign => 'Campaña',
+        StageKind.puzzle => tr('stageKind.puzzle'),
+        StageKind.challenge => tr('stageKind.challenge'),
+        StageKind.campaign => tr('stageKind.campaign'),
       },
       title: s.title,
       goal: s.goal,
@@ -1180,24 +1178,24 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
       child: Row(
         children: [
-          _roundButton(t, Icons.arrow_back_rounded, 'Menú', () => Navigator.maybePop(context)),
+          _roundButton(t, Icons.arrow_back_rounded, tr('common.menu'), () => Navigator.maybePop(context)),
           if (!_tutorial && _game.roundsLeft != null) ...[const SizedBox(width: 8), _roundChip(t)],
           const Spacer(),
           if (!_tutorial) ...[
-            _roundButton(t, Icons.receipt_long_rounded, 'Registro', _log.isEmpty ? null : _showLog),
+            _roundButton(t, Icons.receipt_long_rounded, tr('common.log'), _log.isEmpty ? null : _showLog),
             const SizedBox(width: 6),
           ],
           _roundButton(
             t,
             AppSettings.instance.sound ? Icons.volume_up_rounded : Icons.volume_off_rounded,
-            'Sonido',
+            tr('common.sound'),
             () => setState(() => AppSettings.instance.sound = !AppSettings.instance.sound),
           ),
           const SizedBox(width: 6),
           _roundButton(
             t,
             dark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
-            dark ? 'Tema claro' : 'Tema oscuro',
+            tr(dark ? 'common.lightTheme' : 'common.darkTheme'),
             () {
               Haptics.select();
               AppSettings.instance.toggleBrightness(context);
@@ -1205,13 +1203,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           ),
           const SizedBox(width: 6),
           if (_tutorial)
-            _roundButton(t, Icons.replay_rounded, 'Reiniciar lección', _restartLesson)
+            _roundButton(t, Icons.replay_rounded, tr('tutorial.restartLesson'), _restartLesson)
           else if (_staged)
-            _roundButton(t, Icons.replay_rounded, 'Reiniciar', _aiThinking ? null : _restartStage)
+            _roundButton(t, Icons.replay_rounded, tr('common.restart'), _aiThinking ? null : _restartStage)
           else if (_ranked)
-            _roundButton(t, Icons.flag_outlined, 'Abandonar', _reported ? null : _confirmResign)
+            _roundButton(t, Icons.flag_outlined, tr('common.resign'), _reported ? null : _confirmResign)
           else
-            _roundButton(t, Icons.undo_rounded, 'Deshacer', _history.isEmpty || _aiThinking ? null : _undo),
+            _roundButton(t, Icons.undo_rounded, tr('common.undo'), _history.isEmpty || _aiThinking ? null : _undo),
         ],
       ),
     );
@@ -1228,17 +1226,17 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final color = active ? t.danger : (soon || ending ? t.gold : t.textMuted);
     final limit = g.rules.roundLimit;
     final text = active
-        ? 'ASEDIO · ${g.round}/$limit'
+        ? tr('round.siegeActive', {'round': g.round, 'limit': limit!})
         : soon
-        ? (toSiege == 1 ? 'Asedio en 1 ronda' : 'Asedio en $toSiege rondas')
+        ? trN('round.siegeIn', toSiege)
         // Sin Asedio por delante (o con objetivo de rondas), el límite es lo que importa.
         : siege == null || siege > limit! || _staged
-        ? 'Ronda ${g.round}/$limit'
-        : 'Ronda ${g.round}';
+        ? tr('round.ofLimit', {'round': g.round, 'limit': limit!})
+        : tr('round.n', {'round': g.round});
     return Tooltip(
       message: [
-        if (siege != null) 'Desde la ronda $siege, Asedio: alcanza con ocupar 5 lados del Líder.',
-        'Al terminar la ronda ${g.rules.roundLimit}, empate.',
+        if (siege != null) tr('round.siegeTip', {'n': siege}),
+        tr('round.limitTip', {'n': g.rules.roundLimit!}),
       ].join('\n'),
       triggerMode: TooltipTriggerMode.tap,
       child: AnimatedContainer(
@@ -1385,7 +1383,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                 child: Text(
-                  'Registro',
+                  tr('common.log'),
                   style: TextStyle(color: t.text, fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -1402,7 +1400,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(16, 10, 16, 2),
                             child: Text(
-                              'Ronda $round',
+                              tr('round.n', {'round': round}),
                               style: TextStyle(color: t.textMuted, fontSize: 12, fontWeight: FontWeight.w700),
                             ),
                           ),
@@ -1563,7 +1561,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   height: 84,
                   child: hand.isEmpty
                       ? Center(
-                          child: Text('Mano vacía', style: TextStyle(color: t.textMuted)),
+                          child: Text(tr('game.emptyHand'), style: TextStyle(color: t.textMuted)),
                         )
                       : ListView(
                           scrollDirection: Axis.horizontal,
@@ -1581,7 +1579,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   children: [
                     if (_mode == _Mode.effect)
                       Expanded(
-                        child: OutlinedButton(onPressed: () => _applyEffect(null), child: const Text('Omitir efecto')),
+                        child: OutlinedButton(onPressed: () => _applyEffect(null), child: Text(tr('game.skipEffect'))),
                       )
                     else
                       Expanded(
@@ -1594,7 +1592,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                           icon: const Icon(Icons.auto_awesome),
                           label: Text(
                             charges == 0
-                                ? '${faction.abilityName} · agotada'
+                                ? tr('game.abilitySpent', {'ability': faction.abilityName})
                                 : [
                                     faction.abilityName,
                                     if (cd > 0) '($cd)',

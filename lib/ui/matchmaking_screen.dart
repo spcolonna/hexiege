@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../i18n/i18n.dart';
 import '../engine/pieces.dart';
 import '../match/ladder.dart';
 import '../match/matchmaker.dart';
@@ -163,7 +164,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
         ),
         const SizedBox(height: 24),
         Text(
-          'Buscando rival…',
+          tr('mm.searching'),
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: t.text),
         ),
         const SizedBox(height: 6),
@@ -181,14 +182,14 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
           duration: const Duration(milliseconds: 250),
           child: Text(
             _range > 50
-                ? 'Ampliando búsqueda · ${r - _range}–${r + _range} pts'
-                : 'Rivales de ${r - _range}–${r + _range} pts',
+                ? tr('mm.widening', {'lo': r - _range, 'hi': r + _range})
+                : tr('mm.range', {'lo': r - _range, 'hi': r + _range}),
             key: ValueKey(_range),
             style: TextStyle(fontSize: 13, color: t.textMuted),
           ),
         ),
         const SizedBox(height: 36),
-        OutlinedButton.icon(onPressed: _cancel, icon: const Icon(Icons.close_rounded), label: const Text('Cancelar')),
+        OutlinedButton.icon(onPressed: _cancel, icon: const Icon(Icons.close_rounded), label: Text(tr('mm.cancel'))),
       ],
     );
   }
@@ -202,7 +203,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          '¡Rival encontrado!',
+          tr('mm.found'),
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: t.gold, letterSpacing: 0.5),
         ),
         const SizedBox(height: 22),
@@ -260,7 +261,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
             border: Border.all(color: t.outline),
           ),
           child: Text(
-            m.youFirst ? 'Empezás vos · fichas claras' : 'Empieza ${o.nickname} · jugás con oscuras',
+            m.youFirst ? tr('mm.youFirst') : tr('mm.theyFirst', {'name': o.nickname}),
             style: TextStyle(fontWeight: FontWeight.w700, color: t.text),
           ),
         ),

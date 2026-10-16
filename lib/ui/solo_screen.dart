@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../i18n/i18n.dart';
 import '../solo/catalog.dart';
 import 'campaign_screen.dart';
 import 'fx/sfx.dart';
@@ -44,13 +45,13 @@ class SoloScreen extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        tooltip: 'Volver',
+                        tooltip: tr('common.back'),
                         icon: const Icon(Icons.arrow_back_rounded),
                         onPressed: () => Navigator.maybePop(context),
                       ),
                       Expanded(
                         child: Text(
-                          'Un jugador',
+                          tr('solo.title'),
                           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: t.text),
                         ),
                       ),
@@ -72,8 +73,8 @@ class SoloScreen extends StatelessWidget {
                           context,
                           t,
                           icon: Icons.auto_stories_rounded,
-                          title: 'Campaña',
-                          text: 'Dos historias, una por facción. 8 batallas cada una.',
+                          title: tr('solo.campaign'),
+                          text: tr('solo.campaignText'),
                           done: done(campaignStages),
                           total: campaignStages.length,
                           open: () => const CampaignScreen(),
@@ -82,13 +83,13 @@ class SoloScreen extends StatelessWidget {
                           context,
                           t,
                           icon: Icons.emoji_events_rounded,
-                          title: 'Desafíos',
-                          text: 'Reglas especiales y objetivos con condiciones.',
+                          title: tr('solo.challenges'),
+                          text: tr('solo.challengesText'),
                           done: done(challenges),
                           total: challenges.length,
                           open: () => StageListScreen(
-                            title: 'Desafíos',
-                            subtitle: 'Reglas especiales contra el Sensei',
+                            title: tr('solo.challenges'),
+                            subtitle: tr('solo.challengesSub'),
                             stages: challenges,
                           ),
                         ),
@@ -96,13 +97,13 @@ class SoloScreen extends StatelessWidget {
                           context,
                           t,
                           icon: Icons.extension_rounded,
-                          title: 'Problemas',
-                          text: 'Rodeá al Líder en 1 o 2 turnos. Siempre hay una forma.',
+                          title: tr('solo.puzzles'),
+                          text: tr('solo.puzzlesText'),
                           done: done(puzzles),
                           total: puzzles.length,
                           open: () => StageListScreen(
-                            title: 'Problemas',
-                            subtitle: 'Rodeá al Líder en pocos turnos',
+                            title: tr('solo.puzzles'),
+                            subtitle: tr('solo.puzzlesSub'),
                             stages: puzzles,
                           ),
                         ),
@@ -120,9 +121,9 @@ class SoloScreen extends StatelessWidget {
 
   Widget _continue(BuildContext context, HexTheme t, Stage next) {
     final kind = switch (next.kind) {
-      StageKind.campaign => 'Campaña',
-      StageKind.challenge => 'Desafío',
-      StageKind.puzzle => 'Problema',
+      StageKind.campaign => tr('stageKind.campaign'),
+      StageKind.challenge => tr('stageKind.challenge'),
+      StageKind.puzzle => tr('stageKind.puzzle'),
     };
     return SizedBox(
       height: 64,
@@ -151,7 +152,7 @@ class SoloScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Continuar', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900)),
+                  Text(tr('solo.continue'), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900)),
                   Text(
                     '$kind · ${next.title}',
                     maxLines: 1,

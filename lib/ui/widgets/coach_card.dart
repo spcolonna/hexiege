@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../i18n/i18n.dart';
 import '../../engine/pieces.dart';
 import '../theme/hex_theme.dart';
 
@@ -64,7 +65,7 @@ class CoachCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'LECCIÓN $step DE $total',
+                      tr('coach.lesson', {'step': step, 'total': total}),
                       style: TextStyle(fontSize: 10, letterSpacing: 1.2, fontWeight: FontWeight.w800, color: accent),
                     ),
                     Text(
@@ -90,7 +91,7 @@ class CoachCard extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            step == total ? '¡Completaste el tutorial!' : '¡Bien hecho!',
+                            tr(step == total ? 'coach.finished' : 'coach.wellDone'),
                             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: t.text),
                           ),
                         ),
@@ -100,7 +101,7 @@ class CoachCard extends StatelessWidget {
                             onPressed: onNext,
                             iconAlignment: IconAlignment.end,
                             icon: const Icon(Icons.arrow_forward_rounded),
-                            label: Text(step == total ? 'Terminar' : 'Siguiente'),
+                            label: Text(tr(step == total ? 'coach.finish' : 'common.next')),
                           ),
                         ),
                       ],

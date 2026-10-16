@@ -1,0 +1,1927 @@
+{
+ "faction.shaolin": {
+  "es": "Templo Shaolin",
+  "en": "Shaolin Temple",
+  "zh": "少林寺"
+ },
+ "faction.ninja": {
+  "es": "Sombras Ninja",
+  "en": "Ninja Shadows",
+  "zh": "忍者暗影"
+ },
+ "ability.shaolin": {
+  "es": "Meditación de Jade",
+  "en": "Jade Meditation",
+  "zh": "翡翠冥想"
+ },
+ "ability.ninja": {
+  "es": "Kawarimi",
+  "en": "Kawarimi",
+  "zh": "替身术"
+ },
+ "ability.shaolin.desc": {
+  "es": "Reubicá una ficha enemiga perimetral (no Líder) o intercambiá dos fichas aliadas adyacentes.",
+  "en": "Move an enemy piece on the edge (not the Leader) somewhere else, or swap two adjacent allied pieces.",
+  "zh": "将一枚边缘的敌方棋子（首领除外）移到别处，或交换两枚相邻的己方棋子。"
+ },
+ "ability.ninja.desc": {
+  "es": "Devolvé a la mano de su dueño una ficha perimetral (no Líder), propia o enemiga.",
+  "en": "Return a piece on the edge (not a Leader), yours or the enemy's, to its owner's hand.",
+  "zh": "将一枚边缘的棋子（首领除外，敌我皆可）退回其主人手中。"
+ },
+ "piece.monk": {
+  "es": "Monje Superior",
+  "en": "Grand Abbot",
+  "zh": "方丈"
+ },
+ "piece.dragon": {
+  "es": "Dragón Celestial",
+  "en": "Celestial Dragon",
+  "zh": "天龙"
+ },
+ "piece.wukong": {
+  "es": "Rey Mono",
+  "en": "Monkey King",
+  "zh": "美猴王"
+ },
+ "piece.tiger": {
+  "es": "Tigre de Mármol",
+  "en": "Marble Tiger",
+  "zh": "石虎"
+ },
+ "piece.crane": {
+  "es": "Grulla de Viento",
+  "en": "Wind Crane",
+  "zh": "风鹤"
+ },
+ "piece.serpent": {
+  "es": "Serpiente de Jade",
+  "en": "Jade Serpent",
+  "zh": "玉蛇"
+ },
+ "piece.shogun": {
+  "es": "Gran Shogun",
+  "en": "Great Shogun",
+  "zh": "大将军"
+ },
+ "piece.shinobi": {
+  "es": "Shinobi",
+  "en": "Shinobi",
+  "zh": "忍者"
+ },
+ "piece.kunoichi": {
+  "es": "Kunoichi",
+  "en": "Kunoichi",
+  "zh": "女忍"
+ },
+ "piece.tengu": {
+  "es": "Tengu",
+  "en": "Tengu",
+  "zh": "天狗"
+ },
+ "piece.kitsune": {
+  "es": "Kitsune",
+  "en": "Kitsune",
+  "zh": "狐妖"
+ },
+ "piece.shadow": {
+  "es": "Sombra Errante",
+  "en": "Wandering Shadow",
+  "zh": "游影"
+ },
+ "piece.monk.short": {
+  "es": "Monje",
+  "en": "Abbot",
+  "zh": "方丈"
+ },
+ "piece.dragon.short": {
+  "es": "Dragón",
+  "en": "Dragon",
+  "zh": "龙"
+ },
+ "piece.wukong.short": {
+  "es": "Rey Mono",
+  "en": "Monkey King",
+  "zh": "猴王"
+ },
+ "piece.tiger.short": {
+  "es": "Tigre",
+  "en": "Tiger",
+  "zh": "虎"
+ },
+ "piece.crane.short": {
+  "es": "Grulla",
+  "en": "Crane",
+  "zh": "鹤"
+ },
+ "piece.serpent.short": {
+  "es": "Serpiente",
+  "en": "Serpent",
+  "zh": "蛇"
+ },
+ "piece.shogun.short": {
+  "es": "Shogun",
+  "en": "Shogun",
+  "zh": "将军"
+ },
+ "piece.shinobi.short": {
+  "es": "Shinobi",
+  "en": "Shinobi",
+  "zh": "忍者"
+ },
+ "piece.kunoichi.short": {
+  "es": "Kunoichi",
+  "en": "Kunoichi",
+  "zh": "女忍"
+ },
+ "piece.tengu.short": {
+  "es": "Tengu",
+  "en": "Tengu",
+  "zh": "天狗"
+ },
+ "piece.kitsune.short": {
+  "es": "Kitsune",
+  "en": "Kitsune",
+  "zh": "狐"
+ },
+ "piece.shadow.short": {
+  "es": "Sombra",
+  "en": "Shadow",
+  "zh": "影"
+ },
+ "piece.monk.rules": {
+  "es": "Líder. Se desliza 1 casilla.",
+  "en": "Leader. Slides 1 space.",
+  "zh": "首领。滑行 1 格。"
+ },
+ "piece.dragon.rules": {
+  "es": "Vuela en línea recta sobre fichas contiguas y aterriza en el primer hueco.",
+  "en": "Flies in a straight line over adjacent pieces and lands on the first empty space.",
+  "zh": "沿直线飞越相连的棋子，落在第一个空格。"
+ },
+ "piece.wukong.rules": {
+  "es": "Avanza 1 casilla y puede subirse encima de fichas (las bloquea). En el suelo, puede copiar el movimiento de una ficha adyacente.",
+  "en": "Moves 1 space and can climb on top of pieces (pinning them). On the ground, it can copy the movement of an adjacent piece.",
+  "zh": "移动 1 格，可爬到棋子上方（将其压住）。在地面时可模仿相邻棋子的走法。"
+ },
+ "piece.tiger.rules": {
+  "es": "Embiste 1–3 casillas en línea recta. Si queda frente a una ficha enemiga, la empuja 1 casilla.",
+  "en": "Charges 1–3 spaces in a straight line. If it ends facing an enemy piece, it pushes it 1 space.",
+  "zh": "沿直线冲撞 1–3 格。若停在敌方棋子正前方，将其推开 1 格。"
+ },
+ "piece.crane.rules": {
+  "es": "Salta en línea recta sobre 1 o 2 fichas.",
+  "en": "Jumps in a straight line over 1 or 2 pieces.",
+  "zh": "沿直线跳过 1 或 2 枚棋子。"
+ },
+ "piece.serpent.rules": {
+  "es": "Se desliza 1 o 2 casillas. Las fichas enemigas adyacentes pierden sus efectos especiales.",
+  "en": "Slides 1 or 2 spaces. Adjacent enemy pieces lose their special effects.",
+  "zh": "滑行 1 或 2 格。相邻的敌方棋子失去特殊效果。"
+ },
+ "piece.shogun.rules": {
+  "es": "Líder. Se desliza 1 casilla. Una vez por partida, intercambia lugar con un Shinobi adyacente.",
+  "en": "Leader. Slides 1 space. Once per game, it can swap places with an adjacent Shinobi.",
+  "zh": "首领。滑行 1 格。每局一次，可与相邻的忍者交换位置。"
+ },
+ "piece.shinobi.rules": {
+  "es": "Se desliza hasta 4 casillas por el perímetro, incluso por huecos estrechos.",
+  "en": "Slides up to 4 spaces around the edge, even through narrow gaps.",
+  "zh": "沿外围滑行最多 4 格，可穿过狭窄缝隙。"
+ },
+ "piece.kunoichi.rules": {
+  "es": "Se desliza hasta 2 casillas y paraliza a una ficha enemiga adyacente por 1 turno.",
+  "en": "Slides up to 2 spaces and paralyzes an adjacent enemy piece for 1 turn.",
+  "zh": "滑行最多 2 格，并使一枚相邻敌方棋子麻痹 1 回合。"
+ },
+ "piece.tengu.rules": {
+  "es": "Se teletransporta a cualquier hueco que toque al menos 3 fichas, pero no puede cerrar así el cerco del Líder rival.",
+  "en": "Teleports to any empty space touching at least 3 pieces, but can't complete the enemy Leader's encirclement that way.",
+  "zh": "瞬移到任何至少接触 3 枚棋子的空格，但不能以此完成对敌方首领的包围。"
+ },
+ "piece.kitsune.rules": {
+  "es": "Se desliza 1 o 2 casillas.",
+  "en": "Slides 1 or 2 spaces.",
+  "zh": "滑行 1 或 2 格。"
+ },
+ "piece.shadow.rules": {
+  "es": "Se desliza 1 casilla y puede dejar un Sello de Sombra adyacente: la ficha enemiga que caiga ahí queda paralizada.",
+  "en": "Slides 1 space and can leave an adjacent Shadow Seal: an enemy piece that lands there is paralyzed.",
+  "zh": "滑行 1 格，并可在相邻处留下暗影封印：落在上面的敌方棋子会被麻痹。"
+ },
+ "event.own": {
+  "es": "(propia)",
+  "en": "(own)",
+  "zh": "（己方）"
+ },
+ "event.rival": {
+  "es": "(rival)",
+  "en": "(enemy)",
+  "zh": "（敌方）"
+ },
+ "event.placed": {
+  "es": "Colocó {piece}",
+  "en": "Placed {piece}",
+  "zh": "放置了{piece}"
+ },
+ "event.moved": {
+  "es": "Movió {piece}",
+  "en": "Moved {piece}",
+  "zh": "移动了{piece}"
+ },
+ "event.climbed": {
+  "es": "{piece} se subió a una ficha y la bloquea",
+  "en": "{piece} climbed onto a piece and pins it",
+  "zh": "{piece}爬到一枚棋子上并将其压住"
+ },
+ "event.pushed": {
+  "es": "El Tigre empujó a {piece}",
+  "en": "The Tiger pushed {piece}",
+  "zh": "石虎推开了{piece}"
+ },
+ "event.paralyzedSeal": {
+  "es": "{piece} pisó un Sello de Sombra: paralizada 1 turno",
+  "en": "{piece} stepped on a Shadow Seal: paralyzed for 1 turn",
+  "zh": "{piece}踩中暗影封印：麻痹 1 回合"
+ },
+ "event.paralyzed": {
+  "es": "La Kunoichi paralizó a {piece} por 1 turno",
+  "en": "The Kunoichi paralyzed {piece} for 1 turn",
+  "zh": "女忍使{piece}麻痹 1 回合"
+ },
+ "event.sealPlaced": {
+  "es": "La Sombra Errante dejó un Sello de Sombra",
+  "en": "The Wandering Shadow left a Shadow Seal",
+  "zh": "游影留下了暗影封印"
+ },
+ "event.cancelPush": {
+  "es": "La Serpiente de Jade anuló el empuje del Tigre",
+  "en": "The Jade Serpent cancelled the Tiger's push",
+  "zh": "玉蛇抵消了石虎的推击"
+ },
+ "event.cancelParalyze": {
+  "es": "La Serpiente de Jade anuló la parálisis de la Kunoichi",
+  "en": "The Jade Serpent cancelled the Kunoichi's paralysis",
+  "zh": "玉蛇抵消了女忍的麻痹"
+ },
+ "event.cancelSeal": {
+  "es": "La Serpiente de Jade impidió el Sello de Sombra",
+  "en": "The Jade Serpent prevented the Shadow Seal",
+  "zh": "玉蛇阻止了暗影封印"
+ },
+ "event.shogunSwap": {
+  "es": "El Gran Shogun cambió de lugar con un Shinobi (1 vez por partida)",
+  "en": "The Great Shogun swapped places with a Shinobi (once per game)",
+  "zh": "大将军与一名忍者交换了位置（每局一次）"
+ },
+ "event.jadeRelocated": {
+  "es": "Meditación de Jade: reubicó {piece} {whose}",
+  "en": "Jade Meditation: moved {piece} {whose}",
+  "zh": "翡翠冥想：移走了{piece}{whose}"
+ },
+ "event.jadeSwapped": {
+  "es": "Meditación de Jade: intercambió {a} y {b}",
+  "en": "Jade Meditation: swapped {a} and {b}",
+  "zh": "翡翠冥想：交换了{a}和{b}"
+ },
+ "event.returned": {
+  "es": "Kawarimi: {piece} {whose} vuelve a la mano de su dueño",
+  "en": "Kawarimi: {piece} {whose} returns to its owner's hand",
+  "zh": "替身术：{piece}{whose}回到主人手中"
+ },
+ "event.passed": {
+  "es": "Sin jugadas posibles: pasó el turno",
+  "en": "No legal moves: turn passed",
+  "zh": "无棋可走：跳过回合"
+ },
+ "common.sensei": {
+  "es": "Sensei",
+  "en": "Sensei",
+  "zh": "师父"
+ },
+ "common.player2": {
+  "es": "Jugador 2",
+  "en": "Player 2",
+  "zh": "玩家 2"
+ },
+ "common.menu": {
+  "es": "Menú",
+  "en": "Menu",
+  "zh": "菜单"
+ },
+ "common.back": {
+  "es": "Volver",
+  "en": "Back",
+  "zh": "返回"
+ },
+ "common.next": {
+  "es": "Siguiente",
+  "en": "Next",
+  "zh": "下一关"
+ },
+ "common.retry": {
+  "es": "Reintentar",
+  "en": "Retry",
+  "zh": "重试"
+ },
+ "common.playAgain": {
+  "es": "Jugar de nuevo",
+  "en": "Play again",
+  "zh": "再玩一次"
+ },
+ "common.start": {
+  "es": "Comenzar",
+  "en": "Start",
+  "zh": "开始"
+ },
+ "common.undo": {
+  "es": "Deshacer",
+  "en": "Undo",
+  "zh": "悔棋"
+ },
+ "common.restart": {
+  "es": "Reiniciar",
+  "en": "Restart",
+  "zh": "重新开始"
+ },
+ "common.resign": {
+  "es": "Abandonar",
+  "en": "Resign",
+  "zh": "认输"
+ },
+ "common.sound": {
+  "es": "Sonido",
+  "en": "Sound",
+  "zh": "声音"
+ },
+ "common.lightTheme": {
+  "es": "Tema claro",
+  "en": "Light theme",
+  "zh": "浅色主题"
+ },
+ "common.darkTheme": {
+  "es": "Tema oscuro",
+  "en": "Dark theme",
+  "zh": "深色主题"
+ },
+ "common.log": {
+  "es": "Registro",
+  "en": "Log",
+  "zh": "记录"
+ },
+ "common.victory": {
+  "es": "Victoria",
+  "en": "Victory",
+  "zh": "胜利"
+ },
+ "common.defeat": {
+  "es": "Derrota",
+  "en": "Defeat",
+  "zh": "失败"
+ },
+ "common.draw": {
+  "es": "Empate",
+  "en": "Draw",
+  "zh": "平局"
+ },
+ "common.rematch": {
+  "es": "Revancha",
+  "en": "Rematch",
+  "zh": "再战"
+ },
+ "common.options.one": {
+  "es": "{n} opción",
+  "en": "{n} option",
+  "zh": "{n} 个选项"
+ },
+ "common.options.other": {
+  "es": "{n} opciones",
+  "en": "{n} options",
+  "zh": "{n} 个选项"
+ },
+ "game.thinking": {
+  "es": "{name} está pensando…",
+  "en": "{name} is thinking…",
+  "zh": "{name}正在思考…"
+ },
+ "game.hint.place": {
+  "es": "Tocá una casilla para colocar {piece}",
+  "en": "Tap a space to place {piece}",
+  "zh": "点击空格放置{piece}"
+ },
+ "game.hint.shogunSwap": {
+  "es": "Mové al Shogun o tocá un Shinobi dorado para intercambiar (1 vez)",
+  "en": "Move the Shogun or tap a golden Shinobi to swap (once)",
+  "zh": "移动将军，或点击金色忍者交换位置（一次）"
+ },
+ "game.hint.moveTo": {
+  "es": "Elegí destino para {piece}",
+  "en": "Choose where to move {piece}",
+  "zh": "选择{piece}的目的地"
+ },
+ "game.hint.paralyze": {
+  "es": "Elegí una ficha enemiga para paralizar",
+  "en": "Choose an enemy piece to paralyze",
+  "zh": "选择要麻痹的敌方棋子"
+ },
+ "game.hint.seal": {
+  "es": "Elegí dónde dejar el Sello de Sombra",
+  "en": "Choose where to leave the Shadow Seal",
+  "zh": "选择暗影封印的位置"
+ },
+ "game.hint.jadeRelocate": {
+  "es": "Elegí una ficha enemiga perimetral",
+  "en": "Choose an enemy piece on the edge",
+  "zh": "选择一枚边缘的敌方棋子"
+ },
+ "game.hint.jadeRelocateTarget": {
+  "es": "Elegí el nuevo lugar de la ficha enemiga",
+  "en": "Choose the enemy piece's new spot",
+  "zh": "选择敌方棋子的新位置"
+ },
+ "game.hint.jadeSwap": {
+  "es": "Elegí una ficha aliada para intercambiar",
+  "en": "Choose an allied piece to swap",
+  "zh": "选择要交换的己方棋子"
+ },
+ "game.hint.jadeSwapTarget": {
+  "es": "Elegí la ficha aliada adyacente",
+  "en": "Choose the adjacent allied piece",
+  "zh": "选择相邻的己方棋子"
+ },
+ "game.hint.kawarimi": {
+  "es": "Elegí una ficha perimetral para devolver a la mano",
+  "en": "Choose a piece on the edge to return to hand",
+  "zh": "选择一枚边缘棋子退回手中"
+ },
+ "game.hint.mustLeader": {
+  "es": "¡Debés colocar a tu Líder este turno!",
+  "en": "You must place your Leader this turn!",
+  "zh": "本回合必须放置你的首领！"
+ },
+ "game.hint.noMoves": {
+  "es": "Sin jugadas posibles: pasás el turno",
+  "en": "No legal moves: your turn is passed",
+  "zh": "无棋可走：跳过你的回合"
+ },
+ "game.hint.withAbility": {
+  "es": "Colocá, mové o usá la habilidad (una sola acción)",
+  "en": "Place, move or use your ability (one action)",
+  "zh": "放置、移动或使用技能（仅一个动作）"
+ },
+ "game.hint.idle": {
+  "es": "Colocá una ficha o mové una del tablero",
+  "en": "Place a piece or move one on the board",
+  "zh": "放置一枚棋子，或移动场上的棋子"
+ },
+ "game.siegeStarts": {
+  "es": "¡Empieza el Asedio! Desde ahora alcanza con ocupar 5 lados del Líder.",
+  "en": "The Siege begins! From now on, 5 occupied sides capture a Leader.",
+  "zh": "围城开始！从现在起，占据首领 5 面即可获胜。"
+ },
+ "game.rivalLine": {
+  "es": "Rival: {faction} · {level}",
+  "en": "Opponent: {faction} · {level}",
+  "zh": "对手：{faction} · {level}"
+ },
+ "stage.campaignDone.siege": {
+  "es": "¡Campaña completada! Sitiaste al Líder en la batalla final.",
+  "en": "Campaign complete! You besieged the Leader in the final battle.",
+  "zh": "战役完成！你在最终之战中围困了首领。"
+ },
+ "stage.campaignDone": {
+  "es": "¡Campaña completada! Rodeaste al Líder en la batalla final.",
+  "en": "Campaign complete! You surrounded the Leader in the final battle.",
+  "zh": "战役完成！你在最终之战中包围了首领。"
+ },
+ "stage.won.siege": {
+  "es": "{title}: sitiaste al Líder enemigo.",
+  "en": "{title}: you besieged the enemy Leader.",
+  "zh": "{title}：你围困了敌方首领。"
+ },
+ "stage.won": {
+  "es": "{title}: rodeaste al Líder enemigo.",
+  "en": "{title}: you surrounded the enemy Leader.",
+  "zh": "{title}：你包围了敌方首领。"
+ },
+ "stage.closedIn.one": {
+  "es": "Cerco cerrado en 1 turno.",
+  "en": "Encircled in 1 turn.",
+  "zh": "1 回合完成包围。"
+ },
+ "stage.closedIn.other": {
+  "es": "Cerco cerrado en {n} turnos.",
+  "en": "Encircled in {n} turns.",
+  "zh": "{n} 回合完成包围。"
+ },
+ "stage.lost.limit": {
+  "es": "Se terminaron las rondas sin capturar al Líder.",
+  "en": "The rounds ran out without capturing the Leader.",
+  "zh": "回合用尽，未能捕获首领。"
+ },
+ "stage.lost.draw": {
+  "es": "Ambos Líderes quedaron rodeados: es empate.",
+  "en": "Both Leaders were surrounded: it's a draw.",
+  "zh": "双方首领同时被包围：平局。"
+ },
+ "stage.lost.surrounded": {
+  "es": "Rodearon a tu Líder.",
+  "en": "Your Leader was surrounded.",
+  "zh": "你的首领被包围了。"
+ },
+ "stage.lost.puzzle": {
+  "es": "Se acabaron los turnos y el Líder sigue libre.",
+  "en": "Out of turns and the Leader is still free.",
+  "zh": "回合用尽，首领仍未被困。"
+ },
+ "stage.lost": {
+  "es": "No se cumplió el objetivo.",
+  "en": "Objective not met.",
+  "zh": "未达成目标。"
+ },
+ "stage.cleared": {
+  "es": "¡Superado!",
+  "en": "Cleared!",
+  "zh": "通关！"
+ },
+ "stage.notThisTime": {
+  "es": "Esta vez no",
+  "en": "Not this time",
+  "zh": "这次不行"
+ },
+ "tutorial.readyTitle": {
+  "es": "¡Listo para jugar!",
+  "en": "Ready to play!",
+  "zh": "准备好了！"
+ },
+ "tutorial.readyBody": {
+  "es": "Ya sabés lo esencial. El resto lo vas a descubrir jugando: mantené apretada cualquier ficha para leer cómo se mueve.",
+  "en": "You know the essentials. You'll discover the rest by playing: long-press any piece to read how it moves.",
+  "zh": "你已掌握要点，其余的在对局中探索吧：长按任意棋子即可查看走法。"
+ },
+ "tutorial.playSensei": {
+  "es": "Jugar vs Sensei",
+  "en": "Play vs Sensei",
+  "zh": "与师父对弈"
+ },
+ "tutorial.restartLesson": {
+  "es": "Reiniciar lección",
+  "en": "Restart lesson",
+  "zh": "重新开始本课"
+ },
+ "game.jadeRelocate": {
+  "es": "Reubicar ficha enemiga",
+  "en": "Move an enemy piece",
+  "zh": "移走敌方棋子"
+ },
+ "game.jadeSwap": {
+  "es": "Intercambiar fichas aliadas",
+  "en": "Swap allied pieces",
+  "zh": "交换己方棋子"
+ },
+ "game.paralyzedTag": {
+  "es": " (paralizada)",
+  "en": " (paralyzed)",
+  "zh": "（麻痹中）"
+ },
+ "game.nullifiedTag": {
+  "es": " (efecto anulado por la Serpiente)",
+  "en": " (effect cancelled by the Serpent)",
+  "zh": "（效果被玉蛇抵消）"
+ },
+ "game.over.drawLimit": {
+  "es": "¡Empate! Se jugaron las {n} rondas sin capturar a ningún Líder.",
+  "en": "Draw! All {n} rounds were played without capturing a Leader.",
+  "zh": "平局！{n} 回合内无人捕获首领。"
+ },
+ "game.over.drawBoth": {
+  "es": "¡Empate! Ambos Líderes quedaron rodeados.",
+  "en": "Draw! Both Leaders were surrounded.",
+  "zh": "平局！双方首领同时被包围。"
+ },
+ "game.over.win.siege": {
+  "es": "¡Gana {name}!\n{faction} sitió al Líder enemigo.",
+  "en": "{name} wins!\n{faction} besieged the enemy Leader.",
+  "zh": "{name}获胜！\n{faction}围困了敌方首领。"
+ },
+ "game.over.win": {
+  "es": "¡Gana {name}!\n{faction} rodeó al Líder enemigo.",
+  "en": "{name} wins!\n{faction} surrounded the enemy Leader.",
+  "zh": "{name}获胜！\n{faction}包围了敌方首领。"
+ },
+ "game.resignTitle": {
+  "es": "¿Abandonar la partida?",
+  "en": "Resign the game?",
+  "zh": "确定认输吗？"
+ },
+ "game.resignBody": {
+  "es": "Cuenta como derrota y perdés puntos.",
+  "en": "It counts as a loss and you lose points.",
+  "zh": "将计为失败并扣除积分。"
+ },
+ "game.keepPlaying": {
+  "es": "Seguir jugando",
+  "en": "Keep playing",
+  "zh": "继续对局"
+ },
+ "ranked.resigned": {
+  "es": "Abandonaste contra {name}.",
+  "en": "You resigned against {name}.",
+  "zh": "你向{name}认输了。"
+ },
+ "ranked.drawLimit": {
+  "es": "Se jugaron las {n} rondas sin capturas.",
+  "en": "All {n} rounds were played without a capture.",
+  "zh": "{n} 回合内无人捕获。"
+ },
+ "ranked.drawBoth": {
+  "es": "Ambos Líderes quedaron rodeados.",
+  "en": "Both Leaders were surrounded.",
+  "zh": "双方首领同时被包围。"
+ },
+ "ranked.won.siege": {
+  "es": "Sitiaste al Líder de {name}.",
+  "en": "You besieged {name}'s Leader.",
+  "zh": "你围困了{name}的首领。"
+ },
+ "ranked.won": {
+  "es": "Rodeaste al Líder de {name}.",
+  "en": "You surrounded {name}'s Leader.",
+  "zh": "你包围了{name}的首领。"
+ },
+ "ranked.lost.siege": {
+  "es": "{name} sitió a tu Líder.",
+  "en": "{name} besieged your Leader.",
+  "zh": "{name}围困了你的首领。"
+ },
+ "ranked.lost": {
+  "es": "{name} rodeó a tu Líder.",
+  "en": "{name} surrounded your Leader.",
+  "zh": "{name}包围了你的首领。"
+ },
+ "stageKind.puzzle": {
+  "es": "Problema",
+  "en": "Puzzle",
+  "zh": "残局"
+ },
+ "stageKind.challenge": {
+  "es": "Desafío",
+  "en": "Challenge",
+  "zh": "挑战"
+ },
+ "stageKind.campaign": {
+  "es": "Campaña",
+  "en": "Campaign",
+  "zh": "战役"
+ },
+ "round.siegeActive": {
+  "es": "ASEDIO · {round}/{limit}",
+  "en": "SIEGE · {round}/{limit}",
+  "zh": "围城 · {round}/{limit}"
+ },
+ "round.siegeIn.one": {
+  "es": "Asedio en 1 ronda",
+  "en": "Siege in 1 round",
+  "zh": "1 回合后围城"
+ },
+ "round.siegeIn.other": {
+  "es": "Asedio en {n} rondas",
+  "en": "Siege in {n} rounds",
+  "zh": "{n} 回合后围城"
+ },
+ "round.ofLimit": {
+  "es": "Ronda {round}/{limit}",
+  "en": "Round {round}/{limit}",
+  "zh": "第 {round}/{limit} 回合"
+ },
+ "round.n": {
+  "es": "Ronda {round}",
+  "en": "Round {round}",
+  "zh": "第 {round} 回合"
+ },
+ "round.siegeTip": {
+  "es": "Desde la ronda {n}, Asedio: alcanza con ocupar 5 lados del Líder.",
+  "en": "From round {n}, Siege: 5 occupied sides capture a Leader.",
+  "zh": "自第 {n} 回合起围城：占据首领 5 面即可获胜。"
+ },
+ "round.limitTip": {
+  "es": "Al terminar la ronda {n}, empate.",
+  "en": "After round {n}, the game is a draw.",
+  "zh": "第 {n} 回合结束后判为平局。"
+ },
+ "game.emptyHand": {
+  "es": "Mano vacía",
+  "en": "Empty hand",
+  "zh": "手中无子"
+ },
+ "game.skipEffect": {
+  "es": "Omitir efecto",
+  "en": "Skip effect",
+  "zh": "跳过效果"
+ },
+ "game.abilitySpent": {
+  "es": "{ability} · agotada",
+  "en": "{ability} · spent",
+  "zh": "{ability} · 已用完"
+ },
+ "common.defaultNick": {
+  "es": "Vos",
+  "en": "You",
+  "zh": "你"
+ },
+ "menu.yourName": {
+  "es": "Tu nombre",
+  "en": "Your name",
+  "zh": "你的名字"
+ },
+ "menu.findMatch": {
+  "es": "Buscar partida",
+  "en": "Find match",
+  "zh": "寻找对局"
+ },
+ "menu.solo": {
+  "es": "Un jugador · {progress}",
+  "en": "Single player · {progress}",
+  "zh": "单人模式 · {progress}"
+ },
+ "menu.local": {
+  "es": "Local",
+  "en": "Local",
+  "zh": "本地"
+ },
+ "menu.tutorial": {
+  "es": "Tutorial",
+  "en": "Tutorial",
+  "zh": "教程"
+ },
+ "menu.rules": {
+  "es": "Reglas",
+  "en": "Rules",
+  "zh": "规则"
+ },
+ "menu.toggleTheme": {
+  "es": "Cambiar tema",
+  "en": "Change theme",
+  "zh": "切换主题"
+ },
+ "menu.settings": {
+  "es": "Ajustes",
+  "en": "Settings",
+  "zh": "设置"
+ },
+ "menu.localTitle": {
+  "es": "Partida local",
+  "en": "Local game",
+  "zh": "本地对局"
+ },
+ "menu.localBody": {
+  "es": "Dos jugadores en este dispositivo. Vos jugás {faction}; ¿qué facción usa el Jugador 2?",
+  "en": "Two players on this device. You play {faction}; which faction does Player 2 use?",
+  "zh": "两名玩家共用此设备。你使用{faction}；玩家 2 使用哪个阵营？"
+ },
+ "menu.firstGame": {
+  "es": "Jugá tu primera partida",
+  "en": "Play your first game",
+  "zh": "开始你的第一局"
+ },
+ "menu.record": {
+  "es": "{w}V · {l}D",
+  "en": "{w}W · {l}L",
+  "zh": "{w}胜 · {l}负"
+ },
+ "menu.recordDraws": {
+  "es": " · {d}E",
+  "en": " · {d}D",
+  "zh": " · {d}平"
+ },
+ "menu.points": {
+  "es": "puntos",
+  "en": "points",
+  "zh": "积分"
+ },
+ "menu.firstTime": {
+  "es": "¿Primera vez?",
+  "en": "First time?",
+  "zh": "第一次玩？"
+ },
+ "menu.learn": {
+  "es": "Aprendé a jugar en 2 minutos con el Sensei.",
+  "en": "Learn to play in 2 minutes with the Sensei.",
+  "zh": "跟师父 2 分钟学会玩法。"
+ },
+ "menu.tagline": {
+  "es": "Rodeá al Líder enemigo",
+  "en": "Surround the enemy Leader",
+  "zh": "包围敌方首领"
+ },
+ "menu.yourFaction": {
+  "es": "Tu facción",
+  "en": "Your faction",
+  "zh": "你的阵营"
+ },
+ "settings.theme": {
+  "es": "Tema",
+  "en": "Theme",
+  "zh": "主题"
+ },
+ "settings.system": {
+  "es": "Sistema",
+  "en": "System",
+  "zh": "跟随系统"
+ },
+ "settings.light": {
+  "es": "Claro",
+  "en": "Light",
+  "zh": "浅色"
+ },
+ "settings.dark": {
+  "es": "Oscuro",
+  "en": "Dark",
+  "zh": "深色"
+ },
+ "settings.haptics": {
+  "es": "Vibración",
+  "en": "Haptics",
+  "zh": "振动"
+ },
+ "settings.language": {
+  "es": "Idioma",
+  "en": "Language",
+  "zh": "语言"
+ },
+ "settings.pieces": {
+  "es": "Fichas",
+  "en": "Pieces",
+  "zh": "棋子"
+ },
+ "settings.pieceImages": {
+  "es": "Imágenes",
+  "en": "Images",
+  "zh": "图像"
+ },
+ "settings.pieceGlyphs": {
+  "es": "Caracteres",
+  "en": "Characters",
+  "zh": "汉字"
+ },
+ "rules.title": {
+  "es": "Reglas básicas",
+  "en": "Basic rules",
+  "zh": "基本规则"
+ },
+ "rules.body": {
+  "es": "• Cada turno hacés una sola acción: colocar una ficha de tu mano (tocando solo fichas propias), mover una del tablero o usar la habilidad de tu facción. El turno pasa solo.\n• La habilidad tiene {charges} usos por partida, con {cooldown} turnos de recarga entre uno y otro.\n• Colmena única: ninguna acción puede dividir el tablero en dos grupos.\n• No podés mover fichas hasta colocar a tu Líder, y debés colocarlo antes de tu 4.º turno.\n• Las fichas no pueden deslizarse entre dos fichas (huecos estrechos), salvo el Shinobi.\n• Ganás si los 6 lados del Líder enemigo quedan ocupados. Si ambos quedan rodeados: empate.\n• Asedio: desde la ronda {siege} alcanza con ocupar 5 lados. Si nadie gana en {limit} rondas: empate.\n• Mantené presionada una ficha para ver qué hace.",
+  "en": "• Each turn you take exactly one action: place a piece from your hand (touching only your own pieces), move one on the board, or use your faction's ability. The turn then passes automatically.\n• The ability has {charges} uses per game, with a {cooldown}-turn cooldown between uses.\n• One hive: no action may split the board into two groups.\n• You can't move pieces until your Leader is placed, and you must place it by your 4th turn.\n• Pieces can't slide between two pieces (narrow gaps), except the Shinobi.\n• You win when all 6 sides of the enemy Leader are occupied. If both Leaders are surrounded: draw.\n• Siege: from round {siege}, 5 occupied sides are enough. If nobody wins in {limit} rounds: draw.\n• Long-press a piece to see what it does.",
+  "zh": "• 每回合只能做一个动作：从手中放置一枚棋子（只能接触己方棋子）、移动场上的一枚棋子，或使用阵营技能。之后自动轮到对手。\n• 技能每局可用 {charges} 次，两次之间需冷却 {cooldown} 回合。\n• 蜂巢唯一：任何动作都不能把棋盘分成两部分。\n• 放置首领前不能移动棋子，且必须在第 4 回合前放置首领。\n• 棋子不能从两枚棋子之间的狭窄缝隙滑过，忍者除外。\n• 敌方首领 6 面全被占据即获胜。双方首领同时被包围则为平局。\n• 围城：自第 {siege} 回合起，占据 5 面即可。{limit} 回合内无人获胜则为平局。\n• 长按棋子可查看其能力。"
+ },
+ "rank.novice": {
+  "es": "Novicio",
+  "en": "Novice",
+  "zh": "新手"
+ },
+ "rank.disciple": {
+  "es": "Discípulo",
+  "en": "Disciple",
+  "zh": "弟子"
+ },
+ "rank.warrior": {
+  "es": "Guerrero",
+  "en": "Warrior",
+  "zh": "武者"
+ },
+ "rank.veteran": {
+  "es": "Veterano",
+  "en": "Veteran",
+  "zh": "老将"
+ },
+ "rank.legend": {
+  "es": "Leyenda",
+  "en": "Legend",
+  "zh": "传奇"
+ },
+ "stage.p01.title": {
+  "es": "Primer cerco",
+  "en": "First encirclement",
+  "zh": "初次包围"
+ },
+ "stage.p01.intro": {
+  "es": "Al Shogun le queda un solo lado libre.",
+  "en": "The Shogun has only one free side left.",
+  "zh": "将军只剩一面空着。"
+ },
+ "stage.p02.title": {
+  "es": "Vuelo del Dragón",
+  "en": "Dragon's flight",
+  "zh": "天龙飞跃"
+ },
+ "stage.p02.intro": {
+  "es": "El hueco está cerrado para quien camina, no para quien vuela.",
+  "en": "The gap is closed to walkers, not to flyers.",
+  "zh": "缺口挡得住步行者，挡不住飞行者。"
+ },
+ "stage.p03.title": {
+  "es": "Salto de la Grulla",
+  "en": "Crane's leap",
+  "zh": "风鹤跳跃"
+ },
+ "stage.p03.intro": {
+  "es": "La Grulla salta en línea recta sobre 1 o 2 fichas.",
+  "en": "The Crane jumps in a straight line over 1 or 2 pieces.",
+  "zh": "风鹤沿直线跳过 1 或 2 枚棋子。"
+ },
+ "stage.p04.title": {
+  "es": "Embestida",
+  "en": "Charge",
+  "zh": "冲撞"
+ },
+ "stage.p04.intro": {
+  "es": "El Tigre empuja a la ficha enemiga que queda frente a él.",
+  "en": "The Tiger pushes the enemy piece it ends up facing.",
+  "zh": "石虎会推开正前方的敌方棋子。"
+ },
+ "stage.p05.title": {
+  "es": "El Rey Mono imita",
+  "en": "The Monkey King mimics",
+  "zh": "猴王模仿"
+ },
+ "stage.p05.intro": {
+  "es": "En el suelo, el Rey Mono puede moverse como cualquier ficha que tenga al lado.",
+  "en": "On the ground, the Monkey King can move like any piece next to it.",
+  "zh": "在地面上，猴王可以模仿任何相邻棋子的走法。"
+ },
+ "stage.p06.title": {
+  "es": "Meditación de Jade",
+  "en": "Jade Meditation",
+  "zh": "翡翠冥想"
+ },
+ "stage.p06.intro": {
+  "es": "Tu habilidad puede mover una ficha enemiga… a donde más le duele.",
+  "en": "Your ability can move an enemy piece… to where it hurts most.",
+  "zh": "你的技能可以移动敌方棋子……移到最致命的地方。"
+ },
+ "stage.p07.title": {
+  "es": "El salto del Tengu",
+  "en": "The Tengu's leap",
+  "zh": "天狗之跃"
+ },
+ "stage.p07.intro": {
+  "es": "El Tengu aparece en cualquier hueco que toque 3 fichas, pero el golpe final lo tiene que dar otra.",
+  "en": "The Tengu appears in any gap touching 3 pieces, but another piece must land the final blow.",
+  "zh": "天狗能出现在任何接触 3 枚棋子的空格，但最后一击必须由别的棋子完成。"
+ },
+ "stage.p08.title": {
+  "es": "Por la rendija",
+  "en": "Through the crack",
+  "zh": "穿缝而过"
+ },
+ "stage.p08.intro": {
+  "es": "El Shinobi se cuela por huecos donde nadie más pasa.",
+  "en": "The Shinobi slips through gaps nobody else can pass.",
+  "zh": "忍者能穿过别人过不去的缝隙。"
+ },
+ "stage.p09.title": {
+  "es": "Asedio",
+  "en": "Siege",
+  "zh": "围城"
+ },
+ "stage.p09.intro": {
+  "es": "Ronda 36: alcanza con 5 lados. Pero eso vale también para tu Monje.",
+  "en": "Round 36: 5 sides are enough. But that goes for your Abbot too.",
+  "zh": "第 36 回合：占据 5 面即可。但这对你的方丈同样适用。"
+ },
+ "stage.p10.title": {
+  "es": "Kawarimi",
+  "en": "Kawarimi",
+  "zh": "替身术"
+ },
+ "stage.p10.intro": {
+  "es": "Sacar una ficha de la colmena también abre caminos. Tenés 2 turnos.",
+  "en": "Removing a piece from the hive can also open paths. You have 2 turns.",
+  "zh": "从蜂巢中移走一枚棋子也能打开道路。你有 2 回合。"
+ },
+ "stage.p11.title": {
+  "es": "Dos huecos",
+  "en": "Two gaps",
+  "zh": "两个缺口"
+ },
+ "stage.p11.intro": {
+  "es": "Dos lados libres, dos turnos. Cerrá primero el que le sirve de salida.",
+  "en": "Two free sides, two turns. Close the escape route first.",
+  "zh": "两面空缺，两个回合。先堵住它的退路。"
+ },
+ "stage.p12.title": {
+  "es": "Veneno de Kunoichi",
+  "en": "Kunoichi's poison",
+  "zh": "女忍之毒"
+ },
+ "stage.p12.intro": {
+  "es": "Si el Tigre se aparta, el cerco se abre. Que no pueda moverse.",
+  "en": "If the Tiger steps aside, the encirclement opens. Don't let it move.",
+  "zh": "石虎一让开，包围就破了。别让它动。"
+ },
+ "stage.p13.title": {
+  "es": "Paso del Rey Mono",
+  "en": "Monkey King's step",
+  "zh": "猴王一步"
+ },
+ "stage.p13.intro": {
+  "es": "Una casilla bien elegida vale más que un salto largo.",
+  "en": "A well-chosen square is worth more than a long jump.",
+  "zh": "选对一格，胜过远跳。"
+ },
+ "stage.p14.title": {
+  "es": "Zorro paciente",
+  "en": "Patient fox",
+  "zh": "耐心的狐"
+ },
+ "stage.p14.intro": {
+  "es": "Primero cerrá la salida; el golpe final viene después.",
+  "en": "First close the exit; the final blow comes later.",
+  "zh": "先堵住出口，最后一击稍后再来。"
+ },
+ "stage.p15.title": {
+  "es": "El Monje ataca",
+  "en": "The Abbot strikes",
+  "zh": "方丈出击"
+ },
+ "stage.p15.intro": {
+  "es": "Tu Líder también puede cerrar un cerco.",
+  "en": "Your Leader can close an encirclement too.",
+  "zh": "你的首领也能完成包围。"
+ },
+ "stage.p16.title": {
+  "es": "Sombra lejana",
+  "en": "Distant shadow",
+  "zh": "远方之影"
+ },
+ "stage.p16.intro": {
+  "es": "El Shinobi llega lejos por el borde de la colmena.",
+  "en": "The Shinobi travels far along the edge of the hive.",
+  "zh": "忍者沿着蜂巢边缘能走得很远。"
+ },
+ "stage.p17.title": {
+  "es": "Vuelo largo",
+  "en": "Long flight",
+  "zh": "长途飞行"
+ },
+ "stage.p17.intro": {
+  "es": "La Grulla no necesita estar cerca para ser decisiva.",
+  "en": "The Crane doesn't need to be close to be decisive.",
+  "zh": "风鹤不必靠近也能一锤定音。"
+ },
+ "stage.p18.title": {
+  "es": "Sombra Errante",
+  "en": "Wandering Shadow",
+  "zh": "游影"
+ },
+ "stage.p18.intro": {
+  "es": "Una ficha lenta, en el lugar justo.",
+  "en": "A slow piece, in just the right place.",
+  "zh": "一枚慢棋，落在恰好的位置。"
+ },
+ "stage.c01.title": {
+  "es": "Golpe rápido",
+  "en": "Quick strike",
+  "zh": "速攻"
+ },
+ "stage.c01.goal": {
+  "es": "Ganá antes de que termine la ronda 30.",
+  "en": "Win before round 30 ends.",
+  "zh": "在第 30 回合结束前获胜。"
+ },
+ "stage.c01.intro": {
+  "es": "El Asedio llega en la ronda 20 y el tiempo es poco: hay que atacar desde el principio.",
+  "en": "The Siege arrives in round 20 and time is short: attack from the start.",
+  "zh": "围城在第 20 回合到来，时间紧迫：从一开始就要进攻。"
+ },
+ "stage.c02.title": {
+  "es": "Sin trucos",
+  "en": "No tricks",
+  "zh": "不用技巧"
+ },
+ "stage.c02.goal": {
+  "es": "Ganá sin habilidad de facción.",
+  "en": "Win without your faction ability.",
+  "zh": "不使用阵营技能获胜。"
+ },
+ "stage.c02.intro": {
+  "es": "Tu habilidad no está disponible. La del rival, sí.",
+  "en": "Your ability is unavailable. Your opponent's isn't.",
+  "zh": "你的技能无法使用，对手的却可以。"
+ },
+ "stage.c03.title": {
+  "es": "Asedio temprano",
+  "en": "Early siege",
+  "zh": "提前围城"
+ },
+ "stage.c03.goal": {
+  "es": "El Asedio empieza en la ronda 8. Ganá antes de la 30.",
+  "en": "The Siege starts in round 8. Win before round 30.",
+  "zh": "围城从第 8 回合开始。在第 30 回合前获胜。"
+ },
+ "stage.c03.intro": {
+  "es": "Desde la ronda 8 alcanza con ocupar 5 lados de un Líder. Cuidá el tuyo.",
+  "en": "From round 8, occupying 5 sides of a Leader is enough. Guard yours.",
+  "zh": "自第 8 回合起，占据首领 5 面即可获胜。守好你的首领。"
+ },
+ "stage.c04.title": {
+  "es": "Duelo de templos",
+  "en": "Temple duel",
+  "zh": "寺院对决"
+ },
+ "stage.c04.goal": {
+  "es": "Shaolin contra Shaolin. Ganá.",
+  "en": "Shaolin vs Shaolin. Win.",
+  "zh": "少林对少林。获胜。"
+ },
+ "stage.c04.intro": {
+  "es": "Mismas fichas, misma habilidad. Gana quien las use mejor.",
+  "en": "Same pieces, same ability. Whoever uses them better wins.",
+  "zh": "同样的棋子，同样的技能。谁用得好谁赢。"
+ },
+ "stage.c05.title": {
+  "es": "Sin Dragones",
+  "en": "No Dragons",
+  "zh": "没有天龙"
+ },
+ "stage.c05.goal": {
+  "es": "Jugás sin tus dos Dragones. Ganá.",
+  "en": "You play without your two Dragons. Win.",
+  "zh": "你没有两条天龙。获胜。"
+ },
+ "stage.c05.intro": {
+  "es": "El Templo prestó sus Dragones. Tendrás que cercar caminando.",
+  "en": "The Temple lent out its Dragons. You'll have to encircle on foot.",
+  "zh": "寺院把天龙借出去了。你只能步步为营去包围。"
+ },
+ "stage.c06.title": {
+  "es": "Cielo de Tengus",
+  "en": "Sky of Tengu",
+  "zh": "天狗满天"
+ },
+ "stage.c06.goal": {
+  "es": "El rival tiene 3 Tengu. Ganá.",
+  "en": "Your opponent has 3 Tengu. Win.",
+  "zh": "对手有 3 只天狗。获胜。"
+ },
+ "stage.c06.intro": {
+  "es": "Los Tengu aparecen donde haya un hueco. Que no haya huecos cerca de tu Monje.",
+  "en": "Tengu appear wherever there's a gap. Leave no gaps near your Abbot.",
+  "zh": "哪里有缺口，天狗就出现在哪里。别在方丈附近留缺口。"
+ },
+ "stage.c07.title": {
+  "es": "Mente fría",
+  "en": "Cool head",
+  "zh": "冷静头脑"
+ },
+ "stage.c07.goal": {
+  "es": "Vencé al nivel Difícil. No tiene habilidad.",
+  "en": "Beat Hard level. It has no ability.",
+  "zh": "击败困难级别。对手没有技能。"
+ },
+ "stage.c07.intro": {
+  "es": "El Sensei juega en serio, pero sin Meditación de Jade.",
+  "en": "The Sensei plays for real, but without Jade Meditation.",
+  "zh": "师父认真了，但不用翡翠冥想。"
+ },
+ "stage.c08.title": {
+  "es": "Duelo de sombras",
+  "en": "Shadow duel",
+  "zh": "暗影对决"
+ },
+ "stage.c08.goal": {
+  "es": "Ninja contra Ninja. Ganá.",
+  "en": "Ninja vs Ninja. Win.",
+  "zh": "忍者对忍者。获胜。"
+ },
+ "stage.c08.intro": {
+  "es": "Kawarimi contra Kawarimi.",
+  "en": "Kawarimi against Kawarimi.",
+  "zh": "替身术对替身术。"
+ },
+ "stage.c09.title": {
+  "es": "Última resistencia",
+  "en": "Last stand",
+  "zh": "最后防线"
+ },
+ "stage.c09.goal": {
+  "es": "Tu Monje ya está rodeado por 4 lados. Ganá antes de la ronda 30.",
+  "en": "Your Abbot is already surrounded on 4 sides. Win before round 30.",
+  "zh": "你的方丈已被包围 4 面。在第 30 回合前获胜。"
+ },
+ "stage.c09.intro": {
+  "es": "Empezás en problemas: liberá al Monje y contraatacá.",
+  "en": "You start in trouble: free your Abbot and counterattack.",
+  "zh": "开局就陷入困境：解救方丈并反击。"
+ },
+ "stage.c10.title": {
+  "es": "El Maestro",
+  "en": "The Master",
+  "zh": "大师"
+ },
+ "stage.c10.goal": {
+  "es": "Vencé al Sensei en su nivel más alto.",
+  "en": "Beat the Sensei at its highest level.",
+  "zh": "击败最高级别的师父。"
+ },
+ "stage.c10.intro": {
+  "es": "Reglas normales. El Sensei ve cuatro turnos adelante.",
+  "en": "Normal rules. The Sensei looks four turns ahead.",
+  "zh": "标准规则。师父能看到四个回合之后。"
+ },
+ "stage.s1.title": {
+  "es": "Las puertas del Templo",
+  "en": "The Temple gates",
+  "zh": "寺院之门"
+ },
+ "stage.s1.goal": {
+  "es": "Rodeá al Gran Shogun.",
+  "en": "Surround the Great Shogun.",
+  "zh": "包围大将军。"
+ },
+ "stage.s1.intro": {
+  "es": "Una sombra cruzó el muro del Templo esta noche. El Abad te envía a ver quién se atreve.",
+  "en": "A shadow crossed the Temple wall tonight. The Abbot sends you to see who dares.",
+  "zh": "今夜有道黑影翻过寺墙。方丈派你去看看是谁如此大胆。"
+ },
+ "stage.s2.title": {
+  "es": "Patio de entrenamiento",
+  "en": "Training yard",
+  "zh": "练武场"
+ },
+ "stage.s2.goal": {
+  "es": "Ganá. El explorador ninja no usa su habilidad.",
+  "en": "Win. The ninja scout doesn't use its ability.",
+  "zh": "获胜。忍者斥候不使用技能。"
+ },
+ "stage.s2.intro": {
+  "es": "Atrapaste a un explorador. Antes de interrogarlo, el Abad quiere ver cómo peleás.",
+  "en": "You caught a scout. Before questioning him, the Abbot wants to see you fight.",
+  "zh": "你抓到一名斥候。审问之前，方丈想看看你的身手。"
+ },
+ "stage.s3.title": {
+  "es": "Emboscada en el bosque",
+  "en": "Ambush in the forest",
+  "zh": "林中伏击"
+ },
+ "stage.s3.goal": {
+  "es": "Tu Monje empieza con 3 fichas enemigas al lado. Ganá.",
+  "en": "Your Abbot starts with 3 enemy pieces next to it. Win.",
+  "zh": "你的方丈开局时旁边已有 3 枚敌棋。获胜。"
+ },
+ "stage.s3.intro": {
+  "es": "De camino al pueblo, tres sombras caen de los árboles. No hay tiempo para formar.",
+  "en": "On the way to the village, three shadows drop from the trees. No time to form up.",
+  "zh": "去村子的路上，三道黑影从树上落下。来不及列阵。"
+ },
+ "stage.s4.title": {
+  "es": "El puente de piedra",
+  "en": "The stone bridge",
+  "zh": "石桥"
+ },
+ "stage.s4.goal": {
+  "es": "El Asedio empieza en la ronda 15. Ganá.",
+  "en": "The Siege starts in round 15. Win.",
+  "zh": "围城从第 15 回合开始。获胜。"
+ },
+ "stage.s4.intro": {
+  "es": "Los ninjas bloquean el único puente. La batalla será larga y sin retirada.",
+  "en": "The ninjas block the only bridge. The battle will be long, with no retreat.",
+  "zh": "忍者封锁了唯一的桥。这将是一场没有退路的持久战。"
+ },
+ "stage.s5.title": {
+  "es": "Cuatro sombras",
+  "en": "Four shadows",
+  "zh": "四道暗影"
+ },
+ "stage.s5.goal": {
+  "es": "El rival tiene 4 Shinobi. Ganá.",
+  "en": "Your opponent has 4 Shinobi. Win.",
+  "zh": "对手有 4 名忍者。获胜。"
+ },
+ "stage.s5.intro": {
+  "es": "El clan mandó refuerzos: los Shinobi se cuelan por cualquier rendija.",
+  "en": "The clan sent reinforcements: Shinobi slip through any crack.",
+  "zh": "忍者氏族派来援军：忍者无缝不入。"
+ },
+ "stage.s6.title": {
+  "es": "Niebla en el valle",
+  "en": "Mist in the valley",
+  "zh": "山谷迷雾"
+ },
+ "stage.s6.goal": {
+  "es": "Habilidades: 5 usos y 1 turno de recarga. Ganá.",
+  "en": "Abilities: 5 uses and a 1-turn cooldown. Win.",
+  "zh": "技能：5 次使用，冷却 1 回合。获胜。"
+ },
+ "stage.s6.intro": {
+  "es": "En la niebla nada se queda quieto. Ni tus fichas ni las suyas.",
+  "en": "In the mist nothing stays still. Not your pieces, not theirs.",
+  "zh": "迷雾之中，一切都在移动。你的棋子如此，他们的也是。"
+ },
+ "stage.s7.title": {
+  "es": "La pagoda",
+  "en": "The pagoda",
+  "zh": "宝塔"
+ },
+ "stage.s7.goal": {
+  "es": "Ganá.",
+  "en": "Win.",
+  "zh": "获胜。"
+ },
+ "stage.s7.intro": {
+  "es": "El Shogun se refugió en la pagoda con su guardia. Subí piso por piso.",
+  "en": "The Shogun took refuge in the pagoda with his guard. Climb floor by floor.",
+  "zh": "将军带着护卫躲进了宝塔。一层一层往上攻。"
+ },
+ "stage.s8.title": {
+  "es": "El Gran Shogun",
+  "en": "The Great Shogun",
+  "zh": "大将军"
+ },
+ "stage.s8.goal": {
+  "es": "Ganá la batalla final.",
+  "en": "Win the final battle.",
+  "zh": "赢得最终之战。"
+ },
+ "stage.s8.intro": {
+  "es": "En la cima te espera el Gran Shogun. Esta vez pelea él mismo, con todo lo que sabe.",
+  "en": "At the top, the Great Shogun awaits. This time he fights himself, with everything he knows.",
+  "zh": "塔顶上大将军在等你。这一次他亲自出手，倾尽所学。"
+ },
+ "stage.n1.title": {
+  "es": "Sobre el muro",
+  "en": "Over the wall",
+  "zh": "翻越寺墙"
+ },
+ "stage.n1.goal": {
+  "es": "Rodeá al Monje Superior.",
+  "en": "Surround the Grand Abbot.",
+  "zh": "包围方丈。"
+ },
+ "stage.n1.intro": {
+  "es": "El pergamino de Jade está en el Templo. Primero hay que pasar al guardia del muro.",
+  "en": "The Jade scroll is in the Temple. First you must get past the wall guard.",
+  "zh": "翡翠卷轴就在寺中。先要过守墙的这一关。"
+ },
+ "stage.n2.title": {
+  "es": "Los novicios",
+  "en": "The novices",
+  "zh": "小沙弥"
+ },
+ "stage.n2.goal": {
+  "es": "Ganá. Los novicios no saben meditar.",
+  "en": "Win. The novices can't meditate.",
+  "zh": "获胜。小沙弥还不会冥想。"
+ },
+ "stage.n2.intro": {
+  "es": "Unos novicios dan la alarma. Todavía no aprendieron la Meditación de Jade.",
+  "en": "Some novices raise the alarm. They haven't learned Jade Meditation yet.",
+  "zh": "几个小沙弥敲响了警钟。他们还没学会翡翠冥想。"
+ },
+ "stage.n3.title": {
+  "es": "Golpe por sorpresa",
+  "en": "Surprise attack",
+  "zh": "突袭"
+ },
+ "stage.n3.goal": {
+  "es": "El Monje rival empieza con 3 de tus fichas al lado. Ganá.",
+  "en": "The enemy Abbot starts with 3 of your pieces next to it. Win.",
+  "zh": "敌方方丈开局时旁边已有 3 枚你的棋子。获胜。"
+ },
+ "stage.n3.intro": {
+  "es": "Caés sobre el patio antes de que el maestro de guardia pueda reaccionar.",
+  "en": "You drop into the courtyard before the master on guard can react.",
+  "zh": "在值守的师父反应过来之前，你已落入庭院。"
+ },
+ "stage.n4.title": {
+  "es": "El jardín de piedra",
+  "en": "The stone garden",
+  "zh": "石庭"
+ },
+ "stage.n4.goal": {
+  "es": "El Asedio empieza en la ronda 15. Ganá.",
+  "en": "The Siege starts in round 15. Win.",
+  "zh": "围城从第 15 回合开始。获胜。"
+ },
+ "stage.n4.intro": {
+  "es": "Los monjes cerraron el jardín. Hay que abrirse paso antes de que lleguen más.",
+  "en": "The monks sealed the garden. Break through before more arrive.",
+  "zh": "僧人封锁了石庭。趁援兵未到杀出一条路。"
+ },
+ "stage.n5.title": {
+  "es": "Los guardianes",
+  "en": "The guardians",
+  "zh": "守护者"
+ },
+ "stage.n5.goal": {
+  "es": "El rival tiene 3 Tigres. Ganá.",
+  "en": "Your opponent has 3 Tigers. Win.",
+  "zh": "对手有 3 只石虎。获胜。"
+ },
+ "stage.n5.intro": {
+  "es": "Los Tigres de Mármol custodian la biblioteca. Empujan todo lo que encuentran.",
+  "en": "Marble Tigers guard the library. They push everything in their way.",
+  "zh": "石虎守卫着藏经阁，挡路的一律推开。"
+ },
+ "stage.n6.title": {
+  "es": "Humo y espejos",
+  "en": "Smoke and mirrors",
+  "zh": "烟雾迷踪"
+ },
+ "stage.n6.goal": {
+  "es": "Habilidades: 5 usos y 1 turno de recarga. Ganá.",
+  "en": "Abilities: 5 uses and a 1-turn cooldown. Win.",
+  "zh": "技能：5 次使用，冷却 1 回合。获胜。"
+ },
+ "stage.n6.intro": {
+  "es": "Bombas de humo por todas partes. Que ningún monje sepa dónde estás.",
+  "en": "Smoke bombs everywhere. Let no monk know where you are.",
+  "zh": "烟雾弹四处炸开。别让任何僧人知道你在哪。"
+ },
+ "stage.n7.title": {
+  "es": "La biblioteca",
+  "en": "The library",
+  "zh": "藏经阁"
+ },
+ "stage.n7.goal": {
+  "es": "Ganá.",
+  "en": "Win.",
+  "zh": "获胜。"
+ },
+ "stage.n7.intro": {
+  "es": "El pergamino está a la vista. Los mejores monjes del Templo se interponen.",
+  "en": "The scroll is in sight. The Temple's best monks stand in the way.",
+  "zh": "卷轴近在眼前。寺中最强的僧人挡在面前。"
+ },
+ "stage.n8.title": {
+  "es": "El Abad",
+  "en": "The Abbot",
+  "zh": "方丈"
+ },
+ "stage.n8.goal": {
+  "es": "Ganá la batalla final.",
+  "en": "Win the final battle.",
+  "zh": "赢得最终之战。"
+ },
+ "stage.n8.intro": {
+  "es": "El Abad en persona bloquea la salida. Nadie le ganó en cuarenta años.",
+  "en": "The Abbot himself blocks the exit. No one has beaten him in forty years.",
+  "zh": "方丈亲自挡住了出口。四十年来无人胜过他。"
+ },
+ "stage.puzzleGoal.one": {
+  "es": "Rodeá al Líder enemigo en 1 turno.",
+  "en": "Surround the enemy Leader in 1 turn.",
+  "zh": "在 1 回合内包围敌方首领。"
+ },
+ "stage.puzzleGoal.other": {
+  "es": "Rodeá al Líder enemigo en {n} turnos.",
+  "en": "Surround the enemy Leader in {n} turns.",
+  "zh": "在 {n} 回合内包围敌方首领。"
+ },
+ "campaign.shaolin.title": {
+  "es": "El camino del Templo",
+  "en": "The Temple's path",
+  "zh": "寺院之道"
+ },
+ "campaign.shaolin.blurb": {
+  "es": "Defendé el Templo de la invasión ninja.",
+  "en": "Defend the Temple from the ninja invasion.",
+  "zh": "保卫寺院，抵御忍者入侵。"
+ },
+ "campaign.ninja.title": {
+  "es": "Sombras sobre el Templo",
+  "en": "Shadows over the Temple",
+  "zh": "寺院暗影"
+ },
+ "campaign.ninja.blurb": {
+  "es": "Infiltrate y robá el pergamino de Jade.",
+  "en": "Infiltrate and steal the Jade scroll.",
+  "zh": "潜入寺院，盗取翡翠卷轴。"
+ },
+ "lesson.retry": {
+  "es": "Casi. Probá de nuevo.",
+  "en": "Almost. Try again.",
+  "zh": "差一点。再试一次。"
+ },
+ "lesson.l1.title": {
+  "es": "La colmena",
+  "en": "The hive",
+  "zh": "蜂巢"
+ },
+ "lesson.l1.body": {
+  "es": "Hexiege no tiene tablero: las fichas que colocás forman la colmena, y crece hacia donde la lleven los jugadores.",
+  "en": "Hexiege has no board: the pieces you place form the hive, and it grows wherever the players take it.",
+  "zh": "Hexiege 没有棋盘：放下的棋子组成蜂巢，玩家把它带到哪里，它就向哪里生长。"
+ },
+ "lesson.l1.goal": {
+  "es": "Elegí el Dragón de tu mano y colocalo en el centro.",
+  "en": "Pick the Dragon from your hand and place it in the center.",
+  "zh": "从手中选择天龙，放在中央。"
+ },
+ "lesson.l2.title": {
+  "es": "Colocar fichas",
+  "en": "Placing pieces",
+  "zh": "放置棋子"
+ },
+ "lesson.l2.body": {
+  "es": "Las fichas nuevas solo pueden tocar fichas tuyas, nunca enemigas. Las casillas válidas se iluminan al elegir una ficha.",
+  "en": "New pieces may only touch your own pieces, never enemy ones. Valid spaces light up when you pick a piece.",
+  "zh": "新棋子只能接触己方棋子，不能接触敌方棋子。选中棋子后，可放置的格子会亮起。"
+ },
+ "lesson.l2.goal": {
+  "es": "Colocá la Grulla junto a tus fichas.",
+  "en": "Place the Crane next to your pieces.",
+  "zh": "把风鹤放在你的棋子旁边。"
+ },
+ "lesson.l3.title": {
+  "es": "Tu Líder",
+  "en": "Your Leader",
+  "zh": "你的首领"
+ },
+ "lesson.l3.body": {
+  "es": "El Monje Superior es tu Líder (borde dorado). Tiene que entrar antes de tu 4.º turno y, mientras no esté en juego, no podés mover fichas.",
+  "en": "The Grand Abbot is your Leader (gold border). It must enter play by your 4th turn, and until it does you can't move pieces.",
+  "zh": "方丈是你的首领（金色边框）。必须在你的第 4 回合前登场；在此之前你不能移动棋子。"
+ },
+ "lesson.l3.goal": {
+  "es": "Es tu 4.º turno: colocá al Monje.",
+  "en": "It's your 4th turn: place the Abbot.",
+  "zh": "这是你的第 4 回合：放置方丈。"
+ },
+ "lesson.l4.title": {
+  "es": "Una sola colmena",
+  "en": "One hive",
+  "zh": "蜂巢唯一"
+ },
+ "lesson.l4.body": {
+  "es": "Tocá una ficha tuya para ver adónde puede ir. La colmena nunca se puede partir: las fichas que la sostienen quedan trabadas.",
+  "en": "Tap one of your pieces to see where it can go. The hive can never be split: the pieces holding it together are locked.",
+  "zh": "点击你的棋子查看可去之处。蜂巢永远不能被分开：支撑它的棋子无法移动。"
+ },
+ "lesson.l4.goal": {
+  "es": "El Monje y el Tigre sostienen la fila. Mové la Serpiente.",
+  "en": "The Abbot and the Tiger hold the row together. Move the Serpent.",
+  "zh": "方丈和石虎撑着这一排。移动玉蛇。"
+ },
+ "lesson.l5.title": {
+  "es": "Cada ficha es distinta",
+  "en": "Every piece is different",
+  "zh": "棋子各不相同"
+ },
+ "lesson.l5.body": {
+  "es": "Cada ficha se mueve a su manera. El Dragón vuela en línea recta por encima de la colmena. Mantené apretada cualquier ficha para leer cómo se mueve.",
+  "en": "Each piece moves its own way. The Dragon flies in a straight line over the hive. Long-press any piece to read how it moves.",
+  "zh": "每种棋子走法不同。天龙沿直线飞越蜂巢。长按任意棋子可查看走法。"
+ },
+ "lesson.l5.goal": {
+  "es": "Hacé volar al Dragón hasta el otro extremo.",
+  "en": "Fly the Dragon to the other end.",
+  "zh": "让天龙飞到另一端。"
+ },
+ "lesson.l6.title": {
+  "es": "Rodeá al Líder",
+  "en": "Surround the Leader",
+  "zh": "包围首领"
+ },
+ "lesson.l6.body": {
+  "es": "Ganás cuando el Líder enemigo queda rodeado por los 6 lados, con fichas de cualquier color. Al Shogun le falta una sola.",
+  "en": "You win when the enemy Leader is surrounded on all 6 sides, by pieces of any color. The Shogun is missing just one.",
+  "zh": "当敌方首领 6 面都被棋子（任何颜色）围住时你就赢了。将军只差一面。"
+ },
+ "lesson.l6.goal": {
+  "es": "Cerrá el cerco con la Serpiente.",
+  "en": "Close the encirclement with the Serpent.",
+  "zh": "用玉蛇完成包围。"
+ },
+ "lesson.l6.retry": {
+  "es": "Así no se cierra el cerco. Probá de nuevo.",
+  "en": "That doesn't close the encirclement. Try again.",
+  "zh": "这样无法完成包围。再试一次。"
+ },
+ "lesson.l7.title": {
+  "es": "Habilidad de facción",
+  "en": "Faction ability",
+  "zh": "阵营技能"
+ },
+ "lesson.l7.body": {
+  "es": "En lugar de mover o colocar, podés usar la habilidad de tu facción: {charges} usos por partida, con {cooldown} turnos de recarga. Shaolin tiene la Meditación de Jade. Tu Monje tiene 5 vecinos: ¡está en peligro!",
+  "en": "Instead of moving or placing, you can use your faction's ability: {charges} uses per game, with a {cooldown}-turn cooldown. Shaolin has Jade Meditation. Your Abbot has 5 neighbors: it's in danger!",
+  "zh": "除了移动或放置，你也可以使用阵营技能：每局 {charges} 次，冷却 {cooldown} 回合。少林的技能是翡翠冥想。你的方丈已有 5 个邻居：危险！"
+ },
+ "lesson.l7.goal": {
+  "es": "Usá la habilidad para reubicar una ficha enemiga lejos del Monje.",
+  "en": "Use the ability to move an enemy piece away from your Abbot.",
+  "zh": "使用技能把一枚敌方棋子从方丈身边移走。"
+ },
+ "lesson.l7.retry": {
+  "es": "Tu Monje sigue en peligro. Probá de nuevo.",
+  "en": "Your Abbot is still in danger. Try again.",
+  "zh": "你的方丈仍有危险。再试一次。"
+ },
+ "ai.novice": {
+  "es": "Aprendiz",
+  "en": "Apprentice",
+  "zh": "学徒"
+ },
+ "ai.easy": {
+  "es": "Fácil",
+  "en": "Easy",
+  "zh": "简单"
+ },
+ "ai.normal": {
+  "es": "Normal",
+  "en": "Normal",
+  "zh": "普通"
+ },
+ "ai.hard": {
+  "es": "Difícil",
+  "en": "Hard",
+  "zh": "困难"
+ },
+ "ai.master": {
+  "es": "Maestro",
+  "en": "Master",
+  "zh": "大师"
+ },
+ "solo.title": {
+  "es": "Un jugador",
+  "en": "Single player",
+  "zh": "单人模式"
+ },
+ "solo.campaign": {
+  "es": "Campaña",
+  "en": "Campaign",
+  "zh": "战役"
+ },
+ "solo.campaignText": {
+  "es": "Dos historias, una por facción. 8 batallas cada una.",
+  "en": "Two stories, one per faction. 8 battles each.",
+  "zh": "两段故事，每个阵营一段，各 8 场战斗。"
+ },
+ "solo.challenges": {
+  "es": "Desafíos",
+  "en": "Challenges",
+  "zh": "挑战"
+ },
+ "solo.challengesText": {
+  "es": "Reglas especiales y objetivos con condiciones.",
+  "en": "Special rules and objectives with conditions.",
+  "zh": "特殊规则与附加条件的目标。"
+ },
+ "solo.challengesSub": {
+  "es": "Reglas especiales contra el Sensei",
+  "en": "Special rules against the Sensei",
+  "zh": "以特殊规则挑战师父"
+ },
+ "solo.puzzles": {
+  "es": "Problemas",
+  "en": "Puzzles",
+  "zh": "残局"
+ },
+ "solo.puzzlesText": {
+  "es": "Rodeá al Líder en 1 o 2 turnos. Siempre hay una forma.",
+  "en": "Surround the Leader in 1 or 2 turns. There's always a way.",
+  "zh": "在 1 或 2 回合内包围首领。总有解法。"
+ },
+ "solo.puzzlesSub": {
+  "es": "Rodeá al Líder en pocos turnos",
+  "en": "Surround the Leader in a few turns",
+  "zh": "用最少的回合包围首领"
+ },
+ "solo.continue": {
+  "es": "Continuar",
+  "en": "Continue",
+  "zh": "继续"
+ },
+ "onboarding.skip": {
+  "es": "Saltar",
+  "en": "Skip",
+  "zh": "跳过"
+ },
+ "onboarding.learn": {
+  "es": "Aprender a jugar · 2 min",
+  "en": "Learn to play · 2 min",
+  "zh": "学习玩法 · 2 分钟"
+ },
+ "onboarding.know": {
+  "es": "Ya sé jugar",
+  "en": "I know how to play",
+  "zh": "我会玩"
+ },
+ "onboarding.p1Title": {
+  "es": "Rodeá al Líder",
+  "en": "Surround the Leader",
+  "zh": "包围首领"
+ },
+ "onboarding.p1Body": {
+  "es": "Estrategia pura, sin azar ni tablero. Ganás cuando el Líder enemigo queda rodeado por los 6 lados.",
+  "en": "Pure strategy, no luck and no board. You win when the enemy Leader is surrounded on all 6 sides.",
+  "zh": "纯粹的策略，没有运气，也没有棋盘。敌方首领 6 面被围即获胜。"
+ },
+ "onboarding.shaolin": {
+  "es": "Controlan la colmena: reubican fichas enemigas.",
+  "en": "They control the hive: they relocate enemy pieces.",
+  "zh": "掌控蜂巢：移动敌方棋子。"
+ },
+ "onboarding.ninja": {
+  "es": "Se escabullen y devuelven fichas a la mano.",
+  "en": "They slip away and return pieces to hand.",
+  "zh": "来去无踪：把棋子退回手中。"
+ },
+ "onboarding.p2Title": {
+  "es": "Dos escuelas",
+  "en": "Two schools",
+  "zh": "两大门派"
+ },
+ "onboarding.p2Body": {
+  "es": "Cada facción tiene sus propias fichas y una habilidad especial. Elegí tu estilo.",
+  "en": "Each faction has its own pieces and a special ability. Choose your style.",
+  "zh": "每个阵营都有独特的棋子和特殊技能。选择你的风格。"
+ },
+ "onboarding.p3Title": {
+  "es": "¿Cómo te llamamos?",
+  "en": "What should we call you?",
+  "zh": "怎么称呼你？"
+ },
+ "onboarding.p3Body": {
+  "es": "Es el nombre que verá tu rival.",
+  "en": "It's the name your opponent will see.",
+  "zh": "对手会看到这个名字。"
+ },
+ "mm.searching": {
+  "es": "Buscando rival…",
+  "en": "Finding an opponent…",
+  "zh": "正在寻找对手…"
+ },
+ "mm.widening": {
+  "es": "Ampliando búsqueda · {lo}–{hi} pts",
+  "en": "Widening search · {lo}–{hi} pts",
+  "zh": "扩大搜索范围 · {lo}–{hi} 分"
+ },
+ "mm.range": {
+  "es": "Rivales de {lo}–{hi} pts",
+  "en": "Opponents at {lo}–{hi} pts",
+  "zh": "对手积分 {lo}–{hi}"
+ },
+ "mm.cancel": {
+  "es": "Cancelar",
+  "en": "Cancel",
+  "zh": "取消"
+ },
+ "mm.found": {
+  "es": "¡Rival encontrado!",
+  "en": "Opponent found!",
+  "zh": "找到对手！"
+ },
+ "mm.youFirst": {
+  "es": "Empezás vos · fichas claras",
+  "en": "You go first · light pieces",
+  "zh": "你先手 · 浅色棋子"
+ },
+ "mm.theyFirst": {
+  "es": "Empieza {name} · jugás con oscuras",
+  "en": "{name} goes first · you play dark",
+  "zh": "{name}先手 · 你执深色"
+ },
+ "ranked.rankUp": {
+  "es": "¡Subiste a {rank}!",
+  "en": "You reached {rank}!",
+  "zh": "晋升为{rank}！"
+ },
+ "ranked.rankDown": {
+  "es": "Bajaste a {rank}",
+  "en": "You dropped to {rank}",
+  "zh": "降为{rank}"
+ },
+ "ranked.again": {
+  "es": "Buscar otra",
+  "en": "Find another",
+  "zh": "再来一局"
+ },
+ "banner.emote": {
+  "es": "Emote",
+  "en": "Emote",
+  "zh": "表情"
+ },
+ "banner.uses": {
+  "es": " · usos: {n}",
+  "en": " · uses: {n}",
+  "zh": " · 剩余：{n}"
+ },
+ "banner.spent": {
+  "es": "{ability}: agotada",
+  "en": "{ability}: spent",
+  "zh": "{ability}：已用完"
+ },
+ "banner.ready": {
+  "es": "{ability}: lista{uses}",
+  "en": "{ability}: ready{uses}",
+  "zh": "{ability}：就绪{uses}"
+ },
+ "banner.cooldown": {
+  "es": "Recarga: {n}{uses}",
+  "en": "Cooldown: {n}{uses}",
+  "zh": "冷却：{n}{uses}"
+ },
+ "coach.lesson": {
+  "es": "LECCIÓN {step} DE {total}",
+  "en": "LESSON {step} OF {total}",
+  "zh": "第 {step} 课 / 共 {total} 课"
+ },
+ "coach.finished": {
+  "es": "¡Completaste el tutorial!",
+  "en": "Tutorial complete!",
+  "zh": "教程完成！"
+ },
+ "coach.wellDone": {
+  "es": "¡Bien hecho!",
+  "en": "Well done!",
+  "zh": "做得好！"
+ },
+ "coach.finish": {
+  "es": "Terminar",
+  "en": "Finish",
+  "zh": "完成"
+ },
+ "emote.hello": {
+  "es": "Hola",
+  "en": "Hi",
+  "zh": "你好"
+ },
+ "emote.nice": {
+  "es": "Buena",
+  "en": "Nice",
+  "zh": "漂亮"
+ },
+ "emote.wow": {
+  "es": "¡Wow!",
+  "en": "Wow!",
+  "zh": "哇！"
+ },
+ "emote.think": {
+  "es": "Hmm…",
+  "en": "Hmm…",
+  "zh": "嗯…"
+ },
+ "emote.fire": {
+  "es": "¡Fuego!",
+  "en": "On fire!",
+  "zh": "火力全开！"
+ },
+ "emote.smug": {
+  "es": "Je",
+  "en": "Heh",
+  "zh": "嘿"
+ },
+ "emote.oops": {
+  "es": "Uy",
+  "en": "Oops",
+  "zh": "哎呀"
+ },
+ "emote.gg": {
+  "es": "GG",
+  "en": "GG",
+  "zh": "GG"
+ },
+ "stages.puzzleDetail": {
+  "es": "Cerco en {n} · {faction}",
+  "en": "Encircle in {n} · {faction}",
+  "zh": "{n} 回合包围 · {faction}"
+ },
+ "stages.versus": {
+  "es": "{you} vs {opp} · {level}",
+  "en": "{you} vs {opp} · {level}",
+  "zh": "{you} 对 {opp} · {level}"
+ },
+ "campaign.completed": {
+  "es": "¡Completada! {done}/{total}",
+  "en": "Completed! {done}/{total}",
+  "zh": "已完成！{done}/{total}"
+ },
+ "campaign.next": {
+  "es": "{done}/{total} · Sigue: {title}",
+  "en": "{done}/{total} · Next: {title}",
+  "zh": "{done}/{total} · 下一关：{title}"
+ },
+ "stage.turnsLeftTip": {
+  "es": "Turnos que te quedan",
+  "en": "Turns you have left",
+  "zh": "剩余回合数"
+ },
+ "stage.turn.one": {
+  "es": "turno",
+  "en": "turn",
+  "zh": "回合"
+ },
+ "stage.turn.other": {
+  "es": "turnos",
+  "en": "turns",
+  "zh": "回合"
+ },
+ "banner.inHand": {
+  "es": "Fichas en mano",
+  "en": "Pieces in hand",
+  "zh": "手中棋子"
+ }
+}

@@ -2,6 +2,7 @@ import '../engine/ai.dart';
 import '../engine/game_state.dart';
 import '../engine/hex.dart';
 import '../engine/pieces.dart';
+import '../i18n/i18n.dart';
 
 /// Ficha de un escenario: dueño (0 = vos), tipo y casilla.
 typedef Placed = (int, PieceType, Hex);
@@ -13,13 +14,6 @@ enum StageKind { puzzle, challenge, campaign }
 class Stage {
   final String id;
   final StageKind kind;
-  final String title;
-
-  /// Objetivo en una línea (se muestra durante la partida).
-  final String goal;
-
-  /// Texto previo a la partida (campaña) o pista (problemas).
-  final String? intro;
   final Faction you;
   final Faction opp;
   final AiLevel level;
@@ -31,17 +25,22 @@ class Stage {
   const Stage({
     required this.id,
     required this.kind,
-    required this.title,
-    required this.goal,
     required this.you,
     required this.opp,
     required this.build,
-    this.intro,
     this.level = AiLevel.normal,
     this.puzzleTurns,
   });
 
   bool get isPuzzle => puzzleTurns != null;
+
+  String get title => tr('stage.$id.title');
+
+  /// Objetivo en una línea (se muestra durante la partida).
+  String get goal => isPuzzle ? trN('stage.puzzleGoal', puzzleTurns!) : tr('stage.$id.goal');
+
+  /// Texto previo a la partida (campaña) o pista (problemas).
+  String get intro => tr('stage.$id.intro');
 
   /// Turnos que le quedan al jugador en un problema (null si no es problema).
   int? turnsLeft(GameState start, GameState now) =>

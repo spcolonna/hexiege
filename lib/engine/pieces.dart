@@ -1,18 +1,11 @@
+import '../i18n/i18n.dart';
+
 enum Faction { shaolin, ninja }
 
 extension FactionInfo on Faction {
-  String get displayName => switch (this) {
-    Faction.shaolin => 'Templo Shaolin',
-    Faction.ninja => 'Sombras Ninja',
-  };
-  String get abilityName => switch (this) {
-    Faction.shaolin => 'Meditación de Jade',
-    Faction.ninja => 'Kawarimi',
-  };
-  String get abilityDescription => switch (this) {
-    Faction.shaolin => 'Reubicá una ficha enemiga perimetral (no Líder) o intercambiá dos fichas aliadas adyacentes.',
-    Faction.ninja => 'Devolvé a la mano de su dueño una ficha perimetral (no Líder), propia o enemiga.',
-  };
+  String get displayName => tr('faction.$name');
+  String get abilityName => tr('ability.$name');
+  String get abilityDescription => tr('ability.$name.desc');
 }
 
 enum PieceType {
@@ -36,68 +29,27 @@ extension PieceTypeInfo on PieceType {
   Faction get faction => index <= PieceType.serpent.index ? Faction.shaolin : Faction.ninja;
   bool get isLeader => this == PieceType.monk || this == PieceType.shogun;
 
-  String get displayName => switch (this) {
-    PieceType.monk => 'Monje Superior',
-    PieceType.dragon => 'Dragón Celestial',
-    PieceType.wukong => 'Rey Mono',
-    PieceType.tiger => 'Tigre de Mármol',
-    PieceType.crane => 'Grulla de Viento',
-    PieceType.serpent => 'Serpiente de Jade',
-    PieceType.shogun => 'Gran Shogun',
-    PieceType.shinobi => 'Shinobi',
-    PieceType.kunoichi => 'Kunoichi',
-    PieceType.tengu => 'Tengu',
-    PieceType.kitsune => 'Kitsune',
-    PieceType.shadow => 'Sombra Errante',
-  };
+  String get displayName => tr('piece.$name');
 
   /// Nombre corto para espacios chicos (la mano).
-  String get shortName => switch (this) {
-    PieceType.monk => 'Monje',
-    PieceType.dragon => 'Dragón',
-    PieceType.wukong => 'Rey Mono',
-    PieceType.tiger => 'Tigre',
-    PieceType.crane => 'Grulla',
-    PieceType.serpent => 'Serpiente',
-    PieceType.shogun => 'Shogun',
-    PieceType.shinobi => 'Shinobi',
-    PieceType.kunoichi => 'Kunoichi',
-    PieceType.tengu => 'Tengu',
-    PieceType.kitsune => 'Kitsune',
-    PieceType.shadow => 'Sombra',
-  };
+  String get shortName => tr('piece.$name.short');
 
   String get glyph => switch (this) {
     PieceType.monk => '僧',
-    PieceType.dragon => '龍',
+    PieceType.dragon => '龙',
     PieceType.wukong => '猴',
     PieceType.tiger => '虎',
-    PieceType.crane => '鶴',
+    PieceType.crane => '鹤',
     PieceType.serpent => '蛇',
     PieceType.shogun => '将',
     PieceType.shinobi => '忍',
-    PieceType.kunoichi => '姫',
+    PieceType.kunoichi => '姬',
     PieceType.tengu => '天',
     PieceType.kitsune => '狐',
     PieceType.shadow => '影',
   };
 
-  String get rulesText => switch (this) {
-    PieceType.monk => 'Líder. Se desliza 1 casilla.',
-    PieceType.dragon => 'Vuela en línea recta sobre fichas contiguas y aterriza en el primer hueco.',
-    PieceType.wukong =>
-      'Avanza 1 casilla y puede subirse encima de fichas (las bloquea). En el suelo, puede copiar el movimiento de una ficha adyacente.',
-    PieceType.tiger => 'Embiste 1–3 casillas en línea recta. Si queda frente a una ficha enemiga, la empuja 1 casilla.',
-    PieceType.crane => 'Salta en línea recta sobre 1 o 2 fichas.',
-    PieceType.serpent => 'Se desliza 1 o 2 casillas. Las fichas enemigas adyacentes pierden sus efectos especiales.',
-    PieceType.shogun => 'Líder. Se desliza 1 casilla. Una vez por partida, intercambia lugar con un Shinobi adyacente.',
-    PieceType.shinobi => 'Se desliza hasta 4 casillas por el perímetro, incluso por huecos estrechos.',
-    PieceType.kunoichi => 'Se desliza hasta 2 casillas y paraliza a una ficha enemiga adyacente por 1 turno.',
-    PieceType.tengu => 'Se teletransporta a cualquier hueco que toque al menos 3 fichas, pero no puede cerrar así el cerco del Líder rival.',
-    PieceType.kitsune => 'Se desliza 1 o 2 casillas.',
-    PieceType.shadow =>
-      'Se desliza 1 casilla y puede dejar un Sello de Sombra adyacente: la ficha enemiga que caiga ahí queda paralizada.',
-  };
+  String get rulesText => tr('piece.$name.rules');
 }
 
 /// Mano inicial: 11 fichas por facción.

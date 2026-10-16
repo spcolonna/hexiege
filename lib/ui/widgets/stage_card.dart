@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../i18n/i18n.dart';
 import '../theme/hex_theme.dart';
 
 /// Tarjeta superior en problemas, desafíos y campaña: título, objetivo y,
@@ -75,7 +76,7 @@ class _TurnsBadge extends StatelessWidget {
     final t = HexTheme.of(context);
     final color = turns <= 1 ? t.danger : t.gold;
     return Tooltip(
-      message: 'Turnos que te quedan',
+      message: tr('stage.turnsLeftTip'),
       child: Container(
         width: 52,
         padding: const EdgeInsets.symmetric(vertical: 6),
@@ -91,7 +92,7 @@ class _TurnsBadge extends StatelessWidget {
               style: TextStyle(color: color, fontSize: 20, fontWeight: FontWeight.w900, height: 1),
             ),
             Text(
-              turns == 1 ? 'turno' : 'turnos',
+              trN('stage.turn', turns),
               style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.w700),
             ),
           ],

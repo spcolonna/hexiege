@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import '../i18n/i18n.dart';
 import 'game_state.dart';
 import 'hex.dart';
 import 'pieces.dart';
@@ -64,11 +65,7 @@ enum AiLevel { novice, easy, normal, hard, master }
 
 extension AiLevelInfo on AiLevel {
   String get displayName => switch (this) {
-    AiLevel.novice => 'Aprendiz',
-    AiLevel.easy => 'Fácil',
-    AiLevel.normal => 'Normal',
-    AiLevel.hard => 'Difícil',
-    AiLevel.master => 'Maestro',
+    _ => tr('ai.$name'),
   };
 }
 

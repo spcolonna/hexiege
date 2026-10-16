@@ -8,9 +8,7 @@ const _c = PieceType.crane, _s = PieceType.serpent, _g = PieceType.shogun, _n = 
 const _k = PieceType.kunoichi, _u = PieceType.tengu, _f = PieceType.kitsune, _h = PieceType.shadow;
 
 Stage _puzzle(
-  String id,
-  String title,
-  String hint, {
+  String id, {
   required Faction you,
   required List<Placed> pieces,
   int turns = 1,
@@ -22,9 +20,6 @@ Stage _puzzle(
   return Stage(
     id: id,
     kind: StageKind.puzzle,
-    title: title,
-    goal: turns == 1 ? 'Rodeá al Líder enemigo en 1 turno.' : 'Rodeá al Líder enemigo en $turns turnos.',
-    intro: hint,
     you: you,
     opp: opp,
     level: AiLevel.hard,
@@ -40,8 +35,6 @@ const _sh = Faction.shaolin, _nj = Faction.ninja;
 final puzzles = <Stage>[
   _puzzle(
     'p01',
-    'Primer cerco',
-    'Al Shogun le queda un solo lado libre.',
     you: _sh,
     pieces: const [
       (1, _g, Hex(0, 0)),
@@ -56,8 +49,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p02',
-    'Vuelo del Dragón',
-    'El hueco está cerrado para quien camina, no para quien vuela.',
     you: _sh,
     pieces: const [
       (1, _g, Hex(0, 0)),
@@ -74,8 +65,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p03',
-    'Salto de la Grulla',
-    'La Grulla salta en línea recta sobre 1 o 2 fichas.',
     you: _sh,
     pieces: const [
       (1, _g, Hex(0, 0)),
@@ -92,8 +81,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p04',
-    'Embestida',
-    'El Tigre empuja a la ficha enemiga que queda frente a él.',
     you: _sh,
     pieces: const [
       (1, _g, Hex(0, 0)),
@@ -111,8 +98,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p05',
-    'El Rey Mono imita',
-    'En el suelo, el Rey Mono puede moverse como cualquier ficha que tenga al lado.',
     you: _sh,
     pieces: const [
       (1, _g, Hex(0, 0)),
@@ -130,8 +115,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p06',
-    'Meditación de Jade',
-    'Tu habilidad puede mover una ficha enemiga… a donde más le duele.',
     you: _sh,
     ability: true,
     pieces: const [
@@ -149,8 +132,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p07',
-    'El salto del Tengu',
-    'El Tengu aparece en cualquier hueco que toque 3 fichas, pero el golpe final lo tiene que dar otra.',
     you: _nj,
     turns: 2,
     pieces: const [
@@ -168,8 +149,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p08',
-    'Por la rendija',
-    'El Shinobi se cuela por huecos donde nadie más pasa.',
     you: _nj,
     pieces: const [
       (1, _m, Hex(0, 0)),
@@ -186,8 +165,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p09',
-    'Asedio',
-    'Ronda 36: alcanza con 5 lados. Pero eso vale también para tu Monje.',
     you: _sh,
     round: 36,
     pieces: const [
@@ -206,8 +183,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p10',
-    'Kawarimi',
-    'Sacar una ficha de la colmena también abre caminos. Tenés 2 turnos.',
     you: _nj,
     ability: true,
     turns: 2,
@@ -227,8 +202,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p11',
-    'Dos huecos',
-    'Dos lados libres, dos turnos. Cerrá primero el que le sirve de salida.',
     you: _sh,
     turns: 2,
     pieces: const [
@@ -246,8 +219,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p12',
-    'Veneno de Kunoichi',
-    'Si el Tigre se aparta, el cerco se abre. Que no pueda moverse.',
     you: _nj,
     turns: 2,
     pieces: const [
@@ -263,8 +234,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p13',
-    'Paso del Rey Mono',
-    'Una casilla bien elegida vale más que un salto largo.',
     you: _sh,
     turns: 2,
     pieces: const [
@@ -282,8 +251,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p14',
-    'Zorro paciente',
-    'Primero cerrá la salida; el golpe final viene después.',
     you: _nj,
     turns: 2,
     pieces: const [
@@ -303,8 +270,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p15',
-    'El Monje ataca',
-    'Tu Líder también puede cerrar un cerco.',
     you: _sh,
     turns: 2,
     pieces: const [
@@ -324,8 +289,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p16',
-    'Sombra lejana',
-    'El Shinobi llega lejos por el borde de la colmena.',
     you: _nj,
     turns: 2,
     pieces: const [
@@ -345,8 +308,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p17',
-    'Vuelo largo',
-    'La Grulla no necesita estar cerca para ser decisiva.',
     you: _sh,
     turns: 2,
     pieces: const [
@@ -366,8 +327,6 @@ final puzzles = <Stage>[
   ),
   _puzzle(
     'p18',
-    'Sombra Errante',
-    'Una ficha lenta, en el lugar justo.',
     you: _nj,
     turns: 2,
     pieces: const [

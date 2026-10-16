@@ -8,7 +8,7 @@ void main() {
       test('8 batallas de ${c.faction.name}, de menor a mayor nivel', () {
         expect(c.stages, hasLength(8));
         expect(c.stages.every((s) => s.you == c.faction && s.kind == StageKind.campaign), isTrue);
-        expect(c.stages.every((s) => s.intro != null), isTrue);
+        expect(c.stages.every((s) => s.intro != 'stage.${s.id}.intro'), isTrue);
         expect(c.stages.last.level, AiLevel.master);
       });
 

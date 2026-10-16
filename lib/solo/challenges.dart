@@ -23,10 +23,7 @@ Map<Faction, Map<PieceType, int>> handsWith(Faction f, Map<PieceType, int> chang
 const _sh = Faction.shaolin, _nj = Faction.ninja;
 
 Stage _challenge(
-  String id,
-  String title,
-  String goal,
-  String intro, {
+  String id, {
   required Faction you,
   Faction? opp,
   required AiLevel level,
@@ -34,9 +31,6 @@ Stage _challenge(
 }) => Stage(
   id: id,
   kind: StageKind.challenge,
-  title: title,
-  goal: goal,
-  intro: intro,
   you: you,
   opp: opp ?? (you == _sh ? _nj : _sh),
   level: level,
@@ -53,36 +47,24 @@ final _lastStand = Rules.standard.copyWith(siegeRound: () => null, roundLimit: (
 final challenges = <Stage>[
   _challenge(
     'c01',
-    'Golpe rápido',
-    'Ganá antes de que termine la ronda 30.',
-    'El Asedio llega en la ronda 20 y el tiempo es poco: hay que atacar desde el principio.',
     you: _sh,
     level: AiLevel.novice,
     build: () => fresh(_sh, _nj, rules: _sprint),
   ),
   _challenge(
     'c02',
-    'Sin trucos',
-    'Ganá sin habilidad de facción.',
-    'Tu habilidad no está disponible. La del rival, sí.',
     you: _nj,
     level: AiLevel.easy,
     build: () => fresh(_nj, _sh, noAbility: {0}),
   ),
   _challenge(
     'c03',
-    'Asedio temprano',
-    'El Asedio empieza en la ronda 8. Ganá antes de la 30.',
-    'Desde la ronda 8 alcanza con ocupar 5 lados de un Líder. Cuidá el tuyo.',
     you: _sh,
     level: AiLevel.easy,
     build: () => fresh(_sh, _nj, rules: _earlySiege),
   ),
   _challenge(
     'c04',
-    'Duelo de templos',
-    'Shaolin contra Shaolin. Ganá.',
-    'Mismas fichas, misma habilidad. Gana quien las use mejor.',
     you: _sh,
     opp: _sh,
     level: AiLevel.normal,
@@ -90,36 +72,24 @@ final challenges = <Stage>[
   ),
   _challenge(
     'c05',
-    'Sin Dragones',
-    'Jugás sin tus dos Dragones. Ganá.',
-    'El Templo prestó sus Dragones. Tendrás que cercar caminando.',
     you: _sh,
     level: AiLevel.easy,
     build: () => fresh(_sh, _nj, rules: _noDragons),
   ),
   _challenge(
     'c06',
-    'Cielo de Tengus',
-    'El rival tiene 3 Tengu. Ganá.',
-    'Los Tengu aparecen donde haya un hueco. Que no haya huecos cerca de tu Monje.',
     you: _sh,
     level: AiLevel.easy,
     build: () => fresh(_sh, _nj, rules: _tenguHorde),
   ),
   _challenge(
     'c07',
-    'Mente fría',
-    'Vencé al nivel Difícil. No tiene habilidad.',
-    'El Sensei juega en serio, pero sin Meditación de Jade.',
     you: _nj,
     level: AiLevel.hard,
     build: () => fresh(_nj, _sh, noAbility: {1}),
   ),
   _challenge(
     'c08',
-    'Duelo de sombras',
-    'Ninja contra Ninja. Ganá.',
-    'Kawarimi contra Kawarimi.',
     you: _nj,
     opp: _nj,
     level: AiLevel.normal,
@@ -127,9 +97,6 @@ final challenges = <Stage>[
   ),
   _challenge(
     'c09',
-    'Última resistencia',
-    'Tu Monje ya está rodeado por 4 lados. Ganá antes de la ronda 30.',
-    'Empezás en problemas: liberá al Monje y contraatacá.',
     you: _sh,
     level: AiLevel.normal,
     build: () => buildScene(
@@ -169,9 +136,6 @@ final challenges = <Stage>[
   ),
   _challenge(
     'c10',
-    'El Maestro',
-    'Vencé al Sensei en su nivel más alto.',
-    'Reglas normales. El Sensei ve cuatro turnos adelante.',
     you: _sh,
     level: AiLevel.master,
     build: () => fresh(_sh, _nj),

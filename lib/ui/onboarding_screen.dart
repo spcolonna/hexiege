@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../i18n/i18n.dart';
 import '../engine/hex.dart';
 import '../engine/pieces.dart';
 import 'fx/piece_renderer.dart';
@@ -26,7 +27,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final _pages = PageController();
   late final _nick = TextEditingController(
-    text: AppSettings.instance.nickname == 'Vos' ? '' : AppSettings.instance.nickname,
+    text: AppSettings.instance.nickname == tr('common.defaultNick') ? '' : AppSettings.instance.nickname,
   );
   int _page = 0;
   static const _count = 3;
@@ -77,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     opacity: _page < _count - 1 ? 1 : 0,
                     child: TextButton(
                       onPressed: _page < _count - 1 ? () => _go(_count - 1) : null,
-                      child: Text('Saltar', style: TextStyle(color: t.textMuted)),
+                      child: Text(tr('onboarding.skip'), style: TextStyle(color: t.textMuted)),
                     ),
                   ),
                 ),
@@ -93,15 +94,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 14, 20, 16),
                 child: _page < _count - 1
-                    ? _primary(t, 'Siguiente', Icons.arrow_forward_rounded, () => _go(_page + 1))
+                    ? _primary(t, tr('common.next'), Icons.arrow_forward_rounded, () => _go(_page + 1))
                     : Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          _primary(t, 'Aprender a jugar · 2 min', Icons.school_rounded, () => _finish(tutorial: true)),
+                          _primary(t, tr('onboarding.learn'), Icons.school_rounded, () => _finish(tutorial: true)),
                           const SizedBox(height: 6),
                           TextButton(
                             onPressed: () => _finish(tutorial: false),
-                            child: Text('Ya sé jugar', style: TextStyle(color: t.textMuted)),
+                            child: Text(tr('onboarding.know'), style: TextStyle(color: t.textMuted)),
                           ),
                         ],
                       ),
@@ -167,8 +168,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       const Expanded(child: Center(child: _SurroundDemo())),
       _text(
         t,
-        'Rodeá al Líder',
-        'Estrategia pura, sin azar ni tablero. Ganás cuando el Líder enemigo queda rodeado por los 6 lados.',
+        tr('onboarding.p1Title'),
+        tr('onboarding.p1Body'),
       ),
       const SizedBox(height: 12),
     ],
@@ -183,15 +184,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _factionCard(t, Faction.shaolin, 0, 'Controlan la colmena: reubican fichas enemigas.'),
+                _factionCard(t, Faction.shaolin, 0, tr('onboarding.shaolin')),
                 const SizedBox(height: 14),
-                _factionCard(t, Faction.ninja, 1, 'Se escabullen y devuelven fichas a la mano.'),
+                _factionCard(t, Faction.ninja, 1, tr('onboarding.ninja')),
               ],
             ),
           ),
         ),
       ),
-      _text(t, 'Dos escuelas', 'Cada facción tiene sus propias fichas y una habilidad especial. Elegí tu estilo.'),
+      _text(t, tr('onboarding.p2Title'), tr('onboarding.p2Body')),
       const SizedBox(height: 12),
     ],
   );
@@ -246,7 +247,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           const PieceChip(type: PieceType.monk, owner: 0, size: 40, lift: 0.3),
           const SizedBox(height: 24),
-          _text(t, '¿Cómo te llamamos?', 'Es el nombre que verá tu rival.'),
+          _text(t, tr('onboarding.p3Title'), tr('onboarding.p3Body')),
           const SizedBox(height: 18),
           TextField(
             controller: _nick,
@@ -255,7 +256,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             textCapitalization: TextCapitalization.words,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: t.text),
             decoration: InputDecoration(
-              hintText: 'Tu nombre',
+              hintText: tr('menu.yourName'),
               hintStyle: TextStyle(color: t.textMuted.withValues(alpha: 0.5), fontWeight: FontWeight.w600),
               counterText: '',
               filled: true,

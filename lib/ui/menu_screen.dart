@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../i18n/i18n.dart';
 import '../engine/pieces.dart';
 import '../engine/rules.dart';
 import '../solo/catalog.dart';
@@ -36,6 +37,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    Localizations.localeOf(context); // reconstruye al cambiar de idioma
     final t = HexTheme.of(context);
     return Scaffold(
       body: ArenaBackdrop(
@@ -56,9 +58,9 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                             controller: _nick,
                             maxLength: 16,
                             textCapitalization: TextCapitalization.words,
-                            decoration: const InputDecoration(
-                              labelText: 'Tu nombre',
-                              prefixIcon: Icon(Icons.person_outline),
+                            decoration: InputDecoration(
+                              labelText: tr('menu.yourName'),
+                              prefixIcon: const Icon(Icons.person_outline),
                               counterText: '',
                               border: OutlineInputBorder(),
                               isDense: true,
@@ -89,9 +91,9 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                               elevation: 4,
                             ),
                             icon: const Icon(Icons.search_rounded, size: 26),
-                            label: const Text(
-                              'Buscar partida',
-                              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w900),
+                            label: Text(
+                              tr('menu.findMatch'),
+                              style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w900),
                             ),
                             onPressed: _findMatch,
                           ),
@@ -110,7 +112,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                             label: ListenableBuilder(
                               listenable: AppSettings.instance,
                               builder: (context, _) => Text(
-                                'Un jugador · ${_soloProgress()}',
+                                tr('menu.solo', {'progress': _soloProgress()}),
                                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
                               ),
                             ),
@@ -124,17 +126,17 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                           children: [
                             TextButton.icon(
                               icon: const Icon(Icons.people_outline),
-                              label: const Text('Local'),
+                              label: Text(tr('menu.local')),
                               onPressed: _passAndPlay,
                             ),
                             TextButton.icon(
                               icon: const Icon(Icons.school_outlined),
-                              label: const Text('Tutorial'),
+                              label: Text(tr('menu.tutorial')),
                               onPressed: _tutorial,
                             ),
                             TextButton.icon(
                               icon: const Icon(Icons.menu_book_outlined),
-                              label: const Text('Reglas'),
+                              label: Text(tr('menu.rules')),
                               onPressed: () => _rules(context),
                             ),
                           ],
@@ -150,7 +152,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                 child: Row(
                   children: [
                     IconButton(
-                      tooltip: 'Cambiar tema',
+                      tooltip: tr('menu.toggleTheme'),
                       icon: Icon(t.isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded),
                       onPressed: () {
                         Haptics.select();
@@ -158,7 +160,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                       },
                     ),
                     IconButton(
-                      tooltip: 'Ajustes',
+                      tooltip: tr('menu.settings'),
                       icon: const Icon(Icons.tune_rounded),
                       onPressed: () => _settings(context),
                     ),
@@ -198,11 +200,10 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Partida local', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+              Text(tr('menu.localTitle'), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
               const SizedBox(height: 4),
               Text(
-                'Dos jugadores en este dispositivo. Vos jugás ${_faction.displayName}; '
-                '¿qué facción usa el Jugador 2?',
+                tr('menu.localBody', {'faction': _faction.displayName}),
                 style: TextStyle(color: HexTheme.of(ctx).textMuted),
               ),
               const SizedBox(height: 14),
@@ -263,8 +264,9 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               ),
               Text(
                 l.games == 0
-                    ? 'Jugá tu primera partida'
-                    : '${l.wins}V · ${l.losses}D${l.draws > 0 ? ' · ${l.draws}E' : ''}',
+                    ? tr('menu.firstGame')
+                    : tr('menu.record', {'w': l.wins, 'l': l.losses}) +
+                          (l.draws > 0 ? tr('menu.recordDraws', {'d': l.draws}) : ''),
                 style: TextStyle(fontSize: 12, color: t.textMuted),
               ),
             ],
@@ -285,7 +287,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               '${l.rating}',
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20, color: t.text, height: 1.1),
             ),
-            Text('puntos', style: TextStyle(fontSize: 11, color: t.textMuted)),
+            Text(tr('menu.points'), style: TextStyle(fontSize: 11, color: t.textMuted)),
           ],
         ),
       ],
@@ -330,11 +332,11 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '¿Primera vez?',
+                    tr('menu.firstTime'),
                     style: TextStyle(fontWeight: FontWeight.w900, color: t.text),
                   ),
                   Text(
-                    'Aprendé a jugar en 2 minutos con el Sensei.',
+                    tr('menu.learn'),
                     style: TextStyle(fontSize: 12.5, color: t.textMuted),
                   ),
                 ],
@@ -375,7 +377,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
             shadows: [Shadow(color: t.shadow, blurRadius: 12, offset: const Offset(0, 4))],
           ),
         ),
-        Text('Rodeá al Líder enemigo', style: TextStyle(color: t.textMuted, letterSpacing: 1.2)),
+        Text(tr('menu.tagline'), style: TextStyle(color: t.textMuted, letterSpacing: 1.2)),
       ],
     );
   }
@@ -402,7 +404,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
       Align(
         alignment: Alignment.centerLeft,
         child: Text(
-          'Tu facción',
+          tr('menu.yourFaction'),
           style: TextStyle(color: t.textMuted, fontWeight: FontWeight.w700, fontSize: 12, letterSpacing: 0.5),
         ),
       ),
@@ -481,35 +483,77 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Ajustes', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+                  Text(tr('menu.settings'), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
                   const SizedBox(height: 16),
-                  const Text('Tema'),
+                  Text(tr('settings.theme')),
                   const SizedBox(height: 8),
                   SizedBox(
                     width: double.infinity,
                     child: SegmentedButton<ThemeMode>(
-                      segments: const [
+                      segments: [
                         ButtonSegment(
                           value: ThemeMode.system,
-                          icon: Icon(Icons.brightness_auto),
-                          label: Text('Sistema'),
+                          icon: const Icon(Icons.brightness_auto),
+                          label: Text(tr('settings.system')),
                         ),
-                        ButtonSegment(value: ThemeMode.light, icon: Icon(Icons.light_mode), label: Text('Claro')),
-                        ButtonSegment(value: ThemeMode.dark, icon: Icon(Icons.dark_mode), label: Text('Oscuro')),
+                        ButtonSegment(
+                          value: ThemeMode.light,
+                          icon: const Icon(Icons.light_mode),
+                          label: Text(tr('settings.light')),
+                        ),
+                        ButtonSegment(
+                          value: ThemeMode.dark,
+                          icon: const Icon(Icons.dark_mode),
+                          label: Text(tr('settings.dark')),
+                        ),
                       ],
                       selected: {s.themeMode},
                       onSelectionChanged: (v) => s.themeMode = v.first,
                     ),
                   ),
+                  const SizedBox(height: 16),
+                  Text(tr('settings.language')),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    width: double.infinity,
+                    child: SegmentedButton<String?>(
+                      showSelectedIcon: false,
+                      segments: [
+                        ButtonSegment(value: null, label: Text(tr('settings.system'))),
+                        const ButtonSegment(value: 'es', label: Text('Español')),
+                        const ButtonSegment(value: 'en', label: Text('English')),
+                        const ButtonSegment(value: 'zh', label: Text('中文')),
+                      ],
+                      selected: {s.language},
+                      onSelectionChanged: (v) => s.language = v.first,
+                    ),
+                  ),
+                  // Los caracteres chinos solo se ofrecen en chino.
+                  if (currentLanguage == 'zh') ...[
+                    const SizedBox(height: 16),
+                    Text(tr('settings.pieces')),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      child: SegmentedButton<PieceStyle>(
+                        segments: [
+                          ButtonSegment(value: PieceStyle.images, label: Text(tr('settings.pieceImages'))),
+                          ButtonSegment(value: PieceStyle.glyphs, label: Text(tr('settings.pieceGlyphs'))),
+                        ],
+                        selected: {s.pieceStyle},
+                        onSelectionChanged: (v) => s.pieceStyle = v.first,
+                      ),
+                    ),
+                  ],
                   SwitchListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Sonido'),
+                    title: Text(tr('common.sound')),
                     value: s.sound,
                     onChanged: (v) => s.sound = v,
                   ),
                   SwitchListTile(
                     contentPadding: EdgeInsets.zero,
-                    title: const Text('Vibración'),
+                    title: Text(tr('settings.haptics')),
                     value: s.haptics,
                     onChanged: (v) => s.haptics = v,
                   ),
@@ -534,20 +578,15 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
           controller: controller,
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
           children: [
-            const Text('Reglas básicas', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text(tr('rules.title'), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Text(
-              '• Cada turno hacés una sola acción: colocar una ficha de tu mano (tocando solo fichas propias), '
-              'mover una del tablero o usar la habilidad de tu facción. El turno pasa solo.\n'
-              '• La habilidad tiene ${_r.abilityCharges} usos por partida, '
-              'con ${_r.abilityCooldown} turnos de recarga entre uno y otro.\n'
-              '• Colmena única: ninguna acción puede dividir el tablero en dos grupos.\n'
-              '• No podés mover fichas hasta colocar a tu Líder, y debés colocarlo antes de tu 4.º turno.\n'
-              '• Las fichas no pueden deslizarse entre dos fichas (huecos estrechos), salvo el Shinobi.\n'
-              '• Ganás si los 6 lados del Líder enemigo quedan ocupados. Si ambos quedan rodeados: empate.\n'
-              '• Asedio: desde la ronda ${_r.siegeRound} alcanza con ocupar 5 lados. '
-              'Si nadie gana en ${_r.roundLimit} rondas: empate.\n'
-              '• Mantené presionada una ficha para ver qué hace.',
+              tr('rules.body', {
+                'charges': _r.abilityCharges!,
+                'cooldown': _r.abilityCooldown,
+                'siege': _r.siegeRound!,
+                'limit': _r.roundLimit!,
+              }),
             ),
             for (final f in Faction.values) ...[
               const SizedBox(height: 20),

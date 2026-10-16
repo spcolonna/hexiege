@@ -1,19 +1,21 @@
 import '../engine/ai.dart';
+import '../i18n/i18n.dart';
 
 enum MatchResult { win, loss, draw }
 
 /// Rango visible según los puntos. Los cortes coinciden con los niveles de IA
 /// que el emparejamiento asigna en cada franja.
 enum Rank {
-  novice('Novicio', 0),
-  disciple('Discípulo', 900),
-  warrior('Guerrero', 1050),
-  veteran('Veterano', 1200),
-  legend('Leyenda', 1350);
+  novice(0),
+  disciple(900),
+  warrior(1050),
+  veteran(1200),
+  legend(1350);
 
-  final String displayName;
   final int minRating;
-  const Rank(this.displayName, this.minRating);
+  const Rank(this.minRating);
+
+  String get displayName => tr('rank.$name');
 
   static Rank of(int rating) => values.lastWhere((r) => rating >= r.minRating);
 

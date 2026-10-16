@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../i18n/i18n.dart';
 import '../engine/ai.dart';
 import '../engine/pieces.dart';
 import '../solo/catalog.dart';
@@ -36,7 +37,7 @@ class StageListScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         IconButton(
-                          tooltip: 'Volver',
+                          tooltip: tr('common.back'),
                           icon: const Icon(Icons.arrow_back_rounded),
                           onPressed: () => Navigator.maybePop(context),
                         ),
@@ -153,7 +154,7 @@ class StageListScreen extends StatelessWidget {
   }
 
   String _detail(Stage st) => switch (st.kind) {
-    StageKind.puzzle => 'Cerco en ${st.puzzleTurns} · ${st.you.displayName}',
-    _ => '${st.you.displayName} vs ${st.opp.displayName} · ${st.level.displayName}',
+    StageKind.puzzle => tr('stages.puzzleDetail', {'n': st.puzzleTurns!, 'faction': st.you.displayName}),
+    _ => tr('stages.versus', {'you': st.you.displayName, 'opp': st.opp.displayName, 'level': st.level.displayName}),
   };
 }

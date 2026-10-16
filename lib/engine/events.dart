@@ -1,3 +1,4 @@
+import '../i18n/i18n.dart';
 import 'hex.dart';
 import 'pieces.dart';
 
@@ -18,7 +19,7 @@ sealed class GameEvent {
   bool get notable => true;
 }
 
-String _whose(Piece p, int player) => p.owner == player ? '(propia)' : '(rival)';
+String _whose(Piece p, int player) => tr(p.owner == player ? 'event.own' : 'event.rival');
 
 /// Efecto especial que una Serpiente anuló.
 enum CancelledEffect { push, paralyze, seal }
@@ -30,7 +31,7 @@ class PiecePlaced extends GameEvent {
   @override
   Set<Hex> get cells => {at};
   @override
-  String get text => 'Colocó ${piece.type.displayName}';
+  String get text => tr('event.placed', {'piece': piece.type.displayName});
   @override
   bool get notable => false;
 }
@@ -45,8 +46,7 @@ class Moved extends GameEvent {
   @override
   Set<Hex> get cells => {from, to};
   @override
-  String get text =>
-      climbed ? '${piece.type.displayName} se subió a una ficha y la bloquea' : 'Movió ${piece.type.displayName}';
+  String get text => tr(climbed ? 'event.climbed' : 'event.moved', {'piece': piece.type.displayName});
   @override
   bool get notable => climbed;
 }
@@ -58,7 +58,7 @@ class Pushed extends GameEvent {
   @override
   Set<Hex> get cells => {from, to};
   @override
-  String get text => 'El Tigre empujó a ${piece.type.displayName}';
+  String get text => tr('event.pushed', {'piece': piece.type.displayName});
 }
 
 class Paralyzed extends GameEvent {
@@ -71,9 +71,7 @@ class Paralyzed extends GameEvent {
   @override
   Set<Hex> get cells => {at};
   @override
-  String get text => bySeal
-      ? '${piece.type.displayName} pisó un Sello de Sombra: paralizada 1 turno'
-      : 'La Kunoichi paralizó a ${piece.type.displayName} por 1 turno';
+  String get text => tr(bySeal ? 'event.paralyzedSeal' : 'event.paralyzed', {'piece': piece.type.displayName});
 }
 
 class SealPlaced extends GameEvent {
@@ -82,7 +80,7 @@ class SealPlaced extends GameEvent {
   @override
   Set<Hex> get cells => {at};
   @override
-  String get text => 'La Sombra Errante dejó un Sello de Sombra';
+  String get text => tr('event.sealPlaced');
 }
 
 class Cancelled extends GameEvent {
@@ -94,9 +92,9 @@ class Cancelled extends GameEvent {
   Set<Hex> get cells => {at};
   @override
   String get text => switch (effect) {
-    CancelledEffect.push => 'La Serpiente de Jade anuló el empuje del Tigre',
-    CancelledEffect.paralyze => 'La Serpiente de Jade anuló la parálisis de la Kunoichi',
-    CancelledEffect.seal => 'La Serpiente de Jade impidió el Sello de Sombra',
+    CancelledEffect.push => tr('event.cancelPush'),
+    CancelledEffect.paralyze => tr('event.cancelParalyze'),
+    CancelledEffect.seal => tr('event.cancelSeal'),
   };
 }
 
@@ -106,7 +104,7 @@ class ShogunSwapped extends GameEvent {
   @override
   Set<Hex> get cells => {from, to};
   @override
-  String get text => 'El Gran Shogun cambió de lugar con un Shinobi (1 vez por partida)';
+  String get text => tr('event.shogunSwap');
 }
 
 class JadeRelocated extends GameEvent {
@@ -116,7 +114,7 @@ class JadeRelocated extends GameEvent {
   @override
   Set<Hex> get cells => {from, to};
   @override
-  String get text => 'Meditación de Jade: reubicó ${piece.type.displayName} ${_whose(piece, player)}';
+  String get text => tr('event.jadeRelocated', {'piece': piece.type.displayName, 'whose': _whose(piece, player)});
 }
 
 class JadeSwapped extends GameEvent {
@@ -126,7 +124,7 @@ class JadeSwapped extends GameEvent {
   @override
   Set<Hex> get cells => {at, bt};
   @override
-  String get text => 'Meditación de Jade: intercambió ${a.type.displayName} y ${b.type.displayName}';
+  String get text => tr('event.jadeSwapped', {'a': a.type.displayName, 'b': b.type.displayName});
 }
 
 class Returned extends GameEvent {
@@ -136,7 +134,7 @@ class Returned extends GameEvent {
   @override
   Set<Hex> get cells => {from};
   @override
-  String get text => 'Kawarimi: ${piece.type.displayName} ${_whose(piece, player)} vuelve a la mano de su dueño';
+  String get text => tr('event.returned', {'piece': piece.type.displayName, 'whose': _whose(piece, player)});
 }
 
 class Passed extends GameEvent {
@@ -144,5 +142,5 @@ class Passed extends GameEvent {
   @override
   Set<Hex> get cells => const {};
   @override
-  String get text => 'Sin jugadas posibles: pasó el turno';
+  String get text => tr('event.passed');
 }

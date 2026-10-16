@@ -1,9 +1,15 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../i18n/i18n.dart';
 import '../../match/ladder.dart';
+
+/// Cómo se dibujan las fichas: ilustraciones o caracteres chinos. Los caracteres
+/// solo se ofrecen en chino; en otros idiomas siempre van las ilustraciones.
+enum PieceStyle { images, glyphs }
 
 /// Preferencias del usuario (persistidas). Un único notifier global que la app
 /// escucha: cambiar el tema acá lo cambia en vivo en cualquier pantalla.
@@ -14,18 +20,28 @@ class AppSettings extends ChangeNotifier {
   SharedPreferences? _prefs;
 
   ThemeMode _themeMode = ThemeMode.system;
+  String? _language; // null = idioma del sistema
+  PieceStyle _pieceStyle = PieceStyle.images;
   bool _sound = true;
   bool _haptics = true;
-  String _nickname = 'Vos';
+  String? _nickname; // null = el nombre por defecto del idioma
   bool _onboarded = false;
   bool _tutorialDone = false;
   LadderRecord _ladder = const LadderRecord();
   Set<String> _cleared = {};
 
   ThemeMode get themeMode => _themeMode;
+
+  /// Idioma elegido a mano (null = el del sistema).
+  String? get language => _language;
+  Locale get locale => Locale(currentLanguage);
+  PieceStyle get pieceStyle => _pieceStyle;
+
+  /// Las fichas muestran el carácter en lugar de la ilustración.
+  bool get useGlyphs => currentLanguage == 'zh' && _pieceStyle == PieceStyle.glyphs;
   bool get sound => _sound;
   bool get haptics => _haptics;
-  String get nickname => _nickname;
+  String get nickname => _nickname ?? tr('common.defaultNick');
 
   /// Ya vio la bienvenida del primer arranque.
   bool get onboarded => _onboarded;
@@ -50,13 +66,16 @@ class AppSettings extends ChangeNotifier {
       return; // sin persistencia (tests): valores por defecto
     }
     final p = _prefs!;
+    _language = p.getString('language');
+    setLanguage(_language ?? systemLanguage(PlatformDispatcher.instance.locale.languageCode));
+    _pieceStyle = PieceStyle.values.asNameMap()[p.getString('pieceStyle')] ?? PieceStyle.images;
     final mode = p.getInt('themeMode');
     _themeMode = mode != null && mode >= 0 && mode < ThemeMode.values.length
         ? ThemeMode.values[mode]
         : ThemeMode.system;
     _sound = p.getBool('sound') ?? true;
     _haptics = p.getBool('haptics') ?? true;
-    _nickname = p.getString('nickname') ?? 'Vos';
+    _nickname = p.getString('nickname');
     _onboarded = p.getBool('onboarded') ?? false;
     _tutorialDone = p.getBool('tutorialDone') ?? false;
     _cleared = (p.getStringList('cleared') ?? const []).toSet();
@@ -82,6 +101,23 @@ class AppSettings extends ChangeNotifier {
     themeMode = dark ? ThemeMode.light : ThemeMode.dark;
   }
 
+  set language(String? code) {
+    _language = code;
+    setLanguage(code ?? systemLanguage(PlatformDispatcher.instance.locale.languageCode));
+    if (code == null) {
+      _prefs?.remove('language');
+    } else {
+      _prefs?.setString('language', code);
+    }
+    notifyListeners();
+  }
+
+  set pieceStyle(PieceStyle v) {
+    _pieceStyle = v;
+    _prefs?.setString('pieceStyle', v.name);
+    notifyListeners();
+  }
+
   set sound(bool v) {
     _sound = v;
     _prefs?.setBool('sound', v);
@@ -96,8 +132,12 @@ class AppSettings extends ChangeNotifier {
 
   set nickname(String v) {
     final clean = v.trim();
-    _nickname = clean.isEmpty ? 'Vos' : (clean.length > 16 ? clean.substring(0, 16) : clean);
-    _prefs?.setString('nickname', _nickname);
+    _nickname = clean.isEmpty ? null : (clean.length > 16 ? clean.substring(0, 16) : clean);
+    if (_nickname == null) {
+      _prefs?.remove('nickname');
+    } else {
+      _prefs?.setString('nickname', _nickname!);
+    }
     notifyListeners();
   }
 

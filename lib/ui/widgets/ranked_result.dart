@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../i18n/i18n.dart';
 import '../../match/ladder.dart';
 import '../theme/hex_theme.dart';
 import 'rank_badge.dart';
@@ -96,7 +97,7 @@ class RankedResultDialog extends StatelessWidget {
           if (up || down) ...[
             const SizedBox(height: 12),
             Text(
-              up ? '¡Subiste a ${after.rank.displayName}!' : 'Bajaste a ${after.rank.displayName}',
+              tr(up ? 'ranked.rankUp' : 'ranked.rankDown', {'rank': after.rank.displayName}),
               style: TextStyle(fontWeight: FontWeight.w800, color: up ? t.gold : t.textMuted),
             ),
           ],
@@ -112,12 +113,12 @@ class RankedResultDialog extends StatelessWidget {
       ),
       actionsAlignment: MainAxisAlignment.spaceBetween,
       actions: [
-        TextButton(onPressed: onMenu, child: const Text('Menú')),
+        TextButton(onPressed: onMenu, child: Text(tr('common.menu'))),
         FilledButton.icon(
           style: FilledButton.styleFrom(backgroundColor: t.gold, foregroundColor: Colors.black),
           onPressed: onAgain,
           icon: const Icon(Icons.search_rounded),
-          label: const Text('Buscar otra'),
+          label: Text(tr('ranked.again')),
         ),
       ],
     );

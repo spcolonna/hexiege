@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../i18n/i18n.dart';
 import '../engine/pieces.dart';
 import '../solo/catalog.dart';
 import 'fx/sfx.dart';
@@ -28,12 +29,12 @@ class CampaignScreen extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      tooltip: 'Volver',
+                      tooltip: tr('common.back'),
                       icon: const Icon(Icons.arrow_back_rounded),
                       onPressed: () => Navigator.maybePop(context),
                     ),
                     Text(
-                      'Campaña',
+                      tr('solo.campaign'),
                       style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: t.text),
                     ),
                   ],
@@ -103,8 +104,8 @@ class CampaignScreen extends StatelessWidget {
                     const SizedBox(height: 6),
                     Text(
                       next == null
-                          ? '¡Completada! $done/${c.stages.length}'
-                          : '$done/${c.stages.length} · Sigue: ${next.title}',
+                          ? tr('campaign.completed', {'done': done, 'total': c.stages.length})
+                          : tr('campaign.next', {'done': done, 'total': c.stages.length, 'title': next.title}),
                       style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: color),
                     ),
                   ],

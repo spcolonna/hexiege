@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../i18n/i18n.dart';
 import '../../engine/pieces.dart';
 import '../theme/hex_theme.dart';
 import 'emotes.dart';
@@ -137,14 +138,14 @@ class _PlayerBannerState extends State<PlayerBanner> with SingleTickerProviderSt
               ],
             ),
           ),
-          _stat(t, Icons.hexagon_outlined, '${widget.handCount}', 'Fichas en mano'),
+          _stat(t, Icons.hexagon_outlined, '${widget.handCount}', tr('banner.inHand')),
           const SizedBox(width: 6),
           _cooldown(t, color),
           if (widget.onEmote != null) ...[
             const SizedBox(width: 4),
             IconButton(
               visualDensity: VisualDensity.compact,
-              tooltip: 'Emote',
+              tooltip: tr('banner.emote'),
               onPressed: widget.onEmote,
               icon: Icon(Icons.add_reaction_outlined, color: t.textMuted),
             ),
@@ -236,13 +237,13 @@ class _PlayerBannerState extends State<PlayerBanner> with SingleTickerProviderSt
   Widget _cooldown(HexTheme t, Color color) {
     final spent = widget.charges == 0;
     final ready = widget.cooldown == 0 && !spent;
-    final uses = widget.charges == null ? '' : ' · usos: ${widget.charges}';
+    final uses = widget.charges == null ? '' : tr('banner.uses', {'n': widget.charges!});
     return Tooltip(
       message: spent
-          ? '${widget.profile.faction.abilityName}: agotada'
+          ? tr('banner.spent', {'ability': widget.profile.faction.abilityName})
           : ready
-          ? '${widget.profile.faction.abilityName}: lista$uses'
-          : 'Recarga: ${widget.cooldown}$uses',
+          ? tr('banner.ready', {'ability': widget.profile.faction.abilityName, 'uses': uses})
+          : tr('banner.cooldown', {'n': widget.cooldown, 'uses': uses}),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
