@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 
 import '../../engine/pieces.dart';
 
-/// Ilustraciones de las fichas (`assets/pieces/<facción>_<tipo>.png`). Las que
+/// Ilustraciones de las fichas (`assets/pieces/<facción>_<tipo>.webp`). Las que
 /// falten se dibujan con su carácter, así el juego funciona sin el arte.
 class PieceArt {
   static final _images = <PieceType, ui.Image>{};
 
-  static String assetPath(PieceType t) => 'assets/pieces/${t.faction.name}_${t.name}.png';
+  static String assetPath(PieceType t) => 'assets/pieces/${t.faction.name}_${t.name}.webp';
 
   static ui.Image? of(PieceType t) => _images[t];
 

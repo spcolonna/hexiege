@@ -108,15 +108,6 @@ class PieceRenderer {
         ..strokeWidth = max(1.5, r * 0.09)
         ..color = HexTheme.faction(type.faction),
     );
-    if (type.isLeader) {
-      canvas.drawPath(
-        hexAt(face, r * 0.8),
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = max(1.0, r * 0.06)
-          ..color = theme.gold,
-      );
-    }
     final art = AppSettings.instance.useGlyphs ? null : PieceArt.of(type);
     if (art != null) {
       // Relieve tallado: la ilustración ocupa la cara, recortada al hexágono.
@@ -132,6 +123,16 @@ class PieceRenderer {
       canvas.restore();
     } else {
       text(canvas, type.glyph, face, r * 0.9, theme.glyph[owner]);
+    }
+    // El anillo del líder va encima del arte para que la ilustración no lo tape.
+    if (type.isLeader) {
+      canvas.drawPath(
+        hexAt(face, r * 0.8),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = max(1.0, r * 0.06)
+          ..color = theme.gold,
+      );
     }
 
     if (paralyzed) {
