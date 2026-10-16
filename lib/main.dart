@@ -37,8 +37,8 @@ class HexiegeApp extends StatelessWidget {
         supportedLocales: [for (final l in supportedLanguages) Locale(l)],
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
         debugShowCheckedModeBanner: false,
-        theme: HexTheme.light.toThemeData(),
-        darkTheme: HexTheme.dark.toThemeData(),
+        theme: HexTheme.forFaction(settings.faction, Brightness.light).toThemeData(),
+        darkTheme: HexTheme.forFaction(settings.faction, Brightness.dark).toThemeData(),
         themeMode: settings.themeMode,
         // Fundido lento: el cambio de tema en plena partida se siente intencional.
         themeAnimationDuration: const Duration(milliseconds: 450),

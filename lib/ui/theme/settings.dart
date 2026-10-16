@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../engine/pieces.dart';
 import '../../i18n/i18n.dart';
 import '../../match/ladder.dart';
 
@@ -22,6 +23,7 @@ class AppSettings extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.system;
   String? _language; // null = idioma del sistema
   PieceStyle _pieceStyle = PieceStyle.images;
+  Faction _faction = Faction.shaolin;
   bool _sound = true;
   bool _haptics = true;
   String? _nickname; // null = el nombre por defecto del idioma
@@ -36,6 +38,9 @@ class AppSettings extends ChangeNotifier {
   String? get language => _language;
   Locale get locale => Locale(currentLanguage);
   PieceStyle get pieceStyle => _pieceStyle;
+
+  /// Facción elegida en el menú: define también la mesa (el tema) de la app.
+  Faction get faction => _faction;
 
   /// Las fichas muestran el carácter en lugar de la ilustración.
   bool get useGlyphs => currentLanguage == 'zh' && _pieceStyle == PieceStyle.glyphs;
@@ -69,6 +74,7 @@ class AppSettings extends ChangeNotifier {
     _language = p.getString('language');
     setLanguage(_language ?? systemLanguage(PlatformDispatcher.instance.locale.languageCode));
     _pieceStyle = PieceStyle.values.asNameMap()[p.getString('pieceStyle')] ?? PieceStyle.images;
+    _faction = Faction.values.asNameMap()[p.getString('faction')] ?? Faction.shaolin;
     final mode = p.getInt('themeMode');
     _themeMode = mode != null && mode >= 0 && mode < ThemeMode.values.length
         ? ThemeMode.values[mode]
@@ -115,6 +121,12 @@ class AppSettings extends ChangeNotifier {
   set pieceStyle(PieceStyle v) {
     _pieceStyle = v;
     _prefs?.setString('pieceStyle', v.name);
+    notifyListeners();
+  }
+
+  set faction(Faction f) {
+    _faction = f;
+    _prefs?.setString('faction', f.name);
     notifyListeners();
   }
 

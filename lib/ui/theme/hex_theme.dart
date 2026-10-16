@@ -2,14 +2,25 @@ import 'package:flutter/material.dart';
 
 import '../../engine/pieces.dart';
 
+/// Material de la mesa sobre la que se juega.
+enum TableMaterial { planks, lacquer }
+
 /// Tokens visuales de Hexiege. Es un [ThemeExtension]: Flutter interpola (`lerp`)
-/// entre claro y oscuro, así que el cambio en plena partida es un fundido suave.
+/// entre temas, así que cambiar de facción o de luz es un fundido suave.
 ///
-/// Pensado para cosméticos: una "arena" o skin futura es otra instancia de esta
-/// clase (fondo, materiales de fichas, tablero) sin tocar el resto de la UI.
+/// Cada facción tiene su mesa (claro y oscuro son la luz sobre esa misma mesa):
+/// Shaolin juega sobre madera de templo con jade y oro; Ninja sobre cedro
+/// gastado o laca negra, con bermellón y latón.
 @immutable
 class HexTheme extends ThemeExtension<HexTheme> {
   final Brightness brightness;
+  final TableMaterial table;
+
+  /// Veta de la madera o reflejo de la laca.
+  final Color tableGrain;
+
+  /// Color propio de la facción para botones principales y detalles.
+  final Color accent;
 
   // Arena (fondo)
   final Color backdropTop;
@@ -42,6 +53,9 @@ class HexTheme extends ThemeExtension<HexTheme> {
 
   const HexTheme({
     required this.brightness,
+    required this.table,
+    required this.tableGrain,
+    required this.accent,
     required this.backdropTop,
     required this.backdropBottom,
     required this.backdropGlow,
@@ -63,25 +77,60 @@ class HexTheme extends ThemeExtension<HexTheme> {
     required this.frost,
   });
 
-  /// Noche de tinta: madera oscura y lámparas cálidas.
-  static const dark = HexTheme(
+  static const _shaolinStone = [
+    [Color(0xFFFBF8F0), Color(0xFFD5E0CF)],
+    [Color(0xFF4A4A56), Color(0xFF17171D)],
+  ];
+
+  /// Shaolin, de día: tablas de hinoki claro, papel de arroz, jade y oro.
+  static const shaolinLight = HexTheme(
+    brightness: Brightness.light,
+    table: TableMaterial.planks,
+    tableGrain: Color(0x1F7A4E1E),
+    accent: Color(0xFF23885C),
+    backdropTop: Color(0xFFEAD9B8),
+    backdropBottom: Color(0xFFD3B98C),
+    backdropGlow: Color(0x55FFF6DE),
+    backdropPattern: Color(0x0C5B4630),
+    surface: Color(0xF2FBF5E6),
+    surfaceHigh: Color(0xFFFFFBF0),
+    outline: Color(0x334A3A20),
+    text: Color(0xFF2A241B),
+    textMuted: Color(0x992A241B),
+    grid: Color(0x245A4026),
+    shadow: Color(0x73402C10),
+    lastMove: Color(0x33B8862B),
+    stone: [
+      [Color(0xFFFFFFFF), Color(0xFFDCE6D6)],
+      [Color(0xFF50505C), Color(0xFF1B1B22)],
+    ],
+    stoneSide: [Color(0xFFA9B5A4), Color(0xFF0B0B0F)],
+    glyph: [Color(0xFF1D3B2A), Color(0xFFF0E8D6)],
+    gold: Color(0xFFA87A22),
+    highlight: Color(0xFF1F9E68),
+    danger: Color(0xFFD0414F),
+    frost: Color(0xFF3A8FE0),
+  );
+
+  /// Shaolin, de noche: teca oscura bajo lámparas, jade y oro.
+  static const shaolinDark = HexTheme(
     brightness: Brightness.dark,
-    backdropTop: Color(0xFF1E1B17),
-    backdropBottom: Color(0xFF0F0E0C),
-    backdropGlow: Color(0x33E8C77A),
+    table: TableMaterial.planks,
+    tableGrain: Color(0x2A000000),
+    accent: Color(0xFF3DB585),
+    backdropTop: Color(0xFF3B2A1B),
+    backdropBottom: Color(0xFF1C130C),
+    backdropGlow: Color(0x40F0C070),
     backdropPattern: Color(0x09FFFFFF),
-    surface: Color(0xE6221F1B),
-    surfaceHigh: Color(0xFF2E2A24),
-    outline: Color(0x1FFFFFFF),
-    text: Color(0xFFF2ECDF),
-    textMuted: Color(0x99F2ECDF),
-    grid: Color(0x1CFFFFFF),
+    surface: Color(0xEB2A2018),
+    surfaceHigh: Color(0xFF33271D),
+    outline: Color(0x26F3E2BF),
+    text: Color(0xFFF3E9D6),
+    textMuted: Color(0x99F3E9D6),
+    grid: Color(0x1FFFE9C0),
     shadow: Color(0xB3000000),
     lastMove: Color(0x26E3BE5A),
-    stone: [
-      [Color(0xFFFBF8F0), Color(0xFFD5E0CF)],
-      [Color(0xFF4A4A56), Color(0xFF17171D)],
-    ],
+    stone: _shaolinStone,
     stoneSide: [Color(0xFF9AA897), Color(0xFF09090C)],
     glyph: [Color(0xFF1D3B2A), Color(0xFFF0E8D6)],
     gold: Color(0xFFE3BE5A),
@@ -90,32 +139,77 @@ class HexTheme extends ThemeExtension<HexTheme> {
     frost: Color(0xFF8CC8FF),
   );
 
-  /// Papel de arroz y tinta: claro y cálido.
-  static const light = HexTheme(
+  /// Ninja, de día: cedro gastado color ceniza, bermellón y latón.
+  static const ninjaLight = HexTheme(
     brightness: Brightness.light,
-    backdropTop: Color(0xFFF6F0E3),
-    backdropBottom: Color(0xFFE2D6BE),
-    backdropGlow: Color(0x66FFFFFF),
-    backdropPattern: Color(0x0C5B4630),
-    surface: Color(0xEEFFFBF2),
-    surfaceHigh: Color(0xFFFFFFFF),
-    outline: Color(0x22332A1E),
-    text: Color(0xFF2A241B),
-    textMuted: Color(0x992A241B),
-    grid: Color(0x1F4A3A26),
-    shadow: Color(0x66402C10),
-    lastMove: Color(0x33B8862B),
+    table: TableMaterial.planks,
+    tableGrain: Color(0x1C2A1E1A),
+    accent: Color(0xFFB8323F),
+    backdropTop: Color(0xFFD8D0C5),
+    backdropBottom: Color(0xFFB0A596),
+    backdropGlow: Color(0x44FFF4EE),
+    backdropPattern: Color(0x0C3A2A2A),
+    surface: Color(0xF2F5F0EA),
+    surfaceHigh: Color(0xFFFBF8F4),
+    outline: Color(0x33302422),
+    text: Color(0xFF1F1A19),
+    textMuted: Color(0x991F1A19),
+    grid: Color(0x24302420),
+    shadow: Color(0x73281A14),
+    lastMove: Color(0x33B8323F),
     stone: [
-      [Color(0xFFFFFFFF), Color(0xFFDCE6D6)],
-      [Color(0xFF50505C), Color(0xFF1B1B22)],
+      [Color(0xFFFFFFFF), Color(0xFFE2DED6)],
+      [Color(0xFF4E4A50), Color(0xFF19171B)],
     ],
-    stoneSide: [Color(0xFFA9B5A4), Color(0xFF0B0B0F)],
-    glyph: [Color(0xFF1D3B2A), Color(0xFFF0E8D6)],
-    gold: Color(0xFFB8862B),
+    stoneSide: [Color(0xFFB0AAA0), Color(0xFF0B0A0C)],
+    glyph: [Color(0xFF3A1E20), Color(0xFFF0E4DC)],
+    gold: Color(0xFF94733A),
     highlight: Color(0xFF1F9E68),
-    danger: Color(0xFFD0414F),
+    danger: Color(0xFFC8303E),
     frost: Color(0xFF3A8FE0),
   );
+
+  /// Ninja, de noche: laca negra con fondo rojo, latón y polvo de oro.
+  static const ninjaDark = HexTheme(
+    brightness: Brightness.dark,
+    table: TableMaterial.lacquer,
+    tableGrain: Color(0x14FF8A80),
+    accent: Color(0xFFD94B58),
+    backdropTop: Color(0xFF1E1013),
+    backdropBottom: Color(0xFF0A0506),
+    backdropGlow: Color(0x30C0404F),
+    backdropPattern: Color(0x09FFFFFF),
+    surface: Color(0xEB1C1315),
+    surfaceHigh: Color(0xFF261B1D),
+    outline: Color(0x26F2D6CC),
+    text: Color(0xFFF2E6E0),
+    textMuted: Color(0x99F2E6E0),
+    grid: Color(0x1CFFD9D0),
+    shadow: Color(0xC0000000),
+    lastMove: Color(0x26D94B58),
+    stone: [
+      [Color(0xFFFBF8F0), Color(0xFFDCD6CC)],
+      [Color(0xFF4A4448), Color(0xFF151214)],
+    ],
+    stoneSide: [Color(0xFFA09A90), Color(0xFF070607)],
+    glyph: [Color(0xFF3A1E20), Color(0xFFF0E4DC)],
+    gold: Color(0xFFC9A55A),
+    highlight: Color(0xFF7FE0B0),
+    danger: Color(0xFFF07A84),
+    frost: Color(0xFF8CC8FF),
+  );
+
+  /// Tema por defecto (Shaolin), para pantallas sin facción.
+  static const light = shaolinLight;
+  static const dark = shaolinDark;
+
+  /// La mesa de [f] con la luz [b].
+  static HexTheme forFaction(Faction f, Brightness b) => switch ((f, b)) {
+    (Faction.shaolin, Brightness.light) => shaolinLight,
+    (Faction.shaolin, Brightness.dark) => shaolinDark,
+    (Faction.ninja, Brightness.light) => ninjaLight,
+    (Faction.ninja, Brightness.dark) => ninjaDark,
+  };
 
   static HexTheme of(BuildContext context) => Theme.of(context).extension<HexTheme>()!;
 
@@ -137,6 +231,9 @@ class HexTheme extends ThemeExtension<HexTheme> {
     List<Color> l(List<Color> a, List<Color> b) => [for (var i = 0; i < a.length; i++) c(a[i], b[i])];
     return HexTheme(
       brightness: t < 0.5 ? brightness : other.brightness,
+      table: t < 0.5 ? table : other.table,
+      tableGrain: c(tableGrain, other.tableGrain),
+      accent: c(accent, other.accent),
       backdropTop: c(backdropTop, other.backdropTop),
       backdropBottom: c(backdropBottom, other.backdropBottom),
       backdropGlow: c(backdropGlow, other.backdropGlow),
@@ -161,7 +258,7 @@ class HexTheme extends ThemeExtension<HexTheme> {
 
   ThemeData toThemeData() {
     final scheme = ColorScheme.fromSeed(
-      seedColor: gold,
+      seedColor: accent,
       brightness: brightness,
       primary: gold,
       onPrimary: isDark ? Colors.black : Colors.white,
@@ -174,8 +271,21 @@ class HexTheme extends ThemeExtension<HexTheme> {
       colorScheme: scheme,
       scaffoldBackgroundColor: backdropBottom,
       extensions: [this],
-      bottomSheetTheme: BottomSheetThemeData(backgroundColor: surfaceHigh, showDragHandle: true),
-      dialogTheme: DialogThemeData(backgroundColor: surfaceHigh),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: surfaceHigh,
+        showDragHandle: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(14)),
+          side: BorderSide(color: gold.withValues(alpha: 0.45)),
+        ),
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: surfaceHigh,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: BorderSide(color: gold.withValues(alpha: 0.45)),
+        ),
+      ),
       segmentedButtonTheme: SegmentedButtonThemeData(
         style: ButtonStyle(side: WidgetStatePropertyAll(BorderSide(color: outline))),
       ),

@@ -28,6 +28,7 @@ import 'widgets/emotes.dart';
 import 'widgets/player_banner.dart';
 import 'widgets/ranked_result.dart';
 import 'widgets/stage_card.dart';
+import 'widgets/tabletop.dart';
 
 /// Función top-level: el closure no captura el State (que no es enviable entre isolates).
 Future<List<AiAction>> _thinkInIsolate(GameState snapshot, AiLevel level, Map<String, int> seen) =>
@@ -182,7 +183,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           ? [
               PlayerProfile(nickname: nick, faction: widget.p0),
               PlayerProfile(
-                nickname: _stage!.isPuzzle ? tr('common.sensei') : '${tr('common.sensei')} · ${widget.aiLevel.displayName}',
+                nickname: _stage!.isPuzzle
+                    ? tr('common.sensei')
+                    : '${tr('common.sensei')} · ${widget.aiLevel.displayName}',
                 faction: widget.p1,
                 isAi: true,
               ),
@@ -199,7 +202,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             ]
           : [
               PlayerProfile(nickname: nick, faction: widget.p0),
-              PlayerProfile(nickname: '${tr('common.sensei')} · ${widget.aiLevel.displayName}', faction: widget.p1, isAi: true),
+              PlayerProfile(
+                nickname: '${tr('common.sensei')} · ${widget.aiLevel.displayName}',
+                faction: widget.p1,
+                isAi: true,
+              ),
             ];
     }
     WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
@@ -313,10 +320,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _Mode.placing => tr('game.hint.place', {'piece': _placing!.displayName}),
       _Mode.moving when _swapTargets.isNotEmpty => tr('game.hint.shogunSwap'),
       _Mode.moving => tr('game.hint.moveTo', {'piece': _game.board.top(_selected!)!.type.displayName}),
-      _Mode.effect =>
-        _effects!.paralyze.isNotEmpty
-            ? tr('game.hint.paralyze')
-            : tr('game.hint.seal'),
+      _Mode.effect => _effects!.paralyze.isNotEmpty ? tr('game.hint.paralyze') : tr('game.hint.seal'),
       _Mode.jadeRelocate => tr('game.hint.jadeRelocate'),
       _Mode.jadeRelocateTarget => tr('game.hint.jadeRelocateTarget'),
       _Mode.jadeSwap => tr('game.hint.jadeSwap'),
@@ -875,7 +879,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         ? tr('game.over.drawLimit', {'n': _game.rules.roundLimit!})
         : _game.draw
         ? tr('game.over.drawBoth')
-        : tr(_game.inSiege ? 'game.over.win.siege' : 'game.over.win', {'name': _profiles[w!].nickname, 'faction': _game.factions[w].displayName});
+        : tr(_game.inSiege ? 'game.over.win.siege' : 'game.over.win', {
+            'name': _profiles[w!].nickname,
+            'faction': _game.factions[w].displayName,
+          });
     if (!mounted) return;
     showDialog(
       context: context,
@@ -1091,6 +1098,17 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    // La mesa es la de la facción con la que jugás, aunque en el menú esté elegida otra.
+    final theme = HexTheme.forFaction(_game.factions[_mySeat], Theme.of(context).brightness);
+    return Theme(
+      data: _themes[theme] ??= theme.toThemeData(),
+      child: Builder(builder: _build),
+    );
+  }
+
+  static final _themes = <HexTheme, ThemeData>{};
+
+  Widget _build(BuildContext context) {
     final t = HexTheme.of(context);
     final g = _game;
     final targets = _targets;
@@ -1545,69 +1563,69 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       mainAxisSize: MainAxisSize.min,
       children: [
         _banner(_mySeat, top: false),
-        Container(
-          margin: const EdgeInsets.fromLTRB(10, 2, 10, 6),
-          padding: const EdgeInsets.fromLTRB(8, 6, 8, 8),
-          decoration: BoxDecoration(
-            color: t.surface,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: t.outline),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (showHand) ...[
-                SizedBox(
-                  height: 84,
-                  child: hand.isEmpty
-                      ? Center(
-                          child: Text(tr('game.emptyHand'), style: TextStyle(color: t.textMuted)),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 2, 10, 6),
+          child: Tray(
+            padding: const EdgeInsets.fromLTRB(8, 6, 8, 8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (showHand) ...[
+                  SizedBox(
+                    height: 84,
+                    child: hand.isEmpty
+                        ? Center(
+                            child: Text(tr('game.emptyHand'), style: TextStyle(color: t.textMuted)),
+                          )
+                        : ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              for (final e in hand)
+                                if (!_tutorial || placeable.contains(e.key))
+                                  _handItem(t, e.key, e.value, me, enabled: placeable.contains(e.key) && !_locked),
+                            ],
+                          ),
+                  ),
+                  if (showActions) const SizedBox(height: 6),
+                ],
+                if (showActions)
+                  Row(
+                    children: [
+                      if (_mode == _Mode.effect)
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () => _applyEffect(null),
+                            child: Text(tr('game.skipEffect')),
+                          ),
                         )
-                      : ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            for (final e in hand)
-                              if (!_tutorial || placeable.contains(e.key))
-                                _handItem(t, e.key, e.value, me, enabled: placeable.contains(e.key) && !_locked),
-                          ],
+                      else
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: color,
+                              side: BorderSide(color: abilityReady ? color : t.outline),
+                            ),
+                            onPressed: abilityReady ? _startAbility : null,
+                            icon: const Icon(Icons.auto_awesome),
+                            label: Text(
+                              charges == 0
+                                  ? tr('game.abilitySpent', {'ability': faction.abilityName})
+                                  : [
+                                      faction.abilityName,
+                                      if (cd > 0) '($cd)',
+                                      if (charges != null) '×$charges',
+                                    ].join(' '),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                         ),
-                ),
-                if (showActions) const SizedBox(height: 6),
+                      const SizedBox(width: 8),
+                      if (_mode != _Mode.idle && _mode != _Mode.effect)
+                        IconButton(onPressed: () => setState(_reset), icon: const Icon(Icons.close)),
+                    ],
+                  ),
               ],
-              if (showActions)
-                Row(
-                  children: [
-                    if (_mode == _Mode.effect)
-                      Expanded(
-                        child: OutlinedButton(onPressed: () => _applyEffect(null), child: Text(tr('game.skipEffect'))),
-                      )
-                    else
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          style: OutlinedButton.styleFrom(
-                            foregroundColor: color,
-                            side: BorderSide(color: abilityReady ? color : t.outline),
-                          ),
-                          onPressed: abilityReady ? _startAbility : null,
-                          icon: const Icon(Icons.auto_awesome),
-                          label: Text(
-                            charges == 0
-                                ? tr('game.abilitySpent', {'ability': faction.abilityName})
-                                : [
-                                    faction.abilityName,
-                                    if (cd > 0) '($cd)',
-                                    if (charges != null) '×$charges',
-                                  ].join(' '),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                    const SizedBox(width: 8),
-                    if (_mode != _Mode.idle && _mode != _Mode.effect)
-                      IconButton(onPressed: () => setState(_reset), icon: const Icon(Icons.close)),
-                  ],
-                ),
-            ],
+            ),
           ),
         ),
       ],

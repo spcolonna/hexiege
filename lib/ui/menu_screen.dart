@@ -14,6 +14,7 @@ import 'solo_screen.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'widgets/arena_backdrop.dart';
+import 'widgets/tabletop.dart';
 import 'widgets/rank_badge.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateMixin {
-  Faction _faction = Faction.shaolin;
+  Faction get _faction => AppSettings.instance.faction;
   late final _float = AnimationController(vsync: this, duration: const Duration(seconds: 4))..repeat();
   late final _nick = TextEditingController(text: AppSettings.instance.nickname);
 
@@ -82,33 +83,17 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                         ),
                         SizedBox(
                           width: double.infinity,
-                          height: 56,
-                          child: FilledButton.icon(
-                            style: FilledButton.styleFrom(
-                              backgroundColor: t.gold,
-                              foregroundColor: Colors.black,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                              elevation: 4,
-                            ),
-                            icon: const Icon(Icons.search_rounded, size: 26),
-                            label: Text(
-                              tr('menu.findMatch'),
-                              style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w900),
-                            ),
+                          child: SealButton(
+                            label: tr('menu.findMatch'),
+                            icon: Icons.search_rounded,
                             onPressed: _findMatch,
                           ),
                         ),
                         const SizedBox(height: 10),
                         SizedBox(
                           width: double.infinity,
-                          height: 50,
-                          child: OutlinedButton.icon(
-                            style: OutlinedButton.styleFrom(
-                              foregroundColor: t.text,
-                              side: BorderSide(color: t.gold, width: 1.5),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                            ),
-                            icon: Icon(Icons.auto_stories_rounded, color: t.gold),
+                          child: PlaqueButton(
+                            icon: Icons.auto_stories_rounded,
                             label: ListenableBuilder(
                               listenable: AppSettings.instance,
                               builder: (context, _) => Text(
@@ -335,10 +320,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                     tr('menu.firstTime'),
                     style: TextStyle(fontWeight: FontWeight.w900, color: t.text),
                   ),
-                  Text(
-                    tr('menu.learn'),
-                    style: TextStyle(fontSize: 12.5, color: t.textMuted),
-                  ),
+                  Text(tr('menu.learn'), style: TextStyle(fontSize: 12.5, color: t.textMuted)),
                 ],
               ),
             ),
@@ -382,22 +364,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget _card(HexTheme t, List<Widget> children) => Container(
-    padding: const EdgeInsets.all(14),
-    decoration: BoxDecoration(
-      color: t.surface,
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(color: t.outline),
-      boxShadow: [
-        BoxShadow(
-          color: t.shadow.withValues(alpha: t.shadow.a * 0.3),
-          blurRadius: 16,
-          offset: const Offset(0, 6),
-        ),
-      ],
-    ),
-    child: Column(children: children),
-  );
+  Widget _card(HexTheme t, List<Widget> children) => Tray(child: Column(children: children));
 
   Widget _factionPicker(HexTheme t) {
     return _card(t, [
@@ -425,7 +392,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
     final color = HexTheme.faction(f);
     final leader = f == Faction.shaolin ? PieceType.monk : PieceType.shogun;
     return GestureDetector(
-      onTap: () => _tap(() => _faction = f),
+      onTap: () => _tap(() => AppSettings.instance.faction = f),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 220),
         curve: Curves.easeOut,
@@ -450,9 +417,14 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                 children: [
                   Text(
                     f.displayName,
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontWeight: FontWeight.w800, color: selected ? color : t.text, fontSize: 13),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: selected ? color : t.text,
+                      fontSize: 13,
+                      height: 1.15,
+                    ),
                   ),
                   Text(
                     f.abilityName,
@@ -472,12 +444,13 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
   void _settings(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       builder: (ctx) => ListenableBuilder(
         listenable: AppSettings.instance,
         builder: (ctx, _) {
           final s = AppSettings.instance;
           return SafeArea(
-            child: Padding(
+            child: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,

@@ -214,7 +214,7 @@ void main() {
     AppSettings.instance.ladder = const LadderRecord();
     await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.light));
     await tester.pump();
-    expect(find.text('Buscar partida'), findsOneWidget);
+    expect(find.text('BUSCAR PARTIDA'), findsOneWidget);
     expect(find.text('Discípulo'), findsOneWidget);
     expect(find.text('1000'), findsOneWidget);
     expect(find.text('Fácil'), findsNothing);
