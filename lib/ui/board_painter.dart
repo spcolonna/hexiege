@@ -176,6 +176,7 @@ class BoardPainter extends CustomPainter {
           shadow: i == 0 || (isTop && h == selected),
           paralyzed: isTop && game.isParalyzed(p),
           seed: p.id,
+          mirror: game.factions[0] == game.factions[1],
         );
       }
       if (stack.length > 1 && !hidden.contains(stack.last.id)) {
@@ -278,6 +279,7 @@ class BoardPainter extends CustomPainter {
         scale: s.scale,
         opacity: s.opacity,
         paralyzed: game.isParalyzed(fl.piece),
+        mirror: game.factions[0] == game.factions[1],
         seed: fl.piece.id,
       );
     }

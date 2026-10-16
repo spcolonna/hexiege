@@ -13,7 +13,17 @@ class PieceChip extends StatelessWidget {
 
   /// Altura "en el aire" relativa al tamaño (0 = apoyada).
   final double lift;
-  const PieceChip({super.key, required this.type, required this.owner, this.size = 20, this.lift = 0});
+
+  /// Partida espejo: la piedra sigue al asiento y no a la facción.
+  final bool mirror;
+  const PieceChip({
+    super.key,
+    required this.type,
+    required this.owner,
+    this.size = 20,
+    this.lift = 0,
+    this.mirror = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +33,7 @@ class PieceChip extends StatelessWidget {
       listenable: AppSettings.instance,
       builder: (context, _) => CustomPaint(
         size: Size(w, w + size * 0.3),
-        painter: _ChipPainter(type, owner, size, lift, HexTheme.of(context), AppSettings.instance.useGlyphs),
+        painter: _ChipPainter(type, owner, size, lift, HexTheme.of(context), AppSettings.instance.useGlyphs, mirror),
       ),
     );
   }
@@ -34,8 +44,8 @@ class _ChipPainter extends CustomPainter {
   final int owner;
   final double size, lift;
   final HexTheme theme;
-  final bool glyphs;
-  _ChipPainter(this.type, this.owner, this.size, this.lift, this.theme, this.glyphs);
+  final bool glyphs, mirror;
+  _ChipPainter(this.type, this.owner, this.size, this.lift, this.theme, this.glyphs, this.mirror);
 
   @override
   void paint(Canvas canvas, Size s) {
@@ -47,10 +57,17 @@ class _ChipPainter extends CustomPainter {
       c: Offset(s.width / 2, s.height / 2 - size * 0.1),
       radius: size,
       z: lift * size,
+      mirror: mirror,
     );
   }
 
   @override
   bool shouldRepaint(covariant _ChipPainter o) =>
-      o.type != type || o.owner != owner || o.size != size || o.lift != lift || o.theme != theme || o.glyphs != glyphs;
+      o.type != type ||
+      o.owner != owner ||
+      o.size != size ||
+      o.lift != lift ||
+      o.theme != theme ||
+      o.glyphs != glyphs ||
+      o.mirror != mirror;
 }

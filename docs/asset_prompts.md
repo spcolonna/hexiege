@@ -27,8 +27,9 @@ Cada uno es autocontenido: se copia y se pega tal cual.
 3. Para las otras 5 de la facción, en **la misma conversación**, empezá el mensaje con
    *"Same exact style, material, lighting, scale and framing as the previous image."* y pegá el prompt
    completo de la ficha siguiente. Así mantiene la consistencia.
-4. Descargá el PNG y dejalo en `assets/pieces/` con su nombre (`shaolin_dragon.png`, etc.).
-5. Pedile a Claude que lo integre. Corre `tool/prep_piece_art.py`, que limpia los bordes del recorte,
+4. Si ChatGPT te devuelve una imagen horizontal o vertical, pedile "make it square 1:1, the figure as tall as it is wide".
+5. Descargá el PNG y dejalo en `assets/pieces/` con su nombre (`shaolin_dragon.png`, etc.).
+6. Pedile a Claude que lo integre. Corre `tool/prep_piece_art.py`, que limpia los bordes del recorte,
    centra la figura, la pasa a WebP de 512 px, genera una vista previa en `build/piece_previews/` y borra
    el PNG original.
 
@@ -40,7 +41,7 @@ Cada prompt está completo: copialo tal cual. Ver el flujo de trabajo en la secc
 Habilidad: Líder, se desliza 1 casilla.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
@@ -50,26 +51,26 @@ MATERIAL AND STYLE: The whole figure is carved from a single block of polished w
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The bottom of the figure ends in a soft, clean horizontal cut, like the bottom edge of a bust. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: big round head, pointed beard, joined hands.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The bottom of the figure ends in a soft, clean horizontal cut, like the bottom edge of a bust. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: big round head, pointed beard, joined hands.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Dragón Celestial — `shaolin_dragon`
+### Dragón Celestial — `shaolin_dragon` ⚠️ rehacer: la primera versión era horizontal y en la ficha no se lee
 Habilidad: Vuela en línea recta sobre fichas contiguas y aterriza en el primer hueco.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
-SUBJECT: A Chinese celestial dragon flying straight toward the right, seen from the side. Its long serpentine body forms one strong horizontal S-curve across the whole image. The head is in profile on the right, with open jaws, two swept-back antlers and two long whiskers flowing behind. Four short clawed legs tucked against the body; the front claw holds a round pearl. A small band of carved swirling clouds under the belly. The pose says fast, straight-line flight.
+SUBJECT: A Chinese celestial dragon coiled into a compact, round shape that fills the whole circle. Its head is in the upper center, facing the viewer in a slight three-quarter view, with open jaws, two short swept-back antlers and two whiskers curling outward. The serpentine body loops once around below and behind the head like a coiled spring ready to launch, with the tail tip curling up on one side. One clawed front leg reaches forward under the chin holding a round pearl. A small band of carved swirling clouds fills the bottom of the circle. The pose says power about to shoot forward in a straight line.
 
 MATERIAL AND STYLE: The whole figure is carved from a single block of polished white marble, like a temple bas-relief sculpture that has been cut out along its outline. Only the pearl and the dorsal spine ridge are inlaid with green jade (a deep jade green, #2F9E6E). No other colors: no skin tones, no painted cloth, no gold. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands or fur, no wrinkles, no fabric texture. The marble has a soft satin polish with faint gray veining.
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: long horizontal S-shaped body with antlered head on the right.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: big antlered dragon head on top of a round coiled body.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; wings; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -78,17 +79,17 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 Habilidad: Se sube encima de fichas (las bloquea); en el suelo copia el movimiento de una ficha adyacente.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
-SUBJECT: Sun Wukong, the Monkey King, crouching low as if perched on top of something, facing the viewer. Monkey face with a big mischievous grin. A plain headband circlet on his brow. His long staff rests horizontally across his shoulders, both wrists hooked over it. One knee up, one down; his curled tail rises behind him in a spiral. Playful, agile pose.
+SUBJECT: Sun Wukong, the Monkey King, crouching low as if perched on top of something, facing the viewer. Monkey face with a big mischievous grin. A plain headband circlet on his brow. He holds his staff diagonally behind his back, one end above his shoulder and the other near his hip, so it does not stick out to the sides. One knee up, one down; his curled tail rises behind him in a spiral. Playful, agile pose.
 
 MATERIAL AND STYLE: The whole figure is carved from a single block of polished white marble, like a temple bas-relief sculpture that has been cut out along its outline. Only the headband circlet and both ends of the staff are inlaid with green jade (a deep jade green, #2F9E6E). No other colors: no skin tones, no painted cloth, no gold. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands or fur, no wrinkles, no fabric texture. The marble has a soft satin polish with faint gray veining.
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: crouched figure with a horizontal staff across the shoulders and a spiral tail.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: crouched monkey with a big grin, a diagonal staff behind him and a spiral tail.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -97,7 +98,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 Habilidad: Embiste 1–3 casillas en línea recta y empuja una ficha enemiga.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
@@ -107,7 +108,7 @@ MATERIAL AND STYLE: The whole figure is carved from a single block of polished w
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: wide lowered head with open roaring mouth between two big shoulders.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: wide lowered head with open roaring mouth between two big shoulders.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; blood; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -116,7 +117,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 Habilidad: Salta en línea recta sobre 1 o 2 fichas.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
@@ -126,7 +127,7 @@ MATERIAL AND STYLE: The whole figure is carved from a single block of polished w
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: wide V of raised wings with a long upward neck.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: wide V of raised wings with a long upward neck.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -135,7 +136,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 Habilidad: Se desliza 1 o 2 casillas; las fichas enemigas adyacentes pierden sus efectos especiales.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
@@ -145,7 +146,7 @@ MATERIAL AND STYLE: The whole figure is carved from a single block of polished w
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: round spiral coil with a raised head in the middle.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: round spiral coil with a raised head in the middle.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a cobra hood, fangs, extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -158,7 +159,7 @@ Cada prompt está completo: copialo tal cual. Ver el flujo de trabajo en la secc
 Habilidad: Líder, se desliza 1 casilla; una vez por partida intercambia lugar con un Shinobi adyacente.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
@@ -168,7 +169,7 @@ MATERIAL AND STYLE: The whole figure is carved from a single block of polished b
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The bottom of the figure ends in a soft, clean horizontal cut, like the bottom edge of a bust. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: helmet with a tall crescent crest above a masked face and crossed arms.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The bottom of the figure ends in a soft, clean horizontal cut, like the bottom edge of a bust. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: helmet with a tall crescent crest above a masked face and crossed arms.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a sun disc, halo or ring behind the head; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -177,17 +178,17 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 Habilidad: Se desliza hasta 4 casillas por el perímetro, incluso por huecos estrechos.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
-SUBJECT: A hooded ninja in a low sprinting pose, seen from the side, running toward the right. Body compressed and leaning forward as if slipping through a narrow gap. Only the eyes are visible through the mask. One hand reaching forward. A short straight sword strapped across the back. Two scarf tails streaming far behind to suggest long, swift movement.
+SUBJECT: A hooded ninja crouched low in a coiled, ready-to-dash pose, three-quarter view facing the viewer, body compact and folded as if about to slip through a narrow gap. Only the eyes are visible through the mask. One hand forward close to the ground. A short straight sword strapped across the back with the hilt above the shoulder. Two short scarf tails curling up behind the head to suggest swift movement.
 
 MATERIAL AND STYLE: The whole figure is carved from a single block of polished black obsidian stone, like a temple bas-relief sculpture that has been cut out along its outline. Thin glowing crimson veins (#C0404F) run through the stone, and the eyes and the scarf tails are carved in the same crimson. No other colors: no skin tones, no painted cloth, no gold. Every outer edge of the figure has a crisp pale-gray polished rim highlight so the dark figure stays readable on a dark tile. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands or feathers, no fabric texture.
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: low forward-leaning runner with long scarf tails behind.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: crouched hooded figure with a sword hilt above the shoulder and curling scarf tails.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -196,7 +197,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 Habilidad: Se desliza hasta 2 casillas y paraliza a una ficha enemiga adyacente por 1 turno.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
@@ -206,7 +207,7 @@ MATERIAL AND STYLE: The whole figure is carved from a single block of polished b
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: upright figure with a high ponytail and one arm extended holding a needle.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: upright figure with a high ponytail and one arm extended holding a needle.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -215,7 +216,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 Habilidad: Se teletransporta a cualquier hueco que toque al menos 3 fichas.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
@@ -225,7 +226,7 @@ MATERIAL AND STYLE: The whole figure is carved from a single block of polished b
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: beaked crow head over a cloak of folded wings, with feathers scattering off one side.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: beaked crow head over a cloak of folded wings, with feathers scattering off one side.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -234,7 +235,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 Habilidad: Se desliza 1 o 2 casillas (ficha ágil básica).
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
@@ -244,7 +245,7 @@ MATERIAL AND STYLE: The whole figure is carved from a single block of polished b
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: sitting fox with tall ears and three tails fanned behind.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: sitting fox with tall ears and three tails fanned behind.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -253,7 +254,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 Habilidad: Se desliza 1 casilla y puede dejar un Sello de Sombra que paraliza a quien caiga ahí.
 
 ```
-Create a square 1024×1024 PNG image with a fully transparent background (real alpha channel, no white or checkerboard background).
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
@@ -263,7 +264,7 @@ MATERIAL AND STYLE: The whole figure is carved from a single block of polished b
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is perfectly centered and fits inside an imaginary circle that fills about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: tall pointed hood with two eyes, wispy cloak bottom and a round seal at its hand.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: tall pointed hood with two eyes, wispy cloak bottom and a round seal at its hand.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a skull, gore, a horror face, extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```

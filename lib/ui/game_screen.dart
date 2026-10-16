@@ -841,7 +841,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               for (final p in stack.reversed) ...[
                 Row(
                   children: [
-                    PieceChip(type: p.type, owner: p.owner, size: 22),
+                    PieceChip(type: p.type, owner: p.owner, size: 22, mirror: _game.factions[0] == _game.factions[1]),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -1673,7 +1673,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     tween: Tween(end: selected ? 0.4 : 0),
                     duration: const Duration(milliseconds: 260),
                     curve: selected ? Curves.easeOutBack : Curves.easeIn,
-                    builder: (_, lift, _) => PieceChip(type: type, owner: owner, size: 19, lift: lift),
+                    builder: (_, lift, _) => PieceChip(
+                      type: type,
+                      owner: owner,
+                      size: 19,
+                      lift: lift,
+                      mirror: _game.factions[0] == _game.factions[1],
+                    ),
                   ),
                   if (count > 1)
                     Positioned(

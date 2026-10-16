@@ -27,7 +27,8 @@ class PieceRenderer {
   }
 
   /// [c] centro de la casilla en el tablero; [z] altura en el aire (px);
-  /// [scale] escala extra (squash/hover); [shadow] false para piezas apiladas debajo.
+  /// [scale] escala extra (squash/hover); [shadow] false para piezas apiladas debajo;
+  /// [mirror] true si ambos jugadores tienen la misma facción.
   static void draw(
     Canvas canvas, {
     required HexTheme theme,
@@ -41,6 +42,7 @@ class PieceRenderer {
     bool shadow = true,
     bool paralyzed = false,
     int seed = 0,
+    bool mirror = false,
   }) {
     final r = radius * 0.92 * scale * (1 + z / 320);
     final depth = radius * depthRatio;
@@ -60,36 +62,68 @@ class PieceRenderer {
       );
     }
 
+    // Tono de la piedra: clara para Shaolin y oscura para Ninja. En partidas
+    // espejo (misma facción en ambos lados) manda el asiento, para distinguirlos.
+    final tone = mirror ? owner : (type.faction == Faction.shaolin ? 0 : 1);
+
     // Canto: la misma forma desplazada hacia abajo, en tono del lateral.
-    final side = theme.stoneSide[owner];
+    final side = theme.stoneSide[tone];
     canvas.drawPath(hexAt(face + Offset(0, depth), r), Paint()..color = side);
     canvas.drawPath(
       hexAt(face + Offset(0, depth * 0.5), r),
-      Paint()..color = Color.lerp(side, theme.stone[owner][1], 0.35)!,
+      Paint()..color = Color.lerp(side, theme.stone[tone][1], 0.35)!,
     );
 
     // Cara
     final facePath = hexAt(face, r);
-    canvas.drawPath(
-      facePath,
-      Paint()
-        ..shader = RadialGradient(
-          center: const Alignment(-0.35, -0.5),
-          radius: 1.15,
-          colors: theme.stone[owner],
-        ).createShader(Rect.fromCircle(center: face, radius: r)),
-    );
-
-    // Vetas
+    final texture = PieceArt.stone(tone == 0 ? Faction.shaolin : Faction.ninja);
     canvas.save();
     canvas.clipPath(facePath);
-    final vein = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = max(0.6, r * 0.025)
-      ..color = (owner == 0 ? Colors.black : Colors.white).withValues(alpha: 0.06);
-    for (var i = -2; i <= 2; i++) {
-      final y = face.dy + i * r * 0.38 + (seed % 5) * r * 0.06;
-      canvas.drawLine(Offset(face.dx - r, y - r * 0.3), Offset(face.dx + r, y + r * 0.22), vein);
+    if (texture != null) {
+      // Piedra real: cada ficha toma otro recorte de la textura según su id.
+      final k = 2.6 * r / texture.width;
+      final rnd = Random(seed);
+      final m = Matrix4.identity()
+        ..translateByDouble(face.dx - r * (0.3 + rnd.nextDouble()), face.dy - r * (0.3 + rnd.nextDouble()), 0, 1)
+        ..scaleByDouble(k, k, 1, 1);
+      canvas.drawPath(
+        facePath,
+        Paint()
+          ..shader = ImageShader(texture, TileMode.repeated, TileMode.repeated, m.storage)
+          ..filterQuality = FilterQuality.medium,
+      );
+      // Volumen: luz arriba a la izquierda y sombra abajo a la derecha.
+      canvas.drawPath(
+        facePath,
+        Paint()
+          ..shader = RadialGradient(
+            center: const Alignment(-0.35, -0.5),
+            radius: 1.15,
+            colors: [
+              Colors.white.withValues(alpha: tone == 0 ? 0.28 : 0.10),
+              Colors.black.withValues(alpha: tone == 0 ? 0.12 : 0.30),
+            ],
+          ).createShader(Rect.fromCircle(center: face, radius: r)),
+      );
+    } else {
+      canvas.drawPath(
+        facePath,
+        Paint()
+          ..shader = RadialGradient(
+            center: const Alignment(-0.35, -0.5),
+            radius: 1.15,
+            colors: theme.stone[tone],
+          ).createShader(Rect.fromCircle(center: face, radius: r)),
+      );
+      // Vetas
+      final vein = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = max(0.6, r * 0.025)
+        ..color = (tone == 0 ? Colors.black : Colors.white).withValues(alpha: 0.06);
+      for (var i = -2; i <= 2; i++) {
+        final y = face.dy + i * r * 0.38 + (seed % 5) * r * 0.06;
+        canvas.drawLine(Offset(face.dx - r, y - r * 0.3), Offset(face.dx + r, y + r * 0.22), vein);
+      }
     }
     // Brillo especular en el borde superior
     canvas.drawPath(
@@ -97,7 +131,7 @@ class PieceRenderer {
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = r * 0.06
-        ..color = Colors.white.withValues(alpha: owner == 0 ? 0.35 : 0.08),
+        ..color = Colors.white.withValues(alpha: tone == 0 ? 0.35 : 0.08),
     );
     canvas.restore();
 
@@ -122,7 +156,7 @@ class PieceRenderer {
       );
       canvas.restore();
     } else {
-      text(canvas, type.glyph, face, r * 0.9, theme.glyph[owner]);
+      text(canvas, type.glyph, face, r * 0.9, theme.glyph[tone]);
     }
     // El anillo del líder va encima del arte para que la ilustración no lo tape.
     if (type.isLeader) {
