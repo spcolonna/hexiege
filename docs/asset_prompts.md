@@ -8,6 +8,26 @@ Cada uno es autocontenido: se copia y se pega tal cual.
 | 12 fichas | PNG de ChatGPT, fondo transparente | `assets/pieces/<facción>_<tipo>.webp`, 512×512 (~25 KB) |
 | 2 emblemas | PNG 1024×1024, transparente | `assets/emblems/` (todavía no se usan en el código) |
 | 4 texturas de mesa + piedra vacía | PNG opaco | `assets/textures/` (todavía no se usan en el código) |
+| 2 texturas de piedra de ficha | PNG opaco, tileable | `assets/textures/<facción>_stone.webp` |
+| Ícono de la app | PNG 1024×1024 **opaco** | `ios/…/AppIcon.appiconset` y Android, generados con `flutter_launcher_icons` |
+| Pantalla de carga | PNG 1024×1024, transparente | `assets/splash/` con `flutter_native_splash` |
+
+---
+
+## Estado
+
+✅ = ya está en el juego · ⬜ = falta generarlo · (opcional) = el código todavía no lo usa; sirve si después se decide usarlo.
+
+| Asset | Estado |
+|---|---|
+| Fichas Shaolin: Monje, Dragón, Rey Mono | ✅ |
+| Fichas Shaolin: Tigre, Grulla, Serpiente | ⬜ |
+| Fichas Ninja: Shogun, Shinobi, Kunoichi, Tengu, Kitsune, Sombra | ⬜ |
+| Piedra de las fichas (Shaolin y Ninja) | ✅ |
+| Ícono de la app (sección 8) | ⬜ — hoy es el de Flutter por defecto |
+| Pantalla de carga (sección 9) | ⬜ — hoy es blanca |
+| Emblemas de facción | ⬜ (opcional) |
+| Texturas de mesa y piedra vacía | ⬜ (opcional) |
 
 ---
 
@@ -37,7 +57,7 @@ Cada uno es autocontenido: se copia y se pega tal cual.
 
 Cada prompt está completo: copialo tal cual. Ver el flujo de trabajo en la sección 2.
 
-### Monje Superior (Líder) — `shaolin_monk` ✅ generada
+### Monje Superior (Líder) — `shaolin_monk` ✅ en el juego
 Habilidad: Líder, se desliza 1 casilla.
 
 ```
@@ -56,7 +76,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Dragón Celestial — `shaolin_dragon` ✅ generada
+### Dragón Celestial — `shaolin_dragon` ✅ en el juego
 Habilidad: Vuela en línea recta sobre fichas contiguas y aterriza en el primer hueco.
 
 ```
@@ -75,7 +95,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; wings; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Rey Mono — `shaolin_wukong`
+### Rey Mono — `shaolin_wukong` ✅ en el juego
 Habilidad: Se sube encima de fichas (las bloquea); en el suelo copia el movimiento de una ficha adyacente.
 
 ```
@@ -94,7 +114,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Tigre de Mármol — `shaolin_tiger`
+### Tigre de Mármol — `shaolin_tiger` ⬜ falta
 Habilidad: Embiste 1–3 casillas en línea recta y empuja una ficha enemiga.
 
 ```
@@ -113,7 +133,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; blood; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Grulla de Viento — `shaolin_crane`
+### Grulla de Viento — `shaolin_crane` ⬜ falta
 Habilidad: Salta en línea recta sobre 1 o 2 fichas.
 
 ```
@@ -132,7 +152,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Serpiente de Jade — `shaolin_serpent`
+### Serpiente de Jade — `shaolin_serpent` ⬜ falta
 Habilidad: Se desliza 1 o 2 casillas; las fichas enemigas adyacentes pierden sus efectos especiales.
 
 ```
@@ -155,7 +175,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 
 Cada prompt está completo: copialo tal cual. Ver el flujo de trabajo en la sección 2.
 
-### Gran Shogun (Líder) — `ninja_shogun`
+### Gran Shogun (Líder) — `ninja_shogun` ⬜ falta
 Habilidad: Líder, se desliza 1 casilla; una vez por partida intercambia lugar con un Shinobi adyacente.
 
 ```
@@ -174,7 +194,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a sun disc, halo or ring behind the head; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Shinobi — `ninja_shinobi`
+### Shinobi — `ninja_shinobi` ⬜ falta
 Habilidad: Se desliza hasta 4 casillas por el perímetro, incluso por huecos estrechos.
 
 ```
@@ -193,7 +213,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Kunoichi — `ninja_kunoichi`
+### Kunoichi — `ninja_kunoichi` ⬜ falta
 Habilidad: Se desliza hasta 2 casillas y paraliza a una ficha enemiga adyacente por 1 turno.
 
 ```
@@ -212,7 +232,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Tengu — `ninja_tengu`
+### Tengu — `ninja_tengu` ⬜ falta
 Habilidad: Se teletransporta a cualquier hueco que toque al menos 3 fichas.
 
 ```
@@ -231,7 +251,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Kitsune — `ninja_kitsune`
+### Kitsune — `ninja_kitsune` ⬜ falta
 Habilidad: Se desliza 1 o 2 casillas (ficha ágil básica).
 
 ```
@@ -250,7 +270,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Sombra Errante — `ninja_shadow`
+### Sombra Errante — `ninja_shadow` ⬜ falta
 Habilidad: Se desliza 1 casilla y puede dejar un Sello de Sombra que paraliza a quien caiga ahí.
 
 ```
@@ -276,13 +296,13 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 Tamaño 1024×1024, fondo transparente. Todavía no se usan en el código; antes de generarlos conviene
 reescribirlos en el formato de las fichas.
 
-### Templo Shaolin — `assets/emblems/shaolin_emblem.png`
+### Templo Shaolin — `assets/emblems/shaolin_emblem.png` ⬜ falta (opcional)
 
 ```
 Faction emblem, bas-relief carved in polished white marble with green jade inlay and thin gold leaf edges, a circular medallion containing a stylized lotus flower above a pair of open meditating palms, surrounded by a ring of carved clouds, front view, centered, symmetrical, bold silhouette readable at 48 pixels, soft light from the top-left, isolated on a fully transparent background, 1024x1024 PNG
 ```
 
-### Sombras Ninja — `assets/emblems/ninja_emblem.png`
+### Sombras Ninja — `assets/emblems/ninja_emblem.png` ⬜ falta (opcional)
 
 ```
 Faction emblem, bas-relief carved in polished black obsidian with glowing crimson veins and thin brass edges, a circular medallion containing two crossed kunai over a crescent moon with a four-pointed shuriken at the center, front view, centered, symmetrical, bold silhouette readable at 48 pixels, soft light from the top-left, isolated on a fully transparent background, 1024x1024 PNG
@@ -298,35 +318,35 @@ Negative común para texturas:
 text, letters, characters, watermark, logo, people, animals, objects, game pieces, hexagons, grid lines, visible seams, perspective, vignette, strong shadows, lens blur, high contrast hotspots, repeating obvious motifs
 ```
 
-### Tablero Shaolin — `assets/textures/shaolin_board.png`
+### Tablero Shaolin — `assets/textures/shaolin_board.png` ⬜ falta (opcional)
 1024×1024, **tileable**, opaco. Va detrás de la grilla, así que debe ser tranquilo y de bajo contraste.
 
 ```
 Seamless tileable texture, top-down flat view of a temple game table surface made of pale light wood planks with fine straight grain, very subtle inlaid thin white marble strips, warm soft even lighting, low contrast, muted cream and honey tones, calm surface for placing game pieces, no objects, 1024x1024
 ```
 
-### Fondo de menú Shaolin — `assets/textures/shaolin_menu_bg.png`
+### Fondo de menú Shaolin — `assets/textures/shaolin_menu_bg.png` ⬜ falta (opcional)
 2048×2048, **no tileable** (se recorta con `BoxFit.cover`, en vertical y horizontal), opaco.
 
 ```
 Top-down view of a Shaolin temple game table, a large sheet of textured rice paper laid over pale temple wood, white marble border along the edges with carved green jade corner ornaments and thin gold inlay lines, faint ink-wash mountains and clouds barely visible on the rice paper, soft warm natural light, the center area kept clean and empty for UI, elegant and serene, 2048x2048
 ```
 
-### Tablero Ninja — `assets/textures/ninja_board.png`
+### Tablero Ninja — `assets/textures/ninja_board.png` ⬜ falta (opcional)
 1024×1024, **tileable**, opaco. Tranquilo y de bajo contraste.
 
 ```
 Seamless tileable texture, top-down flat view of a game table surface of glossy black lacquer over charred shou sugi ban wood, the burnt wood grain faintly visible through the lacquer, very subtle deep vermilion undertone in the grain, soft even lighting, low contrast, no reflections of objects, calm surface for placing game pieces, 1024x1024
 ```
 
-### Fondo de menú Ninja — `assets/textures/ninja_menu_bg.png`
+### Fondo de menú Ninja — `assets/textures/ninja_menu_bg.png` ⬜ falta (opcional)
 2048×2048, **no tileable**, opaco.
 
 ```
 Top-down view of a ninja clan game table, central panel of black lacquer with faint charred wood grain, framed by a border of burnt dark wood with vermilion red lacquered trim and engraved brass corner fittings, faint brushed crimson cloud motifs near the edges, dim moody lighting with a soft warm glow, the center area kept clean and empty for UI, 2048x2048
 ```
 
-### Piedra de ficha vacía — `assets/textures/stone_tile_empty.png`
+### Piedra de ficha vacía — `assets/textures/stone_tile_empty.png` ⬜ falta (opcional)
 512×512, **tileable**, opaco. Relleno de las casillas vacías/ficha sin imagen; neutral para ambas facciones.
 
 ```
@@ -342,9 +362,9 @@ Es la cara del hexágono sobre la que va la ilustración tallada. El código la 
 el canto, el brillo, el borde de facción y el anillo del líder. Por eso se pide un cuadrado plano y sin costuras,
 sin forma de ficha. Tiene que contrastar con la figura: la figura es **pulida**, la piedra **mate**. La figura
 Shaolin es blanca, así que su piedra es un poco más oscura y cálida; la figura Ninja es negra, así que su piedra es
-un gris pizarra un poco más claro. Todavía no se usan en el código: hoy la piedra se pinta con un degradé.
+un gris pizarra un poco más claro. Ya están en el juego como `assets/textures/<facción>_stone.webp`.
 
-### Piedra Shaolin — `assets/textures/shaolin_stone.png`
+### Piedra Shaolin — `assets/textures/shaolin_stone.png` ✅ en el juego
 
 ```
 Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
@@ -358,7 +378,7 @@ LIGHTING: Completely even, flat, shadowless lighting across the whole image. No 
 DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; strong, dark or high-contrast veins; gold, red or any saturated color; a perspective view; a photographic scene.
 ```
 
-### Piedra Ninja — `assets/textures/ninja_stone.png`
+### Piedra Ninja — `assets/textures/ninja_stone.png` ✅ en el juego
 
 ```
 Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
@@ -370,4 +390,42 @@ SUBJECT: A perfectly flat, straight-on, top-down view of a slab of matte, honed 
 LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no glossy reflections, no bevel.
 
 DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; bright or glowing veins; gold, brass or any saturated color; pure black areas; a perspective view; a photographic scene.
+```
+
+---
+
+## 8. Ícono de la app — `assets/icon/app_icon.png` ⬜ falta
+
+1024×1024, **completamente opaco** (iOS rechaza íconos con transparencia) y sin esquinas redondeadas: el sistema
+las recorta. Se ve a 60 px en la pantalla de inicio, así que tiene que leerse con una sola forma.
+
+```
+Create a SQUARE 1024×1024 PNG image, fully opaque (no transparency anywhere), with square corners (do not round the corners, the phone will do that).
+
+PURPOSE: This is the app icon of "Hexiege", a hexagonal strategy board game where Shaolin monks (white marble and green jade) fight ninja clans (black obsidian and crimson). It will be seen very small (about 60×60 pixels) on a phone home screen, so it must read as one bold, simple shape.
+
+SUBJECT: Two hexagonal stone game tiles seen from the front, slightly overlapping at the center and tilted a few degrees toward each other, as if they just clashed. The left tile is polished white marble with a thin deep jade-green (#2F9E6E) rim and a small carved lotus in bas-relief on its face. The right tile is polished black obsidian with a thin crimson (#C0404F) rim and a small carved crescent moon in bas-relief on its face. A small soft burst of light where they touch.
+
+BACKGROUND: A smooth, dark, warm background filling the whole square: deep charcoal brown (#231E1A) with a gentle lighter glow behind the tiles. No pattern, no scene.
+
+LIGHTING: Soft light from the upper left; the tiles have clear highlights on their upper-left edges and soft shadow on the lower right, so they read as thick physical stones.
+
+COMPOSITION: The two tiles together are centered and fill about 70% of the canvas. Keep about 12% of empty margin on every side (the corners get cut off). Big, simple shapes; very little fine detail.
+
+DO NOT INCLUDE: any text, letters, logo or Chinese/Japanese characters; people or creatures; a border or frame; rounded corners; transparency; cartoon, anime or flat vector style.
+```
+
+## 9. Pantalla de carga — `assets/splash/splash_logo.png` ⬜ falta
+
+1024×1024, fondo transparente. Es el logo que aparece centrado mientras abre la app, sobre un color liso que pone
+el código (claro u oscuro según el sistema). Debe verse bien sobre los dos.
+
+```
+Same exact style, material and lighting as the app icon, but as a PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
+
+SUBJECT: Only the two clashing hexagonal stone tiles from the app icon — the white marble tile with the jade rim and carved lotus on the left, the black obsidian tile with the crimson rim and carved crescent moon on the right — slightly overlapping at the center. No background, no glow behind them.
+
+COMPOSITION: Square 1024×1024, the tiles centered and filling about 60% of the canvas width, the rest fully transparent. Each tile has a thin soft edge highlight so it stays visible on both a light cream background and a near-black background.
+
+DO NOT INCLUDE: any background, shadow on a floor, text, letters or characters, frame, halo or glow.
 ```
