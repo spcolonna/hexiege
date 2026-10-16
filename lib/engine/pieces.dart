@@ -51,6 +51,22 @@ extension PieceTypeInfo on PieceType {
     PieceType.shadow => 'Sombra Errante',
   };
 
+  /// Nombre corto para espacios chicos (la mano).
+  String get shortName => switch (this) {
+    PieceType.monk => 'Monje',
+    PieceType.dragon => 'Dragón',
+    PieceType.wukong => 'Rey Mono',
+    PieceType.tiger => 'Tigre',
+    PieceType.crane => 'Grulla',
+    PieceType.serpent => 'Serpiente',
+    PieceType.shogun => 'Shogun',
+    PieceType.shinobi => 'Shinobi',
+    PieceType.kunoichi => 'Kunoichi',
+    PieceType.tengu => 'Tengu',
+    PieceType.kitsune => 'Kitsune',
+    PieceType.shadow => 'Sombra',
+  };
+
   String get glyph => switch (this) {
     PieceType.monk => '僧',
     PieceType.dragon => '龍',

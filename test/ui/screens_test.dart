@@ -60,7 +60,7 @@ void main() {
       addTearDown(tester.view.reset);
       await tester.pumpWidget(_app(const GameScreen(p0: Faction.shaolin, p1: Faction.ninja), mode));
       await tester.pump();
-      await tester.tap(find.text('Dragón Celestial'));
+      await tester.tap(find.text('Dragón'));
       await tester.pump();
       expect(find.textContaining('Tocá una casilla'), findsOneWidget);
       // La primera ficha va al origen = centro del lienzo.
@@ -105,7 +105,7 @@ void main() {
     await tester.pumpWidget(_app(const GameScreen.tutorial(), ThemeMode.light));
     await tester.pump();
     expect(find.text('LECCIÓN 1 DE 7'), findsOneWidget);
-    await tester.tap(find.text('Dragón Celestial'));
+    await tester.tap(find.text('Dragón'));
     await tester.pump();
     final board = tester.getCenter(find.byType(InteractiveViewer));
     await tester.tapAt(board + const Offset(0, 50));

@@ -1639,7 +1639,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         opacity: enabled ? 1 : 0.35,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),
-          width: 70,
+          width: 74,
           margin: const EdgeInsets.only(right: 6),
           decoration: BoxDecoration(
             color: selected ? t.highlight.withValues(alpha: 0.12) : Colors.transparent,
@@ -1675,11 +1675,20 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 ],
               ),
               const SizedBox(height: 2),
-              Text(
-                type.displayName,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 10, color: t.textMuted, fontWeight: FontWeight.w600),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 3),
+                child: Text(
+                  type.shortName,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 11.5,
+                    height: 1.1,
+                    color: selected ? t.text : t.textMuted,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
             ],
           ),
