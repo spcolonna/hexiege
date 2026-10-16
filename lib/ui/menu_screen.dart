@@ -537,8 +537,9 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
             const Text('Reglas básicas', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Text(
-              '• Cada turno: colocá una ficha de tu mano (tocando solo fichas propias) o mové una del tablero.\n'
-              '• Además, una vez por turno podés usar la habilidad de tu facción: ${_r.abilityCharges} usos por partida, '
+              '• Cada turno hacés una sola acción: colocar una ficha de tu mano (tocando solo fichas propias), '
+              'mover una del tablero o usar la habilidad de tu facción. El turno pasa solo.\n'
+              '• La habilidad tiene ${_r.abilityCharges} usos por partida, '
               'con ${_r.abilityCooldown} turnos de recarga entre uno y otro.\n'
               '• Colmena única: ninguna acción puede dividir el tablero en dos grupos.\n'
               '• No podés mover fichas hasta colocar a tu Líder, y debés colocarlo antes de tu 4.º turno.\n'

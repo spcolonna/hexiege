@@ -27,15 +27,9 @@ void main() {
       final start = p.build();
       final g = start.copy();
       for (var turn = 0; turn < p.puzzleTurns! && !g.isOver; turn++) {
-        for (final a in forcedWin(g, p.puzzleTurns! - turn)!) {
-          expect(a.apply(g), isTrue);
-        }
+        expect(g.play(forcedWin(g, p.puzzleTurns! - turn)!), isTrue);
         if (g.isOver) break;
-        g.endTurn();
-        for (final a in defend(g, p.turnsLeft(start, g)!)) {
-          a.apply(g);
-        }
-        if (!g.isOver) g.endTurn();
+        g.play(defend(g, p.turnsLeft(start, g)!));
       }
       expect(p.verdict(start, g), isTrue, reason: p.id);
     }
@@ -47,11 +41,7 @@ void main() {
     final g = start.copy();
     // Ocupar el hueco sin paralizar al Tigre: deja que se aparte.
     expect(const MoveAction(Hex(-1, -1), Hex(-1, 0)).apply(g), isTrue);
-    g.endTurn();
-    for (final a in defend(g, p.turnsLeft(start, g)!)) {
-      a.apply(g);
-    }
-    g.endTurn();
+    g.play(defend(g, p.turnsLeft(start, g)!));
     expect(forcedWin(g, p.turnsLeft(start, g)!), isNull);
   });
 }

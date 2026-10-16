@@ -31,10 +31,8 @@ void main() {
       final g = GameState(Faction.shaolin, Faction.ninja);
       expect(g.placementTargets(), {Hex.origin});
       expect(g.place(PieceType.dragon, Hex.origin), isTrue);
-      g.endTurn();
       expect(g.placementTargets(), Hex.origin.neighbors.toSet());
       expect(g.place(PieceType.shinobi, h(1, 0)), isTrue);
-      g.endTurn();
       final targets = g.placementTargets();
       expect(targets.contains(h(-1, 0)), isTrue);
       expect(targets.contains(h(1, -1)), isFalse, reason: 'toca al Shinobi enemigo');
@@ -43,17 +41,11 @@ void main() {
     test('el Líder es obligatorio en el 4.º turno propio', () {
       final g = GameState(Faction.shaolin, Faction.ninja);
       g.place(PieceType.dragon, Hex.origin);
-      g.endTurn();
       g.place(PieceType.shinobi, h(1, 0));
-      g.endTurn();
       g.place(PieceType.dragon, h(-1, 0));
-      g.endTurn();
       g.place(PieceType.shinobi, h(2, 0));
-      g.endTurn();
       g.place(PieceType.crane, h(-2, 0));
-      g.endTurn();
       g.place(PieceType.kitsune, h(3, 0));
-      g.endTurn();
       expect(g.mustPlaceLeader, isTrue);
       expect(g.placeableTypes(), [PieceType.monk]);
       expect(g.place(PieceType.tiger, h(-3, 0)), isFalse);
@@ -165,13 +157,10 @@ void main() {
       final opts = g.effectOptions(h(-1, 0), h(0, 1));
       expect(opts.paralyze, contains(h(1, 0)));
       expect(g.move(h(-1, 0), h(0, 1), paralyze: h(1, 0)), isTrue);
-      g.endTurn();
       expect(g.moveTargets(h(1, 0)), isEmpty, reason: 'Monje paralizado');
       expect(g.moveTargets(h(2, 0)), isNotEmpty);
       g.move(h(2, 0), g.moveTargets(h(2, 0)).first);
-      g.endTurn();
       g.place(g.placeableTypes().first, g.placementTargets().first);
-      g.endTurn();
       expect(g.isParalyzed(g.board.top(h(1, 0))!), isFalse);
     });
 
@@ -185,14 +174,11 @@ void main() {
       expect(g.effectOptions(h(-1, 0), to).seal, contains(h(-2, 1)));
       g.move(h(-1, 0), to, seal: h(0, 1));
       expect(g.seals[h(0, 1)], 0);
-      g.endTurn();
       expect(g.moveTargets(h(1, 1)), contains(h(0, 1)));
       g.move(h(1, 1), h(0, 1));
       expect(g.seals.containsKey(h(0, 1)), isFalse);
       final serpent = g.board.top(h(0, 1))!;
-      g.endTurn();
-      g.mainActionDone = true;
-      g.endTurn();
+      g.setupSkipTurn();
       expect(g.isParalyzed(serpent), isTrue);
       expect(g.moveTargets(h(0, 1)), isEmpty);
     });
@@ -230,6 +216,8 @@ void main() {
       expect(g.kawarimi(h(2, 0)), isTrue);
       expect(g.hands[1][PieceType.dragon], before + 1);
       expect(g.cooldowns[0], Rules.standard.abilityCooldown);
+      expect(g.current, 1, reason: 'la habilidad es la acción del turno');
+      g.setupSkipTurn();
       expect(g.abilityAvailable, isFalse);
     });
 
@@ -239,10 +227,8 @@ void main() {
       put(g, PieceType.monk, 1, h(1, 0));
       g.cooldowns[0] = Rules.standard.abilityCooldown;
       for (var i = 0; i < 3; i++) {
-        g.mainActionDone = true;
-        g.endTurn();
-        g.mainActionDone = true;
-        g.endTurn();
+        g.setupSkipTurn();
+        g.setupSkipTurn();
       }
       expect(g.cooldowns[0], 0);
     });
@@ -296,8 +282,8 @@ void main() {
       expect(g.abilityChargesLeft(0), 1);
       expect(g.kawarimi(h(2, 0)), isTrue);
       expect(g.abilityChargesLeft(0), 0);
+      g.setupSkipTurn();
       g.cooldowns[0] = 0;
-      g.abilityUsedThisTurn = false;
       expect(g.abilityAvailable, isFalse, reason: 'sin usos aunque no haya recarga');
     });
 
@@ -313,10 +299,8 @@ void main() {
       put(g, PieceType.tiger, 0, h(-2, 1)); // puede embestir a ring[4] = (-1,1)
       expect(g.inSiege, isFalse);
       expect(g.captureThreshold, 6);
-      g.mainActionDone = true;
-      g.endTurn();
-      g.mainActionDone = true;
-      g.endTurn();
+      g.setupSkipTurn();
+      g.setupSkipTurn();
       expect(g.round, 2);
       expect(g.inSiege, isTrue);
       expect(g.captureThreshold, 5);
@@ -329,11 +313,9 @@ void main() {
       final g = GameState(Faction.shaolin, Faction.ninja, rules: const Rules(siegeRound: null, roundLimit: 1));
       put(g, PieceType.monk, 0, h(0, 0));
       put(g, PieceType.shogun, 1, h(1, 0));
-      g.mainActionDone = true;
-      g.endTurn();
+      g.setupSkipTurn();
       expect(g.isOver, isFalse);
-      g.mainActionDone = true;
-      g.endTurn();
+      g.setupSkipTurn();
       expect(g.draw, isTrue);
       expect(g.endedByLimit, isTrue);
     });
@@ -453,12 +435,51 @@ void main() {
     });
   });
 
+  group('Turno de una acción', () {
+    test('colocar o mover cierra el turno', () {
+      final g = GameState(Faction.shaolin, Faction.ninja);
+      expect(g.place(PieceType.dragon, Hex.origin), isTrue);
+      expect(g.current, 1);
+      expect(g.ply, 1);
+      expect(g.turnsTaken[0], 1);
+      expect(g.place(PieceType.dragon, h(-1, 0)), isFalse, reason: 'ya no es su turno');
+    });
+
+    test('la habilidad cierra el turno y no se combina con otra acción', () {
+      final g = GameState(Faction.ninja, Faction.shaolin);
+      put(g, PieceType.shogun, 0, h(0, 0));
+      put(g, PieceType.monk, 1, h(1, 0));
+      put(g, PieceType.dragon, 1, h(2, 0));
+      expect(g.kawarimi(h(2, 0)), isTrue);
+      expect(g.lastActionWasAbility, isTrue);
+      expect(g.current, 1);
+      expect(g.move(h(0, 0), h(0, 1)), isFalse);
+      expect(g.place(PieceType.dragon, h(2, 0)), isTrue);
+      expect(g.lastActionWasAbility, isFalse);
+    });
+
+    test('solo se puede pasar sin ninguna acción legal', () {
+      final g = GameState(Faction.ninja, Faction.shaolin)..recordEvents = true;
+      expect(g.canPass, isFalse);
+      expect(g.pass(), isFalse);
+      put(g, PieceType.shogun, 0, h(0, 0));
+      put(g, PieceType.monk, 1, h(1, 0));
+      g.hands[0].updateAll((_, _) => 0);
+      g.cooldowns[0] = 3;
+      g.paralyzedUntil[g.board.top(h(0, 0))!.id] = 99;
+      // Sin mano, con el Shogun paralizado y la habilidad en recarga.
+      expect(g.hasAnyAction(), isFalse);
+      expect(g.pass(), isTrue);
+      expect(g.lastEvents.single, isA<Passed>());
+      expect(g.current, 1);
+    });
+  });
+
   group('Eventos', () {
     test('solo se registran con recordEvents y las copias no los registran', () {
       final g = GameState(Faction.shaolin, Faction.ninja);
       g.place(PieceType.dragon, Hex.origin);
       expect(g.lastEvents, isEmpty);
-      g.endTurn();
       g.recordEvents = true;
       expect(g.copy().recordEvents, isFalse);
       g.place(PieceType.shinobi, h(1, 0));
@@ -505,7 +526,6 @@ void main() {
       put(g, PieceType.serpent, 1, h(1, 1));
       g.move(h(-1, 0), h(-1, 1), seal: h(0, 1));
       expect(g.lastEvents.last, isA<SealPlaced>());
-      g.endTurn();
       g.move(h(1, 1), h(0, 1));
       expect(g.lastEvents.last, isA<Paralyzed>().having((e) => e.bySeal, 'bySeal', isTrue));
       expect(g.lastEvents.last.player, 1);

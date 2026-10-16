@@ -126,7 +126,7 @@ Stats simulate(Rules rules, AiLevel level, int from, int to, int maxPlies, bool 
           }
           if (g.winner == me) st.add('${g.factions[me].name} ${_closer(g, a)}', st.closers);
         }
-        if (!g.isOver) g.endTurn();
+        if (turn.isEmpty) g.pass();
       }
       for (final (p, at, k) in events) {
         st.add(k, st.fxUses);

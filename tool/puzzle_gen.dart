@@ -17,10 +17,11 @@ List<String> search(int from, int to, int maxPieces) {
     final g = GameState(Faction.values[i % 2], Faction.values[1 - i % 2]);
     final ais = [AiPlayer(AiLevel.easy, seed: i * 2), AiPlayer(AiLevel.easy, seed: i * 2 + 1)];
     for (var ply = 0; ply < 120 && !g.isOver; ply++) {
-      for (final a in ais[g.current].chooseTurn(g)) {
+      final turn = ais[g.current].chooseTurn(g);
+      for (final a in turn) {
         a.apply(g);
       }
-      if (!g.isOver) g.endTurn();
+      if (turn.isEmpty) g.pass();
       if (g.isOver || g.ply < 8) continue;
       final me = g.current;
       final cells = g.board.occupied.toList();

@@ -138,3 +138,11 @@ class Returned extends GameEvent {
   @override
   String get text => 'Kawarimi: ${piece.type.displayName} ${_whose(piece, player)} vuelve a la mano de su dueño';
 }
+
+class Passed extends GameEvent {
+  const Passed(super.player);
+  @override
+  Set<Hex> get cells => const {};
+  @override
+  String get text => 'Sin jugadas posibles: pasó el turno';
+}

@@ -109,7 +109,7 @@ Causa: el cierre del cerco. El Tengu y el Shinobi cerraban 22 de las 37 victoria
 - `test/engine/` — tests del motor.
 
 ## Interpretaciones de reglas (MVP)
-- Turno = 1 acción principal (colocar o mover) + habilidad de facción opcional (antes o después).
+- Turno = 1 sola acción: colocar, mover (incluye el intercambio del Shogun) o usar la habilidad de facción. El turno se cierra solo; si no hay ninguna acción legal, se pasa automáticamente.
 - Colocación al estilo Hive: tocando solo fichas propias. Líder obligatorio en el 4.º turno; sin Líder no se mueve ni se usa la habilidad.
 - Libertad de movimiento: nadie se desliza por un hueco estrecho, salvo el Shinobi.
 - Habilidad: 3 usos por partida; tras usarla vuelve a estar disponible 3 turnos propios después.

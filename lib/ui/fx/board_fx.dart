@@ -286,7 +286,7 @@ class BoardFx extends ChangeNotifier {
         Future.delayed(Duration(milliseconds: (landAt * 1000).round()), () => SoundBoard.instance.play(Sfx.stamp));
       }
     }
-    if (after.abilityUsedThisTurn && !before.abilityUsedThisTurn) {
+    if (after.abilityUses[before.current] > before.abilityUses[before.current]) {
       SoundBoard.instance.play(Sfx.ability, volume: 0.8);
       Haptics.light();
       for (final f in all) {

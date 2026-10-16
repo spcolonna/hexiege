@@ -15,10 +15,11 @@ String run(String id, AiLevel player, int games) {
     final start = g.copy();
     final ais = [AiPlayer(player, seed: i * 7), AiPlayer(s.level, seed: i * 7 + 3)];
     for (var ply = 0; ply < 200 && s.verdict(start, g) == null; ply++) {
-      for (final a in ais[g.current].chooseTurn(g)) {
+      final turn = ais[g.current].chooseTurn(g);
+      for (final a in turn) {
         a.apply(g);
       }
-      if (!g.isOver) g.endTurn();
+      if (turn.isEmpty) g.pass();
     }
     final v = s.verdict(start, g);
     if (v == true) {

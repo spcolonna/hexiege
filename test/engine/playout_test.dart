@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hexiege/engine/ai.dart';
 import 'package:hexiege/engine/game_state.dart';
 import 'package:hexiege/engine/pieces.dart';
 
@@ -12,22 +13,24 @@ void main() {
     for (var game = 0; game < 300; game++) {
       final g = GameState(Faction.values[rng.nextInt(2)], Faction.values[rng.nextInt(2)]);
       for (var ply = 0; ply < 200 && !g.isOver; ply++) {
-        // Habilidad aleatoria antes de la acción principal.
+        // A veces la habilidad es la acción del turno.
+        var acted = false;
         if (g.abilityAvailable && rng.nextInt(4) == 0) {
           if (g.currentFaction == Faction.ninja) {
             final t = g.kawarimiTargets().toList();
-            if (t.isNotEmpty) g.kawarimi(t[rng.nextInt(t.length)]);
+            if (t.isNotEmpty) acted = g.kawarimi(t[rng.nextInt(t.length)]);
           } else {
             final src = g.jadeRelocateSources().toList();
             if (src.isNotEmpty) {
               final s = src[rng.nextInt(src.length)];
               final dst = g.jadeRelocateTargets(s).toList();
-              if (dst.isNotEmpty) g.jadeRelocate(s, dst[rng.nextInt(dst.length)]);
+              if (dst.isNotEmpty) acted = g.jadeRelocate(s, dst[rng.nextInt(dst.length)]);
             }
           }
           expect(g.board.isConnected(), isTrue);
-          if (g.isOver) break;
         }
+        if (acted) continue;
+        final ply0 = g.ply;
         final movable = g.movablePieces().toList();
         final types = g.placeableTypes();
         if (types.isNotEmpty && (movable.isEmpty || rng.nextBool())) {
@@ -60,7 +63,11 @@ void main() {
             g.board.occupied.fold<int>(0, (a, h) => a + g.board.height(h)) +
             g.hands.fold<int>(0, (a, hand) => a + hand.values.fold(0, (x, y) => x + y));
         expect(total, 22, reason: 'las fichas se conservan');
-        if (!g.isOver) expect(g.endTurn(), isTrue);
+        if (g.ply == ply0 && !g.isOver) {
+          // Sin acción principal: la habilidad si la hay, si no pasar.
+          final ab = abilityActions(g);
+          expect(ab.isEmpty ? g.pass() : ab.first.apply(g), isTrue);
+        }
       }
       if (g.isOver) finished++;
     }

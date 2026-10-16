@@ -50,11 +50,7 @@ void main() {
       g.turnsTaken[1] = 5;
       g.turnsTaken[0] = 5;
       final turn = AiPlayer(level, seed: 3).chooseTurn(g);
-      final s = g.copy();
-      for (final a in turn) {
-        a.apply(s);
-      }
-      s.endTurn();
+      final s = g.copy()..play(turn);
       // Ninguna respuesta del rival debe ganar de inmediato.
       for (final r in mainActions(s)) {
         final t = s.copy();
@@ -69,10 +65,7 @@ void main() {
     final g = GameState(Faction.shaolin, Faction.ninja);
     final rng = AiPlayer(AiLevel.easy, seed: 11);
     for (var ply = 0; ply < 14 && !g.isOver; ply++) {
-      for (final a in rng.chooseTurn(g)) {
-        a.apply(g);
-      }
-      if (!g.isOver) g.endTurn();
+      g.play(rng.chooseTurn(g));
     }
     expect(g.isOver, isFalse);
     for (final (level, limitMs) in [(AiLevel.hard, 1200), (AiLevel.master, 2500)]) {
@@ -94,11 +87,8 @@ void main() {
       final ais = [AiPlayer(a, seed: seed), AiPlayer(b, seed: seed + 100)];
       final plies = a == AiLevel.hard ? 24 : 80; // los niveles fuertes son lentos
       for (var ply = 0; ply < plies && !g.isOver; ply++) {
-        for (final a in ais[g.current].chooseTurn(g)) {
-          expect(a.apply(g), isTrue);
-        }
+        expect(g.play(ais[g.current].chooseTurn(g)), isTrue);
         expect(g.board.isConnected(), isTrue);
-        if (!g.isOver) expect(g.endTurn(), isTrue);
       }
     }
   });

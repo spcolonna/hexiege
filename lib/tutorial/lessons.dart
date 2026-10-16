@@ -152,7 +152,7 @@ final lessons = <Lesson>[
   Lesson(
     title: 'Habilidad de facción',
     body:
-        'Además de tu jugada, cada facción tiene una habilidad: ${Rules.standard.abilityCharges} usos por partida, '
+        'En lugar de mover o colocar, podés usar la habilidad de tu facción: ${Rules.standard.abilityCharges} usos por partida, '
         'con ${Rules.standard.abilityCooldown} turnos de recarga. '
         'Shaolin tiene la Meditación de Jade. Tu Monje tiene 5 vecinos: ¡está en peligro!',
     goal: 'Usá la habilidad para reubicar una ficha enemiga lejos del Monje.',
@@ -168,6 +168,6 @@ final lessons = <Lesson>[
       (1, _sg, Hex(-1, 1)),
     ]),
     done: (s, g) =>
-        g.abilityUsedThisTurn && g.winner == null && g.board.occupiedNeighbors(g.board.locateLeader(0)!) <= 4,
+        g.lastActionWasAbility && g.winner == null && g.board.occupiedNeighbors(g.board.locateLeader(0)!) <= 4,
   ),
 ];

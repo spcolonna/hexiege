@@ -1,56 +1,25 @@
 import '../engine/ai.dart';
 import '../engine/game_state.dart';
 
-/// Un turno completo: las acciones en orden y el estado resultante (sin terminar el turno).
+/// Un turno: su acción (0 o 1; vacía = pasar) y el estado resultante.
 typedef Turn = ({List<AiAction> actions, GameState state});
 
-/// Todos los turnos posibles de quien mueve: una acción principal y, si está
-/// disponible, la habilidad de facción antes o después.
+/// Todos los turnos posibles de quien mueve: una acción principal o la
+/// habilidad de facción. Si no hay ninguna, el pase.
 List<Turn> fullTurns(GameState g) {
-  final out = <Turn>[];
-  void abilityAfter(GameState s, List<AiAction> prefix) {
-    if (s.isOver || !s.abilityAvailable) return;
-    for (final a in abilityActions(s)) {
-      final t = s.copy();
-      if (a.apply(t)) out.add((actions: [...prefix, a], state: t));
-    }
-  }
-
-  void mainsFrom(GameState s, List<AiAction> prefix, {required bool thenAbility}) {
-    final mains = mainActions(s);
-    if (mains.isEmpty) {
-      out.add((actions: prefix, state: s.copy()));
-      return;
-    }
-    for (final m in mains) {
-      final t = s.copy();
-      if (!m.apply(t)) continue;
-      out.add((actions: [...prefix, m], state: t));
-      if (thenAbility) abilityAfter(t, [...prefix, m]);
-    }
-  }
-
-  mainsFrom(g, const [], thenAbility: true);
-  if (g.abilityAvailable) {
-    for (final a in abilityActions(g)) {
-      final s = g.copy();
-      if (!a.apply(s)) continue;
-      if (s.isOver) {
-        out.add((actions: [a], state: s));
-      } else {
-        mainsFrom(s, [a], thenAbility: false);
-      }
-    }
+  final out = <Turn>[
+    for (final a in [...mainActions(g), ...abilityActions(g)])
+      if (g.copy() case final t when a.apply(t)) (actions: [a], state: t),
+  ];
+  if (out.isEmpty) {
+    final t = g.copy();
+    if (t.pass()) out.add((actions: const [], state: t));
   }
   return out;
 }
 
-/// Estado tras cerrar el turno, o null si la partida terminó.
-GameState? _passTurn(GameState s) {
-  if (s.isOver) return null;
-  final next = s.copy()..endTurn();
-  return next.isOver ? null : next;
-}
+/// Estado tras el turno, o null si la partida terminó.
+GameState? _passTurn(GameState s) => s.isOver ? null : s;
 
 /// Primer turno de una victoria forzada de quien mueve en [turns] turnos
 /// propios o menos, contra cualquier defensa. null si no la hay.

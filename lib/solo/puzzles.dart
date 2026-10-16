@@ -207,9 +207,10 @@ final puzzles = <Stage>[
   _puzzle(
     'p10',
     'Kawarimi',
-    'Sacar una ficha del medio también abre caminos.',
+    'Sacar una ficha de la colmena también abre caminos. Tenés 2 turnos.',
     you: _nj,
     ability: true,
+    turns: 2,
     pieces: const [
       (1, _m, Hex(0, 0)),
       (1, _s, Hex(1, -1)),
@@ -219,8 +220,9 @@ final puzzles = <Stage>[
       (0, _f, Hex(1, 0)),
       (0, _h, Hex(0, -1)),
       (0, _k, Hex(-1, 1)),
-      (0, _f, Hex(0, 2)),
       (0, _g, Hex(0, -2)),
+      (0, _n, Hex(-2, 0)),
+      (0, _f, Hex(2, -2)),
     ],
   ),
   _puzzle(

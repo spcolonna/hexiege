@@ -13,8 +13,9 @@ const int leaderDeadlineTurn = 4;
 
 /// Estado completo de una partida y sus reglas.
 ///
-/// Turno: una acción principal (colocar o mover) + opcionalmente la habilidad
-/// de facción (antes o después), y luego [endTurn].
+/// Turno: exactamente una acción (colocar, mover, intercambio del Shogun o
+/// habilidad de facción). Cada acción cierra el turno sola; si no hay ninguna
+/// acción legal, el jugador debe [pass].
 class GameState {
   final Rules rules;
   final List<Faction> factions;
@@ -28,8 +29,9 @@ class GameState {
   final Map<Hex, int> seals; // celda -> dueño del sello
   final List<bool> shogunSwapUsed;
   final List<int> abilityUses;
-  bool mainActionDone = false;
-  bool abilityUsedThisTurn = false;
+
+  /// La última acción (que cerró el turno) fue la habilidad de facción.
+  bool lastActionWasAbility = false;
   int? winner;
   bool draw = false;
 
@@ -69,8 +71,7 @@ class GameState {
       seals = Map.of(o.seals),
       shogunSwapUsed = List.of(o.shogunSwapUsed),
       abilityUses = List.of(o.abilityUses),
-      mainActionDone = o.mainActionDone,
-      abilityUsedThisTurn = o.abilityUsedThisTurn,
+      lastActionWasAbility = o.lastActionWasAbility,
       winner = o.winner,
       draw = o.draw,
       endedByLimit = o.endedByLimit,
@@ -86,6 +87,9 @@ class GameState {
     board.push(at, p);
     return p;
   }
+
+  /// Cierra el turno actual sin acción. Solo para armar escenarios (tests).
+  void setupSkipTurn() => _finishTurn();
 
   bool get isOver => winner != null || draw;
 
@@ -148,7 +152,7 @@ class GameState {
   // ---------------------------------------------------------------- Colocación
 
   List<PieceType> placeableTypes() {
-    if (isOver || mainActionDone) return [];
+    if (isOver) return [];
     final types = hands[current].entries.where((e) => e.value > 0).map((e) => e.key);
     final list = mustPlaceLeader ? types.where((t) => t.isLeader).toList() : types.toList();
     if (list.isEmpty || placementTargets().isEmpty) return [];
@@ -188,15 +192,14 @@ class GameState {
     board.push(at, piece);
     if (recordEvents) lastEvents.add(PiecePlaced(current, piece, at));
     _landed(at);
-    mainActionDone = true;
-    _checkWin();
+    _finishTurn();
     return true;
   }
 
   // ---------------------------------------------------------------- Movimiento
 
   bool _canMoveFrom(Hex src) {
-    if (isOver || mainActionDone || !leaderPlaced(current) || mustPlaceLeader) return false;
+    if (isOver || !leaderPlaced(current) || mustPlaceLeader) return false;
     final p = board.top(src);
     if (p == null || p.owner != current || isParalyzed(p)) return false;
     return board.canLift(src);
@@ -232,7 +235,7 @@ class GameState {
 
   /// Intercambio del Shogun con un Shinobi adyacente (1 vez por partida).
   Set<Hex> shogunSwapTargets(Hex src) {
-    if (isOver || mainActionDone || !rules.shogunSwap || shogunSwapUsed[current]) return {};
+    if (isOver || !rules.shogunSwap || shogunSwapUsed[current]) return {};
     final p = board.top(src);
     if (p == null || p.owner != current || p.type != PieceType.shogun) return {};
     if (isParalyzed(p) || board.height(src) > 1 || isSuppressed(src, current)) return {};
@@ -248,6 +251,14 @@ class GameState {
       .where((h) => moveTargets(h).isNotEmpty || shogunSwapTargets(h).isNotEmpty);
 
   bool hasAnyMainAction() => placeableTypes().isNotEmpty || movablePieces().isNotEmpty;
+
+  bool hasAnyAbilityAction() => switch (currentFaction) {
+    Faction.shaolin => jadeRelocateSources().isNotEmpty || jadeSwapSources().isNotEmpty,
+    Faction.ninja => kawarimiTargets().isNotEmpty,
+  };
+
+  /// Hay alguna acción legal; si no, el jugador debe pasar.
+  bool hasAnyAction() => !isOver && (hasAnyMainAction() || hasAnyAbilityAction());
 
   /// Objetivos de efectos opcionales tras mover [from] -> [to] (para la UI).
   ({Set<Hex> paralyze, Set<Hex> seal}) effectOptions(Hex from, Hex to) {
@@ -311,8 +322,7 @@ class GameState {
         lastEvents.add(Cancelled(current, p, to, effect));
       }
     }
-    mainActionDone = true;
-    _checkWin();
+    _finishTurn();
     return true;
   }
 
@@ -324,8 +334,7 @@ class GameState {
     board.push(to, a);
     shogunSwapUsed[current] = true;
     if (recordEvents) lastEvents.add(ShogunSwapped(current, from, to));
-    mainActionDone = true;
-    _checkWin();
+    _finishTurn();
     return true;
   }
 
@@ -359,7 +368,6 @@ class GameState {
 
   bool get abilityAvailable =>
       !isOver &&
-      !abilityUsedThisTurn &&
       cooldowns[current] == 0 &&
       leaderPlaced(current) &&
       (abilityChargesLeft(current) ?? 1) > 0;
@@ -445,32 +453,39 @@ class GameState {
   }
 
   void _useAbility() {
-    abilityUsedThisTurn = true;
     cooldowns[current] = rules.abilityCooldown;
     abilityUses[current]++;
-    _checkWin();
+    _finishTurn(ability: true);
   }
 
   // ---------------------------------------------------------------- Turno
 
-  bool get canEndTurn => !isOver && (mainActionDone || !hasAnyMainAction());
+  /// Sin ninguna acción legal: cede el turno.
+  bool get canPass => !isOver && !hasAnyAction();
 
-  bool endTurn() {
-    if (!canEndTurn) return false;
+  bool pass() {
+    if (!canPass) return false;
     _begin();
+    if (recordEvents) lastEvents.add(Passed(current));
+    _finishTurn();
+    return true;
+  }
+
+  /// Cierra el turno tras una acción: chequea victoria y pasa al rival.
+  void _finishTurn({bool ability = false}) {
+    lastActionWasAbility = ability;
+    _checkWin();
+    if (isOver) return;
     turnsTaken[current]++;
     ply++;
     if (rules.roundLimit != null && ply >= rules.roundLimit! * 2) {
       endedByLimit = true;
       draw = true;
-      return true;
+      return;
     }
     current = opponent;
-    mainActionDone = false;
-    abilityUsedThisTurn = false;
     if (cooldowns[current] > 0) cooldowns[current]--;
     paralyzedUntil.removeWhere((_, until) => until < ply);
-    return true;
   }
 
   // ---------------------------------------------------------------- Interno

@@ -18,10 +18,8 @@ void main() {
         }
         final ais = [AiPlayer(AiLevel.easy, seed: 1), AiPlayer(AiLevel.easy, seed: 2)];
         for (var ply = 0; ply < 12 && !g.isOver; ply++) {
-          for (final a in ais[g.current].chooseTurn(g)) {
-            expect(a.apply(g), isTrue, reason: '$a');
-          }
-          if (!g.isOver) g.endTurn();
+          final turn = ais[g.current].chooseTurn(g);
+          expect(g.play(turn), isTrue, reason: '$turn');
         }
       });
     }

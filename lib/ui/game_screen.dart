@@ -119,7 +119,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   Set<Hex> _lastMove = {};
 
   /// Jugador cuyas casillas muestra [_lastMove] (se acumulan durante su turno).
-  int? _lastMoveBy;
 
   /// Registro de la partida y largo que tenía en cada estado de [_history].
   final List<({int round, GameEvent e})> _log = [];
@@ -282,19 +281,28 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     if (elapsed < minThink) {
       await Future.delayed(minThink - elapsed);
     }
-    for (final a in actions) {
-      if (!mounted || _game.isOver || _resigned || epoch != _epoch) break;
-      final dur = _commit((g) => a.apply(g));
+    if (mounted && !_game.isOver && !_resigned && epoch == _epoch) {
+      final a = actions.firstOrNull;
+      final dur = _commit((g) => a == null ? g.pass() : a.apply(g));
+      final key = _game.board.key;
+      _aiSeen[key] = (_aiSeen[key] ?? 0) + 1;
+      if (!_game.isOver) _maybeAiTaunt();
       await Future.delayed(Duration(milliseconds: max(550, (dur * 1000).round() + 300)));
     }
     if (!mounted || epoch != _epoch) return;
-    if (!_game.isOver && !_resigned) {
-      final key = _game.board.key;
-      _aiSeen[key] = (_aiSeen[key] ?? 0) + 1;
-      _maybeAiTaunt();
-      _commit((g) => g.endTurn());
-    }
     setState(() => _aiThinking = false);
+    _autoPassIfStuck();
+  }
+
+  /// Si al humano le toca y no tiene ninguna acción legal, pasa solo.
+  void _autoPassIfStuck() {
+    if (_game.isOver || _tutorial || !_isHuman(_game.current) || !_game.canPass) return;
+    final epoch = _epoch;
+    Future.delayed(const Duration(milliseconds: 1400), () {
+      if (!mounted || epoch != _epoch || _aiThinking || _resigned || _stageOver) return;
+      if (!_isHuman(_game.current) || !_game.canPass) return;
+      _commit((g) => g.pass());
+    });
   }
 
   String get _hint {
@@ -315,12 +323,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _Mode.kawarimi => 'Elegí una ficha perimetral para devolver a la mano',
       _Mode.idle when _tutorial => '', // el Sensei ya dice qué hacer
       _Mode.idle =>
-        _game.mainActionDone
-            ? (_game.abilityAvailable ? 'Podés usar la habilidad o terminar el turno' : 'Terminá el turno')
-            : _game.mustPlaceLeader
+        _game.mustPlaceLeader
             ? '¡Debés colocar a tu Líder este turno!'
-            : !_game.hasAnyMainAction()
-            ? 'Sin jugadas posibles: pasá el turno'
+            : !_game.hasAnyAction()
+            ? 'Sin jugadas posibles: pasás el turno'
+            : _game.abilityAvailable
+            ? 'Colocá, mové o usá la habilidad (una sola acción)'
             : 'Colocá una ficha o mové una del tablero',
     };
   }
@@ -346,11 +354,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       }
     }
     setState(() {
-      if (events.isNotEmpty) {
-        // La jugada completa del turno: acción, habilidad y efectos.
-        final by = events.first.player;
-        _lastMove = {if (_lastMoveBy == by) ..._lastMove, for (final e in events) ...e.cells};
-        _lastMoveBy = by;
+      if (events.isNotEmpty && events.first is! Passed) {
+        // La jugada completa del turno: acción y efectos.
+        _lastMove = {for (final e in events) ...e.cells};
       }
       _reset();
     });
@@ -364,6 +370,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _showGameOver(after: dur);
     }
     if (!_tutorial && !_game.isOver && !before.inSiege && _game.inSiege) _announceSiege();
+    if (before.current != _game.current && !_game.isOver) {
+      if (_isAiTurn) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
+      } else if (!_aiThinking) {
+        _autoPassIfStuck();
+      }
+    }
     return dur;
   }
 
@@ -387,7 +400,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _log.clear();
     _logLens.clear();
     _lastMove = {};
-    _lastMoveBy = null;
     _noticeTimer?.cancel();
     _notice = const [];
   }
@@ -427,7 +439,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         SoundBoard.instance.play(_game.winner == 0 ? Sfx.victory : Sfx.ability);
         Haptics.medium();
       });
-    } else if (_game.mainActionDone || _game.abilityUsedThisTurn || _game.isOver) {
+    } else if (_game.ply != before.ply || _game.isOver) {
       // Jugada válida pero no la pedida: el Sensei lo marca y rearma la escena.
       setState(() => _coach = CoachState.retry);
       _retryTimer?.cancel();
@@ -662,15 +674,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         _game = _popHistory();
       }
       _lastMove = {};
-      _lastMoveBy = null;
       _notice = const [];
       _reset();
     });
-  }
-
-  void _endTurn() {
-    _commit((g) => g.endTurn());
-    _maybeRunAi();
   }
 
   void _onTapHex(Hex h) {
@@ -1352,6 +1358,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     ShogunSwapped() || JadeSwapped() => Icons.swap_horiz_rounded,
     JadeRelocated() => Icons.auto_awesome_rounded,
     Returned() => Icons.undo_rounded,
+    Passed() => Icons.hourglass_empty_rounded,
   };
 
   Color _eventColor(HexTheme t, GameEvent e) => switch (e) {
@@ -1412,7 +1419,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                             Navigator.pop(ctx);
                             setState(() {
                               _lastMove = e.cells;
-                              _lastMoveBy = null;
                             });
                           },
                         ),
@@ -1589,8 +1595,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                           label: Text(
                             charges == 0
                                 ? '${faction.abilityName} · agotada'
-                                : me == g.current && g.abilityUsedThisTurn
-                                ? 'Habilidad usada'
                                 : [
                                     faction.abilityName,
                                     if (cd > 0) '($cd)',
@@ -1603,12 +1607,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     const SizedBox(width: 8),
                     if (_mode != _Mode.idle && _mode != _Mode.effect)
                       IconButton(onPressed: () => setState(_reset), icon: const Icon(Icons.close)),
-                    if (!_tutorial)
-                      FilledButton(
-                        style: FilledButton.styleFrom(backgroundColor: color, foregroundColor: Colors.white),
-                        onPressed: g.canEndTurn && _mode != _Mode.effect && !_locked ? _endTurn : null,
-                        child: Text(g.mainActionDone ? 'Terminar turno' : 'Pasar'),
-                      ),
                   ],
                 ),
             ],

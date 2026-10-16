@@ -4,7 +4,7 @@ import 'game_state.dart';
 import 'hex.dart';
 import 'pieces.dart';
 
-/// Una acción atómica dentro de un turno.
+/// La acción de un turno (cada una cierra el turno).
 sealed class AiAction {
   const AiAction();
   bool apply(GameState g);
@@ -88,7 +88,7 @@ class _Timeout implements Exception {}
 /// partidas se estanquen en idas y vueltas.
 const double _repeatPenalty = 12;
 
-/// IA: genera turnos candidatos (habilidad opcional + acción principal).
+/// IA: genera turnos candidatos (una acción: principal o habilidad).
 /// - Aprendiz / Fácil: codiciosa con ruido.
 /// - Normal: minimax a 2 capas (mi turno + mejor respuesta rival).
 /// - Difícil / Maestro: alfa-beta por turnos completos con profundización
@@ -114,7 +114,7 @@ class AiPlayer {
     : _rng = Random(seed),
       seen = seen ?? {};
 
-  /// Acciones a aplicar en orden; después hay que llamar a [GameState.endTurn].
+  /// La acción del turno (lista de 0 o 1). Vacía = no hay jugadas: [GameState.pass].
   List<AiAction> chooseTurn(GameState g) {
     final me = g.current;
     final candidates = _candidateTurns(g, abilityBeam: _abilityBeam);
@@ -170,8 +170,7 @@ class AiPlayer {
   /// Valor del peor caso tras la mejor respuesta del rival (poda alfa).
   double _worstReply(GameState afterMine, int me, double alpha) {
     if (afterMine.isOver) return evaluate(afterMine, me);
-    final opp = afterMine.copy();
-    if (!opp.endTurn()) return evaluate(afterMine, me);
+    final opp = afterMine;
     final replies = mainActions(opp);
     if (replies.isEmpty) return evaluate(opp, me);
     var worst = double.infinity;
@@ -223,9 +222,7 @@ class AiPlayer {
   /// Valor de un turno ya jugado ([c]) mirando [depth] turnos más.
   double _afterTurn(_Candidate c, int depth, int layer, double alpha, double beta, int me, _Budget b) {
     if (c.state.isOver || depth == 0) return _terminal(c.state, me, depth);
-    final next = c.state.copy();
-    if (!next.endTurn()) return evaluate(c.state, me);
-    return _search(next, depth, layer, alpha, beta, me, b);
+    return _search(c.state, depth, layer, alpha, beta, me, b);
   }
 
   /// Minimax con poda alfa-beta; [g] está al inicio del turno de quien mueve.
@@ -266,20 +263,10 @@ class AiPlayer {
 
   List<_Candidate> _candidateTurns(GameState g, {required int abilityBeam}) {
     final result = <_Candidate>[];
-    void addMains(GameState base, List<AiAction> prefix) {
-      final mains = mainActions(base);
-      if (mains.isEmpty) {
-        result.add(_Candidate(prefix, base));
-        return;
-      }
-      for (final m in mains) {
-        final s = base.copy();
-        if (m.apply(s)) result.add(_Candidate([...prefix, m], s));
-      }
+    for (final m in mainActions(g)) {
+      final s = g.copy();
+      if (m.apply(s)) result.add(_Candidate([m], s));
     }
-
-    addMains(g, const []);
-
     if (useAbilities && g.abilityAvailable) {
       final me = g.current;
       final abilities = <_Candidate>[];
@@ -288,13 +275,11 @@ class AiPlayer {
         if (a.apply(s)) abilities.add(_Candidate([a], s)..score = evaluate(s, me));
       }
       abilities.sort((a, b) => b.score.compareTo(a.score));
-      for (final a in abilities.take(abilityBeam)) {
-        if (a.state.isOver) {
-          result.add(a);
-        } else {
-          addMains(a.state, a.actions);
-        }
-      }
+      result.addAll(abilities.take(abilityBeam));
+    }
+    if (result.isEmpty) {
+      final s = g.copy();
+      if (s.pass()) result.add(_Candidate(const [], s));
     }
     return result;
   }
@@ -306,6 +291,11 @@ class _Candidate {
   double score = 0;
   double penalty = 0;
   _Candidate(this.actions, this.state);
+}
+
+extension PlayTurn on GameState {
+  /// Juega el turno que devolvió la IA: su acción, o pasar si vino vacío.
+  bool play(List<AiAction> turn) => turn.isEmpty ? pass() : turn.every((a) => a.apply(this));
 }
 
 /// Todas las acciones principales legales (colocar / mover / intercambio Shogun).

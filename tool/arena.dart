@@ -32,7 +32,7 @@ void main(List<String> args) {
       for (final act in turn) {
         act.apply(g);
       }
-      if (!g.isOver) g.endTurn();
+      if (turn.isEmpty) g.pass();
     }
     final tag = '#${i + 1} ${levels[0].name}(${factions[0].name}) vs ${levels[1].name}(${factions[1].name})';
     if (g.winner != null) {

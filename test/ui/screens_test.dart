@@ -68,7 +68,9 @@ void main() {
       for (var i = 0; i < 40; i++) {
         await tester.pump(const Duration(milliseconds: 16));
       }
-      expect(find.text('Terminar turno'), findsOneWidget);
+      // El turno pasa solo al rival.
+      expect(find.text('Terminar turno'), findsNothing);
+      expect(find.text('Colocá una ficha o mové una del tablero'), findsOneWidget);
     });
   }
 
@@ -250,7 +252,6 @@ void main() {
       await tester.pump();
       await tester.tapAt(at(2, -2));
       await tester.pump(const Duration(seconds: 1));
-      await tester.tap(find.text('Terminar turno'));
       await tester.pump(const Duration(seconds: 3));
       expect(find.text('Esta vez no'), findsOneWidget);
       await tester.tap(find.text('Reintentar'));
@@ -269,9 +270,9 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
       await tester.tapAt(at(0, -1));
       await tester.pump(const Duration(seconds: 1));
-      await tester.tap(find.text('Terminar turno'));
       // La defensa corre en un isolate: hay que dejar pasar tiempo real.
-      for (var i = 0; i < 40 && find.text('turno').evaluate().isEmpty; i++) {
+      await tester.pump(const Duration(milliseconds: 300));
+      for (var i = 0; i < 40 && find.textContaining('está pensando').evaluate().isNotEmpty; i++) {
         await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 100)));
         await tester.pump(const Duration(milliseconds: 500));
       }
