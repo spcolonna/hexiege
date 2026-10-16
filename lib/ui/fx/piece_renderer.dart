@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../../engine/pieces.dart';
 import '../theme/hex_theme.dart';
+import '../theme/settings.dart';
+import 'piece_art.dart';
 
 /// Dibuja una ficha de piedra con volumen: sombra, canto (lateral), cara con
-/// gradiente y vetas, borde de facción y glifo. Compartido por el tablero, la
+/// gradiente y vetas, borde de facción e ilustración (o carácter). Compartido por el tablero, la
 /// mano y los chips de UI para que todo se vea igual.
 class PieceRenderer {
   static final _glyphCache = <String, TextPainter>{};
@@ -115,7 +117,22 @@ class PieceRenderer {
           ..color = theme.gold,
       );
     }
-    text(canvas, type.glyph, face, r * 0.9, theme.glyph[owner]);
+    final art = AppSettings.instance.useGlyphs ? null : PieceArt.of(type);
+    if (art != null) {
+      // Relieve tallado: la ilustración ocupa la cara, recortada al hexágono.
+      canvas.save();
+      canvas.clipPath(hexAt(face, r * 0.86));
+      paintImage(
+        canvas: canvas,
+        rect: Rect.fromCircle(center: face, radius: r * 0.8),
+        image: art,
+        fit: BoxFit.contain,
+        filterQuality: FilterQuality.medium,
+      );
+      canvas.restore();
+    } else {
+      text(canvas, type.glyph, face, r * 0.9, theme.glyph[owner]);
+    }
 
     if (paralyzed) {
       canvas.drawPath(facePath, Paint()..color = theme.frost.withValues(alpha: 0.35));

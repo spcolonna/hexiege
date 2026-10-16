@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'i18n/i18n.dart';
 
+import 'ui/fx/piece_art.dart';
 import 'ui/fx/sfx.dart';
 import 'ui/menu_screen.dart';
 import 'ui/onboarding_screen.dart';
@@ -15,6 +16,7 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await AppSettings.instance.load();
   SoundBoard.instance.init(); // en segundo plano: no frena el arranque
+  await PieceArt.load();
   runApp(HexiegeApp(onboarding: !AppSettings.instance.onboarded));
 }
 
