@@ -332,3 +332,41 @@ Top-down view of a ninja clan game table, central panel of black lacquer with fa
 Seamless tileable texture, top-down flat view of smooth weathered grey granite stone, fine speckled grain, very subtle hairline cracks, neutral cool grey, soft even lighting, low contrast, matte finish, 512x512
 ```
 Negative extra: `moss, colored veins, marble veins, red, green`
+
+---
+
+## 7. Textura de la piedra de las fichas
+
+Es la cara del hexágono sobre la que va la ilustración tallada. El código la recorta al hexágono y le agrega
+el canto, el brillo, el borde de facción y el anillo del líder. Por eso se pide un cuadrado plano y sin costuras,
+sin forma de ficha. Tiene que contrastar con la figura: la figura es **pulida**, la piedra **mate**. La figura
+Shaolin es blanca, así que su piedra es un poco más oscura y cálida; la figura Ninja es negra, así que su piedra es
+un gris pizarra un poco más claro. Todavía no se usan en el código: hoy la piedra se pinta con un degradé.
+
+### Piedra Shaolin — `assets/textures/shaolin_stone.png`
+
+```
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone surface of the game pieces in a hexagonal board game. The game will cut it into a small hexagon (about 50×50 pixels on screen) and place a white polished marble carving on top of it. So it must be calm and quiet, and it must not compete with the carving.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of honed (matte, not polished) pale celadon-green stone, like old temple jade-marble. Base color a soft warm grey-green (around #C9D3C0), slightly darker than white marble so a white carving stands out on it. A few very faint, soft, wide veins in a slightly darker grey-green (#A9B5A4) running diagonally from upper left to lower right. A fine, almost invisible mineral speckle.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no reflections, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; strong, dark or high-contrast veins; gold, red or any saturated color; a perspective view; a photographic scene.
+```
+
+### Piedra Ninja — `assets/textures/ninja_stone.png`
+
+```
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone surface of the game pieces in a hexagonal board game. The game will cut it into a small hexagon (about 50×50 pixels on screen) and place a polished black obsidian carving with crimson veins on top of it. So it must be calm and quiet, and it must not compete with the carving.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of matte, honed dark slate stone, like the stone of an old Japanese castle wall. Base color a charcoal grey (around #3A3638), slightly lighter than black obsidian so a black carving stands out on it. A very fine, even grain with a subtle layered texture. Two or three hair-thin, very faint deep-red mineral lines (#6E2A30) running diagonally from upper left to lower right, barely visible.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no glossy reflections, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; bright or glowing veins; gold, brass or any saturated color; pure black areas; a perspective view; a photographic scene.
+```
