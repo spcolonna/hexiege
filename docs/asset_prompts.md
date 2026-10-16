@@ -56,7 +56,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Dragón Celestial — `shaolin_dragon` ⚠️ rehacer: la primera versión era horizontal y en la ficha no se lee
+### Dragón Celestial — `shaolin_dragon` ✅ generada
 Habilidad: Vuela en línea recta sobre fichas contiguas y aterriza en el primer hueco.
 
 ```
@@ -121,13 +121,13 @@ Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
-SUBJECT: A red-crowned crane caught mid-leap, front view. Both wings spread wide and raised high in a V shape. Long thin legs pushing off below, as if springing over an obstacle. Neck stretched upward, beak pointing up. Two or three carved wind streaks curving under the wings. Elegant and light.
+SUBJECT: A red-crowned crane caught mid-leap, front view. Both wings raised high above the body in a tall, narrow V shape (the wing tips point up, not out to the sides). Long thin legs pushing off below, as if springing over an obstacle. Neck stretched upward, beak pointing up. Two or three carved wind streaks curving under the wings. Elegant and light.
 
 MATERIAL AND STYLE: The whole figure is carved from a single block of polished white marble, like a temple bas-relief sculpture that has been cut out along its outline. Only the crown patch on its head is inlaid with green jade (a deep jade green, #2F9E6E). No other colors: no skin tones, no painted cloth, no gold. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands or fur, no wrinkles, no fabric texture. The marble has a soft satin polish with faint gray veining.
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: wide V of raised wings with a long upward neck.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: tall V of raised wings with a long upward neck.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
@@ -201,13 +201,13 @@ Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait
 
 PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
-SUBJECT: A female ninja (kunoichi) in a poised, upright stance, three-quarter body, facing the viewer. Hair tied in a high ponytail. Face half-masked, eyes visible. One arm extended to the side, holding a single long slender needle between two fingers. A small burst of carved crimson cracks radiating from the needle tip, like a paralysis mark. Graceful and precise.
+SUBJECT: A female ninja (kunoichi) in a poised, upright stance, three-quarter body, facing the viewer. Hair tied in a high ponytail. Face half-masked, eyes visible. One hand raised in front of her shoulder, close to the body, holding a single long slender needle between two fingers, pointing up and forward. A small burst of carved crimson cracks radiating from the needle tip, like a paralysis mark. Graceful and precise.
 
 MATERIAL AND STYLE: The whole figure is carved from a single block of polished black obsidian stone, like a temple bas-relief sculpture that has been cut out along its outline. Thin glowing crimson veins (#C0404F) run through the stone, and the eyes and the needle tip burst are carved in the same crimson. No other colors: no skin tones, no painted cloth, no gold. Every outer edge of the figure has a crisp pale-gray polished rim highlight so the dark figure stays readable on a dark tile. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands or feathers, no fabric texture.
 
 LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: upright figure with a high ponytail and one arm extended holding a needle.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: upright figure with a high ponytail and a raised needle near the shoulder.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
