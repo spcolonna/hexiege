@@ -259,7 +259,12 @@ class BoxMenu extends StatelessWidget {
             Expanded(
               child: SkinButton(glyph: '師', label: tr('menu.tutorial'), onPressed: m.tutorial),
             ),
-            const SizedBox(width: 8),
+          ],
+        ),
+        // De a dos por fila: con cuatro en una, los nombres no entran en inglés.
+        const SizedBox(height: 8),
+        Row(
+          children: [
             Expanded(
               child: SkinButton(glyph: '法', label: tr('menu.rules'), onPressed: m.rules),
             ),

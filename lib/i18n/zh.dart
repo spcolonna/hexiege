@@ -446,4 +446,5 @@ const zh = <String, String>{
   'gift.hint.ninja': '通过忍者战役第 {n} 战即可获得。',
   'gift.hint.puzzles': '解开 {n} 道谜题即可获得。',
   'gift.hint.challenges': '通过 {n} 个挑战即可获得。',
+  'settings.madeBy': 'Oraki Games 出品',
 };

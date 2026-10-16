@@ -7,7 +7,7 @@ Cada uno es autocontenido: se copia y se pega tal cual.
 |---|---|---|
 | 12 fichas | PNG de ChatGPT, fondo transparente | `assets/pieces/<facción>_<tipo>.webp`, 512×512 (~25 KB) |
 | 2 emblemas | PNG 1024×1024, transparente | `assets/emblems/<facción>_emblem.webp`, 512×512 |
-| 4 texturas de mesa + piedra vacía | PNG opaco | `assets/textures/` (todavía no se usan en el código) |
+| Tienda: avatares, marcos, emotes, piedras, tapetes, íconos | ver secciones 6 y 11 a 15 | todavía no se usan en el código |
 | 2 texturas de piedra de ficha | PNG opaco, tileable | `assets/textures/<facción>_stone.webp` |
 | Ícono de la app | PNG 1024×1024 **opaco** | `ios/…/AppIcon.appiconset` y Android, generados con `flutter_launcher_icons` |
 | Pantalla de carga | PNG 1024×1024, transparente | generada con `flutter_native_splash` (config en `flutter_native_splash.yaml`) |
@@ -16,16 +16,18 @@ Cada uno es autocontenido: se copia y se pega tal cual.
 
 ## Estado
 
-✅ = ya está en el juego · ⬜ = falta generarlo · (opcional) = el código todavía no lo usa; sirve si después se decide usarlo.
+✅ = ya está en el juego · ⬜ = falta generarlo · ⏸ = idea para la tienda, el código todavía no lo usa.
 
 | Asset | Estado |
 |---|---|
 | Las 12 fichas (Shaolin y Ninja) | ✅ |
 | Piedra de las fichas (Shaolin y Ninja) | ✅ |
-| Ícono de la app (sección 8) | ✅ — generado para iOS y Android; el PNG de origen se borró |
-| Pantalla de carga (sección 9) | ✅ — fondo #231E1A con el logo; el PNG de origen se borró |
-| Emblemas de facción | ✅ — webp 512, se usan en el códice de fichas |
-| Texturas de mesa y piedra vacía (sección 6) | ⬜ en pausa — no generar por ahora |
+| Emblemas de facción | ✅ (se ven en el códice y en el dorso del visor 3D) |
+| Ícono de la app (sección 8) | ✅ (el PNG de origen se borró) |
+| Pantalla de carga (sección 9) | ✅ ahora muestra el logo de Oraki Games (el arte de las dos fichas quedó en el ícono) |
+| Fichas en alta resolución (sección 10) | ⬜ **lo que más suma ahora**: el zoom del visor 3D |
+| Tienda: avatares, marcos, emotes, piedras, íconos (secciones 11 a 15) | ⏸ generar cuando se arme la tienda |
+| Tapetes de mesa (sección 6) | ⏸ baja prioridad |
 
 ---
 
@@ -291,8 +293,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 
 ## 5. Emblemas de facción
 
-Tamaño 1024×1024, fondo transparente. Se usan como cabecera de cada facción en el códice de fichas.
-reescribirlos en el formato de las fichas.
+Tamaño 1024×1024, fondo transparente. Se usan como cabecera de cada facción en el códice y en el dorso de la ficha del visor 3D.
 
 ### Templo Shaolin — `assets/emblems/shaolin_emblem.webp` ✅ en el juego (códice)
 
@@ -308,64 +309,41 @@ Faction emblem, bas-relief carved in polished black obsidian with glowing crimso
 
 ---
 
-## 6. Texturas de "mesa de juego física"
+## 6. Tapetes de mesa ⏸ (tienda, baja prioridad)
 
-> **En pausa: no hace falta generar nada de esta sección por ahora.**
->
-> Son *fondos*, no objetos: la superficie de la mesa sobre la que se apoya el tablero
-> (vista desde arriba, sin nada encima) y la imagen de fondo del menú. La idea original era
-> reemplazar con fotos los fondos que hoy el juego pinta por código. Con el rediseño de la
-> interfaz (estilos Caja de juego / Ema y washi / Panal) esos fondos ya tienen look propio, así
-> que primero hay que decidir si se quiere una textura real; si se decide que sí, se reescriben
-> estos prompts para el estilo elegido.
->
-> - **Tablero (tileable)**: un cuadrado que se repite como baldosa sin que se noten las uniones;
->   por eso debe ser liso y de poco contraste.
-> - **Fondo de menú**: una sola imagen grande que se recorta para llenar la pantalla; el centro
->   va vacío porque encima van los botones.
-> - **Piedra vacía**: granito gris neutro para casillas o fichas sin imagen.
+**Qué es, en criollo:** el "paño" que está *debajo* del tablero durante la partida, como el fieltro verde de
+una mesa de póker. Hoy el juego lo pinta por código (un color liso con un degradé). La idea es venderlo en
+la tienda como cosmético: el jugador elige sobre qué mesa juega.
 
-Negative común para texturas:
+**Por qué es baja prioridad:** el tablero hexagonal tapa casi todo el tapete, así que se ve poco. Conviene
+hacerlo después de avatares y emotes, que sí se ven en cada partida.
+
+**Cómo es la imagen:** una foto *desde arriba*, sin nada encima, de una superficie lisa (madera, tela,
+piedra). Tiene que ser **tileable**: si se ponen dos copias una al lado de la otra no se nota la unión,
+porque el juego la repite como baldosas para llenar pantallas de cualquier tamaño. Tranquila y de poco
+contraste, para que las fichas resalten.
+
+Plantilla (cambiá solo la línea SURFACE por la de cada tapete de la tabla):
 
 ```
-text, letters, characters, watermark, logo, people, animals, objects, game pieces, hexagons, grid lines, visible seams, perspective, vignette, strong shadows, lens blur, high contrast hotspots, repeating obvious motifs
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the table surface under a hexagonal board game. Game pieces and a board will be placed on top of it, so it must be calm, low contrast and must not compete with them.
+
+SURFACE: <pegá acá la descripción de la tabla>
+
+VIEW AND LIGHTING: Perfectly flat, straight-on, top-down view. Completely even, soft, shadowless lighting. No highlight spot, no gradient, no vignette.
+
+DO NOT INCLUDE: any object, game piece, hexagon, grid, line pattern, border or frame; any text, letters, symbol or logo; strong or high-contrast details; a perspective view; a photographic scene.
 ```
 
-### Tablero Shaolin — `assets/textures/shaolin_board.png` ⬜ falta (opcional)
-1024×1024, **tileable**, opaco. Va detrás de la grilla, así que debe ser tranquilo y de bajo contraste.
-
-```
-Seamless tileable texture, top-down flat view of a temple game table surface made of pale light wood planks with fine straight grain, very subtle inlaid thin white marble strips, warm soft even lighting, low contrast, muted cream and honey tones, calm surface for placing game pieces, no objects, 1024x1024
-```
-
-### Fondo de menú Shaolin — `assets/textures/shaolin_menu_bg.png` ⬜ falta (opcional)
-2048×2048, **no tileable** (se recorta con `BoxFit.cover`, en vertical y horizontal), opaco.
-
-```
-Top-down view of a Shaolin temple game table, a large sheet of textured rice paper laid over pale temple wood, white marble border along the edges with carved green jade corner ornaments and thin gold inlay lines, faint ink-wash mountains and clouds barely visible on the rice paper, soft warm natural light, the center area kept clean and empty for UI, elegant and serene, 2048x2048
-```
-
-### Tablero Ninja — `assets/textures/ninja_board.png` ⬜ falta (opcional)
-1024×1024, **tileable**, opaco. Tranquilo y de bajo contraste.
-
-```
-Seamless tileable texture, top-down flat view of a game table surface of glossy black lacquer over charred shou sugi ban wood, the burnt wood grain faintly visible through the lacquer, very subtle deep vermilion undertone in the grain, soft even lighting, low contrast, no reflections of objects, calm surface for placing game pieces, 1024x1024
-```
-
-### Fondo de menú Ninja — `assets/textures/ninja_menu_bg.png` ⬜ falta (opcional)
-2048×2048, **no tileable**, opaco.
-
-```
-Top-down view of a ninja clan game table, central panel of black lacquer with faint charred wood grain, framed by a border of burnt dark wood with vermilion red lacquered trim and engraved brass corner fittings, faint brushed crimson cloud motifs near the edges, dim moody lighting with a soft warm glow, the center area kept clean and empty for UI, 2048x2048
-```
-
-### Piedra de ficha vacía — `assets/textures/stone_tile_empty.png` ⬜ falta (opcional)
-512×512, **tileable**, opaco. Relleno de las casillas vacías/ficha sin imagen; neutral para ambas facciones.
-
-```
-Seamless tileable texture, top-down flat view of smooth weathered grey granite stone, fine speckled grain, very subtle hairline cracks, neutral cool grey, soft even lighting, low contrast, matte finish, 512x512
-```
-Negative extra: `moss, colored veins, marble veins, red, green`
+| Tapete | Archivo | SURFACE |
+|---|---|---|
+| Madera de templo | `table_temple_wood.png` | `Pale honey-colored temple wood planks with fine straight grain, running horizontally, planks about 1/4 of the image tall, soft warm tones.` |
+| Laca negra | `table_black_lacquer.png` | `Satin black lacquer over wood, the wood grain faintly visible through the lacquer, a very subtle deep red undertone.` |
+| Tatami | `table_tatami.png` | `Woven tatami straw mat, fine horizontal weave, soft pale green-gold color, slightly worn.` |
+| Seda roja | `table_red_silk.png` | `Deep crimson silk cloth stretched flat, very fine weave, a faint tone-on-tone cloud pattern barely visible.` |
+| Pizarra de río | `table_river_slate.png` | `Smooth dark grey river slate, matte, very fine grain, soft cool tones.` |
 
 ---
 
@@ -428,7 +406,10 @@ COMPOSITION: The two tiles together are centered and fill about 70% of the canva
 DO NOT INCLUDE: any text, letters, logo or Chinese/Japanese characters; people or creatures; a border or frame; rounded corners; transparency; cartoon, anime or flat vector style.
 ```
 
-## 9. Pantalla de carga — `assets/splash/splash_logo.png` ✅ en el juego
+## 9. Pantalla de carga — reemplazada por el logo de Oraki Games
+
+Desde que se sumó la marca, la pantalla de carga muestra el logo del estudio (sale de `MarcaPersonal/Lanzamiento/assets/logo`).
+El arte de las dos fichas sigue en el ícono de la app. Prompt original, por si se quiere volver a usar:
 
 1024×1024, fondo transparente. Es el logo que aparece centrado mientras abre la app, sobre un color liso que pone
 el código (claro u oscuro según el sistema). Debe verse bien sobre los dos.
@@ -442,3 +423,169 @@ COMPOSITION: Square 1024×1024, the tiles centered and filling about 60% of the 
 
 DO NOT INCLUDE: any background, shadow on a floor, text, letters or characters, frame, halo or glow.
 ```
+
+---
+
+## 10. Fichas en alta resolución ⬜ (no hace falta generar nada nuevo)
+
+El visor 3D de la galería deja hacer zoom, pero las fichas quedaron a 512 px y de cerca se ven algo borrosas.
+ChatGPT las generó a 1024 px; el problema es que achicamos esa versión al integrarla.
+
+1. Entrá a las conversaciones de ChatGPT donde generaste las fichas y **volvé a descargar cada imagen final**
+   (la que quedó en el juego). No hace falta pedir nada nuevo.
+2. Dejalas en `assets/pieces/hires/` con el mismo nombre de siempre (`shaolin_dragon.png`, etc.).
+3. Pedile a Claude que las integre. El tablero sigue usando la de 512 (es liviana) y el visor carga la de 1024.
+
+Si alguna conversación ya no está, se puede regenerar con el mismo prompt de la sección 3 o 4. Va a salir
+parecida, pero no idéntica a la del juego, así que conviene reemplazar también la de 512.
+
+---
+
+# La tienda ⏸
+
+Idea (ver `docs/pendientes.md`, sección Tienda): todo es **cosmético**, nada da ventaja en la partida. Se compra
+con **jade**, una moneda que se gana jugando: victorias, misiones del día, campaña y ladder. Por ahora sin
+dinero real. Orden sugerido para generar: avatares → emotes → marcos → íconos de la tienda → piedras → tapetes.
+
+## 11. Avatares ⏸
+
+El retrato del jugador: aparece en el emparejamiento, en el marcador de la partida y en el perfil. Hoy es un
+carácter chino (僧 o 将). El juego lo recorta en **círculo** y le pone un marco encima (sección 12). Por eso el
+fondo va pintado y lo importante tiene que quedar en el centro.
+
+Estilo distinto al de las fichas a propósito: las fichas son piedra tallada; los avatares son **retratos pintados
+en tinta**, para que se distingan de un vistazo.
+
+Flujo: una conversación nueva para todos los avatares. El primero con la plantilla completa; desde el segundo,
+*"Same exact style, palette, framing and brush technique as the previous image."* más la plantilla con el
+nuevo SUBJECT.
+
+```
+Create a SQUARE image (1:1, 1024×1024), fully opaque.
+
+PURPOSE: This is a player avatar for a mobile strategy game about Shaolin monks versus ninja clans. The game will crop it into a CIRCLE and show it small (about 64×64 pixels), so the face must be large, centered and readable at that size.
+
+SUBJECT: <pegá acá el SUBJECT de la tabla>
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with confident brush strokes, combined with a limited flat color palette: warm off-white rice paper, deep ink black, and ONE accent color given in the subject. Clean shapes, strong silhouette, expressive but not cartoonish. Head and shoulders portrait, facing the viewer or slightly turned.
+
+COMPOSITION: The face is centered and fills about 55% of the canvas height. The background is a soft, plain rice-paper wash in the accent color, darker toward the edges. Everything important stays inside a centered circle covering 85% of the canvas (the corners will be cut).
+
+DO NOT INCLUDE: any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame, border or circle drawn around the portrait; photographic realism; 3D render; anime style; extra characters.
+```
+
+| Avatar | Facción | Archivo | SUBJECT |
+|---|---|---|---|
+| Novicio | Shaolin | `avatar_novice.png` | `A cheerful young Shaolin novice monk, around 12 years old, shaved head, big curious eyes, holding a bamboo broom over his shoulder, orange robe. Accent color: saffron orange.` |
+| Abadesa de jade | Shaolin | `avatar_abbess.png` | `A calm middle-aged Buddhist nun and kung fu master, shaved head, a single jade bead necklace, piercing wise eyes, one hand raised in a blessing gesture. Accent color: jade green.` |
+| Maestro borracho | Shaolin | `avatar_drunken.png` | `An old, round-bellied kung fu master with a mischievous grin and rosy cheeks, a long thin mustache, holding a gourd of wine, wobbling in a drunken-boxing pose. Accent color: warm red.` |
+| Guerrera del bastón | Shaolin | `avatar_staff.png` | `A young female Shaolin warrior with a short shaved head, determined expression, a long wooden staff held diagonally behind her shoulders. Accent color: golden yellow.` |
+| Rey Mono | Shaolin | `avatar_monkey.png` | `The Monkey King Sun Wukong, grinning, golden circlet on his head, a fur collar, a golden staff resting on his shoulder, playful and proud. Accent color: gold.` |
+| Jōnin | Ninja | `avatar_jonin.png` | `A veteran ninja clan leader, face covered by a dark mask showing only sharp narrow eyes, a scar across one eyebrow, a black hood. Accent color: crimson.` |
+| Kunoichi del abanico | Ninja | `avatar_fan.png` | `A female ninja with a high ponytail and a lower-face mask, holding an iron war fan open beside her face, cold confident eyes. Accent color: deep violet.` |
+| Rōnin | Ninja | `avatar_ronin.png` | `A wandering masterless samurai under a wide straw hat that shades his eyes, stubble, a straw toothpick in his mouth, a katana hilt visible at his shoulder. Accent color: rust brown.` |
+| Máscara oni | Ninja | `avatar_oni.png` | `A ninja wearing a red horned oni demon mask with fangs, only the mask and hood visible, intimidating. Accent color: blood red.` |
+| Espíritu kitsune | Ninja | `avatar_kitsune.png` | `A mysterious figure wearing a white fox kitsune mask with red markings, long silver hair, wisps of blue spirit fire floating around. Accent color: ice blue.` |
+
+Al integrarlos: el juego los pasa a WebP de 256 px. El novicio y el jōnin serían los avatares iniciales gratis.
+
+## 12. Marcos de avatar ⏸
+
+El aro decorativo que rodea al avatar. Se ganan por rango en la ladder o se compran. El centro es un **agujero
+transparente** donde el juego pone el avatar.
+
+```
+Create a SQUARE image (1:1, 1024×1024), PNG with a fully transparent background (real alpha channel).
+
+PURPOSE: A decorative circular frame for a player avatar in a mobile game. The game places a round portrait in the transparent center hole.
+
+SUBJECT: A circular ring frame. <pegá acá el SUBJECT de la tabla>
+
+SHAPE: The ring is centered. Its outer edge touches about 96% of the canvas width; the inner hole is a perfect circle of about 74% of the canvas width and is COMPLETELY TRANSPARENT. Ornaments may stick out slightly at the top and bottom only, never covering the hole.
+
+LIGHTING: Soft light from the upper left, clear highlights and soft shadows so it reads as a thick physical object.
+
+DO NOT INCLUDE: anything inside the center hole; a background; any text, letters or numbers; a portrait or face.
+```
+
+| Marco | Archivo | SUBJECT |
+|---|---|---|
+| Bronce (rango 1) | `frame_bronze.png` | `Simple polished bronze ring with a thin engraved wave pattern.` |
+| Plata y jade (rango 2) | `frame_jade.png` | `Polished silver ring inlaid with four small rounded green jade stones at the top, bottom, left and right.` |
+| Oro imperial (rango 3) | `frame_gold.png` | `Ornate gold ring with carved cloud motifs, a small golden dragon head peeking over the top edge.` |
+| Obsidiana carmesí (rango máximo) | `frame_obsidian.png` | `Black obsidian ring with glowing crimson cracks, a small brass shuriken ornament at the top and two thin red tassels hanging from the bottom.` |
+
+## 13. Emotes ⏸
+
+Hoy son íconos genéricos (una mano, un pulgar, un rayo). La propuesta es reemplazarlos por **stickers** de dos
+personajes chibi: un monjecito y un ninjita. Cada jugador usa el de su facción, y en la tienda se venden otros
+sets (por ejemplo, el Rey Mono o la Kitsune). Son 8 por personaje, los mismos 8 que hay hoy.
+
+Flujo: una conversación por personaje. Pegá la plantilla con el primer SUBJECT de la tabla. Para los otros 7,
+*"Same exact character, style, line weight and colors as the previous image."* más la plantilla con el nuevo SUBJECT.
+
+```
+Create a SQUARE image (1:1, 1024×1024), PNG with a fully transparent background (real alpha channel).
+
+PURPOSE: An emote sticker for a mobile board game. It pops up in a small speech bubble (about 56×56 pixels) when a player reacts during a match, so the emotion must be readable instantly at that size.
+
+CHARACTER: <MONJE o NINJA, copiá una de estas dos líneas>
+  MONJE: A chibi little Shaolin monk with a big round shaved head, tiny body, saffron orange robe, a string of green jade beads.
+  NINJA: A chibi little ninja with a big round head in a black hood and mask showing only big expressive eyes, tiny body, a red scarf.
+
+EXPRESSION: <pegá acá el SUBJECT de la tabla>
+
+STYLE: Cute, bold sticker style: thick clean dark outline, flat colors with soft cel shading, and a thin white sticker border around the whole silhouette. Big head (about 60% of the height), exaggerated expression.
+
+COMPOSITION: The character is centered and fills about 85% of the canvas. Bold, simple silhouette.
+
+DO NOT INCLUDE: any background, speech bubble, text, letters or characters (except for the GG emote); extra characters; realistic style.
+```
+
+| Emote | Archivos | SUBJECT |
+|---|---|---|
+| Hola | `emote_monk_hello.png` · `emote_ninja_hello.png` | `Waving one hand happily with a big smile, a small bow of the head.` |
+| Bien jugado | `emote_monk_nice.png` · `emote_ninja_nice.png` | `Giving a thumbs up with a proud confident smile and one eye winking.` |
+| ¡Wow! | `emote_monk_wow.png` · `emote_ninja_wow.png` | `Shocked with huge round eyes and mouth wide open, hands on cheeks, tiny sparkles around the head.` |
+| Pensando | `emote_monk_think.png` · `emote_ninja_think.png` | `Thinking hard, eyes looking up, one hand on the chin, a small question mark floating above.` |
+| ¡Fuego! | `emote_monk_fire.png` · `emote_ninja_fire.png` | `Fired up with burning determined eyes, fists raised, small orange flames around the body.` |
+| Canchero | `emote_monk_smug.png` · `emote_ninja_smug.png` | `Smug and cocky, half-closed eyes, a sly grin, arms crossed.` |
+| Uy | `emote_monk_oops.png` · `emote_ninja_oops.png` | `Embarrassed with a nervous smile, a big sweat drop on the forehead, scratching the back of the head.` |
+| GG | `emote_monk_gg.png` · `emote_ninja_gg.png` | `Bowing respectfully with both hands holding a small wooden sign that reads exactly "GG" in bold letters.` |
+
+## 14. Piedras de ficha ⏸ (skins)
+
+Variantes de la piedra de las fichas (sección 7). Es el cosmético más barato de producir: una sola imagen
+cambia el aspecto de las 6 fichas del jugador. **Usá el prompt de la sección 7 de su facción** y reemplazá
+solo el párrafo SUBJECT por el de la tabla. Tiene que seguir contrastando con la figura: clara bajo la figura
+negra Ninja, más oscura bajo la figura blanca Shaolin.
+
+| Piedra | Facción | Archivo | SUBJECT |
+|---|---|---|---|
+| Jade imperial | Shaolin | `shaolin_stone_imperial.png` | `SUBJECT: A perfectly flat, straight-on, top-down view of a slab of honed (matte) deep imperial jade, base color a rich muted green (around #6E9A7E), with soft cloudy lighter patches (#8DB39A) and a fine mineral speckle. Dark enough that a white marble carving stands out clearly on it.` |
+| Arenisca dorada | Shaolin | `shaolin_stone_sandstone.png` | `SUBJECT: A perfectly flat, straight-on, top-down view of a slab of honed warm golden sandstone (around #B9A27A), very fine sandy grain, a few faint soft horizontal layers in a slightly darker tone (#A48D66).` |
+| Laca bermellón | Ninja | `ninja_stone_vermilion.png` | `SUBJECT: A perfectly flat, straight-on, top-down view of worn satin vermilion lacquer (around #8E3B32) over wood, a very faint wood grain showing through, slightly lighter worn patches (#A2493E). Light enough that a black obsidian carving stands out clearly on it.` |
+| Hierro oxidado | Ninja | `ninja_stone_iron.png` | `SUBJECT: A perfectly flat, straight-on, top-down view of a plate of dark weathered iron (around #4A4440), matte, with soft rust-brown mottling (#6A4A38) and a fine even grain.` |
+
+## 15. Íconos de la tienda ⏸
+
+Fondo transparente, se ven chicos (24 a 64 px). Mismo estilo de piedra y metal tallado que el resto del juego.
+Pedí los tres en la misma conversación: el segundo y el tercero con *"Same exact style, lighting and finish as the previous image."*
+
+```
+Create a SQUARE image (1:1, 1024×1024), PNG with a fully transparent background (real alpha channel).
+
+PURPOSE: A user-interface icon for a mobile strategy game about Shaolin monks and ninjas. It will be shown small (24 to 64 pixels), so it needs one bold, simple shape.
+
+SUBJECT: <pegá acá el SUBJECT de la tabla>
+
+STYLE: A physical, slightly stylized 3D object with clear volume, polished materials and a soft light from the upper left. Centered, filling about 80% of the canvas.
+
+DO NOT INCLUDE: any background, shadow on a floor, text, letters or numbers, frame or extra objects.
+```
+
+| Ícono | Archivo | SUBJECT |
+|---|---|---|
+| Moneda de jade | `icon_jade.png` | `A thick round coin carved from glossy green jade (#2F9E6E), with a square hole in the center like an ancient Chinese coin and a thin gold rim.` |
+| Cofre | `icon_chest.png` | `A small treasure chest of black lacquered wood with brass corners and a red silk tassel on the lock, the lid slightly open with a soft golden glow inside.` |
+| Tienda | `icon_shop.png` | `A small market stall with a curved Asian tiled roof and a red paper lantern hanging from the front.` |

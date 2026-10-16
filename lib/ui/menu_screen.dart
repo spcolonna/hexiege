@@ -253,6 +253,8 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               const SizedBox(height: 12),
               SkinToggle(label: tr('common.sound'), value: s.sound, onChanged: (v) => s.sound = v),
               SkinToggle(label: tr('settings.haptics'), value: s.haptics, onChanged: (v) => s.haptics = v),
+              const SizedBox(height: 22),
+              const _StudioCredit(),
             ],
           );
         },
@@ -424,3 +426,32 @@ class _RenameDialogState extends State<_RenameDialog> {
 }
 
 const _r = Rules.standard;
+
+/// Firma del estudio al pie de los ajustes.
+class _StudioCredit extends StatelessWidget {
+  const _StudioCredit();
+
+  @override
+  Widget build(BuildContext context) {
+    final t = HexTheme.of(context);
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    return Opacity(
+      opacity: 0.85,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/brand/oraki_symbol_${dark ? 'light' : 'dark'}.webp',
+            width: 26,
+            filterQuality: FilterQuality.medium,
+          ),
+          const SizedBox(width: 10),
+          Text(
+            tr('settings.madeBy'),
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0.6, color: t.textMuted),
+          ),
+        ],
+      ),
+    );
+  }
+}

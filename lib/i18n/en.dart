@@ -446,4 +446,5 @@ const en = <String, String>{
   'gift.hint.ninja': 'Earned by beating battle {n} of the Ninja campaign.',
   'gift.hint.puzzles': 'Earned by solving {n} puzzles.',
   'gift.hint.challenges': 'Earned by beating {n} challenges.',
+  'settings.madeBy': 'A game by Oraki Games',
 };

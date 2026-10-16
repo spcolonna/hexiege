@@ -2223,5 +2223,10 @@
   "es": "Se gana al superar {n} desafíos.",
   "en": "Earned by beating {n} challenges.",
   "zh": "通过 {n} 个挑战即可获得。"
+ },
+ "settings.madeBy": {
+  "es": "Un juego de Oraki Games",
+  "en": "A game by Oraki Games",
+  "zh": "Oraki Games 出品"
  }
 }

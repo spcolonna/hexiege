@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'i18n/i18n.dart';
 
+import 'ui/brand_intro.dart';
 import 'ui/fx/piece_art.dart';
 import 'ui/fx/sfx.dart';
 import 'ui/menu_screen.dart';
@@ -44,7 +45,7 @@ class HexiegeApp extends StatelessWidget {
         // Fundido lento: el cambio de tema en plena partida se siente intencional.
         themeAnimationDuration: const Duration(milliseconds: 450),
         themeAnimationCurve: Curves.easeInOut,
-        home: onboarding ? const OnboardingScreen() : const MenuScreen(),
+        home: BrandIntro(next: onboarding ? const OnboardingScreen() : const MenuScreen()),
       ),
     );
   }
