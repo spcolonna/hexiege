@@ -13,7 +13,9 @@ import 'piece_chip.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'widgets/arena_backdrop.dart';
+import 'theme/ui_style.dart';
 import 'widgets/rank_badge.dart';
+import 'widgets/skin_kit.dart';
 
 /// Búsqueda de partida: radar mientras se busca, presentación del rival y
 /// cuenta regresiva. No sabe si el rival es humano o IA: eso lo decide el
@@ -136,6 +138,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
   }
 
   Widget _searching(HexTheme t) {
+    final skin = Skin.of(context);
     final r = _record.rating;
     final mm = (_elapsed ~/ 60).toString();
     final ss = (_elapsed % 60).toString().padLeft(2, '0');
@@ -163,10 +166,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
           ),
         ),
         const SizedBox(height: 24),
-        Text(
-          tr('mm.searching'),
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: t.text),
-        ),
+        Text(tr('mm.searching'), style: skin.display(30, color: t.text)),
         const SizedBox(height: 6),
         Text(
           '$mm:$ss',
@@ -189,12 +189,13 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
           ),
         ),
         const SizedBox(height: 36),
-        OutlinedButton.icon(onPressed: _cancel, icon: const Icon(Icons.close_rounded), label: Text(tr('mm.cancel'))),
+        SizedBox(width: 200, child: SkinButton(label: tr('mm.cancel'), onPressed: _cancel)),
       ],
     );
   }
 
   Widget _found(HexTheme t, MatchFound m) {
+    final skin = Skin.of(context);
     final me = _record;
     final o = m.opponent;
     final slide = CurvedAnimation(parent: _reveal, curve: Curves.easeOutBack);
@@ -202,10 +203,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
       key: const ValueKey('found'),
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          tr('mm.found'),
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: t.gold, letterSpacing: 0.5),
-        ),
+        Text(tr('mm.found'), style: skin.display(30, color: t.text)),
         const SizedBox(height: 22),
         AnimatedBuilder(
           animation: slide,
@@ -229,15 +227,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
                 scale: Curves.elasticOut.transform(((_reveal.value - 0.3) / 0.7).clamp(0, 1)),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Text(
-                    'VS',
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w900,
-                      color: t.danger,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
+                  child: KanjiBadge('対', size: 40, color: t.danger),
                 ),
               ),
               Expanded(
@@ -253,17 +243,9 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
           ),
         ),
         const SizedBox(height: 26),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-          decoration: BoxDecoration(
-            color: t.surface,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: t.outline),
-          ),
-          child: Text(
-            m.youFirst ? tr('mm.youFirst') : tr('mm.theyFirst', {'name': o.nickname}),
-            style: TextStyle(fontWeight: FontWeight.w700, color: t.text),
-          ),
+        Text(
+          m.youFirst ? tr('mm.youFirst') : tr('mm.theyFirst', {'name': o.nickname}),
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15, color: t.text),
         ),
         const SizedBox(height: 22),
         AnimatedSwitcher(
@@ -272,7 +254,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
           child: Text(
             '$_countdown',
             key: ValueKey(_countdown),
-            style: TextStyle(fontSize: 44, fontWeight: FontWeight.w900, color: t.gold),
+            style: skin.display(64, color: t.gold),
           ),
         ),
       ],
@@ -292,21 +274,9 @@ class _PlayerCard extends StatelessWidget {
     final t = HexTheme.of(context);
     final color = HexTheme.faction(faction);
     final rank = Rank.of(rating);
-    return Container(
+    return SkinPanel(
       padding: const EdgeInsets.fromLTRB(10, 16, 10, 14),
-      decoration: BoxDecoration(
-        color: t.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: color.withValues(alpha: 0.7), width: 1.5),
-        boxShadow: [
-          BoxShadow(
-            color: t.shadow.withValues(alpha: t.shadow.a * 0.35),
-            blurRadius: 14,
-            offset: const Offset(0, 5),
-          ),
-          BoxShadow(color: color.withValues(alpha: 0.25), blurRadius: 18, spreadRadius: -4),
-        ],
-      ),
+      highlight: color,
       child: Column(
         children: [
           Container(

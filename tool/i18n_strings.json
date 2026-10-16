@@ -1923,5 +1923,80 @@
   "es": "Fichas en mano",
   "en": "Pieces in hand",
   "zh": "手中棋子"
+ },
+ "settings.uiStyle": {
+  "es": "Estilo de la interfaz",
+  "en": "Interface style",
+  "zh": "界面风格"
+ },
+ "uiStyle.box": {
+  "es": "Caja de juego",
+  "en": "Game box",
+  "zh": "棋盒"
+ },
+ "uiStyle.box.blurb": {
+  "es": "Bandejas talladas con un hueco para tu Líder.",
+  "en": "Carved trays with a slot for your Leader.",
+  "zh": "雕刻的托盘，为你的首领留一个槽位。"
+ },
+ "uiStyle.ema": {
+  "es": "Ema y washi",
+  "en": "Ema and washi",
+  "zh": "绘马与和纸"
+ },
+ "uiStyle.ema.blurb": {
+  "es": "Tablillas de templo, pincel y sello rojo.",
+  "en": "Temple plaques, brush and red seal.",
+  "zh": "寺院木牌、毛笔与朱印。"
+ },
+ "uiStyle.comb": {
+  "es": "Panal",
+  "en": "Honeycomb",
+  "zh": "蜂巢"
+ },
+ "uiStyle.comb.blurb": {
+  "es": "El menú es un pequeño tablero de casillas.",
+  "en": "The menu is a tiny board of cells.",
+  "zh": "菜单就是一张小棋盘。"
+ },
+ "uiStyle.locked": {
+  "es": "Bloqueado",
+  "en": "Locked",
+  "zh": "未解锁"
+ },
+ "menu.rename": {
+  "es": "Cambiar nombre",
+  "en": "Change name",
+  "zh": "修改名字"
+ },
+ "common.save": {
+  "es": "Guardar",
+  "en": "Save",
+  "zh": "保存"
+ },
+ "common.cancel": {
+  "es": "Cancelar",
+  "en": "Cancel",
+  "zh": "取消"
+ },
+ "menu.play": {
+  "es": "Jugar",
+  "en": "Play",
+  "zh": "对战"
+ },
+ "menu.ranked": {
+  "es": "por puntos",
+  "en": "ranked",
+  "zh": "排位"
+ },
+ "menu.switchFaction": {
+  "es": "cambiar",
+  "en": "switch",
+  "zh": "切换"
+ },
+ "menu.soloSub": {
+  "es": "Campaña, desafíos y problemas",
+  "en": "Campaign, challenges and puzzles",
+  "zh": "战役、挑战与残局"
  }
 }

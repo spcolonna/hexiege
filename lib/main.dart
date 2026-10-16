@@ -10,6 +10,7 @@ import 'ui/menu_screen.dart';
 import 'ui/onboarding_screen.dart';
 import 'ui/theme/hex_theme.dart';
 import 'ui/theme/settings.dart';
+import 'ui/theme/ui_style.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,8 +38,8 @@ class HexiegeApp extends StatelessWidget {
         supportedLocales: [for (final l in supportedLanguages) Locale(l)],
         localizationsDelegates: GlobalMaterialLocalizations.delegates,
         debugShowCheckedModeBanner: false,
-        theme: HexTheme.forFaction(settings.faction, Brightness.light).toThemeData(),
-        darkTheme: HexTheme.forFaction(settings.faction, Brightness.dark).toThemeData(),
+        theme: HexTheme.forFaction(settings.faction, Brightness.light).toThemeData(Skin.forStyle(settings.uiStyle)),
+        darkTheme: HexTheme.forFaction(settings.faction, Brightness.dark).toThemeData(Skin.forStyle(settings.uiStyle)),
         themeMode: settings.themeMode,
         // Fundido lento: el cambio de tema en plena partida se siente intencional.
         themeAnimationDuration: const Duration(milliseconds: 450),

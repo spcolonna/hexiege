@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../engine/pieces.dart';
+import 'ui_style.dart';
 
 /// Material de la mesa sobre la que se juega.
 enum TableMaterial { planks, lacquer }
@@ -256,7 +257,7 @@ class HexTheme extends ThemeExtension<HexTheme> {
     );
   }
 
-  ThemeData toThemeData() {
+  ThemeData toThemeData([Skin skin = Skin.box]) {
     final scheme = ColorScheme.fromSeed(
       seedColor: accent,
       brightness: brightness,
@@ -270,7 +271,8 @@ class HexTheme extends ThemeExtension<HexTheme> {
       brightness: brightness,
       colorScheme: scheme,
       scaffoldBackgroundColor: backdropBottom,
-      extensions: [this],
+      fontFamily: skin.uiFont,
+      extensions: [this, skin],
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: surfaceHigh,
         showDragHandle: true,

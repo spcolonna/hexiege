@@ -16,6 +16,8 @@ import 'package:hexiege/ui/solo_screen.dart';
 import 'package:hexiege/ui/stage_list_screen.dart';
 import 'package:hexiege/ui/theme/hex_theme.dart';
 import 'package:hexiege/ui/theme/settings.dart';
+import 'package:hexiege/ui/theme/ui_style.dart';
+import 'package:hexiege/ui/widgets/skin_kit.dart';
 
 /// Rival fijo y sin esperas: empezás vos, el bot es Fácil.
 class _FakeMatchmaker implements Matchmaker {
@@ -39,9 +41,9 @@ class _FakeMatchmaker implements Matchmaker {
   }
 }
 
-Widget _app(Widget home, ThemeMode mode) => MaterialApp(
-  theme: HexTheme.light.toThemeData(),
-  darkTheme: HexTheme.dark.toThemeData(),
+Widget _app(Widget home, ThemeMode mode, [Skin skin = Skin.box]) => MaterialApp(
+  theme: HexTheme.light.toThemeData(skin),
+  darkTheme: HexTheme.dark.toThemeData(skin),
   themeMode: mode,
   home: home,
 );
@@ -51,7 +53,7 @@ void main() {
     testWidgets('menú renderiza en $mode', (tester) async {
       await tester.pumpWidget(_app(const MenuScreen(), mode));
       await tester.pump(const Duration(milliseconds: 100));
-      expect(find.text('HEXIEGE'), findsOneWidget);
+      expect(find.text('Hexiege'), findsOneWidget);
     });
 
     testWidgets('partida: colocar una ficha anima y no rompe ($mode)', (tester) async {
@@ -95,7 +97,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 600));
     expect(AppSettings.instance.nickname, 'Seba');
     expect(AppSettings.instance.onboarded, isTrue);
-    expect(find.text('HEXIEGE'), findsOneWidget);
+    expect(find.text('Hexiege'), findsOneWidget);
   });
 
   testWidgets('tutorial: la primera lección se completa colocando el Dragón', (tester) async {
@@ -195,7 +197,7 @@ void main() {
     await tester.tap(find.byTooltip('Abandonar'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
-    await tester.tap(find.widgetWithText(FilledButton, 'Abandonar'));
+    await tester.tap(find.widgetWithText(SkinPrimaryButton, 'Abandonar'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
@@ -214,7 +216,7 @@ void main() {
     AppSettings.instance.ladder = const LadderRecord();
     await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.light));
     await tester.pump();
-    expect(find.text('BUSCAR PARTIDA'), findsOneWidget);
+    expect(find.text('Buscar partida'), findsOneWidget);
     expect(find.text('Discípulo'), findsOneWidget);
     expect(find.text('1000'), findsOneWidget);
     expect(find.text('Fácil'), findsNothing);
@@ -314,6 +316,68 @@ void main() {
     for (final m in ['Campaña', 'Desafíos', 'Problemas', 'Continuar']) {
       expect(find.text(m), findsOneWidget);
     }
+  });
+
+  group('estilos de interfaz', () {
+    for (final style in UiStyle.values) {
+      for (final mode in [ThemeMode.light, ThemeMode.dark]) {
+        testWidgets('menú y popups en ${style.name} ($mode)', (tester) async {
+          tester.view.physicalSize = const Size(1170, 2532);
+          tester.view.devicePixelRatio = 3;
+          addTearDown(tester.view.reset);
+          await tester.pumpWidget(_app(const MenuScreen(), mode, Skin.forStyle(style)));
+          await tester.pump(const Duration(milliseconds: 400));
+          expect(find.text('Hexiege'), findsOneWidget);
+          expect(tester.takeException(), isNull);
+
+          // Reglas: hoja con el marco del estilo.
+          await tester.ensureVisible(find.text('Reglas'));
+          await tester.pump();
+          await tester.tap(find.text('Reglas'));
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 500));
+          expect(find.text('Reglas básicas'), findsOneWidget);
+          expect(tester.takeException(), isNull);
+        });
+      }
+    }
+
+    testWidgets('Ajustes cambia el estilo y lo recuerda', (tester) async {
+      tester.view.physicalSize = const Size(1170, 2532);
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      addTearDown(() => AppSettings.instance.uiStyle = UiStyle.box);
+      await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.light));
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.tap(find.byTooltip('Ajustes'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      for (final s in UiStyle.values) {
+        expect(find.text(s.displayName), findsOneWidget);
+        expect(AppSettings.instance.isStyleUnlocked(s), isTrue);
+      }
+      await tester.tap(find.text('Panal'));
+      await tester.pump();
+      expect(AppSettings.instance.uiStyle, UiStyle.comb);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('el nombre se cambia desde el menú', (tester) async {
+      tester.view.physicalSize = const Size(1170, 2532);
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.dark, Skin.ema));
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.tap(find.byIcon(Icons.edit_rounded));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.enterText(find.byType(TextField), 'Grulla');
+      await tester.tap(find.text('Guardar'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 400));
+      expect(AppSettings.instance.nickname, 'Grulla');
+      expect(find.text('Grulla'), findsOneWidget);
+    });
   });
 
   test('Continuar sigue la campaña Shaolin y después la Ninja', () {

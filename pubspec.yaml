@@ -65,6 +65,49 @@ flutter:
     - assets/pieces/
     - assets/textures/
 
+  # Fuentes de los estilos de interfaz (OFL, recortadas: ver assets/fonts/LICENSES.txt).
+  fonts:
+    - family: ShipporiMincho
+      fonts:
+        - asset: assets/fonts/ShipporiMinchoB1-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/ShipporiMinchoB1-ExtraBold.ttf
+          weight: 800
+    - family: ZenKakuGothic
+      fonts:
+        - asset: assets/fonts/ZenKakuGothicNew-Regular.ttf
+        - asset: assets/fonts/ZenKakuGothicNew-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/ZenKakuGothicNew-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/ZenKakuGothicNew-Black.ttf
+          weight: 900
+    - family: YujiSyuku
+      fonts:
+        - asset: assets/fonts/YujiSyuku-Regular.ttf
+    - family: ZenOldMincho
+      fonts:
+        - asset: assets/fonts/ZenOldMincho-Regular.ttf
+        - asset: assets/fonts/ZenOldMincho-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/ZenOldMincho-Black.ttf
+          weight: 900
+    - family: KaiseiTokumin
+      fonts:
+        - asset: assets/fonts/KaiseiTokumin-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/KaiseiTokumin-ExtraBold.ttf
+          weight: 800
+    - family: ZenMaruGothic
+      fonts:
+        - asset: assets/fonts/ZenMaruGothic-Regular.ttf
+        - asset: assets/fonts/ZenMaruGothic-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/ZenMaruGothic-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/ZenMaruGothic-Black.ttf
+          weight: 900
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

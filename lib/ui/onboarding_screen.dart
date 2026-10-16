@@ -13,7 +13,9 @@ import 'menu_screen.dart';
 import 'piece_chip.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
+import 'theme/ui_style.dart';
 import 'widgets/arena_backdrop.dart';
+import 'widgets/skin_kit.dart';
 
 /// Bienvenida del primer arranque: la idea del juego en 3 pantallas y, al
 /// final, el nombre y la invitación al tutorial.
@@ -94,15 +96,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(20, 14, 20, 16),
                 child: _page < _count - 1
-                    ? _primary(t, tr('common.next'), Icons.arrow_forward_rounded, () => _go(_page + 1))
+                    ? _primary(t, tr('common.next'), '進', () => _go(_page + 1))
                     : Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          _primary(t, tr('onboarding.learn'), Icons.school_rounded, () => _finish(tutorial: true)),
+                          _primary(t, tr('onboarding.learn'), '師', () => _finish(tutorial: true)),
                           const SizedBox(height: 6),
-                          TextButton(
+                          SkinLink(
+                            label: tr('onboarding.know'),
+                            color: t.textMuted,
                             onPressed: () => _finish(tutorial: false),
-                            child: Text(tr('onboarding.know'), style: TextStyle(color: t.textMuted)),
                           ),
                         ],
                       ),
@@ -114,21 +117,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  Widget _primary(HexTheme t, String label, IconData icon, VoidCallback onTap) => SizedBox(
-    width: double.infinity,
-    height: 54,
-    child: FilledButton.icon(
-      style: FilledButton.styleFrom(
-        backgroundColor: t.gold,
-        foregroundColor: Colors.black,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      ),
-      iconAlignment: IconAlignment.end,
-      icon: Icon(icon),
-      label: Text(label, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w900)),
-      onPressed: onTap,
-    ),
-  );
+  Widget _primary(HexTheme t, String label, String glyph, VoidCallback onTap) =>
+      SkinPrimaryButton(label: label, glyph: glyph, height: 56, onPressed: onTap);
 
   Widget _dots(HexTheme t) => Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -139,7 +129,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           width: i == _page ? 22 : 8,
           height: 8,
           margin: const EdgeInsets.symmetric(horizontal: 3),
-          decoration: BoxDecoration(color: i == _page ? t.gold : t.outline, borderRadius: BorderRadius.circular(4)),
+          decoration: BoxDecoration(color: i == _page ? t.accent : t.outline, borderRadius: BorderRadius.circular(4)),
         ),
     ],
   );
@@ -151,7 +141,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 26, fontWeight: FontWeight.w900, color: t.text, height: 1.1),
+          style: Skin.of(context).display(30, color: t.text),
         ),
         const SizedBox(height: 10),
         Text(
@@ -200,14 +190,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget _factionCard(HexTheme t, Faction f, int owner, String pitch) {
     final color = HexTheme.faction(f);
     final types = startingHands[f]!.keys.toList();
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: t.surface,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: color.withValues(alpha: 0.6), width: 1.5),
-        boxShadow: [BoxShadow(color: color.withValues(alpha: 0.18), blurRadius: 18, spreadRadius: -4)],
-      ),
+    return SkinPanel(
+      highlight: color,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -260,15 +244,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               hintStyle: TextStyle(color: t.textMuted.withValues(alpha: 0.5), fontWeight: FontWeight.w600),
               counterText: '',
               filled: true,
-              fillColor: t.surface,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide(color: t.outline),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide(color: t.outline),
-              ),
+              fillColor: t.surfaceHigh.withValues(alpha: 0.6),
+              border: UnderlineInputBorder(borderSide: BorderSide(color: t.outline, width: 1.5)),
+              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: t.outline, width: 1.5)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: t.accent, width: 2)),
             ),
             onSubmitted: (_) => _finish(tutorial: true),
           ),

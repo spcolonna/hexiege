@@ -1,0 +1,33 @@
+Fuentes de Google Fonts bajo SIL Open Font License 1.1, recortadas (pyftsubset) a latín + los kanji que usa la UI (regenerar con tool/subset_fonts.sh si se agregan kanji nuevos).
+
+==== shipporiminchob1 ====
+Copyright 2021 The Shippori Mincho Project Authors (https://github.com/fontdasu/ShipporiMincho)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+
+==== zenkakugothicnew ====
+Copyright 2022 The Zen Kaku Gothic Project Authors (https://github.com/googlefonts/zen-kakugothic)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+
+==== yujisyuku ====
+Copyright 2021 The Yuji Project Authors (https://github.com/Kinutafontfactory/Yuji)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+
+==== zenoldmincho ====
+Copyright 2021 The Zen Old Mincho Project Authors (https://github.com/googlefonts/zen-oldmincho)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+
+==== kaiseitokumin ====
+Copyright 2020 The Kaisei Project Authors (https://github.com/Font-Kai/Kaisei)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+
+==== zenmarugothic ====
+Copyright 2021 The Zen Maru Gothic Project Authors (https://github.com/googlefonts/zen-marugothic)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+
+Texto completo de la licencia: https://openfontlicense.org

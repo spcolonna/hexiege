@@ -8,7 +8,9 @@ import 'game_screen.dart';
 import 'stage_list_screen.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
+import 'theme/ui_style.dart';
 import 'widgets/arena_backdrop.dart';
+import 'widgets/skin_kit.dart';
 
 /// Un jugador: campaña, desafíos y problemas, con el progreso de cada uno.
 class SoloScreen extends StatelessWidget {
@@ -40,71 +42,54 @@ class SoloScreen extends StatelessWidget {
               final all = [...campaignStages, ...challenges, ...puzzles];
               final next = nextUp(s.isCleared);
               return ListView(
-                padding: const EdgeInsets.fromLTRB(4, 4, 16, 24),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 24),
                 children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        tooltip: tr('common.back'),
-                        icon: const Icon(Icons.arrow_back_rounded),
-                        onPressed: () => Navigator.maybePop(context),
-                      ),
-                      Expanded(
-                        child: Text(
-                          tr('solo.title'),
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: t.text),
-                        ),
-                      ),
-                      Text(
-                        '${done(all)}/${all.length}',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: t.gold),
-                      ),
-                    ],
-                  ),
+                  SkinHeader(title: tr('solo.title'), trailing: '${done(all)}/${all.length}', backTooltip: tr('common.back')),
                   Padding(
-                    padding: const EdgeInsets.only(left: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SizedBox(height: 8),
-                        if (next != null) _continue(context, t, next),
-                        const SizedBox(height: 16),
+                        if (next != null) _continue(context, next),
+                        const SizedBox(height: 18),
                         _mode(
-                          context,
-                          t,
-                          icon: Icons.auto_stories_rounded,
+                          glyph: '記',
                           title: tr('solo.campaign'),
                           text: tr('solo.campaignText'),
                           done: done(campaignStages),
                           total: campaignStages.length,
-                          open: () => const CampaignScreen(),
+                          open: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CampaignScreen())),
                         ),
                         _mode(
-                          context,
-                          t,
-                          icon: Icons.emoji_events_rounded,
+                          glyph: '試',
                           title: tr('solo.challenges'),
                           text: tr('solo.challengesText'),
                           done: done(challenges),
                           total: challenges.length,
-                          open: () => StageListScreen(
-                            title: tr('solo.challenges'),
-                            subtitle: tr('solo.challengesSub'),
-                            stages: challenges,
+                          open: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => StageListScreen(
+                                title: tr('solo.challenges'),
+                                subtitle: tr('solo.challengesSub'),
+                                stages: challenges,
+                              ),
+                            ),
                           ),
                         ),
                         _mode(
-                          context,
-                          t,
-                          icon: Icons.extension_rounded,
+                          glyph: '詰',
                           title: tr('solo.puzzles'),
                           text: tr('solo.puzzlesText'),
                           done: done(puzzles),
                           total: puzzles.length,
-                          open: () => StageListScreen(
-                            title: tr('solo.puzzles'),
-                            subtitle: tr('solo.puzzlesSub'),
-                            stages: puzzles,
+                          open: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  StageListScreen(title: tr('solo.puzzles'), subtitle: tr('solo.puzzlesSub'), stages: puzzles),
+                            ),
                           ),
                         ),
                       ],
@@ -119,120 +104,49 @@ class SoloScreen extends StatelessWidget {
     );
   }
 
-  Widget _continue(BuildContext context, HexTheme t, Stage next) {
+  Widget _continue(BuildContext context, Stage next) {
     final kind = switch (next.kind) {
       StageKind.campaign => tr('stageKind.campaign'),
       StageKind.challenge => tr('stageKind.challenge'),
       StageKind.puzzle => tr('stageKind.puzzle'),
     };
-    return SizedBox(
-      height: 64,
-      child: FilledButton(
-        style: FilledButton.styleFrom(
-          backgroundColor: t.gold,
-          foregroundColor: Colors.black,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        ),
-        onPressed: () {
-          SoundBoard.instance.play(Sfx.place);
-          Haptics.medium();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => GameScreen.stage(stage: next, nextStage: stageAfter(next)),
-            ),
-          );
-        },
-        child: Row(
-          children: [
-            const Icon(Icons.play_arrow_rounded, size: 30),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(tr('solo.continue'), style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900)),
-                  Text(
-                    '$kind · ${next.title}',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+    return SkinPrimaryButton(
+      height: 66,
+      glyph: '進',
+      label: tr('solo.continue'),
+      sub: '$kind · ${next.title}',
+      onPressed: () {
+        SoundBoard.instance.play(Sfx.place);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => GameScreen.stage(stage: next, nextStage: stageAfter(next))),
+        );
+      },
     );
   }
 
-  Widget _mode(
-    BuildContext context,
-    HexTheme t, {
-    required IconData icon,
+  Widget _mode({
+    required String glyph,
     required String title,
     required String text,
     required int done,
     required int total,
-    required Widget Function() open,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Material(
-        color: t.surface,
-        borderRadius: BorderRadius.circular(18),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(18),
-          onTap: () {
-            SoundBoard.instance.play(Sfx.tick);
-            Haptics.select();
-            Navigator.push(context, MaterialPageRoute(builder: (_) => open()));
-          },
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: done == total ? t.gold.withValues(alpha: 0.7) : t.outline),
-            ),
-            child: Row(
-              children: [
-                Icon(icon, color: t.gold, size: 32),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900, color: t.text),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(text, style: TextStyle(fontSize: 13, color: t.textMuted)),
-                      const SizedBox(height: 8),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: LinearProgressIndicator(
-                          value: done / total,
-                          minHeight: 6,
-                          color: t.gold,
-                          backgroundColor: t.outline,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Text(
-                  '$done/$total',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w900, color: t.textMuted),
-                ),
-              ],
-            ),
-          ),
+    required VoidCallback open,
+  }) => Builder(
+    builder: (context) {
+      final t = HexTheme.of(context);
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 12),
+        child: SkinTile(
+          glyph: glyph,
+          title: title,
+          text: text,
+          progress: done / total,
+          highlight: done == total,
+          trailing: Text('$done/$total', style: Skin.of(context).display(18, color: t.textMuted)),
+          onTap: open,
         ),
-      ),
-    );
-  }
+      );
+    },
+  );
 }

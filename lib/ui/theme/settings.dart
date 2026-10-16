@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../engine/pieces.dart';
 import '../../i18n/i18n.dart';
 import '../../match/ladder.dart';
+import 'ui_style.dart';
 
 /// Cómo se dibujan las fichas: ilustraciones o caracteres chinos. Los caracteres
 /// solo se ofrecen en chino; en otros idiomas siempre van las ilustraciones.
@@ -31,6 +32,8 @@ class AppSettings extends ChangeNotifier {
   bool _tutorialDone = false;
   LadderRecord _ladder = const LadderRecord();
   Set<String> _cleared = {};
+  UiStyle _uiStyle = StyleUnlocks.base;
+  Set<String> _ownedStyles = {};
 
   ThemeMode get themeMode => _themeMode;
 
@@ -54,6 +57,26 @@ class AppSettings extends ChangeNotifier {
 
   /// Puntos, récord y racha en partidas por puntos.
   LadderRecord get ladder => _ladder;
+
+  /// Estilo de la interfaz fuera del tablero (cosmético).
+  UiStyle get uiStyle => _uiStyle;
+
+  /// Si [s] se puede elegir (hoy todos; a futuro, los comprados).
+  bool isStyleUnlocked(UiStyle s) => StyleUnlocks.isUnlocked(s, _ownedStyles);
+
+  set uiStyle(UiStyle s) {
+    if (!isStyleUnlocked(s) || s == _uiStyle) return;
+    _uiStyle = s;
+    _prefs?.setString('uiStyle', s.name);
+    notifyListeners();
+  }
+
+  /// Registra un estilo comprado.
+  void unlockStyle(UiStyle s) {
+    if (!_ownedStyles.add(s.name)) return;
+    _prefs?.setStringList('ownedStyles', _ownedStyles.toList());
+    notifyListeners();
+  }
 
   /// Problemas, desafíos y batallas de campaña superados (por id).
   bool isCleared(String stageId) => _cleared.contains(stageId);
@@ -85,6 +108,9 @@ class AppSettings extends ChangeNotifier {
     _onboarded = p.getBool('onboarded') ?? false;
     _tutorialDone = p.getBool('tutorialDone') ?? false;
     _cleared = (p.getStringList('cleared') ?? const []).toSet();
+    _ownedStyles = (p.getStringList('ownedStyles') ?? const []).toSet();
+    final style = UiStyle.values.asNameMap()[p.getString('uiStyle')];
+    _uiStyle = style != null && isStyleUnlocked(style) ? style : StyleUnlocks.base;
     final ladder = p.getString('ladder');
     if (ladder != null) {
       try {

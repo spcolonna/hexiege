@@ -4,11 +4,12 @@ import '../i18n/i18n.dart';
 import '../engine/ai.dart';
 import '../engine/pieces.dart';
 import '../solo/catalog.dart';
-import 'fx/sfx.dart';
 import 'game_screen.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
+import 'theme/ui_style.dart';
 import 'widgets/arena_backdrop.dart';
+import 'widgets/skin_kit.dart';
 
 /// Lista de problemas, desafíos o batallas: se desbloquean de a una.
 class StageListScreen extends StatelessWidget {
@@ -32,37 +33,15 @@ class StageListScreen extends StatelessWidget {
               final cleared = stages.where((x) => s.isCleared(x.id)).length;
               return Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(4, 4, 16, 8),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          tooltip: tr('common.back'),
-                          icon: const Icon(Icons.arrow_back_rounded),
-                          onPressed: () => Navigator.maybePop(context),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                title,
-                                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: t.text),
-                              ),
-                              Text(subtitle, style: TextStyle(fontSize: 13, color: t.textMuted)),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          '$cleared/${stages.length}',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: t.gold),
-                        ),
-                      ],
-                    ),
+                  SkinHeader(
+                    title: title,
+                    subtitle: subtitle,
+                    trailing: '$cleared/${stages.length}',
+                    backTooltip: tr('common.back'),
                   ),
                   Expanded(
                     child: ListView.builder(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                      padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
                       itemCount: stages.length,
                       itemBuilder: (context, i) => _tile(
                         context,
@@ -84,70 +63,33 @@ class StageListScreen extends StatelessWidget {
 
   Widget _tile(BuildContext context, HexTheme t, int i, {required bool done, required bool open}) {
     final st = stages[i];
-    final color = HexTheme.faction(st.you);
+    final skin = Skin.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
-      child: Material(
-        color: t.surface,
-        borderRadius: BorderRadius.circular(16),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(16),
-          onTap: open
-              ? () {
-                  SoundBoard.instance.play(Sfx.tick);
-                  Haptics.select();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => GameScreen.stage(stage: st, nextStage: stageAfter(st)),
-                    ),
-                  );
-                }
-              : null,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: done ? t.gold.withValues(alpha: 0.7) : t.outline),
-            ),
-            child: Opacity(
-              opacity: open ? 1 : 0.45,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 30,
-                    child: Text(
-                      '${i + 1}',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: t.textMuted),
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          st.title,
-                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: t.text),
-                        ),
-                        Text(
-                          _detail(st),
-                          style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Icon(
-                    done
-                        ? Icons.workspace_premium_rounded
-                        : open
-                        ? Icons.play_arrow_rounded
-                        : Icons.lock_rounded,
-                    color: done ? t.gold : t.textMuted,
-                  ),
-                ],
-              ),
-            ),
+      child: Opacity(
+        opacity: open ? 1 : 0.5,
+        child: SkinTile(
+          leading: SizedBox(
+            width: 30,
+            child: Text('${i + 1}', textAlign: TextAlign.center, style: skin.display(22, color: t.textMuted)),
           ),
+          title: st.title,
+          text: _detail(st),
+          highlight: done,
+          trailing: Icon(
+            done
+                ? Icons.workspace_premium_rounded
+                : open
+                ? Icons.play_arrow_rounded
+                : Icons.lock_rounded,
+            color: done ? t.gold : t.textMuted,
+          ),
+          onTap: open
+              ? () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => GameScreen.stage(stage: st, nextStage: stageAfter(st))),
+                )
+              : null,
         ),
       ),
     );

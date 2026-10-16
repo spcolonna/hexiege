@@ -26,6 +26,7 @@ import 'widgets/arena_backdrop.dart';
 import 'widgets/coach_card.dart';
 import 'widgets/emotes.dart';
 import 'widgets/player_banner.dart';
+import 'widgets/skin_kit.dart';
 import 'widgets/ranked_result.dart';
 import 'widgets/stage_card.dart';
 import 'widgets/tabletop.dart';
@@ -507,33 +508,25 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     if (!mounted) return;
     final s = _stage!;
     final t = HexTheme.of(context);
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        icon: Icon(
-          s.kind == StageKind.campaign ? Icons.auto_stories_rounded : Icons.emoji_events_outlined,
-          color: t.gold,
-          size: 36,
-        ),
-        title: Text(s.title),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
+    showSkinDialog<void>(
+      context,
+      builder: (ctx) => SkinDialog(
+        glyph: s.kind == StageKind.campaign ? '記' : '試',
+        title: s.title,
+        align: CrossAxisAlignment.start,
+        message: s.intro,
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(s.intro),
-            const SizedBox(height: 12),
-            Text(
-              s.goal,
-              style: TextStyle(fontWeight: FontWeight.w800, color: t.text),
-            ),
+            Text(s.goal, style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: t.text)),
             const SizedBox(height: 4),
             Text(
               tr('game.rivalLine', {'faction': widget.p1.displayName, 'level': widget.aiLevel.displayName}),
-              style: TextStyle(fontSize: 12, color: t.textMuted),
+              style: TextStyle(fontSize: 12.5, color: t.textMuted),
             ),
           ],
         ),
-        actions: [FilledButton(onPressed: () => Navigator.pop(ctx), child: Text(tr('common.start')))],
+        actions: [SkinAction(tr('common.start'), () => Navigator.pop(ctx), primary: true, glyph: '始')],
       ),
     );
   }
@@ -557,48 +550,36 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   void _showStageResult(bool ok) {
     final next = widget.nextStage;
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) => AlertDialog(
-        icon: Icon(
-          ok ? Icons.workspace_premium_rounded : Icons.replay_rounded,
-          color: ok ? HexTheme.of(ctx).gold : HexTheme.of(ctx).textMuted,
-          size: 40,
-        ),
-        title: Text(tr(ok ? 'stage.cleared' : 'stage.notThisTime')),
-        content: Text(ok ? _stageWinText() : _stageFailText()),
+    showSkinDialog<void>(
+      context,
+      dismissible: false,
+      builder: (ctx) => SkinDialog(
+        glyph: ok ? '勝' : '再',
+        glyphColor: ok ? HexTheme.of(ctx).gold : null,
+        title: tr(ok ? 'stage.cleared' : 'stage.notThisTime'),
+        message: ok ? _stageWinText() : _stageFailText(),
         actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              Navigator.pop(context);
-            },
-            child: Text(tr('common.back')),
-          ),
+          SkinAction(tr('common.back'), () {
+            Navigator.pop(ctx);
+            Navigator.pop(context);
+          }),
           if (ok && next != null)
-            FilledButton(
-              onPressed: () {
-                Navigator.pop(ctx);
-                Navigator.pushReplacement(
-                  context,
-                  PageRouteBuilder(
-                    transitionDuration: const Duration(milliseconds: 400),
-                    pageBuilder: (_, _, _) => GameScreen.stage(stage: next, nextStage: stageAfter(next)),
-                    transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
-                  ),
-                );
-              },
-              child: Text(tr('common.next')),
-            )
+            SkinAction(tr('common.next'), () {
+              Navigator.pop(ctx);
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  transitionDuration: const Duration(milliseconds: 400),
+                  pageBuilder: (_, _, _) => GameScreen.stage(stage: next, nextStage: stageAfter(next)),
+                  transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
+                ),
+              );
+            }, primary: true)
           else
-            FilledButton(
-              onPressed: () {
-                Navigator.pop(ctx);
-                _restartStage();
-              },
-              child: Text(tr(ok ? 'common.playAgain' : 'common.retry')),
-            ),
+            SkinAction(tr(ok ? 'common.playAgain' : 'common.retry'), () {
+              Navigator.pop(ctx);
+              _restartStage();
+            }, primary: true),
         ],
       ),
     );
@@ -622,36 +603,31 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   void _finishTutorial() {
     AppSettings.instance.tutorialDone = true;
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) => AlertDialog(
-        icon: Icon(Icons.workspace_premium_rounded, color: HexTheme.of(ctx).gold, size: 40),
-        title: Text(tr('tutorial.readyTitle')),
-        content: Text(tr('tutorial.readyBody')),
+    showSkinDialog<void>(
+      context,
+      dismissible: false,
+      builder: (ctx) => SkinDialog(
+        glyph: '師',
+        glyphColor: HexTheme.of(ctx).gold,
+        title: tr('tutorial.readyTitle'),
+        message: tr('tutorial.readyBody'),
         actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              Navigator.pop(context);
-            },
-            child: Text(tr('common.menu')),
-          ),
-          FilledButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              Navigator.pushReplacement(
-                context,
-                PageRouteBuilder(
-                  transitionDuration: const Duration(milliseconds: 450),
-                  pageBuilder: (_, _, _) =>
-                      const GameScreen(p0: Faction.shaolin, p1: Faction.ninja, aiPlayer: 1, aiLevel: AiLevel.easy),
-                  transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
-                ),
-              );
-            },
-            child: Text(tr('tutorial.playSensei')),
-          ),
+          SkinAction(tr('common.menu'), () {
+            Navigator.pop(ctx);
+            Navigator.pop(context);
+          }),
+          SkinAction(tr('tutorial.playSensei'), () {
+            Navigator.pop(ctx);
+            Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                transitionDuration: const Duration(milliseconds: 450),
+                pageBuilder: (_, _, _) =>
+                    const GameScreen(p0: Faction.shaolin, p1: Faction.ninja, aiPlayer: 1, aiLevel: AiLevel.easy),
+                transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
+              ),
+            );
+          }, primary: true, glyph: '戦'),
         ],
       ),
     );
@@ -787,40 +763,34 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       });
       return;
     }
-    showModalBottomSheet(
-      context: context,
-      builder: (ctx) => SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.open_with),
-              title: Text(tr('game.jadeRelocate')),
-              subtitle: Text(trN('common.options', _game.jadeRelocateSources().length)),
-              enabled: _game.jadeRelocateSources().isNotEmpty,
-              onTap: () {
-                Navigator.pop(ctx);
-                setState(() {
-                  _reset();
-                  _mode = _Mode.jadeRelocate;
-                });
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.swap_horiz),
-              title: Text(tr('game.jadeSwap')),
-              subtitle: Text(trN('common.options', _game.jadeSwapSources().length)),
-              enabled: _game.jadeSwapSources().isNotEmpty,
-              onTap: () {
-                Navigator.pop(ctx);
-                setState(() {
-                  _reset();
-                  _mode = _Mode.jadeSwap;
-                });
-              },
-            ),
-          ],
-        ),
+    void pick(BuildContext ctx, _Mode mode) {
+      Navigator.pop(ctx);
+      setState(() {
+        _reset();
+        _mode = mode;
+      });
+    }
+
+    showSkinSheet<void>(
+      context,
+      title: Faction.shaolin.abilityName,
+      builder: (ctx) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SkinTile(
+            glyph: '移',
+            title: tr('game.jadeRelocate'),
+            text: trN('common.options', _game.jadeRelocateSources().length),
+            onTap: _game.jadeRelocateSources().isEmpty ? null : () => pick(ctx, _Mode.jadeRelocate),
+          ),
+          const SizedBox(height: 10),
+          SkinTile(
+            glyph: '換',
+            title: tr('game.jadeSwap'),
+            text: trN('common.options', _game.jadeSwapSources().length),
+            onTap: _game.jadeSwapSources().isEmpty ? null : () => pick(ctx, _Mode.jadeSwap),
+          ),
+        ],
       ),
     );
   }
@@ -829,12 +799,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final stack = _game.board.stackAt(h);
     if (stack.isEmpty) return;
     Haptics.select();
-    showModalBottomSheet(
-      context: context,
-      builder: (ctx) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-          child: Column(
+    showSkinSheet<void>(
+      context,
+      builder: (ctx) => Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -857,8 +824,6 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               ],
             ],
           ),
-        ),
-      ),
     );
   }
 
@@ -884,42 +849,35 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             'faction': _game.factions[w].displayName,
           });
     if (!mounted) return;
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(tr(humanLost ? 'common.defeat' : (_game.draw ? 'common.draw' : 'common.victory'))),
-        content: Text(text),
+    showSkinDialog<void>(
+      context,
+      builder: (ctx) => SkinDialog(
+        glyph: humanLost ? '敗' : (_game.draw ? '和' : '勝'),
+        glyphColor: humanLost ? null : HexTheme.of(ctx).gold,
+        title: tr(humanLost ? 'common.defeat' : (_game.draw ? 'common.draw' : 'common.victory')),
+        message: text,
         actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              _undo();
-            },
-            child: Text(tr('common.undo')),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              Navigator.pop(context);
-            },
-            child: Text(tr('common.menu')),
-          ),
-          FilledButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              _fx.clear();
-              _epoch++;
-              setState(() {
-                _game = GameState(widget.p0, widget.p1);
-                _aiSeen.clear();
-                _aiThinking = false;
-                _clearHistory();
-                _reset();
-              });
-              WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
-            },
-            child: Text(tr('common.rematch')),
-          ),
+          SkinAction(tr('common.rematch'), () {
+            Navigator.pop(ctx);
+            _fx.clear();
+            _epoch++;
+            setState(() {
+              _game = GameState(widget.p0, widget.p1);
+              _aiSeen.clear();
+              _aiThinking = false;
+              _clearHistory();
+              _reset();
+            });
+            WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
+          }, primary: true, glyph: '戦'),
+          SkinAction(tr('common.undo'), () {
+            Navigator.pop(ctx);
+            _undo();
+          }),
+          SkinAction(tr('common.menu'), () {
+            Navigator.pop(ctx);
+            Navigator.pop(context);
+          }),
         ],
       ),
     );
@@ -942,19 +900,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       Navigator.pop(context);
       return;
     }
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        icon: Icon(Icons.flag_rounded, color: HexTheme.of(ctx).danger, size: 36),
-        title: Text(tr('game.resignTitle')),
-        content: Text(tr('game.resignBody')),
+    final ok = await showSkinDialog<bool>(
+      context,
+      builder: (ctx) => SkinDialog(
+        glyph: '降',
+        glyphColor: HexTheme.of(ctx).danger,
+        title: tr('game.resignTitle'),
+        message: tr('game.resignBody'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(tr('game.keepPlaying'))),
-          FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: HexTheme.of(ctx).danger),
-            onPressed: () => Navigator.pop(ctx, true),
-            child: Text(tr('common.resign')),
-          ),
+          SkinAction(tr('common.resign'), () => Navigator.pop(ctx, true), primary: true, danger: true),
+          SkinAction(tr('game.keepPlaying'), () => Navigator.pop(ctx, false)),
         ],
       ),
     );
@@ -976,9 +931,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final opp = widget.match!.opponent;
     final won = after.wins > before.wins;
     final draw = after.draws > before.draws;
-    showDialog(
-      context: context,
-      barrierDismissible: false,
+    showSkinDialog<void>(
+      context,
+      dismissible: false,
       builder: (ctx) => RankedResultDialog(
         title: tr(won ? 'common.victory' : (draw ? 'common.draw' : 'common.defeat')),
         subtitle: _resigned
@@ -1027,11 +982,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   void _pickEmote(int player) {
     if (DateTime.now().difference(_lastEmote) < const Duration(seconds: 2)) return;
-    showModalBottomSheet(
-      context: context,
-      builder: (ctx) => SafeArea(
+    showSkinSheet<void>(
+      context,
+      builder: (ctx) => Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+          padding: EdgeInsets.zero,
           child: Wrap(
             alignment: WrapAlignment.center,
             spacing: 12,
@@ -1389,63 +1344,53 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void _showLog() {
     final t = HexTheme.of(context);
     final entries = _log.reversed.toList();
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (ctx) => SafeArea(
-        child: SizedBox(
-          height: MediaQuery.of(ctx).size.height * 0.6,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+    showSkinSheet<void>(
+      context,
+      title: tr('common.log'),
+      builder: (ctx) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (var i = 0; i < entries.length; i++) ...[
+            if (i == 0 || entries[i - 1].round != entries[i].round)
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                padding: const EdgeInsets.fromLTRB(0, 12, 0, 4),
                 child: Text(
-                  tr('common.log'),
-                  style: TextStyle(color: t.text, fontSize: 18, fontWeight: FontWeight.bold),
+                  tr('round.n', {'round': entries[i].round}),
+                  style: TextStyle(color: t.textMuted, fontSize: 12, fontWeight: FontWeight.w700),
                 ),
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: entries.length,
-                  itemBuilder: (ctx, i) {
-                    final (:round, :e) = entries[i];
-                    final newRound = i == 0 || entries[i - 1].round != round;
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (newRound)
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 10, 16, 2),
-                            child: Text(
-                              tr('round.n', {'round': round}),
-                              style: TextStyle(color: t.textMuted, fontSize: 12, fontWeight: FontWeight.w700),
+            Pressable(
+              onTap: () {
+                Navigator.pop(ctx);
+                setState(() => _lastMove = entries[i].e.cells);
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Row(
+                  children: [
+                    Icon(_eventIcon(entries[i].e), color: _eventColor(t, entries[i].e), size: 20),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(entries[i].e.text, style: TextStyle(color: t.text, fontSize: 13.5)),
+                          Text(
+                            _profiles[entries[i].e.player].nickname,
+                            style: TextStyle(
+                              color: HexTheme.faction(_game.factions[entries[i].e.player]),
+                              fontSize: 11.5,
                             ),
                           ),
-                        ListTile(
-                          dense: true,
-                          visualDensity: VisualDensity.compact,
-                          leading: Icon(_eventIcon(e), color: _eventColor(t, e), size: 20),
-                          title: Text(e.text, style: TextStyle(color: t.text, fontSize: 13)),
-                          subtitle: Text(
-                            _profiles[e.player].nickname,
-                            style: TextStyle(color: HexTheme.faction(_game.factions[e.player]), fontSize: 11),
-                          ),
-                          onTap: () {
-                            Navigator.pop(ctx);
-                            setState(() {
-                              _lastMove = e.cells;
-                            });
-                          },
-                        ),
-                      ],
-                    );
-                  },
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
+            ),
+          ],
+        ],
       ),
     );
   }
@@ -1646,9 +1591,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               }
             })
           : null,
-      onLongPress: () => showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(title: Text(type.displayName), content: Text(type.rulesText)),
+      onLongPress: () => showSkinDialog<void>(
+        context,
+        builder: (ctx) => SkinDialog(
+          title: type.displayName,
+          message: type.rulesText,
+          body: PieceChip(type: type, owner: _game.current, size: 26),
+        ),
       ),
       child: AnimatedOpacity(
         duration: const Duration(milliseconds: 200),
