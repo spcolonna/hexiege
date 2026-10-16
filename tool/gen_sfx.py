@@ -20,7 +20,9 @@ CANDIDATES = os.path.join(os.path.dirname(__file__), 'sfx_candidates')
 
 # Variante que va a assets/sfx/. Para cambiar: editar la letra y volver a correr el script.
 TURN_VARIANT = 'b'    # a = cuenco, b = gong chico, c = cuenco doble
-MARBLE_VARIANT = 'd'  # a = mármol equilibrado, b = más brillante/seco, c = más cuerpo, d = grave y pesado
+# Fichas: a–d = mármol (a equilibrado, b brillante, c cuerpo, d grave);
+#         e–g = dominó (e seco, f con rebote, g más grave con rebote)
+MARBLE_VARIANT = 'f'
 
 
 def t_axis(dur):
@@ -95,6 +97,43 @@ def marble_tap(seed, variant='a', weight=1.0, pitch=1.0, dur=0.3):
     x += partial(t, v.get('body_f', 150) * p, v.get('body_decay', 0.03) * weight, v['body'] * weight, drop=0.3, drop_time=0.01)
     x += highpass(noise_burst(t, 0.0025, rng), v.get('click_hp', 3000)) * v['click']
     x += lowpass(noise_burst(t, 0.015, rng), 1500) * v['noise'] * weight
+    return x
+
+
+# Fichas de dominó chocando: clic seco de hueso/resina, resonancias muy amortiguadas
+# (lo que suena a metal es que los parciales sigan sonando) y a veces un rebote.
+DOMINO = {
+    'e': dict(modes=[(1650, 0.009, 1.0), (2900, 0.006, 0.6), (4300, 0.004, 0.35)],
+              band=(1000, 5500), knock=(260, 0.012, 0.35), bounce=None),
+    'f': dict(modes=[(1650, 0.009, 1.0), (2900, 0.006, 0.6), (4300, 0.004, 0.35)],
+              band=(1000, 5500), knock=(260, 0.012, 0.35), bounce=(0.032, 0.4)),
+    'g': dict(modes=[(1250, 0.011, 1.0), (2250, 0.007, 0.55), (3500, 0.005, 0.3)],
+              band=(700, 4200), knock=(190, 0.016, 0.55), bounce=(0.038, 0.3)),
+}
+
+
+def domino_clack(seed, variant='f', weight=1.0, pitch=1.0, dur=0.16):
+    """Ficha contra ficha, como dos dominós: 'tac' corto y seco, sin cola que resuene."""
+    v = DOMINO[variant]
+    rng = np.random.default_rng(seed)
+    t = t_axis(dur)
+    p = pitch * rng.uniform(0.95, 1.05)
+
+    def hit(tt, amp):
+        x = np.zeros_like(tt)
+        for f, d, a in v['modes']:
+            x += partial(tt, f * p * rng.uniform(0.97, 1.03), d * weight, a, phase=rng.uniform(0, 2 * np.pi))
+        kf, kd, ka = v['knock']
+        x += partial(tt, kf * p, kd * weight, ka * weight, drop=0.25, drop_time=0.004)
+        lo, hi = v['band']
+        x += lowpass(lowpass(highpass(noise_burst(tt, 0.0018, rng), lo), hi), hi) * 1.3
+        return x * amp
+
+    x = hit(t, 1.0)
+    if v['bounce']:
+        at, amp = v['bounce']
+        s = int(SR * at * rng.uniform(0.85, 1.15))
+        x[s:] += hit(t[: len(t) - s], amp)
     return x
 
 
@@ -203,16 +242,20 @@ def turn_chime(variant='b'):
 
 def write_stones(variant, out):
     for i in range(3):
-        write(f'place_{i}', marble_tap(100 + i, variant, weight=1.25, pitch=0.9), out=out)
-        write(f'land_{i}', marble_tap(200 + i, variant, weight=0.85, pitch=1.06, dur=0.22), peak=0.8, out=out)
+        if variant in DOMINO:
+            write(f'place_{i}', domino_clack(100 + i, variant, weight=1.15, pitch=0.95), out=out)
+            write(f'land_{i}', domino_clack(200 + i, variant, weight=0.85, pitch=1.06, dur=0.12), peak=0.8, out=out)
+        else:
+            write(f'place_{i}', marble_tap(100 + i, variant, weight=1.25, pitch=0.9), out=out)
+            write(f'land_{i}', marble_tap(200 + i, variant, weight=0.85, pitch=1.06, dur=0.22), peak=0.8, out=out)
 
 
 def candidates():
     os.makedirs(CANDIDATES, exist_ok=True)
-    for v in 'abcd':
+    for v in 'abcdefg':
         if v in 'abc':
             write(f'turn_{v}', turn_chime(v), peak=0.45, out=CANDIDATES)
-        d = os.path.join(CANDIDATES, f'marble_{v}')
+        d = os.path.join(CANDIDATES, f'marble_{v}' if v in MARBLE else f'domino_{v}')
         os.makedirs(d, exist_ok=True)
         write_stones(v, d)
     print('ok →', os.path.abspath(CANDIDATES))
