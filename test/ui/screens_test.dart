@@ -146,6 +146,8 @@ void main() {
       final at = await open(tester);
       await relocate(tester, at, (2, -1));
       expect(find.text('¡Completaste el tutorial!'), findsOneWidget);
+      // Aviso del efecto y registro de la jugada.
+      expect(find.textContaining('Meditación de Jade: reubicó Kunoichi (rival)'), findsOneWidget);
     });
 
     testWidgets('cerrar tu propio cerco pide reintentar y rearma la escena', (tester) async {

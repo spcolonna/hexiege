@@ -118,6 +118,18 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   ({Set<Hex> paralyze, Set<Hex> seal})? _effects;
   Set<Hex> _lastMove = {};
 
+  /// Jugador cuyas casillas muestra [_lastMove] (se acumulan durante su turno).
+  int? _lastMoveBy;
+
+  /// Registro de la partida y largo que tenía en cada estado de [_history].
+  final List<({int round, GameEvent e})> _log = [];
+  final List<int> _logLens = [];
+
+  /// Aviso de efecto visible (eventos + clave para re-animar).
+  List<GameEvent> _notice = const [];
+  int _noticeKey = 0;
+  Timer? _noticeTimer;
+
   // Emotes visibles por jugador (texto + clave para re-animar).
   final _emote = <Emote?>[null, null];
   final _emoteKey = [0, 0];
@@ -199,6 +211,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       t?.cancel();
     }
     _retryTimer?.cancel();
+    _noticeTimer?.cancel();
     _fx.dispose();
     _transform.dispose();
     super.dispose();
@@ -209,7 +222,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   Set<Hex> get _targets => switch (_mode) {
     _Mode.idle => {},
     _Mode.placing => _game.placementTargets(),
-    _Mode.moving => {..._game.moveTargets(_selected!), ..._game.shogunSwapTargets(_selected!)},
+    _Mode.moving => {..._game.moveTargets(_selected!), ..._swapTargets},
     _Mode.effect => {..._effects!.paralyze, ..._effects!.seal},
     _Mode.jadeRelocate => _game.jadeRelocateSources(),
     _Mode.jadeRelocateTarget => _game.jadeRelocateTargets(_selected!),
@@ -217,6 +230,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _Mode.jadeSwapTarget => _game.jadeSwapTargets(_selected!),
     _Mode.kawarimi => _game.kawarimiTargets(),
   };
+
+  /// Shinobis con los que el Shogun seleccionado puede intercambiarse.
+  Set<Hex> get _swapTargets => _mode == _Mode.moving ? _game.shogunSwapTargets(_selected!) : const {};
 
   Color _targetColor(HexTheme t) => switch (_mode) {
     _Mode.effect || _Mode.kawarimi || _Mode.jadeRelocate => t.danger,
@@ -268,7 +284,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     }
     for (final a in actions) {
       if (!mounted || _game.isOver || _resigned || epoch != _epoch) break;
-      final dur = _commit((g) => a.apply(g), lastMove: _actionCells(a));
+      final dur = _commit((g) => a.apply(g));
       await Future.delayed(Duration(milliseconds: max(550, (dur * 1000).round() + 300)));
     }
     if (!mounted || epoch != _epoch) return;
@@ -276,25 +292,17 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       final key = _game.board.key;
       _aiSeen[key] = (_aiSeen[key] ?? 0) + 1;
       _maybeAiTaunt();
-      _commit((g) => g.endTurn(), lastMove: _lastMove);
+      _commit((g) => g.endTurn());
     }
     setState(() => _aiThinking = false);
   }
-
-  Set<Hex> _actionCells(AiAction a) => switch (a) {
-    PlaceAction(:final at) => {at},
-    MoveAction(:final from, :final to) => {from, to},
-    SwapAction(:final from, :final to) => {from, to},
-    KawarimiAction(:final at) => {at},
-    JadeRelocateAction(:final from, :final to) => {from, to},
-    JadeSwapAction(:final a, :final b) => {a, b},
-  };
 
   String get _hint {
     if (_game.isOver || _resigned || _stageOver || (_tutorial && _coach != CoachState.doing)) return '';
     if (_isAiTurn) return '${_profiles[_game.current].nickname} está pensando…';
     return switch (_mode) {
       _Mode.placing => 'Tocá una casilla para colocar ${_placing!.displayName}',
+      _Mode.moving when _swapTargets.isNotEmpty => 'Mové al Shogun o tocá un Shinobi dorado para intercambiar (1 vez)',
       _Mode.moving => 'Elegí destino para ${_game.board.top(_selected!)!.type.displayName}',
       _Mode.effect =>
         _effects!.paralyze.isNotEmpty
@@ -320,10 +328,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   // ----------------------------------------------------------- acciones
 
   /// Aplica la acción, la anima y devuelve la duración de la animación (s).
-  double _commit(bool Function(GameState g) action, {Set<Hex> lastMove = const {}}) {
+  double _commit(bool Function(GameState g) action) {
     final before = _game.copy();
+    _game.recordEvents = true;
     if (!action(_game)) return 0;
     _history.add(before);
+    _logLens.add(_log.length);
+    final events = _game.lastEvents;
+    for (final e in events) {
+      _log.add((round: before.round, e: e));
+    }
     final dur = _fx.animate(before, _game);
     if (before.current != _game.current) {
       Haptics.light();
@@ -332,9 +346,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       }
     }
     setState(() {
-      _lastMove = lastMove;
+      if (events.isNotEmpty) {
+        // La jugada completa del turno: acción, habilidad y efectos.
+        final by = events.first.player;
+        _lastMove = {if (_lastMoveBy == by) ..._lastMove, for (final e in events) ...e.cells};
+        _lastMoveBy = by;
+      }
       _reset();
     });
+    final notable = events.where((e) => e.notable).toList();
+    if (notable.isNotEmpty) _showNotice(notable, after: dur);
     if (_tutorial) {
       _checkLesson(before, after: dur);
     } else if (_staged) {
@@ -344,6 +365,36 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     }
     if (!_tutorial && !_game.isOver && !before.inSiege && _game.inSiege) _announceSiege();
     return dur;
+  }
+
+  /// Muestra qué efectos se dispararon, cuando la animación ya los mostró.
+  void _showNotice(List<GameEvent> events, {double after = 0}) {
+    _noticeTimer?.cancel();
+    _noticeTimer = Timer(Duration(milliseconds: (after * 600).round()), () {
+      if (!mounted) return;
+      setState(() {
+        _notice = events;
+        _noticeKey++;
+      });
+      _noticeTimer = Timer(Duration(milliseconds: 2600 + 900 * events.length), () {
+        if (mounted) setState(() => _notice = const []);
+      });
+    });
+  }
+
+  void _clearHistory() {
+    _history.clear();
+    _log.clear();
+    _logLens.clear();
+    _lastMove = {};
+    _lastMoveBy = null;
+    _noticeTimer?.cancel();
+    _notice = const [];
+  }
+
+  GameState _popHistory() {
+    _log.length = _logLens.removeLast();
+    return _history.removeLast();
   }
 
   void _announceSiege() {
@@ -392,8 +443,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _fx.animate(_game, fresh);
     setState(() {
       _game = fresh;
-      _history.clear();
-      _lastMove = {};
+      _clearHistory();
       _reset();
       _coach = CoachState.doing;
     });
@@ -410,8 +460,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _lessonIdx = next;
       _coach = CoachState.doing;
       _game = _lesson!.build();
-      _history.clear();
-      _lastMove = {};
+      _clearHistory();
       _reset();
     });
     _introScene();
@@ -549,8 +598,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _stageOver = false;
       _aiThinking = false;
       _aiSeen.clear();
-      _history.clear();
-      _lastMove = {};
+      _clearHistory();
       _reset();
     });
   }
@@ -608,18 +656,20 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _fx.clear();
     Haptics.light();
     setState(() {
-      _game = _history.removeLast();
+      _game = _popHistory();
       // Contra la IA, volver hasta un estado en que juega el humano.
       while (widget.aiPlayer != null && _game.current == widget.aiPlayer && _history.isNotEmpty) {
-        _game = _history.removeLast();
+        _game = _popHistory();
       }
       _lastMove = {};
+      _lastMoveBy = null;
+      _notice = const [];
       _reset();
     });
   }
 
   void _endTurn() {
-    _commit((g) => g.endTurn(), lastMove: _lastMove);
+    _commit((g) => g.endTurn());
     _maybeRunAi();
   }
 
@@ -630,20 +680,20 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       case _Mode.placing:
         if (targets.contains(h)) {
           final t = _placing!;
-          _commit((g) => g.place(t, h), lastMove: {h});
+          _commit((g) => g.place(t, h));
           return;
         }
         _trySelect(h);
       case _Mode.moving:
         final from = _selected!;
         if (_game.shogunSwapTargets(from).contains(h)) {
-          _commit((g) => g.shogunSwap(from, h), lastMove: {from, h});
+          _commit((g) => g.shogunSwap(from, h));
           return;
         }
         if (targets.contains(h)) {
           final fx = _game.effectOptions(from, h);
           if (fx.paralyze.isEmpty && fx.seal.isEmpty) {
-            _commit((g) => g.move(from, h), lastMove: {from, h});
+            _commit((g) => g.move(from, h));
           } else {
             _mode = _Mode.effect;
             _effectTo = h;
@@ -668,7 +718,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       case _Mode.jadeRelocateTarget:
         if (targets.contains(h)) {
           final from = _selected!;
-          _commit((g) => g.jadeRelocate(from, h), lastMove: {from, h});
+          _commit((g) => g.jadeRelocate(from, h));
           return;
         }
       case _Mode.jadeSwap:
@@ -680,12 +730,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       case _Mode.jadeSwapTarget:
         if (targets.contains(h)) {
           final a = _selected!;
-          _commit((g) => g.jadeSwap(a, h), lastMove: {a, h});
+          _commit((g) => g.jadeSwap(a, h));
           return;
         }
       case _Mode.kawarimi:
         if (targets.contains(h)) {
-          _commit((g) => g.kawarimi(h), lastMove: {h});
+          _commit((g) => g.kawarimi(h));
           return;
         }
       case _Mode.idle:
@@ -702,10 +752,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void _applyEffect(Hex? target) {
     final from = _selected!, to = _effectTo!;
     final isParalyze = _effects!.paralyze.isNotEmpty;
-    _commit(
-      (g) => g.move(from, to, paralyze: isParalyze ? target : null, seal: isParalyze ? null : target),
-      lastMove: {from, to},
-    );
+    _commit((g) => g.move(from, to, paralyze: isParalyze ? target : null, seal: isParalyze ? null : target));
   }
 
   void _trySelect(Hex h) {
@@ -791,7 +838,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     Expanded(
                       child: Text(
                         '${p.type.displayName} — ${_profiles[p.owner].nickname}'
-                        '${_game.isParalyzed(p) ? ' (paralizada)' : ''}',
+                        '${_game.isParalyzed(p) ? ' (paralizada)' : ''}'
+                        '${p == stack.last && _game.isNullified(h) ? ' (efecto anulado por la Serpiente)' : ''}',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -854,8 +902,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 _game = GameState(widget.p0, widget.p1);
                 _aiSeen.clear();
                 _aiThinking = false;
-                _history.clear();
-                _lastMove = {};
+                _clearHistory();
                 _reset();
               });
               WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
@@ -1067,6 +1114,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                       if (!_stage!.isPuzzle) _banner(_oppSeat, top: true),
                     ] else
                       _banner(_oppSeat, top: true),
+                    _noticeCard(t),
                     const Spacer(),
                     _hintPill(t),
                     const SizedBox(height: 8),
@@ -1129,6 +1177,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           _roundButton(t, Icons.arrow_back_rounded, 'Menú', () => Navigator.maybePop(context)),
           if (!_tutorial && _game.roundsLeft != null) ...[const SizedBox(width: 8), _roundChip(t)],
           const Spacer(),
+          if (!_tutorial) ...[
+            _roundButton(t, Icons.receipt_long_rounded, 'Registro', _log.isEmpty ? null : _showLog),
+            const SizedBox(width: 6),
+          ],
           _roundButton(
             t,
             AppSettings.instance.sound ? Icons.volume_up_rounded : Icons.volume_off_rounded,
@@ -1237,6 +1289,145 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     );
   }
 
+  /// Aviso de los efectos que se dispararon en la última acción.
+  Widget _noticeCard(HexTheme t) {
+    final events = _notice;
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 250),
+      transitionBuilder: (c, a) => FadeTransition(
+        opacity: a,
+        child: SizeTransition(sizeFactor: a, axisAlignment: -1, child: c),
+      ),
+      child: events.isEmpty
+          ? const SizedBox(width: double.infinity)
+          : GestureDetector(
+              key: ValueKey(_noticeKey),
+              onTap: () => setState(() => _notice = const []),
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
+                decoration: BoxDecoration(
+                  color: t.surface,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: HexTheme.faction(_game.factions[events.first.player]), width: 1.5),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      _profiles[events.first.player].nickname,
+                      style: TextStyle(color: t.textMuted, fontSize: 11, fontWeight: FontWeight.w700),
+                    ),
+                    for (final e in events)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: Row(
+                          children: [
+                            Icon(_eventIcon(e), size: 16, color: _eventColor(t, e)),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                e.text,
+                                style: TextStyle(color: t.text, fontSize: 13, fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ),
+    );
+  }
+
+  IconData _eventIcon(GameEvent e) => switch (e) {
+    PiecePlaced() => Icons.add_circle_outline_rounded,
+    Moved(:final climbed) => climbed ? Icons.layers_rounded : Icons.open_with_rounded,
+    Pushed() => Icons.keyboard_double_arrow_right_rounded,
+    Paralyzed() => Icons.ac_unit_rounded,
+    SealPlaced() => Icons.radio_button_checked_rounded,
+    Cancelled() => Icons.block_rounded,
+    ShogunSwapped() || JadeSwapped() => Icons.swap_horiz_rounded,
+    JadeRelocated() => Icons.auto_awesome_rounded,
+    Returned() => Icons.undo_rounded,
+  };
+
+  Color _eventColor(HexTheme t, GameEvent e) => switch (e) {
+    Paralyzed() => t.frost,
+    Cancelled() => BoardPainter.jade,
+    Pushed() || SealPlaced() => t.danger,
+    ShogunSwapped() || JadeSwapped() || JadeRelocated() || Returned() => t.gold,
+    _ => t.textMuted,
+  };
+
+  /// Registro de la partida, de lo más nuevo a lo más viejo. Tocar una jugada la resalta.
+  void _showLog() {
+    final t = HexTheme.of(context);
+    final entries = _log.reversed.toList();
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (ctx) => SafeArea(
+        child: SizedBox(
+          height: MediaQuery.of(ctx).size.height * 0.6,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                child: Text(
+                  'Registro',
+                  style: TextStyle(color: t.text, fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: entries.length,
+                  itemBuilder: (ctx, i) {
+                    final (:round, :e) = entries[i];
+                    final newRound = i == 0 || entries[i - 1].round != round;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (newRound)
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 10, 16, 2),
+                            child: Text(
+                              'Ronda $round',
+                              style: TextStyle(color: t.textMuted, fontSize: 12, fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ListTile(
+                          dense: true,
+                          visualDensity: VisualDensity.compact,
+                          leading: Icon(_eventIcon(e), color: _eventColor(t, e), size: 20),
+                          title: Text(e.text, style: TextStyle(color: t.text, fontSize: 13)),
+                          subtitle: Text(
+                            _profiles[e.player].nickname,
+                            style: TextStyle(color: HexTheme.faction(_game.factions[e.player]), fontSize: 11),
+                          ),
+                          onTap: () {
+                            Navigator.pop(ctx);
+                            setState(() {
+                              _lastMove = e.cells;
+                              _lastMoveBy = null;
+                            });
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _hintPill(HexTheme t) {
     final text = _hint;
     return AnimatedSwitcher(
@@ -1314,7 +1505,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 theme: t,
                 fx: _fx,
                 selected: _mode == _Mode.effect ? _effectTo : _selected,
-                targets: targets,
+                targets: targets.difference(_swapTargets),
+                swapTargets: _swapTargets,
                 targetColor: _targetColor(t),
                 lastMove: _lastMove,
                 spotlight: _spotlight,

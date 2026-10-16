@@ -75,6 +75,11 @@ Causa: el cierre del cerco. El Tengu y el Shinobi cerraban 22 de las 37 victoria
 - **Cosméticos a futuro**: una arena/skin nueva = otra instancia de `HexTheme` (fondo, materiales de fichas). `PlayerProfile` (nick, avatar, IA) y `Emote` (vectoriales, no emojis del sistema) ya son modelos separados de la UI.
 - **Layout**: tablero a pantalla completa; arriba el oponente, abajo vos + mano + acciones (listo para avatares y emotes online).
 - **Animación por diff** (`fx/board_fx.dart`): se compara el tablero antes/después de cualquier acción (tuya, de la IA o una habilidad) y se anima sola: caída con gravedad al colocar, levantar → arco → caer al mover, rebote al asentarse, onda + polvo, temblor de cámara, empujón a las vecinas. Parálisis = escarcha, sello = estampado.
+- **Claridad de efectos** (`engine/events.dart`): con `GameState.recordEvents` cada acción deja eventos (colocar, mover, empuje, parálisis, sello, anulación de la Serpiente, habilidades). Las copias de la IA no los registran. La UI los usa para:
+  - un aviso bajo el rival con lo que se disparó en la última acción (propia o del rival);
+  - el **Registro** (botón en la barra): la partida por ronda; tocar una jugada la resalta;
+  - el resaltado del último turno completo (acción + habilidad + efectos, no solo la última acción).
+  - Además: las fichas cuyo efecto anula una Serpiente rival llevan un anillo punteado de jade con 蛇, y los Shinobis con los que puede intercambiarse el Shogun se marcan en dorado con ⇄.
 - **Fichas con volumen** (`fx/piece_renderer.dart`): canto, sombra que se difumina con la altura, vetas y brillo.
 - **Sonido** (`fx/sfx.dart`): efectos sintetizados por `tool/gen_sfx.py` (golpe grave al colocar, más liviano al mover, "clack" al apilar, campana de habilidad, gong de victoria). Para regenerarlos: `python3 tool/gen_sfx.py`.
 

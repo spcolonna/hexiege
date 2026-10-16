@@ -19,6 +19,12 @@ class BoardPainter extends CustomPainter {
   final Color targetColor;
   final Set<Hex> lastMove;
 
+  /// Shinobis con los que puede intercambiarse el Shogun (dorado, con ⇄).
+  final Set<Hex> swapTargets;
+
+  /// Color de la Serpiente de Jade y de las fichas que anula.
+  static const jade = Color(0xFF3DBE8B);
+
   /// Casillas que el tutorial quiere señalar (onda dorada).
   final Set<Hex> spotlight;
 
@@ -30,6 +36,7 @@ class BoardPainter extends CustomPainter {
     required this.targets,
     required this.targetColor,
     required this.lastMove,
+    this.swapTargets = const {},
     this.spotlight = const {},
     this.fx,
   }) : super(repaint: fx);
@@ -58,6 +65,7 @@ class BoardPainter extends CustomPainter {
       );
     }
     _paintPieces(canvas);
+    _paintNullified(canvas);
     _paintImpacts(canvas);
     _paintTargets(canvas);
     _paintSpotlight(canvas);
@@ -178,8 +186,47 @@ class BoardPainter extends CustomPainter {
     }
   }
 
+  /// Fichas cuyo efecto especial anula una Serpiente rival: anillo de jade y 蛇.
+  void _paintNullified(Canvas canvas) {
+    if (fx?.flights.isNotEmpty ?? false) return; // aparece cuando la Serpiente ya aterrizó
+    final hidden = fx?.hiddenIds ?? const <int>{};
+    final step = layout.size * BoardFx.stackStep;
+    for (final e in game.board.tops) {
+      if (hidden.contains(e.value.id) || !game.isNullified(e.key)) continue;
+      final c = layout.toPixel(e.key) - Offset(0, (game.board.height(e.key) - 1) * step);
+      final ring = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..color = jade.withValues(alpha: 0.85);
+      // Anillo punteado: el efecto está "cortado".
+      const dashes = 12;
+      for (var k = 0; k < dashes; k++) {
+        final a0 = k * 2 * pi / dashes;
+        canvas.drawArc(Rect.fromCircle(center: c, radius: layout.size * 0.92), a0, pi / dashes, false, ring);
+      }
+      final badge = c + Offset(-layout.size * 0.6, -layout.size * 0.6);
+      canvas.drawCircle(badge, layout.size * 0.26, Paint()..color = jade);
+      PieceRenderer.text(canvas, '蛇', badge, layout.size * 0.3, Colors.white);
+    }
+  }
+
   void _paintTargets(Canvas canvas) {
     final pulse = 0.5 + 0.5 * sin(_now * 3.6);
+    for (final t in swapTargets) {
+      final c = layout.toPixel(t);
+      final path = layout.hexPath(t, scale: 0.86);
+      canvas.drawPath(path, Paint()..color = theme.gold.withValues(alpha: 0.22 + 0.1 * pulse));
+      canvas.drawPath(
+        path,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.5
+          ..color = theme.gold.withValues(alpha: 0.6 + 0.35 * pulse),
+      );
+      final badge = c + Offset(layout.size * 0.6, layout.size * 0.55);
+      canvas.drawCircle(badge, layout.size * 0.28, Paint()..color = theme.gold);
+      PieceRenderer.text(canvas, '⇄', badge, layout.size * 0.36, Colors.black);
+    }
     for (final t in targets) {
       final occupied = game.board.isOccupied(t);
       final c = layout.toPixel(t);

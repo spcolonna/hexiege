@@ -1,9 +1,11 @@
 import 'board.dart';
+import 'events.dart';
 import 'hex.dart';
 import 'moves.dart';
 import 'pieces.dart';
 import 'rules.dart';
 
+export 'events.dart';
 export 'rules.dart';
 
 /// El Líder debe estar en el tablero al terminar este número de turnos propios.
@@ -34,6 +36,13 @@ class GameState {
   /// La partida terminó en empate por el límite de rondas.
   bool endedByLimit = false;
   int _nextId;
+
+  /// Si está activo, cada acción deja en [lastEvents] lo que pasó. No se copia:
+  /// las copias de la IA no pagan el costo.
+  bool recordEvents = false;
+
+  /// Eventos de la última acción exitosa (con [recordEvents]).
+  List<GameEvent> lastEvents = const [];
 
   GameState(Faction p0, Faction p1, {this.rules = Rules.standard})
     : factions = [p0, p1],
@@ -109,10 +118,29 @@ class GameState {
   }
 
   /// La ficha en [h] está junto a una Serpiente enemiga: pierde sus efectos especiales.
-  bool isSuppressed(Hex h, int owner) => h.neighbors.any((n) {
-    final t = board.top(n);
+  bool isSuppressed(Hex h, int owner) => _suppressedOn(board, h, owner);
+
+  static bool _suppressedOn(Board b, Hex h, int owner) => h.neighbors.any((n) {
+    final t = b.top(n);
     return t != null && t.type == PieceType.serpent && t.owner != owner;
   });
+
+  /// La ficha en [h] tiene un efecto especial que hoy anula una Serpiente rival.
+  bool isNullified(Hex h) {
+    final p = board.top(h);
+    if (p == null || !isSuppressed(h, p.owner)) return false;
+    return switch (p.type) {
+      PieceType.tiger => true,
+      PieceType.kunoichi => rules.kunoichiParalysis,
+      PieceType.shadow => rules.shadowSeal,
+      PieceType.shogun => rules.shogunSwap && !shogunSwapUsed[p.owner],
+      _ => false,
+    };
+  }
+
+  void _begin() {
+    if (recordEvents) lastEvents = [];
+  }
 
   /// Debe colocar al Líder este turno.
   bool get mustPlaceLeader => !leaderPlaced(current) && turnsTaken[current] >= leaderDeadlineTurn - 1;
@@ -154,8 +182,11 @@ class GameState {
 
   bool place(PieceType type, Hex at) {
     if (!placeableTypes().contains(type) || !placementTargets().contains(at)) return false;
+    _begin();
     hands[current][type] = hands[current][type]! - 1;
-    board.push(at, Piece(_nextId++, type, current));
+    final piece = Piece(_nextId++, type, current);
+    board.push(at, piece);
+    if (recordEvents) lastEvents.add(PiecePlaced(current, piece, at));
     _landed(at);
     mainActionDone = true;
     _checkWin();
@@ -227,12 +258,8 @@ class GameState {
     return _effectOptionsOn(b, p, to);
   }
 
-  ({Set<Hex> paralyze, Set<Hex> seal}) _effectOptionsOn(Board b, Piece p, Hex at) {
-    final suppressed = at.neighbors.any((n) {
-      final t = b.top(n);
-      return t != null && t.type == PieceType.serpent && t.owner != p.owner;
-    });
-    if (suppressed) return (paralyze: <Hex>{}, seal: <Hex>{});
+  ({Set<Hex> paralyze, Set<Hex> seal}) _effectOptionsOn(Board b, Piece p, Hex at, {bool ignoreSerpent = false}) {
+    if (!ignoreSerpent && _suppressedOn(b, at, p.owner)) return (paralyze: <Hex>{}, seal: <Hex>{});
     if (p.type == PieceType.kunoichi && rules.kunoichiParalysis) {
       return (
         paralyze: at.neighbors.where((n) {
@@ -253,16 +280,36 @@ class GameState {
 
   bool move(Hex from, Hex to, {Hex? paralyze, Hex? seal}) {
     if (!moveTargets(from).contains(to)) return false;
+    _begin();
     final p = board.pop(from);
     board.push(to, p);
+    if (recordEvents) lastEvents.add(Moved(current, p, from, to, climbed: board.height(to) > 1));
     _landed(to);
 
     final opts = _effectOptionsOn(board, p, to);
-    if (p.type == PieceType.tiger && !isSuppressed(to, p.owner)) _tigerPush(from, to);
-    if (paralyze != null && opts.paralyze.contains(paralyze)) _paralyze(board.top(paralyze)!);
+    if (p.type == PieceType.tiger) {
+      if (!isSuppressed(to, p.owner)) {
+        _tigerPush(from, to);
+      } else if (recordEvents && _tigerPushTarget(board, from, to) != null) {
+        lastEvents.add(Cancelled(current, p, to, CancelledEffect.push));
+      }
+    }
+    if (paralyze != null && opts.paralyze.contains(paralyze)) {
+      final t = board.top(paralyze)!;
+      _paralyze(t);
+      if (recordEvents) lastEvents.add(Paralyzed(current, t, paralyze));
+    }
     if (seal != null && opts.seal.contains(seal)) {
       seals.removeWhere((_, owner) => owner == current);
       seals[seal] = current;
+      if (recordEvents) lastEvents.add(SealPlaced(current, seal));
+    }
+    if (recordEvents && (p.type == PieceType.kunoichi || p.type == PieceType.shadow) && isSuppressed(to, p.owner)) {
+      final would = _effectOptionsOn(board, p, to, ignoreSerpent: true);
+      if (would.paralyze.isNotEmpty || would.seal.isNotEmpty) {
+        final effect = p.type == PieceType.kunoichi ? CancelledEffect.paralyze : CancelledEffect.seal;
+        lastEvents.add(Cancelled(current, p, to, effect));
+      }
     }
     mainActionDone = true;
     _checkWin();
@@ -271,28 +318,38 @@ class GameState {
 
   bool shogunSwap(Hex from, Hex to) {
     if (!shogunSwapTargets(from).contains(to)) return false;
+    _begin();
     final a = board.pop(from), b = board.pop(to);
     board.push(from, b);
     board.push(to, a);
     shogunSwapUsed[current] = true;
+    if (recordEvents) lastEvents.add(ShogunSwapped(current, from, to));
     mainActionDone = true;
     _checkWin();
     return true;
   }
 
-  void _tigerPush(Hex from, Hex to) {
+  /// Ficha que empujaría el Tigre al llegar a [to] y adónde ([target], [dest]), o null.
+  ({Hex target, Hex dest, Board after})? _tigerPushTarget(Board board, Hex from, Hex to) {
     final diff = to - from;
     final dir = Hex.directions.firstWhere((d) => [1, 2, 3].any((k) => d * k == diff), orElse: () => const Hex(0, 0));
-    if (dir == const Hex(0, 0)) return;
+    if (dir == const Hex(0, 0)) return null;
     final target = to + dir;
     final dest = target + dir;
     final t = board.top(target);
-    if (t == null || t.owner == current || board.height(target) != 1 || board.isOccupied(dest)) return;
+    if (t == null || t.owner == current || board.height(target) != 1 || board.isOccupied(dest)) return null;
     final b = Board.copy(board);
     b.push(dest, b.pop(target));
-    if (!b.isConnected()) return;
-    board = b;
-    _landed(dest);
+    if (!b.isConnected()) return null;
+    return (target: target, dest: dest, after: b);
+  }
+
+  void _tigerPush(Hex from, Hex to) {
+    final push = _tigerPushTarget(board, from, to);
+    if (push == null) return;
+    board = push.after;
+    if (recordEvents) lastEvents.add(Pushed(current, board.top(push.dest)!, push.target, push.dest));
+    _landed(push.dest);
   }
 
   // ---------------------------------------------------------------- Habilidades
@@ -331,7 +388,10 @@ class GameState {
 
   bool jadeRelocate(Hex src, Hex dst) {
     if (!jadeRelocateTargets(src).contains(dst)) return false;
-    board.push(dst, board.pop(src));
+    _begin();
+    final p = board.pop(src);
+    board.push(dst, p);
+    if (recordEvents) lastEvents.add(JadeRelocated(current, p, src, dst));
     _landed(dst);
     _useAbility();
     return true;
@@ -358,9 +418,11 @@ class GameState {
 
   bool jadeSwap(Hex a, Hex b) {
     if (!jadeSwapTargets(a).contains(b)) return false;
+    _begin();
     final pa = board.pop(a), pb = board.pop(b);
     board.push(a, pb);
     board.push(b, pa);
+    if (recordEvents) lastEvents.add(JadeSwapped(current, pa, pb, a, b));
     _useAbility();
     return true;
   }
@@ -373,7 +435,9 @@ class GameState {
 
   bool kawarimi(Hex h) {
     if (!kawarimiTargets().contains(h)) return false;
+    _begin();
     final p = board.pop(h);
+    if (recordEvents) lastEvents.add(Returned(current, p, h));
     hands[p.owner][p.type] = (hands[p.owner][p.type] ?? 0) + 1;
     paralyzedUntil.remove(p.id);
     _useAbility();
@@ -393,6 +457,7 @@ class GameState {
 
   bool endTurn() {
     if (!canEndTurn) return false;
+    _begin();
     turnsTaken[current]++;
     ply++;
     if (rules.roundLimit != null && ply >= rules.roundLimit! * 2) {
@@ -421,6 +486,7 @@ class GameState {
     if (owner == null || p == null || p.owner == owner) return;
     seals.remove(h);
     _paralyze(p);
+    if (recordEvents) lastEvents.add(Paralyzed(current, p, h, bySeal: true));
   }
 
   void _checkWin() {

@@ -405,7 +405,11 @@ void main() {
 
     test('Tengu notClosing: puede ir junto al Líder pero no cerrar el cerco', () {
       GameState g(bool fifth) {
-        final g = GameState(Faction.ninja, Faction.shaolin, rules: const Rules(tenguNearLeader: TenguNearLeader.notClosing));
+        final g = GameState(
+          Faction.ninja,
+          Faction.shaolin,
+          rules: const Rules(tenguNearLeader: TenguNearLeader.notClosing),
+        );
         put(g, PieceType.monk, 1, h(0, 0));
         put(g, PieceType.serpent, 1, h(1, 0));
         put(g, PieceType.serpent, 1, h(-1, 0));
@@ -419,7 +423,11 @@ void main() {
       // (1,-1) es el último hueco libre del Monje: con 5 vecinos, cerraría el cerco.
       expect(g(true).moveTargets(h(2, 0)).contains(h(1, -1)), isFalse);
       expect(g(false).moveTargets(h(2, 0)), contains(h(1, -1)));
-      final free = GameState(Faction.ninja, Faction.shaolin, rules: const Rules(tenguNearLeader: TenguNearLeader.allowed));
+      final free = GameState(
+        Faction.ninja,
+        Faction.shaolin,
+        rules: const Rules(tenguNearLeader: TenguNearLeader.allowed),
+      );
       put(free, PieceType.monk, 1, h(0, 0));
       put(free, PieceType.serpent, 1, h(1, 0));
       put(free, PieceType.serpent, 1, h(-1, 0));
@@ -431,13 +439,96 @@ void main() {
     });
 
     test('los efectos de unidad se pueden apagar', () {
-      final g = GameState(Faction.ninja, Faction.shaolin, rules: const Rules(kunoichiParalysis: false, shogunSwap: false));
+      final g = GameState(
+        Faction.ninja,
+        Faction.shaolin,
+        rules: const Rules(kunoichiParalysis: false, shogunSwap: false),
+      );
       put(g, PieceType.shogun, 0, h(0, 0));
       put(g, PieceType.kunoichi, 0, h(-1, 0));
       put(g, PieceType.shinobi, 0, h(0, -1));
       put(g, PieceType.monk, 1, h(1, 0));
       expect(g.effectOptions(h(-1, 0), h(0, 1)).paralyze, isEmpty);
       expect(g.shogunSwapTargets(h(0, 0)), isEmpty);
+    });
+  });
+
+  group('Eventos', () {
+    test('solo se registran con recordEvents y las copias no los registran', () {
+      final g = GameState(Faction.shaolin, Faction.ninja);
+      g.place(PieceType.dragon, Hex.origin);
+      expect(g.lastEvents, isEmpty);
+      g.endTurn();
+      g.recordEvents = true;
+      expect(g.copy().recordEvents, isFalse);
+      g.place(PieceType.shinobi, h(1, 0));
+      expect(g.lastEvents.single, isA<PiecePlaced>());
+    });
+
+    test('Tigre: movimiento y empuje', () {
+      final g = GameState(Faction.shaolin, Faction.ninja)..recordEvents = true;
+      put(g, PieceType.tiger, 0, h(-1, 0));
+      put(g, PieceType.monk, 0, h(-1, 1));
+      put(g, PieceType.serpent, 0, h(0, 1));
+      put(g, PieceType.kitsune, 1, h(1, 0));
+      put(g, PieceType.shogun, 1, h(1, 1));
+      g.move(h(-1, 0), h(0, 0));
+      expect(g.lastEvents.map((e) => e.runtimeType), [Moved, Pushed]);
+      final push = g.lastEvents[1] as Pushed;
+      expect((push.from, push.to, push.piece.type), (h(1, 0), h(2, 0), PieceType.kitsune));
+    });
+
+    test('Kunoichi paraliza; junto a una Serpiente se anula y se avisa', () {
+      final g = GameState(Faction.ninja, Faction.shaolin)..recordEvents = true;
+      put(g, PieceType.shogun, 0, h(0, 0));
+      put(g, PieceType.kunoichi, 0, h(-1, 0));
+      put(g, PieceType.monk, 1, h(1, 0));
+      put(g, PieceType.dragon, 1, h(2, 0));
+      g.move(h(-1, 0), h(0, 1), paralyze: h(1, 0));
+      expect(g.lastEvents.last, isA<Paralyzed>().having((e) => e.bySeal, 'bySeal', isFalse));
+
+      final g2 = GameState(Faction.ninja, Faction.shaolin)..recordEvents = true;
+      put(g2, PieceType.shogun, 0, h(0, 0));
+      put(g2, PieceType.kunoichi, 0, h(-1, 0));
+      put(g2, PieceType.monk, 1, h(1, 0));
+      put(g2, PieceType.serpent, 1, h(0, 1));
+      expect(g2.move(h(-1, 0), h(-1, 1)), isTrue);
+      expect(g2.isNullified(h(-1, 1)), isTrue);
+      expect(g2.lastEvents.last, isA<Cancelled>().having((e) => e.effect, 'effect', CancelledEffect.paralyze));
+    });
+
+    test('Sello: colocado y activado', () {
+      final g = GameState(Faction.ninja, Faction.shaolin)..recordEvents = true;
+      put(g, PieceType.shogun, 0, h(0, 0));
+      put(g, PieceType.shadow, 0, h(-1, 0));
+      put(g, PieceType.monk, 1, h(1, 0));
+      put(g, PieceType.serpent, 1, h(1, 1));
+      g.move(h(-1, 0), h(-1, 1), seal: h(0, 1));
+      expect(g.lastEvents.last, isA<SealPlaced>());
+      g.endTurn();
+      g.move(h(1, 1), h(0, 1));
+      expect(g.lastEvents.last, isA<Paralyzed>().having((e) => e.bySeal, 'bySeal', isTrue));
+      expect(g.lastEvents.last.player, 1);
+    });
+
+    test('Kawarimi y Meditación de Jade', () {
+      final g = GameState(Faction.shaolin, Faction.ninja)..recordEvents = true;
+      put(g, PieceType.monk, 0, h(0, 0));
+      put(g, PieceType.tiger, 0, h(-1, 0));
+      put(g, PieceType.shogun, 1, h(1, 0));
+      put(g, PieceType.kitsune, 1, h(2, 0));
+      final g2 = g.copy()..recordEvents = true;
+      g.jadeRelocate(h(2, 0), h(-2, 0));
+      expect(g.lastEvents.single, isA<JadeRelocated>());
+      g2.jadeSwap(h(0, 0), h(-1, 0));
+      expect(g2.lastEvents.single, isA<JadeSwapped>());
+
+      final n = GameState(Faction.ninja, Faction.shaolin)..recordEvents = true;
+      put(n, PieceType.shogun, 0, h(0, 0));
+      put(n, PieceType.monk, 1, h(1, 0));
+      put(n, PieceType.tiger, 1, h(2, 0));
+      n.kawarimi(h(2, 0));
+      expect(n.lastEvents.single, isA<Returned>().having((e) => e.text, 'text', contains('(rival)')));
     });
   });
 }
