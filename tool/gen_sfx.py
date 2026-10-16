@@ -1,18 +1,26 @@
 """Genera los efectos de sonido de Hexiege por síntesis (sin assets de terceros).
 
-Uso:  python3 tool/gen_sfx.py      → escribe assets/sfx/*.wav
+Uso:  python3 tool/gen_sfx.py               → escribe assets/sfx/*.wav
+      python3 tool/gen_sfx.py --candidates  → alternativas en tool/sfx_candidates/
 
 Todo es procedural: golpes de piedra = transitorio de ruido + parciales amortiguados
 (los graves dan "peso", los medios hacen que se escuche en parlantes de teléfono).
 """
 
 import os
+import sys
 import wave
 
 import numpy as np
 
 SR = 44100
 OUT = os.path.join(os.path.dirname(__file__), '..', 'assets', 'sfx')
+# Alternativas para comparar (no se bundlean): `python3 tool/gen_sfx.py --candidates`
+CANDIDATES = os.path.join(os.path.dirname(__file__), 'sfx_candidates')
+
+# Variante que va a assets/sfx/. Para cambiar: editar la letra y volver a correr el script.
+TURN_VARIANT = 'b'    # a = cuenco, b = gong chico, c = cuenco doble
+MARBLE_VARIANT = 'a'  # a = mármol equilibrado, b = más brillante/seco, c = más cuerpo
 
 
 def t_axis(dur):
@@ -50,30 +58,41 @@ def fade(x, ms=4):
     return x
 
 
-def write(name, x, peak=0.89):
+def write(name, x, peak=0.89, out=OUT):
     x = fade(x.astype(np.float64))
     x = x / (np.max(np.abs(x)) + 1e-9) * peak
     data = (x * 32767).astype('<i2').tobytes()
-    with wave.open(os.path.join(OUT, f'{name}.wav'), 'wb') as w:
+    with wave.open(os.path.join(out, f'{name}.wav'), 'wb') as w:
         w.setnchannels(1)
         w.setsampwidth(2)
         w.setframerate(SR)
         w.writeframes(data)
 
 
-def stone_thud(seed, weight=1.0, pitch=1.0, dur=0.45):
-    """Ficha de piedra que cae sobre la mesa: boom grave + cuerpo + click."""
+# Parciales inarmónicos de mármol: (frecuencia, decay, amplitud) por variante.
+MARBLE = {
+    'a': dict(modes=[(900, 0.11, 1.0), (1610, 0.075, 0.7), (2720, 0.05, 0.45), (4100, 0.035, 0.28)],
+              click=0.9, body=0.35, noise=0.15),
+    'b': dict(modes=[(1050, 0.08, 0.9), (1880, 0.055, 0.75), (3150, 0.04, 0.5), (4700, 0.025, 0.35)],
+              click=1.2, body=0.2, noise=0.1),
+    'c': dict(modes=[(780, 0.12, 1.0), (1420, 0.085, 0.6), (2450, 0.055, 0.38), (3900, 0.035, 0.2)],
+              click=0.7, body=0.55, noise=0.2),
+}
+
+
+def marble_tap(seed, variant='a', weight=1.0, pitch=1.0, dur=0.3):
+    """Ficha de mármol pulido apoyándose sobre piedra: click brillante + parciales inarmónicos."""
+    v = MARBLE[variant]
     rng = np.random.default_rng(seed)
     t = t_axis(dur)
     p = pitch * rng.uniform(0.95, 1.05)
-    x = partial(t, 58 * p, 0.16 * weight, 1.0 * weight, drop=0.6, drop_time=0.025)
-    x += partial(t, 132 * p, 0.10 * weight, 0.9, drop=0.35)
-    x += partial(t, 247 * p, 0.06, 0.55, drop=0.2)
-    x += partial(t, 523 * p * rng.uniform(0.98, 1.02), 0.035, 0.30)
-    x += partial(t, 1170 * p * rng.uniform(0.97, 1.03), 0.018, 0.18)
-    click = highpass(noise_burst(t, 0.004, rng), 1800) * 0.9
-    body_noise = lowpass(noise_burst(t, 0.035, rng), 900) * 1.4
-    return x + click + body_noise
+    x = np.zeros_like(t)
+    for f, d, a in v['modes']:
+        x += partial(t, f * p * rng.uniform(0.98, 1.02), d * weight, a, phase=rng.uniform(0, 2 * np.pi))
+    x += partial(t, 150 * p, 0.03 * weight, v['body'] * weight, drop=0.3, drop_time=0.01)
+    x += highpass(noise_burst(t, 0.0025, rng), 3000) * v['click']
+    x += lowpass(noise_burst(t, 0.015, rng), 1500) * v['noise'] * weight
+    return x
 
 
 def stone_clack(seed, pitch=1.0):
@@ -153,20 +172,52 @@ def pop():
     return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.04)
 
 
-def turn_knock():
-    """Dos golpes de bloque de madera: 'tu turno'."""
-    t = t_axis(0.35)
-    x = partial(t, 820, 0.03, 0.8) + partial(t, 1640, 0.015, 0.3)
-    s = int(SR * 0.11)
-    x[s:] += (partial(t[: len(t) - s], 1090, 0.035, 0.9) + partial(t[: len(t) - s], 2180, 0.015, 0.3))
-    return x
+def turn_chime(variant='b'):
+    """Aviso de turno: gong/cuenco grave y cálido, ataque blando, nada por encima de ~2 kHz."""
+    t = t_axis(0.75)
+    rng = np.random.default_rng(5)
+    if variant == 'a':    # cuenco: fundamental + parciales de cuenco (2.7x, 5.1x) muy suaves
+        modes = [(200, 0.3, 1.0), (200 * 2.71, 0.18, 0.25), (200 * 5.1, 0.1, 0.07)]
+        hits = [(0.0, 1.0)]
+    elif variant == 'b':  # gong chico: parciales inarmónicos de gong con batido
+        modes = [(190, 0.28, 1.0), (190 * 1.47, 0.22, 0.4), (190 * 2.09, 0.16, 0.22), (190 * 2.56, 0.12, 0.12)]
+        hits = [(0.0, 1.0)]
+    else:                 # cuenco doble: dos toques suaves, el segundo una cuarta arriba
+        modes = [(180, 0.22, 1.0), (180 * 2.71, 0.12, 0.2)]
+        hits = [(0.0, 0.85), (0.13, 1.0)]
+    x = np.zeros_like(t)
+    for k, (at, amp) in enumerate(hits):
+        s = int(SR * at)
+        tt = t[: len(t) - s]
+        r = 1.335 if k == 1 else 1.0
+        for f, d, a in modes:
+            x[s:] += partial(tt, f * r, d, a * amp)
+            x[s:] += partial(tt, f * r * 1.005, d * 0.9, a * amp * 0.35)  # batido
+        x[s:] += lowpass(noise_burst(tt, 0.01, rng), 600) * 0.15 * amp
+    attack = np.clip(t / 0.018, 0, 1) ** 2
+    return lowpass(x * attack, 2000)
+
+
+def write_stones(variant, out):
+    for i in range(3):
+        write(f'place_{i}', marble_tap(100 + i, variant, weight=1.25, pitch=0.9), out=out)
+        write(f'land_{i}', marble_tap(200 + i, variant, weight=0.85, pitch=1.06, dur=0.22), peak=0.8, out=out)
+
+
+def candidates():
+    os.makedirs(CANDIDATES, exist_ok=True)
+    for v in 'abc':
+        write(f'turn_{v}', turn_chime(v), peak=0.45, out=CANDIDATES)
+        d = os.path.join(CANDIDATES, f'marble_{v}')
+        os.makedirs(d, exist_ok=True)
+        write_stones(v, d)
+    print('ok →', os.path.abspath(CANDIDATES))
 
 
 def main():
     os.makedirs(OUT, exist_ok=True)
+    write_stones(MARBLE_VARIANT, OUT)
     for i in range(3):
-        write(f'place_{i}', stone_thud(100 + i, weight=1.25, pitch=0.92))
-        write(f'land_{i}', stone_thud(200 + i, weight=0.9, pitch=1.05, dur=0.35), peak=0.8)
         write(f'stack_{i}', stone_clack(300 + i), peak=0.8)
         write(f'lift_{i}', lift(400 + i), peak=0.45)
     write('select', tap(1), peak=0.4)
@@ -177,9 +228,9 @@ def main():
     write('victory', gong(), peak=0.85)
     write('defeat', gong(base=73, decay=1.6, bright=0.45), peak=0.75)
     write('emote', pop(), peak=0.5)
-    write('turn', turn_knock(), peak=0.5)
+    write('turn', turn_chime(TURN_VARIANT), peak=0.45)
     print('ok →', os.path.abspath(OUT))
 
 
 if __name__ == '__main__':
-    main()
+    candidates() if '--candidates' in sys.argv else main()
