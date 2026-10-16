@@ -20,7 +20,7 @@ CANDIDATES = os.path.join(os.path.dirname(__file__), 'sfx_candidates')
 
 # Variante que va a assets/sfx/. Para cambiar: editar la letra y volver a correr el script.
 TURN_VARIANT = 'b'    # a = cuenco, b = gong chico, c = cuenco doble
-MARBLE_VARIANT = 'a'  # a = mármol equilibrado, b = más brillante/seco, c = más cuerpo
+MARBLE_VARIANT = 'd'  # a = mármol equilibrado, b = más brillante/seco, c = más cuerpo, d = grave y pesado
 
 
 def t_axis(dur):
@@ -77,6 +77,9 @@ MARBLE = {
               click=1.2, body=0.2, noise=0.1),
     'c': dict(modes=[(780, 0.12, 1.0), (1420, 0.085, 0.6), (2450, 0.055, 0.38), (3900, 0.035, 0.2)],
               click=0.7, body=0.55, noise=0.2),
+    # Bloque de mármol más grueso: parciales una sexta más abajo, clic suave y golpe grave.
+    'd': dict(modes=[(560, 0.13, 1.0), (1010, 0.09, 0.62), (1720, 0.055, 0.34), (2650, 0.035, 0.16)],
+              click=0.45, click_hp=2000, body=0.8, body_f=105, body_decay=0.045, noise=0.12),
 }
 
 
@@ -89,8 +92,8 @@ def marble_tap(seed, variant='a', weight=1.0, pitch=1.0, dur=0.3):
     x = np.zeros_like(t)
     for f, d, a in v['modes']:
         x += partial(t, f * p * rng.uniform(0.98, 1.02), d * weight, a, phase=rng.uniform(0, 2 * np.pi))
-    x += partial(t, 150 * p, 0.03 * weight, v['body'] * weight, drop=0.3, drop_time=0.01)
-    x += highpass(noise_burst(t, 0.0025, rng), 3000) * v['click']
+    x += partial(t, v.get('body_f', 150) * p, v.get('body_decay', 0.03) * weight, v['body'] * weight, drop=0.3, drop_time=0.01)
+    x += highpass(noise_burst(t, 0.0025, rng), v.get('click_hp', 3000)) * v['click']
     x += lowpass(noise_burst(t, 0.015, rng), 1500) * v['noise'] * weight
     return x
 
@@ -206,8 +209,9 @@ def write_stones(variant, out):
 
 def candidates():
     os.makedirs(CANDIDATES, exist_ok=True)
-    for v in 'abc':
-        write(f'turn_{v}', turn_chime(v), peak=0.45, out=CANDIDATES)
+    for v in 'abcd':
+        if v in 'abc':
+            write(f'turn_{v}', turn_chime(v), peak=0.45, out=CANDIDATES)
         d = os.path.join(CANDIDATES, f'marble_{v}')
         os.makedirs(d, exist_ok=True)
         write_stones(v, d)
