@@ -32,6 +32,7 @@ class AppSettings extends ChangeNotifier {
   bool _tutorialDone = false;
   LadderRecord _ladder = const LadderRecord();
   Set<String> _cleared = {};
+  Set<String> _seenPieces = {};
   UiStyle _uiStyle = StyleUnlocks.base;
   Set<String> _ownedStyles = {};
 
@@ -87,6 +88,15 @@ class AppSettings extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Fichas que el jugador ya abrió en el códice (por nombre de tipo).
+  bool isPieceSeen(String type) => _seenPieces.contains(type);
+
+  void markPieceSeen(String type) {
+    if (!_seenPieces.add(type)) return;
+    _prefs?.setStringList('seenPieces', _seenPieces.toList());
+    notifyListeners();
+  }
+
   Future<void> load() async {
     try {
       _prefs = await SharedPreferences.getInstance();
@@ -108,6 +118,7 @@ class AppSettings extends ChangeNotifier {
     _onboarded = p.getBool('onboarded') ?? false;
     _tutorialDone = p.getBool('tutorialDone') ?? false;
     _cleared = (p.getStringList('cleared') ?? const []).toSet();
+    _seenPieces = (p.getStringList('seenPieces') ?? const []).toSet();
     _ownedStyles = (p.getStringList('ownedStyles') ?? const []).toSet();
     final style = UiStyle.values.asNameMap()[p.getString('uiStyle')];
     _uiStyle = style != null && isStyleUnlocked(style) ? style : StyleUnlocks.base;

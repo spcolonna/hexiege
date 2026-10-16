@@ -1,7 +1,7 @@
 # Pendientes de diseño
 
-## Códice de fichas (próximo)
-Apartado propio, accesible desde el menú y enlazado desde el tutorial, para estudiar las fichas de a una.
+## Códice de fichas ✅ hecho
+Se entra desde Reglas ("Explorar las fichas" o tocando una ficha). Falta decidir si además va un acceso directo en el menú.
 
 - Listado de las 12 fichas, agrupadas por facción, con arte, nombre y una línea de resumen.
 - Al tocar una se abre su ficha de detalle:

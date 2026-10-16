@@ -2018,5 +2018,115 @@
   "es": "Ver la presentación",
   "en": "Show the briefing",
   "zh": "查看简介"
+ },
+ "codex.title": {
+  "es": "Códice de fichas",
+  "en": "Piece codex",
+  "zh": "棋子图鉴"
+ },
+ "codex.subtitle": {
+  "es": "Estudiá cada ficha a tu ritmo",
+  "en": "Study each piece at your own pace",
+  "zh": "按自己的节奏了解每枚棋子"
+ },
+ "codex.open": {
+  "es": "Explorar las fichas",
+  "en": "Explore the pieces",
+  "zh": "浏览棋子"
+ },
+ "codex.new": {
+  "es": "Nueva",
+  "en": "New",
+  "zh": "新"
+ },
+ "codex.count": {
+  "es": "{n} por partida",
+  "en": "{n} per game",
+  "zh": "每局 {n} 枚"
+ },
+ "codex.leader": {
+  "es": "Líder",
+  "en": "Leader",
+  "zh": "首领"
+ },
+ "codex.example": {
+  "es": "Las casillas marcadas son adonde puede ir.",
+  "en": "The marked spaces are where it can go.",
+  "zh": "标记的格子是它能去的地方。"
+ },
+ "codex.factionAbility": {
+  "es": "Habilidad de la facción",
+  "en": "Faction ability",
+  "zh": "阵营技能"
+ },
+ "codex.prev": {
+  "es": "Anterior",
+  "en": "Previous",
+  "zh": "上一个"
+ },
+ "codex.next": {
+  "es": "Siguiente",
+  "en": "Next",
+  "zh": "下一个"
+ },
+ "codex.tip.monk": {
+  "es": "Es la ficha que tenés que proteger: si queda rodeada por las seis caras, perdés. Entre dos fichas pegadas no pasa: a veces no tiene por dónde salir.",
+  "en": "This is the piece you must protect: if it gets surrounded on all six sides, you lose. It can't squeeze between two touching pieces, so sometimes it has nowhere to go.",
+  "zh": "这是你必须保护的棋子：六面都被围住就输了。它挤不过两枚相邻棋子之间的窄缝，有时无路可走。"
+ },
+ "codex.tip.dragon": {
+  "es": "Vuela sobre toda una fila de fichas, sin importar cuántas sean, y cae en el primer hueco libre.",
+  "en": "It flies over a whole row of pieces, however many there are, and lands in the first empty space.",
+  "zh": "它能飞越一整排棋子，不论多少枚，落在第一个空格。"
+ },
+ "codex.tip.wukong": {
+  "es": "Puede subirse encima de otra ficha y dejarla inmóvil. Acá, al lado del Dragón, también copia su vuelo.",
+  "en": "It can climb on top of another piece and pin it. Here, next to the Dragon, it also copies its flight.",
+  "zh": "它能爬到别的棋子上并将其压住。这里它挨着龙，还能模仿龙的飞行。"
+ },
+ "codex.tip.tiger": {
+  "es": "Embiste en línea recta, hasta 3 casillas. Si termina mirando a una ficha enemiga, la empuja una casilla.",
+  "en": "It charges in a straight line, up to 3 spaces. If it ends facing an enemy piece, it pushes it one space.",
+  "zh": "它沿直线冲锋，最多 3 格。若停下时正对敌方棋子，就把它推开一格。"
+ },
+ "codex.tip.crane": {
+  "es": "Salta en línea recta sobre una o dos fichas seguidas, nunca sobre tres.",
+  "en": "It jumps in a straight line over one or two pieces in a row, never three.",
+  "zh": "它沿直线跳过一到两枚相连的棋子，不能跳过三枚。"
+ },
+ "codex.tip.serpent": {
+  "es": "Mirá la Kunoichi enemiga a su lado: mientras la Serpiente esté pegada, pierde su efecto especial.",
+  "en": "Look at the enemy Kunoichi next to it: while the Serpent is adjacent, it loses its special effect.",
+  "zh": "看它旁边的敌方女忍：只要蛇紧挨着，它就失去特殊效果。"
+ },
+ "codex.tip.shogun": {
+  "es": "Es la ficha que tenés que proteger. Una vez por partida puede cambiar de lugar con un Shinobi pegado (marcado en dorado).",
+  "en": "This is the piece you must protect. Once per game it can swap places with an adjacent Shinobi (marked in gold).",
+  "zh": "这是你必须保护的棋子。每局一次，可与相邻的忍者交换位置（金色标记）。"
+ },
+ "codex.tip.shinobi": {
+  "es": "Se cuela por pasos estrechos donde nadie más entra: mirá el hueco encerrado al lado del Monje.",
+  "en": "It slips through narrow gaps no one else can enter: look at the enclosed gap next to the Monk.",
+  "zh": "它能钻过别人进不去的窄缝：看看僧旁边被围住的空格。"
+ },
+ "codex.tip.kunoichi": {
+  "es": "Después de moverse paraliza a una ficha enemiga pegada, que no podrá moverse en su turno siguiente (la del copo de nieve).",
+  "en": "After moving, it paralyzes an adjacent enemy piece, which can't move on its next turn (the one with the snowflake).",
+  "zh": "移动后可麻痹一枚相邻敌方棋子，使其下回合不能移动（带雪花的那枚）。"
+ },
+ "codex.tip.tengu": {
+  "es": "No camina: aparece en cualquier hueco que toque al menos 3 fichas, esté donde esté.",
+  "en": "It doesn't walk: it appears in any gap touching at least 3 pieces, wherever it is.",
+  "zh": "它不走路：可瞬移到任何至少接触 3 枚棋子的空格。"
+ },
+ "codex.tip.kitsune": {
+  "es": "Ágil y simple: se desliza una o dos casillas por el borde de la colmena.",
+  "en": "Nimble and simple: it slides one or two spaces along the edge of the hive.",
+  "zh": "灵巧简单：沿蜂巢边缘滑动一到两格。"
+ },
+ "codex.tip.shadow": {
+  "es": "Al moverse puede dejar un Sello (el círculo): la ficha enemiga que entre ahí queda paralizada.",
+  "en": "When it moves it can leave a Seal (the circle): an enemy piece that steps there gets paralyzed.",
+  "zh": "移动时可留下封印（圆圈）：踏入的敌方棋子会被麻痹。"
  }
 }

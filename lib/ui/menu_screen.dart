@@ -4,6 +4,7 @@ import '../i18n/i18n.dart';
 import '../engine/pieces.dart';
 import '../engine/rules.dart';
 import '../solo/catalog.dart';
+import 'codex_screen.dart';
 import 'fx/sfx.dart';
 import 'game_screen.dart';
 import 'matchmaking_screen.dart';
@@ -267,6 +268,12 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               }),
               style: TextStyle(fontSize: 15, height: 1.45, color: t.text),
             ),
+            const SizedBox(height: 16),
+            SkinButton(
+              glyph: '鑑',
+              label: tr('codex.open'),
+              onPressed: () => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const CodexScreen())),
+            ),
             for (final f in Faction.values) ...[
               const SizedBox(height: 22),
               Text(f.displayName, style: skin.display(24, color: HexTheme.faction(f))),
@@ -274,28 +281,33 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               Text('${f.abilityName}: ${f.abilityDescription}', style: TextStyle(color: t.textMuted, height: 1.4)),
               const SizedBox(height: 8),
               for (final e in startingHands[f]!.entries)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      PieceChip(type: e.key, owner: f == Faction.shaolin ? 0 : 1, size: 16),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '${e.key.displayName} ×${e.value}  ',
-                                style: const TextStyle(fontWeight: FontWeight.w900),
-                              ),
-                              TextSpan(text: e.key.rulesText),
-                            ],
+                Pressable(
+                  semanticLabel: e.key.displayName,
+                  onTap: () => Navigator.push(ctx, MaterialPageRoute(builder: (_) => CodexPieceScreen(initial: e.key))),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        PieceChip(type: e.key, owner: f == Faction.shaolin ? 0 : 1, size: 16),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '${e.key.displayName} ×${e.value}  ',
+                                  style: const TextStyle(fontWeight: FontWeight.w900),
+                                ),
+                                TextSpan(text: e.key.rulesText),
+                              ],
+                            ),
+                            style: TextStyle(color: t.text, height: 1.4),
                           ),
-                          style: TextStyle(color: t.text, height: 1.4),
                         ),
-                      ),
-                    ],
+                        Icon(Icons.chevron_right_rounded, color: t.textMuted),
+                      ],
+                    ),
                   ),
                 ),
             ],
