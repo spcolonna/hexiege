@@ -6,11 +6,11 @@ Cada uno es autocontenido: se copia y se pega tal cual.
 | Asset | Lo que entregás | Lo que queda en el juego |
 |---|---|---|
 | 12 fichas | PNG de ChatGPT, fondo transparente | `assets/pieces/<facción>_<tipo>.webp`, 512×512 (~25 KB) |
-| 2 emblemas | PNG 1024×1024, transparente | `assets/emblems/` (todavía no se usan en el código) |
+| 2 emblemas | PNG 1024×1024, transparente | `assets/emblems/<facción>_emblem.webp`, 512×512 |
 | 4 texturas de mesa + piedra vacía | PNG opaco | `assets/textures/` (todavía no se usan en el código) |
 | 2 texturas de piedra de ficha | PNG opaco, tileable | `assets/textures/<facción>_stone.webp` |
 | Ícono de la app | PNG 1024×1024 **opaco** | `ios/…/AppIcon.appiconset` y Android, generados con `flutter_launcher_icons` |
-| Pantalla de carga | PNG 1024×1024, transparente | `assets/splash/` con `flutter_native_splash` |
+| Pantalla de carga | PNG 1024×1024, transparente | generada con `flutter_native_splash` (config en `flutter_native_splash.yaml`) |
 
 ---
 
@@ -20,14 +20,12 @@ Cada uno es autocontenido: se copia y se pega tal cual.
 
 | Asset | Estado |
 |---|---|
-| Fichas Shaolin: Monje, Dragón, Rey Mono | ✅ |
-| Fichas Shaolin: Tigre, Grulla, Serpiente | ⬜ |
-| Fichas Ninja: Shogun, Shinobi, Kunoichi, Tengu, Kitsune, Sombra | ⬜ |
+| Las 12 fichas (Shaolin y Ninja) | ✅ |
 | Piedra de las fichas (Shaolin y Ninja) | ✅ |
-| Ícono de la app (sección 8) | ⬜ — hoy es el de Flutter por defecto |
-| Pantalla de carga (sección 9) | ⬜ — hoy es blanca |
-| Emblemas de facción | ⬜ (opcional) |
-| Texturas de mesa y piedra vacía | ⬜ (opcional) |
+| Ícono de la app (sección 8) | ✅ — generado para iOS y Android; el PNG de origen se borró |
+| Pantalla de carga (sección 9) | ✅ — fondo #231E1A con el logo; el PNG de origen se borró |
+| Emblemas de facción | ✅ — webp 512, se usan en el códice de fichas |
+| Texturas de mesa y piedra vacía (sección 6) | ⬜ en pausa — no generar por ahora |
 
 ---
 
@@ -114,7 +112,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Tigre de Mármol — `shaolin_tiger` ⬜ falta
+### Tigre de Mármol — `shaolin_tiger` ✅ en el juego
 Habilidad: Embiste 1–3 casillas en línea recta y empuja una ficha enemiga.
 
 ```
@@ -133,7 +131,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; blood; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Grulla de Viento — `shaolin_crane` ⬜ falta
+### Grulla de Viento — `shaolin_crane` ✅ en el juego
 Habilidad: Salta en línea recta sobre 1 o 2 fichas.
 
 ```
@@ -152,7 +150,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Serpiente de Jade — `shaolin_serpent` ⬜ falta
+### Serpiente de Jade — `shaolin_serpent` ✅ en el juego
 Habilidad: Se desliza 1 o 2 casillas; las fichas enemigas adyacentes pierden sus efectos especiales.
 
 ```
@@ -175,7 +173,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 
 Cada prompt está completo: copialo tal cual. Ver el flujo de trabajo en la sección 2.
 
-### Gran Shogun (Líder) — `ninja_shogun` ⬜ falta
+### Gran Shogun (Líder) — `ninja_shogun` ✅ en el juego
 Habilidad: Líder, se desliza 1 casilla; una vez por partida intercambia lugar con un Shinobi adyacente.
 
 ```
@@ -194,7 +192,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a sun disc, halo or ring behind the head; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Shinobi — `ninja_shinobi` ⬜ falta
+### Shinobi — `ninja_shinobi` ✅ en el juego
 Habilidad: Se desliza hasta 4 casillas por el perímetro, incluso por huecos estrechos.
 
 ```
@@ -213,7 +211,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Kunoichi — `ninja_kunoichi` ⬜ falta
+### Kunoichi — `ninja_kunoichi` ✅ en el juego
 Habilidad: Se desliza hasta 2 casillas y paraliza a una ficha enemiga adyacente por 1 turno.
 
 ```
@@ -232,7 +230,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Tengu — `ninja_tengu` ⬜ falta
+### Tengu — `ninja_tengu` ✅ en el juego
 Habilidad: Se teletransporta a cualquier hueco que toque al menos 3 fichas.
 
 ```
@@ -251,7 +249,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Kitsune — `ninja_kitsune` ⬜ falta
+### Kitsune — `ninja_kitsune` ✅ en el juego
 Habilidad: Se desliza 1 o 2 casillas (ficha ágil básica).
 
 ```
@@ -270,7 +268,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; extra figures or objects; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-### Sombra Errante — `ninja_shadow` ⬜ falta
+### Sombra Errante — `ninja_shadow` ✅ en el juego
 Habilidad: Se desliza 1 casilla y puede dejar un Sello de Sombra que paraliza a quien caiga ahí.
 
 ```
@@ -293,16 +291,16 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 
 ## 5. Emblemas de facción
 
-Tamaño 1024×1024, fondo transparente. Todavía no se usan en el código; antes de generarlos conviene
+Tamaño 1024×1024, fondo transparente. Se usan como cabecera de cada facción en el códice de fichas.
 reescribirlos en el formato de las fichas.
 
-### Templo Shaolin — `assets/emblems/shaolin_emblem.png` ⬜ falta (opcional)
+### Templo Shaolin — `assets/emblems/shaolin_emblem.webp` ✅ en el juego (códice)
 
 ```
 Faction emblem, bas-relief carved in polished white marble with green jade inlay and thin gold leaf edges, a circular medallion containing a stylized lotus flower above a pair of open meditating palms, surrounded by a ring of carved clouds, front view, centered, symmetrical, bold silhouette readable at 48 pixels, soft light from the top-left, isolated on a fully transparent background, 1024x1024 PNG
 ```
 
-### Sombras Ninja — `assets/emblems/ninja_emblem.png` ⬜ falta (opcional)
+### Sombras Ninja — `assets/emblems/ninja_emblem.webp` ✅ en el juego (códice)
 
 ```
 Faction emblem, bas-relief carved in polished black obsidian with glowing crimson veins and thin brass edges, a circular medallion containing two crossed kunai over a crescent moon with a four-pointed shuriken at the center, front view, centered, symmetrical, bold silhouette readable at 48 pixels, soft light from the top-left, isolated on a fully transparent background, 1024x1024 PNG
@@ -311,6 +309,21 @@ Faction emblem, bas-relief carved in polished black obsidian with glowing crimso
 ---
 
 ## 6. Texturas de "mesa de juego física"
+
+> **En pausa: no hace falta generar nada de esta sección por ahora.**
+>
+> Son *fondos*, no objetos: la superficie de la mesa sobre la que se apoya el tablero
+> (vista desde arriba, sin nada encima) y la imagen de fondo del menú. La idea original era
+> reemplazar con fotos los fondos que hoy el juego pinta por código. Con el rediseño de la
+> interfaz (estilos Caja de juego / Ema y washi / Panal) esos fondos ya tienen look propio, así
+> que primero hay que decidir si se quiere una textura real; si se decide que sí, se reescriben
+> estos prompts para el estilo elegido.
+>
+> - **Tablero (tileable)**: un cuadrado que se repite como baldosa sin que se noten las uniones;
+>   por eso debe ser liso y de poco contraste.
+> - **Fondo de menú**: una sola imagen grande que se recorta para llenar la pantalla; el centro
+>   va vacío porque encima van los botones.
+> - **Piedra vacía**: granito gris neutro para casillas o fichas sin imagen.
 
 Negative común para texturas:
 
@@ -394,7 +407,7 @@ DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carvi
 
 ---
 
-## 8. Ícono de la app — `assets/icon/app_icon.png` ⬜ falta
+## 8. Ícono de la app — `assets/icon/app_icon.png` ✅ en el juego
 
 1024×1024, **completamente opaco** (iOS rechaza íconos con transparencia) y sin esquinas redondeadas: el sistema
 las recorta. Se ve a 60 px en la pantalla de inicio, así que tiene que leerse con una sola forma.
@@ -415,7 +428,7 @@ COMPOSITION: The two tiles together are centered and fill about 70% of the canva
 DO NOT INCLUDE: any text, letters, logo or Chinese/Japanese characters; people or creatures; a border or frame; rounded corners; transparency; cartoon, anime or flat vector style.
 ```
 
-## 9. Pantalla de carga — `assets/splash/splash_logo.png` ⬜ falta
+## 9. Pantalla de carga — `assets/splash/splash_logo.png` ✅ en el juego
 
 1024×1024, fondo transparente. Es el logo que aparece centrado mientras abre la app, sobre un color liso que pone
 el código (claro u oscuro según el sistema). Debe verse bien sobre los dos.

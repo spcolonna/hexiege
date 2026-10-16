@@ -1,0 +1,9 @@
+# Los PNG de origen se borran tras generar; para regenerar, volver a poner
+# assets/icon/app_icon.png (1024, opaco) y app_icon_fg.png (72% centrado, transparente).
+flutter_launcher_icons:
+  image_path: "assets/icon/app_icon.png"
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  adaptive_icon_background: "#231E1A"
+  adaptive_icon_foreground: "assets/icon/app_icon_fg.png"
