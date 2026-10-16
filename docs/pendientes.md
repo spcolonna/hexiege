@@ -12,11 +12,11 @@ Se entra desde Reglas ("Explorar las fichas" o tocando una ficha). Falta decidir
 - Opcional: marcar las fichas ya vistas y mostrar "nueva" en las que el jugador todavía no abrió.
 - Reutiliza `PieceRenderer` y el motor real para los ejemplos, así no se desincroniza con las reglas.
 
-## Galería de fichas desbloqueables (a futuro)
-Sección donde el jugador va desbloqueando las fichas como obsequios o regalos y puede verlas en detalle.
+## Galería de fichas desbloqueables ✅ hecho
+Botón "Galería" en el menú (con un punto si hay regalos sin abrir).
 
-- Cada ficha se recibe como regalo (por ejemplo al ganar campaña, desafíos, rachas o hitos); la bloqueada se ve como silueta.
-- Vista de detalle: zoom con pellizco y rotación de la ficha de piedra para apreciar el arte, el canto y la textura.
-- Animación de "abrir el regalo" la primera vez.
-- Depende de tener todo el arte final de las 12 fichas (ver `asset_prompts.md`) y probablemente un arte de mayor resolución para el zoom.
-- Puede compartir datos con el códice (fichas vistas / obtenidas).
+- Cada ficha se gana con un hito (`lib/codex/gifts.dart`): tutorial, primera victoria, batallas de cada campaña, 6 problemas y 3 desafíos. Todas se pueden jugar desde el principio; el regalo es la pieza de colección.
+- Al ganar una aparece un aviso arriba ("¡Regalo!"), también al abrir el menú si hay ganadas de antes.
+- En la galería: las bloqueadas son silueta (al tocarlas dicen cómo se ganan); las ganadas aparecen envueltas y se abren con una animación (la caja tiembla, se abre y la ficha sube entre rayos).
+- Visor 3D: girar con un dedo (con inercia), pellizcar o doble toque para zoom; el dorso lleva el emblema de la facción.
+- Pendiente: el arte está a 512 px; para un zoom más nítido harían falta las ilustraciones a 1024 px o más.

@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
@@ -74,7 +75,40 @@ class PieceRenderer {
       Paint()..color = Color.lerp(side, theme.stone[tone][1], 0.35)!,
     );
 
-    // Cara
+    final facePath = hexAt(face, r);
+    drawFace(canvas, theme: theme, type: type, tone: tone, face: face, r: r, seed: seed);
+
+    if (paralyzed) {
+      canvas.drawPath(facePath, Paint()..color = theme.frost.withValues(alpha: 0.35));
+      // Copo dibujado (no depende de fuentes emoji)
+      final fc = face + Offset(-r * 0.55, -r * 0.52);
+      final flake = Paint()
+        ..strokeWidth = max(1.2, r * 0.07)
+        ..strokeCap = StrokeCap.round
+        ..color = Colors.white;
+      for (var k = 0; k < 3; k++) {
+        final a = k * pi / 3 + pi / 2;
+        final d = Offset(cos(a), sin(a)) * r * 0.2;
+        canvas.drawLine(fc - d, fc + d, flake);
+      }
+    }
+    if (opacity < 1) canvas.restore();
+  }
+
+  /// La cara de la ficha (piedra, borde de facción, ilustración y anillo de
+  /// líder) centrada en [face] con radio [r]. [tone] 0 = piedra clara, 1 = oscura.
+  /// [art] reemplaza la ilustración (por ejemplo, la de alta resolución del visor).
+  static void drawFace(
+    Canvas canvas, {
+    required HexTheme theme,
+    required PieceType type,
+    required int tone,
+    required Offset face,
+    required double r,
+    int seed = 0,
+    ui.Image? art,
+  }) {
+    final hiRes = art != null;
     final facePath = hexAt(face, r);
     final texture = PieceArt.stone(tone == 0 ? Faction.shaolin : Faction.ninja);
     canvas.save();
@@ -142,7 +176,7 @@ class PieceRenderer {
         ..strokeWidth = max(1.5, r * 0.09)
         ..color = HexTheme.faction(type.faction),
     );
-    final art = AppSettings.instance.useGlyphs ? null : PieceArt.of(type);
+    art ??= AppSettings.instance.useGlyphs ? null : PieceArt.of(type);
     if (art != null) {
       // Relieve tallado: la ilustración ocupa la cara, recortada al hexágono.
       canvas.save();
@@ -152,7 +186,7 @@ class PieceRenderer {
         rect: Rect.fromCircle(center: face, radius: r * 0.8),
         image: art,
         fit: BoxFit.contain,
-        filterQuality: FilterQuality.medium,
+        filterQuality: hiRes ? FilterQuality.high : FilterQuality.medium,
       );
       canvas.restore();
     } else {
@@ -169,21 +203,6 @@ class PieceRenderer {
       );
     }
 
-    if (paralyzed) {
-      canvas.drawPath(facePath, Paint()..color = theme.frost.withValues(alpha: 0.35));
-      // Copo dibujado (no depende de fuentes emoji)
-      final fc = face + Offset(-r * 0.55, -r * 0.52);
-      final flake = Paint()
-        ..strokeWidth = max(1.2, r * 0.07)
-        ..strokeCap = StrokeCap.round
-        ..color = Colors.white;
-      for (var k = 0; k < 3; k++) {
-        final a = k * pi / 3 + pi / 2;
-        final d = Offset(cos(a), sin(a)) * r * 0.2;
-        canvas.drawLine(fc - d, fc + d, flake);
-      }
-    }
-    if (opacity < 1) canvas.restore();
   }
 
   static void text(Canvas canvas, String s, Offset center, double fontSize, Color color) {

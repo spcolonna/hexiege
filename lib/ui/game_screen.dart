@@ -17,6 +17,7 @@ import '../tutorial/lessons.dart';
 import 'board_painter.dart';
 import 'fx/board_fx.dart';
 import 'fx/sfx.dart';
+import 'gallery_screen.dart';
 import 'hex_layout.dart';
 import 'matchmaking_screen.dart';
 import 'piece_chip.dart';
@@ -498,7 +499,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _reset();
     });
     if (ok) AppSettings.instance.markCleared(_stage!.id);
-    Future.delayed(Duration(milliseconds: (after * 1000).round() + 500), () {
+    final wait = Duration(milliseconds: (after * 1000).round() + 500);
+    GiftToast.check(context, delay: wait + const Duration(milliseconds: 900));
+    Future.delayed(wait, () {
       if (!mounted) return;
       SoundBoard.instance.play(ok ? Sfx.victory : Sfx.defeat);
       Haptics.heavy();
@@ -585,6 +588,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   void _finishTutorial() {
     AppSettings.instance.tutorialDone = true;
+    GiftToast.check(context);
     showSkinDialog<void>(
       context,
       dismissible: false,
@@ -827,6 +831,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _showRankedResult();
       return;
     }
+    if (widget.aiPlayer != null && !_game.draw && !humanLost) AppSettings.instance.recordWin();
+    GiftToast.check(context);
     final text = _game.endedByLimit
         ? tr('game.over.drawLimit', {'n': _game.rules.roundLimit!})
         : _game.draw
@@ -918,6 +924,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   }
 
   void _showRankedResult() {
+    GiftToast.check(context);
     final before = _ladderBefore!;
     final after = AppSettings.instance.ladder;
     final opp = widget.match!.opponent;

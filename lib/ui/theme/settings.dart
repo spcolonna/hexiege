@@ -33,6 +33,9 @@ class AppSettings extends ChangeNotifier {
   LadderRecord _ladder = const LadderRecord();
   Set<String> _cleared = {};
   Set<String> _seenPieces = {};
+  Set<String> _giftsAnnounced = {};
+  Set<String> _giftsOpened = {};
+  int _wins = 0;
   UiStyle _uiStyle = StyleUnlocks.base;
   Set<String> _ownedStyles = {};
 
@@ -97,6 +100,33 @@ class AppSettings extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Victorias fuera de las partidas por puntos (contra la IA).
+  int get wins => _wins;
+
+  void recordWin() {
+    _wins++;
+    _prefs?.setInt('wins', _wins);
+    notifyListeners();
+  }
+
+  /// Fichas regalo que ya se le avisaron al jugador.
+  bool isGiftAnnounced(String type) => _giftsAnnounced.contains(type);
+
+  void announceGifts(Iterable<String> types) {
+    if (!types.any(_giftsAnnounced.add)) return;
+    _prefs?.setStringList('giftsAnnounced', _giftsAnnounced.toList());
+    notifyListeners();
+  }
+
+  /// Fichas regalo que ya desenvolvió en la galería.
+  bool isGiftOpened(String type) => _giftsOpened.contains(type);
+
+  void openGift(String type) {
+    if (!_giftsOpened.add(type)) return;
+    _prefs?.setStringList('giftsOpened', _giftsOpened.toList());
+    notifyListeners();
+  }
+
   Future<void> load() async {
     try {
       _prefs = await SharedPreferences.getInstance();
@@ -119,6 +149,9 @@ class AppSettings extends ChangeNotifier {
     _tutorialDone = p.getBool('tutorialDone') ?? false;
     _cleared = (p.getStringList('cleared') ?? const []).toSet();
     _seenPieces = (p.getStringList('seenPieces') ?? const []).toSet();
+    _giftsAnnounced = (p.getStringList('giftsAnnounced') ?? const []).toSet();
+    _giftsOpened = (p.getStringList('giftsOpened') ?? const []).toSet();
+    _wins = p.getInt('wins') ?? 0;
     _ownedStyles = (p.getStringList('ownedStyles') ?? const []).toSet();
     final style = UiStyle.values.asNameMap()[p.getString('uiStyle')];
     _uiStyle = style != null && isStyleUnlocked(style) ? style : StyleUnlocks.base;

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../codex/gifts.dart';
 import '../engine/pieces.dart';
 import '../i18n/i18n.dart';
 import 'piece_chip.dart';
@@ -19,6 +20,7 @@ class MenuModel {
   final VoidCallback local;
   final VoidCallback tutorial;
   final VoidCallback rules;
+  final VoidCallback gallery;
   final VoidCallback settings;
   final VoidCallback rename;
   final ValueChanged<Faction> setFaction;
@@ -34,6 +36,7 @@ class MenuModel {
     required this.local,
     required this.tutorial,
     required this.rules,
+    required this.gallery,
     required this.settings,
     required this.rename,
     required this.setFaction,
@@ -43,6 +46,9 @@ class MenuModel {
 
   Faction get faction => AppSettings.instance.faction;
   String get soloProgress => '$soloDone/$soloTotal';
+
+  /// "Galería", con un punto si hay regalos sin abrir.
+  String get galleryLabel => Gift.pending.isEmpty ? tr('gallery.title') : '${tr('gallery.title')} •';
 }
 
 PieceType leaderOf(Faction f) => f == Faction.shaolin ? PieceType.monk : PieceType.shogun;
@@ -256,6 +262,15 @@ class BoxMenu extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: SkinButton(glyph: '法', label: tr('menu.rules'), onPressed: m.rules),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: SkinButton(
+                glyph: '宝',
+                color: Gift.pending.isEmpty ? null : t.gold,
+                label: tr('gallery.title'),
+                onPressed: m.gallery,
+              ),
             ),
           ],
         ),
@@ -484,12 +499,13 @@ class EmaMenu extends StatelessWidget {
           },
         ),
         const SizedBox(height: 14),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 4,
           children: [
             SkinLink(label: tr('menu.tutorial'), onPressed: m.tutorial),
-            const SizedBox(width: 12),
             SkinLink(label: tr('menu.rules'), onPressed: m.rules),
+            SkinLink(label: m.galleryLabel, onPressed: m.gallery),
           ],
         ),
       ],
@@ -744,6 +760,8 @@ class CombMenu extends StatelessWidget {
             );
           },
         ),
+        const SizedBox(height: 6),
+        SkinLink(label: m.galleryLabel, onPressed: m.gallery),
       ],
     );
   }

@@ -346,11 +346,20 @@ class GameState {
     final target = to + dir;
     final dest = target + dir;
     final t = board.top(target);
-    if (t == null || t.owner == current || board.height(target) != 1 || board.isOccupied(dest)) return null;
+    if (t == null || t.owner == board.top(to)!.owner || board.height(target) != 1 || board.isOccupied(dest)) return null;
     final b = Board.copy(board);
     b.push(dest, b.pop(target));
     if (!b.isConnected()) return null;
     return (target: target, dest: dest, after: b);
+  }
+
+  /// Empujón que haría el Tigre de [from] si fuera a [to] (sin mover nada), o null.
+  ({Hex target, Hex dest})? tigerPushPreview(Hex from, Hex to) {
+    final b = Board.copy(board);
+    b.push(to, b.pop(from));
+    if (_suppressedOn(b, to, b.top(to)!.owner)) return null;
+    final push = _tigerPushTarget(b, from, to);
+    return push == null ? null : (target: push.target, dest: push.dest);
   }
 
   void _tigerPush(Hex from, Hex to) {

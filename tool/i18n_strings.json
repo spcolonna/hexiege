@@ -2128,5 +2128,100 @@
   "es": "Al moverse puede dejar un Sello (el círculo): la ficha enemiga que entre ahí queda paralizada.",
   "en": "When it moves it can leave a Seal (the circle): an enemy piece that steps there gets paralyzed.",
   "zh": "移动时可留下封印（圆圈）：踏入的敌方棋子会被麻痹。"
+ },
+ "gallery.title": {
+  "es": "Galería",
+  "en": "Gallery",
+  "zh": "珍藏馆"
+ },
+ "gallery.subtitle": {
+  "es": "Las fichas que fuiste ganando",
+  "en": "The pieces you've earned",
+  "zh": "你赢得的棋子"
+ },
+ "gallery.open": {
+  "es": "¡Abrir!",
+  "en": "Open!",
+  "zh": "打开！"
+ },
+ "gallery.locked": {
+  "es": "Bloqueada",
+  "en": "Locked",
+  "zh": "未解锁"
+ },
+ "gallery.newPiece": {
+  "es": "Nueva ficha",
+  "en": "New piece",
+  "zh": "新棋子"
+ },
+ "gallery.inspect": {
+  "es": "Verla de cerca",
+  "en": "Take a closer look",
+  "zh": "近距离欣赏"
+ },
+ "gallery.continue": {
+  "es": "Seguir",
+  "en": "Continue",
+  "zh": "继续"
+ },
+ "gallery.gestures": {
+  "es": "Arrastrá para girarla · pellizcá para acercar · doble toque para zoom",
+  "en": "Drag to turn it · pinch to zoom · double-tap to zoom",
+  "zh": "拖动旋转 · 双指缩放 · 双击放大"
+ },
+ "gallery.howItMoves": {
+  "es": "Cómo se mueve",
+  "en": "How it moves",
+  "zh": "走法"
+ },
+ "gallery.toast.title": {
+  "es": "¡Regalo!",
+  "en": "A gift!",
+  "zh": "礼物！"
+ },
+ "gallery.toast.one": {
+  "es": "Ganaste: {name}",
+  "en": "You earned: {name}",
+  "zh": "你获得了：{name}"
+ },
+ "gallery.toast.many": {
+  "es": "Ganaste {n} fichas nuevas",
+  "en": "You earned {n} new pieces",
+  "zh": "你获得了 {n} 枚新棋子"
+ },
+ "gallery.toast.tap": {
+  "es": "Tocá para abrirlo en la Galería",
+  "en": "Tap to open it in the Gallery",
+  "zh": "点击在珍藏馆中打开"
+ },
+ "gift.hint.tutorial": {
+  "es": "Se gana al terminar el tutorial.",
+  "en": "Earned by finishing the tutorial.",
+  "zh": "完成教程即可获得。"
+ },
+ "gift.hint.firstWin": {
+  "es": "Se gana con tu primera victoria contra la IA o por puntos.",
+  "en": "Earned with your first win against the AI or in ranked.",
+  "zh": "首次战胜电脑或在排位赛获胜即可获得。"
+ },
+ "gift.hint.shaolin": {
+  "es": "Se gana al superar la batalla {n} de la campaña Shaolin.",
+  "en": "Earned by beating battle {n} of the Shaolin campaign.",
+  "zh": "通过少林战役第 {n} 战即可获得。"
+ },
+ "gift.hint.ninja": {
+  "es": "Se gana al superar la batalla {n} de la campaña Ninja.",
+  "en": "Earned by beating battle {n} of the Ninja campaign.",
+  "zh": "通过忍者战役第 {n} 战即可获得。"
+ },
+ "gift.hint.puzzles": {
+  "es": "Se gana al resolver {n} problemas.",
+  "en": "Earned by solving {n} puzzles.",
+  "zh": "解开 {n} 道谜题即可获得。"
+ },
+ "gift.hint.challenges": {
+  "es": "Se gana al superar {n} desafíos.",
+  "en": "Earned by beating {n} challenges.",
+  "zh": "通过 {n} 个挑战即可获得。"
  }
 }

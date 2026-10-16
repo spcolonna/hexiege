@@ -19,12 +19,24 @@ class CodexScene {
   /// Shinobis con los que puede intercambiarse (solo el Shogun).
   final Set<Hex> swapTargets;
 
-  CodexScene._(this.type, this.game, this.subject, this.targets, this.swapTargets);
+  /// Fichas enemigas que empuja el Tigre según adónde vaya: destino → (desde, hasta).
+  final Map<Hex, ({Hex target, Hex dest})> pushes;
+
+  CodexScene._(this.type, this.game, this.subject, this.targets, this.swapTargets, this.pushes);
 
   /// La misma posición sin la ficha que se mueve (para dibujarla aparte, animada).
   GameState get lifted {
     final g = game.copy();
     g.board.pop(subject);
+    return g;
+  }
+
+  /// Fondo estático: sin la ficha estudiada ni las que pueden ser empujadas.
+  GameState get backdrop {
+    final g = lifted;
+    for (final p in pushes.values) {
+      if (g.board.isOccupied(p.target)) g.board.pop(p.target);
+    }
     return g;
   }
 
@@ -50,7 +62,14 @@ class CodexScene {
     final swaps = type == PieceType.shogun
         ? subject.neighbors.where((n) => game.board.top(n)?.type == PieceType.shinobi).toSet()
         : <Hex>{};
-    return CodexScene._(type, game, subject, targets, swaps);
+    final pushes = <Hex, ({Hex target, Hex dest})>{};
+    if (type == PieceType.tiger) {
+      for (final to in targets) {
+        final push = game.tigerPushPreview(subject, to);
+        if (push != null) pushes[to] = push;
+      }
+    }
+    return CodexScene._(type, game, subject, targets, swaps, pushes);
   }
 
   /// (ficha estudiada, todas las fichas incluida ella, ajustes extra).
@@ -96,12 +115,13 @@ class CodexScene {
         return (
           s,
           const [
+            // Al cargar hasta (1,0) queda mirando a la Kitsune y la empuja.
             (0, PieceType.tiger, s),
-            (0, PieceType.monk, Hex(0, 0)),
-            (1, PieceType.kitsune, Hex(1, 0)),
-            (1, PieceType.shogun, Hex(2, 0)),
-            (0, PieceType.serpent, Hex(0, 1)),
-            (1, PieceType.shinobi, Hex(1, 1)),
+            (0, PieceType.monk, Hex(-1, 1)),
+            (0, PieceType.crane, Hex(0, 1)),
+            (0, PieceType.serpent, Hex(1, 1)),
+            (1, PieceType.kitsune, Hex(2, 0)),
+            (1, PieceType.shogun, Hex(2, 1)),
           ],
           null,
         );

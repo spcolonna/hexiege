@@ -358,7 +358,7 @@ class _CodexBoardState extends State<CodexBoard> with SingleTickerProviderStateM
               RepaintBoundary(
                 child: CustomPaint(
                   painter: BoardPainter(
-                    game: scene.lifted,
+                    game: scene.backdrop,
                     layout: layout,
                     theme: t,
                     selected: scene.subject,
@@ -380,7 +380,13 @@ class _CodexBoardState extends State<CodexBoard> with SingleTickerProviderStateM
   /// Encuadra fichas, destinos y sellos en el espacio disponible.
   HexLayout _fit(Size size) {
     final s = widget.scene;
-    final cells = {...s.game.board.occupied, ...s.targets, s.subject, ...s.game.seals.keys};
+    final cells = {
+      ...s.game.board.occupied,
+      ...s.targets,
+      s.subject,
+      ...s.game.seals.keys,
+      ...s.pushes.values.map((p) => p.dest),
+    };
     const unit = HexLayout(1, Offset.zero);
     var minX = double.infinity, maxX = -double.infinity, minY = double.infinity, maxY = -double.infinity;
     for (final h in cells) {
@@ -432,6 +438,7 @@ class _MoverPainter extends CustomPainter {
     final dst = tour[min(v.floor(), tour.length - 1)];
     final f = v - v.floor();
     final to = layout.toPixel(dst);
+    _paintPushed(canvas, dst, f);
     // Si cae encima de una pila (Rey Mono), queda a la altura de esa pila.
     final landZ = scene.lifted.board.height(dst) * layout.size * BoardFx.stackStep;
     final hop = layout.size * (_flies ? 0.9 : 0.3);
@@ -452,6 +459,38 @@ class _MoverPainter extends CustomPainter {
       final p = (f - 0.86) / 0.14;
       draw(to, z: landZ, opacity: 1 - p);
       draw(src, opacity: p);
+    }
+  }
+
+  /// Fichas que el Tigre puede empujar: quietas, salvo cuando la carga actual las empuja.
+  void _paintPushed(Canvas canvas, Hex dst, double f) {
+    for (final MapEntry(key: to, value: push) in scene.pushes.entries) {
+      final piece = scene.game.board.top(push.target)!;
+      final from = layout.toPixel(push.target), away = layout.toPixel(push.dest);
+      void draw(Offset c, {double z = 0, double opacity = 1}) => PieceRenderer.draw(
+        canvas,
+        theme: theme,
+        type: piece.type,
+        owner: piece.owner,
+        c: c,
+        radius: layout.size,
+        z: z,
+        opacity: opacity,
+        seed: piece.id,
+      );
+      if (to != dst || f < 0.56) {
+        draw(from);
+      } else if (f < 0.72) {
+        // El golpe: sale despedida una casilla con un saltito.
+        final p = Curves.easeOutCubic.transform((f - 0.56) / 0.16);
+        draw(Offset.lerp(from, away, p)!, z: sin(pi * p) * layout.size * 0.25);
+      } else if (f < 0.86) {
+        draw(away);
+      } else {
+        final p = (f - 0.86) / 0.14;
+        draw(away, opacity: 1 - p);
+        draw(from, opacity: p);
+      }
     }
   }
 

@@ -5,6 +5,7 @@ import '../engine/pieces.dart';
 import '../engine/rules.dart';
 import '../solo/catalog.dart';
 import 'codex_screen.dart';
+import 'gallery_screen.dart';
 import 'fx/sfx.dart';
 import 'game_screen.dart';
 import 'matchmaking_screen.dart';
@@ -27,6 +28,15 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateMixin {
   Faction get _faction => AppSettings.instance.faction;
   late final _float = AnimationController(vsync: this, duration: const Duration(seconds: 4))..repeat();
+
+  @override
+  void initState() {
+    super.initState();
+    // Regalos ganados antes de que existiera la galería (o en otra pantalla).
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) GiftToast.check(context, delay: const Duration(milliseconds: 1200));
+    });
+  }
 
   @override
   void dispose() {
@@ -110,6 +120,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
       local: _passAndPlay,
       tutorial: _tutorial,
       rules: _rules,
+      gallery: () => Navigator.push(context, _fade(const GalleryScreen())),
       settings: _settings,
       rename: _rename,
       setFaction: (f) {

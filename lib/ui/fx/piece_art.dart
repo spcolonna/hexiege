@@ -17,6 +17,24 @@ class PieceArt {
   /// Textura de la piedra de las fichas de [f] (`assets/textures/<facción>_stone.webp`).
   static ui.Image? stone(Faction f) => _stones[f];
 
+  static final _full = <String, Future<ui.Image?>>{};
+
+  /// La ilustración a resolución completa, para verla de cerca (se carga una vez).
+  static Future<ui.Image?> full(PieceType t) => _decode(assetPath(t));
+
+  /// El emblema de la facción (`assets/emblems/<facción>_emblem.webp`).
+  static Future<ui.Image?> emblem(Faction f) => _decode('assets/emblems/${f.name}_emblem.webp');
+
+  static Future<ui.Image?> _decode(String path) => _full[path] ??= () async {
+    try {
+      final data = await rootBundle.load(path);
+      final codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+      return (await codec.getNextFrame()).image;
+    } catch (_) {
+      return null;
+    }
+  }();
+
   /// Carga las que existan. Se llama una vez al arrancar.
   static Future<void> load() async {
     try {
