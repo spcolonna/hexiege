@@ -122,6 +122,24 @@ void main() {
     expect(find.text('LECCIÓN 2 DE 7'), findsOneWidget);
   });
 
+  for (final (name, size) in [
+    ('iPhone SE', Size(750, 1334)),
+    ('iPhone 12', Size(1170, 2532)),
+    ('iPad', Size(2048, 2732)),
+  ]) {
+    testWidgets('partida: marcador y mano entran sin desbordes en $name', (tester) async {
+      tester.view.physicalSize = size;
+      tester.view.devicePixelRatio = 2;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(_app(const GameScreen(p0: Faction.shaolin, p1: Faction.ninja), ThemeMode.light));
+      await tester.pump();
+      // Toda la mano a la vista, sin scroll horizontal.
+      expect(find.byTooltip('Dragón Celestial'), findsOneWidget);
+      expect(find.byType(SingleChildScrollView), findsNothing);
+      expect(tester.takeException(), isNull);
+    });
+  }
+
   group('tutorial: habilidad de facción', () {
     Future<Offset Function(int, int)> open(WidgetTester tester) async {
       tester.view.physicalSize = const Size(1170, 2532);
@@ -150,7 +168,7 @@ void main() {
 
     testWidgets('alejar la ficha completa la lección', (tester) async {
       final at = await open(tester);
-      await relocate(tester, at, (2, -1));
+      await relocate(tester, at, (-1, 2)); // lejos, debajo de la tarjeta del Sensei
       expect(find.text('¡Completaste el tutorial!'), findsOneWidget);
       // Aviso del efecto y registro de la jugada.
       expect(find.textContaining('Meditación de Jade: reubicó Kunoichi (rival)'), findsOneWidget);
@@ -167,7 +185,7 @@ void main() {
       expect(find.textContaining('sigue en peligro'), findsNothing);
       expect(find.text('¡Completaste el tutorial!'), findsNothing);
       // Sigue esperando el destino: alejarla completa la lección.
-      await tester.tapAt(at(2, -1));
+      await tester.tapAt(at(-1, 2));
       for (var i = 0; i < 60; i++) {
         await tester.pump(const Duration(milliseconds: 16));
       }

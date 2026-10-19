@@ -1360,21 +1360,25 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     return false;
   }
 
-  /// Barra superior: volver, marcador de duelo (o nada en el tutorial) y más opciones.
+  /// Barra superior: volver y más opciones; debajo, el marcador de duelo a todo
+  /// el ancho para que avatares y nombres se lean (en el tutorial no hay).
   Widget _topBar(HexTheme t) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
-      child: Row(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          _roundButton(t, Icons.arrow_back_rounded, tr('common.menu'), () => Navigator.maybePop(context)),
-          const SizedBox(width: 6),
-          Expanded(
-            child: _tutorial
-                ? const SizedBox()
-                : DuelScoreboard(me: _side(_mySeat), rival: _side(_oppSeat), center: _roundMark(t)),
+          Row(
+            children: [
+              _roundButton(t, Icons.arrow_back_rounded, tr('common.menu'), () => Navigator.maybePop(context)),
+              const Spacer(),
+              _roundButton(t, Icons.more_horiz_rounded, tr('game.more'), _openMore),
+            ],
           ),
-          const SizedBox(width: 6),
-          _roundButton(t, Icons.more_horiz_rounded, tr('game.more'), _openMore),
+          if (!_tutorial) ...[
+            const SizedBox(height: 6),
+            DuelScoreboard(me: _side(_mySeat), rival: _side(_oppSeat), center: _roundMark(t)),
+          ],
         ],
       ),
     );
@@ -1527,7 +1531,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final g = _game;
     final skin = Skin.of(context);
     final limit = g.rules.roundLimit;
-    if (limit == null) return Text('対', style: skin.glyph(18, color: t.gold));
+    if (limit == null) return Text('対', style: skin.glyph(23, color: t.gold));
     final siege = g.rules.siegeRound;
     final toSiege = siege == null ? null : siege - g.round;
     final active = g.inSiege;
@@ -1551,7 +1555,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         children: [
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 300),
-            style: skin.display(19, color: color, height: 1),
+            style: skin.display(24, color: color, height: 1),
             child: Text('${g.round}'),
           ),
           const SizedBox(height: 1),
@@ -1559,7 +1563,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             '/$limit',
             style: TextStyle(
               color: active || soon || ending ? color : t.textMuted,
-              fontSize: 9.5,
+              fontSize: 12,
               fontWeight: FontWeight.w800,
               height: 1,
             ),
@@ -1575,7 +1579,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       shape: CircleBorder(side: BorderSide(color: t.outline)),
       child: IconButton(
         tooltip: tip,
-        visualDensity: VisualDensity.compact,
+        padding: const EdgeInsets.all(12),
         onPressed: onTap,
         icon: AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
@@ -1583,7 +1587,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             turns: Tween(begin: 0.6, end: 1.0).animate(a),
             child: FadeTransition(opacity: a, child: c),
           ),
-          child: Icon(icon, key: ValueKey(icon), color: onTap == null ? t.outline : t.text, size: 22),
+          child: Icon(icon, key: ValueKey(icon), color: onTap == null ? t.outline : t.text, size: 26),
         ),
       ),
     );
@@ -1806,39 +1810,30 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           Expanded(
             child: !showHand
                 ? const SizedBox(height: 56)
-                : Center(
-                    child: SkinBar(
-                      tray: true,
-                      radius: 22,
-                      padding: const EdgeInsets.fromLTRB(6, 8, 6, 6),
-                      child: SizedBox(
-                        height: 60,
-                        child: hand.isEmpty
-                            ? Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 14),
-                                child: Center(
-                                  widthFactor: 1,
-                                  child: Text(tr('game.emptyHand'), style: TextStyle(color: t.textMuted)),
-                                ),
-                              )
-                            : SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: [
-                                    for (final e in hand)
-                                      _handItem(t, e.key, e.value, me, enabled: placeable.contains(e.key) && !_locked),
-                                  ],
-                                ),
-                              ),
-                      ),
-                    ),
+                : SkinBar(
+                    tray: true,
+                    radius: 22,
+                    padding: const EdgeInsets.all(8),
+                    child: hand.isEmpty
+                        ? SizedBox(
+                            height: 56,
+                            child: Center(
+                              child: Text(tr('game.emptyHand'), style: TextStyle(color: t.textMuted)),
+                            ),
+                          )
+                        : _handGrid(
+                            t,
+                            [for (final e in hand) (e.key, e.value, placeable.contains(e.key) && !_locked)],
+                            me,
+                            maxRows: player == null ? 3 : 2,
+                          ),
                   ),
           ),
           const SizedBox(width: 8),
           // Deshacer/reiniciar arriba del sello: la mano se queda con todo el ancho.
           Column(
             mainAxisSize: MainAxisSize.min,
-            children: [?secondary, if (showAbility) _abilitySeal(t, me) else const SizedBox(width: 52, height: 56)],
+            children: [?secondary, if (showAbility) _abilitySeal(t, me) else const SizedBox(width: 64, height: 68)],
           ),
         ],
       ),
@@ -1884,8 +1879,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       child: Pressable(
         onTap: cancel ? () => setState(_reset) : (ready ? _startAbility : null),
         child: SizedBox(
-          width: 52,
-          height: 56,
+          width: 64,
+          height: 68,
           child: Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.center,
@@ -1895,7 +1890,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 opacity: ready || cancel ? 1 : 0.4,
                 child: _Pulse(
                   active: beckon,
-                  child: KanjiBadge(faction == Faction.shaolin ? '玉' : '変', size: 46, color: color),
+                  child: KanjiBadge(faction == Faction.shaolin ? '玉' : '変', size: 58, color: color),
                 ),
               ),
               if (cancel)
@@ -1923,7 +1918,51 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     ),
   );
 
-  Widget _handItem(HexTheme t, PieceType type, int count, int owner, {required bool enabled}) {
+  /// La mano entera a la vista, sin scroll: hasta [maxRows] filas, y cuantas
+  /// menos fichas quedan, más grandes se ven.
+  Widget _handGrid(HexTheme t, List<(PieceType, int, bool)> items, int owner, {required int maxRows}) {
+    return LayoutBuilder(
+      builder: (context, c) {
+        const gap = 6.0;
+        final n = items.length;
+        final cap = (MediaQuery.sizeOf(context).height * 0.085).clamp(58.0, 96.0);
+        double cellFor(int rows) {
+          final cols = (n / rows).ceil();
+          return min(cap, (c.maxWidth - gap * (cols - 1)) / cols);
+        }
+
+        // Otra fila solo si las fichas crecen de verdad.
+        var rows = 1;
+        for (var r = 2; r <= maxRows && r <= n; r++) {
+          if (cellFor(r) > cellFor(rows) * 1.08) rows = r;
+        }
+        final cell = cellFor(rows);
+        final base = n ~/ rows, extra = n % rows;
+        var i = 0;
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (var r = 0; r < rows; r++)
+              Padding(
+                padding: EdgeInsets.only(top: r == 0 ? 0 : gap),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (var k = 0; k < base + (r < extra ? 1 : 0); k++, i++)
+                      Padding(
+                        padding: EdgeInsets.only(left: k == 0 ? 0 : gap),
+                        child: _handItem(t, items[i].$1, items[i].$2, owner, enabled: items[i].$3, cell: cell),
+                      ),
+                  ],
+                ),
+              ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _handItem(HexTheme t, PieceType type, int count, int owner, {required bool enabled, required double cell}) {
     final selected = _mode == _Mode.placing && _placing == type;
     // Sin nombre a la vista: el tooltip (manual) lo da a lectores de pantalla
     // y mantener apretado abre la ficha con sus reglas.
@@ -1956,12 +1995,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           opacity: enabled ? 1 : 0.35,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 180),
-            width: 52,
+            width: cell,
+            height: cell,
             alignment: Alignment.center,
+            // Cada ficha en su hueco de la bandeja, para distinguirlas.
             decoration: BoxDecoration(
-              color: selected ? t.highlight.withValues(alpha: 0.14) : Colors.transparent,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: selected ? t.highlight : Colors.transparent, width: 1.6),
+              color: selected ? t.highlight.withValues(alpha: 0.18) : t.text.withValues(alpha: 0.06),
+              borderRadius: BorderRadius.circular(cell * 0.22),
+              border: Border.all(color: selected ? t.highlight : t.outline.withValues(alpha: 0.5), width: 1.6),
             ),
             child: Stack(
               clipBehavior: Clip.none,
@@ -1974,21 +2015,21 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   builder: (_, lift, _) => PieceChip(
                     type: type,
                     owner: owner,
-                    size: 23,
+                    size: cell * 0.46,
                     lift: lift,
                     mirror: _game.factions[0] == _game.factions[1],
                   ),
                 ),
                 if (count > 1)
                   Positioned(
-                    right: -9,
-                    top: -5,
+                    right: -cell * 0.2,
+                    top: -cell * 0.12,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
-                      decoration: BoxDecoration(color: t.text, borderRadius: BorderRadius.circular(8)),
+                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                      decoration: BoxDecoration(color: t.text, borderRadius: BorderRadius.circular(9)),
                       child: Text(
                         '×$count',
-                        style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.w900, color: t.surfaceHigh),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: t.surfaceHigh),
                       ),
                     ),
                   ),

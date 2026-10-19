@@ -78,12 +78,12 @@ class DuelScoreboard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(5, 5, 5, 6),
+                padding: const EdgeInsets.fromLTRB(14, 9, 14, 10),
                 child: Row(
                   children: [
                     Expanded(child: _Side(me, mirror: false)),
                     ConstrainedBox(
-                      constraints: const BoxConstraints(minWidth: 48),
+                      constraints: const BoxConstraints(minWidth: 52),
                       child: Center(child: center),
                     ),
                     Expanded(child: _Side(rival, mirror: true)),
@@ -113,7 +113,7 @@ class DuelScoreboard extends StatelessWidget {
         for (final (side, left) in [(me, true), (rival, false)])
           if (side.emote != null)
             Positioned(
-              top: 40,
+              top: 58,
               left: left ? 8 : null,
               right: left ? null : 8,
               child: EmoteBubble(
@@ -157,35 +157,38 @@ class _Side extends StatelessWidget {
                 child: Text(
                   p.nickname,
                   maxLines: 1,
-                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 12.5, color: t.text, height: 1.15),
+                  style: TextStyle(fontWeight: FontWeight.w800, fontSize: 15, color: t.text, height: 1.15),
                 ),
               ),
             ),
             if (tag != null) ...[const SizedBox(width: 4), _tag(tag, t)],
           ],
         ),
-        const SizedBox(height: 2),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          textDirection: mirror ? TextDirection.rtl : TextDirection.ltr,
-          children: [
-            Tooltip(
-              message: tr('banner.inHand'),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.hexagon_outlined, size: 12, color: t.textMuted),
-                  const SizedBox(width: 2),
-                  Text(
-                    '${s.handCount}',
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 11, color: t.textMuted, height: 1),
-                  ),
-                ],
+        const SizedBox(height: 4),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            textDirection: mirror ? TextDirection.rtl : TextDirection.ltr,
+            children: [
+              Tooltip(
+                message: tr('banner.inHand'),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.hexagon_outlined, size: 16, color: t.textMuted),
+                    const SizedBox(width: 2),
+                    Text(
+                      '${s.handCount}',
+                      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14, color: t.textMuted, height: 1),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: 6),
-            _cooldown(t, color),
-          ],
+              const SizedBox(width: 6),
+              _cooldown(t, color),
+            ],
+          ),
         ),
       ],
     );
@@ -197,7 +200,7 @@ class _Side extends StatelessWidget {
         textDirection: mirror ? TextDirection.rtl : TextDirection.ltr,
         children: [
           avatar,
-          const SizedBox(width: 6),
+          const SizedBox(width: 8),
           Flexible(child: info),
         ],
       ),
@@ -209,7 +212,7 @@ class _Side extends StatelessWidget {
     decoration: BoxDecoration(color: t.outline, borderRadius: BorderRadius.circular(5)),
     child: Text(
       s,
-      style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.w800, color: t.textMuted),
+      style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w800, color: t.textMuted),
     ),
   );
 
@@ -230,9 +233,9 @@ class _Side extends StatelessWidget {
           for (var i = 0; i < 3; i++)
             AnimatedContainer(
               duration: const Duration(milliseconds: 250),
-              width: 5,
-              height: 5,
-              margin: const EdgeInsets.symmetric(horizontal: 1),
+              width: 7,
+              height: 7,
+              margin: const EdgeInsets.symmetric(horizontal: 1.5),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: spent
@@ -260,7 +263,7 @@ class _Avatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = HexTheme.of(context);
-    const size = 32.0;
+    const size = 46.0;
     final face = AvatarFace(
       avatar: profile.avatar,
       frame: profile.frame,
