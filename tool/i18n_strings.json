@@ -2228,5 +2228,50 @@
   "es": "Un juego de Oraki Games",
   "en": "A game by Oraki Games",
   "zh": "Oraki Games 出品"
+ },
+ "menu.profile": {
+  "es": "Tu perfil",
+  "en": "Your profile",
+  "zh": "个人资料"
+ },
+ "avatar.novice": {
+  "es": "Novicio",
+  "en": "Novice",
+  "zh": "小沙弥"
+ },
+ "avatar.abbess": {
+  "es": "Abadesa de jade",
+  "en": "Jade Abbess",
+  "zh": "玉住持"
+ },
+ "avatar.drunken": {
+  "es": "Maestro borracho",
+  "en": "Drunken Master",
+  "zh": "醉拳师父"
+ },
+ "avatar.staff": {
+  "es": "Guerrera del bastón",
+  "en": "Staff Warrior",
+  "zh": "棍僧女侠"
+ },
+ "avatar.monkey": {
+  "es": "Rey Mono",
+  "en": "Monkey King",
+  "zh": "美猴王"
+ },
+ "avatar.jonin": {
+  "es": "Jōnin",
+  "en": "Jōnin",
+  "zh": "上忍"
+ },
+ "avatar.fan": {
+  "es": "Kunoichi del abanico",
+  "en": "Fan Kunoichi",
+  "zh": "铁扇女忍"
+ },
+ "avatar.ronin": {
+  "es": "Rōnin",
+  "en": "Rōnin",
+  "zh": "浪人"
  }
 }

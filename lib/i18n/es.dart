@@ -447,4 +447,13 @@ const es = <String, String>{
   'gift.hint.puzzles': 'Se gana al resolver {n} problemas.',
   'gift.hint.challenges': 'Se gana al superar {n} desafíos.',
   'settings.madeBy': 'Un juego de Oraki Games',
+  'menu.profile': 'Tu perfil',
+  'avatar.novice': 'Novicio',
+  'avatar.abbess': 'Abadesa de jade',
+  'avatar.drunken': 'Maestro borracho',
+  'avatar.staff': 'Guerrera del bastón',
+  'avatar.monkey': 'Rey Mono',
+  'avatar.jonin': 'Jōnin',
+  'avatar.fan': 'Kunoichi del abanico',
+  'avatar.ronin': 'Rōnin',
 };

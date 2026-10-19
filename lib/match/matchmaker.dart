@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import '../codex/avatars.dart';
 import '../engine/ai.dart';
 import '../engine/pieces.dart';
 import 'ladder.dart';
@@ -99,11 +100,13 @@ class BotMatchmaker implements Matchmaker {
     final bandMin = max(band.minRating, LadderRecord.minRating);
     final rating = (record.rating + _rng.nextInt(81) - 40).clamp(bandMin, bandMax);
 
+    final faction = Faction.values[_rng.nextInt(Faction.values.length)];
+    final avatars = Avatars.of(faction);
     return MatchFound(
       opponent: Opponent(
         nickname: botName(_rng),
-        avatar: _avatars[_rng.nextInt(_avatars.length)],
-        faction: Faction.values[_rng.nextInt(Faction.values.length)],
+        avatar: avatars[_rng.nextInt(avatars.length)].id,
+        faction: faction,
         rating: rating,
         bot: level,
       ),
@@ -112,8 +115,6 @@ class BotMatchmaker implements Matchmaker {
     );
   }
 }
-
-const _avatars = ['龍', '虎', '鶴', '蛇', '影', '月', '風', '炎', '雷', '山', '桜', '狐', '鷹', '雪'];
 
 const _first = [
   'Kenji',

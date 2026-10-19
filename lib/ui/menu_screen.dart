@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../i18n/i18n.dart';
+import '../codex/avatars.dart';
 import '../engine/pieces.dart';
 import '../engine/rules.dart';
 import '../solo/catalog.dart';
@@ -16,6 +17,7 @@ import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'theme/ui_style.dart';
 import 'widgets/arena_backdrop.dart';
+import 'widgets/avatar_face.dart';
 import 'widgets/skin_kit.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -373,7 +375,7 @@ class _StyleOption extends StatelessWidget {
   }
 }
 
-/// Cambiar el nombre que ven los rivales.
+/// Perfil: el avatar y el nombre que ven los rivales.
 class _RenameDialog extends StatefulWidget {
   const _RenameDialog();
 
@@ -383,6 +385,7 @@ class _RenameDialog extends StatefulWidget {
 
 class _RenameDialogState extends State<_RenameDialog> {
   late final _c = TextEditingController(text: AppSettings.instance.nickname);
+  late String _avatar = AppSettings.instance.avatarFor(AppSettings.instance.faction);
 
   @override
   void dispose() {
@@ -392,6 +395,9 @@ class _RenameDialogState extends State<_RenameDialog> {
 
   void _save() {
     AppSettings.instance.nickname = _c.text;
+    // Si quedó el inicial de la facción, no se fija: así sigue a la facción elegida.
+    final s = AppSettings.instance;
+    s.avatar = s.avatar == null && _avatar == Avatars.defaultFor(s.faction) ? null : _avatar;
     Navigator.pop(context);
   }
 
@@ -399,23 +405,51 @@ class _RenameDialogState extends State<_RenameDialog> {
   Widget build(BuildContext context) {
     final t = HexTheme.of(context);
     return SkinDialog(
-      title: tr('menu.rename'),
+      title: tr('menu.profile'),
       glyph: '名',
-      body: TextField(
-        controller: _c,
-        autofocus: true,
-        maxLength: 16,
-        textCapitalization: TextCapitalization.words,
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: t.text),
-        cursorColor: t.accent,
-        decoration: InputDecoration(
-          counterText: '',
-          hintText: tr('menu.yourName'),
-          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: t.outline, width: 1.5)),
-          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: t.accent, width: 2)),
-        ),
-        onSubmitted: (_) => _save(),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 10,
+            runSpacing: 10,
+            children: [
+              for (final a in Avatars.all)
+                Pressable(
+                  semanticLabel: tr(a.nameKey),
+                  onTap: () {
+                    skinTap();
+                    setState(() => _avatar = a.id);
+                  },
+                  child: AvatarFace(
+                    avatar: a.id,
+                    size: 54,
+                    color: HexTheme.faction(a.faction),
+                    borderColor: a.id == _avatar ? t.gold : t.outline,
+                    borderWidth: a.id == _avatar ? 3 : 1.2,
+                    shadow: [if (a.id == _avatar) BoxShadow(color: t.gold.withValues(alpha: 0.5), blurRadius: 10)],
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          TextField(
+            controller: _c,
+            maxLength: 16,
+            textCapitalization: TextCapitalization.words,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: t.text),
+            cursorColor: t.accent,
+            decoration: InputDecoration(
+              counterText: '',
+              hintText: tr('menu.yourName'),
+              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: t.outline, width: 1.5)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: t.accent, width: 2)),
+            ),
+            onSubmitted: (_) => _save(),
+          ),
+        ],
       ),
       actions: [
         SkinAction(tr('common.cancel'), () => Navigator.pop(context)),

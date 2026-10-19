@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../codex/avatars.dart';
 import '../engine/ai.dart';
 import '../engine/game_state.dart';
 import '../engine/hex.dart';
@@ -179,14 +180,19 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final nick = AppSettings.instance.nickname;
     final m = widget.match;
     if (m != null) {
-      final me = PlayerProfile(nickname: nick, faction: m.yourFaction, rating: AppSettings.instance.ladder.rating);
+      final me = PlayerProfile(
+        nickname: nick,
+        faction: m.yourFaction,
+        avatar: AppSettings.instance.avatarFor(m.yourFaction),
+        rating: AppSettings.instance.ladder.rating,
+      );
       final o = m.opponent;
       final opp = PlayerProfile(nickname: o.nickname, faction: o.faction, avatar: o.avatar, rating: o.rating);
       _profiles = _mySeat == 0 ? [me, opp] : [opp, me];
     } else {
       _profiles = _staged
           ? [
-              PlayerProfile(nickname: nick, faction: widget.p0),
+              PlayerProfile(nickname: nick, faction: widget.p0, avatar: AppSettings.instance.avatarFor(widget.p0)),
               PlayerProfile(
                 nickname: _stage!.isPuzzle
                     ? tr('common.sensei')
@@ -197,16 +203,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             ]
           : _tutorial
           ? [
-              PlayerProfile(nickname: nick, faction: widget.p0),
+              PlayerProfile(nickname: nick, faction: widget.p0, avatar: AppSettings.instance.avatarFor(widget.p0)),
               PlayerProfile(nickname: tr('common.sensei'), faction: widget.p1, isAi: true),
             ]
           : widget.aiPlayer == null
           ? [
-              PlayerProfile(nickname: nick, faction: widget.p0),
-              PlayerProfile(nickname: tr('common.player2'), faction: widget.p1),
+              PlayerProfile(nickname: nick, faction: widget.p0, avatar: AppSettings.instance.avatarFor(widget.p0)),
+              PlayerProfile(nickname: tr('common.player2'), faction: widget.p1, avatar: Avatars.defaultFor(widget.p1)),
             ]
           : [
-              PlayerProfile(nickname: nick, faction: widget.p0),
+              PlayerProfile(nickname: nick, faction: widget.p0, avatar: AppSettings.instance.avatarFor(widget.p0)),
               PlayerProfile(
                 nickname: '${tr('common.sensei')} · ${widget.aiLevel.displayName}',
                 faction: widget.p1,

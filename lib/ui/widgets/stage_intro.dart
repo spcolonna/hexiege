@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../i18n/i18n.dart';
 import '../theme/hex_theme.dart';
 import '../theme/ui_style.dart';
+import 'avatar_face.dart';
 import 'duel_scoreboard.dart';
 import 'skin_kit.dart';
 
@@ -138,16 +139,7 @@ class StageIntro extends StatelessWidget {
   Widget _duel(HexTheme t, Skin s) {
     Widget who(PlayerProfile p, {required bool right}) {
       final c = HexTheme.faction(p.faction);
-      final dot = Container(
-        width: 30,
-        height: 30,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(shape: BoxShape.circle, color: c),
-        child: Text(
-          p.avatar,
-          style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w800, height: 1),
-        ),
-      );
+      final dot = AvatarFace(avatar: p.avatar, size: 30, color: c, borderColor: c);
       final name = Flexible(
         child: FittedBox(
           fit: BoxFit.scaleDown,

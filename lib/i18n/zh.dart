@@ -447,4 +447,13 @@ const zh = <String, String>{
   'gift.hint.puzzles': '解开 {n} 道谜题即可获得。',
   'gift.hint.challenges': '通过 {n} 个挑战即可获得。',
   'settings.madeBy': 'Oraki Games 出品',
+  'menu.profile': '个人资料',
+  'avatar.novice': '小沙弥',
+  'avatar.abbess': '玉住持',
+  'avatar.drunken': '醉拳师父',
+  'avatar.staff': '棍僧女侠',
+  'avatar.monkey': '美猴王',
+  'avatar.jonin': '上忍',
+  'avatar.fan': '铁扇女忍',
+  'avatar.ronin': '浪人',
 };

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../i18n/i18n.dart';
 import '../../engine/pieces.dart';
 import '../theme/hex_theme.dart';
+import 'avatar_face.dart';
 import 'emotes.dart';
 import 'skin_kit.dart';
 
@@ -13,7 +14,7 @@ class PlayerProfile {
   final Faction faction;
   final bool isAi;
 
-  /// Avatar: por ahora un glifo/emoji; luego una imagen o un cosmético.
+  /// Avatar: id del catálogo (`Avatars`) o, si no está, un carácter.
   final String avatar;
 
   /// Puntos de la partida por puntos (null = partida casual).
@@ -245,24 +246,12 @@ class _Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = HexTheme.of(context);
     const size = 32.0;
-    final face = AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      width: size,
-      height: size,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: RadialGradient(
-          center: const Alignment(-0.3, -0.4),
-          colors: [Color.lerp(color, Colors.white, 0.25)!, Color.lerp(color, Colors.black, 0.35)!],
-        ),
-        border: Border.all(color: active ? t.gold : t.surfaceHigh, width: 1.6),
-        boxShadow: [if (active) BoxShadow(color: color.withValues(alpha: 0.45), blurRadius: 8, spreadRadius: 1)],
-      ),
-      child: Text(
-        profile.avatar,
-        style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w800, height: 1),
-      ),
+    final face = AvatarFace(
+      avatar: profile.avatar,
+      size: size,
+      color: color,
+      borderColor: active ? t.gold : t.surfaceHigh,
+      shadow: [if (active) BoxShadow(color: color.withValues(alpha: 0.45), blurRadius: 8, spreadRadius: 1)],
     );
     if (onTap == null) return face;
     return Tooltip(

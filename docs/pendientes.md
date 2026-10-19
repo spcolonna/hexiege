@@ -27,11 +27,11 @@ Botón "Galería" en el menú (con un punto si hay regalos sin abrir).
 - Logos en `assets/brand/` (versión crema para fondo oscuro y versión color para fondo claro).
 
 ## Tienda (idea, sin implementar)
-Todo cosmético; nada da ventaja en la partida. Prompts del arte en `docs/asset_prompts.md`, secciones 6 y 11 a 15.
+Todo cosmético; nada da ventaja en la partida. Prompts del arte en `docs/asset_prompts.md`, secciones 3 a 8 (todo listo para pegar).
 
 - **Moneda: jade.** Se gana con victorias (más contra niveles altos de IA o en la ladder), misiones del día ("ganá con el Tigre", "colocá 3 Serpientes"), batallas de campaña la primera vez y rachas de días jugados. Sin dinero real por ahora; si algún día se suma, se venden paquetes de jade, nunca ventajas.
 - **Qué se vende:**
-  - Avatares: 10 retratos en tinta. Novicio y Jōnin vienen gratis.
+  - Avatares: 10 retratos en tinta. Novicio y Jōnin vienen gratis. **8 ya están en el juego** (`lib/codex/avatars.dart`): se eligen tocando tu nombre en el menú y hoy están todos disponibles.
   - Marcos de avatar: bronce, jade y oro se ganan por rango en la ladder; obsidiana solo en el rango máximo. Pueden venderse variantes.
   - Sets de emotes: monjecito y ninjita de base, después otros personajes.
   - Piedras de ficha: 2 por facción. Una imagen cambia las 6 fichas, así que es lo más barato de producir.

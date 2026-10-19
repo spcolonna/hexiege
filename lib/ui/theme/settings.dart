@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../codex/avatars.dart';
 import '../../engine/pieces.dart';
 import '../../i18n/i18n.dart';
 import '../../match/ladder.dart';
@@ -28,6 +29,7 @@ class AppSettings extends ChangeNotifier {
   bool _sound = true;
   bool _haptics = true;
   String? _nickname; // null = el nombre por defecto del idioma
+  String? _avatar; // null = el de la facción con que se juega
   bool _onboarded = false;
   bool _tutorialDone = false;
   LadderRecord _ladder = const LadderRecord();
@@ -54,6 +56,12 @@ class AppSettings extends ChangeNotifier {
   bool get sound => _sound;
   bool get haptics => _haptics;
   String get nickname => _nickname ?? tr('common.defaultNick');
+
+  /// Avatar elegido a mano (null = el inicial de cada facción).
+  String? get avatar => _avatar;
+
+  /// Avatar con que se muestra al jugador cuando juega con [f].
+  String avatarFor(Faction f) => _avatar ?? Avatars.defaultFor(f);
 
   /// Ya vio la bienvenida del primer arranque.
   bool get onboarded => _onboarded;
@@ -145,6 +153,8 @@ class AppSettings extends ChangeNotifier {
     _sound = p.getBool('sound') ?? true;
     _haptics = p.getBool('haptics') ?? true;
     _nickname = p.getString('nickname');
+    final avatar = p.getString('avatar');
+    _avatar = avatar != null && Avatars.byId(avatar) != null ? avatar : null;
     _onboarded = p.getBool('onboarded') ?? false;
     _tutorialDone = p.getBool('tutorialDone') ?? false;
     _cleared = (p.getStringList('cleared') ?? const []).toSet();
@@ -209,6 +219,16 @@ class AppSettings extends ChangeNotifier {
   set haptics(bool v) {
     _haptics = v;
     _prefs?.setBool('haptics', v);
+    notifyListeners();
+  }
+
+  set avatar(String? id) {
+    _avatar = id;
+    if (id == null) {
+      _prefs?.remove('avatar');
+    } else {
+      _prefs?.setString('avatar', id);
+    }
     notifyListeners();
   }
 

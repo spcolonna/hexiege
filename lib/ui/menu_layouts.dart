@@ -9,6 +9,7 @@ import 'piece_chip.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'theme/ui_style.dart';
+import 'widgets/avatar_face.dart';
 import 'widgets/rank_badge.dart';
 import 'widgets/skin_kit.dart';
 
@@ -83,7 +84,7 @@ String _record() {
   return tr('menu.record', {'w': l.wins, 'l': l.losses}) + (l.draws > 0 ? tr('menu.recordDraws', {'d': l.draws}) : '');
 }
 
-/// Nombre del jugador con su lápiz: tocarlo abre el cambio de nombre.
+/// Avatar y nombre del jugador con su lápiz: tocarlo abre el perfil.
 class _Name extends StatelessWidget {
   final VoidCallback onTap;
   final Color color;
@@ -100,6 +101,13 @@ class _Name extends StatelessWidget {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        AvatarFace(
+          avatar: AppSettings.instance.avatarFor(AppSettings.instance.faction),
+          size: size * 1.9,
+          color: HexTheme.faction(AppSettings.instance.faction),
+          borderColor: HexTheme.of(context).gold,
+        ),
+        const SizedBox(width: 8),
         Flexible(
           child: Text(
             AppSettings.instance.nickname,

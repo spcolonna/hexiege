@@ -13,6 +13,7 @@ import 'piece_chip.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'widgets/arena_backdrop.dart';
+import 'widgets/avatar_face.dart';
 import 'theme/ui_style.dart';
 import 'widgets/rank_badge.dart';
 import 'widgets/skin_kit.dart';
@@ -189,7 +190,10 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
           ),
         ),
         const SizedBox(height: 36),
-        SizedBox(width: 200, child: SkinButton(label: tr('mm.cancel'), onPressed: _cancel)),
+        SizedBox(
+          width: 200,
+          child: SkinButton(label: tr('mm.cancel'), onPressed: _cancel),
+        ),
       ],
     );
   }
@@ -216,7 +220,7 @@ class _MatchmakingScreenState extends State<MatchmakingScreen> with TickerProvid
                     opacity: _reveal.value.clamp(0, 1),
                     child: _PlayerCard(
                       nickname: AppSettings.instance.nickname,
-                      avatar: m.yourFaction == Faction.shaolin ? '僧' : '将',
+                      avatar: AppSettings.instance.avatarFor(m.yourFaction),
                       faction: m.yourFaction,
                       rating: me.rating,
                     ),
@@ -279,23 +283,7 @@ class _PlayerCard extends StatelessWidget {
       highlight: color,
       child: Column(
         children: [
-          Container(
-            width: 64,
-            height: 64,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: RadialGradient(
-                center: const Alignment(-0.3, -0.4),
-                colors: [Color.lerp(color, Colors.white, 0.25)!, Color.lerp(color, Colors.black, 0.35)!],
-              ),
-              border: Border.all(color: t.surfaceHigh, width: 2),
-            ),
-            child: Text(
-              avatar,
-              style: const TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.w800, height: 1),
-            ),
-          ),
+          AvatarFace(avatar: avatar, size: 64, color: color, borderColor: t.surfaceHigh, borderWidth: 2),
           const SizedBox(height: 10),
           Text(
             nickname,
