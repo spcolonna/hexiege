@@ -653,15 +653,15 @@ class _PieceToken3DState extends State<PieceToken3D> with SingleTickerProviderSt
             _vx = _vy = 0;
           },
           onScaleUpdate: (e) => setState(() {
-            _ry += e.focalPointDelta.dx * 0.011;
-            _rx = (_rx - e.focalPointDelta.dy * 0.011).clamp(-1.3, 1.3);
+            _ry -= e.focalPointDelta.dx * 0.011;
+            _rx = (_rx + e.focalPointDelta.dy * 0.011).clamp(-1.3, 1.3);
             if (e.pointerCount > 1) _zoom = _zoomTarget = (_zoomStart * e.scale).clamp(0.8, 2.6);
           }),
           onScaleEnd: (e) {
             _touching = false;
             final v = e.velocity.pixelsPerSecond;
-            _vy = (v.dx * 0.011).clamp(-14.0, 14.0);
-            _vx = (-v.dy * 0.011).clamp(-6.0, 6.0);
+            _vy = (-v.dx * 0.011).clamp(-14.0, 14.0);
+            _vx = (v.dy * 0.011).clamp(-6.0, 6.0);
           },
           onDoubleTap: () {
             Haptics.select();
@@ -767,7 +767,17 @@ class _FacePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final c = size.center(Offset.zero);
-    PieceRenderer.drawFace(canvas, theme: theme, type: type, tone: tone, face: c, r: r, seed: type.index, art: art);
+    PieceRenderer.drawFace(
+      canvas,
+      theme: theme,
+      type: type,
+      tone: tone,
+      face: c,
+      r: r,
+      seed: type.index,
+      art: art,
+      featured: true,
+    );
     // Reflejo que recorre la piedra al girarla.
     final s = sin(sheen) * 1.6, sy = sin(sheenY) * 1.2;
     canvas.save();

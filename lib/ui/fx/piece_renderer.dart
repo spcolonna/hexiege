@@ -110,6 +110,7 @@ class PieceRenderer {
     int seed = 0,
     ui.Image? art,
     bool flip = false,
+    bool featured = false,
   }) {
     final hiRes = art != null;
     final facePath = hexAt(face, r);
@@ -180,6 +181,19 @@ class PieceRenderer {
         ..color = HexTheme.faction(type.faction),
     );
     art ??= AppSettings.instance.useGlyphs ? null : PieceArt.of(type);
+    void leaderRing() {
+      if (!type.isLeader) return;
+      canvas.drawPath(
+        hexAt(face, r * 0.8),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = max(1.0, r * 0.06)
+          ..color = theme.gold,
+      );
+    }
+
+    // En primer plano (visor) la figura es lo principal: el anillo queda debajo.
+    if (featured) leaderRing();
     // La piedra y su luz no giran; solo la figura tallada.
     if (flip) {
       canvas.save();
@@ -190,10 +204,10 @@ class PieceRenderer {
     if (art != null) {
       // Relieve tallado: la ilustración ocupa la cara, recortada al hexágono.
       canvas.save();
-      canvas.clipPath(hexAt(face, r * 0.86));
+      canvas.clipPath(hexAt(face, featured ? r * 0.95 : r * 0.86));
       paintImage(
         canvas: canvas,
-        rect: Rect.fromCircle(center: face, radius: r * 0.8),
+        rect: Rect.fromCircle(center: face, radius: featured ? r * 0.9 : r * 0.8),
         image: art,
         fit: BoxFit.contain,
         filterQuality: hiRes ? FilterQuality.high : FilterQuality.medium,
@@ -203,16 +217,8 @@ class PieceRenderer {
       text(canvas, type.glyph, face, r * 0.9, theme.glyph[tone]);
     }
     if (flip) canvas.restore();
-    // El anillo del líder va encima del arte para que la ilustración no lo tape.
-    if (type.isLeader) {
-      canvas.drawPath(
-        hexAt(face, r * 0.8),
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = max(1.0, r * 0.06)
-          ..color = theme.gold,
-      );
-    }
+    // En el tablero el anillo va encima del arte para que se distinga al líder.
+    if (!featured) leaderRing();
   }
 
   static void text(Canvas canvas, String s, Offset center, double fontSize, Color color) {
