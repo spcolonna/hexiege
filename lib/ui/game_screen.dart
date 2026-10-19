@@ -278,7 +278,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   // ----------------------------------------------------------- derivados
 
-  Set<Hex> get _targets => switch (_mode) {
+  Set<Hex> get _targets {
+    final raw = _rawTargets;
+    return _tutorial ? raw.where((h) => _lessonAllows(_mode, h)).toSet() : raw;
+  }
+
+  Set<Hex> get _rawTargets => switch (_mode) {
     _Mode.idle => {},
     _Mode.placing => _game.placementTargets(),
     _Mode.moving => {..._game.moveTargets(_selected!), ..._swapTargets},
@@ -289,6 +294,65 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _Mode.jadeSwapTarget => _game.jadeSwapTargets(_selected!),
     _Mode.kawarimi => _game.kawarimiTargets(),
   };
+
+  // En el tutorial solo vale la jugada que pide la lección: se calculan todas
+  // las legales y quedan las que cumplen el objetivo.
+  List<AiAction> _lessonCache = const [];
+  GameState? _lessonCacheFor;
+  int _lessonCachePly = -1;
+
+  List<AiAction> get _lessonActions {
+    final g = _game;
+    if (identical(_lessonCacheFor, g) && _lessonCachePly == g.ply) return _lessonCache;
+    final l = _lesson!;
+    final start = _history.isEmpty ? g : _history.first;
+    final main = mainActions(g);
+    final candidates = [
+      for (final a in main)
+        if (a is! PlaceAction || (l.hand?.contains(a.type) ?? true)) a,
+      // Mover sin aplicar el efecto (botón "sin efecto").
+      for (final a in main)
+        if (a is MoveAction && (a.paralyze != null || a.seal != null)) MoveAction(a.from, a.to),
+      if (l.ability) ...abilityActions(g),
+    ];
+    _lessonCache = [
+      for (final a in candidates)
+        if (_reaches(a, g, start, l)) a,
+    ];
+    _lessonCacheFor = g;
+    _lessonCachePly = g.ply;
+    return _lessonCache;
+  }
+
+  static bool _reaches(AiAction a, GameState g, GameState start, Lesson l) {
+    final s = g.copy();
+    return a.apply(s) && l.done(start, s);
+  }
+
+  /// ¿La lección permite tocar [h] en el modo [mode]?
+  bool _lessonAllows(_Mode mode, Hex h) => _lessonActions.any(
+    (a) => switch ((mode, a)) {
+      (_Mode.placing, PlaceAction(:final type, :final at)) => type == _placing && at == h,
+      (_Mode.moving, MoveAction(:final from, :final to)) => from == _selected && to == h,
+      (_Mode.moving, SwapAction(:final from, :final to)) => from == _selected && to == h,
+      (_Mode.effect, MoveAction(:final from, :final to, :final paralyze, :final seal)) =>
+        from == _selected && to == _effectTo && (paralyze == h || seal == h),
+      (_Mode.jadeRelocate, JadeRelocateAction(:final from)) => from == h,
+      (_Mode.jadeRelocateTarget, JadeRelocateAction(:final from, :final to)) => from == _selected && to == h,
+      (_Mode.jadeSwap, JadeSwapAction(:final a, :final b)) => a == h || b == h,
+      (_Mode.jadeSwapTarget, JadeSwapAction(:final a, :final b)) =>
+        (a == _selected && b == h) || (b == _selected && a == h),
+      (_Mode.kawarimi, KawarimiAction(:final at)) => at == h,
+      _ => false,
+    },
+  );
+
+  bool get _lessonWantsAbility =>
+      _lessonActions.any((a) => a is KawarimiAction || a is JadeRelocateAction || a is JadeSwapAction);
+
+  bool get _lessonSkipsEffect => _lessonActions.any(
+    (a) => a is MoveAction && a.from == _selected && a.to == _effectTo && a.paralyze == null && a.seal == null,
+  );
 
   /// Shinobis con los que el Shogun seleccionado puede intercambiarse.
   Set<Hex> get _swapTargets => _mode == _Mode.moving ? _game.shogunSwapTargets(_selected!) : const {};
@@ -708,7 +772,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         _trySelect(h);
       case _Mode.moving:
         final from = _selected!;
-        if (_game.shogunSwapTargets(from).contains(h)) {
+        if (targets.contains(h) && _game.shogunSwapTargets(from).contains(h)) {
           _commit((g) => g.shogunSwap(from, h));
           return;
         }
@@ -781,7 +845,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final p = _game.board.top(h);
     if (p != null &&
         p.owner == _game.current &&
-        (_game.moveTargets(h).isNotEmpty || _game.shogunSwapTargets(h).isNotEmpty)) {
+        (_game.moveTargets(h).isNotEmpty || _game.shogunSwapTargets(h).isNotEmpty) &&
+        (!_tutorial ||
+            _lessonActions.any((a) => (a is MoveAction && a.from == h) || (a is SwapAction && a.from == h)))) {
       if (_selected != h) _feedbackSelect();
       _mode = _Mode.moving;
       _selected = h;
@@ -801,6 +867,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       });
       return;
     }
+    int options(Set<Hex> sources, _Mode mode) =>
+        _tutorial ? sources.where((h) => _lessonAllows(mode, h)).length : sources.length;
+    final relocate = options(_game.jadeRelocateSources(), _Mode.jadeRelocate);
+    final swap = options(_game.jadeSwapSources(), _Mode.jadeSwap);
     void pick(BuildContext ctx, _Mode mode) {
       Navigator.pop(ctx);
       setState(() {
@@ -819,15 +889,15 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           SkinTile(
             glyph: '移',
             title: tr('game.jadeRelocate'),
-            text: trN('common.options', _game.jadeRelocateSources().length),
-            onTap: _game.jadeRelocateSources().isEmpty ? null : () => pick(ctx, _Mode.jadeRelocate),
+            text: trN('common.options', relocate),
+            onTap: relocate == 0 ? null : () => pick(ctx, _Mode.jadeRelocate),
           ),
           const SizedBox(height: 10),
           SkinTile(
             glyph: '換',
             title: tr('game.jadeSwap'),
-            text: trN('common.options', _game.jadeSwapSources().length),
-            onTap: _game.jadeSwapSources().isEmpty ? null : () => pick(ctx, _Mode.jadeSwap),
+            text: trN('common.options', swap),
+            onTap: swap == 0 ? null : () => pick(ctx, _Mode.jadeSwap),
           ),
         ],
       ),
@@ -1651,7 +1721,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   /// Ayuda de la jugada: aparece sobre el tablero y se desvanece sola. Mientras
   /// piensa la IA o hay un efecto por resolver, queda fija.
   Widget _hintLine(HexTheme t) {
-    if (_mode == _Mode.effect) {
+    if (_mode == _Mode.effect && (!_tutorial || _lessonSkipsEffect)) {
       return SizedBox(
         width: 230,
         child: SkinButton(label: tr('game.skipEffect'), height: 40, onPressed: () => _applyEffect(null)),
@@ -1718,7 +1788,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final me = player ?? (widget.aiPlayer != null ? 1 - widget.aiPlayer! : g.current);
     final allowed = _lesson?.hand;
     final placeable = me == g.current
-        ? g.placeableTypes().where((p) => allowed == null || allowed.contains(p)).toSet()
+        ? g
+              .placeableTypes()
+              .where((p) => allowed == null || allowed.contains(p))
+              .where((p) => !_tutorial || _lessonActions.any((a) => a is PlaceAction && a.type == p))
+              .toSet()
         : const <PieceType>{};
     final hand = g.hands[me].entries.where((e) => e.value > 0 && (!_tutorial || placeable.contains(e.key))).toList();
     final showHand = _tutorial ? hand.isNotEmpty : !(_stage?.isPuzzle ?? false) || hand.isNotEmpty;
@@ -1798,7 +1872,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final color = HexTheme.faction(faction);
     final cd = g.cooldowns[me];
     final charges = g.abilityChargesLeft(me);
-    final ready = me == g.current && g.abilityAvailable && !_locked && (!_tutorial || _lesson!.ability);
+    final ready = me == g.current && g.abilityAvailable && !_locked && (!_tutorial || _lessonWantsAbility);
+    // En la lección de la habilidad el sello late para mostrar dónde tocar.
+    final beckon = ready && _tutorial && _coach == CoachState.doing && !_inAbility;
     final cancel = _inAbility;
     final label = charges == 0
         ? tr('game.abilitySpent', {'ability': faction.abilityName})
@@ -1817,7 +1893,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               AnimatedOpacity(
                 duration: const Duration(milliseconds: 250),
                 opacity: ready || cancel ? 1 : 0.4,
-                child: KanjiBadge(faction == Faction.shaolin ? '玉' : '変', size: 46, color: color),
+                child: _Pulse(
+                  active: beckon,
+                  child: KanjiBadge(faction == Faction.shaolin ? '玉' : '変', size: 46, color: color),
+                ),
               ),
               if (cancel)
                 const Icon(Icons.close_rounded, color: Colors.white, size: 28)
@@ -1923,6 +2002,52 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 }
 
 /// Texto de ayuda que entra con un fundido y se va a los pocos segundos.
+/// Late suave mientras está activo.
+class _Pulse extends StatefulWidget {
+  final bool active;
+  final Widget child;
+  const _Pulse({required this.active, required this.child});
+
+  @override
+  State<_Pulse> createState() => _PulseState();
+}
+
+class _PulseState extends State<_Pulse> with SingleTickerProviderStateMixin {
+  late final _c = AnimationController(vsync: this, duration: const Duration(milliseconds: 650));
+
+  @override
+  void initState() {
+    super.initState();
+    _sync();
+  }
+
+  @override
+  void didUpdateWidget(_Pulse old) {
+    super.didUpdateWidget(old);
+    _sync();
+  }
+
+  void _sync() {
+    if (widget.active && !_c.isAnimating) {
+      _c.repeat(reverse: true);
+    } else if (!widget.active && _c.isAnimating) {
+      _c.animateTo(0, duration: const Duration(milliseconds: 150));
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => ScaleTransition(
+    scale: Tween(begin: 1.0, end: 1.16).animate(CurvedAnimation(parent: _c, curve: Curves.easeInOut)),
+    child: widget.child,
+  );
+}
+
 class _FadingHint extends StatefulWidget {
   final String text;
   final bool thinking;

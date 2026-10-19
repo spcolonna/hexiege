@@ -147,6 +147,10 @@ final lessons = <Lesson>[
       (1, _sg, Hex(-1, 1)),
     ]),
     done: (s, g) =>
-        g.lastActionWasAbility && g.winner == null && g.board.occupiedNeighbors(g.board.locateLeader(0)!) <= 4,
+        g.lastActionWasAbility &&
+        g.winner == null &&
+        // Reubicar la ficha enemiga: el Monje no se mueve de lugar.
+        g.board.locateLeader(0) == s.board.locateLeader(0) &&
+        g.board.occupiedNeighbors(g.board.locateLeader(0)!) <= 4,
   ),
 ];

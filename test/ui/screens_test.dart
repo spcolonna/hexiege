@@ -156,15 +156,22 @@ void main() {
       expect(find.textContaining('Meditación de Jade: reubicó Kunoichi (rival)'), findsOneWidget);
     });
 
-    testWidgets('cerrar tu propio cerco pide reintentar y rearma la escena', (tester) async {
+    testWidgets('solo deja hacer la jugada que pide la lección', (tester) async {
       final at = await open(tester);
-      await relocate(tester, at, (0, 1)); // rodea a tu propio Monje: pierde
-      expect(find.textContaining('sigue en peligro'), findsOneWidget);
-      await tester.pump(const Duration(seconds: 2));
+      // Mover una ficha propia no está permitido: el Tigre no se selecciona.
+      await tester.tapAt(at(-1, 0));
+      await tester.pump();
+      expect(find.textContaining('Elegí destino'), findsNothing);
+      // Dejar la Kunoichi pegada al Monje tampoco: el toque no hace nada.
+      await relocate(tester, at, (0, 1));
+      expect(find.textContaining('sigue en peligro'), findsNothing);
+      expect(find.text('¡Completaste el tutorial!'), findsNothing);
+      // Sigue esperando el destino: alejarla completa la lección.
+      await tester.tapAt(at(2, -1));
       for (var i = 0; i < 60; i++) {
         await tester.pump(const Duration(milliseconds: 16));
       }
-      expect(find.textContaining('Usá la habilidad'), findsOneWidget);
+      expect(find.text('¡Completaste el tutorial!'), findsOneWidget);
     });
   });
 
