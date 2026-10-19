@@ -28,6 +28,9 @@ class BoardPainter extends CustomPainter {
   /// Casillas que el tutorial quiere señalar (onda dorada).
   final Set<Hex> spotlight;
 
+  /// Jugador cuyas fichas se dibujan giradas 180° (cara a cara), o null.
+  final int? flipOwner;
+
   BoardPainter({
     required this.game,
     required this.layout,
@@ -38,6 +41,7 @@ class BoardPainter extends CustomPainter {
     required this.lastMove,
     this.swapTargets = const {},
     this.spotlight = const {},
+    this.flipOwner,
     this.fx,
   }) : super(repaint: fx);
 
@@ -177,6 +181,7 @@ class BoardPainter extends CustomPainter {
           paralyzed: isTop && game.isParalyzed(p),
           seed: p.id,
           mirror: game.factions[0] == game.factions[1],
+          flip: p.owner == flipOwner,
         );
       }
       if (stack.length > 1 && !hidden.contains(stack.last.id)) {
@@ -281,6 +286,7 @@ class BoardPainter extends CustomPainter {
         paralyzed: game.isParalyzed(fl.piece),
         mirror: game.factions[0] == game.factions[1],
         seed: fl.piece.id,
+        flip: fl.piece.owner == flipOwner,
       );
     }
   }

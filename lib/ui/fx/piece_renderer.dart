@@ -29,7 +29,8 @@ class PieceRenderer {
 
   /// [c] centro de la casilla en el tablero; [z] altura en el aire (px);
   /// [scale] escala extra (squash/hover); [shadow] false para piezas apiladas debajo;
-  /// [mirror] true si ambos jugadores tienen la misma facción.
+  /// [mirror] true si ambos jugadores tienen la misma facción;
+  /// [flip] gira la ilustración 180° (cara a cara: mira al jugador de enfrente).
   static void draw(
     Canvas canvas, {
     required HexTheme theme,
@@ -44,6 +45,7 @@ class PieceRenderer {
     bool paralyzed = false,
     int seed = 0,
     bool mirror = false,
+    bool flip = false,
   }) {
     final r = radius * 0.92 * scale * (1 + z / 320);
     final depth = radius * depthRatio;
@@ -76,7 +78,7 @@ class PieceRenderer {
     );
 
     final facePath = hexAt(face, r);
-    drawFace(canvas, theme: theme, type: type, tone: tone, face: face, r: r, seed: seed);
+    drawFace(canvas, theme: theme, type: type, tone: tone, face: face, r: r, seed: seed, flip: flip);
 
     if (paralyzed) {
       canvas.drawPath(facePath, Paint()..color = theme.frost.withValues(alpha: 0.35));
@@ -107,6 +109,7 @@ class PieceRenderer {
     required double r,
     int seed = 0,
     ui.Image? art,
+    bool flip = false,
   }) {
     final hiRes = art != null;
     final facePath = hexAt(face, r);
@@ -177,6 +180,13 @@ class PieceRenderer {
         ..color = HexTheme.faction(type.faction),
     );
     art ??= AppSettings.instance.useGlyphs ? null : PieceArt.of(type);
+    // La piedra y su luz no giran; solo la figura tallada.
+    if (flip) {
+      canvas.save();
+      canvas.translate(face.dx, face.dy);
+      canvas.rotate(pi);
+      canvas.translate(-face.dx, -face.dy);
+    }
     if (art != null) {
       // Relieve tallado: la ilustración ocupa la cara, recortada al hexágono.
       canvas.save();
@@ -192,6 +202,7 @@ class PieceRenderer {
     } else {
       text(canvas, type.glyph, face, r * 0.9, theme.glyph[tone]);
     }
+    if (flip) canvas.restore();
     // El anillo del líder va encima del arte para que la ilustración no lo tape.
     if (type.isLeader) {
       canvas.drawPath(
@@ -202,7 +213,6 @@ class PieceRenderer {
           ..color = theme.gold,
       );
     }
-
   }
 
   static void text(Canvas canvas, String s, Offset center, double fontSize, Color color) {

@@ -26,6 +26,7 @@ import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'theme/ui_style.dart';
 import 'widgets/arena_backdrop.dart';
+import 'widgets/avatar_face.dart';
 import 'widgets/coach_card.dart';
 import 'widgets/emotes.dart';
 import 'widgets/duel_scoreboard.dart';
@@ -63,11 +64,21 @@ class GameScreen extends StatefulWidget {
   /// Etapa que sigue a [stage] en su lista, para el botón "Siguiente".
   final Stage? nextStage;
 
-  const GameScreen({super.key, required this.p0, required this.p1, this.aiPlayer, this.aiLevel = AiLevel.normal})
-    : lesson = null,
-      match = null,
-      stage = null,
-      nextStage = null;
+  /// Pass & Play cara a cara: el dispositivo en la mesa entre los dos y la
+  /// parte de arriba girada hacia el Jugador 2.
+  final bool faceToFace;
+
+  const GameScreen({
+    super.key,
+    required this.p0,
+    required this.p1,
+    this.aiPlayer,
+    this.aiLevel = AiLevel.normal,
+    this.faceToFace = false,
+  }) : lesson = null,
+       match = null,
+       stage = null,
+       nextStage = null;
 
   /// Contenido de un jugador: vos sos el jugador 0 y la IA el 1.
   GameScreen.stage({super.key, required Stage this.stage, this.nextStage})
@@ -76,7 +87,8 @@ class GameScreen extends StatefulWidget {
       aiPlayer = 1,
       aiLevel = stage.level,
       lesson = null,
-      match = null;
+      match = null,
+      faceToFace = false;
 
   /// Tutorial: vos (Shaolin) contra el Sensei, con escenarios armados.
   const GameScreen.tutorial({super.key, this.lesson = 0})
@@ -86,7 +98,8 @@ class GameScreen extends StatefulWidget {
       aiLevel = AiLevel.easy,
       match = null,
       stage = null,
-      nextStage = null;
+      nextStage = null,
+      faceToFace = false;
 
   /// Partida por puntos contra el rival del emparejamiento. Quien empieza
   /// juega con las fichas claras (jugador 0).
@@ -97,7 +110,8 @@ class GameScreen extends StatefulWidget {
       aiLevel = match.opponent.bot ?? AiLevel.normal,
       lesson = null,
       stage = null,
-      nextStage = null;
+      nextStage = null,
+      faceToFace = false;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -166,6 +180,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   /// Asiento del jugador local (abajo) y del rival (arriba).
   int get _mySeat => widget.aiPlayer == null ? 0 : 1 - widget.aiPlayer!;
   int get _oppSeat => 1 - _mySeat;
+
+  /// Cara a cara: la mitad de arriba (Jugador 2) está girada 180°.
+  bool get _f2f => widget.faceToFace && widget.aiPlayer == null;
+
+  /// Hacia quién se abre un diálogo: en cara a cara, girado si es para el Jugador 2.
+  bool _flipFor(int player) => _f2f && player == 1;
 
   @override
   void initState() {
@@ -770,6 +790,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
     showSkinSheet<void>(
       context,
+      flipped: _flipFor(_game.current),
       title: Faction.shaolin.abilityName,
       builder: (ctx) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -792,12 +813,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     );
   }
 
-  void _showInfo(Hex h) {
+  void _showInfo(Hex h, {int by = 0}) {
     final stack = _game.board.stackAt(h);
     if (stack.isEmpty) return;
     Haptics.select();
     showSkinSheet<void>(
       context,
+      flipped: _flipFor(by),
       builder: (ctx) => Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -850,6 +872,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     if (!mounted) return;
     showSkinDialog<void>(
       context,
+      // Cara a cara: el cartel mira a quien ganó.
+      flipped: _flipFor(w ?? 0),
       builder: (ctx) => SkinDialog(
         glyph: humanLost ? '敗' : (_game.draw ? '和' : '勝'),
         glyphColor: humanLost ? null : HexTheme.of(ctx).gold,
@@ -1086,19 +1110,30 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           child: Stack(
             children: [
               Positioned.fill(child: _board(t, targets)),
-              SafeArea(
-                child: Column(
-                  children: [
-                    _topBar(t),
-                    if (_tutorial) _coachCard() else if (_staged) _goalChip(t),
-                    _noticeCard(t),
-                    const Spacer(),
-                    _hintLine(t),
-                    const SizedBox(height: 8),
-                    _dock(t),
-                  ],
+              if (_f2f)
+                SafeArea(
+                  child: Column(
+                    children: [
+                      RotatedBox(quarterTurns: 2, child: _seat(t, 1)),
+                      const Spacer(),
+                      _seat(t, 0),
+                    ],
+                  ),
+                )
+              else
+                SafeArea(
+                  child: Column(
+                    children: [
+                      _topBar(t),
+                      if (_tutorial) _coachCard() else if (_staged) _goalChip(t),
+                      _noticeCard(t),
+                      const Spacer(),
+                      _hintLine(t),
+                      const SizedBox(height: 8),
+                      _dock(t),
+                    ],
+                  ),
                 ),
-              ),
               // Presentación de la etapa, encima de todo hasta tocar Comenzar.
               Positioned.fill(
                 child: IgnorePointer(
@@ -1248,6 +1283,88 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           ),
           const SizedBox(width: 6),
           _roundButton(t, Icons.more_horiz_rounded, tr('game.more'), _openMore),
+        ],
+      ),
+    );
+  }
+
+  /// Cara a cara: lo de un jugador, mirando hacia él (el de arriba va girado).
+  /// Desde el centro hacia su borde: avisos y pista si le toca, su mano y su barra.
+  Widget _seat(HexTheme t, int p) {
+    final mine = _game.current == p && !_game.isOver;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (mine) ...[_noticeCard(t), _hintLine(t), const SizedBox(height: 8)],
+        AnimatedOpacity(
+          duration: const Duration(milliseconds: 250),
+          opacity: mine || _game.isOver ? 1 : 0.5,
+          child: _dock(t, player: p),
+        ),
+        _playerStrip(t, p),
+      ],
+    );
+  }
+
+  /// Avatar, nombre y "Tu turno" de un jugador, con la ronda. El de abajo
+  /// tiene además los botones de más opciones y volver.
+  Widget _playerStrip(HexTheme t, int p) {
+    final g = _game;
+    final active = g.current == p && !g.isOver;
+    final color = HexTheme.faction(g.factions[p]);
+    final profile = _profiles[p];
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(12, 0, 8, 4),
+      child: Row(
+        children: [
+          AvatarFace(
+            avatar: profile.avatar,
+            size: 36,
+            color: color,
+            borderColor: active ? t.gold : t.outline,
+            borderWidth: active ? 2.2 : 1.2,
+            shadow: [if (active) BoxShadow(color: color.withValues(alpha: 0.5), blurRadius: 10, spreadRadius: 1)],
+          ),
+          const SizedBox(width: 10),
+          // El nombre se corta antes que mover la ronda y los botones.
+          Expanded(
+            child: Row(
+              children: [
+                Flexible(
+                  child: Text(
+                    profile.nickname,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15, color: t.text),
+                  ),
+                ),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 250),
+                  transitionBuilder: (c, a) => ScaleTransition(scale: a, child: c),
+                  child: active
+                      ? Container(
+                          key: const ValueKey('turn'),
+                          margin: const EdgeInsets.only(left: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(12)),
+                          child: Text(
+                            tr('game.yourTurn'),
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 12),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ),
+              ],
+            ),
+          ),
+          _roundMark(t),
+          if (p == 0) ...[
+            const SizedBox(width: 10),
+            _roundButton(t, Icons.more_horiz_rounded, tr('game.more'), _openMore),
+            const SizedBox(width: 6),
+            _roundButton(t, Icons.arrow_back_rounded, tr('common.menu'), () => Navigator.maybePop(context)),
+          ] else
+            const SizedBox(width: 8),
         ],
       ),
     );
@@ -1542,7 +1659,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           maxScale: 2.5,
           child: GestureDetector(
             onTapUp: (d) => _onTapHex(_layout.fromPixel(d.localPosition)),
-            onLongPressStart: (d) => _showInfo(_layout.fromPixel(d.localPosition)),
+            onLongPressStart: (d) => _showInfo(
+              _layout.fromPixel(d.localPosition),
+              // Cara a cara: quien toca en la mitad de arriba es el Jugador 2.
+              by: _f2f && d.globalPosition.dy < MediaQuery.sizeOf(context).height / 2 ? 1 : 0,
+            ),
             child: CustomPaint(
               size: const Size(_canvas, _canvas),
               painter: BoardPainter(
@@ -1556,6 +1677,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 targetColor: _targetColor(t),
                 lastMove: _lastMove,
                 spotlight: _spotlight,
+                flipOwner: _f2f ? 1 : null,
               ),
             ),
           ),
@@ -1565,10 +1687,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   }
 
   /// Abajo: deshacer o reiniciar, la mano en un dock y el sello de la habilidad.
-  Widget _dock(HexTheme t) {
+  Widget _dock(HexTheme t, {int? player}) {
     final g = _game;
-    // Contra la IA la mano es siempre la tuya; en Pass & Play, la del turno.
-    final me = widget.aiPlayer != null ? 1 - widget.aiPlayer! : g.current;
+    // Contra la IA la mano es siempre la tuya; en Pass & Play, la del turno;
+    // cara a cara, cada uno tiene la suya.
+    final me = player ?? (widget.aiPlayer != null ? 1 - widget.aiPlayer! : g.current);
     final allowed = _lesson?.hand;
     final placeable = me == g.current
         ? g.placeableTypes().where((p) => allowed == null || allowed.contains(p)).toSet()
@@ -1576,7 +1699,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final hand = g.hands[me].entries.where((e) => e.value > 0 && (!_tutorial || placeable.contains(e.key))).toList();
     final showHand = _tutorial ? hand.isNotEmpty : !(_stage?.isPuzzle ?? false) || hand.isNotEmpty;
     final showAbility = !_tutorial || _lesson!.ability;
-    final secondary = _secondaryAction(t);
+    final secondary = player == null || player == g.current ? _secondaryAction(t) : null;
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 0, 10, 8),
       child: Row(
@@ -1717,10 +1840,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             : null,
         onLongPress: () => showSkinDialog<void>(
           context,
+          flipped: _flipFor(owner),
           builder: (ctx) => SkinDialog(
             title: type.displayName,
             message: type.rulesText,
-            body: PieceChip(type: type, owner: _game.current, size: 26),
+            body: PieceChip(type: type, owner: owner, size: 26),
           ),
         ),
         child: AnimatedOpacity(

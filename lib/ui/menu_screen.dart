@@ -158,6 +158,24 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
             tr('menu.localBody', {'faction': _faction.displayName}),
             style: TextStyle(color: HexTheme.of(ctx).textMuted, fontSize: 15, height: 1.4),
           ),
+          const SizedBox(height: 8),
+          ListenableBuilder(
+            listenable: AppSettings.instance,
+            builder: (_, _) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SkinToggle(
+                  label: tr('local.faceToFace'),
+                  value: AppSettings.instance.faceToFace,
+                  onChanged: (v) => AppSettings.instance.faceToFace = v,
+                ),
+                Text(
+                  tr(AppSettings.instance.faceToFace ? 'local.faceToFaceOn' : 'local.faceToFaceOff'),
+                  style: TextStyle(color: HexTheme.of(ctx).textMuted, fontSize: 13, height: 1.35),
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -170,7 +188,10 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                     leading: PieceChip(type: leaderOf(f), owner: f == _faction ? 0 : 1, size: 15),
                     onPressed: () {
                       Navigator.pop(ctx);
-                      Navigator.push(context, _fade(GameScreen(p0: _faction, p1: f)));
+                      Navigator.push(
+                        context,
+                        _fade(GameScreen(p0: _faction, p1: f, faceToFace: AppSettings.instance.faceToFace)),
+                      );
                     },
                   ),
                 ),

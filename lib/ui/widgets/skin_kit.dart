@@ -1009,13 +1009,38 @@ class SkinDialog extends StatelessWidget {
   }
 }
 
-Future<T?> showSkinDialog<T>(BuildContext context, {required WidgetBuilder builder, bool dismissible = true}) =>
-    showDialog<T>(
-      context: context,
-      barrierDismissible: dismissible,
-      barrierColor: Colors.black.withValues(alpha: 0.55),
-      builder: builder,
+/// [flipped] lo muestra girado 180°, hacia el jugador de enfrente (cara a cara).
+Future<T?> showSkinDialog<T>(
+  BuildContext context, {
+  required WidgetBuilder builder,
+  bool dismissible = true,
+  bool flipped = false,
+}) => showDialog<T>(
+  context: context,
+  barrierDismissible: dismissible,
+  barrierColor: Colors.black.withValues(alpha: 0.55),
+  builder: flipped ? (ctx) => _Flipped(child: builder(ctx)) : builder,
+);
+
+/// Gira 180° su contenido y le da vuelta los márgenes seguros, así lo que
+/// esperaba la muesca arriba la encuentra del lado correcto.
+class _Flipped extends StatelessWidget {
+  final Widget child;
+  const _Flipped({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    EdgeInsets swap(EdgeInsets e) => EdgeInsets.fromLTRB(e.right, e.bottom, e.left, e.top);
+    return RotatedBox(
+      quarterTurns: 2,
+      child: MediaQuery(
+        data: mq.copyWith(padding: swap(mq.padding), viewPadding: swap(mq.viewPadding)),
+        child: child,
+      ),
     );
+  }
+}
 
 class _BoxLid extends StatelessWidget {
   final Widget child;
@@ -1162,17 +1187,50 @@ class _CombPlate extends StatelessWidget {
 // ------------------------------------------------------------------ hojas
 
 /// Hoja inferior con el marco del estilo. [child] puede ser largo: se desplaza.
-Future<T?> showSkinSheet<T>(BuildContext context, {String? title, required WidgetBuilder builder}) =>
-    showModalBottomSheet<T>(
-      context: context,
-      isScrollControlled: true,
-      showDragHandle: false,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      barrierColor: Colors.black.withValues(alpha: 0.45),
-      constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.88),
-      builder: (ctx) => _SkinSheet(title: title, child: builder(ctx)),
-    );
+/// [flipped] la abre desde arriba y girada, hacia el jugador de enfrente.
+Future<T?> showSkinSheet<T>(
+  BuildContext context, {
+  String? title,
+  required WidgetBuilder builder,
+  bool flipped = false,
+}) => flipped
+    ? showGeneralDialog<T>(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierColor: Colors.black.withValues(alpha: 0.45),
+        transitionDuration: const Duration(milliseconds: 250),
+        pageBuilder: (ctx, _, _) => _Flipped(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(ctx).height * 0.88),
+              child: Material(
+                type: MaterialType.transparency,
+                child: _SkinSheet(title: title, child: builder(ctx)),
+              ),
+            ),
+          ),
+        ),
+        // Baja desde arriba, como una hoja que sube del lado del otro jugador.
+        transitionBuilder: (_, a, _, child) => SlideTransition(
+          position: Tween(
+            begin: const Offset(0, -1),
+            end: Offset.zero,
+          ).animate(CurvedAnimation(parent: a, curve: Curves.easeOutCubic)),
+          child: child,
+        ),
+      )
+    : showModalBottomSheet<T>(
+        context: context,
+        isScrollControlled: true,
+        showDragHandle: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        barrierColor: Colors.black.withValues(alpha: 0.45),
+        constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.88),
+        builder: (ctx) => _SkinSheet(title: title, child: builder(ctx)),
+      );
 
 class _SkinSheet extends StatelessWidget {
   final String? title;

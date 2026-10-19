@@ -28,6 +28,7 @@ class AppSettings extends ChangeNotifier {
   Faction _faction = Faction.shaolin;
   bool _sound = true;
   bool _haptics = true;
+  bool _faceToFace = false;
   String? _nickname; // null = el nombre por defecto del idioma
   String? _avatar; // null = el de la facción con que se juega
   bool _onboarded = false;
@@ -55,6 +56,10 @@ class AppSettings extends ChangeNotifier {
   bool get useGlyphs => currentLanguage == 'zh' && _pieceStyle == PieceStyle.glyphs;
   bool get sound => _sound;
   bool get haptics => _haptics;
+
+  /// Partida local cara a cara: el dispositivo en la mesa, la parte de arriba
+  /// gira hacia el Jugador 2.
+  bool get faceToFace => _faceToFace;
   String get nickname => _nickname ?? tr('common.defaultNick');
 
   /// Avatar elegido a mano (null = el inicial de cada facción).
@@ -152,6 +157,7 @@ class AppSettings extends ChangeNotifier {
         : ThemeMode.system;
     _sound = p.getBool('sound') ?? true;
     _haptics = p.getBool('haptics') ?? true;
+    _faceToFace = p.getBool('faceToFace') ?? false;
     _nickname = p.getString('nickname');
     final avatar = p.getString('avatar');
     _avatar = avatar != null && Avatars.byId(avatar) != null ? avatar : null;
@@ -213,6 +219,12 @@ class AppSettings extends ChangeNotifier {
   set sound(bool v) {
     _sound = v;
     _prefs?.setBool('sound', v);
+    notifyListeners();
+  }
+
+  set faceToFace(bool v) {
+    _faceToFace = v;
+    _prefs?.setBool('faceToFace', v);
     notifyListeners();
   }
 

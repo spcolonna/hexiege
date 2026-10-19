@@ -456,4 +456,8 @@ const en = <String, String>{
   'avatar.jonin': 'Jōnin',
   'avatar.fan': 'Fan Kunoichi',
   'avatar.ronin': 'Rōnin',
+  'local.faceToFace': 'Face to face',
+  'local.faceToFaceOn': 'Lay the device flat between you: the top half faces Player 2 and each of you has your own hand.',
+  'local.faceToFaceOff': 'Pass the device back and forth each turn.',
+  'game.yourTurn': 'Your turn',
 };

@@ -456,4 +456,8 @@ const es = <String, String>{
   'avatar.jonin': 'Jōnin',
   'avatar.fan': 'Kunoichi del abanico',
   'avatar.ronin': 'Rōnin',
+  'local.faceToFace': 'Cara a cara',
+  'local.faceToFaceOn': 'Apoyen el dispositivo en la mesa, entre los dos: la parte de arriba mira al Jugador 2 y cada uno tiene su mano.',
+  'local.faceToFaceOff': 'Se pasan el dispositivo en cada turno.',
+  'game.yourTurn': 'Tu turno',
 };

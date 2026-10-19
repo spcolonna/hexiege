@@ -2273,5 +2273,25 @@
   "es": "Rōnin",
   "en": "Rōnin",
   "zh": "浪人"
+ },
+ "local.faceToFace": {
+  "es": "Cara a cara",
+  "en": "Face to face",
+  "zh": "面对面"
+ },
+ "local.faceToFaceOn": {
+  "es": "Apoyen el dispositivo en la mesa, entre los dos: la parte de arriba mira al Jugador 2 y cada uno tiene su mano.",
+  "en": "Lay the device flat between you: the top half faces Player 2 and each of you has your own hand.",
+  "zh": "把设备平放在两人之间：上半部分朝向玩家 2，每人各有自己的手牌。"
+ },
+ "local.faceToFaceOff": {
+  "es": "Se pasan el dispositivo en cada turno.",
+  "en": "Pass the device back and forth each turn.",
+  "zh": "每回合轮流传递设备。"
+ },
+ "game.yourTurn": {
+  "es": "Tu turno",
+  "en": "Your turn",
+  "zh": "你的回合"
  }
 }

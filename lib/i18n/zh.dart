@@ -456,4 +456,8 @@ const zh = <String, String>{
   'avatar.jonin': '上忍',
   'avatar.fan': '铁扇女忍',
   'avatar.ronin': '浪人',
+  'local.faceToFace': '面对面',
+  'local.faceToFaceOn': '把设备平放在两人之间：上半部分朝向玩家 2，每人各有自己的手牌。',
+  'local.faceToFaceOff': '每回合轮流传递设备。',
+  'game.yourTurn': '你的回合',
 };
