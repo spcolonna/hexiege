@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../codex/avatars.dart';
+import '../../codex/cosmetics.dart';
 import '../../engine/pieces.dart';
 import '../../i18n/i18n.dart';
 import '../../match/ladder.dart';
@@ -31,6 +32,9 @@ class AppSettings extends ChangeNotifier {
   bool _faceToFace = false;
   String? _nickname; // null = el nombre por defecto del idioma
   String? _avatar; // null = el de la facción con que se juega
+  String? _frame; // null = sin marco
+  String? _table; // null = la mesa del tema
+  final Map<Faction, String> _stones = {};
   bool _onboarded = false;
   bool _tutorialDone = false;
   LadderRecord _ladder = const LadderRecord();
@@ -67,6 +71,40 @@ class AppSettings extends ChangeNotifier {
 
   /// Avatar con que se muestra al jugador cuando juega con [f].
   String avatarFor(Faction f) => _avatar ?? Avatars.defaultFor(f);
+
+  /// Marco del avatar (null = sin marco).
+  String? get frame => _frame;
+
+  set frame(String? id) {
+    _frame = Cosmetics.frame(id)?.id;
+    _setOrRemove('frame', _frame);
+  }
+
+  /// Tapete debajo del tablero (null = la mesa del tema de la facción).
+  String? get table => _table;
+
+  set table(String? id) {
+    _table = Cosmetics.table(id)?.id;
+    _setOrRemove('table', _table);
+  }
+
+  /// Piedra elegida para las fichas de [f].
+  String stoneFor(Faction f) => _stones[f] ?? Cosmetics.classic;
+
+  void setStone(Faction f, String id) {
+    if (Cosmetics.stone(f, id) == null) return;
+    _stones[f] = id;
+    _setOrRemove('stone_${f.name}', id == Cosmetics.classic ? null : id);
+  }
+
+  void _setOrRemove(String key, String? value) {
+    if (value == null) {
+      _prefs?.remove(key);
+    } else {
+      _prefs?.setString(key, value);
+    }
+    notifyListeners();
+  }
 
   /// Ya vio la bienvenida del primer arranque.
   bool get onboarded => _onboarded;
@@ -161,6 +199,12 @@ class AppSettings extends ChangeNotifier {
     _nickname = p.getString('nickname');
     final avatar = p.getString('avatar');
     _avatar = avatar != null && Avatars.byId(avatar) != null ? avatar : null;
+    _frame = Cosmetics.frame(p.getString('frame'))?.id;
+    _table = Cosmetics.table(p.getString('table'))?.id;
+    for (final f in Faction.values) {
+      final id = Cosmetics.stone(f, p.getString('stone_${f.name}'))?.id;
+      if (id != null) _stones[f] = id;
+    }
     _onboarded = p.getBool('onboarded') ?? false;
     _tutorialDone = p.getBool('tutorialDone') ?? false;
     _cleared = (p.getStringList('cleared') ?? const []).toSet();

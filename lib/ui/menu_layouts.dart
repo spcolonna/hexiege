@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../config.dart';
 import '../codex/gifts.dart';
 import '../engine/pieces.dart';
 import '../i18n/i18n.dart';
@@ -16,7 +17,9 @@ import 'widgets/skin_kit.dart';
 /// Lo que el menú ofrece, sea cual sea su armado.
 class MenuModel {
   final Animation<double> float;
-  final VoidCallback findMatch;
+
+  /// null = partidas online apagadas (`kOnlineMatches`): se muestra deshabilitada.
+  final VoidCallback? findMatch;
   final VoidCallback solo;
   final VoidCallback local;
   final VoidCallback tutorial;
@@ -79,10 +82,15 @@ class FloatingPieces extends StatelessWidget {
 }
 
 String _record() {
+  if (!kOnlineMatches) return tr('menu.winsVsAi', {'n': AppSettings.instance.wins});
   final l = AppSettings.instance.ladder;
   if (l.games == 0) return tr('menu.firstGame');
   return tr('menu.record', {'w': l.wins, 'l': l.losses}) + (l.draws > 0 ? tr('menu.recordDraws', {'d': l.draws}) : '');
 }
+
+/// Opción del menú que todavía no está disponible: atenuada y sin toque.
+Widget _off(VoidCallback? onTap, Widget child) =>
+    onTap != null ? child : IgnorePointer(child: Opacity(opacity: 0.45, child: child));
 
 /// Avatar y nombre del jugador con su lápiz: tocarlo abre el perfil.
 class _Name extends StatelessWidget {
@@ -103,11 +111,13 @@ class _Name extends StatelessWidget {
       children: [
         AvatarFace(
           avatar: AppSettings.instance.avatarFor(AppSettings.instance.faction),
+          frame: AppSettings.instance.frame,
           size: size * 1.9,
           color: HexTheme.faction(AppSettings.instance.faction),
           borderColor: HexTheme.of(context).gold,
         ),
-        const SizedBox(width: 8),
+        // El marco sobresale del avatar: se le deja lugar para no pisar el nombre.
+        SizedBox(width: AppSettings.instance.frame == null ? 8 : 8 + size * 0.38),
         Flexible(
           child: Text(
             AppSettings.instance.nickname,
@@ -174,8 +184,7 @@ class BoxMenu extends StatelessWidget {
                 decoration: BoxDecoration(color: t.surfaceHigh, borderRadius: BorderRadius.circular(9)),
                 child: Row(
                   children: [
-                    RankBadge(rank: l.rank, size: 38),
-                    const SizedBox(width: 10),
+                    if (kOnlineMatches) ...[RankBadge(rank: l.rank, size: 38), const SizedBox(width: 10)],
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,17 +192,18 @@ class BoxMenu extends StatelessWidget {
                           _Name(onTap: m.rename, color: t.text),
                           Row(
                             children: [
-                              Text(
-                                l.rank.displayName,
-                                style: TextStyle(
-                                  fontSize: 12.5,
-                                  fontWeight: FontWeight.w700,
-                                  color: l.rank.textOn(t.isDark),
+                              if (kOnlineMatches)
+                                Text(
+                                  l.rank.displayName,
+                                  style: TextStyle(
+                                    fontSize: 12.5,
+                                    fontWeight: FontWeight.w700,
+                                    color: l.rank.textOn(t.isDark),
+                                  ),
                                 ),
-                              ),
                               Flexible(
                                 child: Text(
-                                  '  ${_record()}',
+                                  kOnlineMatches ? '  ${_record()}' : _record(),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: 12.5, color: t.textMuted),
@@ -204,7 +214,7 @@ class BoxMenu extends StatelessWidget {
                         ],
                       ),
                     ),
-                    if (l.streak >= 2)
+                    if (kOnlineMatches && l.streak >= 2)
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: Text(
@@ -212,13 +222,14 @@ class BoxMenu extends StatelessWidget {
                           style: TextStyle(fontWeight: FontWeight.w900, color: t.text),
                         ),
                       ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('${l.rating}', style: s.display(26, color: t.text, height: 1)),
-                        Text(tr('menu.points'), style: TextStyle(fontSize: 11, color: t.textMuted)),
-                      ],
-                    ),
+                    if (kOnlineMatches)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('${l.rating}', style: s.display(26, color: t.text, height: 1)),
+                          Text(tr('menu.points'), style: TextStyle(fontSize: 11, color: t.textMuted)),
+                        ],
+                      ),
                   ],
                 ),
               ),
@@ -246,7 +257,11 @@ class BoxMenu extends StatelessWidget {
           ),
         ],
         const SizedBox(height: 16),
-        SkinPrimaryButton(label: tr('menu.findMatch'), glyph: '戦', onPressed: m.findMatch),
+        SkinPrimaryButton(
+          label: m.findMatch == null ? tr('menu.onlineSoon') : tr('menu.findMatch'),
+          glyph: '戦',
+          onPressed: m.findMatch,
+        ),
         const SizedBox(height: 12),
         SkinTile(
           glyph: '独',
@@ -409,8 +424,7 @@ class EmaMenu extends StatelessWidget {
           ),
           child: Row(
             children: [
-              RankBadge(rank: l.rank, size: 34),
-              const SizedBox(width: 12),
+              if (kOnlineMatches) ...[RankBadge(rank: l.rank, size: 34), const SizedBox(width: 12)],
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -418,10 +432,11 @@ class EmaMenu extends StatelessWidget {
                     _Name(onTap: m.rename, color: t.text, size: 17),
                     Row(
                       children: [
-                        Text(l.rank.displayName, style: TextStyle(fontSize: 12.5, color: l.rank.textOn(t.isDark))),
+                        if (kOnlineMatches)
+                          Text(l.rank.displayName, style: TextStyle(fontSize: 12.5, color: l.rank.textOn(t.isDark))),
                         Flexible(
                           child: Text(
-                            '  ${_record()}',
+                            kOnlineMatches ? '  ${_record()}' : _record(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 12.5, color: t.textMuted),
@@ -432,7 +447,7 @@ class EmaMenu extends StatelessWidget {
                   ],
                 ),
               ),
-              Text('${l.rating}', style: s.display(38, color: inkOf(t), height: 1)),
+              if (kOnlineMatches) Text('${l.rating}', style: s.display(38, color: inkOf(t), height: 1)),
             ],
           ),
         ),
@@ -503,7 +518,17 @@ class EmaMenu extends StatelessWidget {
                       sub: m.soloProgress,
                       onTap: m.solo,
                     ),
-                    EmaPlaque(width: w * 1.12, glyph: '戦', label: tr('menu.findMatch'), main: true, onTap: m.findMatch),
+                    _off(
+                      m.findMatch,
+                      EmaPlaque(
+                        width: w * 1.12,
+                        glyph: '戦',
+                        label: m.findMatch == null ? 'Online' : tr('menu.findMatch'),
+                        sub: m.findMatch == null ? tr('menu.soon') : null,
+                        main: true,
+                        onTap: m.findMatch ?? () {},
+                      ),
+                    ),
                     EmaPlaque(width: w, tilt: 0.035, glyph: '友', label: tr('menu.local'), onTap: m.local),
                   ],
                 ),
@@ -686,8 +711,7 @@ class CombMenu extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              RankBadge(rank: l.rank, size: 32),
-              const SizedBox(width: 8),
+              if (kOnlineMatches) ...[RankBadge(rank: l.rank, size: 32), const SizedBox(width: 8)],
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -697,17 +721,18 @@ class CombMenu extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 14),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text('${l.rating}', style: s.display(20, color: t.text, height: 1)),
-                  Text(
-                    l.rank.displayName,
-                    style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: l.rank.textOn(t.isDark)),
-                  ),
-                ],
-              ),
+              if (kOnlineMatches) const SizedBox(width: 14),
+              if (kOnlineMatches)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text('${l.rating}', style: s.display(20, color: t.text, height: 1)),
+                    Text(
+                      l.rank.displayName,
+                      style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: l.rank.textOn(t.isDark)),
+                    ),
+                  ],
+                ),
             ],
           ),
         ),
@@ -744,14 +769,17 @@ class CombMenu extends StatelessWidget {
                   at(
                     0,
                     0,
-                    HexCell(
-                      width: w,
-                      glyph: '戦',
-                      label: tr('menu.play'),
-                      sub: tr('menu.ranked'),
-                      main: true,
-                      semantic: tr('menu.findMatch'),
-                      onTap: m.findMatch,
+                    _off(
+                      m.findMatch,
+                      HexCell(
+                        width: w,
+                        glyph: '戦',
+                        label: m.findMatch == null ? 'Online' : tr('menu.play'),
+                        sub: m.findMatch == null ? tr('menu.soon') : tr('menu.ranked'),
+                        main: true,
+                        semantic: m.findMatch == null ? tr('menu.onlineSoon') : tr('menu.findMatch'),
+                        onTap: m.findMatch ?? () {},
+                      ),
                     ),
                   ),
                   at(dx, 0, HexCell(width: w, glyph: '法', label: tr('menu.rules'), onTap: m.rules)),

@@ -69,6 +69,9 @@ flutter:
     - assets/emblems/
     - assets/brand/
     - assets/avatars/
+    - assets/emotes/
+    - assets/frames/
+    - assets/tables/
 
   # Fuentes de los estilos de interfaz (OFL, recortadas: ver assets/fonts/LICENSES.txt).
   fonts:

@@ -119,7 +119,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   static const _canvas = 4000.0;
-  static const _hexSize = 34.0;
+  static const _hexSize = 40.0;
   final _layout = const HexLayout(_hexSize, Offset(_canvas / 2, _canvas / 2));
   final _transform = TransformationController();
   bool _centered = false;
@@ -204,6 +204,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         nickname: nick,
         faction: m.yourFaction,
         avatar: AppSettings.instance.avatarFor(m.yourFaction),
+        frame: AppSettings.instance.frame,
         rating: AppSettings.instance.ladder.rating,
       );
       final o = m.opponent;
@@ -212,7 +213,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     } else {
       _profiles = _staged
           ? [
-              PlayerProfile(nickname: nick, faction: widget.p0, avatar: AppSettings.instance.avatarFor(widget.p0)),
+              PlayerProfile(
+                nickname: nick,
+                faction: widget.p0,
+                avatar: AppSettings.instance.avatarFor(widget.p0),
+                frame: AppSettings.instance.frame,
+              ),
               PlayerProfile(
                 nickname: _stage!.isPuzzle
                     ? tr('common.sensei')
@@ -223,16 +229,31 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             ]
           : _tutorial
           ? [
-              PlayerProfile(nickname: nick, faction: widget.p0, avatar: AppSettings.instance.avatarFor(widget.p0)),
+              PlayerProfile(
+                nickname: nick,
+                faction: widget.p0,
+                avatar: AppSettings.instance.avatarFor(widget.p0),
+                frame: AppSettings.instance.frame,
+              ),
               PlayerProfile(nickname: tr('common.sensei'), faction: widget.p1, isAi: true),
             ]
           : widget.aiPlayer == null
           ? [
-              PlayerProfile(nickname: nick, faction: widget.p0, avatar: AppSettings.instance.avatarFor(widget.p0)),
+              PlayerProfile(
+                nickname: nick,
+                faction: widget.p0,
+                avatar: AppSettings.instance.avatarFor(widget.p0),
+                frame: AppSettings.instance.frame,
+              ),
               PlayerProfile(nickname: tr('common.player2'), faction: widget.p1, avatar: Avatars.defaultFor(widget.p1)),
             ]
           : [
-              PlayerProfile(nickname: nick, faction: widget.p0, avatar: AppSettings.instance.avatarFor(widget.p0)),
+              PlayerProfile(
+                nickname: nick,
+                faction: widget.p0,
+                avatar: AppSettings.instance.avatarFor(widget.p0),
+                frame: AppSettings.instance.frame,
+              ),
               PlayerProfile(
                 nickname: '${tr('common.sensei')} · ${widget.aiLevel.displayName}',
                 faction: widget.p1,
@@ -1018,8 +1039,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           padding: EdgeInsets.zero,
           child: Wrap(
             alignment: WrapAlignment.center,
-            spacing: 12,
-            runSpacing: 12,
+            spacing: 10,
+            runSpacing: 10,
             children: [
               for (final e in Emote.values)
                 InkWell(
@@ -1031,14 +1052,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     _maybeAiReply(e);
                   },
                   child: Container(
-                    width: 72,
-                    height: 72,
+                    width: 76,
+                    height: 88,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(color: HexTheme.of(ctx).outline, borderRadius: BorderRadius.circular(16)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        EmoteGlyph(e, size: 30),
+                        EmoteGlyph(e, faction: _profiles[player].faction, size: 58),
                         const SizedBox(height: 2),
                         Text(e.label, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700)),
                       ],
@@ -1107,6 +1128,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       child: Scaffold(
         body: ArenaBackdrop(
           accent: HexTheme.faction(g.currentFaction),
+          cloth: true,
           child: Stack(
             children: [
               Positioned.fill(child: _board(t, targets)),
@@ -1319,6 +1341,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         children: [
           AvatarFace(
             avatar: profile.avatar,
+            frame: profile.frame,
             size: 36,
             color: color,
             borderColor: active ? t.gold : t.outline,
@@ -1514,7 +1537,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                 padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
                 decoration: BoxDecoration(
-                  color: t.surface,
+                  color: t.surface.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(14),
                   border: Border.all(color: HexTheme.faction(_game.factions[events.first.player]), width: 1.5),
                 ),
@@ -1670,6 +1693,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 game: _game,
                 layout: _layout,
                 theme: t,
+                grid: ArenaBackdrop.gridColor(t),
                 fx: _fx,
                 selected: _mode == _Mode.effect ? _effectTo : _selected,
                 targets: targets.difference(_swapTargets),
@@ -1710,10 +1734,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 ? const SizedBox(height: 56)
                 : Center(
                     child: SkinBar(
+                      tray: true,
                       radius: 22,
                       padding: const EdgeInsets.fromLTRB(6, 8, 6, 6),
                       child: SizedBox(
-                        height: 52,
+                        height: 60,
                         child: hand.isEmpty
                             ? Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -1852,7 +1877,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           opacity: enabled ? 1 : 0.35,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 180),
-            width: 44,
+            width: 52,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: selected ? t.highlight.withValues(alpha: 0.14) : Colors.transparent,
@@ -1870,7 +1895,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                   builder: (_, lift, _) => PieceChip(
                     type: type,
                     owner: owner,
-                    size: 19,
+                    size: 23,
                     lift: lift,
                     mirror: _game.factions[0] == _game.factions[1],
                   ),

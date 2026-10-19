@@ -2,29 +2,64 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../codex/cosmetics.dart';
 import '../theme/hex_theme.dart';
+import '../theme/settings.dart';
 
-/// Fondo: la mesa de la facción (tablas de madera o laca), con la luz de la
-/// lámpara en el centro y viñeta. Punto de extensión para cosméticos vía [HexTheme].
+/// Fondo: la mesa de la facción (tablas de madera o laca) o el tapete elegido en
+/// el perfil, con la luz de la lámpara en el centro y viñeta.
 class ArenaBackdrop extends StatelessWidget {
   final Widget child;
 
   /// Color de acento (facción del turno) que tiñe levemente la luz.
   final Color? accent;
-  const ArenaBackdrop({super.key, required this.child, this.accent});
+
+  /// Usa el tapete elegido en el perfil (solo debajo del tablero, en partida).
+  final bool cloth;
+  const ArenaBackdrop({super.key, required this.child, this.accent, this.cloth = false});
+
+  /// Color de la grilla del tablero sobre la mesa en uso: la del tema, o una
+  /// de más contraste (clara u oscura) si hay tapete.
+  static Color gridColor(HexTheme t) {
+    final c = Cosmetics.table(AppSettings.instance.table);
+    if (c == null) return t.grid;
+    return c.dark ? Colors.white.withValues(alpha: 0.34) : Colors.black.withValues(alpha: 0.3);
+  }
 
   @override
   Widget build(BuildContext context) {
     final t = HexTheme.of(context);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [t.backdropTop, t.backdropBottom],
-        ),
-      ),
-      child: CustomPaint(painter: _ArenaPainter(t, accent), child: child),
+    return ListenableBuilder(
+      listenable: AppSettings.instance,
+      child: child,
+      builder: (context, child) {
+        final cloth = this.cloth ? Cosmetics.table(AppSettings.instance.table) : null;
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [t.backdropTop, t.backdropBottom],
+            ),
+            // El tapete se repite en baldosas de ~256 pt; de noche, más apagado.
+            image: cloth == null
+                ? null
+                : DecorationImage(
+                    image: AssetImage(cloth.asset),
+                    repeat: ImageRepeat.repeat,
+                    scale: 2,
+                    filterQuality: FilterQuality.medium,
+                    colorFilter: t.isDark
+                        ? ColorFilter.mode(Colors.black.withValues(alpha: 0.35), BlendMode.srcATop)
+                        : null,
+                  ),
+          ),
+          child: CustomPaint(
+            painter: _ArenaPainter(t, accent, cloth: cloth != null),
+            child: child,
+          ),
+        );
+      },
     );
   }
 }
@@ -32,16 +67,21 @@ class ArenaBackdrop extends StatelessWidget {
 class _ArenaPainter extends CustomPainter {
   final HexTheme t;
   final Color? accent;
-  _ArenaPainter(this.t, this.accent);
+
+  /// Hay tapete: solo se pinta la luz y la viñeta encima.
+  final bool cloth;
+  _ArenaPainter(this.t, this.accent, {this.cloth = false});
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = size.center(Offset.zero);
-    switch (t.table) {
-      case TableMaterial.planks:
-        _planks(canvas, size);
-      case TableMaterial.lacquer:
-        _lacquer(canvas, size);
+    if (!cloth) {
+      switch (t.table) {
+        case TableMaterial.planks:
+          _planks(canvas, size);
+        case TableMaterial.lacquer:
+          _lacquer(canvas, size);
+      }
     }
     final glow = accent == null
         ? t.backdropGlow
@@ -145,5 +185,5 @@ class _ArenaPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _ArenaPainter o) => o.t != t || o.accent != accent;
+  bool shouldRepaint(covariant _ArenaPainter o) => o.t != t || o.accent != accent || o.cloth != cloth;
 }

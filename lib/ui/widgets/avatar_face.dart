@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../codex/avatars.dart';
+import '../../codex/cosmetics.dart';
 
 /// Avatar redondo: el retrato si [avatar] está en el catálogo; si no, el
-/// carácter sobre un disco del color de la facción.
+/// carácter sobre un disco del color de la facción. Con [frame], el aro va por
+/// fuera del círculo sin cambiar el tamaño que ocupa en el layout.
 class AvatarFace extends StatelessWidget {
   final String avatar;
   final double size;
@@ -11,6 +13,9 @@ class AvatarFace extends StatelessWidget {
   final Color borderColor;
   final double borderWidth;
   final List<BoxShadow>? shadow;
+
+  /// Id del marco (`Cosmetics.frames`); null = sin marco.
+  final String? frame;
 
   const AvatarFace({
     super.key,
@@ -20,10 +25,40 @@ class AvatarFace extends StatelessWidget {
     required this.borderColor,
     this.borderWidth = 1.6,
     this.shadow,
+    this.frame,
   });
+
+  /// El hueco del aro mide ~70% de la imagen: así cubre justo el borde del avatar.
+  static const frameScale = 1.4;
 
   @override
   Widget build(BuildContext context) {
+    final ring = Cosmetics.frame(frame);
+    final face = _face();
+    if (ring == null) return face;
+    final f = size * frameScale;
+    return SizedBox(
+      width: size,
+      height: size,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          face,
+          Positioned(
+            left: (size - f) / 2,
+            top: (size - f) / 2,
+            width: f,
+            height: f,
+            child: IgnorePointer(
+              child: Image.asset(ring.asset, width: f, height: f, filterQuality: FilterQuality.medium),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _face() {
     final def = Avatars.byId(avatar);
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),

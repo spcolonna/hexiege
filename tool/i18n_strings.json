@@ -775,9 +775,9 @@
   "zh": "本地对局"
  },
  "menu.localBody": {
-  "es": "Dos jugadores en este dispositivo. Vos jugás {faction}; ¿qué facción usa el Jugador 2?",
-  "en": "Two players on this device. You play {faction}; which faction does Player 2 use?",
-  "zh": "两名玩家共用此设备。你使用{faction}；玩家 2 使用哪个阵营？"
+  "es": "Dos jugadores en este dispositivo. Cada uno elige con qué fichas juega.",
+  "en": "Two players on this device. Each of you picks which pieces to play.",
+  "zh": "两名玩家共用此设备。各自选择要使用的棋子。"
  },
  "menu.firstGame": {
   "es": "Jugá tu primera partida",
@@ -2293,5 +2293,145 @@
   "es": "Tu turno",
   "en": "Your turn",
   "zh": "你的回合"
+ },
+ "avatar.oni": {
+  "es": "Máscara oni",
+  "en": "Oni Mask",
+  "zh": "鬼面"
+ },
+ "avatar.kitsune": {
+  "es": "Espíritu kitsune",
+  "en": "Kitsune Spirit",
+  "zh": "狐灵"
+ },
+ "settings.table": {
+  "es": "Mesa",
+  "en": "Table",
+  "zh": "桌面"
+ },
+ "settings.tableTheme": {
+  "es": "De la facción",
+  "en": "Faction's",
+  "zh": "阵营默认"
+ },
+ "settings.stones": {
+  "es": "Piedra de las fichas",
+  "en": "Piece stone",
+  "zh": "棋子石材"
+ },
+ "stone.classic": {
+  "es": "Clásica",
+  "en": "Classic",
+  "zh": "经典"
+ },
+ "stone.imperial": {
+  "es": "Jade imperial",
+  "en": "Imperial jade",
+  "zh": "帝王玉"
+ },
+ "stone.sandstone": {
+  "es": "Arenisca dorada",
+  "en": "Golden sandstone",
+  "zh": "金砂岩"
+ },
+ "stone.vermilion": {
+  "es": "Laca bermellón",
+  "en": "Vermilion lacquer",
+  "zh": "朱漆"
+ },
+ "stone.iron": {
+  "es": "Hierro oxidado",
+  "en": "Rusted iron",
+  "zh": "锈铁"
+ },
+ "table.temple_wood": {
+  "es": "Madera de templo",
+  "en": "Temple wood",
+  "zh": "寺院木"
+ },
+ "table.black_lacquer": {
+  "es": "Laca negra",
+  "en": "Black lacquer",
+  "zh": "黑漆"
+ },
+ "table.tatami": {
+  "es": "Tatami",
+  "en": "Tatami",
+  "zh": "榻榻米"
+ },
+ "table.red_silk": {
+  "es": "Seda roja",
+  "en": "Red silk",
+  "zh": "红绸"
+ },
+ "table.river_slate": {
+  "es": "Pizarra de río",
+  "en": "River slate",
+  "zh": "河石板"
+ },
+ "profile.frame": {
+  "es": "Marco",
+  "en": "Frame",
+  "zh": "头像框"
+ },
+ "profile.avatar": {
+  "es": "Avatar",
+  "en": "Avatar",
+  "zh": "头像"
+ },
+ "frame.none": {
+  "es": "Sin marco",
+  "en": "None",
+  "zh": "无"
+ },
+ "frame.bronze": {
+  "es": "Bronce",
+  "en": "Bronze",
+  "zh": "青铜"
+ },
+ "frame.jade": {
+  "es": "Plata y jade",
+  "en": "Silver and jade",
+  "zh": "银玉"
+ },
+ "frame.gold": {
+  "es": "Oro imperial",
+  "en": "Imperial gold",
+  "zh": "皇金"
+ },
+ "frame.obsidian": {
+  "es": "Obsidiana carmesí",
+  "en": "Crimson obsidian",
+  "zh": "赤曜石"
+ },
+ "menu.onlineSoon": {
+  "es": "Online · Próximamente",
+  "en": "Online · Coming soon",
+  "zh": "在线对战 · 即将推出"
+ },
+ "menu.soon": {
+  "es": "próximamente",
+  "en": "coming soon",
+  "zh": "即将推出"
+ },
+ "menu.winsVsAi": {
+  "es": "{n} victorias",
+  "en": "{n} wins",
+  "zh": "{n} 胜"
+ },
+ "local.player1": {
+  "es": "Jugador 1",
+  "en": "Player 1",
+  "zh": "玩家 1"
+ },
+ "local.player2": {
+  "es": "Jugador 2",
+  "en": "Player 2",
+  "zh": "玩家 2"
+ },
+ "local.mirror": {
+  "es": "Misma facción: las fichas del Jugador 2 llevan otra piedra.",
+  "en": "Same faction: Player 2's pieces use a different stone.",
+  "zh": "相同阵营：玩家 2 的棋子使用不同的石材。"
  }
 }

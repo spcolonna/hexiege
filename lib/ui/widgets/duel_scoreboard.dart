@@ -20,8 +20,17 @@ class PlayerProfile {
   /// Puntos de la partida por puntos (null = partida casual).
   final int? rating;
 
-  const PlayerProfile({required this.nickname, required this.faction, this.isAi = false, String? avatar, this.rating})
-    : avatar = avatar ?? (faction == Faction.shaolin ? '僧' : '将');
+  /// Marco del avatar (`Cosmetics.frames`), null = sin marco.
+  final String? frame;
+
+  const PlayerProfile({
+    required this.nickname,
+    required this.faction,
+    this.isAi = false,
+    String? avatar,
+    this.rating,
+    this.frame,
+  }) : avatar = avatar ?? (faction == Faction.shaolin ? '僧' : '将');
 }
 
 /// Estado de un jugador para el marcador.
@@ -107,7 +116,13 @@ class DuelScoreboard extends StatelessWidget {
               top: 40,
               left: left ? 8 : null,
               right: left ? null : 8,
-              child: EmoteBubble(key: ValueKey(side.emoteKey), emote: side.emote!, pointUp: true, fromRight: !left),
+              child: EmoteBubble(
+                key: ValueKey(side.emoteKey),
+                emote: side.emote!,
+                faction: side.profile.faction,
+                pointUp: true,
+                fromRight: !left,
+              ),
             ),
       ],
     );
@@ -248,6 +263,7 @@ class _Avatar extends StatelessWidget {
     const size = 32.0;
     final face = AvatarFace(
       avatar: profile.avatar,
+      frame: profile.frame,
       size: size,
       color: color,
       borderColor: active ? t.gold : t.surfaceHigh,
@@ -264,11 +280,18 @@ class _Avatar extends StatelessWidget {
 /// Globo de emote que sale del avatar.
 class EmoteBubble extends StatefulWidget {
   final Emote emote;
+  final Faction faction;
   final bool pointUp;
 
   /// El globo cuelga desde la derecha (rival en el marcador).
   final bool fromRight;
-  const EmoteBubble({super.key, required this.emote, required this.pointUp, this.fromRight = false});
+  const EmoteBubble({
+    super.key,
+    required this.emote,
+    required this.faction,
+    required this.pointUp,
+    this.fromRight = false,
+  });
 
   @override
   State<EmoteBubble> createState() => _EmoteBubbleState();
@@ -295,7 +318,7 @@ class _EmoteBubbleState extends State<EmoteBubble> with SingleTickerProviderStat
           : (right ? Alignment.bottomRight : Alignment.bottomLeft),
       scale: CurvedAnimation(parent: _c, curve: Curves.elasticOut),
       child: Container(
-        padding: const EdgeInsets.fromLTRB(10, 6, 10, 6),
+        padding: const EdgeInsets.fromLTRB(6, 4, 12, 4),
         decoration: BoxDecoration(
           color: t.surfaceHigh,
           borderRadius: BorderRadius.only(
@@ -309,14 +332,12 @@ class _EmoteBubbleState extends State<EmoteBubble> with SingleTickerProviderStat
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            EmoteGlyph(widget.emote, size: 26),
-            if (widget.emote.icon != null) ...[
-              const SizedBox(width: 6),
-              Text(
-                widget.emote.label,
-                style: TextStyle(fontWeight: FontWeight.w800, color: t.text),
-              ),
-            ],
+            EmoteGlyph(widget.emote, faction: widget.faction, size: 54),
+            const SizedBox(width: 4),
+            Text(
+              widget.emote.label,
+              style: TextStyle(fontWeight: FontWeight.w800, color: t.text),
+            ),
           ],
         ),
       ),

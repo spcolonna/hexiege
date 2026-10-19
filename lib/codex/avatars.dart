@@ -21,6 +21,8 @@ class Avatars {
     AvatarDef('jonin', Faction.ninja),
     AvatarDef('fan', Faction.ninja),
     AvatarDef('ronin', Faction.ninja),
+    AvatarDef('oni', Faction.ninja),
+    AvatarDef('kitsune', Faction.ninja),
   ];
 
   static AvatarDef? byId(String id) {

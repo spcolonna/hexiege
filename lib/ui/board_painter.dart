@@ -13,6 +13,9 @@ class BoardPainter extends CustomPainter {
   final GameState game;
   final HexLayout layout;
   final HexTheme theme;
+
+  /// Color de la grilla si la mesa pide otro (tapetes); null = el del tema.
+  final Color? grid;
   final BoardFx? fx;
   final Hex? selected;
   final Set<Hex> targets;
@@ -35,6 +38,7 @@ class BoardPainter extends CustomPainter {
     required this.game,
     required this.layout,
     required this.theme,
+    this.grid,
     required this.selected,
     required this.targets,
     required this.targetColor,
@@ -78,6 +82,7 @@ class BoardPainter extends CustomPainter {
   }
 
   void _paintGrid(Canvas canvas) {
+    final grid = this.grid ?? theme.grid;
     final cells = <Hex>{};
     final occupied = game.board.occupied.toList();
     final seeds = occupied.isEmpty ? [Hex.origin] : occupied;
@@ -93,7 +98,7 @@ class BoardPainter extends CustomPainter {
     for (final c in cells) {
       final d = seeds.map((s) => s.distanceTo(c)).reduce(min);
       final alpha =
-          theme.grid.a *
+          grid.a *
           (d <= 1
               ? 1.0
               : d == 2
@@ -103,8 +108,8 @@ class BoardPainter extends CustomPainter {
         layout.hexPath(c, scale: 0.95),
         Paint()
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 1.2
-          ..color = theme.grid.withValues(alpha: alpha),
+          ..strokeWidth = this.grid == null ? 1.2 : 1.5
+          ..color = grid.withValues(alpha: alpha),
       );
     }
   }

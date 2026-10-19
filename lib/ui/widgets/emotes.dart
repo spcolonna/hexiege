@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../engine/pieces.dart';
 import '../../i18n/i18n.dart';
 
-/// Emotes del juego. Son vectoriales (no emojis del sistema) para verse igual
-/// en todos los dispositivos y poder convertirse en cosméticos desbloqueables.
+/// Emotes del juego: un monjecito o un ninjita pintados según la facción
+/// (`assets/emotes/emote_<monk|ninja>_<emote>.webp`). Sin facción, el ícono.
 enum Emote {
   hello(Icons.waving_hand_rounded, Color(0xFFF2B33D)),
   nice(Icons.thumb_up_alt_rounded, Color(0xFF3DBE7A)),
@@ -23,10 +24,25 @@ enum Emote {
 class EmoteGlyph extends StatelessWidget {
   final Emote emote;
   final double size;
-  const EmoteGlyph(this.emote, {super.key, this.size = 28});
+
+  /// Facción de quien lo manda: elige el personaje.
+  final Faction? faction;
+  const EmoteGlyph(this.emote, {super.key, this.size = 28, this.faction});
+
+  static String asset(Emote e, Faction f) =>
+      'assets/emotes/emote_${f == Faction.shaolin ? 'monk' : 'ninja'}_${e.name}.webp';
 
   @override
   Widget build(BuildContext context) {
+    if (faction != null) {
+      return Image.asset(
+        asset(emote, faction!),
+        width: size,
+        height: size,
+        filterQuality: FilterQuality.medium,
+        semanticLabel: emote.label,
+      );
+    }
     if (emote.icon == null) {
       return Text(
         emote.label,

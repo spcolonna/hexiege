@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hexiege/config.dart';
 import 'package:hexiege/engine/ai.dart';
 import 'package:hexiege/engine/pieces.dart';
 import 'package:hexiege/match/ladder.dart';
@@ -129,7 +130,7 @@ void main() {
       await tester.pumpWidget(_app(GameScreen.tutorial(lesson: lessons.length - 1), ThemeMode.dark));
       await tester.pump(const Duration(milliseconds: 600));
       final c = tester.getCenter(find.byType(InteractiveViewer)) + const Offset(0, 50);
-      return (q, r) => c + Offset(34 * sqrt(3) * (q + r / 2), 51.0 * r);
+      return (q, r) => c + Offset(40 * sqrt(3) * (q + r / 2), 60.0 * r);
     }
 
     Future<void> relocate(WidgetTester tester, Offset Function(int, int) at, (int, int) to) async {
@@ -220,9 +221,16 @@ void main() {
     AppSettings.instance.ladder = const LadderRecord();
     await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.light));
     await tester.pump();
-    expect(find.text('Buscar partida'), findsOneWidget);
-    expect(find.text('Discípulo'), findsOneWidget);
-    expect(find.text('1000'), findsOneWidget);
+    if (kOnlineMatches) {
+      expect(find.text('Buscar partida'), findsOneWidget);
+      expect(find.text('Discípulo'), findsOneWidget);
+      expect(find.text('1000'), findsOneWidget);
+    } else {
+      // Sin online: la opción se ve apagada y no hay rango ni puntos.
+      expect(find.text('Online · Próximamente'), findsOneWidget);
+      expect(find.text('Buscar partida'), findsNothing);
+      expect(find.text('1000'), findsNothing);
+    }
     expect(find.text('Fácil'), findsNothing);
   });
 
@@ -240,7 +248,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 500));
       expect(find.text(stage.title), findsNothing);
       final c = tester.getCenter(find.byType(InteractiveViewer)) + const Offset(0, 35);
-      return (q, r) => c + Offset(34 * sqrt(3) * (q + r / 2), 51.0 * r);
+      return (q, r) => c + Offset(40 * sqrt(3) * (q + r / 2), 60.0 * r);
     }
 
     testWidgets('resolver el problema lo marca como superado', (tester) async {

@@ -24,14 +24,15 @@ const hankoRed = Color(0xFFB8323F);
 ShapeBorder combShape(double cut, {BorderSide side = BorderSide.none}) =>
     BeveledRectangleBorder(borderRadius: BorderRadius.circular(cut), side: side);
 
-/// Hexágono de punta arriba inscrito en [r].
+/// Hexágono regular de punta arriba, el más grande que entra en [r]. En una
+/// caja de ancho w y alto w·2/√3 la llena justo.
 Path hexPath(Rect r) {
   final c = r.center;
-  final rx = r.width / 2, ry = r.height / 2;
+  final rad = min(r.width / sqrt(3), r.height / 2);
   final p = Path();
   for (var i = 0; i < 6; i++) {
     final a = -pi / 2 + pi / 3 * i;
-    final v = Offset(c.dx + rx * cos(a), c.dy + ry * sin(a));
+    final v = Offset(c.dx + rad * cos(a), c.dy + rad * sin(a));
     i == 0 ? p.moveTo(v.dx, v.dy) : p.lineTo(v.dx, v.dy);
   }
   return p..close();
@@ -258,17 +259,42 @@ class SkinBar extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final double radius;
   final Color? highlight;
+
+  /// Bandeja hundida en la mesa (la mano): sin papel, se ve el tapete debajo.
+  final bool tray;
   const SkinBar({
     super.key,
     required this.child,
     this.padding = const EdgeInsets.all(6),
     this.radius = 16,
     this.highlight,
+    this.tray = false,
   });
+
+  /// Opacidad del papel en partida: deja que se transparente la mesa.
+  static const _paper = 0.84;
 
   @override
   Widget build(BuildContext context) {
     final t = HexTheme.of(context);
+    if (tray) {
+      return Container(
+        padding: padding,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.black.withValues(alpha: t.isDark ? 0.38 : 0.22),
+              Colors.black.withValues(alpha: t.isDark ? 0.22 : 0.10),
+            ],
+          ),
+          border: Border.all(color: Colors.white.withValues(alpha: t.isDark ? 0.07 : 0.3)),
+        ),
+        child: child,
+      );
+    }
     final shadow = BoxShadow(
       color: t.shadow.withValues(alpha: t.shadow.a * 0.4),
       blurRadius: 12,
@@ -278,7 +304,7 @@ class SkinBar extends StatelessWidget {
       UiStyle.box => Container(
         padding: padding,
         decoration: BoxDecoration(
-          color: t.surface,
+          color: t.surface.withValues(alpha: _paper),
           borderRadius: BorderRadius.circular(radius),
           border: Border.all(color: highlight ?? t.outline),
           boxShadow: _boxLip(t),
@@ -288,7 +314,7 @@ class SkinBar extends StatelessWidget {
       UiStyle.ema => Container(
         padding: padding,
         decoration: BoxDecoration(
-          color: t.surfaceHigh,
+          color: t.surfaceHigh.withValues(alpha: _paper),
           border: Border(
             top: BorderSide(color: highlight ?? inkOf(t).withValues(alpha: 0.55), width: 1.2),
             bottom: BorderSide(color: highlight ?? inkOf(t).withValues(alpha: 0.55), width: 1.2),
@@ -307,7 +333,10 @@ class SkinBar extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [t.surfaceHigh, t.surface],
+            colors: [
+              t.surfaceHigh.withValues(alpha: _paper),
+              t.surface.withValues(alpha: _paper),
+            ],
           ),
           shadows: [shadow],
         ),
