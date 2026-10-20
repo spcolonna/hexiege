@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +13,7 @@ import '../ui/theme/ui_style.dart';
 import '../ui/widgets/arena_backdrop.dart';
 import '../ui/widgets/avatar_face.dart';
 import '../ui/widgets/skin_kit.dart';
+import 'page.dart';
 import 'script.dart';
 
 /// Muestra una viñeta a pantalla completa y la marca como vista al cerrarla.
@@ -54,7 +54,8 @@ class StoryScreen extends StatefulWidget {
 
 class _StoryScreenState extends State<StoryScreen> {
   final _scroll = ScrollController();
-  late final List<GlobalKey> _keys = List.generate(widget.scene.beats.length, (_) => GlobalKey());
+  late final List<Strip> _strips = layoutPage(widget.scene);
+  late final Map<int, GlobalKey> _keys = {for (final s in _strips) s.first: GlobalKey()};
   Timer? _timer;
 
   /// Mensajes a la vista.
@@ -140,7 +141,7 @@ class _StoryScreenState extends State<StoryScreen> {
       _timer = Timer(const Duration(milliseconds: 500), _queue);
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final ctx = _keys[index].currentContext;
+      final ctx = _keys[_strips.lastWhere((s) => s.first <= index).first]!.currentContext;
       if (ctx != null) Scrollable.ensureVisible(ctx, duration: const Duration(milliseconds: 400), alignment: 0.05);
     });
   }
@@ -204,7 +205,7 @@ class _StoryScreenState extends State<StoryScreen> {
                   child: ListView(
                     controller: _scroll,
                     padding: const EdgeInsets.fromLTRB(14, 8, 14, 28),
-                    children: _panels(),
+                    children: _page(),
                   ),
                 ),
               ),
@@ -245,58 +246,138 @@ class _StoryScreenState extends State<StoryScreen> {
     return talkers.contains(hero) || talkers.isEmpty ? hero : talkers.first;
   }();
 
-  bool _left(Who w) => w == _anchor;
-
   bool _talks(int i) => _beats[i].kind == BeatKind.say || _beats[i].kind == BeatKind.think;
 
-  /// Paneles en pantalla: los revelados y, si alguien está por hablar, el suyo
-  /// con los puntos en el globo.
+  /// Mensajes en pantalla: los revelados y, si alguien está por hablar, su
+  /// globo con los puntos.
   int get _visible => _shown + (_typing && !_done && _talks(_shown) ? 1 : 0);
-
-  /// De qué lado entra el panel [i]: -1 izquierda, 1 derecha, 0 en el lugar.
-  double _from(int i) => _talks(i) ? (_left(_beats[i].who!) ? -1 : 1) : 0;
 
   int get _seed => widget.scene.id.codeUnits.fold(7, (a, c) => (a * 31 + c) & 0xFFFFFF);
 
-  List<Widget> _panels() {
+  /// La página: las tiras que ya empezaron, con la ilustración clave antes de la suya.
+  List<Widget> _page() {
     final splash = widget.scene.splash;
     final animate = !widget.replay;
     return [
-      for (var i = 0; i < _visible; i++) ...[
-        if (splash != null && splash.$1 == i && StoryArt.has('assets/story/${splash.$2}.webp'))
-          _Enter(
-            key: const ValueKey('splash'),
-            animate: animate,
-            wipe: true,
-            child: _Splash(asset: 'assets/story/${splash.$2}.webp', seed: _seed),
+      for (final s in _strips)
+        if (s.first < _visible) ...[
+          if (splash != null && s.first == splash.$1 && StoryArt.has('assets/story/${splash.$2}.webp'))
+            _Enter(
+              key: const ValueKey('splash'),
+              animate: animate,
+              wipe: true,
+              child: _Splash(asset: 'assets/story/${splash.$2}.webp', seed: _seed),
+            ),
+          KeyedSubtree(
+            key: _keys[s.first],
+            child: switch (s) {
+              MomentStrip(:final beat) => _Enter(
+                animate: animate,
+                wipe: true,
+                child: _MomentPanel(
+                  text: widget.scene.text(beat),
+                  place: widget.scene.placeAt(beat),
+                  seed: _seed + beat,
+                ),
+              ),
+              CaptionStrip(:final beat) => _Enter(
+                animate: animate,
+                child: _Caption(text: widget.scene.text(beat)),
+              ),
+              FrameStrip() => _strip(s, animate),
+            },
           ),
-        _Enter(
-          key: _keys[i],
-          animate: animate,
-          from: _from(i),
-          wipe: _beats[i].kind == BeatKind.moment,
-          child: _beat(i),
-        ),
-      ],
+        ],
     ];
   }
 
-  Widget _beat(int i) {
-    final b = _beats[i];
-    final text = i < _shown ? widget.scene.text(i) : null;
-    final place = widget.scene.placeAt(i);
-    return switch (b.kind) {
-      BeatKind.moment => _MomentPanel(text: text ?? '', place: place, seed: _seed + i),
-      BeatKind.narrate => _Caption(text: text ?? ''),
-      _ => _SpeechPanel(
-        who: b.who!,
-        text: text,
-        place: place,
-        left: _left(b.who!),
-        thought: b.kind == BeatKind.think,
-        seed: _seed + i * 13,
+  /// Tira de cuadros: si son dos, el corte entre ellos va en diagonal y cada
+  /// uno entra desde su lado.
+  Widget _strip(FrameStrip s, bool animate) {
+    final pair = s.frames.length == 2;
+    // La diagonal alterna de tira en tira.
+    final lean = (s.first + _seed).isEven;
+    const cut = 18.0;
+    final cuts = pair
+        ? (lean ? [const _Cut(br: cut), const _Cut(tl: cut)] : [const _Cut(tr: cut), const _Cut(bl: cut)])
+        : [const _Cut()];
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 7),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (var k = 0; k < s.frames.length; k++) ...[
+              if (k > 0) const SizedBox(width: 6),
+              Expanded(
+                flex: s.flex[k],
+                child: _Enter(
+                  key: ValueKey(s.frames[k].first),
+                  animate: animate,
+                  from: pair ? (k == 0 ? -1 : 1) : (_sides(s.frames[k]).values.first ? -1 : 1),
+                  child: _frame(s.frames[k], cuts[k], wide: !pair),
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
-    };
+    );
+  }
+
+  /// Lado de cada personaje del cuadro (true = izquierda): el protagonista a
+  /// la izquierda; si charlan dos que no lo son, el primero.
+  Map<Who, bool> _sides(Frame f) {
+    final who = <Who>{
+      for (final i in f.beats)
+        if (_talks(i)) _beats[i].who!,
+    }.toList();
+    final two = who.length > 1 && !who.contains(_anchor);
+    return {for (final w in who) w: two ? w == who.first : w == _anchor};
+  }
+
+  Widget _frame(Frame f, _Cut cut, {required bool wide}) {
+    final sides = _sides(f);
+    final animate = !widget.replay;
+    return _FrameView(
+      seed: _seed + f.first * 7,
+      cut: cut,
+      place: widget.scene.placeAt(f.first),
+      wide: wide,
+      figures: sides,
+      children: [
+        for (final i in f.beats)
+          if (i < _visible)
+            _Pop(
+              key: ValueKey(i),
+              animate: animate,
+              origin: !_talks(i) || sides[_beats[i].who]! ? Alignment.bottomLeft : Alignment.bottomRight,
+              child: _talks(i)
+                  ? _BalloonSlot(
+                      left: sides[_beats[i].who]!,
+                      // Un solo personaje: el globo arriba, del otro lado; dos: cada uno del suyo.
+                      across: sides.length == 1,
+                      wide: wide,
+                      child: _Balloon(
+                        text: i < _shown ? widget.scene.text(i) : null,
+                        left: sides[_beats[i].who]!,
+                        thought: _beats[i].kind == BeatKind.think,
+                      ),
+                    )
+                  : Align(
+                      alignment: Alignment.topLeft,
+                      child: _CaptionBox(
+                        child: Text.rich(
+                          storySpans(
+                            widget.scene.text(i),
+                            const TextStyle(fontSize: 13.5, height: 1.35, fontStyle: FontStyle.italic, color: _ink),
+                          ),
+                        ),
+                      ),
+                    ),
+            ),
+      ],
+    );
   }
 }
 
@@ -425,8 +506,7 @@ class _Wipe extends CustomClipper<Rect> {
 
 /// Forma de una pincelada horizontal: el arranque redondo y cargado de
 /// tinta, los bordes apenas temblorosos y la cola seca que se abre en cerdas.
-/// [flip] la espeja (la cola queda a la izquierda).
-Path _brush(Size s, int seed, {bool flip = false}) {
+Path _brush(Size s, int seed) {
   final r = Random(seed);
   final w = s.width, h = s.height;
   // Temblor suave del borde: dos senos con fase al azar.
@@ -478,44 +558,28 @@ Path _brush(Size s, int seed, {bool flip = false}) {
       ..quadraticBezierTo((from + to) / 2, y + th * 0.6, from, y + th)
       ..close();
   }
-  if (!flip) return p;
-  return p.transform(Float64List.fromList([-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, w, 0, 0, 1]));
+  return p;
 }
 
 class _BrushClip extends CustomClipper<Path> {
   final int seed;
-  final bool flip;
-
-  /// Margen libre arriba: la figura puede salirse del panel por ahí.
-  final double overTop;
-  _BrushClip(this.seed, this.flip, {this.overTop = 0});
+  _BrushClip(this.seed);
 
   @override
-  Path getClip(Size size) {
-    final body = Size(size.width, size.height - overTop);
-    final p = _brush(body, seed, flip: flip).shift(Offset(0, overTop));
-    if (overTop == 0) return p;
-    // Unión y no addRect: espejada, la pincelada gira al revés y se cancelaría.
-    return Path.combine(
-      PathOperation.union,
-      p,
-      Path()..addRect(Rect.fromLTWH(0, 0, size.width, overTop + body.height * 0.5)),
-    );
-  }
+  Path getClip(Size size) => _brush(size, seed);
 
   @override
-  bool shouldReclip(_BrushClip old) => old.seed != seed || old.flip != flip || old.overTop != overTop;
+  bool shouldReclip(_BrushClip old) => old.seed != seed;
 }
 
 class _BrushShadow extends CustomPainter {
   final int seed;
-  final bool flip;
-  _BrushShadow(this.seed, this.flip);
+  _BrushShadow(this.seed);
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawPath(
-      _brush(size, seed, flip: flip).shift(const Offset(3, 4)),
+      _brush(size, seed).shift(const Offset(3, 4)),
       Paint()
         ..color = _ink.withValues(alpha: 0.3)
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2),
@@ -523,20 +587,19 @@ class _BrushShadow extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_BrushShadow old) => old.seed != seed || old.flip != flip;
+  bool shouldRepaint(_BrushShadow old) => old.seed != seed;
 }
 
 /// La pincelada como máscara: deja ver [child] (el escenario) con su sombra.
 class _BrushFrame extends StatelessWidget {
   final int seed;
-  final bool flip;
   final Widget child;
-  const _BrushFrame({required this.seed, this.flip = false, required this.child});
+  const _BrushFrame({required this.seed, required this.child});
 
   @override
   Widget build(BuildContext context) => CustomPaint(
-    painter: _BrushShadow(seed, flip),
-    child: ClipPath(clipper: _BrushClip(seed, flip), child: child),
+    painter: _BrushShadow(seed),
+    child: ClipPath(clipper: _BrushClip(seed), child: child),
   );
 }
 
@@ -713,111 +776,236 @@ class _Splash extends StatelessWidget {
   );
 }
 
-/// Panel de diálogo: la pincelada deja ver el escenario, el personaje se
-/// para de su lado (y se sale del cuadro por arriba) y el globo ocupa el resto.
-/// Sin [text], el globo muestra los puntos de "por hablar".
-class _SpeechPanel extends StatelessWidget {
-  final Who who;
-  final String? text;
-  final Place place;
-  final bool left;
-  final bool thought;
+/// Esquinas recortadas de un cuadro (cuánto entra cada una en horizontal):
+/// así el corte entre dos cuadros de una tira queda en diagonal.
+class _Cut {
+  final double tl, tr, br, bl;
+  const _Cut({this.tl = 0, this.tr = 0, this.br = 0, this.bl = 0});
+
+  double get left => max(tl, bl);
+  double get right => max(tr, br);
+}
+
+/// Contorno de un cuadro con el pulso de un trazo a mano: cada borde tiembla
+/// apenas. [inset] lo achica (negativo, lo agranda).
+Path _framePath(Size s, int seed, _Cut c, double inset) {
+  final r = Random(seed);
+  final pts = [
+    Offset(c.tl + inset, inset),
+    Offset(s.width - c.tr - inset, inset),
+    Offset(s.width - c.br - inset, s.height - inset),
+    Offset(c.bl + inset, s.height - inset),
+  ];
+  final p = Path()..moveTo(pts[0].dx, pts[0].dy);
+  for (var e = 0; e < 4; e++) {
+    final a = pts[e], b = pts[(e + 1) % 4];
+    final d = b - a;
+    final n = Offset(-d.dy, d.dx) / d.distance;
+    final phase = r.nextDouble() * 2 * pi, freq = 2 + r.nextDouble() * 3;
+    const steps = 14;
+    for (var k = 1; k <= steps; k++) {
+      final t = k / steps;
+      p.lineTo(
+        a.dx + d.dx * t + n.dx * 1.4 * sin(t * pi) * sin(t * pi * freq + phase),
+        a.dy + d.dy * t + n.dy * 1.4 * sin(t * pi) * sin(t * pi * freq + phase),
+      );
+    }
+  }
+  return p..close();
+}
+
+class _FrameClip extends CustomClipper<Path> {
   final int seed;
-  const _SpeechPanel({
-    required this.who,
-    this.text,
-    required this.place,
-    required this.left,
-    this.thought = false,
+  final _Cut cut;
+  _FrameClip(this.seed, this.cut);
+
+  @override
+  Path getClip(Size size) => _framePath(size, seed + 1, cut, 1.5);
+
+  @override
+  bool shouldReclip(_FrameClip old) => old.seed != seed || old.cut != cut;
+}
+
+/// Tinta del cuadro: detrás, la sombra dura; delante, el borde de grosor
+/// desparejo (dos contornos que tiemblan distinto).
+class _FrameInk extends CustomPainter {
+  final int seed;
+  final _Cut cut;
+  final bool shadow;
+  _FrameInk(this.seed, this.cut, {this.shadow = false});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final outer = _framePath(size, seed, cut, -1.5);
+    if (shadow) {
+      canvas.drawPath(outer.shift(const Offset(3, 4)), Paint()..color = _ink.withValues(alpha: 0.35));
+      return;
+    }
+    canvas.drawPath(
+      Path.combine(PathOperation.difference, outer, _framePath(size, seed + 1, cut, 1.5)),
+      Paint()..color = _ink,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_FrameInk old) => old.seed != seed || old.cut != cut;
+}
+
+/// Un cuadro de la tira: el escenario de fondo, los personajes parados abajo
+/// y, arriba, los carteles y globos en el orden en que se dicen.
+class _FrameView extends StatelessWidget {
+  final int seed;
+  final _Cut cut;
+  final Place place;
+  final bool wide;
+  final Map<Who, bool> figures;
+  final List<Widget> children;
+  const _FrameView({
     required this.seed,
+    required this.cut,
+    required this.place,
+    required this.wide,
+    required this.figures,
+    required this.children,
   });
 
-  static const _over = 26.0;
+  @override
+  Widget build(BuildContext context) {
+    final two = figures.length > 1;
+    // Plano y contraplano: el encuadre mira hacia quien habla.
+    final alignX = two ? 0.0 : (figures.values.first ? -0.7 : 0.7);
+    return CustomPaint(
+      painter: _FrameInk(seed, cut, shadow: true),
+      foregroundPainter: _FrameInk(seed, cut),
+      child: ClipPath(
+        clipper: _FrameClip(seed, cut),
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: _PlaceBackdrop(place: place, alignX: alignX),
+            ),
+            for (final MapEntry(key: who, value: left) in figures.entries)
+              Positioned.fill(
+                left: left ? cut.bl : 0,
+                right: left ? 0 : cut.br,
+                child: _Figure(who: who, left: left, small: two || !wide),
+              ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(8 + cut.left, 10, 8 + cut.right, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (final c in children) Padding(padding: const EdgeInsets.only(bottom: 16), child: c),
+                  // Lugar para los personajes.
+                  SizedBox(height: two ? 92 : 100),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Personaje parado en el borde de abajo, de su lado: la figura si hay arte;
+/// si no, su retrato. Abajo, el nombre en el color de su bando.
+class _Figure extends StatelessWidget {
+  final Who who;
+  final bool left;
+  final bool small;
+  const _Figure({required this.who, required this.left, required this.small});
 
   @override
   Widget build(BuildContext context) {
     final t = HexTheme.of(context);
     final color = who.side == null ? t.gold : HexTheme.faction(who.side!);
-    return LayoutBuilder(
-      builder: (context, c) {
-        final w = c.maxWidth;
-        final figW = w * 0.36;
-        final art = Scene.figureAsset(who);
-        final hasArt = StoryArt.has(art);
-        final figure = hasArt
-            ? Transform.flip(
+    final art = Scene.figureAsset(who);
+    final at = left ? Alignment.bottomLeft : Alignment.bottomRight;
+    return Stack(
+      children: [
+        if (StoryArt.has(art))
+          Align(
+            alignment: at,
+            child: FractionallySizedBox(
+              widthFactor: small ? 0.5 : 0.36,
+              heightFactor: 0.72,
+              alignment: at,
+              child: Transform.flip(
                 flipX: !left,
-                child: Image.asset(
-                  art,
-                  fit: BoxFit.contain,
-                  alignment: Alignment.bottomCenter,
-                  filterQuality: FilterQuality.medium,
-                ),
-              )
-            : Padding(
-                padding: const EdgeInsets.only(top: _over + 8, bottom: 22),
-                child: Center(
-                  child: AvatarFace(
-                    avatar: who.avatar,
-                    size: min(figW * 0.74, 92),
-                    color: color,
-                    borderColor: _ink,
-                    borderWidth: 3,
-                    shadow: [BoxShadow(color: _ink.withValues(alpha: 0.4), offset: const Offset(2, 3))],
-                  ),
-                ),
-              );
-        final side = left ? 6.0 : null, other = left ? null : 6.0;
-        return Padding(
-          padding: const EdgeInsets.only(top: _over, bottom: 12),
-          child: Transform.rotate(
-            angle: left ? -0.008 : 0.008,
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Positioned.fill(
-                  child: _BrushFrame(
-                    seed: seed,
-                    flip: !left,
-                    child: _PlaceBackdrop(place: place, alignX: left ? -0.8 : 0.8),
-                  ),
-                ),
-                ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: 150, minWidth: w),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(left ? figW + 6 : 18, 16, left ? 18 : figW + 6, 30),
-                    child: Align(
-                      alignment: left ? Alignment.centerLeft : Alignment.centerRight,
-                      widthFactor: 1,
-                      heightFactor: 1,
-                      child: _Balloon(text: text, left: left, thought: thought),
-                    ),
-                  ),
-                ),
-                // La figura se recorta con la misma pincelada, salvo arriba.
-                Positioned.fill(
-                  top: -_over,
-                  child: ClipPath(
-                    clipper: _BrushClip(seed, !left, overTop: _over),
-                    child: Stack(
-                      children: [Positioned(left: side, right: other, top: 0, bottom: 0, width: figW, child: figure)],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: left ? 14 : null,
-                  right: left ? null : 14,
-                  bottom: -8,
-                  child: _NameTag(
-                    label: thought ? '${who.displayName} · ${tr('story.thinks')}' : who.displayName,
-                    color: color,
-                  ),
-                ),
-              ],
+                child: Image.asset(art, fit: BoxFit.contain, alignment: at, filterQuality: FilterQuality.medium),
+              ),
+            ),
+          )
+        else
+          Positioned(
+            left: left ? 14 : null,
+            right: left ? null : 14,
+            bottom: 24,
+            child: AvatarFace(
+              avatar: who.avatar,
+              size: small ? 62 : 76,
+              color: color,
+              borderColor: _ink,
+              borderWidth: 2.5,
+              shadow: [BoxShadow(color: _ink.withValues(alpha: 0.4), offset: const Offset(2, 3))],
             ),
           ),
-        );
-      },
+        Positioned(
+          left: left ? 8 : null,
+          right: left ? null : 8,
+          bottom: 7,
+          child: _NameTag(label: who.displayName, color: color),
+        ),
+      ],
+    );
+  }
+}
+
+/// Lugar del globo en el cuadro: pegado al lado de quien habla o, con [across],
+/// del lado de enfrente (el personaje queda abajo y la cola apunta hacia él).
+class _BalloonSlot extends StatelessWidget {
+  final bool left;
+  final bool across;
+  final bool wide;
+  final Widget child;
+  const _BalloonSlot({required this.left, required this.across, required this.wide, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    final right = across ? left : !left;
+    // Cuánto del ancho queda libre del otro lado.
+    final free = wide ? (across ? 30 : 26) : 1;
+    final slot = Expanded(
+      flex: 100 - free,
+      child: Align(alignment: right ? Alignment.centerRight : Alignment.centerLeft, child: child),
+    );
+    return Row(
+      children: right ? [Spacer(flex: free), slot] : [slot, Spacer(flex: free)],
+    );
+  }
+}
+
+/// Aparición de un globo o cartel: crece desde la cola.
+class _Pop extends StatelessWidget {
+  final Widget child;
+  final bool animate;
+  final Alignment origin;
+  const _Pop({super.key, required this.child, this.animate = true, this.origin = Alignment.bottomLeft});
+
+  @override
+  Widget build(BuildContext context) {
+    if (!animate) return child;
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: const Duration(milliseconds: 380),
+      curve: Curves.easeOutBack,
+      builder: (_, v, c) => Opacity(
+        opacity: v.clamp(0.0, 1.0),
+        child: Transform.scale(scale: 0.5 + 0.5 * v, alignment: origin, child: c),
+      ),
+      child: child,
     );
   }
 }
@@ -846,8 +1034,8 @@ class _NameTag extends StatelessWidget {
   );
 }
 
-/// Globo de cómic: papel con borde de tinta y la cola hacia quien habla. El
-/// pensamiento es más redondo y suelta burbujitas en vez de cola.
+/// Globo de cómic: papel con borde de tinta y la cola abajo, hacia quien
+/// habla. El pensamiento es más redondo y suelta burbujitas en vez de cola.
 class _Balloon extends StatelessWidget {
   final String? text;
   final bool left;
@@ -858,10 +1046,10 @@ class _Balloon extends StatelessWidget {
   Widget build(BuildContext context) {
     final body = Container(
       constraints: const BoxConstraints(minWidth: 64),
-      padding: const EdgeInsets.fromLTRB(14, 10, 14, 11),
+      padding: const EdgeInsets.fromLTRB(13, 9, 13, 10),
       decoration: BoxDecoration(
         color: _paper,
-        borderRadius: BorderRadius.circular(thought ? 28 : 18),
+        borderRadius: BorderRadius.circular(thought ? 26 : 16),
         border: Border.all(color: _ink, width: thought ? 1.5 : 2),
       ),
       child: text == null
@@ -870,8 +1058,8 @@ class _Balloon extends StatelessWidget {
               storySpans(
                 text!,
                 TextStyle(
-                  fontSize: 15.5,
-                  height: 1.35,
+                  fontSize: 15,
+                  height: 1.3,
                   color: _ink,
                   fontStyle: thought ? FontStyle.italic : FontStyle.normal,
                 ),
@@ -892,21 +1080,21 @@ class _Balloon extends StatelessWidget {
       children: [
         body,
         if (thought) ...[
-          Positioned(left: left ? -12 : null, right: left ? null : -12, bottom: 2, child: bubble(10)),
-          Positioned(left: left ? -22 : null, right: left ? null : -22, bottom: -6, child: bubble(6)),
+          Positioned(left: left ? 14 : null, right: left ? null : 14, bottom: -12, child: bubble(10)),
+          Positioned(left: left ? 6 : null, right: left ? null : 6, bottom: -21, child: bubble(6)),
         ] else
           Positioned(
-            left: left ? -15 : null,
-            right: left ? null : -15,
-            bottom: 10,
-            child: CustomPaint(size: const Size(18, 18), painter: _Tail(left)),
+            left: left ? 16 : null,
+            right: left ? null : 16,
+            bottom: -13,
+            child: CustomPaint(size: const Size(16, 14), painter: _Tail(left)),
           ),
       ],
     );
   }
 }
 
-/// Cola del globo: tapa el borde y apunta hacia abajo, al personaje.
+/// Cola del globo: tapa el borde de abajo y apunta hacia abajo y afuera.
 class _Tail extends CustomPainter {
   final bool left;
   _Tail(this.left);
@@ -917,18 +1105,17 @@ class _Tail extends CustomPainter {
       canvas.translate(s.width, 0);
       canvas.scale(-1, 1);
     }
-    final edge = s.width + 3;
     final fill = Path()
-      ..moveTo(edge, 1)
+      ..moveTo(3, -3)
       ..lineTo(0, s.height)
-      ..lineTo(edge, 11)
+      ..lineTo(s.width, -3)
       ..close();
     canvas.drawPath(fill, Paint()..color = _paper);
     canvas.drawPath(
       Path()
-        ..moveTo(s.width + 1, 1)
+        ..moveTo(3, -1)
         ..lineTo(0, s.height)
-        ..lineTo(s.width + 1, 11),
+        ..lineTo(s.width, -1),
       Paint()
         ..color = _ink
         ..style = PaintingStyle.stroke

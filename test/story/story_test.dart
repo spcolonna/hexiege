@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hexiege/engine/pieces.dart';
 import 'package:hexiege/i18n/i18n.dart';
 import 'package:hexiege/solo/catalog.dart';
+import 'package:hexiege/story/page.dart';
 import 'package:hexiege/story/script.dart';
 import 'package:hexiege/story/story_screen.dart';
 import 'package:hexiege/ui/theme/hex_theme.dart';
@@ -47,6 +48,28 @@ void main() {
       expect(Scene.of('s20', post: false)!.placeAt(0), Place.pagoda);
       expect(Scene.of('f3', post: true)!.placeAt(0), Place.ashCourtyard);
       expect(Scene.of('f3', post: true)!.placeAt(3), Place.epilogue);
+    });
+
+    test('la página reparte todos los mensajes en orden, de a uno o dos globos por cuadro', () {
+      var pairs = 0, frames = 0;
+      for (final id in Scene.ids) {
+        final sc = Scene.of(id.split('.').first, post: id.endsWith('post'))!;
+        final strips = layoutPage(sc);
+        expect([for (final s in strips) ...s.beats], List.generate(sc.beats.length, (i) => i), reason: id);
+        for (final s in strips.whereType<FrameStrip>()) {
+          expect(s.frames.length, s.flex.length);
+          if (s.frames.length == 2) pairs++;
+          for (final f in s.frames) {
+            frames++;
+            final talk = f.beats.where((i) => sc.beats[i].kind == BeatKind.say || sc.beats[i].kind == BeatKind.think);
+            expect(talk.length, inInclusiveRange(1, 2), reason: '$id ${f.beats}');
+          }
+        }
+        final splash = sc.splash?.$1;
+        if (splash != null) expect(strips.any((s) => s.first == splash), isTrue, reason: id);
+      }
+      // Que la página mezcle tiras de un cuadro y de dos.
+      expect(pairs * 2, greaterThan(frames ~/ 3));
     });
 
     test('el cruce de la batalla 12 es la misma charla desde los dos lados', () {
