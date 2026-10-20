@@ -57,8 +57,36 @@ Cada build nuevo necesita subir el número: `version: 1.0.0+2` en `pubspec.yaml`
 - Grupo interno (ej. `Oraki`) → agregarte. Los internos no pasan revisión de beta.
 - Para externos: grupo externo + revisión de beta de Apple (usa la info de prueba).
 
+## 8. Compra dentro de la app: historia completa (USD 1,99)
+El juego es gratis; el Acto I de cada campaña (12 batallas) también. Una compra única
+desbloquea los Actos II–IV y El Sello. Sin servidor: StoreKit confirma y la app guarda
+el desbloqueo; "Restaurar compras" está en Ajustes y en la hoja de desbloqueo.
+
+1. App Store Connect → la app → **Monetización → Compras dentro de la app → +**.
+   - Tipo: **No consumible**.
+   - Nombre de referencia: `Historia completa`.
+   - ID de producto: **`hexiege_story`** (tiene que coincidir con `Purchases.storyId`).
+2. Precio: USD 1,99 (nivel equivalente; Apple calcula el resto de los países).
+3. Localizaciones (nombre visible y descripción):
+   - es: *Historia completa* · "Los Actos II a IV de las dos campañas y El Sello, el verdadero final."
+   - en: *Full story* · "Acts II to IV of both campaigns and The Seal, the true ending."
+   - zh-Hans: *完整故事* · "两场战役的第二至第四幕，以及真正的结局《封印》。"
+4. Revisión: captura de la hoja de desbloqueo (aparece al ganar la batalla 6) y nota:
+   "Unlocks battles 7–24 of both campaigns and the finale. Restore purchases is in
+   Settings."
+5. La primera compra se envía **junto con una versión nueva** del build (en la página de la
+   versión, sección "Compras dentro de la app", agregarla).
+6. Contratos: **Acuerdos, impuestos y banca** tienen que estar firmados (Apps de pago) o
+   la tienda no devuelve el producto.
+7. Privacidad: comprar no agrega recopilación de datos por parte de la app (StoreKit es
+   de Apple); se mantiene "Datos no recopilados".
+
+**Probar sin App Store Connect:** `ios/Runner/Hexiege.storekit` tiene el producto.
+En Xcode: Product → Scheme → Edit Scheme → Run → Options → **StoreKit Configuration** →
+`Hexiege.storekit`, y correr desde Xcode. Para TestFlight se usa la cuenta sandbox.
+
 ## Para el lanzamiento (después)
 - Copyright: `2026 Oraki Games`
 - Capturas iPhone 6.9" y iPad 13" (soporte iPad activo).
 - Descripción, palabras clave, URL de soporte (puede ser la misma página de GitHub Pages).
-- Revisar el texto de la política si se agrega online, anuncios o compras.
+- Revisar el texto de la política si se agrega online o anuncios.

@@ -4983,5 +4983,80 @@
   "es": "El Oni está sellado. Gracias por jugar la historia de Hexiege.",
   "en": "The Oni is sealed. Thank you for playing the story of Hexiege.",
   "zh": "灰烬鬼已被封印。感谢你游玩 Hexiege 的故事。"
+ },
+ "store.title": {
+  "es": "Seguí la historia",
+  "en": "Continue the story",
+  "zh": "继续故事"
+ },
+ "store.pitch": {
+  "es": "El Acto I terminó. Lo que guarda el Templo recién empieza. Un solo pago, sin publicidad, para siempre.",
+  "en": "Act I is over. What the Temple hides is only beginning. One payment, no ads, forever.",
+  "zh": "第一幕结束了。寺院隐藏的秘密才刚刚开始。一次付费，无广告，永久拥有。"
+ },
+ "store.item1": {
+  "es": "36 batallas más: los Actos II a IV de las dos campañas.",
+  "en": "36 more battles: Acts II to IV of both campaigns.",
+  "zh": "再多 36 场战斗：两场战役的第二至第四幕。"
+ },
+ "store.item2": {
+  "es": "El Sello: el verdadero final contra el Oni de Ceniza, con las dos facciones a la vez.",
+  "en": "The Seal: the true ending against the Ash Oni, with both factions at once.",
+  "zh": "封印：对抗灰烬鬼的真正结局，同时操控两大阵营。"
+ },
+ "store.item3": {
+  "es": "Todas las escenas de la historia, para releer en el Pergamino.",
+  "en": "Every scene of the story, to reread in the Scroll.",
+  "zh": "故事的全部剧情，可在卷轴中重温。"
+ },
+ "store.buy": {
+  "es": "Desbloquear · {price}",
+  "en": "Unlock · {price}",
+  "zh": "解锁 · {price}"
+ },
+ "store.wait": {
+  "es": "Un momento…",
+  "en": "One moment…",
+  "zh": "请稍候……"
+ },
+ "store.restore": {
+  "es": "Restaurar compras",
+  "en": "Restore purchases",
+  "zh": "恢复购买"
+ },
+ "store.notNow": {
+  "es": "Ahora no",
+  "en": "Not now",
+  "zh": "暂不"
+ },
+ "store.thanks": {
+  "es": "¡Gracias! La historia completa es tuya.",
+  "en": "Thank you! The full story is yours.",
+  "zh": "谢谢！完整故事已解锁。"
+ },
+ "store.unavailable": {
+  "es": "La tienda no responde ahora. Probá más tarde.",
+  "en": "The store isn't responding right now. Try again later.",
+  "zh": "商店暂时无响应。请稍后再试。"
+ },
+ "store.locked": {
+  "es": "Historia completa · {price}",
+  "en": "Full story · {price}",
+  "zh": "完整故事 · {price}"
+ },
+ "store.owned": {
+  "es": "Historia completa desbloqueada",
+  "en": "Full story unlocked",
+  "zh": "完整故事已解锁"
+ },
+ "store.unlock": {
+  "es": "Desbloquear",
+  "en": "Unlock",
+  "zh": "解锁"
+ },
+ "store.priceFallback": {
+  "es": "USD 1,99",
+  "en": "USD 1.99",
+  "zh": "USD 1.99"
  }
 }

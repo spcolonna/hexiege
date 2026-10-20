@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'i18n/i18n.dart';
 
+import 'store/purchases.dart';
 import 'ui/brand_intro.dart';
 import 'ui/fx/piece_art.dart';
 import 'ui/fx/sfx.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await AppSettings.instance.load();
   SoundBoard.instance.init(); // en segundo plano: no frena el arranque
+  Purchases.instance.init(); // compras pendientes y precio de la tienda
   await PieceArt.load();
   runApp(HexiegeApp(onboarding: !AppSettings.instance.onboarded));
 }

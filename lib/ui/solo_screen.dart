@@ -16,11 +16,13 @@ import 'widgets/skin_kit.dart';
 class SoloScreen extends StatelessWidget {
   const SoloScreen({super.key});
 
+  static bool _locked(Stage s) => isPaid(s) && !AppSettings.instance.storyUnlocked;
+
   /// Próxima etapa sin superar y ya disponible: campaña, luego desafíos y problemas.
   static Stage? nextUp(bool Function(String) cleared) {
     for (final list in [for (final c in campaigns) c.stages, challenges, puzzles]) {
       for (var i = 0; i < list.length; i++) {
-        if (!cleared(list[i].id) && isUnlocked(list, i, cleared)) return list[i];
+        if (!cleared(list[i].id) && isUnlocked(list, i, cleared) && !_locked(list[i])) return list[i];
       }
     }
     return null;
@@ -44,7 +46,11 @@ class SoloScreen extends StatelessWidget {
               return ListView(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 24),
                 children: [
-                  SkinHeader(title: tr('solo.title'), trailing: '${done(all)}/${all.length}', backTooltip: tr('common.back')),
+                  SkinHeader(
+                    title: tr('solo.title'),
+                    trailing: '${done(all)}/${all.length}',
+                    backTooltip: tr('common.back'),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
@@ -59,7 +65,8 @@ class SoloScreen extends StatelessWidget {
                           text: tr('solo.campaignText'),
                           done: done(campaignStages),
                           total: campaignStages.length,
-                          open: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CampaignScreen())),
+                          open: () =>
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => const CampaignScreen())),
                         ),
                         _mode(
                           glyph: '試',
@@ -87,8 +94,11 @@ class SoloScreen extends StatelessWidget {
                           open: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) =>
-                                  StageListScreen(title: tr('solo.puzzles'), subtitle: tr('solo.puzzlesSub'), stages: puzzles),
+                              builder: (_) => StageListScreen(
+                                title: tr('solo.puzzles'),
+                                subtitle: tr('solo.puzzlesSub'),
+                                stages: puzzles,
+                              ),
                             ),
                           ),
                         ),
@@ -119,7 +129,9 @@ class SoloScreen extends StatelessWidget {
         SoundBoard.instance.play(Sfx.place);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => GameScreen.stage(stage: next, nextStage: stageAfter(next))),
+          MaterialPageRoute(
+            builder: (_) => GameScreen.stage(stage: next, nextStage: stageAfter(next)),
+          ),
         );
       },
     );

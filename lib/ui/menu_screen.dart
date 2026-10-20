@@ -7,6 +7,7 @@ import '../config.dart';
 import '../engine/pieces.dart';
 import '../engine/rules.dart';
 import '../solo/catalog.dart';
+import '../store/purchases.dart';
 import 'codex_screen.dart';
 import 'gallery_screen.dart';
 import 'fx/sfx.dart';
@@ -242,6 +243,16 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               const SizedBox(height: 12),
               SkinToggle(label: tr('common.sound'), value: s.sound, onChanged: (v) => s.sound = v),
               SkinToggle(label: tr('settings.haptics'), value: s.haptics, onChanged: (v) => s.haptics = v),
+              const SizedBox(height: 12),
+              // Restaurar compras (lo exige Apple) y estado de la historia.
+              ListenableBuilder(
+                listenable: Purchases.instance,
+                builder: (context, _) => SkinButton(
+                  label: s.storyUnlocked ? tr('store.owned') : tr('store.restore'),
+                  glyph: '巻',
+                  onPressed: s.storyUnlocked || Purchases.instance.busy ? null : Purchases.instance.restore,
+                ),
+              ),
               const SizedBox(height: 22),
               const _StudioCredit(),
             ],

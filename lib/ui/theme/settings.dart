@@ -29,6 +29,7 @@ class AppSettings extends ChangeNotifier {
   Faction _faction = Faction.shaolin;
   bool _sound = true;
   bool _haptics = true;
+  bool _storyUnlocked = false;
   bool _faceToFace = false;
   String? _nickname; // null = el nombre por defecto del idioma
   String? _avatar; // null = el de la facción con que se juega
@@ -205,6 +206,7 @@ class AppSettings extends ChangeNotifier {
         : ThemeMode.system;
     _sound = p.getBool('sound') ?? true;
     _haptics = p.getBool('haptics') ?? true;
+    _storyUnlocked = p.getBool('storyUnlocked') ?? false;
     _faceToFace = p.getBool('faceToFace') ?? false;
     _nickname = p.getString('nickname');
     final avatar = p.getString('avatar');
@@ -280,6 +282,16 @@ class AppSettings extends ChangeNotifier {
   set faceToFace(bool v) {
     _faceToFace = v;
     _prefs?.setBool('faceToFace', v);
+    notifyListeners();
+  }
+
+  /// Compró la historia completa (USD 1,99): batallas 7–24 y El Sello.
+  bool get storyUnlocked => _storyUnlocked;
+
+  set storyUnlocked(bool v) {
+    if (_storyUnlocked == v) return;
+    _storyUnlocked = v;
+    _prefs?.setBool('storyUnlocked', v);
     notifyListeners();
   }
 

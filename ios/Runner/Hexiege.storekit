@@ -1,0 +1,39 @@
+{
+  "identifier" : "8E1C2F6A",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "6740000001",
+      "localizations" : [
+        {
+          "description" : "Los Actos II a IV de las dos campañas y El Sello, el verdadero final.",
+          "displayName" : "Historia completa",
+          "locale" : "es_419"
+        },
+        {
+          "description" : "Acts II to IV of both campaigns and The Seal, the true ending.",
+          "displayName" : "Full story",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "hexiege_story",
+      "referenceName" : "Historia completa",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_storefront" : "USA"
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

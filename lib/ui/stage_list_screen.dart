@@ -4,6 +4,8 @@ import '../i18n/i18n.dart';
 import '../engine/ai.dart';
 import '../engine/pieces.dart';
 import '../solo/catalog.dart';
+import '../store/paywall.dart';
+import '../store/purchases.dart';
 import 'game_screen.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
@@ -64,6 +66,14 @@ class StageListScreen extends StatelessWidget {
   Widget _tile(BuildContext context, HexTheme t, int i, {required bool done, required bool open}) {
     final st = stages[i];
     final skin = Skin.of(context);
+    // Historia sin comprar: se ve con candado dorado y abre el desbloqueo.
+    final paywalled = open && !done && isPaid(st) && !AppSettings.instance.storyUnlocked;
+    void play() => Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => GameScreen.stage(stage: st, nextStage: stageAfter(st)),
+      ),
+    );
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Opacity(
@@ -71,24 +81,29 @@ class StageListScreen extends StatelessWidget {
         child: SkinTile(
           leading: SizedBox(
             width: 30,
-            child: Text('${i + 1}', textAlign: TextAlign.center, style: skin.display(22, color: t.textMuted)),
+            child: Text(
+              '${i + 1}',
+              textAlign: TextAlign.center,
+              style: skin.display(22, color: t.textMuted),
+            ),
           ),
           title: st.title,
-          text: _detail(st),
+          text: paywalled ? tr('store.locked', {'price': Purchases.instance.price}) : _detail(st),
           highlight: done,
           trailing: Icon(
             done
                 ? Icons.workspace_premium_rounded
-                : open
-                ? Icons.play_arrow_rounded
-                : Icons.lock_rounded,
-            color: done ? t.gold : t.textMuted,
+                : paywalled || !open
+                ? Icons.lock_rounded
+                : Icons.play_arrow_rounded,
+            color: done || paywalled ? t.gold : t.textMuted,
           ),
-          onTap: open
-              ? () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => GameScreen.stage(stage: st, nextStage: stageAfter(st))),
-                )
+          onTap: paywalled
+              ? () async {
+                  if (await showPaywall(context)) play();
+                }
+              : open
+              ? play
               : null,
         ),
       ),

@@ -14,6 +14,7 @@ import '../match/ladder.dart';
 import '../match/matchmaker.dart';
 import '../solo/catalog.dart';
 import '../solo/solver.dart';
+import '../store/paywall.dart';
 import '../story/script.dart';
 import '../story/story_screen.dart';
 import '../tutorial/lessons.dart';
@@ -633,9 +634,20 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         if (!mounted) return;
         await playScene(context, post, mine: _storySides, title: _stage!.title);
         if (!mounted) return;
+        // Fin del Acto I: el cliffhanger recién visto lleva al desbloqueo.
+        if (_nextLocked) {
+          await showPaywall(context);
+          if (!mounted) return;
+        }
       }
       _showStageResult(ok);
     });
+  }
+
+  /// La batalla siguiente es de la historia paga y todavía no se compró.
+  bool get _nextLocked {
+    final next = widget.nextStage;
+    return next != null && isPaid(next) && !AppSettings.instance.storyUnlocked;
   }
 
   /// Bandos que van a la izquierda en las viñetas: el tuyo (en El Sello, los dos).
@@ -713,7 +725,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             if (end != null && end.action.isNotEmpty)
               SkinAction(end.action, end.go, primary: true)
             else if (ok && next != null)
-              SkinAction(tr('common.next'), () {
+              SkinAction(tr(_nextLocked ? 'store.unlock' : 'common.next'), () async {
+                if (_nextLocked && !await showPaywall(ctx)) return;
+                if (!ctx.mounted || !mounted) return;
                 Navigator.pop(ctx);
                 Navigator.pushReplacement(
                   context,
