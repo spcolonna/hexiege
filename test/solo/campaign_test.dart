@@ -1,15 +1,26 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hexiege/engine/ai.dart';
+import 'package:hexiege/engine/pieces.dart';
 import 'package:hexiege/solo/catalog.dart';
 
 void main() {
   for (final c in campaigns) {
     group(c.title, () {
-      test('8 batallas de ${c.faction.name}, de menor a mayor nivel', () {
-        expect(c.stages, hasLength(8));
-        expect(c.stages.every((s) => s.you == c.faction && s.kind == StageKind.campaign), isTrue);
-        expect(c.stages.every((s) => s.intro != 'stage.${s.id}.intro'), isTrue);
-        expect(c.stages.last.level, AiLevel.master);
+      if (!c.isFinale) {
+        test('24 batallas de ${c.faction.name} en 4 actos, la última contra un maestro', () {
+          expect(c.stages, hasLength(24));
+          expect(c.stages.every((s) => s.you == c.faction && s.kind == StageKind.campaign), isTrue);
+          expect(c.stages.last.level, AiLevel.master);
+          expect(c.stages.take(kFreeStagesPerCampaign).every((s) => s.level.index <= AiLevel.easy.index), isTrue);
+        });
+      }
+
+      test('cada batalla tiene título, objetivo e intro', () {
+        for (final s in c.stages) {
+          expect(s.title, isNot('stage.${s.id}.title'));
+          expect(s.goal, isNot('stage.${s.id}.goal'));
+          expect(s.intro, isNot('stage.${s.id}.intro'));
+        }
       });
 
       for (final s in c.stages) {
@@ -45,5 +56,25 @@ void main() {
         expect(onBoard + inHand, 11);
       }
     }
+  });
+
+  group('El Sello', () {
+    test('se abre recién con las dos campañas terminadas', () {
+      expect(isUnlocked(finale, 0, (id) => id == 's24'), isFalse);
+      expect(isUnlocked(finale, 0, (id) => id == 'n24'), isFalse);
+      expect(isUnlocked(finale, 0, (id) => id == 's24' || id == 'n24'), isTrue);
+      expect(isUnlocked(finale, 1, (id) => id == 'f1'), isTrue);
+    });
+
+    test('F1 y F2 contra el Oni con una sola facción; F3 con la mano mixta', () {
+      expect([for (final s in finale) s.opp], everyElement(Faction.oni));
+      final f1 = finale[0].build(), f2 = finale[1].build();
+      expect(f1.factions, [Faction.shaolin, Faction.oni]);
+      expect(f2.factions, [Faction.ninja, Faction.oni]);
+      final f3 = finale[2].build();
+      expect(f3.rules.mixedSeal, isTrue);
+      expect(f3.board.locateLeaders(0), hasLength(2));
+      expect(f3.hands[0].keys.map((t) => t.faction).toSet(), containsAll([Faction.shaolin, Faction.ninja]));
+    });
   });
 }

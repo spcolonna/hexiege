@@ -1250,14 +1250,14 @@
   "zh": "练武场"
  },
  "stage.s2.goal": {
-  "es": "Ganá. El explorador ninja no usa su habilidad.",
-  "en": "Win. The ninja scout doesn't use its ability.",
-  "zh": "获胜。忍者斥候不使用技能。"
+  "es": "Ganá. El rival no usa su habilidad.",
+  "en": "Win. Your opponent doesn't use its ability.",
+  "zh": "获胜。对手不使用技能。"
  },
  "stage.s2.intro": {
-  "es": "Atrapaste a un explorador. Antes de interrogarlo, el Abad quiere ver cómo peleás.",
-  "en": "You caught a scout. Before questioning him, the Abbot wants to see you fight.",
-  "zh": "你抓到一名斥候。审问之前，方丈想看看你的身手。"
+  "es": "La Maestra Mei quiere ver cómo peleás contra un explorador con las manos atadas.",
+  "en": "Master Mei wants to see how you fight a scout with tied hands.",
+  "zh": "梅师父想看看你如何对付一个被缚住双手的斥候。"
  },
  "stage.s3.title": {
   "es": "Emboscada en el bosque",
@@ -1270,84 +1270,84 @@
   "zh": "你的方丈开局时旁边已有 3 枚敌棋。获胜。"
  },
  "stage.s3.intro": {
-  "es": "De camino al pueblo, tres sombras caen de los árboles. No hay tiempo para formar.",
-  "en": "On the way to the village, three shadows drop from the trees. No time to form up.",
-  "zh": "去村子的路上，三道黑影从树上落下。来不及列阵。"
+  "es": "Bajando al pueblo, tres sombras caen de los árboles. Te estaban esperando.",
+  "en": "On the way to the village, three shadows drop from the trees. They were waiting for you.",
+  "zh": "下山途中，三道黑影从树上落下。他们早在等你。"
  },
  "stage.s4.title": {
-  "es": "El puente de piedra",
-  "en": "The stone bridge",
-  "zh": "石桥"
+  "es": "La celda",
+  "en": "The cell",
+  "zh": "牢房"
  },
  "stage.s4.goal": {
+  "es": "Rodeá al Gran Shogun.",
+  "en": "Surround the Great Shogun.",
+  "zh": "包围大将军。"
+ },
+ "stage.s4.intro": {
+  "es": "Humo en las celdas: los ninjas vinieron a rescatar a su explorador.",
+  "en": "Smoke in the cells: the ninjas came to rescue their scout.",
+  "zh": "牢房里烟雾弥漫：忍者来救他们的斥候了。"
+ },
+ "stage.s5.title": {
+  "es": "El muro norte",
+  "en": "The north wall",
+  "zh": "北墙"
+ },
+ "stage.s5.goal": {
   "es": "El Asedio empieza en la ronda 15. Ganá.",
   "en": "The Siege starts in round 15. Win.",
   "zh": "围城从第 15 回合开始。获胜。"
  },
- "stage.s4.intro": {
-  "es": "Los ninjas bloquean el único puente. La batalla será larga y sin retirada.",
-  "en": "The ninjas block the only bridge. The battle will be long, with no retreat.",
-  "zh": "忍者封锁了唯一的桥。这将是一场没有退路的持久战。"
- },
- "stage.s5.title": {
-  "es": "Cuatro sombras",
-  "en": "Four shadows",
-  "zh": "四道暗影"
- },
- "stage.s5.goal": {
-  "es": "El rival tiene 4 Shinobi. Ganá.",
-  "en": "Your opponent has 4 Shinobi. Win.",
-  "zh": "对手有 4 名忍者。获胜。"
- },
  "stage.s5.intro": {
-  "es": "El clan mandó refuerzos: los Shinobi se cuelan por cualquier rendija.",
-  "en": "The clan sent reinforcements: Shinobi slip through any crack.",
-  "zh": "忍者氏族派来援军：忍者无缝不入。"
+  "es": "El clan cubre la huida desde el muro norte. No hay tiempo para rodeos.",
+  "en": "The clan covers the escape from the north wall. No time to waste.",
+  "zh": "忍者在北墙掩护撤退。没有时间可以浪费。"
  },
  "stage.s6.title": {
-  "es": "Niebla en el valle",
-  "en": "Mist in the valley",
-  "zh": "山谷迷雾"
+  "es": "Kuro, el jonin del humo",
+  "en": "Kuro, jonin of smoke",
+  "zh": "烟之上忍·黑"
  },
  "stage.s6.goal": {
-  "es": "Habilidades: 5 usos y 1 turno de recarga. Ganá.",
-  "en": "Abilities: 5 uses and a 1-turn cooldown. Win.",
-  "zh": "技能：5 次使用，冷却 1 回合。获胜。"
+  "es": "Jefe: vencé a Kuro. El rival tiene 4 Shinobi.",
+  "en": "Boss: defeat Kuro. Your opponent has 4 Shinobi.",
+  "zh": "首领：击败黑。对手有 4 名忍者。"
  },
  "stage.s6.intro": {
-  "es": "En la niebla nada se queda quieto. Ni tus fichas ni las suyas.",
-  "en": "In the mist nothing stays still. Not your pieces, not theirs.",
-  "zh": "迷雾之中，一切都在移动。你的棋子如此，他们的也是。"
+  "es": "Al amanecer, un jonin te espera en el portón. Dice que se va a llevar lo que es suyo.",
+  "en": "At dawn a jonin waits at the gate. He says he will take what is theirs.",
+  "zh": "黎明时分，一名上忍在大门等你。他说要拿回属于他们的东西。"
  },
  "stage.s7.title": {
-  "es": "La pagoda",
-  "en": "The pagoda",
-  "zh": "宝塔"
+  "es": "Huellas",
+  "en": "Tracks",
+  "zh": "足迹"
  },
  "stage.s7.goal": {
-  "es": "Ganá.",
-  "en": "Win.",
-  "zh": "获胜。"
+  "es": "Rodeá al Gran Shogun.",
+  "en": "Surround the Great Shogun.",
+  "zh": "包围大将军。"
  },
  "stage.s7.intro": {
-  "es": "El Shogun se refugió en la pagoda con su guardia. Subí piso por piso.",
-  "en": "The Shogun took refuge in the pagoda with his guard. Climb floor by floor.",
-  "zh": "将军带着护卫躲进了宝塔。一层一层往上攻。"
+  "es": "Salís del Templo sin permiso. El maestro Tao, botella en mano, te acompaña.",
+  "en": "You leave the Temple without permission. Master Tao, bottle in hand, tags along.",
+  "zh": "你擅自离开寺院。陶师父提着酒壶跟了上来。"
  },
  "stage.s8.title": {
-  "es": "El Gran Shogun",
-  "en": "The Great Shogun",
-  "zh": "大将军"
+  "es": "El puente de piedra",
+  "en": "The stone bridge",
+  "zh": "石桥"
  },
  "stage.s8.goal": {
-  "es": "Ganá la batalla final.",
-  "en": "Win the final battle.",
-  "zh": "赢得最终之战。"
+  "es": "El Asedio empieza en la ronda 15. Ganá.",
+  "en": "The Siege starts in round 15. Win.",
+  "zh": "围城从第 15 回合开始。获胜。"
  },
  "stage.s8.intro": {
-  "es": "En la cima te espera el Gran Shogun. Esta vez pelea él mismo, con todo lo que sabe.",
-  "en": "At the top, the Great Shogun awaits. This time he fights himself, with everything he knows.",
-  "zh": "塔顶上大将军在等你。这一次他亲自出手，倾尽所学。"
+  "es": "Los ninjas bloquean el único puente sobre el río. Sin retirada.",
+  "en": "The ninjas block the only bridge over the river. No retreat.",
+  "zh": "忍者封锁了河上唯一的桥。没有退路。"
  },
  "stage.n1.title": {
   "es": "Sobre el muro",
@@ -1360,9 +1360,9 @@
   "zh": "包围方丈。"
  },
  "stage.n1.intro": {
-  "es": "El pergamino de Jade está en el Templo. Primero hay que pasar al guardia del muro.",
-  "en": "The Jade scroll is in the Temple. First you must get past the wall guard.",
-  "zh": "翡翠卷轴就在寺中。先要过守墙的这一关。"
+  "es": "El Shogun quiere de vuelta el Pergamino de Jade. Primero, el guardia del muro.",
+  "en": "The Shogun wants the Jade Scroll back. First, the wall guard.",
+  "zh": "将军要夺回翡翠卷轴。先解决墙上的守卫。"
  },
  "stage.n2.title": {
   "es": "Los novicios",
@@ -1370,14 +1370,14 @@
   "zh": "小沙弥"
  },
  "stage.n2.goal": {
-  "es": "Ganá. Los novicios no saben meditar.",
-  "en": "Win. The novices can't meditate.",
-  "zh": "获胜。小沙弥还不会冥想。"
+  "es": "Ganá. El rival no usa su habilidad.",
+  "en": "Win. Your opponent doesn't use its ability.",
+  "zh": "获胜。对手不使用技能。"
  },
  "stage.n2.intro": {
-  "es": "Unos novicios dan la alarma. Todavía no aprendieron la Meditación de Jade.",
-  "en": "Some novices raise the alarm. They haven't learned Jade Meditation yet.",
-  "zh": "几个小沙弥敲响了警钟。他们还没学会翡翠冥想。"
+  "es": "Unos novicios te vieron. Todavía no aprendieron la Meditación de Jade.",
+  "en": "Some novices spotted you. They haven't learned Jade Meditation yet.",
+  "zh": "几个小沙弥发现了你。他们还没学会翡翠冥想。"
  },
  "stage.n3.title": {
   "es": "Golpe por sorpresa",
@@ -1395,79 +1395,79 @@
   "zh": "在值守的师父反应过来之前，你已落入庭院。"
  },
  "stage.n4.title": {
-  "es": "El jardín de piedra",
-  "en": "The stone garden",
-  "zh": "石庭"
+  "es": "La escalera",
+  "en": "The stairway",
+  "zh": "石阶"
  },
  "stage.n4.goal": {
+  "es": "Rodeá al Monje Superior.",
+  "en": "Surround the Grand Abbot.",
+  "zh": "包围方丈。"
+ },
+ "stage.n4.intro": {
+  "es": "Los monjes no custodian la biblioteca: custodian una escalera que baja.",
+  "en": "The monks aren't guarding the library: they guard a stairway leading down.",
+  "zh": "僧人守的不是藏经阁，而是一道向下的石阶。"
+ },
+ "stage.n5.title": {
+  "es": "Alarma",
+  "en": "Alarm",
+  "zh": "警钟"
+ },
+ "stage.n5.goal": {
   "es": "El Asedio empieza en la ronda 15. Ganá.",
   "en": "The Siege starts in round 15. Win.",
   "zh": "围城从第 15 回合开始。获胜。"
  },
- "stage.n4.intro": {
-  "es": "Los monjes cerraron el jardín. Hay que abrirse paso antes de que lleguen más.",
-  "en": "The monks sealed the garden. Break through before more arrive.",
-  "zh": "僧人封锁了石庭。趁援兵未到杀出一条路。"
- },
- "stage.n5.title": {
-  "es": "Los guardianes",
-  "en": "The guardians",
-  "zh": "守护者"
- },
- "stage.n5.goal": {
-  "es": "El rival tiene 3 Tigres. Ganá.",
-  "en": "Your opponent has 3 Tigers. Win.",
-  "zh": "对手有 3 只石虎。获胜。"
- },
  "stage.n5.intro": {
-  "es": "Los Tigres de Mármol custodian la biblioteca. Empujan todo lo que encuentran.",
-  "en": "Marble Tigers guard the library. They push everything in their way.",
-  "zh": "石虎守卫着藏经阁，挡路的一律推开。"
+  "es": "Suenan las campanas. Todo el Templo despierta. Hay que salir ya.",
+  "en": "The bells ring. The whole Temple wakes. Time to get out.",
+  "zh": "钟声大作，全寺惊醒。必须马上撤离。"
  },
  "stage.n6.title": {
-  "es": "Humo y espejos",
-  "en": "Smoke and mirrors",
-  "zh": "烟雾迷踪"
+  "es": "Maestra Mei",
+  "en": "Master Mei",
+  "zh": "梅师父"
  },
  "stage.n6.goal": {
-  "es": "Habilidades: 5 usos y 1 turno de recarga. Ganá.",
-  "en": "Abilities: 5 uses and a 1-turn cooldown. Win.",
-  "zh": "技能：5 次使用，冷却 1 回合。获胜。"
+  "es": "Jefe: vencé a Mei. El rival tiene 3 Tigres.",
+  "en": "Boss: defeat Mei. Your opponent has 3 Tigers.",
+  "zh": "首领：击败梅。对手有 3 只石虎。"
  },
  "stage.n6.intro": {
-  "es": "Bombas de humo por todas partes. Que ningún monje sepa dónde estás.",
-  "en": "Smoke bombs everywhere. Let no monk know where you are.",
-  "zh": "烟雾弹四处炸开。别让任何僧人知道你在哪。"
+  "es": "Volvés sola a las celdas por tu compañero. La Maestra Mei te espera.",
+  "en": "You return alone to the cells for your comrade. Master Mei is waiting.",
+  "zh": "你独自回到牢房救同伴。梅师父正在等你。"
  },
  "stage.n7.title": {
-  "es": "La biblioteca",
-  "en": "The library",
-  "zh": "藏经阁"
+  "es": "El informe",
+  "en": "The report",
+  "zh": "禀报"
  },
  "stage.n7.goal": {
-  "es": "Ganá.",
-  "en": "Win.",
-  "zh": "获胜。"
+  "es": "Rodeá al Monje Superior.",
+  "en": "Surround the Grand Abbot.",
+  "zh": "包围方丈。"
  },
  "stage.n7.intro": {
-  "es": "El pergamino está a la vista. Los mejores monjes del Templo se interponen.",
-  "en": "The scroll is in sight. The Temple's best monks stand in the way.",
-  "zh": "卷轴近在眼前。寺中最强的僧人挡在面前。"
+  "es": "Le contás al Shogun que la puerta de la cripta late. Te manda a entrenar con Kuro.",
+  "en": "You tell the Shogun the crypt door beats like a heart. He sends you to train with Kuro.",
+  "zh": "你禀报将军地穴之门在跳动。他让你去和黑练习。"
  },
  "stage.n8.title": {
-  "es": "El Abad",
-  "en": "The Abbot",
-  "zh": "方丈"
+  "es": "El jardín de piedra",
+  "en": "The stone garden",
+  "zh": "石庭"
  },
  "stage.n8.goal": {
-  "es": "Ganá la batalla final.",
-  "en": "Win the final battle.",
-  "zh": "赢得最终之战。"
+  "es": "El Asedio empieza en la ronda 15. Ganá.",
+  "en": "The Siege starts in round 15. Win.",
+  "zh": "围城从第 15 回合开始。获胜。"
  },
  "stage.n8.intro": {
-  "es": "El Abad en persona bloquea la salida. Nadie le ganó en cuarenta años.",
-  "en": "The Abbot himself blocks the exit. No one has beaten him in forty years.",
-  "zh": "方丈亲自挡住了出口。四十年来无人胜过他。"
+  "es": "Los monjes cerraron el jardín. Abrite paso antes de que lleguen más.",
+  "en": "The monks have sealed the garden. Break through before more arrive.",
+  "zh": "僧人封锁了石庭。趁援兵未到，杀出一条路。"
  },
  "stage.puzzleGoal.one": {
   "es": "Rodeá al Líder enemigo en 1 turno.",
@@ -1485,9 +1485,9 @@
   "zh": "寺院之道"
  },
  "campaign.shaolin.blurb": {
-  "es": "Defendé el Templo de la invasión ninja.",
-  "en": "Defend the Temple from the ninja invasion.",
-  "zh": "保卫寺院，抵御忍者入侵。"
+  "es": "Ren, discípulo del Abad, defiende el Templo… y empieza a hacer preguntas.",
+  "en": "Ren, the Abbot's disciple, defends the Temple… and starts asking questions.",
+  "zh": "方丈的弟子仁守护寺院……却开始心生疑问。"
  },
  "campaign.ninja.title": {
   "es": "Sombras sobre el Templo",
@@ -1495,9 +1495,9 @@
   "zh": "寺院暗影"
  },
  "campaign.ninja.blurb": {
-  "es": "Infiltrate y robá el pergamino de Jade.",
-  "en": "Infiltrate and steal the Jade scroll.",
-  "zh": "潜入寺院，盗取翡翠卷轴。"
+  "es": "Aya, kunoichi del clan, va tras el Pergamino de Jade… y encuentra algo que late.",
+  "en": "Aya, kunoichi of the clan, goes after the Jade Scroll… and finds something with a heartbeat.",
+  "zh": "忍者绫潜入寺院夺取翡翠卷轴……却发现了某种在跳动的东西。"
  },
  "lesson.retry": {
   "es": "Casi. Probá de nuevo.",
@@ -2493,5 +2493,2305 @@
   "es": "Se desliza 1 casilla. Anula los efectos de las fichas enemigas a 2 casillas o menos y es inmune a Jade y Kawarimi.",
   "en": "Slides 1 space. Cancels the effects of enemy pieces within 2 spaces and is immune to Jade and Kawarimi.",
   "zh": "滑行 1 格。使 2 格内敌方棋子的效果失效，且不受翡翠冥想与替身术影响。"
+ },
+ "stage.s9.title": {
+  "es": "Las tallas",
+  "en": "The carvings",
+  "zh": "石刻"
+ },
+ "stage.s9.goal": {
+  "es": "Rodeá al Gran Shogun.",
+  "en": "Surround the Great Shogun.",
+  "zh": "包围大将军。"
+ },
+ "stage.s9.intro": {
+  "es": "En un santuario abandonado, un ronin mira las mismas tallas que vos.",
+  "en": "At an abandoned shrine, a ronin studies the same carvings as you.",
+  "zh": "在荒废的神社里，一名浪人和你看着同样的石刻。"
+ },
+ "stage.s10.title": {
+  "es": "Cuatro sombras",
+  "en": "Four shadows",
+  "zh": "四道暗影"
+ },
+ "stage.s10.goal": {
+  "es": "El rival tiene 4 Shinobi. Ganá.",
+  "en": "Your opponent has 4 Shinobi. Win.",
+  "zh": "对手有 4 名忍者。获胜。"
+ },
+ "stage.s10.intro": {
+  "es": "Te siguieron desde el santuario. Son muchos y se meten por cualquier rendija.",
+  "en": "They followed you from the shrine. Many of them, slipping through every gap.",
+  "zh": "他们从神社一路跟来。人数众多，无孔不入。"
+ },
+ "stage.s11.title": {
+  "es": "Niebla en el valle",
+  "en": "Mist in the valley",
+  "zh": "山谷迷雾"
+ },
+ "stage.s11.goal": {
+  "es": "Habilidades: 5 usos y 1 turno de recarga. Ganá.",
+  "en": "Abilities: 5 uses and a 1-turn cooldown. Win.",
+  "zh": "技能：5 次使用，冷却 1 回合。获胜。"
+ },
+ "stage.s11.intro": {
+  "es": "En la niebla nada se queda quieto. Una zorra blanca te pide que la sigas.",
+  "en": "In the mist nothing stays still. A white fox asks you to follow her.",
+  "zh": "迷雾之中，一切都在移动。一只白狐让你跟着她。"
+ },
+ "stage.s12.title": {
+  "es": "Aya",
+  "en": "Aya",
+  "zh": "绫"
+ },
+ "stage.s12.goal": {
+  "es": "Jefe: vencé a Aya.",
+  "en": "Boss: defeat Aya.",
+  "zh": "首领：击败绫。"
+ },
+ "stage.s12.intro": {
+  "es": "Al amanecer, en el santuario, una kunoichi te corta el paso. Ella también ve a la zorra.",
+  "en": "At dawn, at the shrine, a kunoichi blocks your way. She sees the fox too.",
+  "zh": "黎明时分，一名女忍在神社拦住你。她也看得见那只白狐。"
+ },
+ "stage.s13.title": {
+  "es": "El regreso",
+  "en": "The return",
+  "zh": "归来"
+ },
+ "stage.s13.goal": {
+  "es": "Rodeá al Gran Shogun.",
+  "en": "Surround the Great Shogun.",
+  "zh": "包围大将军。"
+ },
+ "stage.s13.intro": {
+  "es": "Volvés al Templo. El Abad cerró la biblioteca. Gon quiere pelear, como antes.",
+  "en": "You return to the Temple. The Abbot has locked the library. Gon wants to spar, like old times.",
+  "zh": "你回到寺院。方丈锁上了藏经阁。刚想像从前一样切磋。"
+ },
+ "stage.s14.title": {
+  "es": "Los novicios que sueñan",
+  "en": "The dreaming novices",
+  "zh": "做梦的小沙弥"
+ },
+ "stage.s14.goal": {
+  "es": "Ganá. El rival no usa su habilidad.",
+  "en": "Win. Your opponent doesn't use its ability.",
+  "zh": "获胜。对手不使用技能。"
+ },
+ "stage.s14.intro": {
+  "es": "Los novicios sueñan todos lo mismo: fuego y una cosa con cuernos bajo sus pies.",
+  "en": "The novices all dream the same dream: fire, and a horned thing beneath their feet.",
+  "zh": "小沙弥们都做了同一个梦：火焰，以及脚下长角的东西。"
+ },
+ "stage.s15.title": {
+  "es": "La biblioteca",
+  "en": "The library",
+  "zh": "藏经阁"
+ },
+ "stage.s15.goal": {
+  "es": "Rodeá al Gran Shogun.",
+  "en": "Surround the Great Shogun.",
+  "zh": "包围大将军。"
+ },
+ "stage.s15.intro": {
+  "es": "Forzás la puerta de la biblioteca a medianoche. La Maestra Mei te espera adentro.",
+  "en": "You force the library door at midnight. Master Mei is waiting inside.",
+  "zh": "午夜你撬开藏经阁的门。梅师父已在里面等候。"
+ },
+ "stage.s16.title": {
+  "es": "Ceniza en el patio",
+  "en": "Ash in the courtyard",
+  "zh": "庭中灰烬"
+ },
+ "stage.s16.goal": {
+  "es": "El Asedio empieza en la ronda 15. Ganá.",
+  "en": "The Siege starts in round 15. Win.",
+  "zh": "围城从第 15 回合开始。获胜。"
+ },
+ "stage.s16.intro": {
+  "es": "Una grieta abrió el patio y sale humo gris. El clan aprovecha el caos.",
+  "en": "A crack has split the courtyard and grey smoke pours out. The clan seizes the chaos.",
+  "zh": "庭院裂开，灰烟涌出。忍者趁乱来袭。"
+ },
+ "stage.s17.title": {
+  "es": "La orden del Abad",
+  "en": "The Abbot's order",
+  "zh": "方丈之令"
+ },
+ "stage.s17.goal": {
+  "es": "El rival tiene 3 Kunoichi. Ganá.",
+  "en": "Your opponent has 3 Kunoichi. Win.",
+  "zh": "对手有 3 名女忍。获胜。"
+ },
+ "stage.s17.intro": {
+  "es": "El Abad te ordena ir a la pagoda y vencer a Kage. Primero, sus guardias.",
+  "en": "The Abbot orders you to the pagoda to defeat Kage. First, his guards.",
+  "zh": "方丈命你前往宝塔击败影。先过他的护卫这一关。"
+ },
+ "stage.s18.title": {
+  "es": "Tao, el monje borracho",
+  "en": "Tao, the drunken monk",
+  "zh": "醉僧·陶"
+ },
+ "stage.s18.goal": {
+  "es": "Jefe: vencé a Tao. Habilidades: 5 usos y 1 turno de recarga.",
+  "en": "Boss: defeat Tao. Abilities: 5 uses and a 1-turn cooldown.",
+  "zh": "首领：击败陶。技能：5 次使用，冷却 1 回合。"
+ },
+ "stage.s18.intro": {
+  "es": "Tao bloquea el portón. Si le ganás, te deja ir. Si perdés, te quedás.",
+  "en": "Tao blocks the gate. Beat him and he lets you go. Lose and you stay.",
+  "zh": "陶挡在门口。赢了他就放你走，输了就留下。"
+ },
+ "stage.s19.title": {
+  "es": "El primer piso",
+  "en": "The first floor",
+  "zh": "第一层"
+ },
+ "stage.s19.goal": {
+  "es": "Rodeá al Gran Shogun.",
+  "en": "Surround the Great Shogun.",
+  "zh": "包围大将军。"
+ },
+ "stage.s19.intro": {
+  "es": "La pagoda del clan tiene cinco pisos. La puerta está abierta, como si te esperaran.",
+  "en": "The clan's pagoda has five floors. The door is open, as if they expected you.",
+  "zh": "忍者的宝塔共有五层。大门敞开，仿佛在等你。"
+ },
+ "stage.s20.title": {
+  "es": "El piso de los abanicos",
+  "en": "The floor of fans",
+  "zh": "扇之层"
+ },
+ "stage.s20.goal": {
+  "es": "El rival tiene 3 Kunoichi. Ganá.",
+  "en": "Your opponent has 3 Kunoichi. Win.",
+  "zh": "对手有 3 名女忍。获胜。"
+ },
+ "stage.s20.intro": {
+  "es": "Las kunoichi del clan custodian el segundo piso. Aya no está.",
+  "en": "The clan's kunoichi guard the second floor. Aya is not here.",
+  "zh": "女忍守着第二层。绫不在这里。"
+ },
+ "stage.s21.title": {
+  "es": "El piso de los Tengu",
+  "en": "The floor of Tengu",
+  "zh": "天狗之层"
+ },
+ "stage.s21.goal": {
+  "es": "El rival tiene 3 Tengu. Ganá.",
+  "en": "Your opponent has 3 Tengu. Win.",
+  "zh": "对手有 3 只天狗。获胜。"
+ },
+ "stage.s21.intro": {
+  "es": "Los Tengu saltan de viga en viga. Dos caminos, una misma noche.",
+  "en": "The Tengu leap from beam to beam. Two paths, one night.",
+  "zh": "天狗在梁间跳跃。两条路，同一个夜晚。"
+ },
+ "stage.s22.title": {
+  "es": "Kuro, otra vez",
+  "en": "Kuro, again",
+  "zh": "再战黑"
+ },
+ "stage.s22.goal": {
+  "es": "El rival tiene 4 Shinobi. Ganá.",
+  "en": "Your opponent has 4 Shinobi. Win.",
+  "zh": "对手有 4 名忍者。获胜。"
+ },
+ "stage.s22.intro": {
+  "es": "Kuro te espera en el cuarto piso. Nadie habla con el Shogun sin pasar por él.",
+  "en": "Kuro waits on the fourth floor. No one speaks to the Shogun without getting past him.",
+  "zh": "黑在第四层等你。想见将军，必须先过他这关。"
+ },
+ "stage.s23.title": {
+  "es": "Las puertas de arriba",
+  "en": "The upper doors",
+  "zh": "顶层之门"
+ },
+ "stage.s23.goal": {
+  "es": "El Asedio empieza en la ronda 15. Ganá.",
+  "en": "The Siege starts in round 15. Win.",
+  "zh": "围城从第 15 回合开始。获胜。"
+ },
+ "stage.s23.intro": {
+  "es": "La última puerta. Detrás, una sola respiración, lenta.",
+  "en": "The last door. Behind it, a single slow breath.",
+  "zh": "最后一道门。门后，只有一声缓慢的呼吸。"
+ },
+ "stage.s24.title": {
+  "es": "Gran Shogun Kage",
+  "en": "Great Shogun Kage",
+  "zh": "大将军·影"
+ },
+ "stage.s24.goal": {
+  "es": "Jefe: vencé a Kage.",
+  "en": "Boss: defeat Kage.",
+  "zh": "首领：击败影。"
+ },
+ "stage.s24.intro": {
+  "es": "La cima de la pagoda. El Gran Shogun te recibe solo. Rodealo si podés.",
+  "en": "The top of the pagoda. The Great Shogun receives you alone. Surround him if you can.",
+  "zh": "宝塔之巅。大将军独自迎接你。有本事就包围他。"
+ },
+ "stage.n9.title": {
+  "es": "Los guardianes",
+  "en": "The guardians",
+  "zh": "守护者"
+ },
+ "stage.n9.goal": {
+  "es": "El rival tiene 3 Tigres. Ganá.",
+  "en": "Your opponent has 3 Tigers. Win.",
+  "zh": "对手有 3 只石虎。获胜。"
+ },
+ "stage.n9.intro": {
+  "es": "Los Tigres de Mármol custodian el paso. Empujan todo lo que encuentran.",
+  "en": "The Marble Tigers guard the way. They push everything in their path.",
+  "zh": "石虎把守通道。挡路的一切都会被推开。"
+ },
+ "stage.n10.title": {
+  "es": "La leyenda",
+  "en": "The legend",
+  "zh": "传说"
+ },
+ "stage.n10.goal": {
+  "es": "Rodeá al Monje Superior.",
+  "en": "Surround the Grand Abbot.",
+  "zh": "包围方丈。"
+ },
+ "stage.n10.intro": {
+  "es": "Un ronin que fue monje te ofrece contarte lo que el clan olvidó. Si le ganás.",
+  "en": "A ronin who was once a monk offers to tell you what the clan forgot. If you beat him.",
+  "zh": "一位曾是僧人的浪人愿意告诉你忍者遗忘的事。前提是你赢了他。"
+ },
+ "stage.n11.title": {
+  "es": "Humo y espejos",
+  "en": "Smoke and mirrors",
+  "zh": "烟雾迷踪"
+ },
+ "stage.n11.goal": {
+  "es": "Habilidades: 5 usos y 1 turno de recarga. Ganá.",
+  "en": "Abilities: 5 uses and a 1-turn cooldown. Win.",
+  "zh": "技能：5 次使用，冷却 1 回合。获胜。"
+ },
+ "stage.n11.intro": {
+  "es": "Bombas de humo por todas partes. Que ningún monje sepa dónde estás.",
+  "en": "Smoke bombs everywhere. Don't let any monk know where you are.",
+  "zh": "烟雾弹四起。别让任何僧人知道你在哪。"
+ },
+ "stage.n12.title": {
+  "es": "Ren",
+  "en": "Ren",
+  "zh": "仁"
+ },
+ "stage.n12.goal": {
+  "es": "Jefe: vencé a Ren.",
+  "en": "Boss: defeat Ren.",
+  "zh": "首领：击败仁。"
+ },
+ "stage.n12.intro": {
+  "es": "Al amanecer, en el santuario, un monje solo. Él también ve a la zorra.",
+  "en": "At dawn, at the shrine, a lone monk. He sees the fox too.",
+  "zh": "黎明时分，神社里一个孤身的僧人。他也看得见那只白狐。"
+ },
+ "stage.n13.title": {
+  "es": "Descenso",
+  "en": "Descent",
+  "zh": "下行"
+ },
+ "stage.n13.goal": {
+  "es": "Rodeá al Monje Superior.",
+  "en": "Surround the Grand Abbot.",
+  "zh": "包围方丈。"
+ },
+ "stage.n13.intro": {
+  "es": "Te colás otra vez en el Templo. Esta vez buscás la escalera.",
+  "en": "You sneak into the Temple again. This time you look for the stairway.",
+  "zh": "你再次潜入寺院。这一次，你要找那道石阶。"
+ },
+ "stage.n14.title": {
+  "es": "Las seis piedras",
+  "en": "The six stones",
+  "zh": "六块石"
+ },
+ "stage.n14.goal": {
+  "es": "Ganá. El rival no usa su habilidad.",
+  "en": "Win. Your opponent doesn't use its ability.",
+  "zh": "获胜。对手不使用技能。"
+ },
+ "stage.n14.intro": {
+  "es": "Una sala enorme. Seis piedras en hexágono alrededor de una grieta que echa ceniza.",
+  "en": "A vast hall. Six stones in a hexagon around a crack spewing ash.",
+  "zh": "一座巨大的厅堂。六块石头围成六边形，中间的裂缝喷出灰烬。"
+ },
+ "stage.n15.title": {
+  "es": "Ceniza",
+  "en": "Ash",
+  "zh": "灰烬"
+ },
+ "stage.n15.goal": {
+  "es": "El rival tiene 4 Shinobi. Ganá.",
+  "en": "Your opponent has 4 Shinobi. Win.",
+  "zh": "对手有 4 名忍者。获胜。"
+ },
+ "stage.n15.intro": {
+  "es": "La ceniza toma forma. Sombras grises se mueven solas por la cripta.",
+  "en": "The ash takes shape. Grey shadows move on their own through the crypt.",
+  "zh": "灰烬化作人形。灰色的影子在地穴中自行游走。"
+ },
+ "stage.n16.title": {
+  "es": "El monje borracho",
+  "en": "The drunken monk",
+  "zh": "醉僧"
+ },
+ "stage.n16.goal": {
+  "es": "Rodeá al Monje Superior.",
+  "en": "Surround the Grand Abbot.",
+  "zh": "包围方丈。"
+ },
+ "stage.n16.intro": {
+  "es": "Tao te encuentra en su cripta. No llama a los guardias: te propone jugar.",
+  "en": "Tao finds you in his crypt. He doesn't call the guards: he offers a game.",
+  "zh": "陶在他的地穴里发现了你。他没叫守卫，而是邀你下一局。"
+ },
+ "stage.n17.title": {
+  "es": "La huida",
+  "en": "The escape",
+  "zh": "脱逃"
+ },
+ "stage.n17.goal": {
+  "es": "El Asedio empieza en la ronda 15. Ganá.",
+  "en": "The Siege starts in round 15. Win.",
+  "zh": "围城从第 15 回合开始。获胜。"
+ },
+ "stage.n17.intro": {
+  "es": "El Abad baja todas las noches a mirar las grietas. Corré.",
+  "en": "The Abbot comes down every night to check the cracks. Run.",
+  "zh": "方丈每晚都会下来查看裂缝。快跑。"
+ },
+ "stage.n18.title": {
+  "es": "Kuro",
+  "en": "Kuro",
+  "zh": "黑"
+ },
+ "stage.n18.goal": {
+  "es": "Jefe: vencé a Kuro. Habilidades: 5 usos y 1 turno de recarga.",
+  "en": "Boss: defeat Kuro. Abilities: 5 uses and a 1-turn cooldown.",
+  "zh": "首领：击败黑。技能：5 次使用，冷却 1 回合。"
+ },
+ "stage.n18.intro": {
+  "es": "El Shogun manda a Kuro a tomar el Pergamino por la fuerza. Si lo hace, rompe el sello.",
+  "en": "The Shogun sends Kuro to take the Scroll by force. If he does, the seal breaks.",
+  "zh": "将军派黑去强夺卷轴。一旦得手，封印就会破碎。"
+ },
+ "stage.n19.title": {
+  "es": "Los tejados",
+  "en": "The rooftops",
+  "zh": "屋顶"
+ },
+ "stage.n19.goal": {
+  "es": "Rodeá al Monje Superior.",
+  "en": "Surround the Grand Abbot.",
+  "zh": "包围方丈。"
+ },
+ "stage.n19.intro": {
+  "es": "La última noche antes de la luna nueva. El discípulo del Abad se fue a la pagoda.",
+  "en": "The last night before the new moon. The Abbot's disciple has gone to the pagoda.",
+  "zh": "新月前的最后一夜。方丈的弟子去了宝塔。"
+ },
+ "stage.n20.title": {
+  "es": "Los Tigres de mármol",
+  "en": "The Marble Tigers",
+  "zh": "石虎"
+ },
+ "stage.n20.goal": {
+  "es": "El rival tiene 3 Tigres. Ganá.",
+  "en": "Your opponent has 3 Tigers. Win.",
+  "zh": "对手有 3 只石虎。获胜。"
+ },
+ "stage.n20.intro": {
+  "es": "Los Tigres de Mármol custodian la biblioteca. Empujan todo lo que encuentran.",
+  "en": "The Marble Tigers guard the library. They push everything in their path.",
+  "zh": "石虎守护着藏经阁。挡路的一切都会被推开。"
+ },
+ "stage.n21.title": {
+  "es": "Jubei",
+  "en": "Jubei",
+  "zh": "十兵卫"
+ },
+ "stage.n21.goal": {
+  "es": "Rodeá al Monje Superior.",
+  "en": "Surround the Grand Abbot.",
+  "zh": "包围方丈。"
+ },
+ "stage.n21.intro": {
+  "es": "Jubei quiere saber si estás lista. Si leés el Pergamino, no hay vuelta atrás.",
+  "en": "Jubei wants to know if you're ready. Once you read the Scroll, there's no going back.",
+  "zh": "十兵卫想知道你是否准备好了。一旦读了卷轴，就无法回头。"
+ },
+ "stage.n22.title": {
+  "es": "Gon",
+  "en": "Gon",
+  "zh": "刚"
+ },
+ "stage.n22.goal": {
+  "es": "El rival tiene 3 Dragones. Ganá.",
+  "en": "Your opponent has 3 Dragons. Win.",
+  "zh": "对手有 3 条天龙。获胜。"
+ },
+ "stage.n22.intro": {
+  "es": "Gon cuida el pasillo de la biblioteca. Ren no está para defenderte.",
+  "en": "Gon guards the library hall. Ren isn't here to defend you.",
+  "zh": "刚守着藏经阁的走廊。仁不在，没人护着你。"
+ },
+ "stage.n23.title": {
+  "es": "Las puertas de la biblioteca",
+  "en": "The library doors",
+  "zh": "藏经阁之门"
+ },
+ "stage.n23.goal": {
+  "es": "El Asedio empieza en la ronda 15. Ganá.",
+  "en": "The Siege starts in round 15. Win.",
+  "zh": "围城从第 15 回合开始。获胜。"
+ },
+ "stage.n23.intro": {
+  "es": "La Maestra Mei te dejó ir una vez. Ahora no puede: el Abad está adentro.",
+  "en": "Master Mei let you go once. Not now: the Abbot is inside.",
+  "zh": "梅师父放过你一次。这次不行了：方丈就在里面。"
+ },
+ "stage.n24.title": {
+  "es": "Abad Hōshin",
+  "en": "Abbot Hōshin",
+  "zh": "方丈·法真"
+ },
+ "stage.n24.goal": {
+  "es": "Jefe: vencé al Abad.",
+  "en": "Boss: defeat the Abbot.",
+  "zh": "首领：击败方丈。"
+ },
+ "stage.n24.intro": {
+  "es": "El Pergamino de Jade está sobre el altar. En cuarenta años nadie le ganó al Abad.",
+  "en": "The Jade Scroll lies on the altar. No one has beaten the Abbot in forty years.",
+  "zh": "翡翠卷轴就在祭坛上。四十年来无人胜过方丈。"
+ },
+ "stage.f1.title": {
+  "es": "La vanguardia de ceniza",
+  "en": "The ash vanguard",
+  "zh": "灰烬先锋"
+ },
+ "stage.f1.goal": {
+  "es": "Rodeá al Oni de Ceniza con tus fichas Shaolin.",
+  "en": "Surround the Ash Oni with your Shaolin pieces.",
+  "zh": "用你的少林棋子包围灰烬鬼。"
+ },
+ "stage.f1.intro": {
+  "es": "El patio arde en llamas grises. Tao te grita que lo rodees. Ojo con los Gaki: saltan a cualquier borde.",
+  "en": "The courtyard burns with grey flames. Tao shouts at you to surround it. Beware the Gaki: they leap to any edge.",
+  "zh": "庭院燃起灰色火焰。陶大喊让你包围它。小心饿鬼：它们能跳到任何边缘。"
+ },
+ "stage.f2.title": {
+  "es": "La garra",
+  "en": "The claw",
+  "zh": "魔爪"
+ },
+ "stage.f2.goal": {
+  "es": "Rodeá al Oni de Ceniza con tus fichas Ninja.",
+  "en": "Surround the Ash Oni with your Ninja pieces.",
+  "zh": "用你的忍者棋子包围灰烬鬼。"
+ },
+ "stage.f2.intro": {
+  "es": "El jardín de piedra está partido en dos. El Ojo del Oni anula a todo lo que tiene cerca.",
+  "en": "The stone garden is split in two. The Oni's Eye nullifies everything near it.",
+  "zh": "石庭裂成两半。鬼眼会令附近的一切失效。"
+ },
+ "stage.f3.title": {
+  "es": "El Sello",
+  "en": "The Seal",
+  "zh": "封印"
+ },
+ "stage.f3.goal": {
+  "es": "Sellá al Oni: rodealo con fichas Shaolin y Ninja a la vez.",
+  "en": "Seal the Oni: surround it with Shaolin and Ninja pieces together.",
+  "zh": "封印灰烬鬼：同时用少林和忍者棋子包围它。"
+ },
+ "stage.f3.intro": {
+  "es": "Ren y Aya, juntos. Jugás con las dos facciones y los dos Líderes: si rodean a cualquiera, perdés. Jade y Kawarimi comparten recarga.",
+  "en": "Ren and Aya, together. You play both factions and both Leaders: lose either and you lose. Jade and Kawarimi share a cooldown.",
+  "zh": "仁与绫并肩作战。你同时操控两派棋子与两位首领：任意一位被围即告失败。翡翠冥想与替身术共用冷却。"
+ },
+ "campaign.finale.title": {
+  "es": "El Sello",
+  "en": "The Seal",
+  "zh": "封印"
+ },
+ "campaign.finale.blurb": {
+  "es": "El verdadero final. Una mano del Templo, una mano de la Sombra.",
+  "en": "The true ending. One hand of the Temple, one hand of the Shadow.",
+  "zh": "真正的结局。寺院之手，暗影之手。"
+ },
+ "campaign.finale.sub": {
+  "es": "El verdadero final",
+  "en": "The true ending",
+  "zh": "真正的结局"
+ },
+ "campaign.finaleLocked": {
+  "es": "Terminá las dos campañas para abrirlo.",
+  "en": "Finish both campaigns to unlock it.",
+  "zh": "完成两场战役后解锁。"
+ },
+ "story.s1.pre.0": {
+  "es": "Medianoche. El muro del Templo.",
+  "en": "Midnight. The Temple wall.",
+  "zh": "午夜。寺墙。"
+ },
+ "story.s1.pre.1": {
+  "es": "Una sombra cruzó el muro. Nadie la vio entrar.",
+  "en": "A shadow crossed the wall. No one saw it come in.",
+  "zh": "一道黑影翻过了寺墙。没有人看见它进来。"
+ },
+ "story.s1.pre.2": {
+  "es": "Ren. Despertate.",
+  "en": "Ren. Wake up.",
+  "zh": "仁，醒醒。"
+ },
+ "story.s1.pre.3": {
+  "es": "¿Maestro? ¿Qué pasa?",
+  "en": "Master? What's wrong?",
+  "zh": "师父？出什么事了？"
+ },
+ "story.s1.pre.4": {
+  "es": "Alguien entró al Templo. Andá a ver quién se atreve.",
+  "en": "Someone has entered the Temple. Go see who dares.",
+  "zh": "有人闯进了寺院。去看看是谁这么大胆。"
+ },
+ "story.s1.pre.5": {
+  "es": "¿Solo yo?",
+  "en": "Just me?",
+  "zh": "就我一个？"
+ },
+ "story.s1.pre.6": {
+  "es": "Si es uno, alcanza con vos. Si son más… gritá.",
+  "en": "If it's one, you're enough. If there are more… shout.",
+  "zh": "若只有一个，你足够了。若不止……就喊。"
+ },
+ "story.s1.post.0": {
+  "es": "¡Se escapa por el muro!",
+  "en": "He's escaping over the wall!",
+  "zh": "他翻墙逃了！"
+ },
+ "story.s1.post.1": {
+  "es": "El ninja huyó. No llevaba nada robado.",
+  "en": "The ninja fled. He hadn't stolen anything.",
+  "zh": "忍者逃走了，什么也没偷。"
+ },
+ "story.s1.post.2": {
+  "es": "Entonces… ¿a qué vino?",
+  "en": "Then… why did he come?",
+  "zh": "那……他到底来做什么？"
+ },
+ "story.s2.pre.0": {
+  "es": "A la mañana. Patio de entrenamiento.",
+  "en": "Morning. The training yard.",
+  "zh": "清晨。练武场。"
+ },
+ "story.s2.pre.1": {
+  "es": "Gon atrapó a un explorador en el bosque.",
+  "en": "Gon caught a scout in the forest.",
+  "zh": "刚在林子里抓到了一个斥候。"
+ },
+ "story.s2.pre.2": {
+  "es": "Y vos dejaste escapar al tuyo, Ren.",
+  "en": "And you let yours get away, Ren.",
+  "zh": "而你让你那个跑了，仁。"
+ },
+ "story.s2.pre.3": {
+  "es": "Era rápido.",
+  "en": "He was fast.",
+  "zh": "他太快了。"
+ },
+ "story.s2.pre.4": {
+  "es": "Antes de interrogarlo, el Abad quiere ver cómo peleás. Este tiene las manos atadas: sin trucos.",
+  "en": "Before we question him, the Abbot wants to see how you fight. This one has his hands tied: no tricks.",
+  "zh": "审问之前，方丈想看看你怎么打。这个被缚住了手：没有花招。"
+ },
+ "story.s2.post.0": {
+  "es": "Bien. Rodeás con paciencia. Eso es lo importante.",
+  "en": "Good. You surround with patience. That's what matters.",
+  "zh": "很好。你包围时有耐心。这才是关键。"
+ },
+ "story.s2.post.1": {
+  "es": "Maestra, ¿por qué siempre rodeamos? ¿Por qué no golpeamos y ya?",
+  "en": "Master, why do we always surround? Why not just strike?",
+  "zh": "师父，为什么我们总是包围？为什么不直接出手？"
+ },
+ "story.s2.post.2": {
+  "es": "*(silencio)* …Porque así nos enseñaron.",
+  "en": "*(silence)* …Because that is how we were taught.",
+  "zh": "*（沉默）*……因为我们就是这样被教的。"
+ },
+ "story.s3.pre.0": {
+  "es": "Esa tarde. El camino al pueblo.",
+  "en": "That afternoon. The road to the village.",
+  "zh": "那天下午。下山的路。"
+ },
+ "story.s3.pre.1": {
+  "es": "Ren baja al pueblo a buscar arroz.",
+  "en": "Ren goes down to the village for rice.",
+  "zh": "仁下山去村里买米。"
+ },
+ "story.s3.pre.2": {
+  "es": "Qué silencio…",
+  "en": "So quiet…",
+  "zh": "好安静……"
+ },
+ "story.s3.pre.3": {
+  "es": "Tres sombras caen de los árboles.",
+  "en": "Three shadows drop from the trees.",
+  "zh": "三道黑影从树上落下。"
+ },
+ "story.s3.pre.4": {
+  "es": "Es el discípulo del Abad. ¡Rodéenlo!",
+  "en": "It's the Abbot's disciple. Surround him!",
+  "zh": "是方丈的弟子。包围他！"
+ },
+ "story.s3.post.0": {
+  "es": "¿Por qué me esperaban a mí?",
+  "en": "Why were you waiting for me?",
+  "zh": "你们为什么在等我？"
+ },
+ "story.s3.post.1": {
+  "es": "*(huyendo)* ¡Preguntale al viejo qué guarda abajo!",
+  "en": "*(fleeing)* Ask the old man what he keeps down below!",
+  "zh": "*（逃跑中）*去问那老头，他在下面藏了什么！"
+ },
+ "story.s4.pre.0": {
+  "es": "Noche. Las celdas del Templo.",
+  "en": "Night. The Temple cells.",
+  "zh": "夜。寺院的牢房。"
+ },
+ "story.s4.pre.1": {
+  "es": "Tus amigos me emboscaron. ¿Qué buscan?",
+  "en": "Your friends ambushed me. What are you after?",
+  "zh": "你的同伴伏击了我。你们想要什么？"
+ },
+ "story.s4.pre.2": {
+  "es": "No te voy a decir nada, monje.",
+  "en": "I'm not telling you anything, monk.",
+  "zh": "我什么都不会告诉你，和尚。"
+ },
+ "story.s4.pre.3": {
+  "es": "Un golpe seco en el techo. Humo.",
+  "en": "A dull thud on the roof. Smoke.",
+  "zh": "屋顶传来一声闷响。烟雾。"
+ },
+ "story.s4.pre.4": {
+  "es": "¡Vinieron a sacarlo!",
+  "en": "They've come to get him out!",
+  "zh": "他们来救他了！"
+ },
+ "story.s4.post.0": {
+  "es": "Escuchame, chico. No venimos a robar. **Venimos a advertir.**",
+  "en": "Listen, kid. We didn't come to steal. **We came to warn you.**",
+  "zh": "听着，小子。我们不是来偷东西的。**我们是来警告的。**"
+ },
+ "story.s4.post.1": {
+  "es": "¿Advertir qué?",
+  "en": "Warn us about what?",
+  "zh": "警告什么？"
+ },
+ "story.s4.post.2": {
+  "es": "Una zorra blanca aparece en la celda. Nadie la vio entrar.",
+  "en": "A white fox appears in the cell. No one saw it come in.",
+  "zh": "一只白狐出现在牢房里。没有人看见它进来。"
+ },
+ "story.s4.post.3": {
+  "es": "Todavía no es momento de que lo sepa.",
+  "en": "It is not yet time for him to know.",
+  "zh": "现在还不是让他知道的时候。"
+ },
+ "story.s4.post.4": {
+  "es": "La zorra y el explorador desaparecen en la niebla.",
+  "en": "The fox and the scout vanish into the mist.",
+  "zh": "白狐和斥候消失在雾中。"
+ },
+ "story.s5.pre.0": {
+  "es": "Minutos después. El muro norte.",
+  "en": "Minutes later. The north wall.",
+  "zh": "几分钟后。北墙。"
+ },
+ "story.s5.pre.1": {
+  "es": "¡Están por todo el muro! Quieren cubrir la huida.",
+  "en": "They're all over the wall! They're covering the escape.",
+  "zh": "墙上到处都是！他们在掩护撤退。"
+ },
+ "story.s5.pre.2": {
+  "es": "Gon, ¿vos viste a la zorra?",
+  "en": "Gon, did you see the fox?",
+  "zh": "刚，你看见那只狐狸了吗？"
+ },
+ "story.s5.pre.3": {
+  "es": "¿Qué zorra? ¡Concentrate!",
+  "en": "What fox? Focus!",
+  "zh": "什么狐狸？专心！"
+ },
+ "story.s5.post.0": {
+  "es": "Los ninjas se retiran al bosque.",
+  "en": "The ninjas withdraw into the forest.",
+  "zh": "忍者退回了林中。"
+ },
+ "story.s5.post.1": {
+  "es": "\"Venimos a advertir.\" ¿A advertir de qué?",
+  "en": "\"We came to warn you.\" Warn us about what?",
+  "zh": "“我们是来警告的。”警告什么？"
+ },
+ "story.s6.pre.0": {
+  "es": "Amanecer. El portón principal.",
+  "en": "Dawn. The main gate.",
+  "zh": "黎明。正门。"
+ },
+ "story.s6.pre.1": {
+  "es": "El discípulo del Abad. Me contaron que rodeás bien.",
+  "en": "The Abbot's disciple. They tell me you surround well.",
+  "zh": "方丈的弟子。听说你很会包围。"
+ },
+ "story.s6.pre.2": {
+  "es": "¿Quién sos?",
+  "en": "Who are you?",
+  "zh": "你是谁？"
+ },
+ "story.s6.pre.3": {
+  "es": "Alguien que se va a llevar lo que es nuestro. Hoy, o la próxima.",
+  "en": "Someone who's going to take what's ours. Today, or next time.",
+  "zh": "一个要拿回属于我们东西的人。今天，或者下一次。"
+ },
+ "story.s6.post.0": {
+  "es": "Bien peleado. Pero no entendés nada de lo que defendés.",
+  "en": "Well fought. But you understand nothing of what you defend.",
+  "zh": "打得好。但你根本不懂自己在守护什么。"
+ },
+ "story.s6.post.1": {
+  "es": "Más tarde. La sala del Abad.",
+  "en": "Later. The Abbot's hall.",
+  "zh": "稍后。方丈的禅房。"
+ },
+ "story.s6.post.2": {
+  "es": "Maestro, el ninja dijo que venían a advertir. Habló de algo que guardamos abajo.",
+  "en": "Master, the ninja said they came to warn us. He spoke of something we keep down below.",
+  "zh": "师父，那个忍者说他们是来警告的。他提到我们在下面藏着什么。"
+ },
+ "story.s6.post.3": {
+  "es": "Nadie habló con nadie, Ren.",
+  "en": "No one spoke to anyone, Ren.",
+  "zh": "没有人和任何人说过话，仁。"
+ },
+ "story.s6.post.4": {
+  "es": "Pero…",
+  "en": "But…",
+  "zh": "可是……"
+ },
+ "story.s6.post.5": {
+  "es": "**Olvidalo.** Es una orden.",
+  "en": "**Forget it.** That is an order.",
+  "zh": "**忘了它。**这是命令。"
+ },
+ "story.s6.post.6": {
+  "es": "Esa noche Ren no puede dormir. El suelo tiembla, apenas.",
+  "en": "That night Ren can't sleep. The ground trembles, barely.",
+  "zh": "那一夜仁无法入睡。地面在微微颤动。"
+ },
+ "story.s6.post.7": {
+  "es": "Del techo cae un polvo gris. No es polvo. Es **ceniza**.",
+  "en": "Grey dust falls from the ceiling. It isn't dust. It's **ash**.",
+  "zh": "天花板落下灰色的尘。那不是尘，是**灰烬**。"
+ },
+ "story.s7.pre.0": {
+  "es": "Días después. Fuera del Templo, sin permiso.",
+  "en": "Days later. Outside the Temple, without permission.",
+  "zh": "几天后。寺外，未经允许。"
+ },
+ "story.s7.pre.1": {
+  "es": "Si el Abad no me lo dice, lo voy a averiguar.",
+  "en": "If the Abbot won't tell me, I'll find out myself.",
+  "zh": "既然方丈不告诉我，我就自己查。"
+ },
+ "story.s7.pre.2": {
+  "es": "¿Saliendo a escondidas, chico? *hip*",
+  "en": "Sneaking out, kid? *hic*",
+  "zh": "偷偷溜出去啊，小子？*嗝*"
+ },
+ "story.s7.pre.3": {
+  "es": "¡Maestro Tao! No le diga a nadie.",
+  "en": "Master Tao! Don't tell anyone.",
+  "zh": "陶师父！别告诉任何人。"
+ },
+ "story.s7.pre.4": {
+  "es": "¿Yo? Yo no vi nada. Nunca veo nada. *hip*. Te acompaño.",
+  "en": "Me? I didn't see a thing. I never see anything. *hic*. I'll come with you.",
+  "zh": "我？我什么都没看见。我从来什么都看不见。*嗝*。我陪你去。"
+ },
+ "story.s7.post.0": {
+  "es": "Las huellas van al este. Al viejo santuario.",
+  "en": "The tracks head east. To the old shrine.",
+  "zh": "足迹往东去了。通往旧神社。"
+ },
+ "story.s7.post.1": {
+  "es": "¿Usted sabe algo?",
+  "en": "Do you know something?",
+  "zh": "您知道些什么吗？"
+ },
+ "story.s7.post.2": {
+  "es": "Sé tomar. Lo demás lo olvidé. *hip*",
+  "en": "I know how to drink. The rest I forgot. *hic*",
+  "zh": "我只知道喝酒。其他的都忘了。*嗝*"
+ },
+ "story.s8.pre.0": {
+  "es": "El único puente sobre el río.",
+  "en": "The only bridge over the river.",
+  "zh": "河上唯一的桥。"
+ },
+ "story.s8.pre.1": {
+  "es": "Los ninjas bloquean el puente. La batalla será larga y sin retirada.",
+  "en": "The ninjas block the bridge. The battle will be long, with no retreat.",
+  "zh": "忍者封锁了桥。这将是一场漫长且没有退路的战斗。"
+ },
+ "story.s8.pre.2": {
+  "es": "Yo te espero de este lado. Tengo… cosas que hacer. *hip*",
+  "en": "I'll wait for you on this side. I have… things to do. *hic*",
+  "zh": "我在这边等你。我有……事要做。*嗝*"
+ },
+ "story.s8.post.0": {
+  "es": "¡Pasé!",
+  "en": "I made it!",
+  "zh": "我过来了！"
+ },
+ "story.s8.post.1": {
+  "es": "Nunca dudé. Bueno, un poco.",
+  "en": "Never doubted it. Well, a little.",
+  "zh": "我从没怀疑过。嗯，有一点点。"
+ },
+ "story.s9.pre.0": {
+  "es": "El santuario abandonado.",
+  "en": "The abandoned shrine.",
+  "zh": "荒废的神社。"
+ },
+ "story.s9.pre.1": {
+  "es": "En las piedras hay tallas. Seis piedras en hexágono, alrededor de una figura con cuernos.",
+  "en": "The stones bear carvings. Six stones in a hexagon, around a horned figure.",
+  "zh": "石头上有雕刻。六块石头围成六边形，中间是一个长角的身影。"
+ },
+ "story.s9.pre.2": {
+  "es": "Ese es el símbolo del Templo… y ese es el del clan. ¿Juntos?",
+  "en": "That's the Temple's symbol… and that's the clan's. Together?",
+  "zh": "这是寺院的标志……那是忍者的。在一起？"
+ },
+ "story.s9.pre.3": {
+  "es": "Nadie mira esas piedras hace siglos. ¿Qué hace un monje acá?",
+  "en": "No one has looked at those stones in centuries. What's a monk doing here?",
+  "zh": "几百年没人看过这些石头了。一个和尚来这里做什么？"
+ },
+ "story.s9.pre.4": {
+  "es": "¿Y vos quién sos?",
+  "en": "And who are you?",
+  "zh": "那你又是谁？"
+ },
+ "story.s9.pre.5": {
+  "es": "Uno que preguntó lo mismo que vos. Mostrame cómo peleás y te contesto.",
+  "en": "Someone who asked the same thing you did. Show me how you fight and I'll answer.",
+  "zh": "一个和你问过同样问题的人。让我看看你怎么打，我就回答你。"
+ },
+ "story.s9.post.0": {
+  "es": "Fui monje. Me echaron por preguntar qué dice el Pergamino de Jade.",
+  "en": "I was a monk. They threw me out for asking what the Jade Scroll says.",
+  "zh": "我曾是僧人。因为问翡翠卷轴写了什么，被赶了出来。"
+ },
+ "story.s9.post.1": {
+  "es": "El Pergamino es sagrado. Solo el Abad lo lee.",
+  "en": "The Scroll is sacred. Only the Abbot reads it.",
+  "zh": "卷轴是神圣的。只有方丈能读。"
+ },
+ "story.s9.post.2": {
+  "es": "Exacto. ¿Y nunca te preguntaste por qué?",
+  "en": "Exactly. And you never wondered why?",
+  "zh": "正是。你就从没想过为什么吗？"
+ },
+ "story.s10.pre.0": {
+  "es": "El bosque, de noche.",
+  "en": "The forest, at night.",
+  "zh": "夜晚的森林。"
+ },
+ "story.s10.pre.1": {
+  "es": "Te siguieron desde el santuario. Son muchos.",
+  "en": "They followed you from the shrine. There are many.",
+  "zh": "他们从神社一路跟着你。人很多。"
+ },
+ "story.s10.pre.2": {
+  "es": "Los Shinobi se meten por cualquier rendija.",
+  "en": "Shinobi slip through any gap.",
+  "zh": "忍者能钻进任何缝隙。"
+ },
+ "story.s10.pre.3": {
+  "es": "Entonces no dejes rendijas.",
+  "en": "Then leave no gaps.",
+  "zh": "那就别留缝隙。"
+ },
+ "story.s10.post.0": {
+  "es": "Un shinobi caído deja caer un pergamino pequeño: una orden del Shogun.",
+  "en": "A fallen shinobi drops a small scroll: an order from the Shogun.",
+  "zh": "一个倒下的忍者掉出一张小卷轴：将军的命令。"
+ },
+ "story.s10.post.1": {
+  "es": "*(leyendo)* \"Traigan el Pergamino de Jade antes de la luna nueva.\"",
+  "en": "*(reading)* \"Bring the Jade Scroll before the new moon.\"",
+  "zh": "*（读着）*“新月之前，把翡翠卷轴带回来。”"
+ },
+ "story.s11.pre.0": {
+  "es": "El valle. Niebla espesa.",
+  "en": "The valley. Thick mist.",
+  "zh": "山谷。浓雾。"
+ },
+ "story.s11.pre.1": {
+  "es": "En la niebla nada se queda quieto.",
+  "en": "In the mist nothing stays still.",
+  "zh": "迷雾之中，一切都在移动。"
+ },
+ "story.s11.pre.2": {
+  "es": "Seguime, pequeño monje.",
+  "en": "Follow me, little monk.",
+  "zh": "跟我来，小和尚。"
+ },
+ "story.s11.pre.3": {
+  "es": "¡Vos! ¿Qué sos?",
+  "en": "You! What are you?",
+  "zh": "是你！你是什么？"
+ },
+ "story.s11.pre.4": {
+  "es": "La que recuerda. Seguime y no te pierdas.",
+  "en": "The one who remembers. Follow me and don't get lost.",
+  "zh": "记得一切的那个。跟着我，别走丢了。"
+ },
+ "story.s11.post.0": {
+  "es": "Mañana vas a conocer a alguien que hace tus mismas preguntas.",
+  "en": "Tomorrow you will meet someone who asks your same questions.",
+  "zh": "明天你会遇见一个和你问同样问题的人。"
+ },
+ "story.s11.post.1": {
+  "es": "¿Quién?",
+  "en": "Who?",
+  "zh": "谁？"
+ },
+ "story.s11.post.2": {
+  "es": "Alguien del otro lado.",
+  "en": "Someone from the other side.",
+  "zh": "另一边的人。"
+ },
+ "story.s12.pre.0": {
+  "es": "El santuario, al amanecer.",
+  "en": "The shrine, at dawn.",
+  "zh": "黎明时分的神社。"
+ },
+ "story.s12.pre.1": {
+  "es": "Un monje. Solo. En mi bosque.",
+  "en": "A monk. Alone. In my forest.",
+  "zh": "一个和尚。孤身一人。在我的林子里。"
+ },
+ "story.s12.pre.2": {
+  "es": "No es tu bosque.",
+  "en": "It's not your forest.",
+  "zh": "这不是你的林子。"
+ },
+ "story.s12.pre.3": {
+  "es": "…¿Vos también la ves? A la zorra blanca.",
+  "en": "…You see her too? The white fox.",
+  "zh": "……你也看得见她？那只白狐。"
+ },
+ "story.s12.pre.4": {
+  "es": "*(sorprendido)* Sí.",
+  "en": "*(surprised)* Yes.",
+  "zh": "*（惊讶）*看得见。"
+ },
+ "story.s12.pre.5": {
+  "es": "Entonces sabés que algo anda mal. Igual te voy a ganar.",
+  "en": "Then you know something is wrong. I'm still going to beat you.",
+  "zh": "那你就知道有什么不对劲。不过我还是会赢你。"
+ },
+ "story.s12.post.0": {
+  "es": "Ganaste. Esta vez.",
+  "en": "You won. This time.",
+  "zh": "你赢了。这一次。"
+ },
+ "story.s12.post.1": {
+  "es": "El tuyo dijo que venían a advertir. ¿De qué?",
+  "en": "Your friend said you came to warn us. About what?",
+  "zh": "你的同伴说你们是来警告的。警告什么？"
+ },
+ "story.s12.post.2": {
+  "es": "No sé. Mi Shogun tampoco. Pero preguntale a tu Abad **qué hay debajo del Templo**.",
+  "en": "I don't know. Neither does my Shogun. But ask your Abbot **what lies beneath the Temple**.",
+  "zh": "我不知道。我的将军也不知道。但你去问问你的方丈，**寺院底下有什么**。"
+ },
+ "story.s12.post.3": {
+  "es": "Una bomba de humo. Aya ya no está.",
+  "en": "A smoke bomb. Aya is gone.",
+  "zh": "一颗烟雾弹。绫不见了。"
+ },
+ "story.s13.pre.0": {
+  "es": "El Templo. Ren vuelve después de una semana.",
+  "en": "The Temple. Ren returns after a week.",
+  "zh": "寺院。一周后仁回来了。"
+ },
+ "story.s13.pre.1": {
+  "es": "¡Ren! El Abad estuvo furioso. Cerró la biblioteca con llave.",
+  "en": "Ren! The Abbot was furious. He locked the library.",
+  "zh": "仁！方丈大发雷霆。他把藏经阁锁上了。"
+ },
+ "story.s13.pre.2": {
+  "es": "¿Cerró la biblioteca?",
+  "en": "He locked the library?",
+  "zh": "他锁了藏经阁？"
+ },
+ "story.s13.pre.3": {
+  "es": "Y puso guardias en la cripta. Algo pasa. Peleemos, como antes. Te extrañé.",
+  "en": "And he put guards on the crypt. Something's going on. Let's spar, like old times. I missed you.",
+  "zh": "还派人守着地穴。出事了。来切磋吧，像从前一样。我想你了。"
+ },
+ "story.s13.post.0": {
+  "es": "Peleás distinto. Más… como ellos.",
+  "en": "You fight differently. More… like them.",
+  "zh": "你的打法变了。更……像他们。"
+ },
+ "story.s13.post.1": {
+  "es": "Gon, ¿vos sabés qué hay en la cripta?",
+  "en": "Gon, do you know what's in the crypt?",
+  "zh": "刚，你知道地穴里有什么吗？"
+ },
+ "story.s13.post.2": {
+  "es": "Nadie baja ahí. Solo Tao.",
+  "en": "No one goes down there. Only Tao.",
+  "zh": "没人下去过。只有陶。"
+ },
+ "story.s14.pre.0": {
+  "es": "El dormitorio de novicios.",
+  "en": "The novices' dormitory.",
+  "zh": "小沙弥的寝室。"
+ },
+ "story.s14.pre.1": {
+  "es": "Hermano Ren… soñamos con fuego. Todos, el mismo sueño.",
+  "en": "Brother Ren… we dream of fire. All of us, the same dream.",
+  "zh": "仁师兄……我们梦见了火。所有人，同一个梦。"
+ },
+ "story.s14.pre.2": {
+  "es": "Una cosa con cuernos debajo de nuestros pies.",
+  "en": "A horned thing beneath our feet.",
+  "zh": "脚下有个长角的东西。"
+ },
+ "story.s14.pre.3": {
+  "es": "Son solo sueños. Vamos, a entrenar.",
+  "en": "They're only dreams. Come on, training.",
+  "zh": "只是梦而已。走，去练功。"
+ },
+ "story.s14.post.0": {
+  "es": "Una figura con cuernos. Como en las tallas.",
+  "en": "A horned figure. Like the carvings.",
+  "zh": "长角的身影。和石刻上的一样。"
+ },
+ "story.s15.pre.0": {
+  "es": "Medianoche. La biblioteca.",
+  "en": "Midnight. The library.",
+  "zh": "午夜。藏经阁。"
+ },
+ "story.s15.pre.1": {
+  "es": "Ren fuerza la puerta. Adentro, la Maestra Mei lo espera.",
+  "en": "Ren forces the door. Inside, Master Mei is waiting for him.",
+  "zh": "仁撬开了门。梅师父正在里面等他。"
+ },
+ "story.s15.pre.2": {
+  "es": "Sabía que vendrías.",
+  "en": "I knew you would come.",
+  "zh": "我就知道你会来。"
+ },
+ "story.s15.pre.3": {
+  "es": "Quiero leer el Pergamino.",
+  "en": "I want to read the Scroll.",
+  "zh": "我想读那卷轴。"
+ },
+ "story.s15.pre.4": {
+  "es": "No está acá. Y si estuviera, primero tendrías que pasar por mí.",
+  "en": "It isn't here. And if it were, you would have to get past me first.",
+  "zh": "它不在这里。就算在，你也得先过我这一关。"
+ },
+ "story.s15.post.0": {
+  "es": "…Hay un sello, Ren. Abajo del Templo. Se está rompiendo.",
+  "en": "…There is a seal, Ren. Beneath the Temple. It's breaking.",
+  "zh": "……有一道封印，仁。在寺院底下。它正在破碎。"
+ },
+ "story.s15.post.1": {
+  "es": "¿Y el Abad?",
+  "en": "And the Abbot?",
+  "zh": "那方丈呢？"
+ },
+ "story.s15.post.2": {
+  "es": "Dice que puede renovarlo solo. Que nadie más tiene que saberlo.",
+  "en": "He says he can renew it alone. That no one else needs to know.",
+  "zh": "他说他能独自重修封印。说没有别人需要知道。"
+ },
+ "story.s15.post.3": {
+  "es": "¿Usted le cree?",
+  "en": "Do you believe him?",
+  "zh": "您相信他吗？"
+ },
+ "story.s15.post.4": {
+  "es": "*(silencio)*",
+  "en": "*(silence)*",
+  "zh": "*（沉默）*"
+ },
+ "story.s16.pre.0": {
+  "es": "Amanecer. El patio cubierto de ceniza.",
+  "en": "Dawn. The courtyard covered in ash.",
+  "zh": "黎明。庭院覆满灰烬。"
+ },
+ "story.s16.pre.1": {
+  "es": "El temblor de la noche abrió una grieta en el patio. De ella sale humo gris.",
+  "en": "Last night's tremor split the courtyard. Grey smoke rises from the crack.",
+  "zh": "昨夜的震动让庭院裂开。裂缝中冒出灰烟。"
+ },
+ "story.s16.pre.2": {
+  "es": "¡Ninjas en el muro! ¡Aprovechan el caos!",
+  "en": "Ninjas on the wall! They're using the chaos!",
+  "zh": "墙上有忍者！他们趁乱来袭！"
+ },
+ "story.s16.pre.3": {
+  "es": "¡No es su culpa! ¡Viene de abajo!",
+  "en": "It's not their fault! It's coming from below!",
+  "zh": "不是他们的错！是从下面来的！"
+ },
+ "story.s16.post.0": {
+  "es": "Entre la ceniza, por un momento, Ren ve dos ojos rojos.",
+  "en": "Through the ash, for a moment, Ren sees two red eyes.",
+  "zh": "灰烬之中，有那么一瞬，仁看见了两只红眼。"
+ },
+ "story.s16.post.1": {
+  "es": "…¿Lo vieron?",
+  "en": "…Did you see that?",
+  "zh": "……你们看见了吗？"
+ },
+ "story.s16.post.2": {
+  "es": "¿Ver qué?",
+  "en": "See what?",
+  "zh": "看见什么？"
+ },
+ "story.s17.pre.0": {
+  "es": "La sala del Abad.",
+  "en": "The Abbot's hall.",
+  "zh": "方丈的禅房。"
+ },
+ "story.s17.pre.1": {
+  "es": "El temblor es culpa del clan. Kage quiere el Pergamino para liberar algo que no entiende.",
+  "en": "The tremor is the clan's doing. Kage wants the Scroll to free something he doesn't understand.",
+  "zh": "震动是忍者搞的鬼。影想要卷轴，去释放他根本不懂的东西。"
+ },
+ "story.s17.pre.2": {
+  "es": "Maestro, Mei dijo que…",
+  "en": "Master, Mei said that…",
+  "zh": "师父，梅说……"
+ },
+ "story.s17.pre.3": {
+  "es": "Mei habla de más. Ren, vas a ir a la pagoda del clan. Vas a vencer a Kage. Es la única forma de proteger el Templo.",
+  "en": "Mei talks too much. Ren, you will go to the clan's pagoda. You will defeat Kage. It is the only way to protect the Temple.",
+  "zh": "梅话太多了。仁，你去忍者的宝塔。击败影。这是保护寺院的唯一办法。"
+ },
+ "story.s17.pre.4": {
+  "es": "¿Yo?",
+  "en": "Me?",
+  "zh": "我？"
+ },
+ "story.s17.pre.5": {
+  "es": "Sos el mejor que tengo.",
+  "en": "You are the best I have.",
+  "zh": "你是我最好的弟子。"
+ },
+ "story.s17.post.0": {
+  "es": "*(en voz baja)* Ren. No vayas.",
+  "en": "*(quietly)* Ren. Don't go.",
+  "zh": "*（低声）*仁。别去。"
+ },
+ "story.s17.post.1": {
+  "es": "Es una orden del Abad.",
+  "en": "It's the Abbot's order.",
+  "zh": "这是方丈的命令。"
+ },
+ "story.s17.post.2": {
+  "es": "Las órdenes también se equivocan.",
+  "en": "Orders can be wrong too.",
+  "zh": "命令也会出错。"
+ },
+ "story.s18.pre.0": {
+  "es": "El portón, de noche. Tao bloquea el camino.",
+  "en": "The gate, at night. Tao blocks the way.",
+  "zh": "夜晚的大门。陶挡住了去路。"
+ },
+ "story.s18.pre.1": {
+  "es": "¿A la pagoda, chico? *hip*",
+  "en": "Off to the pagoda, kid? *hic*",
+  "zh": "要去宝塔啊，小子？*嗝*"
+ },
+ "story.s18.pre.2": {
+  "es": "Déjeme pasar, maestro.",
+  "en": "Let me pass, master.",
+  "zh": "请让我过去，师父。"
+ },
+ "story.s18.pre.3": {
+  "es": "El viejo te está usando. Si peleás con Kage, nadie va a quedar para lo que viene.",
+  "en": "The old man is using you. If you fight Kage, no one will be left for what's coming.",
+  "zh": "那老头在利用你。你若和影拼个你死我活，就没人能应付接下来的事了。"
+ },
+ "story.s18.pre.4": {
+  "es": "¿Qué viene?",
+  "en": "What's coming?",
+  "zh": "接下来会怎样？"
+ },
+ "story.s18.pre.5": {
+  "es": "Ganame y te dejo ir. Perdé y te quedás.",
+  "en": "Beat me and I'll let you go. Lose and you stay.",
+  "zh": "赢了我，我就放你走。输了，你就留下。"
+ },
+ "story.s18.post.0": {
+  "es": "Bah. Sos terco como Daishin.",
+  "en": "Bah. You're as stubborn as Daishin.",
+  "zh": "哼。你和大心一样倔。"
+ },
+ "story.s18.post.1": {
+  "es": "¿Quién es Daishin?",
+  "en": "Who is Daishin?",
+  "zh": "大心是谁？"
+ },
+ "story.s18.post.2": {
+  "es": "Preguntáselo a Kage. Si te deja hablar. *hip*",
+  "en": "Ask Kage. If he lets you talk. *hic*",
+  "zh": "去问影吧。如果他肯让你开口的话。*嗝*"
+ },
+ "story.s19.pre.0": {
+  "es": "La pagoda del clan. Cinco pisos.",
+  "en": "The clan's pagoda. Five floors.",
+  "zh": "忍者的宝塔。五层。"
+ },
+ "story.s19.pre.1": {
+  "es": "Ren llega solo. La puerta está abierta, como si lo esperaran.",
+  "en": "Ren arrives alone. The door is open, as if they expected him.",
+  "zh": "仁独自到来。大门敞开，仿佛在等他。"
+ },
+ "story.s19.pre.2": {
+  "es": "El Shogun dijo que vendría el chico del Abad. Que subiera si podía.",
+  "en": "The Shogun said the Abbot's boy would come. That he should climb, if he could.",
+  "zh": "将军说方丈的弟子会来。让他有本事就上去。"
+ },
+ "story.s19.post.0": {
+  "es": "Faltan cuatro pisos.",
+  "en": "Four floors to go.",
+  "zh": "还有四层。"
+ },
+ "story.s20.pre.0": {
+  "es": "Aya habló de vos. Dijo que preguntás mucho.",
+  "en": "Aya told us about you. She said you ask a lot of questions.",
+  "zh": "绫说起过你。说你问题很多。"
+ },
+ "story.s20.pre.1": {
+  "es": "¿Está acá?",
+  "en": "Is she here?",
+  "zh": "她在这里吗？"
+ },
+ "story.s20.pre.2": {
+  "es": "Se fue. Al Templo. Mientras vos subís, ella baja.",
+  "en": "She left. For the Temple. While you climb, she goes down.",
+  "zh": "她走了。去了寺院。你往上爬，她往下走。"
+ },
+ "story.s20.post.0": {
+  "es": "Aya en el Templo… ¿y el Abad solo?",
+  "en": "Aya at the Temple… and the Abbot alone?",
+  "zh": "绫在寺院……而方丈独自一人？"
+ },
+ "story.s21.pre.0": {
+  "es": "Los Tengu saltan de viga en viga.",
+  "en": "The Tengu leap from beam to beam.",
+  "zh": "天狗在梁间跳跃。"
+ },
+ "story.s21.pre.1": {
+  "es": "Dos caminos, una misma noche. Apurate, pequeño monje.",
+  "en": "Two paths, one night. Hurry, little monk.",
+  "zh": "两条路，同一个夜晚。快点，小和尚。"
+ },
+ "story.s21.post.0": {
+  "es": "¡Esperá! ¿Qué pasa en el Templo?",
+  "en": "Wait! What's happening at the Temple?",
+  "zh": "等等！寺院发生了什么？"
+ },
+ "story.s21.post.1": {
+  "es": "Lo que tenía que pasar.",
+  "en": "What was always going to happen.",
+  "zh": "注定要发生的事。"
+ },
+ "story.s22.pre.0": {
+  "es": "Te dije que nos íbamos a ver.",
+  "en": "I told you we'd meet again.",
+  "zh": "我说过我们会再见的。"
+ },
+ "story.s22.pre.1": {
+  "es": "No vengo a robar nada. Vengo a hablar con tu Shogun.",
+  "en": "I'm not here to steal anything. I'm here to talk to your Shogun.",
+  "zh": "我不是来偷东西的。我是来和你们的将军谈话的。"
+ },
+ "story.s22.pre.2": {
+  "es": "Nadie habla con el Shogun sin pasar por mí.",
+  "en": "No one talks to the Shogun without getting past me.",
+  "zh": "想见将军，先过我这关。"
+ },
+ "story.s22.post.0": {
+  "es": "Subí. Pero cuando te diga la verdad, no vas a querer haberla escuchado.",
+  "en": "Go up. But when he tells you the truth, you'll wish you hadn't heard it.",
+  "zh": "上去吧。但等他告诉你真相，你会后悔听到它。"
+ },
+ "story.s23.pre.0": {
+  "es": "La última puerta. Detrás, una sola respiración, lenta.",
+  "en": "The last door. Behind it, a single slow breath.",
+  "zh": "最后一道门。门后，只有一声缓慢的呼吸。"
+ },
+ "story.s23.pre.1": {
+  "es": "El Abad dijo que lo venza. Tao dijo que lo escuche.",
+  "en": "The Abbot told me to defeat him. Tao told me to listen to him.",
+  "zh": "方丈让我击败他。陶让我听他说。"
+ },
+ "story.s23.post.0": {
+  "es": "*(desde adentro)* Pasá, discípulo de Hōshin.",
+  "en": "*(from inside)* Come in, disciple of Hōshin.",
+  "zh": "*（从门内）*进来吧，法真的弟子。"
+ },
+ "story.s24.pre.0": {
+  "es": "La cima de la pagoda.",
+  "en": "The top of the pagoda.",
+  "zh": "宝塔之巅。"
+ },
+ "story.s24.pre.1": {
+  "es": "Hōshin te mandó a matarme.",
+  "en": "Hōshin sent you to kill me.",
+  "zh": "法真派你来杀我。"
+ },
+ "story.s24.pre.2": {
+  "es": "A vencerte.",
+  "en": "To defeat you.",
+  "zh": "是来击败你。"
+ },
+ "story.s24.pre.3": {
+  "es": "Es lo mismo para él. Bien. Rodeame si podés.",
+  "en": "It's the same to him. Very well. Surround me if you can.",
+  "zh": "对他来说都一样。好吧。有本事就包围我。"
+ },
+ "story.s24.post.0": {
+  "es": "…Ganaste. Ahora escuchá, porque nadie te lo va a decir.",
+  "en": "…You won. Now listen, because no one else will tell you.",
+  "zh": "……你赢了。现在听着，因为没人会告诉你。"
+ },
+ "story.s24.post.1": {
+  "es": "Bajo tu Templo duerme el Oni de Ceniza. Lo sellaron hace trescientos años.",
+  "en": "Beneath your Temple sleeps the Ash Oni. It was sealed three hundred years ago.",
+  "zh": "你的寺院底下沉睡着灰烬鬼。它在三百年前被封印。"
+ },
+ "story.s24.post.2": {
+  "es": "Tu Abad sabe que el sello se rompe. Lo sabe hace años.",
+  "en": "Your Abbot knows the seal is breaking. He has known for years.",
+  "zh": "你的方丈知道封印正在破碎。他早就知道了。"
+ },
+ "story.s24.post.3": {
+  "es": "Entonces lo va a renovar.",
+  "en": "Then he'll renew it.",
+  "zh": "那他会重修封印。"
+ },
+ "story.s24.post.4": {
+  "es": "No puede. **No solo.** El clan siempre lo supo: el Pergamino es la mitad de nuestro pacto.",
+  "en": "He can't. **Not alone.** The clan always knew: the Scroll is half of our pact.",
+  "zh": "他做不到。**一个人做不到。**忍者一直都知道：卷轴是我们盟约的一半。"
+ },
+ "story.s24.post.5": {
+  "es": "¿Qué pacto?",
+  "en": "What pact?",
+  "zh": "什么盟约？"
+ },
+ "story.s24.post.6": {
+  "es": "Eso no lo sé. Por eso lo quería.",
+  "en": "That I don't know. That's why I wanted it.",
+  "zh": "这我不知道。所以我才想要它。"
+ },
+ "story.s24.post.7": {
+  "es": "El maestro… me mintió.",
+  "en": "The master… lied to me.",
+  "zh": "师父……骗了我。"
+ },
+ "story.s24.post.8": {
+  "es": "A lo lejos, sobre el Templo, sube una columna de ceniza.",
+  "en": "In the distance, above the Temple, a column of ash rises.",
+  "zh": "远处，寺院上空，升起一道灰烬之柱。"
+ },
+ "story.n1.pre.0": {
+  "es": "La pagoda del clan. Noche.",
+  "en": "The clan's pagoda. Night.",
+  "zh": "忍者的宝塔。夜。"
+ },
+ "story.n1.pre.1": {
+  "es": "El Pergamino de Jade nos pertenece. Los monjes lo robaron hace siglos.",
+  "en": "The Jade Scroll belongs to us. The monks stole it centuries ago.",
+  "zh": "翡翠卷轴属于我们。和尚们几百年前偷走了它。"
+ },
+ "story.n1.pre.2": {
+  "es": "¿Qué dice el Pergamino, mi señor?",
+  "en": "What does the Scroll say, my lord?",
+  "zh": "卷轴上写了什么，主公？"
+ },
+ "story.n1.pre.3": {
+  "es": "Eso no importa. Importa que vuelva a casa.",
+  "en": "That doesn't matter. What matters is that it comes home.",
+  "zh": "那不重要。重要的是让它回家。"
+ },
+ "story.n1.pre.4": {
+  "es": "Más tarde. El muro del Templo.",
+  "en": "Later. The Temple wall.",
+  "zh": "稍后。寺墙。"
+ },
+ "story.n1.pre.5": {
+  "es": "El guardia del muro. Pasalo sin hacer ruido.",
+  "en": "The wall guard. Get past him without a sound.",
+  "zh": "墙上的守卫。悄无声息地过去。"
+ },
+ "story.n1.post.0": {
+  "es": "Adentro.",
+  "en": "I'm in.",
+  "zh": "进来了。"
+ },
+ "story.n1.post.1": {
+  "es": "Bien. Ahora, lo difícil.",
+  "en": "Good. Now, the hard part.",
+  "zh": "很好。接下来才是难的。"
+ },
+ "story.n2.pre.0": {
+  "es": "El patio de novicios.",
+  "en": "The novices' courtyard.",
+  "zh": "小沙弥的院子。"
+ },
+ "story.n2.pre.1": {
+  "es": "¡Una sombra! ¡Alarma!",
+  "en": "A shadow! Alarm!",
+  "zh": "有黑影！敲钟！"
+ },
+ "story.n2.pre.2": {
+  "es": "Son chicos. Todavía no aprendieron la Meditación de Jade.",
+  "en": "They're kids. They haven't learned Jade Meditation yet.",
+  "zh": "都是孩子。他们还没学会翡翠冥想。"
+ },
+ "story.n2.pre.3": {
+  "es": "Que no griten más fuerte.",
+  "en": "Don't let them shout any louder.",
+  "zh": "别让他们喊得更大声。"
+ },
+ "story.n2.post.0": {
+  "es": "Kuro… ¿por qué rodeamos? En el clan también nos enseñan a rodear.",
+  "en": "Kuro… why do we surround? The clan teaches us to surround too.",
+  "zh": "黑……我们为什么要包围？忍者也教我们包围。"
+ },
+ "story.n2.post.1": {
+  "es": "Porque así se gana.",
+  "en": "Because that's how you win.",
+  "zh": "因为这样才能赢。"
+ },
+ "story.n2.post.2": {
+  "es": "Pero ¿por qué así?",
+  "en": "But why like that?",
+  "zh": "可为什么是这样？"
+ },
+ "story.n2.post.3": {
+  "es": "Preguntás demasiado.",
+  "en": "You ask too many questions.",
+  "zh": "你问题太多了。"
+ },
+ "story.n3.pre.0": {
+  "es": "El patio interior.",
+  "en": "The inner courtyard.",
+  "zh": "内院。"
+ },
+ "story.n3.pre.1": {
+  "es": "Aya cae sobre el maestro de guardia antes de que reaccione.",
+  "en": "Aya drops onto the master on guard before he can react.",
+  "zh": "绫在值守的师父反应过来之前扑了下去。"
+ },
+ "story.n3.post.0": {
+  "es": "Desde el tejado, Aya ve algo raro: los monjes no custodian la biblioteca.",
+  "en": "From the rooftop, Aya sees something strange: the monks aren't guarding the library.",
+  "zh": "绫从屋顶上看到一件怪事：僧人守的不是藏经阁。"
+ },
+ "story.n3.post.1": {
+  "es": "Custodian una **escalera** que baja bajo el Templo.",
+  "en": "They're guarding a **stairway** leading down beneath the Temple.",
+  "zh": "他们守着一道通往寺院底下的**石阶**。"
+ },
+ "story.n3.post.2": {
+  "es": "¿Qué guardan ahí abajo?",
+  "en": "What are they keeping down there?",
+  "zh": "他们在下面藏了什么？"
+ },
+ "story.n4.pre.0": {
+  "es": "La entrada de la cripta.",
+  "en": "The crypt entrance.",
+  "zh": "地穴入口。"
+ },
+ "story.n4.pre.1": {
+  "es": "¡Alto! Nadie baja.",
+  "en": "Halt! No one goes down.",
+  "zh": "站住！谁也不许下去。"
+ },
+ "story.n4.pre.2": {
+  "es": "¿Qué hay abajo?",
+  "en": "What's down there?",
+  "zh": "下面有什么？"
+ },
+ "story.n4.pre.3": {
+  "es": "No lo sé. Y no lo vas a saber vos tampoco.",
+  "en": "I don't know. And you won't find out either.",
+  "zh": "我不知道。你也别想知道。"
+ },
+ "story.n4.post.0": {
+  "es": "Aya toca la puerta de piedra. Está **tibia**. Y late, despacio.",
+  "en": "Aya touches the stone door. It's **warm**. And it beats, slowly.",
+  "zh": "绫摸了摸石门。它是**温的**。而且在缓缓跳动。"
+ },
+ "story.n4.post.1": {
+  "es": "…Como un corazón.",
+  "en": "…Like a heart.",
+  "zh": "……像一颗心。"
+ },
+ "story.n5.pre.0": {
+  "es": "Campanas. Todo el Templo despierta.",
+  "en": "Bells. The whole Temple wakes.",
+  "zh": "钟声。全寺惊醒。"
+ },
+ "story.n5.pre.1": {
+  "es": "¡Nos vieron! Nos vamos.",
+  "en": "They've seen us! We're leaving.",
+  "zh": "被发现了！撤！"
+ },
+ "story.n5.pre.2": {
+  "es": "Pero la escalera…",
+  "en": "But the stairway…",
+  "zh": "可是那道石阶……"
+ },
+ "story.n5.pre.3": {
+  "es": "¡Ahora, Aya!",
+  "en": "Now, Aya!",
+  "zh": "快走，绫！"
+ },
+ "story.n5.post.0": {
+  "es": "Escapan por el muro norte. Uno de los suyos quedó atrapado en las celdas.",
+  "en": "They escape over the north wall. One of theirs was left trapped in the cells.",
+  "zh": "他们从北墙逃出。一个同伴被困在了牢房里。"
+ },
+ "story.n5.post.1": {
+  "es": "Vamos a volver por él.",
+  "en": "We're going back for him.",
+  "zh": "我们会回去救他。"
+ },
+ "story.n6.pre.0": {
+  "es": "Noche siguiente. Las celdas.",
+  "en": "The next night. The cells.",
+  "zh": "第二夜。牢房。"
+ },
+ "story.n6.pre.1": {
+  "es": "Aya vuelve sola a rescatar al explorador. Mei la espera.",
+  "en": "Aya returns alone to rescue the scout. Mei is waiting for her.",
+  "zh": "绫独自回来营救斥候。梅在等她。"
+ },
+ "story.n6.pre.2": {
+  "es": "Volviste por tu compañero. Eso dice algo bueno de vos.",
+  "en": "You came back for your comrade. That says something good about you.",
+  "zh": "你回来救同伴。这说明你心地不坏。"
+ },
+ "story.n6.pre.3": {
+  "es": "No necesito su aprobación.",
+  "en": "I don't need your approval.",
+  "zh": "我不需要你的认可。"
+ },
+ "story.n6.pre.4": {
+  "es": "No. Necesitás pasar por mí.",
+  "en": "No. You need to get past me.",
+  "zh": "是的。你需要的是过我这关。"
+ },
+ "story.n6.post.0": {
+  "es": "…Andate. Llevalo con vos.",
+  "en": "…Go. Take him with you.",
+  "zh": "……走吧。带他一起走。"
+ },
+ "story.n6.post.1": {
+  "es": "¿Nos deja ir?",
+  "en": "You're letting us go?",
+  "zh": "您放我们走？"
+ },
+ "story.n6.post.2": {
+  "es": "Algo más grande que esta guerra viene. Cuanto menos sangre, mejor.",
+  "en": "Something bigger than this war is coming. The less blood, the better.",
+  "zh": "比这场战争更大的东西要来了。流血越少越好。"
+ },
+ "story.n6.post.3": {
+  "es": "En la escalera, la Zorra Blanca mira a Aya.",
+  "en": "On the stairway, the White Fox watches Aya.",
+  "zh": "石阶上，白狐注视着绫。"
+ },
+ "story.n6.post.4": {
+  "es": "Lo que viniste a buscar no es lo que pensás.",
+  "en": "What you came looking for is not what you think.",
+  "zh": "你来寻找的，并不是你以为的东西。"
+ },
+ "story.n6.post.5": {
+  "es": "Bajo los pies de Aya, la piedra **late** una vez más. Más fuerte.",
+  "en": "Beneath Aya's feet, the stone **beats** once more. Stronger.",
+  "zh": "绫的脚下，石头又**跳动**了一下。更强了。"
+ },
+ "story.n7.pre.0": {
+  "es": "La pagoda.",
+  "en": "The pagoda.",
+  "zh": "宝塔。"
+ },
+ "story.n7.pre.1": {
+  "es": "Mi señor, la puerta de la cripta late. Hay algo vivo debajo del Templo.",
+  "en": "My lord, the crypt door beats. There is something alive beneath the Temple.",
+  "zh": "主公，地穴之门在跳动。寺院底下有活的东西。"
+ },
+ "story.n7.pre.2": {
+  "es": "Supersticiones de monjes.",
+  "en": "Monks' superstitions.",
+  "zh": "和尚的迷信。"
+ },
+ "story.n7.pre.3": {
+  "es": "La toqué yo.",
+  "en": "I touched it myself.",
+  "zh": "是我亲手摸到的。"
+ },
+ "story.n7.pre.4": {
+  "es": "Kuro. Entrenala. Está distraída.",
+  "en": "Kuro. Train her. She's distracted.",
+  "zh": "黑。训练她。她分心了。"
+ },
+ "story.n7.post.0": {
+  "es": "Peleás con rabia.",
+  "en": "You fight with anger.",
+  "zh": "你打得很愤怒。"
+ },
+ "story.n7.post.1": {
+  "es": "Peleo con preguntas.",
+  "en": "I fight with questions.",
+  "zh": "我打得满是疑问。"
+ },
+ "story.n8.pre.0": {
+  "es": "El jardín zen del Templo.",
+  "en": "The Temple's zen garden.",
+  "zh": "寺院的枯山水庭园。"
+ },
+ "story.n8.pre.1": {
+  "es": "Los monjes cerraron el jardín. Hay que abrirse paso antes de que lleguen más.",
+  "en": "The monks have sealed the garden. Break through before more arrive.",
+  "zh": "僧人封锁了庭园。趁援兵未到，杀出一条路。"
+ },
+ "story.n8.post.0": {
+  "es": "En el centro del jardín, seis piedras forman un hexágono. Una tiene una grieta.",
+  "en": "In the middle of the garden, six stones form a hexagon. One is cracked.",
+  "zh": "庭园中央，六块石头围成六边形。其中一块裂了。"
+ },
+ "story.n8.post.1": {
+  "es": "Seis piedras… como el tablero.",
+  "en": "Six stones… like the board.",
+  "zh": "六块石头……就像棋盘。"
+ },
+ "story.n9.pre.0": {
+  "es": "Los Tigres de Mármol custodian el paso. Empujan todo lo que encuentran.",
+  "en": "The Marble Tigers guard the way. They push everything in their path.",
+  "zh": "石虎把守通道。挡路的一切都会被推开。"
+ },
+ "story.n9.post.0": {
+  "es": "Seis piedras, dos manos. ¿Recordás la canción, kunoichi?",
+  "en": "Six stones, two hands. Do you remember the song, kunoichi?",
+  "zh": "六块石，两只手。你还记得那首歌吗，女忍？"
+ },
+ "story.n9.post.1": {
+  "es": "¿Qué canción?",
+  "en": "What song?",
+  "zh": "什么歌？"
+ },
+ "story.n9.post.2": {
+  "es": "La que tu clan dejó de cantar.",
+  "en": "The one your clan stopped singing.",
+  "zh": "你的族人不再唱的那首。"
+ },
+ "story.n10.pre.0": {
+  "es": "Un camino de montaña.",
+  "en": "A mountain path.",
+  "zh": "山间小路。"
+ },
+ "story.n10.pre.1": {
+  "es": "Una ninja que mira piedras viejas. Raro.",
+  "en": "A ninja looking at old stones. Odd.",
+  "zh": "一个看着旧石头的忍者。真稀奇。"
+ },
+ "story.n10.pre.2": {
+  "es": "¿Las conocés?",
+  "en": "You know them?",
+  "zh": "你认识这些石头？"
+ },
+ "story.n10.pre.3": {
+  "es": "Fui monje. Sé lo que el Templo calla. Ganame y te cuento lo que el clan olvidó.",
+  "en": "I was a monk. I know what the Temple keeps quiet. Beat me and I'll tell you what the clan forgot.",
+  "zh": "我曾是僧人。我知道寺院隐瞒了什么。赢了我，我就告诉你忍者遗忘了什么。"
+ },
+ "story.n10.post.0": {
+  "es": "Tu clan dice que el Pergamino es suyo. No miente.",
+  "en": "Your clan says the Scroll is theirs. They're not lying.",
+  "zh": "你的族人说卷轴属于他们。他们没说谎。"
+ },
+ "story.n10.post.1": {
+  "es": "Pero tampoco recuerda **por qué**. Preguntale a tu Shogun qué dice el Pergamino.",
+  "en": "But they don't remember **why**. Ask your Shogun what the Scroll says.",
+  "zh": "但他们不记得**为什么**。去问你的将军卷轴写了什么。"
+ },
+ "story.n10.post.2": {
+  "es": "Ya le pregunté. No sabe.",
+  "en": "I already did. He doesn't know.",
+  "zh": "我问过了。他不知道。"
+ },
+ "story.n10.post.3": {
+  "es": "Entonces nadie en esta guerra sabe por qué pelea.",
+  "en": "Then no one in this war knows what they're fighting for.",
+  "zh": "那这场战争里，没人知道自己为何而战。"
+ },
+ "story.n11.pre.0": {
+  "es": "Bombas de humo por todas partes. Que ningún monje sepa dónde estás.",
+  "en": "Smoke bombs everywhere. Don't let any monk know where you are.",
+  "zh": "烟雾弹四起。别让任何僧人知道你在哪。"
+ },
+ "story.n11.pre.1": {
+  "es": "Mañana vas a conocer a alguien que hace tus mismas preguntas.",
+  "en": "Tomorrow you will meet someone who asks your same questions.",
+  "zh": "明天你会遇见一个和你问同样问题的人。"
+ },
+ "story.n11.post.0": {
+  "es": "Zorra… ¿quién sos?",
+  "en": "Fox… who are you?",
+  "zh": "狐狸……你是谁？"
+ },
+ "story.n11.post.1": {
+  "es": "La que recuerda lo que ustedes olvidaron.",
+  "en": "The one who remembers what you all forgot.",
+  "zh": "记得你们所遗忘之事的那个。"
+ },
+ "story.n12.pre.0": {
+  "es": "El santuario, al amanecer.",
+  "en": "The shrine, at dawn.",
+  "zh": "黎明时分的神社。"
+ },
+ "story.n12.pre.1": {
+  "es": "Un monje. Solo. En mi bosque.",
+  "en": "A monk. Alone. In my forest.",
+  "zh": "一个和尚。孤身一人。在我的林子里。"
+ },
+ "story.n12.pre.2": {
+  "es": "No es tu bosque.",
+  "en": "It's not your forest.",
+  "zh": "这不是你的林子。"
+ },
+ "story.n12.pre.3": {
+  "es": "…¿Vos también la ves? A la zorra blanca.",
+  "en": "…You see her too? The white fox.",
+  "zh": "……你也看得见她？那只白狐。"
+ },
+ "story.n12.pre.4": {
+  "es": "*(sorprendido)* Sí.",
+  "en": "*(surprised)* Yes.",
+  "zh": "*（惊讶）*看得见。"
+ },
+ "story.n12.pre.5": {
+  "es": "Entonces sabés que algo anda mal. Igual te voy a ganar.",
+  "en": "Then you know something is wrong. I'm still going to beat you.",
+  "zh": "那你就知道有什么不对劲。不过我还是会赢你。"
+ },
+ "story.n12.post.0": {
+  "es": "Ganaste. Esta vez.",
+  "en": "You won. This time.",
+  "zh": "你赢了。这一次。"
+ },
+ "story.n12.post.1": {
+  "es": "Tu compañero dijo que venían a advertir. ¿De qué?",
+  "en": "Your friend said you came to warn us. About what?",
+  "zh": "你的同伴说你们是来警告的。警告什么？"
+ },
+ "story.n12.post.2": {
+  "es": "No sé. Mi Shogun tampoco. Pero preguntale a tu Abad **qué hay debajo del Templo**.",
+  "en": "I don't know. Neither does my Shogun. But ask your Abbot **what lies beneath the Temple**.",
+  "zh": "我不知道。我的将军也不知道。但你去问问你的方丈，**寺院底下有什么**。"
+ },
+ "story.n12.post.3": {
+  "es": "Mi maestro nunca miente.",
+  "en": "My master never lies.",
+  "zh": "我的师父从不说谎。"
+ },
+ "story.n12.post.4": {
+  "es": "Entonces no te va a costar preguntarle.",
+  "en": "Then it won't be hard to ask him.",
+  "zh": "那问他一句也不难。"
+ },
+ "story.n13.pre.0": {
+  "es": "Noche. El Templo, por dentro.",
+  "en": "Night. Inside the Temple.",
+  "zh": "夜。寺院之内。"
+ },
+ "story.n13.pre.1": {
+  "es": "Aya se cuela otra vez. Esta vez no busca la biblioteca: busca la escalera.",
+  "en": "Aya sneaks in again. This time she isn't looking for the library: she's looking for the stairway.",
+  "zh": "绫再次潜入。这次她找的不是藏经阁，而是那道石阶。"
+ },
+ "story.n13.post.0": {
+  "es": "Escalones que bajan, y bajan. El aire se pone caliente.",
+  "en": "Steps going down, and down. The air grows hot.",
+  "zh": "台阶一路向下，再向下。空气变得炽热。"
+ },
+ "story.n14.pre.0": {
+  "es": "La cripta.",
+  "en": "The crypt.",
+  "zh": "地穴。"
+ },
+ "story.n14.pre.1": {
+  "es": "Una sala enorme. En el piso, seis piedras en hexágono alrededor de una grieta.",
+  "en": "A vast hall. On the floor, six stones in a hexagon around a crack.",
+  "zh": "一座巨大的厅堂。地上六块石头围成六边形，中间是一道裂缝。"
+ },
+ "story.n14.pre.2": {
+  "es": "Tres piedras tienen grietas. Por ellas sale ceniza.",
+  "en": "Three stones are cracked. Ash seeps through them.",
+  "zh": "三块石头已经裂开。灰烬从中渗出。"
+ },
+ "story.n14.pre.3": {
+  "es": "Esto es un sello.",
+  "en": "This is a seal.",
+  "zh": "这是一道封印。"
+ },
+ "story.n14.post.0": {
+  "es": "Desde la grieta, una voz, como brasas.",
+  "en": "From the crack, a voice, like embers.",
+  "zh": "裂缝中传来一个声音，如同余烬。"
+ },
+ "story.n14.post.1": {
+  "es": "…Kagerō…",
+  "en": "…Kagerō…",
+  "zh": "……阳炎……"
+ },
+ "story.n14.post.2": {
+  "es": "¿Quién es Kagerō?",
+  "en": "Who is Kagerō?",
+  "zh": "阳炎是谁？"
+ },
+ "story.n15.pre.0": {
+  "es": "La ceniza toma forma. Fichas grises, sin dueño, se mueven solas.",
+  "en": "The ash takes shape. Grey pieces, with no owner, move on their own.",
+  "zh": "灰烬化作形体。无主的灰色棋子自行移动。"
+ },
+ "story.n15.pre.1": {
+  "es": "¡¿Qué es esto?!",
+  "en": "What is this?!",
+  "zh": "这是什么？！"
+ },
+ "story.n15.post.0": {
+  "es": "Las fichas de ceniza se deshacen. Pero vuelven a juntarse, más despacio.",
+  "en": "The ash pieces crumble. But they gather again, more slowly.",
+  "zh": "灰烬棋子崩散了。但它们又慢慢聚拢起来。"
+ },
+ "story.n16.pre.0": {
+  "es": "Una ninja en mi cripta. Hace trescientos años que no pasaba. *hip*",
+  "en": "A ninja in my crypt. Hasn't happened in three hundred years. *hic*",
+  "zh": "一个忍者闯进我的地穴。三百年没发生过了。*嗝*"
+ },
+ "story.n16.pre.1": {
+  "es": "¿Vas a llamar a los guardias?",
+  "en": "Are you going to call the guards?",
+  "zh": "你要叫守卫吗？"
+ },
+ "story.n16.pre.2": {
+  "es": "No. Vamos a jugar. Si me ganás, te cuento un cuento.",
+  "en": "No. We're going to play. If you beat me, I'll tell you a story.",
+  "zh": "不。我们来下一局。赢了我，我给你讲个故事。"
+ },
+ "story.n16.post.0": {
+  "es": "Había una vez un monje, Daishin, y una ninja, Kagerō.",
+  "en": "Once upon a time there was a monk, Daishin, and a ninja, Kagerō.",
+  "zh": "从前有一个和尚，叫大心，还有一个忍者，叫阳炎。"
+ },
+ "story.n16.post.1": {
+  "es": "Rodearon a un demonio con seis piedras. Juntos. Las dos manos.",
+  "en": "They surrounded a demon with six stones. Together. Both hands.",
+  "zh": "他们用六块石头包围了一个恶鬼。一起。两只手。"
+ },
+ "story.n16.post.2": {
+  "es": "¿Un monje y una ninja… juntos?",
+  "en": "A monk and a ninja… together?",
+  "zh": "一个和尚和一个忍者……一起？"
+ },
+ "story.n16.post.3": {
+  "es": "Eso es lo que el Templo borró. Y lo que tu clan olvidó. *hip*",
+  "en": "That's what the Temple erased. And what your clan forgot. *hic*",
+  "zh": "这就是寺院抹去的。也是你的族人遗忘的。*嗝*"
+ },
+ "story.n17.pre.0": {
+  "es": "Y ahora corré, que el Abad baja todas las noches a mirar las grietas.",
+  "en": "And now run, the Abbot comes down every night to check the cracks.",
+  "zh": "现在快跑吧，方丈每晚都会下来查看裂缝。"
+ },
+ "story.n17.post.0": {
+  "es": "Aya sale del Templo con la primera luz. Le tiemblan las manos.",
+  "en": "Aya leaves the Temple at first light. Her hands are shaking.",
+  "zh": "天刚亮，绫离开了寺院。她的双手在颤抖。"
+ },
+ "story.n18.pre.0": {
+  "es": "La pagoda.",
+  "en": "The pagoda.",
+  "zh": "宝塔。"
+ },
+ "story.n18.pre.1": {
+  "es": "Mi señor, el Pergamino no es un tesoro. Es un ritual. Un sello. Necesita al Templo y al clan.",
+  "en": "My lord, the Scroll is not a treasure. It's a ritual. A seal. It needs the Temple and the clan.",
+  "zh": "主公，卷轴不是宝物。它是一个仪式。一道封印。它需要寺院和忍者一起。"
+ },
+ "story.n18.pre.2": {
+  "es": "Cuentos de un monje borracho.",
+  "en": "Tales from a drunken monk.",
+  "zh": "醉和尚的胡话。"
+ },
+ "story.n18.pre.3": {
+  "es": "Kuro irá al Templo esta noche a tomar el Pergamino por la fuerza.",
+  "en": "Kuro will go to the Temple tonight to take the Scroll by force.",
+  "zh": "黑今晚去寺院，强行夺取卷轴。"
+ },
+ "story.n18.pre.4": {
+  "es": "Si lo hacen, rompen el sello.",
+  "en": "If you do, you'll break the seal.",
+  "zh": "如果你们这么做，封印就会破碎。"
+ },
+ "story.n18.pre.5": {
+  "es": "Entonces apartate, Aya.",
+  "en": "Then step aside, Aya.",
+  "zh": "那就让开，绫。"
+ },
+ "story.n18.post.0": {
+  "es": "…Me ganaste. Andá vos, entonces. Pero traelo.",
+  "en": "…You beat me. Then you go. But bring it back.",
+  "zh": "……你赢了我。那就你去。但要把它带回来。"
+ },
+ "story.n18.post.1": {
+  "es": "*(desde las sombras)* Traeme el Pergamino, Aya. O no vuelvas.",
+  "en": "*(from the shadows)* Bring me the Scroll, Aya. Or don't come back.",
+  "zh": "*（从暗处）*把卷轴带给我，绫。否则别回来。"
+ },
+ "story.n19.pre.0": {
+  "es": "La última noche antes de la luna nueva.",
+  "en": "The last night before the new moon.",
+  "zh": "新月前的最后一夜。"
+ },
+ "story.n19.pre.1": {
+  "es": "El Templo está más vacío que nunca. Dicen que el discípulo del Abad fue a la pagoda.",
+  "en": "The Temple is emptier than ever. They say the Abbot's disciple has gone to the pagoda.",
+  "zh": "寺院从未如此空荡。听说方丈的弟子去了宝塔。"
+ },
+ "story.n19.pre.2": {
+  "es": "Ren y yo, cada uno en la casa del otro.",
+  "en": "Ren and I, each in the other's house.",
+  "zh": "仁和我，各自在对方的家里。"
+ },
+ "story.n19.post.0": {
+  "es": "La biblioteca está a la vista.",
+  "en": "The library is in sight.",
+  "zh": "藏经阁就在眼前。"
+ },
+ "story.n20.pre.0": {
+  "es": "Los Tigres de Mármol custodian la biblioteca. Empujan todo lo que encuentran.",
+  "en": "The Marble Tigers guard the library. They push everything in their path.",
+  "zh": "石虎守护着藏经阁。挡路的一切都会被推开。"
+ },
+ "story.n20.post.0": {
+  "es": "El suelo tiembla. Las lámparas se apagan solas.",
+  "en": "The ground shakes. The lamps go out on their own.",
+  "zh": "大地震动。灯火自行熄灭。"
+ },
+ "story.n21.pre.0": {
+  "es": "Vine a pedirte una cosa.",
+  "en": "I came to ask you something.",
+  "zh": "我来求你一件事。"
+ },
+ "story.n21.pre.1": {
+  "es": "¿Vas a pelear conmigo otra vez?",
+  "en": "Are you going to fight me again?",
+  "zh": "你又要和我打？"
+ },
+ "story.n21.pre.2": {
+  "es": "Sí. Para saber si estás lista. Si lo leés, ya no hay vuelta atrás.",
+  "en": "Yes. To know if you're ready. Once you read it, there's no going back.",
+  "zh": "是的。看看你是否准备好了。一旦读了它，就无法回头。"
+ },
+ "story.n21.post.0": {
+  "es": "Estás lista. Yo distraigo a los de la puerta.",
+  "en": "You're ready. I'll distract the ones at the door.",
+  "zh": "你准备好了。我去引开门口的人。"
+ },
+ "story.n22.pre.0": {
+  "es": "Vos otra vez. Ren no está para defenderte.",
+  "en": "You again. Ren isn't here to defend you.",
+  "zh": "又是你。仁不在，没人护着你。"
+ },
+ "story.n22.pre.1": {
+  "es": "No vine por él.",
+  "en": "I didn't come for him.",
+  "zh": "我不是为他而来。"
+ },
+ "story.n22.pre.2": {
+  "es": "Peor para vos.",
+  "en": "Too bad for you.",
+  "zh": "那你就倒霉了。"
+ },
+ "story.n22.post.0": {
+  "es": "¿Por qué no me rematás?",
+  "en": "Why don't you finish me?",
+  "zh": "你为什么不了结我？"
+ },
+ "story.n22.post.1": {
+  "es": "Porque no sos mi enemigo. Ninguno de ustedes lo es.",
+  "en": "Because you're not my enemy. None of you are.",
+  "zh": "因为你不是我的敌人。你们谁都不是。"
+ },
+ "story.n23.pre.0": {
+  "es": "Te dejé ir una vez.",
+  "en": "I let you go once.",
+  "zh": "我放过你一次。"
+ },
+ "story.n23.pre.1": {
+  "es": "Y ahora no.",
+  "en": "And not now.",
+  "zh": "这次不行了。"
+ },
+ "story.n23.pre.2": {
+  "es": "Ahora no puedo. El Abad está adentro.",
+  "en": "Now I can't. The Abbot is inside.",
+  "zh": "这次我做不到。方丈就在里面。"
+ },
+ "story.n23.post.0": {
+  "es": "*(apartándose)* …Que lo lea alguien. Por fin.",
+  "en": "*(stepping aside)* …Let someone read it. At last.",
+  "zh": "*（让开）*……总算有人要读它了。"
+ },
+ "story.n24.pre.0": {
+  "es": "La biblioteca. El Pergamino de Jade sobre el altar.",
+  "en": "The library. The Jade Scroll on the altar.",
+  "zh": "藏经阁。翡翠卷轴在祭坛上。"
+ },
+ "story.n24.pre.1": {
+  "es": "En cuarenta años nadie me ganó.",
+  "en": "In forty years, no one has beaten me.",
+  "zh": "四十年来，无人胜过我。"
+ },
+ "story.n24.pre.2": {
+  "es": "Siempre hay una primera vez.",
+  "en": "There's always a first time.",
+  "zh": "凡事总有第一次。"
+ },
+ "story.n24.pre.3": {
+  "es": "Si me ganás, leelo. Y vas a entender por qué callé.",
+  "en": "If you beat me, read it. And you will understand why I kept silent.",
+  "zh": "若你赢了我，就读吧。你会明白我为何沉默。"
+ },
+ "story.n24.post.0": {
+  "es": "Aya desenrolla el Pergamino de Jade.",
+  "en": "Aya unrolls the Jade Scroll.",
+  "zh": "绫展开了翡翠卷轴。"
+ },
+ "story.n24.post.1": {
+  "es": "*(leyendo)* \"Seis piedras alrededor. Una mano del Templo, una mano de la Sombra. Si falta una, el sello no cierra.\"",
+  "en": "*(reading)* \"Six stones around. One hand of the Temple, one hand of the Shadow. If one is missing, the seal will not close.\"",
+  "zh": "*（读着）*“六石环绕。寺院一手，暗影一手。缺其一，封印不合。”"
+ },
+ "story.n24.post.2": {
+  "es": "…No es un arma. Es un ritual. Y necesita a los dos.",
+  "en": "…It's not a weapon. It's a ritual. And it needs both of us.",
+  "zh": "……这不是武器。是仪式。而且需要我们两边。"
+ },
+ "story.n24.post.3": {
+  "es": "Lo sé. Por eso nunca lo dije. Prefería romperme solo que pedirle ayuda al clan.",
+  "en": "I know. That's why I never said it. I would rather break alone than ask the clan for help.",
+  "zh": "我知道。所以我从未说出口。我宁愿独自崩溃，也不愿向忍者求助。"
+ },
+ "story.n24.post.4": {
+  "es": "El suelo se abre bajo el patio. Una columna de ceniza sube al cielo.",
+  "en": "The ground splits beneath the courtyard. A column of ash rises to the sky.",
+  "zh": "庭院底下的大地裂开。一道灰烬之柱冲上天空。"
+ },
+ "story.n24.post.5": {
+  "es": "Tengo el Pergamino. Pero sola no sirve.",
+  "en": "I have the Scroll. But alone, it's useless.",
+  "zh": "我拿到了卷轴。但只有我一个人，它毫无用处。"
+ },
+ "story.f1.pre.0": {
+  "es": "La misma noche. La pagoda y la biblioteca.",
+  "en": "The same night. The pagoda and the library.",
+  "zh": "同一夜。宝塔与藏经阁。"
+ },
+ "story.f1.pre.1": {
+  "es": "Ren venció a Kage. Aya venció al Abad. A la misma hora.",
+  "en": "Ren defeated Kage. Aya defeated the Abbot. At the same hour.",
+  "zh": "仁击败了影。绫击败了方丈。同一时刻。"
+ },
+ "story.f1.pre.2": {
+  "es": "Bajo el Templo, la última piedra se parte.",
+  "en": "Beneath the Temple, the last stone splits.",
+  "zh": "寺院底下，最后一块石头裂开了。"
+ },
+ "story.f1.pre.3": {
+  "es": "**Por fin. Peleándose, como siempre.**",
+  "en": "**At last. Fighting each other, as always.**",
+  "zh": "**终于。还是一样，自相残杀。**"
+ },
+ "story.f1.pre.4": {
+  "es": "El patio del Templo, en llamas grises.",
+  "en": "The Temple courtyard, in grey flames.",
+  "zh": "寺院庭院，燃着灰色的火焰。"
+ },
+ "story.f1.pre.5": {
+  "es": "¡Maestro Tao! ¿Qué es eso?",
+  "en": "Master Tao! What is that?",
+  "zh": "陶师父！那是什么？"
+ },
+ "story.f1.pre.6": {
+  "es": "Lo que tu Abad no quiso contarte. Rodealo, chico. ¡Ahora!",
+  "en": "What your Abbot didn't want to tell you. Surround it, kid. Now!",
+  "zh": "你的方丈不肯告诉你的东西。包围它，小子。快！"
+ },
+ "story.f1.post.0": {
+  "es": "El Oni retrocede a la grieta. Pero no se cierra.",
+  "en": "The Oni retreats into the crack. But it doesn't close.",
+  "zh": "灰烬鬼退回了裂缝。但裂缝没有合上。"
+ },
+ "story.f1.post.1": {
+  "es": "Rodearlo lo detiene. **No lo sella.**",
+  "en": "Surrounding it stops it. **It doesn't seal it.**",
+  "zh": "包围它能阻止它。**却封印不了它。**"
+ },
+ "story.f2.pre.0": {
+  "es": "El jardín de piedra, partido en dos.",
+  "en": "The stone garden, split in two.",
+  "zh": "石庭，裂成两半。"
+ },
+ "story.f2.pre.1": {
+  "es": "¡Kuro! ¡Ayudame!",
+  "en": "Kuro! Help me!",
+  "zh": "黑！帮我！"
+ },
+ "story.f2.pre.2": {
+  "es": "¡Esa cosa vino de abajo del Templo!",
+  "en": "That thing came from beneath the Temple!",
+  "zh": "那东西是从寺院底下出来的！"
+ },
+ "story.f2.pre.3": {
+  "es": "Lo sé. Rodeemoslo.",
+  "en": "I know. Let's surround it.",
+  "zh": "我知道。我们包围它。"
+ },
+ "story.f2.post.0": {
+  "es": "El Oni vuelve a retroceder. Más grande.",
+  "en": "The Oni retreats again. Bigger.",
+  "zh": "灰烬鬼又退了回去。变得更大了。"
+ },
+ "story.f2.post.1": {
+  "es": "Una mano sola no alcanza. Nunca alcanzó.",
+  "en": "One hand alone is not enough. It never was.",
+  "zh": "一只手是不够的。从来都不够。"
+ },
+ "story.f2.post.2": {
+  "es": "El patio. Ren y Aya, frente a frente.",
+  "en": "The courtyard. Ren and Aya, face to face.",
+  "zh": "庭院。仁与绫，面对面。"
+ },
+ "story.f2.post.3": {
+  "es": "Kage me dijo la mitad.",
+  "en": "Kage told me half.",
+  "zh": "影告诉了我一半。"
+ },
+ "story.f2.post.4": {
+  "es": "El Pergamino dice la otra. Una mano del Templo y una de la Sombra.",
+  "en": "The Scroll tells the other. One hand of the Temple and one of the Shadow.",
+  "zh": "卷轴写着另一半。寺院一手，暗影一手。"
+ },
+ "story.f2.post.5": {
+  "es": "Entonces… juntos.",
+  "en": "Then… together.",
+  "zh": "那么……一起。"
+ },
+ "story.f2.post.6": {
+  "es": "*(tomando forma humana)* Como Daishin y Kagerō. Yo era la promesa que se hicieron. Y me estaba apagando.",
+  "en": "*(taking human form)* Like Daishin and Kagerō. I was the promise they made to each other. And I was fading.",
+  "zh": "*（化为人形）*就像大心和阳炎。我是他们彼此许下的诺言。而我正在熄灭。"
+ },
+ "story.f3.pre.0": {
+  "es": "*(herido, llegando)* Ren… perdoname.",
+  "en": "*(wounded, arriving)* Ren… forgive me.",
+  "zh": "*（负伤赶来）*仁……原谅我。"
+ },
+ "story.f3.pre.1": {
+  "es": "*(llegando por el muro)* Aya. Hacé lo que dice el Pergamino.",
+  "en": "*(arriving over the wall)* Aya. Do what the Scroll says.",
+  "zh": "*（翻墙而来）*绫。照卷轴说的做。"
+ },
+ "story.f3.pre.2": {
+  "es": "Seis piedras. Dos manos. Ahora.",
+  "en": "Six stones. Two hands. Now.",
+  "zh": "六块石。两只手。就是现在。"
+ },
+ "story.f3.post.0": {
+  "es": "Seis piedras se encienden de verde y de rojo. La grieta se cierra.",
+  "en": "Six stones light up green and red. The crack closes.",
+  "zh": "六块石头亮起绿光与红光。裂缝合上了。"
+ },
+ "story.f3.post.1": {
+  "es": "El Oni se apaga como una brasa en la lluvia.",
+  "en": "The Oni dies out like an ember in the rain.",
+  "zh": "灰烬鬼如雨中的余烬般熄灭。"
+ },
+ "story.f3.post.2": {
+  "es": "Una semana después.",
+  "en": "A week later.",
+  "zh": "一周后。"
+ },
+ "story.f3.post.3": {
+  "es": "El sello aguantará otros trescientos años.",
+  "en": "The seal will hold for another three hundred years.",
+  "zh": "封印还能再撑三百年。"
+ },
+ "story.f3.post.4": {
+  "es": "Si no volvemos a olvidarnos.",
+  "en": "If we don't forget again.",
+  "zh": "只要我们别再遗忘。"
+ },
+ "story.f3.post.5": {
+  "es": "Entonces no lo olvidemos.",
+  "en": "Then let's not forget.",
+  "zh": "那就别忘了。"
+ },
+ "story.f3.post.6": {
+  "es": "Un duelo por año. Templo contra clan. En el tablero.",
+  "en": "One duel a year. Temple against clan. On the board.",
+  "zh": "每年一场对决。寺院对忍者。在棋盘上。"
+ },
+ "story.f3.post.7": {
+  "es": "Y así empezaron los **duelos de honor**: monjes y ninjas, enfrentados para no olvidar cómo se rodea a un demonio.",
+  "en": "And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.",
+  "zh": "**荣誉之战**就此开始：僧人与忍者彼此对弈，永远记得如何包围恶鬼。"
+ },
+ "story.f3.post.8": {
+  "es": "Hasta la próxima grieta.",
+  "en": "Until the next crack.",
+  "zh": "直到下一道裂缝。"
  }
 }

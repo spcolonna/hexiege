@@ -9,7 +9,7 @@ export 'puzzles.dart';
 export 'stage.dart';
 
 /// Listas de contenido de un jugador, en orden de desbloqueo.
-final List<List<Stage>> stageLists = [puzzles, challenges, shaolinCampaign, ninjaCampaign];
+final List<List<Stage>> stageLists = [puzzles, challenges, shaolinCampaign, ninjaCampaign, finale];
 
 /// La etapa que sigue a [s] en su lista (null si es la última).
 Stage? stageAfter(Stage s) {
@@ -20,6 +20,7 @@ Stage? stageAfter(Stage s) {
   return null;
 }
 
-/// Una etapa está disponible si es la primera de su lista o si se superó la anterior.
+/// Una etapa está disponible si es la primera de su lista o si se superó la
+/// anterior, y además se superaron las que pide (El Sello pide las dos campañas).
 bool isUnlocked(List<Stage> list, int index, bool Function(String id) cleared) =>
-    index == 0 || cleared(list[index - 1].id);
+    (index == 0 || cleared(list[index - 1].id)) && list[index].requires.every(cleared);

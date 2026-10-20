@@ -22,6 +22,9 @@ class Stage {
   final int? puzzleTurns;
   final GameState Function() build;
 
+  /// Otras etapas que hay que superar antes (además de la anterior de la lista).
+  final List<String> requires;
+
   const Stage({
     required this.id,
     required this.kind,
@@ -30,6 +33,7 @@ class Stage {
     required this.build,
     this.level = AiLevel.normal,
     this.puzzleTurns,
+    this.requires = const [],
   });
 
   bool get isPuzzle => puzzleTurns != null;

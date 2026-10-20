@@ -43,22 +43,39 @@ class CampaignScreen extends StatelessWidget {
     final done = c.stages.where((x) => s.isCleared(x.id)).length;
     final next = c.stages.where((x) => !s.isCleared(x.id)).firstOrNull;
     final color = HexTheme.faction(c.faction);
-    final leader = c.faction == Faction.shaolin ? PieceType.monk : PieceType.shogun;
-    return SkinTile(
-      leading: PieceChip(type: leader, owner: c.faction == Faction.shaolin ? 0 : 1, size: 24),
+    final leader = switch (c.faction) {
+      Faction.shaolin => PieceType.monk,
+      Faction.ninja => PieceType.shogun,
+      Faction.oni => PieceType.oni,
+    };
+    // El Sello se abre recién con las dos campañas terminadas.
+    final open = isUnlocked(c.stages, 0, s.isCleared);
+    final status = !open
+        ? tr('campaign.finaleLocked')
+        : next == null
+        ? tr('campaign.completed', {'done': done, 'total': c.stages.length})
+        : tr('campaign.next', {'done': done, 'total': c.stages.length, 'title': next.title});
+    final tile = SkinTile(
+      leading: PieceChip(type: leader, owner: c.faction == Faction.shaolin ? 0 : 1, size: 24, ash: c.isFinale),
       title: c.title,
-      text:
-          '${c.blurb}\n${next == null ? tr('campaign.completed', {'done': done, 'total': c.stages.length}) : tr('campaign.next', {'done': done, 'total': c.stages.length, 'title': next.title})}',
+      text: '${c.blurb}\n$status',
       progress: done / c.stages.length,
       color: color,
       highlight: next == null,
-      trailing: Icon(Icons.chevron_right_rounded, color: t.textMuted),
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => StageListScreen(title: c.title, subtitle: c.faction.displayName, stages: c.stages),
-        ),
-      ),
+      trailing: Icon(open ? Icons.chevron_right_rounded : Icons.lock_rounded, color: t.textMuted),
+      onTap: !open
+          ? null
+          : () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => StageListScreen(
+                  title: c.title,
+                  subtitle: c.isFinale ? tr('campaign.finale.sub') : c.faction.displayName,
+                  stages: c.stages,
+                ),
+              ),
+            ),
     );
+    return open ? tile : Opacity(opacity: 0.6, child: tile);
   }
 }
