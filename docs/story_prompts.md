@@ -1,9 +1,10 @@
 # Hexiege — Prompts de arte del modo historia
 
-Las viñetas se arman como paneles de cómic:
-- **Fondo:** una pincelada de tinta funciona como máscara y deja ver el escenario donde transcurre el momento.
-- **Personaje:** quien habla aparece en su figura, entra desde su lado y se sale del cuadro por arriba.
-- **Globo:** el diálogo va en un globo al otro lado del panel.
+Las viñetas se arman como una página de cómic:
+- **Tiras:** de uno o dos cuadros, de anchos desparejos y con corte en diagonal. El mismo fondo se recorta en cuadros angostos y altos o anchos.
+- **Momentos:** una pincelada ancha de tinta funciona como máscara y deja ver el escenario donde transcurre el momento.
+- **Personajes:** quien habla está parado abajo, de su lado; en los planos de dos, cada uno del suyo.
+- **Globos:** van arriba, escalonados, con la cola hacia quien habla.
 - **Plano y contraplano:** el encuadre del escenario se corre según quién habla.
 - **Momentos clave:** tienen una ilustración grande.
 
@@ -110,8 +111,8 @@ Generate exactly 11 separate images. Start generating immediately, without askin
 
 For ALL eleven images:
 Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-PURPOSE: A background for comic-style dialogue panels in a mobile strategy game about Shaolin monks (white stone, jade green, saffron) versus a ninja clan (black, crimson). The game crops it into a WIDE horizontal strip (about 2.4:1) and slides that crop to the LEFT or RIGHT depending on who is speaking, with a character cut-out standing in front on one side and a speech balloon on the other.
-COMPOSITION: An EMPTY place with NO people or animals. Keep the interesting details spread along the whole width at middle height (the top and bottom quarters will often be cropped). Low, calm horizon; no single huge object in the center. Readable as a mood at a glance: time of day and atmosphere matter more than detail.
+PURPOSE: A background for a comic page in a mobile strategy game about Shaolin monks (white stone, jade green, saffron) versus a ninja clan (black, crimson). The game crops the same image in different ways: a WIDE horizontal strip (about 2.4:1) for establishing panels, and comic frames of varied shape for dialogue, from TALL and NARROW (about 2:3) to wide (about 3:2). The crop slides to the LEFT, CENTER or RIGHT depending on who is speaking. Characters stand in front along the bottom edge; speech balloons cover the upper part.
+COMPOSITION: An EMPTY place with NO people or animals. Spread the interesting details across the whole width, with something recognizable in the left third, the center and the right third, so that any narrow vertical slice still reads as this place. Keep the upper area calm and simple (sky, wall, mist, roof line) because balloons cover it, and the lower third uncluttered because characters stand there. No single huge object in the center. Readable as a mood at a glance: time of day and atmosphere matter more than detail.
 STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, atmospheric mist, limited palette of ink black plus the accent given. Slightly muted so characters in front of it stand out. Not cartoonish.
 DO NOT INCLUDE: people, animals, any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 
@@ -156,8 +157,8 @@ Generate exactly 11 separate images. Start generating immediately, without askin
 
 For ALL eleven images:
 Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-PURPOSE: A background for comic-style dialogue panels in a mobile strategy game about Shaolin monks (white stone, jade green, saffron) versus a ninja clan (black, crimson). The game crops it into a WIDE horizontal strip (about 2.4:1) and slides that crop to the LEFT or RIGHT depending on who is speaking, with a character cut-out standing in front on one side and a speech balloon on the other.
-COMPOSITION: An EMPTY place with NO people or animals. Keep the interesting details spread along the whole width at middle height (the top and bottom quarters will often be cropped). Low, calm horizon; no single huge object in the center. Readable as a mood at a glance: time of day and atmosphere matter more than detail.
+PURPOSE: A background for a comic page in a mobile strategy game about Shaolin monks (white stone, jade green, saffron) versus a ninja clan (black, crimson). The game crops the same image in different ways: a WIDE horizontal strip (about 2.4:1) for establishing panels, and comic frames of varied shape for dialogue, from TALL and NARROW (about 2:3) to wide (about 3:2). The crop slides to the LEFT, CENTER or RIGHT depending on who is speaking. Characters stand in front along the bottom edge; speech balloons cover the upper part.
+COMPOSITION: An EMPTY place with NO people or animals. Spread the interesting details across the whole width, with something recognizable in the left third, the center and the right third, so that any narrow vertical slice still reads as this place. Keep the upper area calm and simple (sky, wall, mist, roof line) because balloons cover it, and the lower third uncluttered because characters stand there. No single huge object in the center. Readable as a mood at a glance: time of day and atmosphere matter more than detail.
 STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, atmospheric mist, limited palette of ink black plus the accent given. Slightly muted so characters in front of it stand out. Not cartoonish.
 DO NOT INCLUDE: people, animals, any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 
