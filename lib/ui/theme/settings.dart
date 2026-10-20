@@ -144,6 +144,18 @@ class AppSettings extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Borra el avance de la historia: las batallas [stageIds] vuelven a estar
+  /// sin superar, las viñetas sin ver y el desbloqueo sin comprar.
+  void resetStory(Iterable<String> stageIds) {
+    _cleared.removeAll(stageIds);
+    _seenScenes.clear();
+    _storyUnlocked = false;
+    _prefs?.setStringList('cleared', _cleared.toList());
+    _prefs?.setStringList('seenScenes', const []);
+    _prefs?.setBool('storyUnlocked', false);
+    notifyListeners();
+  }
+
   /// Viñetas de la historia ya vistas (por id de escena, p. ej. "s1.pre").
   bool isSceneSeen(String sceneId) => _seenScenes.contains(sceneId);
 

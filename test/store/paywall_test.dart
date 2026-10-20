@@ -29,6 +29,22 @@ void main() {
     expect(SoloScreen.nextUp(cleared)?.id, 's7');
   });
 
+  test('reiniciar la historia borra campañas, viñetas y desbloqueo, pero no los problemas', () {
+    final s = AppSettings.instance;
+    s
+      ..markCleared('s1')
+      ..markCleared('f1')
+      ..markCleared(puzzles.first.id)
+      ..markSceneSeen('s1.pre')
+      ..storyUnlocked = true;
+    s.resetStory([
+      for (final c in campaigns)
+        for (final st in c.stages) st.id,
+    ]);
+    expect(s.isCleared('s1') || s.isCleared('f1') || s.isSceneSeen('s1.pre') || s.storyUnlocked, isFalse);
+    expect(s.isCleared(puzzles.first.id), isTrue);
+  });
+
   testWidgets('la batalla 7 aparece con candado y abre el desbloqueo', (tester) async {
     tester.view.physicalSize = const Size(1170, 2532);
     tester.view.devicePixelRatio = 3;

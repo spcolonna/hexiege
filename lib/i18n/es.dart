@@ -1013,4 +1013,7 @@ const es = <String, String>{
   'store.owned': 'Historia completa desbloqueada',
   'store.unlock': 'Desbloquear',
   'store.priceFallback': 'USD 1,99',
+  'settings.resetStory': 'Reiniciar historia',
+  'settings.resetStoryText': 'Se borra el avance de las dos campañas y de El Sello, y las viñetas vuelven a verse desde el principio. Los problemas y desafíos se conservan.',
+  'settings.resetStoryConfirm': 'Reiniciar',
 };

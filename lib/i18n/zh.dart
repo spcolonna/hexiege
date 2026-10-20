@@ -1013,4 +1013,7 @@ const zh = <String, String>{
   'store.owned': '完整故事已解锁',
   'store.unlock': '解锁',
   'store.priceFallback': 'USD 1.99',
+  'settings.resetStory': '重置剧情',
+  'settings.resetStoryText': '两条战役和「封印」的进度将被清除，剧情从头开始。谜题和挑战的进度会保留。',
+  'settings.resetStoryConfirm': '重置',
 };

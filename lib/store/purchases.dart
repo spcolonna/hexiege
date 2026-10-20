@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
+import '../config.dart';
 import '../i18n/i18n.dart';
 import '../ui/theme/settings.dart';
 
@@ -30,7 +31,7 @@ class Purchases extends ChangeNotifier {
   String get price => _story?.price ?? tr('store.priceFallback');
 
   Future<void> init() async {
-    if (_sub != null) return;
+    if (_sub != null || kSimulatedPurchase) return;
     try {
       final iap = InAppPurchase.instance;
       _sub = iap.purchaseStream.listen(_onUpdates, onError: (Object e) => _fail('$e'));
@@ -45,6 +46,12 @@ class Purchases extends ChangeNotifier {
 
   Future<void> buy() async {
     _error = null;
+    if (kSimulatedPurchase) {
+      _setBusy(true);
+      await Future<void>.delayed(const Duration(milliseconds: 600));
+      AppSettings.instance.storyUnlocked = true;
+      return _setBusy(false);
+    }
     final story = _story;
     if (story == null) {
       // Puede que la tienda no haya respondido al arrancar: un reintento.
@@ -62,6 +69,7 @@ class Purchases extends ChangeNotifier {
 
   Future<void> restore() async {
     _error = null;
+    if (kSimulatedPurchase) return buy();
     _setBusy(true);
     try {
       await InAppPurchase.instance.restorePurchases();

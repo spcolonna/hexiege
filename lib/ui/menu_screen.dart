@@ -253,11 +253,36 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                   onPressed: s.storyUnlocked || Purchases.instance.busy ? null : Purchases.instance.restore,
                 ),
               ),
+              const SizedBox(height: 8),
+              SkinButton(label: tr('settings.resetStory'), glyph: '始', onPressed: _confirmResetStory),
               const SizedBox(height: 22),
               const _StudioCredit(),
             ],
           );
         },
+      ),
+    );
+  }
+
+  /// Pide confirmación y borra el avance de las campañas y El Sello.
+  void _confirmResetStory() {
+    showSkinDialog<void>(
+      context,
+      builder: (ctx) => SkinDialog(
+        glyph: '始',
+        title: tr('settings.resetStory'),
+        message: tr('settings.resetStoryText'),
+        actions: [
+          SkinAction(tr('common.cancel'), () => Navigator.pop(ctx)),
+          SkinAction(tr('settings.resetStoryConfirm'), () {
+            AppSettings.instance.resetStory([
+              for (final c in campaigns)
+                for (final st in c.stages) st.id,
+            ]);
+            Haptics.medium();
+            Navigator.pop(ctx);
+          }, primary: true),
+        ],
       ),
     );
   }

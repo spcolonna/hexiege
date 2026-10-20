@@ -1013,4 +1013,7 @@ const en = <String, String>{
   'store.owned': 'Full story unlocked',
   'store.unlock': 'Unlock',
   'store.priceFallback': 'USD 1.99',
+  'settings.resetStory': 'Reset story',
+  'settings.resetStoryText': 'Progress in both campaigns and The Seal is erased, and the story scenes play again from the start. Puzzles and challenges are kept.',
+  'settings.resetStoryConfirm': 'Reset',
 };

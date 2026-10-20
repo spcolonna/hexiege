@@ -5058,5 +5058,20 @@
   "es": "USD 1,99",
   "en": "USD 1.99",
   "zh": "USD 1.99"
+ },
+ "settings.resetStory": {
+  "es": "Reiniciar historia",
+  "en": "Reset story",
+  "zh": "重置剧情"
+ },
+ "settings.resetStoryText": {
+  "es": "Se borra el avance de las dos campañas y de El Sello, y las viñetas vuelven a verse desde el principio. Los problemas y desafíos se conservan.",
+  "en": "Progress in both campaigns and The Seal is erased, and the story scenes play again from the start. Puzzles and challenges are kept.",
+  "zh": "两条战役和「封印」的进度将被清除，剧情从头开始。谜题和挑战的进度会保留。"
+ },
+ "settings.resetStoryConfirm": {
+  "es": "Reiniciar",
+  "en": "Reset",
+  "zh": "重置"
  }
 }
