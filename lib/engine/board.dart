@@ -38,6 +38,12 @@ class Board {
     return null;
   }
 
+  /// Casillas de todos los Líderes de [owner] (el final de la historia tiene dos).
+  List<Hex> locateLeaders(int owner) => [
+    for (final e in _stacks.entries)
+      if (e.value.any((p) => p.owner == owner && p.type.isLeader)) e.key,
+  ];
+
   Iterable<MapEntry<Hex, Piece>> get tops => _stacks.entries.map((e) => MapEntry(e.key, e.value.last));
 
   /// Huella de la posición (independiente de los ids de las fichas).

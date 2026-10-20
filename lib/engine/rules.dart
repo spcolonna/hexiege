@@ -48,6 +48,18 @@ class Rules {
   final bool kunoichiParalysis;
   final bool shadowSeal;
 
+  /// Manos por jugador que reemplazan a las de [hands] (null = por facción).
+  /// Permiten manos mixtas, como en el final de la historia.
+  final List<Map<PieceType, int>>? handsByOwner;
+
+  /// El Líder Oni solo cae si entre las fichas que lo rodean hay al menos una
+  /// Shaolin y una Ninja del rival.
+  final bool mixedSeal;
+
+  /// Jugadores que pueden usar las dos habilidades (Jade y Kawarimi), con
+  /// recarga y usos compartidos.
+  final Set<int> dualAbility;
+
   const Rules({
     this.abilityCooldown = 3,
     this.abilityCharges = 3,
@@ -62,6 +74,9 @@ class Rules {
     this.shogunSwap = true,
     this.kunoichiParalysis = true,
     this.shadowSeal = true,
+    this.handsByOwner,
+    this.mixedSeal = false,
+    this.dualAbility = const {},
   });
 
   /// Reglas oficiales, ajustadas con tool/balance.dart (ver README).
@@ -93,6 +108,9 @@ class Rules {
     bool? shogunSwap,
     bool? kunoichiParalysis,
     bool? shadowSeal,
+    List<Map<PieceType, int>>? Function()? handsByOwner,
+    bool? mixedSeal,
+    Set<int>? dualAbility,
   }) => Rules(
     abilityCooldown: abilityCooldown ?? this.abilityCooldown,
     abilityCharges: abilityCharges != null ? abilityCharges() : this.abilityCharges,
@@ -107,6 +125,9 @@ class Rules {
     shogunSwap: shogunSwap ?? this.shogunSwap,
     kunoichiParalysis: kunoichiParalysis ?? this.kunoichiParalysis,
     shadowSeal: shadowSeal ?? this.shadowSeal,
+    handsByOwner: handsByOwner != null ? handsByOwner() : this.handsByOwner,
+    mixedSeal: mixedSeal ?? this.mixedSeal,
+    dualAbility: dualAbility ?? this.dualAbility,
   );
 
   @override
@@ -114,6 +135,6 @@ class Rules {
       'cd=$abilityCooldown cargas=${abilityCharges ?? '∞'} shinobi=${shinobiRange ?? '∞'} '
       'grulla=${craneShortJump ? '1-2' : '2'} tengu=$tenguMinTouch asedio=${siegeRound ?? '-'} rondas=${roundLimit ?? '∞'} '
       'tengu-lider=${tenguNearLeader.name} ${shinobiGateNextToLeader ? '' : 'shinobi-no-lider '}'
-      '${shogunSwap ? '' : 'sin-intercambio '}${kunoichiParalysis ? '' : 'sin-paralisis '}${shadowSeal ? '' : 'sin-sello '}'
+      '${mixedSeal ? 'sello-mixto ' : ''}${shogunSwap ? '' : 'sin-intercambio '}${kunoichiParalysis ? '' : 'sin-paralisis '}${shadowSeal ? '' : 'sin-sello '}'
       'manos=${hands.map((f, h) => MapEntry(f.name, h.map((t, n) => MapEntry(t.name, n))))}';
 }

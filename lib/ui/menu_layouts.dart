@@ -251,9 +251,9 @@ class BoxMenu extends StatelessWidget {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  for (final f in Faction.values) ...[
+                  for (final f in playableFactions) ...[
                     Expanded(child: _Well(f, m)),
-                    if (f != Faction.values.last) const SizedBox(width: 10),
+                    if (f != playableFactions.last) const SizedBox(width: 10),
                   ],
                 ],
               ),
@@ -470,7 +470,7 @@ class EmaMenu extends StatelessWidget {
         Wrap(
           spacing: 4,
           children: [
-            for (final f in Faction.values)
+            for (final f in playableFactions)
               Pressable(
                 semanticLabel: f.displayName,
                 onTap: () => m.setFaction(f),
@@ -808,7 +808,7 @@ class CombMenu extends StatelessWidget {
                       sub: tr('menu.switchFaction'),
                       labelColor: HexTheme.faction(m.faction),
                       leading: PieceChip(type: leaderOf(m.faction), owner: 0, size: w * 0.15, lift: 0.2),
-                      onTap: () => m.setFaction(Faction.values[(m.faction.index + 1) % Faction.values.length]),
+                      onTap: () => m.setFaction(playableFactions[(m.faction.index + 1) % playableFactions.length]),
                     ),
                   ),
                 ],

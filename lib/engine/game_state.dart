@@ -49,7 +49,9 @@ class GameState {
   GameState(Faction p0, Faction p1, {this.rules = Rules.standard})
     : factions = [p0, p1],
       board = Board(),
-      hands = [Map.of(rules.hands[p0]!), Map.of(rules.hands[p1]!)],
+      hands = rules.handsByOwner != null
+          ? [Map.of(rules.handsByOwner![0]), Map.of(rules.handsByOwner![1])]
+          : [Map.of(rules.hands[p0]!), Map.of(rules.hands[p1]!)],
       turnsTaken = [0, 0],
       cooldowns = [0, 0],
       paralyzedUntil = {},
@@ -82,7 +84,8 @@ class GameState {
   /// Saca una ficha de la mano de [owner] y la pone en [at] sin validar reglas.
   /// Solo para armar escenarios (tutorial, tests).
   Piece setupPut(int owner, PieceType type, Hex at) {
-    hands[owner][type] = hands[owner][type]! - 1;
+    // Fichas que no están en la mano (escenas armadas) no la dejan negativa.
+    hands[owner][type] = (hands[owner][type] ?? 1) - 1;
     final p = Piece(_nextId++, type, owner);
     board.push(at, p);
     return p;
@@ -105,10 +108,26 @@ class GameState {
   /// Vecinos ocupados que capturan al Líder ahora mismo.
   int get captureThreshold => inSiege ? 5 : 6;
 
-  /// Vecinos ocupados del Líder de [p] (0 si no está en el tablero).
-  int leaderPressure(int p) {
-    final h = board.locateLeader(p);
-    return h == null ? 0 : board.occupiedNeighbors(h);
+  /// Vecinos ocupados del Líder de [p] más rodeado (0 si no está en el tablero).
+  int leaderPressure(int p) =>
+      board.locateLeaders(p).fold(0, (m, h) => board.occupiedNeighbors(h) > m ? board.occupiedNeighbors(h) : m);
+
+  /// El Líder de [owner] en [h] está capturado en [b]. Con [Rules.mixedSeal],
+  /// el Líder Oni además necesita fichas rivales de las dos facciones alrededor.
+  bool leaderCapturedOn(Board b, int owner, Hex h) {
+    if (b.occupiedNeighbors(h) < captureThreshold) return false;
+    if (!rules.mixedSeal || !b.stackAt(h).any((p) => p.owner == owner && p.type == PieceType.oni)) return true;
+    return hasMixedSurround(b, owner, h);
+  }
+
+  /// Entre las fichas de arriba alrededor de [h] hay una Shaolin y una Ninja
+  /// que no son de [owner].
+  static bool hasMixedSurround(Board b, int owner, Hex h) {
+    final around = {
+      for (final n in h.neighbors)
+        if (b.top(n) case final t? when t.owner != owner) t.type.faction,
+    };
+    return around.contains(Faction.shaolin) && around.contains(Faction.ninja);
   }
 
   Faction get currentFaction => factions[current];
@@ -121,13 +140,24 @@ class GameState {
     return until != null && ply <= until;
   }
 
-  /// La ficha en [h] está junto a una Serpiente enemiga: pierde sus efectos especiales.
+  /// La ficha en [h] está junto a una Serpiente enemiga (o a 2 casillas de un
+  /// Ojo del Oni): pierde sus efectos especiales.
   bool isSuppressed(Hex h, int owner) => _suppressedOn(board, h, owner);
 
-  static bool _suppressedOn(Board b, Hex h, int owner) => h.neighbors.any((n) {
-    final t = b.top(n);
-    return t != null && t.type == PieceType.serpent && t.owner != owner;
-  });
+  static bool _suppressedOn(Board b, Hex h, int owner) {
+    bool enemy(Hex n, PieceType type) {
+      final t = b.top(n);
+      return t != null && t.type == type && t.owner != owner;
+    }
+
+    for (final n in h.neighbors) {
+      if (enemy(n, PieceType.serpent) || enemy(n, PieceType.oniEye)) return true;
+      for (final m in n.neighbors) {
+        if (m != h && enemy(m, PieceType.oniEye)) return true;
+      }
+    }
+    return false;
+  }
 
   /// La ficha en [h] tiene un efecto especial que hoy anula una Serpiente rival.
   bool isNullified(Hex h) {
@@ -136,6 +166,7 @@ class GameState {
     return switch (p.type) {
       PieceType.tiger => true,
       PieceType.kunoichi => rules.kunoichiParalysis,
+      PieceType.gaki => true,
       PieceType.shadow => rules.shadowSeal,
       PieceType.shogun => rules.shogunSwap && !shogunSwapUsed[p.owner],
       _ => false,
@@ -213,13 +244,17 @@ class GameState {
     final limited =
         (p.type == PieceType.tengu && rules.tenguNearLeader != TenguNearLeader.allowed) ||
         (p.type == PieceType.shinobi && !rules.shinobiGateNextToLeader);
-    final enemyLeader = limited ? lifted.locateLeader(1 - p.owner) : null;
-    if (enemyLeader != null) {
+    for (final enemyLeader in limited ? lifted.locateLeaders(1 - p.owner) : const <Hex>[]) {
       bool nextToLeader(Hex d) => d.distanceTo(enemyLeader) == 1;
       if (p.type == PieceType.tengu) {
         // notClosing: prohibido solo el hueco que completaría el cerco.
-        final closes = lifted.occupiedNeighbors(enemyLeader) + 1 >= captureThreshold;
-        if (rules.tenguNearLeader == TenguNearLeader.never || closes) dests.removeWhere(nextToLeader);
+        if (rules.tenguNearLeader == TenguNearLeader.never) {
+          dests.removeWhere(nextToLeader);
+        } else {
+          dests.removeWhere(
+            (d) => nextToLeader(d) && leaderCapturedOn(Board.copy(lifted)..push(d, p), 1 - p.owner, enemyLeader),
+          );
+        }
       }
       if (p.type == PieceType.shinobi && !rules.shinobiGateNextToLeader) {
         final gated = slideReach(lifted, src, maxSteps: rules.shinobiRange);
@@ -252,10 +287,9 @@ class GameState {
 
   bool hasAnyMainAction() => placeableTypes().isNotEmpty || movablePieces().isNotEmpty;
 
-  bool hasAnyAbilityAction() => switch (currentFaction) {
-    Faction.shaolin => jadeRelocateSources().isNotEmpty || jadeSwapSources().isNotEmpty,
-    Faction.ninja => kawarimiTargets().isNotEmpty,
-  };
+  bool hasAnyAbilityAction() =>
+      (hasAbility(Faction.shaolin) && (jadeRelocateSources().isNotEmpty || jadeSwapSources().isNotEmpty)) ||
+      (hasAbility(Faction.ninja) && kawarimiTargets().isNotEmpty);
 
   /// Hay alguna acción legal; si no, el jugador debe pasar.
   bool hasAnyAction() => !isOver && (hasAnyMainAction() || hasAnyAbilityAction());
@@ -271,7 +305,7 @@ class GameState {
 
   ({Set<Hex> paralyze, Set<Hex> seal}) _effectOptionsOn(Board b, Piece p, Hex at, {bool ignoreSerpent = false}) {
     if (!ignoreSerpent && _suppressedOn(b, at, p.owner)) return (paralyze: <Hex>{}, seal: <Hex>{});
-    if (p.type == PieceType.kunoichi && rules.kunoichiParalysis) {
+    if ((p.type == PieceType.kunoichi && rules.kunoichiParalysis) || p.type == PieceType.gaki) {
       return (
         paralyze: at.neighbors.where((n) {
           final t = b.top(n);
@@ -315,10 +349,11 @@ class GameState {
       seals[seal] = current;
       if (recordEvents) lastEvents.add(SealPlaced(current, seal));
     }
-    if (recordEvents && (p.type == PieceType.kunoichi || p.type == PieceType.shadow) && isSuppressed(to, p.owner)) {
+    final hasEffect = p.type == PieceType.kunoichi || p.type == PieceType.gaki || p.type == PieceType.shadow;
+    if (recordEvents && hasEffect && isSuppressed(to, p.owner)) {
       final would = _effectOptionsOn(board, p, to, ignoreSerpent: true);
       if (would.paralyze.isNotEmpty || would.seal.isNotEmpty) {
-        final effect = p.type == PieceType.kunoichi ? CancelledEffect.paralyze : CancelledEffect.seal;
+        final effect = p.type == PieceType.shadow ? CancelledEffect.seal : CancelledEffect.paralyze;
         lastEvents.add(Cancelled(current, p, to, effect));
       }
     }
@@ -346,7 +381,9 @@ class GameState {
     final target = to + dir;
     final dest = target + dir;
     final t = board.top(target);
-    if (t == null || t.owner == board.top(to)!.owner || board.height(target) != 1 || board.isOccupied(dest)) return null;
+    if (t == null || t.owner == board.top(to)!.owner || board.height(target) != 1 || board.isOccupied(dest)) {
+      return null;
+    }
     final b = Board.copy(board);
     b.push(dest, b.pop(target));
     if (!b.isConnected()) return null;
@@ -375,20 +412,28 @@ class GameState {
   /// Usos de habilidad que le quedan a [p] (null = ilimitados).
   int? abilityChargesLeft(int p) => rules.abilityCharges == null ? null : rules.abilityCharges! - abilityUses[p];
 
+  /// El jugador actual tiene la habilidad de [f] (la de su facción, o las dos
+  /// con [Rules.dualAbility]).
+  bool hasAbility(Faction f) => factions[current] == f || rules.dualAbility.contains(current);
+
   bool get abilityAvailable =>
       !isOver &&
+      (hasAbility(Faction.shaolin) || hasAbility(Faction.ninja)) &&
       cooldowns[current] == 0 &&
       leaderPlaced(current) &&
       (abilityChargesLeft(current) ?? 1) > 0;
+
+  /// Las habilidades no mueven Líderes ni al Ojo del Oni.
+  bool _movableByAbility(Piece p) => !p.type.isLeader && p.type != PieceType.oniEye;
 
   /// Ficha perimetral: sola en su celda, removible sin romper la colmena y con algún hueco al lado.
   bool _isPerimeter(Hex h) => board.height(h) == 1 && board.canLift(h) && h.neighbors.any((n) => !board.isOccupied(n));
 
   // Shaolin: Meditación de Jade
   Set<Hex> jadeRelocateSources() {
-    if (!abilityAvailable || currentFaction != Faction.shaolin) return {};
+    if (!abilityAvailable || !hasAbility(Faction.shaolin)) return {};
     return board.tops
-        .where((e) => e.value.owner != current && !e.value.type.isLeader && _isPerimeter(e.key))
+        .where((e) => e.value.owner != current && _movableByAbility(e.value) && _isPerimeter(e.key))
         .map((e) => e.key)
         .toSet();
   }
@@ -415,7 +460,7 @@ class GameState {
   }
 
   Set<Hex> jadeSwapSources() {
-    if (!abilityAvailable || currentFaction != Faction.shaolin) return {};
+    if (!abilityAvailable || !hasAbility(Faction.shaolin)) return {};
     return board.tops
         .where((e) => e.value.owner == current && board.height(e.key) == 1)
         .map((e) => e.key)
@@ -424,7 +469,7 @@ class GameState {
   }
 
   Set<Hex> jadeSwapTargets(Hex a) {
-    if (!abilityAvailable || currentFaction != Faction.shaolin) return {};
+    if (!abilityAvailable || !hasAbility(Faction.shaolin)) return {};
     final pa = board.top(a);
     if (pa == null || pa.owner != current || board.height(a) != 1) return {};
     return a.neighbors.where((n) {
@@ -446,8 +491,8 @@ class GameState {
 
   // Ninja: Kawarimi
   Set<Hex> kawarimiTargets() {
-    if (!abilityAvailable || currentFaction != Faction.ninja) return {};
-    return board.tops.where((e) => !e.value.type.isLeader && _isPerimeter(e.key)).map((e) => e.key).toSet();
+    if (!abilityAvailable || !hasAbility(Faction.ninja)) return {};
+    return board.tops.where((e) => _movableByAbility(e.value) && _isPerimeter(e.key)).map((e) => e.key).toSet();
   }
 
   bool kawarimi(Hex h) {
@@ -514,13 +559,8 @@ class GameState {
   }
 
   void _checkWin() {
-    final lost = [
-      for (var p = 0; p < 2; p++)
-        () {
-          final h = board.locateLeader(p);
-          return h != null && board.occupiedNeighbors(h) >= captureThreshold;
-        }(),
-    ];
+    // Con dos Líderes (final de la historia) alcanza con que caiga uno.
+    final lost = [for (var p = 0; p < 2; p++) board.locateLeaders(p).any((h) => leaderCapturedOn(board, p, h))];
     if (lost[0] && lost[1]) {
       draw = true;
     } else if (lost[0]) {

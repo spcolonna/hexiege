@@ -73,8 +73,11 @@ GameState buildScene({
   for (final (owner, type, at) in pieces) {
     g.setupPut(owner, type, at);
   }
+  // La mano queda exactamente como se pidió (puede tener fichas de otra facción).
   for (final (p, hand) in [(0, yourHand), (1, oppHand)]) {
-    g.hands[p].updateAll((t, _) => hand[t] ?? 0);
+    g.hands[p] = {
+      for (final t in {...g.hands[p].keys, ...hand.keys}) t: hand[t] ?? 0,
+    };
   }
   g.ply = (round - 1) * 2;
   g.turnsTaken

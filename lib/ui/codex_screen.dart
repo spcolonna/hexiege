@@ -32,22 +32,22 @@ class CodexScreen extends StatelessWidget {
             listenable: AppSettings.instance,
             builder: (context, _) {
               final s = AppSettings.instance;
-              final seen = PieceType.values.where((p) => s.isPieceSeen(p.name)).length;
+              final seen = playablePieces.where((p) => s.isPieceSeen(p.name)).length;
               return Column(
                 children: [
                   SkinHeader(
                     title: tr('codex.title'),
                     subtitle: tr('codex.subtitle'),
-                    trailing: '$seen/${PieceType.values.length}',
+                    trailing: '$seen/${playablePieces.length}',
                     backTooltip: tr('common.back'),
                   ),
                   Expanded(
                     child: ListView(
                       padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
                       children: [
-                        for (final f in Faction.values) ...[
+                        for (final f in playableFactions) ...[
                           _FactionHeader(f),
-                          for (final p in PieceType.values.where((p) => p.faction == f))
+                          for (final p in playablePieces.where((p) => p.faction == f))
                             Padding(
                               padding: const EdgeInsets.only(bottom: 8),
                               child: SkinTile(
@@ -172,14 +172,14 @@ class _CodexPieceScreenState extends State<CodexPieceScreen> {
 
   void _go(int delta) {
     final i = _index + delta;
-    if (i < 0 || i >= PieceType.values.length) return;
+    if (i < 0 || i >= playablePieces.length) return;
     _pages.animateToPage(i, duration: const Duration(milliseconds: 320), curve: Curves.easeOutCubic);
   }
 
   @override
   Widget build(BuildContext context) {
     final t = HexTheme.of(context);
-    final type = PieceType.values[_index];
+    final type = playablePieces[_index];
     return Scaffold(
       body: ArenaBackdrop(
         accent: HexTheme.faction(type.faction),
@@ -188,18 +188,18 @@ class _CodexPieceScreenState extends State<CodexPieceScreen> {
             children: [
               SkinHeader(
                 title: tr('codex.title'),
-                trailing: '${_index + 1}/${PieceType.values.length}',
+                trailing: '${_index + 1}/${playablePieces.length}',
                 backTooltip: tr('common.back'),
               ),
               Expanded(
                 child: PageView.builder(
                   controller: _pages,
-                  itemCount: PieceType.values.length,
+                  itemCount: playablePieces.length,
                   onPageChanged: (i) {
                     setState(() => _index = i);
-                    AppSettings.instance.markPieceSeen(PieceType.values[i].name);
+                    AppSettings.instance.markPieceSeen(playablePieces[i].name);
                   },
-                  itemBuilder: (_, i) => _PiecePage(PieceType.values[i]),
+                  itemBuilder: (_, i) => _PiecePage(playablePieces[i]),
                 ),
               ),
               Padding(
@@ -216,7 +216,7 @@ class _CodexPieceScreenState extends State<CodexPieceScreen> {
                         alignment: WrapAlignment.center,
                         spacing: 6,
                         children: [
-                          for (var i = 0; i < PieceType.values.length; i++)
+                          for (var i = 0; i < playablePieces.length; i++)
                             AnimatedContainer(
                               duration: const Duration(milliseconds: 200),
                               width: i == _index ? 18 : 7,
@@ -224,7 +224,7 @@ class _CodexPieceScreenState extends State<CodexPieceScreen> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
                                 color: i == _index
-                                    ? HexTheme.faction(PieceType.values[i].faction)
+                                    ? HexTheme.faction(playablePieces[i].faction)
                                     : t.textMuted.withValues(alpha: 0.35),
                               ),
                             ),
@@ -233,7 +233,7 @@ class _CodexPieceScreenState extends State<CodexPieceScreen> {
                     ),
                     IconButton(
                       tooltip: tr('codex.next'),
-                      onPressed: _index < PieceType.values.length - 1 ? () => _go(1) : null,
+                      onPressed: _index < playablePieces.length - 1 ? () => _go(1) : null,
                       icon: Icon(Icons.chevron_right_rounded, size: 34, color: t.text),
                     ),
                   ],

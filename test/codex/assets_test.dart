@@ -16,7 +16,7 @@ void main() {
   });
 
   test('cada emote tiene su dibujo para las dos facciones', () {
-    for (final f in Faction.values) {
+    for (final f in playableFactions) {
       for (final e in Emote.values) {
         exists(EmoteGlyph.asset(e, f));
       }

@@ -30,7 +30,8 @@ class PieceRenderer {
   /// [c] centro de la casilla en el tablero; [z] altura en el aire (px);
   /// [scale] escala extra (squash/hover); [shadow] false para piezas apiladas debajo;
   /// [mirror] true si ambos jugadores tienen la misma facción;
-  /// [flip] gira la ilustración 180° (cara a cara: mira al jugador de enfrente).
+  /// [flip] gira la ilustración 180° (cara a cara: mira al jugador de enfrente);
+  /// [ash] la dibuja en piedra de ceniza (fichas del Oni).
   static void draw(
     Canvas canvas, {
     required HexTheme theme,
@@ -46,6 +47,7 @@ class PieceRenderer {
     int seed = 0,
     bool mirror = false,
     bool flip = false,
+    bool ash = false,
   }) {
     final r = radius * 0.92 * scale * (1 + z / 320);
     final depth = radius * depthRatio;
@@ -67,14 +69,14 @@ class PieceRenderer {
 
     // Tono de la piedra: clara para Shaolin y oscura para Ninja. En partidas
     // espejo (misma facción en ambos lados) manda el asiento, para distinguirlos.
-    final tone = mirror ? owner : (type.faction == Faction.shaolin ? 0 : 1);
+    final tone = ash ? 2 : (mirror ? owner : (type.faction == Faction.shaolin ? 0 : 1));
 
     // Canto: la misma forma desplazada hacia abajo, en tono del lateral.
-    final side = theme.stoneSide[tone];
+    final side = theme.stoneSideOf(tone);
     canvas.drawPath(hexAt(face + Offset(0, depth), r), Paint()..color = side);
     canvas.drawPath(
       hexAt(face + Offset(0, depth * 0.5), r),
-      Paint()..color = Color.lerp(side, theme.stone[tone][1], 0.35)!,
+      Paint()..color = Color.lerp(side, theme.stoneOf(tone)[1], 0.35)!,
     );
 
     final facePath = hexAt(face, r);
@@ -98,7 +100,7 @@ class PieceRenderer {
   }
 
   /// La cara de la ficha (piedra, borde de facción, ilustración y anillo de
-  /// líder) centrada en [face] con radio [r]. [tone] 0 = piedra clara, 1 = oscura.
+  /// líder) centrada en [face] con radio [r]. [tone] 0 = piedra clara, 1 = oscura, 2 = ceniza.
   /// [art] reemplaza la ilustración (por ejemplo, la de alta resolución del visor).
   static void drawFace(
     Canvas canvas, {
@@ -114,7 +116,7 @@ class PieceRenderer {
   }) {
     final hiRes = art != null;
     final facePath = hexAt(face, r);
-    final texture = PieceArt.stone(tone == 0 ? Faction.shaolin : Faction.ninja);
+    final texture = tone == 2 ? null : PieceArt.stone(tone == 0 ? Faction.shaolin : Faction.ninja);
     canvas.save();
     canvas.clipPath(facePath);
     if (texture != null) {
@@ -150,14 +152,14 @@ class PieceRenderer {
           ..shader = RadialGradient(
             center: const Alignment(-0.35, -0.5),
             radius: 1.15,
-            colors: theme.stone[tone],
+            colors: theme.stoneOf(tone),
           ).createShader(Rect.fromCircle(center: face, radius: r)),
       );
       // Vetas
       final vein = Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = max(0.6, r * 0.025)
-        ..color = (tone == 0 ? Colors.black : Colors.white).withValues(alpha: 0.06);
+        ..color = (tone == 0 ? Colors.black : Colors.white).withValues(alpha: tone == 2 ? 0.12 : 0.06);
       for (var i = -2; i <= 2; i++) {
         final y = face.dy + i * r * 0.38 + (seed % 5) * r * 0.06;
         canvas.drawLine(Offset(face.dx - r, y - r * 0.3), Offset(face.dx + r, y + r * 0.22), vein);
@@ -178,7 +180,7 @@ class PieceRenderer {
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = max(1.5, r * 0.09)
-        ..color = HexTheme.faction(type.faction),
+        ..color = HexTheme.faction(tone == 2 ? Faction.oni : type.faction),
     );
     art ??= AppSettings.instance.useGlyphs ? null : PieceArt.of(type);
     void leaderRing() {
@@ -214,7 +216,7 @@ class PieceRenderer {
       );
       canvas.restore();
     } else {
-      text(canvas, type.glyph, face, r * 0.9, theme.glyph[tone]);
+      text(canvas, type.glyph, face, r * 0.9, theme.glyphOf(tone));
     }
     if (flip) canvas.restore();
     // En el tablero el anillo va encima del arte para que se distinga al líder.

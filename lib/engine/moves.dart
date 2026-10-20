@@ -120,7 +120,9 @@ Set<Hex> destinationsFor(PieceType type, Board b, Hex src, [Rules rules = Rules.
     PieceType.serpent || PieceType.kunoichi || PieceType.kitsune => slideReach(b, src, maxSteps: 2),
     PieceType.shinobi => slideReach(b, src, maxSteps: rules.shinobiRange, ignoreGate: true),
     PieceType.tengu => teleports(b, src, minTouch: rules.tenguMinTouch),
-    PieceType.shadow => slideReach(b, src, maxSteps: 1),
+    PieceType.shadow || PieceType.oniEye => slideReach(b, src, maxSteps: 1),
+    PieceType.oni => slideReach(b, src, maxSteps: 2),
+    PieceType.gaki => slideReach(b, src, ignoreGate: true),
   };
   dests.remove(src);
   return dests;

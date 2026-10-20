@@ -14,7 +14,7 @@ import 'package:hexiege/solo/stage.dart';
 List<String> search(int from, int to, int maxPieces) {
   final found = <String>[];
   for (var i = from; i < to; i++) {
-    final g = GameState(Faction.values[i % 2], Faction.values[1 - i % 2]);
+    final g = GameState(playableFactions[i % 2], playableFactions[1 - i % 2]);
     final ais = [AiPlayer(AiLevel.easy, seed: i * 2), AiPlayer(AiLevel.easy, seed: i * 2 + 1)];
     for (var ply = 0; ply < 120 && !g.isOver; ply++) {
       final turn = ais[g.current].chooseTurn(g);

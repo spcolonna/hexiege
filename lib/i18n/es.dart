@@ -5,7 +5,8 @@ const es = <String, String>{
   'faction.ninja': 'Sombras Ninja',
   'ability.shaolin': 'Meditación de Jade',
   'ability.ninja': 'Kawarimi',
-  'ability.shaolin.desc': 'Reubicá una ficha enemiga perimetral (no Líder) o intercambiá dos fichas aliadas adyacentes.',
+  'ability.shaolin.desc':
+      'Reubicá una ficha enemiga perimetral (no Líder) o intercambiá dos fichas aliadas adyacentes.',
   'ability.ninja.desc': 'Devolvé a la mano de su dueño una ficha perimetral (no Líder), propia o enemiga.',
   'piece.monk': 'Monje Superior',
   'piece.dragon': 'Dragón Celestial',
@@ -33,16 +34,19 @@ const es = <String, String>{
   'piece.shadow.short': 'Sombra',
   'piece.monk.rules': 'Líder. Se desliza 1 casilla.',
   'piece.dragon.rules': 'Vuela en línea recta sobre fichas contiguas y aterriza en el primer hueco.',
-  'piece.wukong.rules': 'Avanza 1 casilla y puede subirse encima de fichas (las bloquea). En el suelo, puede copiar el movimiento de una ficha adyacente.',
+  'piece.wukong.rules':
+      'Avanza 1 casilla y puede subirse encima de fichas (las bloquea). En el suelo, puede copiar el movimiento de una ficha adyacente.',
   'piece.tiger.rules': 'Embiste 1–3 casillas en línea recta. Si queda frente a una ficha enemiga, la empuja 1 casilla.',
   'piece.crane.rules': 'Salta en línea recta sobre 1 o 2 fichas.',
   'piece.serpent.rules': 'Se desliza 1 o 2 casillas. Las fichas enemigas adyacentes pierden sus efectos especiales.',
   'piece.shogun.rules': 'Líder. Se desliza 1 casilla. Una vez por partida, intercambia lugar con un Shinobi adyacente.',
   'piece.shinobi.rules': 'Se desliza hasta 4 casillas por el perímetro, incluso por huecos estrechos.',
   'piece.kunoichi.rules': 'Se desliza hasta 2 casillas y paraliza a una ficha enemiga adyacente por 1 turno.',
-  'piece.tengu.rules': 'Se teletransporta a cualquier hueco que toque al menos 3 fichas, pero no puede cerrar así el cerco del Líder rival.',
+  'piece.tengu.rules':
+      'Se teletransporta a cualquier hueco que toque al menos 3 fichas, pero no puede cerrar así el cerco del Líder rival.',
   'piece.kitsune.rules': 'Se desliza 1 o 2 casillas.',
-  'piece.shadow.rules': 'Se desliza 1 casilla y puede dejar un Sello de Sombra adyacente: la ficha enemiga que caiga ahí queda paralizada.',
+  'piece.shadow.rules':
+      'Se desliza 1 casilla y puede dejar un Sello de Sombra adyacente: la ficha enemiga que caiga ahí queda paralizada.',
   'event.own': '(propia)',
   'event.rival': '(rival)',
   'event.placed': 'Colocó {piece}',
@@ -112,7 +116,8 @@ const es = <String, String>{
   'stage.cleared': '¡Superado!',
   'stage.notThisTime': 'Esta vez no',
   'tutorial.readyTitle': '¡Listo para jugar!',
-  'tutorial.readyBody': 'Ya sabés lo esencial. El resto lo vas a descubrir jugando: mantené apretada cualquier ficha para leer cómo se mueve.',
+  'tutorial.readyBody':
+      'Ya sabés lo esencial. El resto lo vas a descubrir jugando: mantené apretada cualquier ficha para leer cómo se mueve.',
   'tutorial.playSensei': 'Jugar vs Sensei',
   'tutorial.restartLesson': 'Reiniciar lección',
   'game.jadeRelocate': 'Reubicar ficha enemiga',
@@ -175,7 +180,8 @@ const es = <String, String>{
   'settings.pieceImages': 'Imágenes',
   'settings.pieceGlyphs': 'Caracteres',
   'rules.title': 'Reglas básicas',
-  'rules.body': '• Cada turno hacés una sola acción: colocar una ficha de tu mano (tocando solo fichas propias), mover una del tablero o usar la habilidad de tu facción. El turno pasa solo.\n• La habilidad tiene {charges} usos por partida, con {cooldown} turnos de recarga entre uno y otro.\n• Colmena única: ninguna acción puede dividir el tablero en dos grupos.\n• No podés mover fichas hasta colocar a tu Líder, y debés colocarlo antes de tu 4.º turno.\n• Las fichas no pueden deslizarse entre dos fichas (huecos estrechos), salvo el Shinobi.\n• Ganás si los 6 lados del Líder enemigo quedan ocupados. Si ambos quedan rodeados: empate.\n• Asedio: desde la ronda {siege} alcanza con ocupar 5 lados. Si nadie gana en {limit} rondas: empate.\n• Mantené presionada una ficha para ver qué hace.',
+  'rules.body':
+      '• Cada turno hacés una sola acción: colocar una ficha de tu mano (tocando solo fichas propias), mover una del tablero o usar la habilidad de tu facción. El turno pasa solo.\n• La habilidad tiene {charges} usos por partida, con {cooldown} turnos de recarga entre uno y otro.\n• Colmena única: ninguna acción puede dividir el tablero en dos grupos.\n• No podés mover fichas hasta colocar a tu Líder, y debés colocarlo antes de tu 4.º turno.\n• Las fichas no pueden deslizarse entre dos fichas (huecos estrechos), salvo el Shinobi.\n• Ganás si los 6 lados del Líder enemigo quedan ocupados. Si ambos quedan rodeados: empate.\n• Asedio: desde la ronda {siege} alcanza con ocupar 5 lados. Si nadie gana en {limit} rondas: empate.\n• Mantené presionada una ficha para ver qué hace.',
   'rank.novice': 'Novicio',
   'rank.disciple': 'Discípulo',
   'rank.warrior': 'Guerrero',
@@ -194,7 +200,8 @@ const es = <String, String>{
   'stage.p06.title': 'Meditación de Jade',
   'stage.p06.intro': 'Tu habilidad puede mover una ficha enemiga… a donde más le duele.',
   'stage.p07.title': 'El salto del Tengu',
-  'stage.p07.intro': 'El Tengu aparece en cualquier hueco que toque 3 fichas, pero el golpe final lo tiene que dar otra.',
+  'stage.p07.intro':
+      'El Tengu aparece en cualquier hueco que toque 3 fichas, pero el golpe final lo tiene que dar otra.',
   'stage.p08.title': 'Por la rendija',
   'stage.p08.intro': 'El Shinobi se cuela por huecos donde nadie más pasa.',
   'stage.p09.title': 'Asedio',
@@ -303,26 +310,33 @@ const es = <String, String>{
   'campaign.ninja.blurb': 'Infiltrate y robá el pergamino de Jade.',
   'lesson.retry': 'Casi. Probá de nuevo.',
   'lesson.l1.title': 'La colmena',
-  'lesson.l1.body': 'Hexiege no tiene tablero: las fichas que colocás forman la colmena, y crece hacia donde la lleven los jugadores.',
+  'lesson.l1.body':
+      'Hexiege no tiene tablero: las fichas que colocás forman la colmena, y crece hacia donde la lleven los jugadores.',
   'lesson.l1.goal': 'Elegí el Dragón de tu mano y colocalo en el centro.',
   'lesson.l2.title': 'Colocar fichas',
-  'lesson.l2.body': 'Las fichas nuevas solo pueden tocar fichas tuyas, nunca enemigas. Las casillas válidas se iluminan al elegir una ficha.',
+  'lesson.l2.body':
+      'Las fichas nuevas solo pueden tocar fichas tuyas, nunca enemigas. Las casillas válidas se iluminan al elegir una ficha.',
   'lesson.l2.goal': 'Colocá la Grulla junto a tus fichas.',
   'lesson.l3.title': 'Tu Líder',
-  'lesson.l3.body': 'El Monje Superior es tu Líder (borde dorado). Tiene que entrar antes de tu 4.º turno y, mientras no esté en juego, no podés mover fichas.',
+  'lesson.l3.body':
+      'El Monje Superior es tu Líder (borde dorado). Tiene que entrar antes de tu 4.º turno y, mientras no esté en juego, no podés mover fichas.',
   'lesson.l3.goal': 'Es tu 4.º turno: colocá al Monje.',
   'lesson.l4.title': 'Una sola colmena',
-  'lesson.l4.body': 'Tocá una ficha tuya para ver adónde puede ir. La colmena nunca se puede partir: las fichas que la sostienen quedan trabadas.',
+  'lesson.l4.body':
+      'Tocá una ficha tuya para ver adónde puede ir. La colmena nunca se puede partir: las fichas que la sostienen quedan trabadas.',
   'lesson.l4.goal': 'El Monje y el Tigre sostienen la fila. Mové la Serpiente.',
   'lesson.l5.title': 'Cada ficha es distinta',
-  'lesson.l5.body': 'Cada ficha se mueve a su manera. El Dragón vuela en línea recta por encima de la colmena. Mantené apretada cualquier ficha para leer cómo se mueve.',
+  'lesson.l5.body':
+      'Cada ficha se mueve a su manera. El Dragón vuela en línea recta por encima de la colmena. Mantené apretada cualquier ficha para leer cómo se mueve.',
   'lesson.l5.goal': 'Hacé volar al Dragón hasta el otro extremo.',
   'lesson.l6.title': 'Rodeá al Líder',
-  'lesson.l6.body': 'Ganás cuando el Líder enemigo queda rodeado por los 6 lados, con fichas de cualquier color. Al Shogun le falta una sola.',
+  'lesson.l6.body':
+      'Ganás cuando el Líder enemigo queda rodeado por los 6 lados, con fichas de cualquier color. Al Shogun le falta una sola.',
   'lesson.l6.goal': 'Cerrá el cerco con la Serpiente.',
   'lesson.l6.retry': 'Así no se cierra el cerco. Probá de nuevo.',
   'lesson.l7.title': 'Habilidad de facción',
-  'lesson.l7.body': 'En lugar de mover o colocar, podés usar la habilidad de tu facción: {charges} usos por partida, con {cooldown} turnos de recarga. Shaolin tiene la Meditación de Jade. Tu Monje tiene 5 vecinos: ¡está en peligro!',
+  'lesson.l7.body':
+      'En lugar de mover o colocar, podés usar la habilidad de tu facción: {charges} usos por partida, con {cooldown} turnos de recarga. Shaolin tiene la Meditación de Jade. Tu Monje tiene 5 vecinos: ¡está en peligro!',
   'lesson.l7.goal': 'Usá la habilidad para reubicar una ficha enemiga lejos del Monje.',
   'lesson.l7.retry': 'Tu Monje sigue en peligro. Probá de nuevo.',
   'ai.novice': 'Aprendiz',
@@ -344,7 +358,8 @@ const es = <String, String>{
   'onboarding.learn': 'Aprender a jugar · 2 min',
   'onboarding.know': 'Ya sé jugar',
   'onboarding.p1Title': 'Rodeá al Líder',
-  'onboarding.p1Body': 'Estrategia pura, sin azar ni tablero. Ganás cuando el Líder enemigo queda rodeado por los 6 lados.',
+  'onboarding.p1Body':
+      'Estrategia pura, sin azar ni tablero. Ganás cuando el Líder enemigo queda rodeado por los 6 lados.',
   'onboarding.shaolin': 'Controlan la colmena: reubican fichas enemigas.',
   'onboarding.ninja': 'Se escabullen y devuelven fichas a la mano.',
   'onboarding.p2Title': 'Dos escuelas',
@@ -415,15 +430,21 @@ const es = <String, String>{
   'codex.factionAbility': 'Habilidad de la facción',
   'codex.prev': 'Anterior',
   'codex.next': 'Siguiente',
-  'codex.tip.monk': 'Es la ficha que tenés que proteger: si queda rodeada por las seis caras, perdés. Entre dos fichas pegadas no pasa: a veces no tiene por dónde salir.',
+  'codex.tip.monk':
+      'Es la ficha que tenés que proteger: si queda rodeada por las seis caras, perdés. Entre dos fichas pegadas no pasa: a veces no tiene por dónde salir.',
   'codex.tip.dragon': 'Vuela sobre toda una fila de fichas, sin importar cuántas sean, y cae en el primer hueco libre.',
-  'codex.tip.wukong': 'Puede subirse encima de otra ficha y dejarla inmóvil. Acá, al lado del Dragón, también copia su vuelo.',
-  'codex.tip.tiger': 'Embiste en línea recta, hasta 3 casillas. Si termina mirando a una ficha enemiga, la empuja una casilla.',
+  'codex.tip.wukong':
+      'Puede subirse encima de otra ficha y dejarla inmóvil. Acá, al lado del Dragón, también copia su vuelo.',
+  'codex.tip.tiger':
+      'Embiste en línea recta, hasta 3 casillas. Si termina mirando a una ficha enemiga, la empuja una casilla.',
   'codex.tip.crane': 'Salta en línea recta sobre una o dos fichas seguidas, nunca sobre tres.',
-  'codex.tip.serpent': 'Mirá la Kunoichi enemiga a su lado: mientras la Serpiente esté pegada, pierde su efecto especial.',
-  'codex.tip.shogun': 'Es la ficha que tenés que proteger. Una vez por partida puede cambiar de lugar con un Shinobi pegado (marcado en dorado).',
+  'codex.tip.serpent':
+      'Mirá la Kunoichi enemiga a su lado: mientras la Serpiente esté pegada, pierde su efecto especial.',
+  'codex.tip.shogun':
+      'Es la ficha que tenés que proteger. Una vez por partida puede cambiar de lugar con un Shinobi pegado (marcado en dorado).',
   'codex.tip.shinobi': 'Se cuela por pasos estrechos donde nadie más entra: mirá el hueco encerrado al lado del Monje.',
-  'codex.tip.kunoichi': 'Después de moverse paraliza a una ficha enemiga pegada, que no podrá moverse en su turno siguiente (la del copo de nieve).',
+  'codex.tip.kunoichi':
+      'Después de moverse paraliza a una ficha enemiga pegada, que no podrá moverse en su turno siguiente (la del copo de nieve).',
   'codex.tip.tengu': 'No camina: aparece en cualquier hueco que toque al menos 3 fichas, esté donde esté.',
   'codex.tip.kitsune': 'Ágil y simple: se desliza una o dos casillas por el borde de la colmena.',
   'codex.tip.shadow': 'Al moverse puede dejar un Sello (el círculo): la ficha enemiga que entre ahí queda paralizada.',
@@ -457,7 +478,8 @@ const es = <String, String>{
   'avatar.fan': 'Kunoichi del abanico',
   'avatar.ronin': 'Rōnin',
   'local.faceToFace': 'Cara a cara',
-  'local.faceToFaceOn': 'Apoyen el dispositivo en la mesa, entre los dos: la parte de arriba mira al Jugador 2 y cada uno tiene su mano.',
+  'local.faceToFaceOn':
+      'Apoyen el dispositivo en la mesa, entre los dos: la parte de arriba mira al Jugador 2 y cada uno tiene su mano.',
   'local.faceToFaceOff': 'Se pasan el dispositivo en cada turno.',
   'game.yourTurn': 'Tu turno',
   'avatar.oni': 'Máscara oni',
@@ -488,4 +510,19 @@ const es = <String, String>{
   'local.player1': 'Jugador 1',
   'local.player2': 'Jugador 2',
   'local.mirror': 'Misma facción: las fichas del Jugador 2 llevan otra piedra.',
+  'faction.oni': 'Oni de Ceniza',
+  'ability.oni': 'Ceniza',
+  'ability.oni.desc': 'El Oni no tiene habilidad: su poder está en sus fichas.',
+  'piece.oni': 'Oni de Ceniza',
+  'piece.oni.short': 'Oni',
+  'piece.oni.rules':
+      'Líder. Se desliza hasta 2 casillas. En el Sello final solo cae si lo rodean fichas Shaolin y Ninja.',
+  'piece.gaki': 'Gaki',
+  'piece.gaki.short': 'Gaki',
+  'piece.gaki.rules':
+      'Salta a cualquier casilla del borde de la colmena, sin límite, y paraliza a una ficha enemiga adyacente.',
+  'piece.oniEye': 'Ojo del Oni',
+  'piece.oniEye.short': 'Ojo',
+  'piece.oniEye.rules':
+      'Se desliza 1 casilla. Anula los efectos de las fichas enemigas a 2 casillas o menos y es inmune a Jade y Kawarimi.',
 };

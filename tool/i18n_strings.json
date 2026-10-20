@@ -2433,5 +2433,65 @@
   "es": "Misma facción: las fichas del Jugador 2 llevan otra piedra.",
   "en": "Same faction: Player 2's pieces use a different stone.",
   "zh": "相同阵营：玩家 2 的棋子使用不同的石材。"
+ },
+ "faction.oni": {
+  "es": "Oni de Ceniza",
+  "en": "Ash Oni",
+  "zh": "灰烬鬼"
+ },
+ "ability.oni": {
+  "es": "Ceniza",
+  "en": "Ash",
+  "zh": "灰烬"
+ },
+ "ability.oni.desc": {
+  "es": "El Oni no tiene habilidad: su poder está en sus fichas.",
+  "en": "The Oni has no ability: its power lies in its pieces.",
+  "zh": "灰烬鬼没有技能：它的力量在于它的棋子。"
+ },
+ "piece.oni": {
+  "es": "Oni de Ceniza",
+  "en": "Ash Oni",
+  "zh": "灰烬鬼"
+ },
+ "piece.oni.short": {
+  "es": "Oni",
+  "en": "Oni",
+  "zh": "鬼"
+ },
+ "piece.oni.rules": {
+  "es": "Líder. Se desliza hasta 2 casillas. En el Sello final solo cae si lo rodean fichas Shaolin y Ninja.",
+  "en": "Leader. Slides up to 2 spaces. In the final Seal it only falls if surrounded by both Shaolin and Ninja pieces.",
+  "zh": "首领。滑行最多 2 格。在最终封印中，只有被少林与忍者棋子共同包围才会被封印。"
+ },
+ "piece.gaki": {
+  "es": "Gaki",
+  "en": "Gaki",
+  "zh": "饿鬼"
+ },
+ "piece.gaki.short": {
+  "es": "Gaki",
+  "en": "Gaki",
+  "zh": "饿鬼"
+ },
+ "piece.gaki.rules": {
+  "es": "Salta a cualquier casilla del borde de la colmena, sin límite, y paraliza a una ficha enemiga adyacente.",
+  "en": "Leaps to any space on the edge of the hive, with no limit, and paralyzes an adjacent enemy piece.",
+  "zh": "可移动到蜂巢边缘的任意空格（无距离限制），并使一枚相邻敌方棋子麻痹。"
+ },
+ "piece.oniEye": {
+  "es": "Ojo del Oni",
+  "en": "Oni's Eye",
+  "zh": "鬼眼"
+ },
+ "piece.oniEye.short": {
+  "es": "Ojo",
+  "en": "Eye",
+  "zh": "鬼眼"
+ },
+ "piece.oniEye.rules": {
+  "es": "Se desliza 1 casilla. Anula los efectos de las fichas enemigas a 2 casillas o menos y es inmune a Jade y Kawarimi.",
+  "en": "Slides 1 space. Cancels the effects of enemy pieces within 2 spaces and is immune to Jade and Kawarimi.",
+  "zh": "滑行 1 格。使 2 格内敌方棋子的效果失效，且不受翡翠冥想与替身术影响。"
  }
 }

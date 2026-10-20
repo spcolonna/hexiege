@@ -201,7 +201,7 @@ class AppSettings extends ChangeNotifier {
     _avatar = avatar != null && Avatars.byId(avatar) != null ? avatar : null;
     _frame = Cosmetics.frame(p.getString('frame'))?.id;
     _table = Cosmetics.table(p.getString('table'))?.id;
-    for (final f in Faction.values) {
+    for (final f in playableFactions) {
       final id = Cosmetics.stone(f, p.getString('stone_${f.name}'))?.id;
       if (id != null) _stones[f] = id;
     }

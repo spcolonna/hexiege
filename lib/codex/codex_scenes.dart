@@ -76,6 +76,9 @@ class CodexScene {
   static (Hex, List<(int, PieceType, Hex)>, void Function(GameState)?) _layout(PieceType type) {
     const s = Hex(-1, 0);
     switch (type) {
+      // Las fichas del Oni no están en el códice; escena mínima por completitud.
+      case PieceType.oni || PieceType.gaki || PieceType.oniEye:
+        return (const Hex(0, 0), [(0, type, const Hex(0, 0)), (1, PieceType.shogun, const Hex(1, 0))], null);
       case PieceType.monk:
         return (
           const Hex(0, 0),

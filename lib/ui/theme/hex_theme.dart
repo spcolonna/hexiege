@@ -210,6 +210,9 @@ class HexTheme extends ThemeExtension<HexTheme> {
     (Faction.shaolin, Brightness.dark) => shaolinDark,
     (Faction.ninja, Brightness.light) => ninjaLight,
     (Faction.ninja, Brightness.dark) => ninjaDark,
+    // El Oni no tiene mesa propia: se juega sobre la del rival.
+    (Faction.oni, Brightness.light) => ninjaLight,
+    (Faction.oni, Brightness.dark) => ninjaDark,
   };
 
   static HexTheme of(BuildContext context) => Theme.of(context).extension<HexTheme>()!;
@@ -220,7 +223,16 @@ class HexTheme extends ThemeExtension<HexTheme> {
   static Color faction(Faction f) => switch (f) {
     Faction.shaolin => const Color(0xFF2F9E6E),
     Faction.ninja => const Color(0xFFC0404F),
+    Faction.oni => const Color(0xFFE0702A),
   };
+
+  /// Piedra de ceniza de las fichas del Oni (tono 2), igual en todas las mesas.
+  static const _ashStone = [Color(0xFF6E6560), Color(0xFF2B2522)];
+
+  /// Material del tono [tone]: 0 = piedra clara, 1 = oscura, 2 = ceniza.
+  List<Color> stoneOf(int tone) => tone == 2 ? _ashStone : stone[tone];
+  Color stoneSideOf(int tone) => tone == 2 ? const Color(0xFF17110F) : stoneSide[tone];
+  Color glyphOf(int tone) => tone == 2 ? const Color(0xFFFFB070) : glyph[tone];
 
   @override
   HexTheme copyWith() => this;

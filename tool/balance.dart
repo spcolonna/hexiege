@@ -51,7 +51,7 @@ Rules parseRules(List<String> flags) {
 }
 
 class Stats {
-  final wins = {for (final f in Faction.values) f.name: 0};
+  final wins = {for (final f in playableFactions) f.name: 0};
   var draws = 0,
       timeouts = 0,
       firstPlayerWins = 0,
@@ -167,7 +167,10 @@ List<(int, String)> _record(Stats st, GameState g, AiAction a) {
   final fx = <(int, String)>[];
   String leader(Hex h) => g.board.top(h)!.type.isLeader ? ' al Líder' : '';
   final sealsBefore = Map.of(g.seals);
-  final enemyBefore = {for (final e in g.board.tops) if (e.value.owner == opp) e.key};
+  final enemyBefore = {
+    for (final e in g.board.tops)
+      if (e.value.owner == opp) e.key,
+  };
   final pressureBefore = g.leaderPressure(me);
   switch (a) {
     case KawarimiAction(:final at):
@@ -196,7 +199,10 @@ List<(int, String)> _record(Stats st, GameState g, AiAction a) {
     if (!g.seals.containsKey(e.key) && e.value != me) fx.add((e.value, 'sello activado${leader(e.key)}'));
   }
   if (a is MoveAction && g.board.top(a.to)?.type == PieceType.tiger) {
-    final enemyAfter = {for (final e in g.board.tops) if (e.value.owner == opp) e.key};
+    final enemyAfter = {
+      for (final e in g.board.tops)
+        if (e.value.owner == opp) e.key,
+    };
     if (enemyAfter.difference(enemyBefore).isNotEmpty) fx.add((me, 'empuje Tigre'));
   }
   return fx;
@@ -235,7 +241,7 @@ Future<void> main(List<String> allArgs) async {
   String pct(int n, [int? of]) => '${(100 * n / (of ?? total)).toStringAsFixed(0)}%';
   print('Nivel ${level.name}${abilities ? '' : ' (sin habilidades)'}, $total partidas (${sw.elapsed.inSeconds}s)');
   print('  Reglas: $rules');
-  for (final f in Faction.values) {
+  for (final f in playableFactions) {
     print('  ${f.displayName.padRight(16)} ${st.wins[f.name]} victorias (${pct(st.wins[f.name]!)})');
   }
   print(

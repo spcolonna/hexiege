@@ -332,16 +332,14 @@ List<AiAction> mainActions(GameState g) {
 
 List<AiAction> abilityActions(GameState g) {
   if (!g.abilityAvailable) return const [];
-  return switch (g.currentFaction) {
-    Faction.ninja => [for (final h in g.kawarimiTargets()) KawarimiAction(h)],
-    Faction.shaolin => [
-      for (final s in g.jadeRelocateSources())
-        for (final d in g.jadeRelocateTargets(s)) JadeRelocateAction(s, d),
-      for (final a in g.jadeSwapSources())
-        for (final b in g.jadeSwapTargets(a))
-          if (a.q < b.q || (a.q == b.q && a.r < b.r)) JadeSwapAction(a, b),
-    ],
-  };
+  return [
+    for (final h in g.kawarimiTargets()) KawarimiAction(h),
+    for (final s in g.jadeRelocateSources())
+      for (final d in g.jadeRelocateTargets(s)) JadeRelocateAction(s, d),
+    for (final a in g.jadeSwapSources())
+      for (final b in g.jadeSwapTargets(a))
+        if (a.q < b.q || (a.q == b.q && a.r < b.r)) JadeSwapAction(a, b),
+  ];
 }
 
 /// Evaluación estática desde la perspectiva de [me]. Positivo = bueno para [me].
@@ -350,7 +348,7 @@ double evaluate(GameState g, int me) {
   if (g.winner != null) return g.winner == me ? _win : -_win;
   final opp = 1 - me;
   var s = _leaderDanger(g, opp) - _leaderDanger(g, me);
-  final leaders = [g.board.locateLeader(0), g.board.locateLeader(1)];
+  final leaders = [g.board.locateLeaders(0), g.board.locateLeaders(1)];
   for (final e in g.board.tops) {
     final p = e.value;
     final sign = p.owner == me ? 1.0 : -1.0;
@@ -361,9 +359,9 @@ double evaluate(GameState g, int me) {
       s += 3 * sign; // movilidad aproximada
     }
     // Presión: acercar fichas propias al Líder rival.
-    final target = leaders[1 - p.owner];
-    if (target != null && !p.type.isLeader) {
-      final dist = e.key.distanceTo(target);
+    final targets = leaders[1 - p.owner];
+    if (targets.isNotEmpty && !p.type.isLeader) {
+      final dist = targets.map(e.key.distanceTo).reduce(min);
       s -= 0.6 * sign * dist;
       if (dist == 1) s += 6 * sign;
     }
@@ -376,14 +374,18 @@ double evaluate(GameState g, int me) {
 
 const _surroundValue = <double>[0, 4, 12, 30, 70, 160, 0];
 
-/// Cuán comprometido está el Líder de [p].
+/// Cuán comprometidos están los Líderes de [p] (suma, por si tiene dos).
 double _leaderDanger(GameState g, int p) {
-  final h = g.board.locateLeader(p);
-  if (h == null) return 0;
-  // En el Asedio cada vecino vale como uno más (5 lados ya capturan).
-  final n = min(g.board.occupiedNeighbors(h) + (g.inSiege ? 1 : 0), 6);
-  var d = _surroundValue[n];
-  if (g.board.height(h) > 1) d += 20; // tiene un Rey Mono encima
-  if (n >= 3 && !g.board.canLift(h)) d += 10; // inmovilizado
+  var d = 0.0;
+  for (final h in g.board.locateLeaders(p)) {
+    // En el Asedio cada vecino vale como uno más (5 lados ya capturan).
+    var n = min(g.board.occupiedNeighbors(h) + (g.inSiege ? 1 : 0), 6);
+    // Sello mixto: sin las dos facciones alrededor, el cerco no cierra.
+    final oni = g.board.stackAt(h).any((x) => x.owner == p && x.type == PieceType.oni);
+    if (g.rules.mixedSeal && oni && !GameState.hasMixedSurround(g.board, p, h)) n = min(n, 4);
+    d += _surroundValue[n];
+    if (g.board.height(h) > 1) d += 20; // tiene un Rey Mono encima
+    if (n >= 3 && !g.board.canLift(h)) d += 10; // inmovilizado
+  }
   return d;
 }

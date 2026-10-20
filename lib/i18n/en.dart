@@ -5,7 +5,8 @@ const en = <String, String>{
   'faction.ninja': 'Ninja Shadows',
   'ability.shaolin': 'Jade Meditation',
   'ability.ninja': 'Kawarimi',
-  'ability.shaolin.desc': 'Move an enemy piece on the edge (not the Leader) somewhere else, or swap two adjacent allied pieces.',
+  'ability.shaolin.desc':
+      'Move an enemy piece on the edge (not the Leader) somewhere else, or swap two adjacent allied pieces.',
   'ability.ninja.desc': 'Return a piece on the edge (not a Leader), yours or the enemy\'s, to its owner\'s hand.',
   'piece.monk': 'Grand Abbot',
   'piece.dragon': 'Celestial Dragon',
@@ -33,16 +34,19 @@ const en = <String, String>{
   'piece.shadow.short': 'Shadow',
   'piece.monk.rules': 'Leader. Slides 1 space.',
   'piece.dragon.rules': 'Flies in a straight line over adjacent pieces and lands on the first empty space.',
-  'piece.wukong.rules': 'Moves 1 space and can climb on top of pieces (pinning them). On the ground, it can copy the movement of an adjacent piece.',
+  'piece.wukong.rules':
+      'Moves 1 space and can climb on top of pieces (pinning them). On the ground, it can copy the movement of an adjacent piece.',
   'piece.tiger.rules': 'Charges 1–3 spaces in a straight line. If it ends facing an enemy piece, it pushes it 1 space.',
   'piece.crane.rules': 'Jumps in a straight line over 1 or 2 pieces.',
   'piece.serpent.rules': 'Slides 1 or 2 spaces. Adjacent enemy pieces lose their special effects.',
   'piece.shogun.rules': 'Leader. Slides 1 space. Once per game, it can swap places with an adjacent Shinobi.',
   'piece.shinobi.rules': 'Slides up to 4 spaces around the edge, even through narrow gaps.',
   'piece.kunoichi.rules': 'Slides up to 2 spaces and paralyzes an adjacent enemy piece for 1 turn.',
-  'piece.tengu.rules': 'Teleports to any empty space touching at least 3 pieces, but can\'t complete the enemy Leader\'s encirclement that way.',
+  'piece.tengu.rules':
+      'Teleports to any empty space touching at least 3 pieces, but can\'t complete the enemy Leader\'s encirclement that way.',
   'piece.kitsune.rules': 'Slides 1 or 2 spaces.',
-  'piece.shadow.rules': 'Slides 1 space and can leave an adjacent Shadow Seal: an enemy piece that lands there is paralyzed.',
+  'piece.shadow.rules':
+      'Slides 1 space and can leave an adjacent Shadow Seal: an enemy piece that lands there is paralyzed.',
   'event.own': '(own)',
   'event.rival': '(enemy)',
   'event.placed': 'Placed {piece}',
@@ -112,7 +116,8 @@ const en = <String, String>{
   'stage.cleared': 'Cleared!',
   'stage.notThisTime': 'Not this time',
   'tutorial.readyTitle': 'Ready to play!',
-  'tutorial.readyBody': 'You know the essentials. You\'ll discover the rest by playing: long-press any piece to read how it moves.',
+  'tutorial.readyBody':
+      'You know the essentials. You\'ll discover the rest by playing: long-press any piece to read how it moves.',
   'tutorial.playSensei': 'Play vs Sensei',
   'tutorial.restartLesson': 'Restart lesson',
   'game.jadeRelocate': 'Move an enemy piece',
@@ -175,7 +180,8 @@ const en = <String, String>{
   'settings.pieceImages': 'Images',
   'settings.pieceGlyphs': 'Characters',
   'rules.title': 'Basic rules',
-  'rules.body': '• Each turn you take exactly one action: place a piece from your hand (touching only your own pieces), move one on the board, or use your faction\'s ability. The turn then passes automatically.\n• The ability has {charges} uses per game, with a {cooldown}-turn cooldown between uses.\n• One hive: no action may split the board into two groups.\n• You can\'t move pieces until your Leader is placed, and you must place it by your 4th turn.\n• Pieces can\'t slide between two pieces (narrow gaps), except the Shinobi.\n• You win when all 6 sides of the enemy Leader are occupied. If both Leaders are surrounded: draw.\n• Siege: from round {siege}, 5 occupied sides are enough. If nobody wins in {limit} rounds: draw.\n• Long-press a piece to see what it does.',
+  'rules.body':
+      '• Each turn you take exactly one action: place a piece from your hand (touching only your own pieces), move one on the board, or use your faction\'s ability. The turn then passes automatically.\n• The ability has {charges} uses per game, with a {cooldown}-turn cooldown between uses.\n• One hive: no action may split the board into two groups.\n• You can\'t move pieces until your Leader is placed, and you must place it by your 4th turn.\n• Pieces can\'t slide between two pieces (narrow gaps), except the Shinobi.\n• You win when all 6 sides of the enemy Leader are occupied. If both Leaders are surrounded: draw.\n• Siege: from round {siege}, 5 occupied sides are enough. If nobody wins in {limit} rounds: draw.\n• Long-press a piece to see what it does.',
   'rank.novice': 'Novice',
   'rank.disciple': 'Disciple',
   'rank.warrior': 'Warrior',
@@ -303,26 +309,33 @@ const en = <String, String>{
   'campaign.ninja.blurb': 'Infiltrate and steal the Jade scroll.',
   'lesson.retry': 'Almost. Try again.',
   'lesson.l1.title': 'The hive',
-  'lesson.l1.body': 'Hexiege has no board: the pieces you place form the hive, and it grows wherever the players take it.',
+  'lesson.l1.body':
+      'Hexiege has no board: the pieces you place form the hive, and it grows wherever the players take it.',
   'lesson.l1.goal': 'Pick the Dragon from your hand and place it in the center.',
   'lesson.l2.title': 'Placing pieces',
-  'lesson.l2.body': 'New pieces may only touch your own pieces, never enemy ones. Valid spaces light up when you pick a piece.',
+  'lesson.l2.body':
+      'New pieces may only touch your own pieces, never enemy ones. Valid spaces light up when you pick a piece.',
   'lesson.l2.goal': 'Place the Crane next to your pieces.',
   'lesson.l3.title': 'Your Leader',
-  'lesson.l3.body': 'The Grand Abbot is your Leader (gold border). It must enter play by your 4th turn, and until it does you can\'t move pieces.',
+  'lesson.l3.body':
+      'The Grand Abbot is your Leader (gold border). It must enter play by your 4th turn, and until it does you can\'t move pieces.',
   'lesson.l3.goal': 'It\'s your 4th turn: place the Abbot.',
   'lesson.l4.title': 'One hive',
-  'lesson.l4.body': 'Tap one of your pieces to see where it can go. The hive can never be split: the pieces holding it together are locked.',
+  'lesson.l4.body':
+      'Tap one of your pieces to see where it can go. The hive can never be split: the pieces holding it together are locked.',
   'lesson.l4.goal': 'The Abbot and the Tiger hold the row together. Move the Serpent.',
   'lesson.l5.title': 'Every piece is different',
-  'lesson.l5.body': 'Each piece moves its own way. The Dragon flies in a straight line over the hive. Long-press any piece to read how it moves.',
+  'lesson.l5.body':
+      'Each piece moves its own way. The Dragon flies in a straight line over the hive. Long-press any piece to read how it moves.',
   'lesson.l5.goal': 'Fly the Dragon to the other end.',
   'lesson.l6.title': 'Surround the Leader',
-  'lesson.l6.body': 'You win when the enemy Leader is surrounded on all 6 sides, by pieces of any color. The Shogun is missing just one.',
+  'lesson.l6.body':
+      'You win when the enemy Leader is surrounded on all 6 sides, by pieces of any color. The Shogun is missing just one.',
   'lesson.l6.goal': 'Close the encirclement with the Serpent.',
   'lesson.l6.retry': 'That doesn\'t close the encirclement. Try again.',
   'lesson.l7.title': 'Faction ability',
-  'lesson.l7.body': 'Instead of moving or placing, you can use your faction\'s ability: {charges} uses per game, with a {cooldown}-turn cooldown. Shaolin has Jade Meditation. Your Abbot has 5 neighbors: it\'s in danger!',
+  'lesson.l7.body':
+      'Instead of moving or placing, you can use your faction\'s ability: {charges} uses per game, with a {cooldown}-turn cooldown. Shaolin has Jade Meditation. Your Abbot has 5 neighbors: it\'s in danger!',
   'lesson.l7.goal': 'Use the ability to move an enemy piece away from your Abbot.',
   'lesson.l7.retry': 'Your Abbot is still in danger. Try again.',
   'ai.novice': 'Apprentice',
@@ -344,7 +357,8 @@ const en = <String, String>{
   'onboarding.learn': 'Learn to play · 2 min',
   'onboarding.know': 'I know how to play',
   'onboarding.p1Title': 'Surround the Leader',
-  'onboarding.p1Body': 'Pure strategy, no luck and no board. You win when the enemy Leader is surrounded on all 6 sides.',
+  'onboarding.p1Body':
+      'Pure strategy, no luck and no board. You win when the enemy Leader is surrounded on all 6 sides.',
   'onboarding.shaolin': 'They control the hive: they relocate enemy pieces.',
   'onboarding.ninja': 'They slip away and return pieces to hand.',
   'onboarding.p2Title': 'Two schools',
@@ -415,15 +429,22 @@ const en = <String, String>{
   'codex.factionAbility': 'Faction ability',
   'codex.prev': 'Previous',
   'codex.next': 'Next',
-  'codex.tip.monk': 'This is the piece you must protect: if it gets surrounded on all six sides, you lose. It can\'t squeeze between two touching pieces, so sometimes it has nowhere to go.',
-  'codex.tip.dragon': 'It flies over a whole row of pieces, however many there are, and lands in the first empty space.',
-  'codex.tip.wukong': 'It can climb on top of another piece and pin it. Here, next to the Dragon, it also copies its flight.',
-  'codex.tip.tiger': 'It charges in a straight line, up to 3 spaces. If it ends facing an enemy piece, it pushes it one space.',
+  'codex.tip.monk':
+      'This is the piece you must protect: if it gets surrounded on all six sides, you lose. It can\'t squeeze between two touching pieces, so sometimes it has nowhere to go.',
+  'codex.tip.dragon':
+      'It flies over a whole row of pieces, however many there are, and lands in the first empty space.',
+  'codex.tip.wukong':
+      'It can climb on top of another piece and pin it. Here, next to the Dragon, it also copies its flight.',
+  'codex.tip.tiger':
+      'It charges in a straight line, up to 3 spaces. If it ends facing an enemy piece, it pushes it one space.',
   'codex.tip.crane': 'It jumps in a straight line over one or two pieces in a row, never three.',
-  'codex.tip.serpent': 'Look at the enemy Kunoichi next to it: while the Serpent is adjacent, it loses its special effect.',
-  'codex.tip.shogun': 'This is the piece you must protect. Once per game it can swap places with an adjacent Shinobi (marked in gold).',
+  'codex.tip.serpent':
+      'Look at the enemy Kunoichi next to it: while the Serpent is adjacent, it loses its special effect.',
+  'codex.tip.shogun':
+      'This is the piece you must protect. Once per game it can swap places with an adjacent Shinobi (marked in gold).',
   'codex.tip.shinobi': 'It slips through narrow gaps no one else can enter: look at the enclosed gap next to the Monk.',
-  'codex.tip.kunoichi': 'After moving, it paralyzes an adjacent enemy piece, which can\'t move on its next turn (the one with the snowflake).',
+  'codex.tip.kunoichi':
+      'After moving, it paralyzes an adjacent enemy piece, which can\'t move on its next turn (the one with the snowflake).',
   'codex.tip.tengu': 'It doesn\'t walk: it appears in any gap touching at least 3 pieces, wherever it is.',
   'codex.tip.kitsune': 'Nimble and simple: it slides one or two spaces along the edge of the hive.',
   'codex.tip.shadow': 'When it moves it can leave a Seal (the circle): an enemy piece that steps there gets paralyzed.',
@@ -457,7 +478,8 @@ const en = <String, String>{
   'avatar.fan': 'Fan Kunoichi',
   'avatar.ronin': 'Rōnin',
   'local.faceToFace': 'Face to face',
-  'local.faceToFaceOn': 'Lay the device flat between you: the top half faces Player 2 and each of you has your own hand.',
+  'local.faceToFaceOn':
+      'Lay the device flat between you: the top half faces Player 2 and each of you has your own hand.',
   'local.faceToFaceOff': 'Pass the device back and forth each turn.',
   'game.yourTurn': 'Your turn',
   'avatar.oni': 'Oni Mask',
@@ -488,4 +510,19 @@ const en = <String, String>{
   'local.player1': 'Player 1',
   'local.player2': 'Player 2',
   'local.mirror': 'Same faction: Player 2\'s pieces use a different stone.',
+  'faction.oni': 'Ash Oni',
+  'ability.oni': 'Ash',
+  'ability.oni.desc': 'The Oni has no ability: its power lies in its pieces.',
+  'piece.oni': 'Ash Oni',
+  'piece.oni.short': 'Oni',
+  'piece.oni.rules':
+      'Leader. Slides up to 2 spaces. In the final Seal it only falls if surrounded by both Shaolin and Ninja pieces.',
+  'piece.gaki': 'Gaki',
+  'piece.gaki.short': 'Gaki',
+  'piece.gaki.rules':
+      'Leaps to any space on the edge of the hive, with no limit, and paralyzes an adjacent enemy piece.',
+  'piece.oniEye': 'Oni\'s Eye',
+  'piece.oniEye.short': 'Eye',
+  'piece.oniEye.rules':
+      'Slides 1 space. Cancels the effects of enemy pieces within 2 spaces and is immune to Jade and Kawarimi.',
 };

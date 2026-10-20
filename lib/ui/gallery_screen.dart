@@ -45,7 +45,7 @@ class GalleryScreen extends StatelessWidget {
                   child: ListView(
                     padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
                     children: [
-                      for (final f in Faction.values) ...[
+                      for (final f in playableFactions) ...[
                         _FactionLabel(f),
                         LayoutBuilder(
                           builder: (context, c) {
@@ -828,7 +828,7 @@ class _BackPainter extends CustomPainter {
   }
 
   /// Una ficha cualquiera que no sea líder (para que no lleve el anillo dorado).
-  static PieceType _plain(Faction f) => PieceType.values.firstWhere((t) => t.faction == f && !t.isLeader);
+  static PieceType _plain(Faction f) => playablePieces.firstWhere((t) => t.faction == f && !t.isLeader);
 
   @override
   bool shouldRepaint(covariant _BackPainter o) => o.emblem != emblem || o.theme != theme;

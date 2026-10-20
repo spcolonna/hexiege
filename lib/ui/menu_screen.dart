@@ -205,7 +205,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               const SizedBox(height: 10),
               const _TablePicker(),
               SkinLabel(tr('settings.stones')),
-              for (final f in Faction.values) _StonePicker(f),
+              for (final f in playableFactions) _StonePicker(f),
               SkinLabel(tr('settings.theme')),
               SkinChoice<ThemeMode>(
                 options: [
@@ -276,7 +276,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               label: tr('codex.open'),
               onPressed: () => Navigator.push(ctx, MaterialPageRoute(builder: (_) => const CodexScreen())),
             ),
-            for (final f in Faction.values) ...[
+            for (final f in playableFactions) ...[
               const SizedBox(height: 22),
               Text(f.displayName, style: skin.display(24, color: HexTheme.faction(f))),
               const SizedBox(height: 2),
@@ -658,7 +658,7 @@ class _LocalSetup extends StatefulWidget {
 }
 
 class _LocalSetupState extends State<_LocalSetup> {
-  late final _picks = [widget.first, Faction.values.firstWhere((f) => f != widget.first)];
+  late final _picks = [widget.first, playableFactions.firstWhere((f) => f != widget.first)];
 
   @override
   Widget build(BuildContext context) {
@@ -672,7 +672,7 @@ class _LocalSetupState extends State<_LocalSetup> {
           SkinLabel(tr(seat == 0 ? 'local.player1' : 'local.player2')),
           Row(
             children: [
-              for (final f in Faction.values) ...[
+              for (final f in playableFactions) ...[
                 Expanded(
                   child: _FactionPick(
                     faction: f,
@@ -682,7 +682,7 @@ class _LocalSetupState extends State<_LocalSetup> {
                     onTap: () => setState(() => _picks[seat] = f),
                   ),
                 ),
-                if (f != Faction.values.last) const SizedBox(width: 10),
+                if (f != playableFactions.last) const SizedBox(width: 10),
               ],
             ],
           ),

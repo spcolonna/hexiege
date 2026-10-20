@@ -1,6 +1,11 @@
 import '../i18n/i18n.dart';
 
-enum Faction { shaolin, ninja }
+/// [oni] es la facción del final de la historia: no se elige ni aparece en el
+/// códice; solo la controla la IA.
+enum Faction { shaolin, ninja, oni }
+
+/// Facciones que puede elegir un jugador.
+const playableFactions = [Faction.shaolin, Faction.ninja];
 
 extension FactionInfo on Faction {
   String get displayName => tr('faction.$name');
@@ -23,11 +28,22 @@ enum PieceType {
   tengu,
   kitsune,
   shadow,
+  // Oni (final de la historia)
+  oni,
+  gaki,
+  oniEye,
 }
 
+/// Fichas de las facciones jugables (sin las del Oni).
+final playablePieces = PieceType.values.where((t) => t.faction != Faction.oni).toList();
+
 extension PieceTypeInfo on PieceType {
-  Faction get faction => index <= PieceType.serpent.index ? Faction.shaolin : Faction.ninja;
-  bool get isLeader => this == PieceType.monk || this == PieceType.shogun;
+  Faction get faction => index <= PieceType.serpent.index
+      ? Faction.shaolin
+      : index <= PieceType.shadow.index
+      ? Faction.ninja
+      : Faction.oni;
+  bool get isLeader => this == PieceType.monk || this == PieceType.shogun || this == PieceType.oni;
 
   String get displayName => tr('piece.$name');
 
@@ -47,6 +63,9 @@ extension PieceTypeInfo on PieceType {
     PieceType.tengu => '天',
     PieceType.kitsune => '狐',
     PieceType.shadow => '影',
+    PieceType.oni => '鬼',
+    PieceType.gaki => '饿',
+    PieceType.oniEye => '眼',
   };
 
   String get rulesText => tr('piece.$name.rules');
@@ -69,6 +88,17 @@ const Map<Faction, Map<PieceType, int>> startingHands = {
     PieceType.tengu: 2,
     PieceType.kitsune: 2,
     PieceType.shadow: 1,
+  },
+  // El Oni: sus fichas propias y fichas comunes corrompidas por la ceniza.
+  Faction.oni: {
+    PieceType.oni: 1,
+    PieceType.gaki: 2,
+    PieceType.oniEye: 1,
+    PieceType.dragon: 1,
+    PieceType.tiger: 1,
+    PieceType.shinobi: 2,
+    PieceType.kunoichi: 1,
+    PieceType.tengu: 1,
   },
 };
 

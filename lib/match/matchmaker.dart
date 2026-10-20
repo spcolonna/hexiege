@@ -100,7 +100,7 @@ class BotMatchmaker implements Matchmaker {
     final bandMin = max(band.minRating, LadderRecord.minRating);
     final rating = (record.rating + _rng.nextInt(81) - 40).clamp(bandMin, bandMax);
 
-    final faction = Faction.values[_rng.nextInt(Faction.values.length)];
+    final faction = playableFactions[_rng.nextInt(playableFactions.length)];
     final avatars = Avatars.of(faction);
     return MatchFound(
       opponent: Opponent(

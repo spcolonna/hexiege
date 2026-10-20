@@ -860,7 +860,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void _startAbility() {
     if (!_game.abilityAvailable) return;
     Haptics.select();
-    if (_game.currentFaction == Faction.ninja) {
+    if (!_game.hasAbility(Faction.shaolin)) {
       setState(() {
         _reset();
         _mode = _Mode.kawarimi;
@@ -871,6 +871,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         _tutorial ? sources.where((h) => _lessonAllows(mode, h)).length : sources.length;
     final relocate = options(_game.jadeRelocateSources(), _Mode.jadeRelocate);
     final swap = options(_game.jadeSwapSources(), _Mode.jadeSwap);
+    // Final de la historia: también el Kawarimi, con la misma recarga.
+    final dual = _game.hasAbility(Faction.ninja);
+    final swapOut = dual ? options(_game.kawarimiTargets(), _Mode.kawarimi) : 0;
     void pick(BuildContext ctx, _Mode mode) {
       Navigator.pop(ctx);
       setState(() {
@@ -882,7 +885,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     showSkinSheet<void>(
       context,
       flipped: _flipFor(_game.current),
-      title: Faction.shaolin.abilityName,
+      title: dual ? '${Faction.shaolin.abilityName} · ${Faction.ninja.abilityName}' : Faction.shaolin.abilityName,
       builder: (ctx) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -899,6 +902,15 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             text: trN('common.options', swap),
             onTap: swap == 0 ? null : () => pick(ctx, _Mode.jadeSwap),
           ),
+          if (dual) ...[
+            const SizedBox(height: 10),
+            SkinTile(
+              glyph: '替',
+              title: Faction.ninja.abilityName,
+              text: trN('common.options', swapOut),
+              onTap: swapOut == 0 ? null : () => pick(ctx, _Mode.kawarimi),
+            ),
+          ],
         ],
       ),
     );
@@ -918,7 +930,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           for (final p in stack.reversed) ...[
             Row(
               children: [
-                PieceChip(type: p.type, owner: p.owner, size: 22, mirror: _game.factions[0] == _game.factions[1]),
+                PieceChip(
+                  type: p.type,
+                  owner: p.owner,
+                  size: 22,
+                  mirror: _game.factions[0] == _game.factions[1],
+                  ash: _game.factions[p.owner] == Faction.oni,
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
@@ -1871,9 +1889,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     // En la lección de la habilidad el sello late para mostrar dónde tocar.
     final beckon = ready && _tutorial && _coach == CoachState.doing && !_inAbility;
     final cancel = _inAbility;
+    final name = g.rules.dualAbility.contains(me)
+        ? '${Faction.shaolin.abilityName} · ${Faction.ninja.abilityName}'
+        : faction.abilityName;
     final label = charges == 0
-        ? tr('game.abilitySpent', {'ability': faction.abilityName})
-        : [faction.abilityName, if (cd > 0) '($cd)', if (charges != null) '×$charges'].join(' ');
+        ? tr('game.abilitySpent', {'ability': name})
+        : [name, if (cd > 0) '($cd)', if (charges != null) '×$charges'].join(' ');
     return Tooltip(
       message: cancel ? tr('common.cancel') : label,
       child: Pressable(
@@ -2018,6 +2039,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                     size: cell * 0.46,
                     lift: lift,
                     mirror: _game.factions[0] == _game.factions[1],
+                    ash: _game.factions[owner] == Faction.oni,
                   ),
                 ),
                 if (count > 1)

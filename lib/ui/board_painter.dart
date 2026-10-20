@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../engine/game_state.dart';
 import '../engine/hex.dart';
+import '../engine/pieces.dart';
 import 'fx/board_fx.dart';
 import 'fx/piece_renderer.dart';
 import 'hex_layout.dart';
@@ -187,6 +188,7 @@ class BoardPainter extends CustomPainter {
           seed: p.id,
           mirror: game.factions[0] == game.factions[1],
           flip: p.owner == flipOwner,
+          ash: game.factions[p.owner] == Faction.oni,
         );
       }
       if (stack.length > 1 && !hidden.contains(stack.last.id)) {
@@ -292,6 +294,7 @@ class BoardPainter extends CustomPainter {
         mirror: game.factions[0] == game.factions[1],
         seed: fl.piece.id,
         flip: fl.piece.owner == flipOwner,
+        ash: game.factions[fl.piece.owner] == Faction.oni,
       );
     }
   }

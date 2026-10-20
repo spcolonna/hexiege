@@ -19,7 +19,7 @@ void main() {
   });
 
   test('cada ficha se gana con exactamente un regalo', () {
-    expect(Gift.all.map((g) => g.type).toSet(), PieceType.values.toSet());
-    expect(Gift.all.length, PieceType.values.length);
+    expect(Gift.all.map((g) => g.type).toSet(), playablePieces.toSet());
+    expect(Gift.all.length, playablePieces.length);
   });
 }
