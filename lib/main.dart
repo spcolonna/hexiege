@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'i18n/i18n.dart';
 
 import 'store/purchases.dart';
+import 'story/story_screen.dart';
 import 'ui/brand_intro.dart';
 import 'ui/game_intro.dart';
 import 'ui/fx/piece_art.dart';
@@ -21,6 +22,7 @@ Future<void> main() async {
   await AppSettings.instance.load();
   SoundBoard.instance.init(); // en segundo plano: no frena el arranque
   Purchases.instance.init(); // compras pendientes y precio de la tienda
+  StoryArt.load(); // qué arte de las viñetas ya está en el paquete
   await PieceArt.load();
   runApp(HexiegeApp(onboarding: !AppSettings.instance.onboarded));
 }

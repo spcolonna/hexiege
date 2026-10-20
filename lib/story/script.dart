@@ -2,6 +2,7 @@ import '../engine/pieces.dart';
 import '../i18n/i18n.dart';
 
 part 'script.g.dart';
+part 'staging.dart';
 
 /// Quién habla en una viñeta.
 enum Who {
@@ -85,6 +86,18 @@ class Scene {
   bool get isPost => id.endsWith('.post');
 
   String text(int i) => tr('story.$id.$i');
+
+  /// Escenario donde se dice el mensaje [i].
+  Place placeAt(int i) => _placeAt(id, i);
+
+  /// Escenario fijado por el momento que abre el mensaje [i] (null si no abre uno).
+  static Place? momentPlace(String sceneId, int i) => _momentPlaces['$sceneId.$i'];
+
+  /// Ilustración clave de la escena: (antes de qué mensaje, nombre del arte).
+  (int, String)? get splash => _splashes[id];
+
+  /// Retrato de cuerpo para los paneles (puede no existir todavía).
+  static String figureAsset(Who w) => 'assets/story/char_${w.name}.webp';
 
   /// Índices de los mensajes que abren un momento.
   List<int> get moments => [

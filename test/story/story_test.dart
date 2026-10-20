@@ -34,6 +34,21 @@ void main() {
       }
     });
 
+    test('cada momento tiene escenario y toda escena sabe dónde transcurre', () {
+      for (final id in Scene.ids) {
+        final sc = Scene.of(id.split('.').first, post: id.endsWith('post'))!;
+        for (final m in sc.moments) {
+          expect(Scene.momentPlace(id, m), isNotNull, reason: '$id.$m');
+        }
+        final sp = sc.splash;
+        if (sp != null) expect(sp.$1, lessThan(sc.beats.length), reason: id);
+      }
+      // Sin momento propio, sigue donde terminó la anterior.
+      expect(Scene.of('s20', post: false)!.placeAt(0), Place.pagoda);
+      expect(Scene.of('f3', post: true)!.placeAt(0), Place.ashCourtyard);
+      expect(Scene.of('f3', post: true)!.placeAt(3), Place.epilogue);
+    });
+
     test('el cruce de la batalla 12 es la misma charla desde los dos lados', () {
       final s = Scene.of('s12', post: false)!, n = Scene.of('n12', post: false)!;
       expect(
