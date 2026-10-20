@@ -1512,7 +1512,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   DuelSide _side(int p) {
     final g = _game;
-    final canEmote = !_tutorial && !_staged && _isHuman(p) && (widget.aiPlayer != null || p == g.current);
+    final canEmote = !_tutorial && _isHuman(p) && (widget.aiPlayer != null || p == g.current);
     return DuelSide(
       profile: _profiles[p],
       active: g.current == p && !g.isOver,

@@ -93,11 +93,14 @@ Widget _off(VoidCallback? onTap, Widget child) =>
     onTap != null ? child : IgnorePointer(child: Opacity(opacity: 0.45, child: child));
 
 /// Avatar y nombre del jugador con su lápiz: tocarlo abre el perfil.
+/// [sub] va debajo del nombre (rango, récord), al lado del avatar.
 class _Name extends StatelessWidget {
   final VoidCallback onTap;
   final Color color;
   final double size;
-  const _Name({required this.onTap, required this.color, this.size = 16});
+  final double avatar;
+  final Widget? sub;
+  const _Name({required this.onTap, required this.color, this.size = 20, this.avatar = 58, this.sub});
 
   @override
   Widget build(BuildContext context) => Pressable(
@@ -112,22 +115,36 @@ class _Name extends StatelessWidget {
         AvatarFace(
           avatar: AppSettings.instance.avatarFor(AppSettings.instance.faction),
           frame: AppSettings.instance.frame,
-          size: size * 1.9,
+          size: avatar,
           color: HexTheme.faction(AppSettings.instance.faction),
           borderColor: HexTheme.of(context).gold,
         ),
         // El marco sobresale del avatar: se le deja lugar para no pisar el nombre.
-        SizedBox(width: AppSettings.instance.frame == null ? 8 : 8 + size * 0.38),
+        SizedBox(width: AppSettings.instance.frame == null ? 12 : 12 + avatar * 0.2),
         Flexible(
-          child: Text(
-            AppSettings.instance.nickname,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontWeight: FontWeight.w900, fontSize: size, color: color),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      AppSettings.instance.nickname,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontWeight: FontWeight.w900, fontSize: size, color: color, height: 1.15),
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Icon(Icons.edit_rounded, size: size * 0.75, color: color.withValues(alpha: 0.5)),
+                ],
+              ),
+              if (sub != null) ...[const SizedBox(height: 3), sub!],
+            ],
           ),
         ),
-        const SizedBox(width: 5),
-        Icon(Icons.edit_rounded, size: size * 0.85, color: color.withValues(alpha: 0.5)),
       ],
     ),
   );
@@ -180,38 +197,36 @@ class BoxMenu extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.fromLTRB(12, 10, 14, 10),
+                padding: const EdgeInsets.fromLTRB(20, 14, 14, 14),
                 decoration: BoxDecoration(color: t.surfaceHigh, borderRadius: BorderRadius.circular(9)),
                 child: Row(
                   children: [
                     if (kOnlineMatches) ...[RankBadge(rank: l.rank, size: 38), const SizedBox(width: 10)],
                     Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _Name(onTap: m.rename, color: t.text),
-                          Row(
-                            children: [
-                              if (kOnlineMatches)
-                                Text(
-                                  l.rank.displayName,
-                                  style: TextStyle(
-                                    fontSize: 12.5,
-                                    fontWeight: FontWeight.w700,
-                                    color: l.rank.textOn(t.isDark),
-                                  ),
-                                ),
-                              Flexible(
-                                child: Text(
-                                  kOnlineMatches ? '  ${_record()}' : _record(),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 12.5, color: t.textMuted),
+                      child: _Name(
+                        onTap: m.rename,
+                        color: t.text,
+                        sub: Row(
+                          children: [
+                            if (kOnlineMatches)
+                              Text(
+                                l.rank.displayName,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  color: l.rank.textOn(t.isDark),
                                 ),
                               ),
-                            ],
-                          ),
-                        ],
+                            Flexible(
+                              child: Text(
+                                kOnlineMatches ? '  ${_record()}' : _record(),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 14, color: t.textMuted),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     if (kOnlineMatches && l.streak >= 2)
@@ -426,25 +441,25 @@ class EmaMenu extends StatelessWidget {
             children: [
               if (kOnlineMatches) ...[RankBadge(rank: l.rank, size: 34), const SizedBox(width: 12)],
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _Name(onTap: m.rename, color: t.text, size: 17),
-                    Row(
-                      children: [
-                        if (kOnlineMatches)
-                          Text(l.rank.displayName, style: TextStyle(fontSize: 12.5, color: l.rank.textOn(t.isDark))),
-                        Flexible(
-                          child: Text(
-                            kOnlineMatches ? '  ${_record()}' : _record(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 12.5, color: t.textMuted),
-                          ),
+                child: _Name(
+                  onTap: m.rename,
+                  color: t.text,
+                  size: 21,
+                  avatar: 62,
+                  sub: Row(
+                    children: [
+                      if (kOnlineMatches)
+                        Text(l.rank.displayName, style: TextStyle(fontSize: 14, color: l.rank.textOn(t.isDark))),
+                      Flexible(
+                        child: Text(
+                          kOnlineMatches ? '  ${_record()}' : _record(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 14, color: t.textMuted),
                         ),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               if (kOnlineMatches) Text('${l.rating}', style: s.display(38, color: inkOf(t), height: 1)),
@@ -703,7 +718,7 @@ class CombMenu extends StatelessWidget {
         Text(tr('menu.tagline'), style: TextStyle(color: t.textMuted, fontSize: 14)),
         const SizedBox(height: 16),
         Container(
-          padding: const EdgeInsets.fromLTRB(8, 6, 16, 6),
+          padding: const EdgeInsets.fromLTRB(18, 10, 20, 10),
           decoration: ShapeDecoration(
             shape: combShape(14, side: BorderSide(color: t.gold.withValues(alpha: 0.6))),
             color: t.surfaceHigh.withValues(alpha: 0.8),
@@ -713,12 +728,12 @@ class CombMenu extends StatelessWidget {
             children: [
               if (kOnlineMatches) ...[RankBadge(rank: l.rank, size: 32), const SizedBox(width: 8)],
               Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _Name(onTap: m.rename, color: t.text, size: 14.5),
-                    Text(_record(), style: TextStyle(fontSize: 11.5, color: t.textMuted)),
-                  ],
+                child: _Name(
+                  onTap: m.rename,
+                  color: t.text,
+                  size: 18,
+                  avatar: 52,
+                  sub: Text(_record(), style: TextStyle(fontSize: 13, color: t.textMuted)),
                 ),
               ),
               if (kOnlineMatches) const SizedBox(width: 14),

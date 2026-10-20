@@ -273,9 +273,33 @@ class _Avatar extends StatelessWidget {
       shadow: [if (active) BoxShadow(color: color.withValues(alpha: 0.45), blurRadius: 8, spreadRadius: 1)],
     );
     if (onTap == null) return face;
+    // Globito en la esquina: avisa que tocando el avatar se mandan emotes.
     return Tooltip(
       message: tr('banner.emote'),
-      child: Pressable(onTap: onTap, child: face),
+      child: Pressable(
+        semanticLabel: tr('banner.emote'),
+        onTap: onTap,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            face,
+            Positioned(
+              right: -4,
+              bottom: -3,
+              child: Container(
+                padding: const EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                  color: t.gold,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: t.surface, width: 1.5),
+                  boxShadow: [BoxShadow(color: t.shadow.withValues(alpha: 0.4), blurRadius: 3)],
+                ),
+                child: const Icon(Icons.chat_bubble_rounded, size: 11, color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
