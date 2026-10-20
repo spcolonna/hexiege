@@ -14,6 +14,8 @@ import '../match/ladder.dart';
 import '../match/matchmaker.dart';
 import '../solo/catalog.dart';
 import '../solo/solver.dart';
+import '../story/script.dart';
+import '../story/story_screen.dart';
 import '../tutorial/lessons.dart';
 import 'board_painter.dart';
 import 'fx/board_fx.dart';
@@ -22,6 +24,7 @@ import 'gallery_screen.dart';
 import 'hex_layout.dart';
 import 'matchmaking_screen.dart';
 import 'piece_chip.dart';
+import 'stage_list_screen.dart';
 import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'theme/ui_style.dart';
@@ -197,6 +200,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     // Las etapas arrancan con su presentación; la escena se arma al cerrarla.
     _intro = _staged;
     if (_tutorial) WidgetsBinding.instance.addPostFrameCallback((_) => _introScene());
+    // Campaña: la viñeta de antes, la primera vez, sobre la presentación.
+    final pre = _stage == null ? null : Scene.of(_stage!.id, post: false);
+    if (pre != null && !AppSettings.instance.isSceneSeen(pre.id)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) playScene(context, pre, mine: _storySides, title: _stage!.title);
+      });
+    }
     final nick = AppSettings.instance.nickname;
     final m = widget.match;
     if (m != null) {
@@ -612,12 +622,51 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     if (ok) AppSettings.instance.markCleared(_stage!.id);
     final wait = Duration(milliseconds: (after * 1000).round() + 500);
     GiftToast.check(context, delay: wait + const Duration(milliseconds: 900));
-    Future.delayed(wait, () {
+    Future.delayed(wait, () async {
       if (!mounted) return;
       SoundBoard.instance.play(ok ? Sfx.victory : Sfx.defeat);
       Haptics.heavy();
+      // Campaña: al ganar por primera vez, la viñeta de después.
+      final post = ok ? Scene.of(_stage!.id, post: true) : null;
+      if (post != null && !AppSettings.instance.isSceneSeen(post.id)) {
+        await Future<void>.delayed(const Duration(milliseconds: 900));
+        if (!mounted) return;
+        await playScene(context, post, mine: _storySides, title: _stage!.title);
+        if (!mounted) return;
+      }
       _showStageResult(ok);
     });
+  }
+
+  /// Bandos que van a la izquierda en las viñetas: el tuyo (en El Sello, los dos).
+  Set<Faction> get _storySides => _stage!.id == finale.last.id ? const {Faction.shaolin, Faction.ninja} : {_stage!.you};
+
+  /// Fin de una campaña: la otra mitad de la historia, o El Sello si ya están las dos.
+  ({String text, String action, VoidCallback go})? _campaignEnd(BuildContext ctx) {
+    final s = _stage!;
+    final mine = campaigns.where((c) => !c.isFinale && c.stages.last.id == s.id).firstOrNull;
+    if (s.id == finale.last.id) return (text: tr('story.theEnd'), action: '', go: () {});
+    if (mine == null) return null;
+    final other = campaigns.firstWhere((c) => !c.isFinale && c != mine);
+    final otherDone = AppSettings.instance.isCleared(other.stages.last.id);
+    void open(Widget page) {
+      Navigator.pop(ctx);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => page));
+    }
+
+    if (!otherDone) {
+      return (
+        text: tr('story.otherHalf', {'title': other.title}),
+        action: other.title,
+        go: () => open(StageListScreen(title: other.title, subtitle: other.faction.displayName, stages: other.stages)),
+      );
+    }
+    final f1 = finale.first;
+    return (
+      text: tr('story.bothDone'),
+      action: tr('campaign.finale.title'),
+      go: () => open(GameScreen.stage(stage: f1, nextStage: stageAfter(f1))),
+    );
   }
 
   /// Vuelve a mostrar la presentación de la etapa (historia y objetivo).
@@ -649,35 +698,40 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     showSkinDialog<void>(
       context,
       dismissible: false,
-      builder: (ctx) => SkinDialog(
-        glyph: ok ? '勝' : '再',
-        glyphColor: ok ? HexTheme.of(ctx).gold : null,
-        title: tr(ok ? 'stage.cleared' : 'stage.notThisTime'),
-        message: ok ? _stageWinText() : _stageFailText(),
-        actions: [
-          SkinAction(tr('common.back'), () {
-            Navigator.pop(ctx);
-            Navigator.pop(context);
-          }),
-          if (ok && next != null)
-            SkinAction(tr('common.next'), () {
+      builder: (ctx) {
+        final end = ok ? _campaignEnd(ctx) : null;
+        return SkinDialog(
+          glyph: ok ? (end != null ? '終' : '勝') : '再',
+          glyphColor: ok ? HexTheme.of(ctx).gold : null,
+          title: tr(ok ? 'stage.cleared' : 'stage.notThisTime'),
+          message: end?.text ?? (ok ? _stageWinText() : _stageFailText()),
+          actions: [
+            SkinAction(tr('common.back'), () {
               Navigator.pop(ctx);
-              Navigator.pushReplacement(
-                context,
-                PageRouteBuilder(
-                  transitionDuration: const Duration(milliseconds: 400),
-                  pageBuilder: (_, _, _) => GameScreen.stage(stage: next, nextStage: stageAfter(next)),
-                  transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
-                ),
-              );
-            }, primary: true)
-          else
-            SkinAction(tr(ok ? 'common.playAgain' : 'common.retry'), () {
-              Navigator.pop(ctx);
-              _restartStage();
-            }, primary: true),
-        ],
-      ),
+              Navigator.pop(context);
+            }),
+            if (end != null && end.action.isNotEmpty)
+              SkinAction(end.action, end.go, primary: true)
+            else if (ok && next != null)
+              SkinAction(tr('common.next'), () {
+                Navigator.pop(ctx);
+                Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                    transitionDuration: const Duration(milliseconds: 400),
+                    pageBuilder: (_, _, _) => GameScreen.stage(stage: next, nextStage: stageAfter(next)),
+                    transitionsBuilder: (_, a, _, c) => FadeTransition(opacity: a, child: c),
+                  ),
+                );
+              }, primary: true)
+            else
+              SkinAction(tr(ok ? 'common.playAgain' : 'common.retry'), () {
+                Navigator.pop(ctx);
+                _restartStage();
+              }, primary: true),
+          ],
+        );
+      },
     );
   }
 

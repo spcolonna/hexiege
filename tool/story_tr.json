@@ -1,0 +1,410 @@
+{
+ "s1.pre": {
+  "en": ["Midnight. The Temple wall.", "A shadow crossed the wall. No one saw it come in.", "Ren. Wake up.", "Master? What's wrong?", "Someone has entered the Temple. Go see who dares.", "Just me?", "If it's one, you're enough. If there are more… shout."],
+  "zh": ["午夜。寺墙。", "一道黑影翻过了寺墙。没有人看见它进来。", "仁，醒醒。", "师父？出什么事了？", "有人闯进了寺院。去看看是谁这么大胆。", "就我一个？", "若只有一个，你足够了。若不止……就喊。"]
+ },
+ "s1.post": {
+  "en": ["He's escaping over the wall!", "The ninja fled. He hadn't stolen anything.", "Then… why did he come?"],
+  "zh": ["他翻墙逃了！", "忍者逃走了，什么也没偷。", "那……他到底来做什么？"]
+ },
+ "s2.pre": {
+  "en": ["Morning. The training yard.", "Gon caught a scout in the forest.", "And you let yours get away, Ren.", "He was fast.", "Before we question him, the Abbot wants to see how you fight. This one has his hands tied: no tricks."],
+  "zh": ["清晨。练武场。", "刚在林子里抓到了一个斥候。", "而你让你那个跑了，仁。", "他太快了。", "审问之前，方丈想看看你怎么打。这个被缚住了手：没有花招。"]
+ },
+ "s2.post": {
+  "en": ["Good. You surround with patience. That's what matters.", "Master, why do we always surround? Why not just strike?", "*(silence)* …Because that is how we were taught."],
+  "zh": ["很好。你包围时有耐心。这才是关键。", "师父，为什么我们总是包围？为什么不直接出手？", "*（沉默）*……因为我们就是这样被教的。"]
+ },
+ "s3.pre": {
+  "en": ["That afternoon. The road to the village.", "Ren goes down to the village for rice.", "So quiet…", "Three shadows drop from the trees.", "It's the Abbot's disciple. Surround him!"],
+  "zh": ["那天下午。下山的路。", "仁下山去村里买米。", "好安静……", "三道黑影从树上落下。", "是方丈的弟子。包围他！"]
+ },
+ "s3.post": {
+  "en": ["Why were you waiting for me?", "*(fleeing)* Ask the old man what he keeps down below!"],
+  "zh": ["你们为什么在等我？", "*（逃跑中）*去问那老头，他在下面藏了什么！"]
+ },
+ "s4.pre": {
+  "en": ["Night. The Temple cells.", "Your friends ambushed me. What are you after?", "I'm not telling you anything, monk.", "A dull thud on the roof. Smoke.", "They've come to get him out!"],
+  "zh": ["夜。寺院的牢房。", "你的同伴伏击了我。你们想要什么？", "我什么都不会告诉你，和尚。", "屋顶传来一声闷响。烟雾。", "他们来救他了！"]
+ },
+ "s4.post": {
+  "en": ["Listen, kid. We didn't come to steal. **We came to warn you.**", "Warn us about what?", "A white fox appears in the cell. No one saw it come in.", "It is not yet time for him to know.", "The fox and the scout vanish into the mist."],
+  "zh": ["听着，小子。我们不是来偷东西的。**我们是来警告的。**", "警告什么？", "一只白狐出现在牢房里。没有人看见它进来。", "现在还不是让他知道的时候。", "白狐和斥候消失在雾中。"]
+ },
+ "s5.pre": {
+  "en": ["Minutes later. The north wall.", "They're all over the wall! They're covering the escape.", "Gon, did you see the fox?", "What fox? Focus!"],
+  "zh": ["几分钟后。北墙。", "墙上到处都是！他们在掩护撤退。", "刚，你看见那只狐狸了吗？", "什么狐狸？专心！"]
+ },
+ "s5.post": {
+  "en": ["The ninjas withdraw into the forest.", "\"We came to warn you.\" Warn us about what?"],
+  "zh": ["忍者退回了林中。", "“我们是来警告的。”警告什么？"]
+ },
+ "s6.pre": {
+  "en": ["Dawn. The main gate.", "The Abbot's disciple. They tell me you surround well.", "Who are you?", "Someone who's going to take what's ours. Today, or next time."],
+  "zh": ["黎明。正门。", "方丈的弟子。听说你很会包围。", "你是谁？", "一个要拿回属于我们东西的人。今天，或者下一次。"]
+ },
+ "s6.post": {
+  "en": ["Well fought. But you understand nothing of what you defend.", "Later. The Abbot's hall.", "Master, the ninja said they came to warn us. He spoke of something we keep down below.", "No one spoke to anyone, Ren.", "But…", "**Forget it.** That is an order.", "That night Ren can't sleep. The ground trembles, barely.", "Grey dust falls from the ceiling. It isn't dust. It's **ash**."],
+  "zh": ["打得好。但你根本不懂自己在守护什么。", "稍后。方丈的禅房。", "师父，那个忍者说他们是来警告的。他提到我们在下面藏着什么。", "没有人和任何人说过话，仁。", "可是……", "**忘了它。**这是命令。", "那一夜仁无法入睡。地面在微微颤动。", "天花板落下灰色的尘。那不是尘，是**灰烬**。"]
+ },
+ "s7.pre": {
+  "en": ["Days later. Outside the Temple, without permission.", "If the Abbot won't tell me, I'll find out myself.", "Sneaking out, kid? *hic*", "Master Tao! Don't tell anyone.", "Me? I didn't see a thing. I never see anything. *hic*. I'll come with you."],
+  "zh": ["几天后。寺外，未经允许。", "既然方丈不告诉我，我就自己查。", "偷偷溜出去啊，小子？*嗝*", "陶师父！别告诉任何人。", "我？我什么都没看见。我从来什么都看不见。*嗝*。我陪你去。"]
+ },
+ "s7.post": {
+  "en": ["The tracks head east. To the old shrine.", "Do you know something?", "I know how to drink. The rest I forgot. *hic*"],
+  "zh": ["足迹往东去了。通往旧神社。", "您知道些什么吗？", "我只知道喝酒。其他的都忘了。*嗝*"]
+ },
+ "s8.pre": {
+  "en": ["The only bridge over the river.", "The ninjas block the bridge. The battle will be long, with no retreat.", "I'll wait for you on this side. I have… things to do. *hic*"],
+  "zh": ["河上唯一的桥。", "忍者封锁了桥。这将是一场漫长且没有退路的战斗。", "我在这边等你。我有……事要做。*嗝*"]
+ },
+ "s8.post": {
+  "en": ["I made it!", "Never doubted it. Well, a little."],
+  "zh": ["我过来了！", "我从没怀疑过。嗯，有一点点。"]
+ },
+ "s9.pre": {
+  "en": ["The abandoned shrine.", "The stones bear carvings. Six stones in a hexagon, around a horned figure.", "That's the Temple's symbol… and that's the clan's. Together?", "No one has looked at those stones in centuries. What's a monk doing here?", "And who are you?", "Someone who asked the same thing you did. Show me how you fight and I'll answer."],
+  "zh": ["荒废的神社。", "石头上有雕刻。六块石头围成六边形，中间是一个长角的身影。", "这是寺院的标志……那是忍者的。在一起？", "几百年没人看过这些石头了。一个和尚来这里做什么？", "那你又是谁？", "一个和你问过同样问题的人。让我看看你怎么打，我就回答你。"]
+ },
+ "s9.post": {
+  "en": ["I was a monk. They threw me out for asking what the Jade Scroll says.", "The Scroll is sacred. Only the Abbot reads it.", "Exactly. And you never wondered why?"],
+  "zh": ["我曾是僧人。因为问翡翠卷轴写了什么，被赶了出来。", "卷轴是神圣的。只有方丈能读。", "正是。你就从没想过为什么吗？"]
+ },
+ "s10.pre": {
+  "en": ["The forest, at night.", "They followed you from the shrine. There are many.", "Shinobi slip through any gap.", "Then leave no gaps."],
+  "zh": ["夜晚的森林。", "他们从神社一路跟着你。人很多。", "忍者能钻进任何缝隙。", "那就别留缝隙。"]
+ },
+ "s10.post": {
+  "en": ["A fallen shinobi drops a small scroll: an order from the Shogun.", "*(reading)* \"Bring the Jade Scroll before the new moon.\""],
+  "zh": ["一个倒下的忍者掉出一张小卷轴：将军的命令。", "*（读着）*“新月之前，把翡翠卷轴带回来。”"]
+ },
+ "s11.pre": {
+  "en": ["The valley. Thick mist.", "In the mist nothing stays still.", "Follow me, little monk.", "You! What are you?", "The one who remembers. Follow me and don't get lost."],
+  "zh": ["山谷。浓雾。", "迷雾之中，一切都在移动。", "跟我来，小和尚。", "是你！你是什么？", "记得一切的那个。跟着我，别走丢了。"]
+ },
+ "s11.post": {
+  "en": ["Tomorrow you will meet someone who asks your same questions.", "Who?", "Someone from the other side."],
+  "zh": ["明天你会遇见一个和你问同样问题的人。", "谁？", "另一边的人。"]
+ },
+ "s12.pre": {
+  "en": ["The shrine, at dawn.", "A monk. Alone. In my forest.", "It's not your forest.", "…You see her too? The white fox.", "*(surprised)* Yes.", "Then you know something is wrong. I'm still going to beat you."],
+  "zh": ["黎明时分的神社。", "一个和尚。孤身一人。在我的林子里。", "这不是你的林子。", "……你也看得见她？那只白狐。", "*（惊讶）*看得见。", "那你就知道有什么不对劲。不过我还是会赢你。"]
+ },
+ "s12.post": {
+  "en": ["You won. This time.", "Your friend said you came to warn us. About what?", "I don't know. Neither does my Shogun. But ask your Abbot **what lies beneath the Temple**.", "A smoke bomb. Aya is gone."],
+  "zh": ["你赢了。这一次。", "你的同伴说你们是来警告的。警告什么？", "我不知道。我的将军也不知道。但你去问问你的方丈，**寺院底下有什么**。", "一颗烟雾弹。绫不见了。"]
+ },
+ "s13.pre": {
+  "en": ["The Temple. Ren returns after a week.", "Ren! The Abbot was furious. He locked the library.", "He locked the library?", "And he put guards on the crypt. Something's going on. Let's spar, like old times. I missed you."],
+  "zh": ["寺院。一周后仁回来了。", "仁！方丈大发雷霆。他把藏经阁锁上了。", "他锁了藏经阁？", "还派人守着地穴。出事了。来切磋吧，像从前一样。我想你了。"]
+ },
+ "s13.post": {
+  "en": ["You fight differently. More… like them.", "Gon, do you know what's in the crypt?", "No one goes down there. Only Tao."],
+  "zh": ["你的打法变了。更……像他们。", "刚，你知道地穴里有什么吗？", "没人下去过。只有陶。"]
+ },
+ "s14.pre": {
+  "en": ["The novices' dormitory.", "Brother Ren… we dream of fire. All of us, the same dream.", "A horned thing beneath our feet.", "They're only dreams. Come on, training."],
+  "zh": ["小沙弥的寝室。", "仁师兄……我们梦见了火。所有人，同一个梦。", "脚下有个长角的东西。", "只是梦而已。走，去练功。"]
+ },
+ "s14.post": {
+  "en": ["A horned figure. Like the carvings."],
+  "zh": ["长角的身影。和石刻上的一样。"]
+ },
+ "s15.pre": {
+  "en": ["Midnight. The library.", "Ren forces the door. Inside, Master Mei is waiting for him.", "I knew you would come.", "I want to read the Scroll.", "It isn't here. And if it were, you would have to get past me first."],
+  "zh": ["午夜。藏经阁。", "仁撬开了门。梅师父正在里面等他。", "我就知道你会来。", "我想读那卷轴。", "它不在这里。就算在，你也得先过我这一关。"]
+ },
+ "s15.post": {
+  "en": ["…There is a seal, Ren. Beneath the Temple. It's breaking.", "And the Abbot?", "He says he can renew it alone. That no one else needs to know.", "Do you believe him?", "*(silence)*"],
+  "zh": ["……有一道封印，仁。在寺院底下。它正在破碎。", "那方丈呢？", "他说他能独自重修封印。说没有别人需要知道。", "您相信他吗？", "*（沉默）*"]
+ },
+ "s16.pre": {
+  "en": ["Dawn. The courtyard covered in ash.", "Last night's tremor split the courtyard. Grey smoke rises from the crack.", "Ninjas on the wall! They're using the chaos!", "It's not their fault! It's coming from below!"],
+  "zh": ["黎明。庭院覆满灰烬。", "昨夜的震动让庭院裂开。裂缝中冒出灰烟。", "墙上有忍者！他们趁乱来袭！", "不是他们的错！是从下面来的！"]
+ },
+ "s16.post": {
+  "en": ["Through the ash, for a moment, Ren sees two red eyes.", "…Did you see that?", "See what?"],
+  "zh": ["灰烬之中，有那么一瞬，仁看见了两只红眼。", "……你们看见了吗？", "看见什么？"]
+ },
+ "s17.pre": {
+  "en": ["The Abbot's hall.", "The tremor is the clan's doing. Kage wants the Scroll to free something he doesn't understand.", "Master, Mei said that…", "Mei talks too much. Ren, you will go to the clan's pagoda. You will defeat Kage. It is the only way to protect the Temple.", "Me?", "You are the best I have."],
+  "zh": ["方丈的禅房。", "震动是忍者搞的鬼。影想要卷轴，去释放他根本不懂的东西。", "师父，梅说……", "梅话太多了。仁，你去忍者的宝塔。击败影。这是保护寺院的唯一办法。", "我？", "你是我最好的弟子。"]
+ },
+ "s17.post": {
+  "en": ["*(quietly)* Ren. Don't go.", "It's the Abbot's order.", "Orders can be wrong too."],
+  "zh": ["*（低声）*仁。别去。", "这是方丈的命令。", "命令也会出错。"]
+ },
+ "s18.pre": {
+  "en": ["The gate, at night. Tao blocks the way.", "Off to the pagoda, kid? *hic*", "Let me pass, master.", "The old man is using you. If you fight Kage, no one will be left for what's coming.", "What's coming?", "Beat me and I'll let you go. Lose and you stay."],
+  "zh": ["夜晚的大门。陶挡住了去路。", "要去宝塔啊，小子？*嗝*", "请让我过去，师父。", "那老头在利用你。你若和影拼个你死我活，就没人能应付接下来的事了。", "接下来会怎样？", "赢了我，我就放你走。输了，你就留下。"]
+ },
+ "s18.post": {
+  "en": ["Bah. You're as stubborn as Daishin.", "Who is Daishin?", "Ask Kage. If he lets you talk. *hic*"],
+  "zh": ["哼。你和大心一样倔。", "大心是谁？", "去问影吧。如果他肯让你开口的话。*嗝*"]
+ },
+ "s19.pre": {
+  "en": ["The clan's pagoda. Five floors.", "Ren arrives alone. The door is open, as if they expected him.", "The Shogun said the Abbot's boy would come. That he should climb, if he could."],
+  "zh": ["忍者的宝塔。五层。", "仁独自到来。大门敞开，仿佛在等他。", "将军说方丈的弟子会来。让他有本事就上去。"]
+ },
+ "s19.post": {
+  "en": ["Four floors to go."],
+  "zh": ["还有四层。"]
+ },
+ "s20.pre": {
+  "en": ["Aya told us about you. She said you ask a lot of questions.", "Is she here?", "She left. For the Temple. While you climb, she goes down."],
+  "zh": ["绫说起过你。说你问题很多。", "她在这里吗？", "她走了。去了寺院。你往上爬，她往下走。"]
+ },
+ "s20.post": {
+  "en": ["Aya at the Temple… and the Abbot alone?"],
+  "zh": ["绫在寺院……而方丈独自一人？"]
+ },
+ "s21.pre": {
+  "en": ["The Tengu leap from beam to beam.", "Two paths, one night. Hurry, little monk."],
+  "zh": ["天狗在梁间跳跃。", "两条路，同一个夜晚。快点，小和尚。"]
+ },
+ "s21.post": {
+  "en": ["Wait! What's happening at the Temple?", "What was always going to happen."],
+  "zh": ["等等！寺院发生了什么？", "注定要发生的事。"]
+ },
+ "s22.pre": {
+  "en": ["I told you we'd meet again.", "I'm not here to steal anything. I'm here to talk to your Shogun.", "No one talks to the Shogun without getting past me."],
+  "zh": ["我说过我们会再见的。", "我不是来偷东西的。我是来和你们的将军谈话的。", "想见将军，先过我这关。"]
+ },
+ "s22.post": {
+  "en": ["Go up. But when he tells you the truth, you'll wish you hadn't heard it."],
+  "zh": ["上去吧。但等他告诉你真相，你会后悔听到它。"]
+ },
+ "s23.pre": {
+  "en": ["The last door. Behind it, a single slow breath.", "The Abbot told me to defeat him. Tao told me to listen to him."],
+  "zh": ["最后一道门。门后，只有一声缓慢的呼吸。", "方丈让我击败他。陶让我听他说。"]
+ },
+ "s23.post": {
+  "en": ["*(from inside)* Come in, disciple of Hōshin."],
+  "zh": ["*（从门内）*进来吧，法真的弟子。"]
+ },
+ "s24.pre": {
+  "en": ["The top of the pagoda.", "Hōshin sent you to kill me.", "To defeat you.", "It's the same to him. Very well. Surround me if you can."],
+  "zh": ["宝塔之巅。", "法真派你来杀我。", "是来击败你。", "对他来说都一样。好吧。有本事就包围我。"]
+ },
+ "s24.post": {
+  "en": ["…You won. Now listen, because no one else will tell you.", "Beneath your Temple sleeps the Ash Oni. It was sealed three hundred years ago.", "Your Abbot knows the seal is breaking. He has known for years.", "Then he'll renew it.", "He can't. **Not alone.** The clan always knew: the Scroll is half of our pact.", "What pact?", "That I don't know. That's why I wanted it.", "The master… lied to me.", "In the distance, above the Temple, a column of ash rises."],
+  "zh": ["……你赢了。现在听着，因为没人会告诉你。", "你的寺院底下沉睡着灰烬鬼。它在三百年前被封印。", "你的方丈知道封印正在破碎。他早就知道了。", "那他会重修封印。", "他做不到。**一个人做不到。**忍者一直都知道：卷轴是我们盟约的一半。", "什么盟约？", "这我不知道。所以我才想要它。", "师父……骗了我。", "远处，寺院上空，升起一道灰烬之柱。"]
+ },
+ "n1.pre": {
+  "en": ["The clan's pagoda. Night.", "The Jade Scroll belongs to us. The monks stole it centuries ago.", "What does the Scroll say, my lord?", "That doesn't matter. What matters is that it comes home.", "Later. The Temple wall.", "The wall guard. Get past him without a sound."],
+  "zh": ["忍者的宝塔。夜。", "翡翠卷轴属于我们。和尚们几百年前偷走了它。", "卷轴上写了什么，主公？", "那不重要。重要的是让它回家。", "稍后。寺墙。", "墙上的守卫。悄无声息地过去。"]
+ },
+ "n1.post": {
+  "en": ["I'm in.", "Good. Now, the hard part."],
+  "zh": ["进来了。", "很好。接下来才是难的。"]
+ },
+ "n2.pre": {
+  "en": ["The novices' courtyard.", "A shadow! Alarm!", "They're kids. They haven't learned Jade Meditation yet.", "Don't let them shout any louder."],
+  "zh": ["小沙弥的院子。", "有黑影！敲钟！", "都是孩子。他们还没学会翡翠冥想。", "别让他们喊得更大声。"]
+ },
+ "n2.post": {
+  "en": ["Kuro… why do we surround? The clan teaches us to surround too.", "Because that's how you win.", "But why like that?", "You ask too many questions."],
+  "zh": ["黑……我们为什么要包围？忍者也教我们包围。", "因为这样才能赢。", "可为什么是这样？", "你问题太多了。"]
+ },
+ "n3.pre": {
+  "en": ["The inner courtyard.", "Aya drops onto the master on guard before he can react."],
+  "zh": ["内院。", "绫在值守的师父反应过来之前扑了下去。"]
+ },
+ "n3.post": {
+  "en": ["From the rooftop, Aya sees something strange: the monks aren't guarding the library.", "They're guarding a **stairway** leading down beneath the Temple.", "What are they keeping down there?"],
+  "zh": ["绫从屋顶上看到一件怪事：僧人守的不是藏经阁。", "他们守着一道通往寺院底下的**石阶**。", "他们在下面藏了什么？"]
+ },
+ "n4.pre": {
+  "en": ["The crypt entrance.", "Halt! No one goes down.", "What's down there?", "I don't know. And you won't find out either."],
+  "zh": ["地穴入口。", "站住！谁也不许下去。", "下面有什么？", "我不知道。你也别想知道。"]
+ },
+ "n4.post": {
+  "en": ["Aya touches the stone door. It's **warm**. And it beats, slowly.", "…Like a heart."],
+  "zh": ["绫摸了摸石门。它是**温的**。而且在缓缓跳动。", "……像一颗心。"]
+ },
+ "n5.pre": {
+  "en": ["Bells. The whole Temple wakes.", "They've seen us! We're leaving.", "But the stairway…", "Now, Aya!"],
+  "zh": ["钟声。全寺惊醒。", "被发现了！撤！", "可是那道石阶……", "快走，绫！"]
+ },
+ "n5.post": {
+  "en": ["They escape over the north wall. One of theirs was left trapped in the cells.", "We're going back for him."],
+  "zh": ["他们从北墙逃出。一个同伴被困在了牢房里。", "我们会回去救他。"]
+ },
+ "n6.pre": {
+  "en": ["The next night. The cells.", "Aya returns alone to rescue the scout. Mei is waiting for her.", "You came back for your comrade. That says something good about you.", "I don't need your approval.", "No. You need to get past me."],
+  "zh": ["第二夜。牢房。", "绫独自回来营救斥候。梅在等她。", "你回来救同伴。这说明你心地不坏。", "我不需要你的认可。", "是的。你需要的是过我这关。"]
+ },
+ "n6.post": {
+  "en": ["…Go. Take him with you.", "You're letting us go?", "Something bigger than this war is coming. The less blood, the better.", "On the stairway, the White Fox watches Aya.", "What you came looking for is not what you think.", "Beneath Aya's feet, the stone **beats** once more. Stronger."],
+  "zh": ["……走吧。带他一起走。", "您放我们走？", "比这场战争更大的东西要来了。流血越少越好。", "石阶上，白狐注视着绫。", "你来寻找的，并不是你以为的东西。", "绫的脚下，石头又**跳动**了一下。更强了。"]
+ },
+ "n7.pre": {
+  "en": ["The pagoda.", "My lord, the crypt door beats. There is something alive beneath the Temple.", "Monks' superstitions.", "I touched it myself.", "Kuro. Train her. She's distracted."],
+  "zh": ["宝塔。", "主公，地穴之门在跳动。寺院底下有活的东西。", "和尚的迷信。", "是我亲手摸到的。", "黑。训练她。她分心了。"]
+ },
+ "n7.post": {
+  "en": ["You fight with anger.", "I fight with questions."],
+  "zh": ["你打得很愤怒。", "我打得满是疑问。"]
+ },
+ "n8.pre": {
+  "en": ["The Temple's zen garden.", "The monks have sealed the garden. Break through before more arrive."],
+  "zh": ["寺院的枯山水庭园。", "僧人封锁了庭园。趁援兵未到，杀出一条路。"]
+ },
+ "n8.post": {
+  "en": ["In the middle of the garden, six stones form a hexagon. One is cracked.", "Six stones… like the board."],
+  "zh": ["庭园中央，六块石头围成六边形。其中一块裂了。", "六块石头……就像棋盘。"]
+ },
+ "n9.pre": {
+  "en": ["The Marble Tigers guard the way. They push everything in their path."],
+  "zh": ["石虎把守通道。挡路的一切都会被推开。"]
+ },
+ "n9.post": {
+  "en": ["Six stones, two hands. Do you remember the song, kunoichi?", "What song?", "The one your clan stopped singing."],
+  "zh": ["六块石，两只手。你还记得那首歌吗，女忍？", "什么歌？", "你的族人不再唱的那首。"]
+ },
+ "n10.pre": {
+  "en": ["A mountain path.", "A ninja looking at old stones. Odd.", "You know them?", "I was a monk. I know what the Temple keeps quiet. Beat me and I'll tell you what the clan forgot."],
+  "zh": ["山间小路。", "一个看着旧石头的忍者。真稀奇。", "你认识这些石头？", "我曾是僧人。我知道寺院隐瞒了什么。赢了我，我就告诉你忍者遗忘了什么。"]
+ },
+ "n10.post": {
+  "en": ["Your clan says the Scroll is theirs. They're not lying.", "But they don't remember **why**. Ask your Shogun what the Scroll says.", "I already did. He doesn't know.", "Then no one in this war knows what they're fighting for."],
+  "zh": ["你的族人说卷轴属于他们。他们没说谎。", "但他们不记得**为什么**。去问你的将军卷轴写了什么。", "我问过了。他不知道。", "那这场战争里，没人知道自己为何而战。"]
+ },
+ "n11.pre": {
+  "en": ["Smoke bombs everywhere. Don't let any monk know where you are.", "Tomorrow you will meet someone who asks your same questions."],
+  "zh": ["烟雾弹四起。别让任何僧人知道你在哪。", "明天你会遇见一个和你问同样问题的人。"]
+ },
+ "n11.post": {
+  "en": ["Fox… who are you?", "The one who remembers what you all forgot."],
+  "zh": ["狐狸……你是谁？", "记得你们所遗忘之事的那个。"]
+ },
+ "n12.pre": {
+  "en": ["The shrine, at dawn.", "A monk. Alone. In my forest.", "It's not your forest.", "…You see her too? The white fox.", "*(surprised)* Yes.", "Then you know something is wrong. I'm still going to beat you."],
+  "zh": ["黎明时分的神社。", "一个和尚。孤身一人。在我的林子里。", "这不是你的林子。", "……你也看得见她？那只白狐。", "*（惊讶）*看得见。", "那你就知道有什么不对劲。不过我还是会赢你。"]
+ },
+ "n12.post": {
+  "en": ["You won. This time.", "Your friend said you came to warn us. About what?", "I don't know. Neither does my Shogun. But ask your Abbot **what lies beneath the Temple**.", "My master never lies.", "Then it won't be hard to ask him."],
+  "zh": ["你赢了。这一次。", "你的同伴说你们是来警告的。警告什么？", "我不知道。我的将军也不知道。但你去问问你的方丈，**寺院底下有什么**。", "我的师父从不说谎。", "那问他一句也不难。"]
+ },
+ "n13.pre": {
+  "en": ["Night. Inside the Temple.", "Aya sneaks in again. This time she isn't looking for the library: she's looking for the stairway."],
+  "zh": ["夜。寺院之内。", "绫再次潜入。这次她找的不是藏经阁，而是那道石阶。"]
+ },
+ "n13.post": {
+  "en": ["Steps going down, and down. The air grows hot."],
+  "zh": ["台阶一路向下，再向下。空气变得炽热。"]
+ },
+ "n14.pre": {
+  "en": ["The crypt.", "A vast hall. On the floor, six stones in a hexagon around a crack.", "Three stones are cracked. Ash seeps through them.", "This is a seal."],
+  "zh": ["地穴。", "一座巨大的厅堂。地上六块石头围成六边形，中间是一道裂缝。", "三块石头已经裂开。灰烬从中渗出。", "这是一道封印。"]
+ },
+ "n14.post": {
+  "en": ["From the crack, a voice, like embers.", "…Kagerō…", "Who is Kagerō?"],
+  "zh": ["裂缝中传来一个声音，如同余烬。", "……阳炎……", "阳炎是谁？"]
+ },
+ "n15.pre": {
+  "en": ["The ash takes shape. Grey pieces, with no owner, move on their own.", "What is this?!"],
+  "zh": ["灰烬化作形体。无主的灰色棋子自行移动。", "这是什么？！"]
+ },
+ "n15.post": {
+  "en": ["The ash pieces crumble. But they gather again, more slowly."],
+  "zh": ["灰烬棋子崩散了。但它们又慢慢聚拢起来。"]
+ },
+ "n16.pre": {
+  "en": ["A ninja in my crypt. Hasn't happened in three hundred years. *hic*", "Are you going to call the guards?", "No. We're going to play. If you beat me, I'll tell you a story."],
+  "zh": ["一个忍者闯进我的地穴。三百年没发生过了。*嗝*", "你要叫守卫吗？", "不。我们来下一局。赢了我，我给你讲个故事。"]
+ },
+ "n16.post": {
+  "en": ["Once upon a time there was a monk, Daishin, and a ninja, Kagerō.", "They surrounded a demon with six stones. Together. Both hands.", "A monk and a ninja… together?", "That's what the Temple erased. And what your clan forgot. *hic*"],
+  "zh": ["从前有一个和尚，叫大心，还有一个忍者，叫阳炎。", "他们用六块石头包围了一个恶鬼。一起。两只手。", "一个和尚和一个忍者……一起？", "这就是寺院抹去的。也是你的族人遗忘的。*嗝*"]
+ },
+ "n17.pre": {
+  "en": ["And now run, the Abbot comes down every night to check the cracks."],
+  "zh": ["现在快跑吧，方丈每晚都会下来查看裂缝。"]
+ },
+ "n17.post": {
+  "en": ["Aya leaves the Temple at first light. Her hands are shaking."],
+  "zh": ["天刚亮，绫离开了寺院。她的双手在颤抖。"]
+ },
+ "n18.pre": {
+  "en": ["The pagoda.", "My lord, the Scroll is not a treasure. It's a ritual. A seal. It needs the Temple and the clan.", "Tales from a drunken monk.", "Kuro will go to the Temple tonight to take the Scroll by force.", "If you do, you'll break the seal.", "Then step aside, Aya."],
+  "zh": ["宝塔。", "主公，卷轴不是宝物。它是一个仪式。一道封印。它需要寺院和忍者一起。", "醉和尚的胡话。", "黑今晚去寺院，强行夺取卷轴。", "如果你们这么做，封印就会破碎。", "那就让开，绫。"]
+ },
+ "n18.post": {
+  "en": ["…You beat me. Then you go. But bring it back.", "*(from the shadows)* Bring me the Scroll, Aya. Or don't come back."],
+  "zh": ["……你赢了我。那就你去。但要把它带回来。", "*（从暗处）*把卷轴带给我，绫。否则别回来。"]
+ },
+ "n19.pre": {
+  "en": ["The last night before the new moon.", "The Temple is emptier than ever. They say the Abbot's disciple has gone to the pagoda.", "Ren and I, each in the other's house."],
+  "zh": ["新月前的最后一夜。", "寺院从未如此空荡。听说方丈的弟子去了宝塔。", "仁和我，各自在对方的家里。"]
+ },
+ "n19.post": {
+  "en": ["The library is in sight."],
+  "zh": ["藏经阁就在眼前。"]
+ },
+ "n20.pre": {
+  "en": ["The Marble Tigers guard the library. They push everything in their path."],
+  "zh": ["石虎守护着藏经阁。挡路的一切都会被推开。"]
+ },
+ "n20.post": {
+  "en": ["The ground shakes. The lamps go out on their own."],
+  "zh": ["大地震动。灯火自行熄灭。"]
+ },
+ "n21.pre": {
+  "en": ["I came to ask you something.", "Are you going to fight me again?", "Yes. To know if you're ready. Once you read it, there's no going back."],
+  "zh": ["我来求你一件事。", "你又要和我打？", "是的。看看你是否准备好了。一旦读了它，就无法回头。"]
+ },
+ "n21.post": {
+  "en": ["You're ready. I'll distract the ones at the door."],
+  "zh": ["你准备好了。我去引开门口的人。"]
+ },
+ "n22.pre": {
+  "en": ["You again. Ren isn't here to defend you.", "I didn't come for him.", "Too bad for you."],
+  "zh": ["又是你。仁不在，没人护着你。", "我不是为他而来。", "那你就倒霉了。"]
+ },
+ "n22.post": {
+  "en": ["Why don't you finish me?", "Because you're not my enemy. None of you are."],
+  "zh": ["你为什么不了结我？", "因为你不是我的敌人。你们谁都不是。"]
+ },
+ "n23.pre": {
+  "en": ["I let you go once.", "And not now.", "Now I can't. The Abbot is inside."],
+  "zh": ["我放过你一次。", "这次不行了。", "这次我做不到。方丈就在里面。"]
+ },
+ "n23.post": {
+  "en": ["*(stepping aside)* …Let someone read it. At last."],
+  "zh": ["*（让开）*……总算有人要读它了。"]
+ },
+ "n24.pre": {
+  "en": ["The library. The Jade Scroll on the altar.", "In forty years, no one has beaten me.", "There's always a first time.", "If you beat me, read it. And you will understand why I kept silent."],
+  "zh": ["藏经阁。翡翠卷轴在祭坛上。", "四十年来，无人胜过我。", "凡事总有第一次。", "若你赢了我，就读吧。你会明白我为何沉默。"]
+ },
+ "n24.post": {
+  "en": ["Aya unrolls the Jade Scroll.", "*(reading)* \"Six stones around. One hand of the Temple, one hand of the Shadow. If one is missing, the seal will not close.\"", "…It's not a weapon. It's a ritual. And it needs both of us.", "I know. That's why I never said it. I would rather break alone than ask the clan for help.", "The ground splits beneath the courtyard. A column of ash rises to the sky.", "I have the Scroll. But alone, it's useless."],
+  "zh": ["绫展开了翡翠卷轴。", "*（读着）*“六石环绕。寺院一手，暗影一手。缺其一，封印不合。”", "……这不是武器。是仪式。而且需要我们两边。", "我知道。所以我从未说出口。我宁愿独自崩溃，也不愿向忍者求助。", "庭院底下的大地裂开。一道灰烬之柱冲上天空。", "我拿到了卷轴。但只有我一个人，它毫无用处。"]
+ },
+ "f1.pre": {
+  "en": ["The same night. The pagoda and the library.", "Ren defeated Kage. Aya defeated the Abbot. At the same hour.", "Beneath the Temple, the last stone splits.", "**At last. Fighting each other, as always.**", "The Temple courtyard, in grey flames.", "Master Tao! What is that?", "What your Abbot didn't want to tell you. Surround it, kid. Now!"],
+  "zh": ["同一夜。宝塔与藏经阁。", "仁击败了影。绫击败了方丈。同一时刻。", "寺院底下，最后一块石头裂开了。", "**终于。还是一样，自相残杀。**", "寺院庭院，燃着灰色的火焰。", "陶师父！那是什么？", "你的方丈不肯告诉你的东西。包围它，小子。快！"]
+ },
+ "f1.post": {
+  "en": ["The Oni retreats into the crack. But it doesn't close.", "Surrounding it stops it. **It doesn't seal it.**"],
+  "zh": ["灰烬鬼退回了裂缝。但裂缝没有合上。", "包围它能阻止它。**却封印不了它。**"]
+ },
+ "f2.pre": {
+  "en": ["The stone garden, split in two.", "Kuro! Help me!", "That thing came from beneath the Temple!", "I know. Let's surround it."],
+  "zh": ["石庭，裂成两半。", "黑！帮我！", "那东西是从寺院底下出来的！", "我知道。我们包围它。"]
+ },
+ "f2.post": {
+  "en": ["The Oni retreats again. Bigger.", "One hand alone is not enough. It never was.", "The courtyard. Ren and Aya, face to face.", "Kage told me half.", "The Scroll tells the other. One hand of the Temple and one of the Shadow.", "Then… together.", "*(taking human form)* Like Daishin and Kagerō. I was the promise they made to each other. And I was fading."],
+  "zh": ["灰烬鬼又退了回去。变得更大了。", "一只手是不够的。从来都不够。", "庭院。仁与绫，面对面。", "影告诉了我一半。", "卷轴写着另一半。寺院一手，暗影一手。", "那么……一起。", "*（化为人形）*就像大心和阳炎。我是他们彼此许下的诺言。而我正在熄灭。"]
+ },
+ "f3.pre": {
+  "en": ["*(wounded, arriving)* Ren… forgive me.", "*(arriving over the wall)* Aya. Do what the Scroll says.", "Six stones. Two hands. Now."],
+  "zh": ["*（负伤赶来）*仁……原谅我。", "*（翻墙而来）*绫。照卷轴说的做。", "六块石。两只手。就是现在。"]
+ },
+ "f3.post": {
+  "en": ["Six stones light up green and red. The crack closes.", "The Oni dies out like an ember in the rain.", "A week later.", "The seal will hold for another three hundred years.", "If we don't forget again.", "Then let's not forget.", "One duel a year. Temple against clan. On the board.", "And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.", "Until the next crack."],
+  "zh": ["六块石头亮起绿光与红光。裂缝合上了。", "灰烬鬼如雨中的余烬般熄灭。", "一周后。", "封印还能再撑三百年。", "只要我们别再遗忘。", "那就别忘了。", "每年一场对决。寺院对忍者。在棋盘上。", "**荣誉之战**就此开始：僧人与忍者彼此对弈，永远记得如何包围恶鬼。", "直到下一道裂缝。"]
+ }
+}

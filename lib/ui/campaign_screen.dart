@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../i18n/i18n.dart';
 import '../engine/pieces.dart';
 import '../solo/catalog.dart';
+import '../story/scroll_screen.dart';
 import 'piece_chip.dart';
 import 'stage_list_screen.dart';
 import 'theme/hex_theme.dart';
@@ -30,6 +31,7 @@ class CampaignScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 for (final c in campaigns)
                   Padding(padding: const EdgeInsets.fromLTRB(16, 0, 16, 12), child: _card(context, t, c)),
+                Padding(padding: const EdgeInsets.fromLTRB(16, 4, 16, 12), child: _scroll(context, t)),
               ],
             ),
           ),
@@ -77,5 +79,18 @@ class CampaignScreen extends StatelessWidget {
             ),
     );
     return open ? tile : Opacity(opacity: 0.6, child: tile);
+  }
+
+  /// Pergamino: releer las viñetas ya vistas.
+  Widget _scroll(BuildContext context, HexTheme t) {
+    final (seen, total) = ScrollScreen.progress();
+    return SkinTile(
+      glyph: '巻',
+      color: t.gold,
+      title: tr('story.scroll'),
+      text: tr('story.scrollText', {'seen': seen, 'total': total}),
+      trailing: Icon(Icons.chevron_right_rounded, color: t.textMuted),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ScrollScreen())),
+    );
   }
 }

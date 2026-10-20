@@ -8,6 +8,7 @@ import 'package:hexiege/engine/pieces.dart';
 import 'package:hexiege/match/ladder.dart';
 import 'package:hexiege/match/matchmaker.dart';
 import 'package:hexiege/solo/catalog.dart';
+import 'package:hexiege/story/story_screen.dart';
 import 'package:hexiege/tutorial/lessons.dart';
 import 'package:hexiege/ui/game_screen.dart';
 import 'package:hexiege/ui/matchmaking_screen.dart';
@@ -392,8 +393,18 @@ void main() {
           AppSettings.instance.uiStyle = style;
           addTearDown(() => AppSettings.instance.uiStyle = UiStyle.box);
           final stage = shaolinCampaign.first;
+          final story = !AppSettings.instance.isSceneSeen('s1.pre');
           await tester.pumpWidget(_app(GameScreen.stage(stage: stage, nextStage: stageAfter(stage)), mode));
           await tester.pump(const Duration(milliseconds: 400));
+          // La primera vez, la viñeta de antes tapa la presentación.
+          if (story) {
+            await tester.pump(const Duration(milliseconds: 500));
+            expect(find.byType(StoryScreen), findsOneWidget);
+            await tester.tap(find.text('Saltar'));
+            await tester.pump(const Duration(milliseconds: 500));
+            await tester.pump(const Duration(milliseconds: 500));
+            expect(AppSettings.instance.isSceneSeen('s1.pre'), isTrue);
+          }
           // Presentación a pantalla completa con el objetivo.
           expect(find.text(stage.title), findsOneWidget);
           expect(find.text('Objetivo'), findsOneWidget);

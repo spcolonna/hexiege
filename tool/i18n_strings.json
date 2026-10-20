@@ -1655,9 +1655,9 @@
   "zh": "战役"
  },
  "solo.campaignText": {
-  "es": "Dos historias, una por facción. 8 batallas cada una.",
-  "en": "Two stories, one per faction. 8 battles each.",
-  "zh": "两段故事，每个阵营一段，各 8 场战斗。"
+  "es": "Dos historias de 24 batallas y un final que las une.",
+  "en": "Two stories of 24 battles and an ending that ties them together.",
+  "zh": "两段各 24 场战斗的故事，以及将它们连在一起的结局。"
  },
  "solo.challenges": {
   "es": "Desafíos",
@@ -4793,5 +4793,195 @@
   "es": "Hasta la próxima grieta.",
   "en": "Until the next crack.",
   "zh": "直到下一道裂缝。"
+ },
+ "who.narrator": {
+  "es": "Narración",
+  "en": "Narration",
+  "zh": "旁白"
+ },
+ "who.ren": {
+  "es": "Ren",
+  "en": "Ren",
+  "zh": "仁"
+ },
+ "who.aya": {
+  "es": "Aya",
+  "en": "Aya",
+  "zh": "绫"
+ },
+ "who.abbot": {
+  "es": "Abad Hōshin",
+  "en": "Abbot Hōshin",
+  "zh": "法真方丈"
+ },
+ "who.kage": {
+  "es": "Gran Shogun Kage",
+  "en": "Great Shogun Kage",
+  "zh": "大将军影"
+ },
+ "who.mei": {
+  "es": "Maestra Mei",
+  "en": "Master Mei",
+  "zh": "梅师父"
+ },
+ "who.tao": {
+  "es": "Tao",
+  "en": "Tao",
+  "zh": "陶"
+ },
+ "who.gon": {
+  "es": "Gon",
+  "en": "Gon",
+  "zh": "刚"
+ },
+ "who.kuro": {
+  "es": "Kuro",
+  "en": "Kuro",
+  "zh": "黑"
+ },
+ "who.jubei": {
+  "es": "Jubei",
+  "en": "Jubei",
+  "zh": "十兵卫"
+ },
+ "who.fox": {
+  "es": "Zorra Blanca",
+  "en": "White Fox",
+  "zh": "白狐"
+ },
+ "who.oni": {
+  "es": "Oni de Ceniza",
+  "en": "Ash Oni",
+  "zh": "灰烬鬼"
+ },
+ "who.ninja": {
+  "es": "Ninja",
+  "en": "Ninja",
+  "zh": "忍者"
+ },
+ "who.scout": {
+  "es": "Explorador",
+  "en": "Scout",
+  "zh": "斥候"
+ },
+ "who.novice": {
+  "es": "Novicio",
+  "en": "Novice",
+  "zh": "小沙弥"
+ },
+ "who.guard": {
+  "es": "Guardia",
+  "en": "Guard",
+  "zh": "守卫"
+ },
+ "who.kunoichi": {
+  "es": "Kunoichi",
+  "en": "Kunoichi",
+  "zh": "女忍"
+ },
+ "story.skip": {
+  "es": "Saltar",
+  "en": "Skip",
+  "zh": "跳过"
+ },
+ "story.continue": {
+  "es": "Continuar",
+  "en": "Continue",
+  "zh": "继续"
+ },
+ "story.hint": {
+  "es": "Tocá para seguir · mantené apretado para acelerar",
+  "en": "Tap to continue · hold to speed up",
+  "zh": "轻触继续 · 长按加速"
+ },
+ "story.thinks": {
+  "es": "piensa",
+  "en": "thinks",
+  "zh": "心想"
+ },
+ "story.scroll": {
+  "es": "Pergamino",
+  "en": "Scroll",
+  "zh": "卷轴"
+ },
+ "story.scrollText": {
+  "es": "Releé las escenas que ya viste. {seen}/{total}",
+  "en": "Reread the scenes you've seen. {seen}/{total}",
+  "zh": "重温看过的剧情。{seen}/{total}"
+ },
+ "story.scrollEmpty": {
+  "es": "Todavía no viste ninguna escena. Empezá una campaña.",
+  "en": "You haven't seen any scenes yet. Start a campaign.",
+  "zh": "你还没有看过任何剧情。开始一场战役吧。"
+ },
+ "story.before": {
+  "es": "Antes de la batalla",
+  "en": "Before the battle",
+  "zh": "战前"
+ },
+ "story.after": {
+  "es": "Después de la batalla",
+  "en": "After the battle",
+  "zh": "战后"
+ },
+ "story.act.shaolin.0": {
+  "es": "Acto I · La sombra en el muro",
+  "en": "Act I · The shadow on the wall",
+  "zh": "第一幕 · 墙上的黑影"
+ },
+ "story.act.shaolin.1": {
+  "es": "Acto II · El bosque de los susurros",
+  "en": "Act II · The whispering forest",
+  "zh": "第二幕 · 低语之林"
+ },
+ "story.act.shaolin.2": {
+  "es": "Acto III · La biblioteca cerrada",
+  "en": "Act III · The locked library",
+  "zh": "第三幕 · 紧锁的藏经阁"
+ },
+ "story.act.shaolin.3": {
+  "es": "Acto IV · La pagoda",
+  "en": "Act IV · The pagoda",
+  "zh": "第四幕 · 宝塔"
+ },
+ "story.act.ninja.0": {
+  "es": "Acto I · Sobre el muro",
+  "en": "Act I · Over the wall",
+  "zh": "第一幕 · 翻越寺墙"
+ },
+ "story.act.ninja.1": {
+  "es": "Acto II · El jardín de piedra",
+  "en": "Act II · The stone garden",
+  "zh": "第二幕 · 石庭"
+ },
+ "story.act.ninja.2": {
+  "es": "Acto III · La escalera",
+  "en": "Act III · The stairway",
+  "zh": "第三幕 · 石阶"
+ },
+ "story.act.ninja.3": {
+  "es": "Acto IV · La biblioteca",
+  "en": "Act IV · The library",
+  "zh": "第四幕 · 藏经阁"
+ },
+ "story.act.finale.0": {
+  "es": "El Sello",
+  "en": "The Seal",
+  "zh": "封印"
+ },
+ "story.otherHalf": {
+  "es": "Hay otra mitad de esta historia. Terminá «{title}» para descubrir el verdadero final.",
+  "en": "There is another half to this story. Finish \"{title}\" to discover the true ending.",
+  "zh": "这个故事还有另一半。完成《{title}》，揭开真正的结局。"
+ },
+ "story.bothDone": {
+  "es": "Las dos mitades de la historia están completas. Bajo el Templo, la última piedra se parte.",
+  "en": "Both halves of the story are complete. Beneath the Temple, the last stone splits.",
+  "zh": "故事的两半都已完整。寺院底下，最后一块石头裂开了。"
+ },
+ "story.theEnd": {
+  "es": "El Oni está sellado. Gracias por jugar la historia de Hexiege.",
+  "en": "The Oni is sealed. Thank you for playing the story of Hexiege.",
+  "zh": "灰烬鬼已被封印。感谢你游玩 Hexiege 的故事。"
  }
 }

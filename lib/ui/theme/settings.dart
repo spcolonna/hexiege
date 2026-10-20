@@ -39,6 +39,7 @@ class AppSettings extends ChangeNotifier {
   bool _tutorialDone = false;
   LadderRecord _ladder = const LadderRecord();
   Set<String> _cleared = {};
+  Set<String> _seenScenes = {};
   Set<String> _seenPieces = {};
   Set<String> _giftsAnnounced = {};
   Set<String> _giftsOpened = {};
@@ -142,6 +143,15 @@ class AppSettings extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Viñetas de la historia ya vistas (por id de escena, p. ej. "s1.pre").
+  bool isSceneSeen(String sceneId) => _seenScenes.contains(sceneId);
+
+  void markSceneSeen(String sceneId) {
+    if (!_seenScenes.add(sceneId)) return;
+    _prefs?.setStringList('seenScenes', _seenScenes.toList());
+    notifyListeners();
+  }
+
   /// Fichas que el jugador ya abrió en el códice (por nombre de tipo).
   bool isPieceSeen(String type) => _seenPieces.contains(type);
 
@@ -208,6 +218,7 @@ class AppSettings extends ChangeNotifier {
     _onboarded = p.getBool('onboarded') ?? false;
     _tutorialDone = p.getBool('tutorialDone') ?? false;
     _cleared = (p.getStringList('cleared') ?? const []).toSet();
+    _seenScenes = (p.getStringList('seenScenes') ?? const []).toSet();
     _seenPieces = (p.getStringList('seenPieces') ?? const []).toSet();
     _giftsAnnounced = (p.getStringList('giftsAnnounced') ?? const []).toSet();
     _giftsOpened = (p.getStringList('giftsOpened') ?? const []).toSet();
