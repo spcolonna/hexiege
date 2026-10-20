@@ -12,9 +12,9 @@ Cada bloque se pega tal cual en el generador. El estilo es el mismo de los avata
 
 | Bloque | Qué | Archivo | Cantidad |
 |---|---|---|---|
-| 1 | Figuras: protagonistas y jefes | `assets/story/char_<id>.png` | 8 |
+| 1 | Figuras: protagonistas y jefes | `assets/story/char_<id>.png` | 6 |
 | 2 | Figuras: secundarios | `assets/story/char_<id>.png` | 8 |
-| 3 | Escenarios: Templo | `assets/story/bg_<id>.png` | 11 |
+| 3 | Escenarios: Templo | `assets/story/bg_<id>.png` | 7 |
 | 4 | Escenarios: fuera del Templo y final | `assets/story/bg_<id>.png` | 11 |
 | 5 | Ilustraciones de momentos clave | `assets/story/art_<id>.png` | 12 |
 | 6 | Retratos redondos (avatares) | `assets/avatars/avatar_<id>.png` | 3 |
@@ -24,46 +24,44 @@ Al integrarlos se convierten a `.webp`. El juego detecta solo qué arte existe. 
 - Sin figura: se muestra el retrato redondo del personaje o, si tampoco hay retrato, su kanji.
 - Sin ilustración: el panel no aparece.
 
-Se puede integrar de a un bloque.
+Se puede integrar de a un bloque, o de a una imagen.
+
+**Listos** (ya integrados y fuera de los bloques):
+- Figuras: `char_ren`, `char_aya`.
+- Escenarios: `bg_wall`, `bg_yard`, `bg_cells`, `bg_courtyard`.
 
 **Fondo transparente:** si el generador no puede dar transparencia, las figuras se piden sobre magenta plano `#FF00FF`, que se recorta al integrar.
 
 ---
 
-## Bloque 1 — Figuras: protagonistas y jefes (8)
+## Bloque 1 — Figuras: protagonistas y jefes (6)
 
 ```
-Generate exactly 8 separate images. Start generating immediately, without asking questions or requesting confirmation.
+Generate exactly 6 separate images. Start generating immediately, without asking questions or requesting confirmation.
 
-For ALL eight images:
+For ALL six images:
 Create a PORTRAIT image with a 2:3 aspect ratio (1024×1536), with a TRANSPARENT background (PNG with alpha). If transparency is impossible, use a perfectly flat pure magenta (#FF00FF) background with no gradient, no shadow and no texture.
 PURPOSE: A character cut-out for comic-style dialogue panels in a mobile strategy game about Shaolin monks versus a ninja clan. The figure stands on one side of a wide panel, over a painted background, and its head may break out of the top of the panel. It is shown about 140 pixels wide on a phone, so the silhouette and the face must read clearly.
 FRAMING: Half-body, from the waist up, cut off cleanly at the bottom edge of the image. The head is in the upper third, with a little empty space above it. The body is in a three-quarter view turned TOWARD THE RIGHT side of the image (the game mirrors it when the character stands on the right), the eyes looking to the right, as if talking to someone there. One expressive hand gesture is welcome if it stays inside the image.
-STYLE: Traditional East Asian ink-wash painting (sumi-e) with confident brush strokes and clean, bold ink outlines, combined with a limited flat color palette: deep ink black, warm off-white, and the accent colors given in the subject. Expressive but not cartoonish; same look for all eight so they belong to one comic.
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with confident brush strokes and clean, bold ink outlines, combined with a limited flat color palette: deep ink black, warm off-white, and the accent colors given in the subject. Expressive but not cartoonish; same look for all six so they belong to one comic.
 DO NOT INCLUDE: any background, floor, cast shadow or scenery; any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style; extra characters.
 
-Image 1 — char_ren:
-SUBJECT: Ren, a teenage Shaolin disciple (about 16), shaved head, earnest and stubborn face, saffron-orange robe with one shoulder bare, wooden staff held upright in one hand. Accent: saffron and jade green.
-
-Image 2 — char_aya:
-SUBJECT: Aya, a young kunoichi (about 18), black hair in a high ponytail, sharp watchful eyes, dark purple-black outfit, a cloth mask pulled down around her neck, holding a half-open folding war fan. Accent: deep purple and crimson.
-
-Image 3 — char_abbot:
+Image 1 — char_abbot:
 SUBJECT: Abbot Hōshin, an old Shaolin abbot (about 70), shaved head, long white eyebrows and a thin white beard, proud and secretive expression, saffron and dark red robes, a string of large jade prayer beads in one hand. Accent: jade green and dark red.
 
-Image 4 — char_kage:
+Image 2 — char_kage:
 SUBJECT: Grand Shogun Kage, stern leader of the ninja clan (about 55), short greying beard, a scar across one eyebrow, black lacquered helmet with a small crescent crest, dark armor tied with crimson cords, tired hard eyes. Accent: crimson.
 
-Image 5 — char_kuro:
+Image 3 — char_kuro:
 SUBJECT: Kuro, the jonin, Aya's mentor (about 40), lean and dangerous, black hood, a long crimson scarf drifting like smoke, a kusarigama chain over the shoulder, loyal and severe. Accent: crimson and ash grey.
 
-Image 6 — char_mei:
+Image 4 — char_mei:
 SUBJECT: Master Mei, second of the Shaolin temple, a strict woman in her fifties, shaved head, grey and jade-green robes, a long wooden prayer-bead necklace, calm face hiding something. Accent: jade green.
 
-Image 7 — char_fox:
+Image 5 — char_fox:
 SUBJECT: The White Fox, a slender mystical fox spirit seen from the chest up, pure white fur, several soft glowing tails curling around her, calm knowing golden eyes, a faint silver glow. Accent: silver-white and pale gold.
 
-Image 8 — char_oni:
+Image 6 — char_oni:
 SUBJECT: The Ash Oni, an ancient colossal demon seen from the chest up: horned head, skin of cracked grey ash with glowing orange-red fire inside the cracks, burning eyes, fangs, smoke rising from the horns and shoulders, one huge clawed hand. Terrifying but readable. Accent: ember orange and ash grey.
 ```
 
@@ -104,49 +102,37 @@ Image 8 — char_kunoichi:
 SUBJECT: An elite clan kunoichi, cold and elegant (about 25), dark hair in a tight bun pierced with a needle, black outfit with crimson lining, a closed iron fan in each hand. Accent: crimson and black.
 ```
 
-## Bloque 3 — Escenarios: el Templo (11)
+## Bloque 3 — Escenarios: el Templo (7)
 
 ```
-Generate exactly 11 separate images. Start generating immediately, without asking questions or requesting confirmation.
+Generate exactly 7 separate images. Start generating immediately, without asking questions or requesting confirmation.
 
-For ALL eleven images:
+For ALL seven images:
 Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
 PURPOSE: A background for a comic page in a mobile strategy game about Shaolin monks (white stone, jade green, saffron) versus a ninja clan (black, crimson). The game crops the same image in different ways: a WIDE horizontal strip (about 2.4:1) for establishing panels, and comic frames of varied shape for dialogue, from TALL and NARROW (about 2:3) to wide (about 3:2). The crop slides to the LEFT, CENTER or RIGHT depending on who is speaking. Characters stand in front along the bottom edge; speech balloons cover the upper part.
 COMPOSITION: An EMPTY place with NO people or animals. Spread the interesting details across the whole width, with something recognizable in the left third, the center and the right third, so that any narrow vertical slice still reads as this place. Keep the upper area calm and simple (sky, wall, mist, roof line) because balloons cover it, and the lower third uncluttered because characters stand there. No single huge object in the center. Readable as a mood at a glance: time of day and atmosphere matter more than detail.
 STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, atmospheric mist, limited palette of ink black plus the accent given. Slightly muted so characters in front of it stand out. Not cartoonish.
 DO NOT INCLUDE: people, animals, any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 
-Image 1 — bg_wall:
-The long outer wall of a Buddhist mountain temple at midnight, curved tiled roof on top of the wall, pine trees behind, a thin moon. Accent: deep night blue, a touch of jade on the tiles.
-
-Image 2 — bg_yard:
-The temple training yard in the morning: packed earth, wooden training posts, racks of staves, a low wall with a gate, mountains in mist behind. Accent: warm morning ochre.
-
-Image 3 — bg_cells:
-A row of dim stone prison cells inside the temple at night, wooden bars, a single oil lamp, straw on the floor. Accent: dark umber with a small warm lamplight.
-
-Image 4 — bg_gate:
+Image 1 — bg_gate:
 The main temple gate, massive red-lacquered doors with a tiled roof, stone stairs leading up to it, seen at dawn. Accent: dawn orange and dark red.
 
-Image 5 — bg_abbot_hall:
+Image 2 — bg_abbot_hall:
 The abbot's private hall: dark wooden pillars, a low lacquered desk, a scroll rack, incense smoke, a round window with mountains outside. Accent: deep red and gold.
 
-Image 6 — bg_courtyard:
-The main inner courtyard of the temple: stone paving, a bronze incense burner, a large bell under a small roof, halls with curved roofs on both sides. Accent: warm stone and saffron.
-
-Image 7 — bg_dormitory:
+Image 3 — bg_dormitory:
 The novices' dormitory at night: rows of sleeping mats on a wooden floor, paper windows with moonlight, dark rafters with thin cracks. Accent: dark brown with cold moonlight.
 
-Image 8 — bg_library:
+Image 4 — bg_library:
 The temple library at night: tall shelves of scrolls, a stone altar in the middle distance with an empty jade stand, candles, dust in the air. Accent: jade green in the dark.
 
-Image 9 — bg_ash_courtyard:
+Image 5 — bg_ash_courtyard:
 The same temple courtyard after disaster: a long burning crack splits the stone paving, grey ash falls like snow, grey flames, smoke hiding the roofs. Accent: ash grey and ember orange.
 
-Image 10 — bg_crypt_stairs:
+Image 6 — bg_crypt_stairs:
 A hidden stone stairway descending into the ground at the edge of the temple courtyard at night, two lanterns at the top, a faint glow from the stone door far below. Accent: warm lantern orange.
 
-Image 11 — bg_crypt:
+Image 7 — bg_crypt:
 A huge underground crypt under the temple: rough stone pillars, and on the floor six large standing stones forming a hexagon around a deep glowing crack, ash rising. Accent: ember orange in the dark.
 ```
 
