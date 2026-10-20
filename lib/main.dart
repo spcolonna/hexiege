@@ -6,6 +6,7 @@ import 'i18n/i18n.dart';
 
 import 'store/purchases.dart';
 import 'ui/brand_intro.dart';
+import 'ui/game_intro.dart';
 import 'ui/fx/piece_art.dart';
 import 'ui/fx/sfx.dart';
 import 'ui/menu_screen.dart';
@@ -47,7 +48,8 @@ class HexiegeApp extends StatelessWidget {
         // Fundido lento: el cambio de tema en plena partida se siente intencional.
         themeAnimationDuration: const Duration(milliseconds: 450),
         themeAnimationCurve: Curves.easeInOut,
-        home: BrandIntro(next: onboarding ? const OnboardingScreen() : const MenuScreen()),
+        // Estudio → juego → bienvenida o menú.
+        home: BrandIntro(next: GameIntro(next: onboarding ? const OnboardingScreen() : const MenuScreen())),
       ),
     );
   }
