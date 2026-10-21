@@ -87,13 +87,13 @@ Rival: explorador ninja · IA: novato · Regla: normal
 - Ren *(pensando)*: Entonces… ¿a qué vino?
 
 #### s2 · Patio de entrenamiento
-Rival: explorador ninja · IA: fácil · Regla: el rival no usa habilidad
+Rival: el explorador capturado · IA: fácil · Regla: el rival no usa habilidad
 **Antes**
 - *A la mañana. Patio de entrenamiento.*
 - Mei: Gon atrapó a un explorador en el bosque.
 - Gon: Y vos dejaste escapar al tuyo, Ren.
 - Ren: Era rápido.
-- Mei: Antes de interrogarlo, el Abad quiere ver cómo peleás. Este tiene las manos atadas: sin trucos.
+- Mei: Antes de interrogarlo, el Abad quiere ver cómo peleás. Vas a enfrentarte al explorador que trajo Gon: tiene las manos atadas, así que no podrá usar el Kawarimi.
 
 **Después**
 - Mei: Bien. Rodeás con paciencia. Eso es lo importante.

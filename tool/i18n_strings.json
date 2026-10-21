@@ -1250,14 +1250,14 @@
   "zh": "练武场"
  },
  "stage.s2.goal": {
-  "es": "Ganá. El rival no usa su habilidad.",
-  "en": "Win. Your opponent doesn't use its ability.",
-  "zh": "获胜。对手不使用技能。"
+  "es": "Vencé al explorador capturado. No puede usar el Kawarimi.",
+  "en": "Defeat the captured scout. He can't use Kawarimi.",
+  "zh": "击败被俘的斥候。他无法使用替身术。"
  },
  "stage.s2.intro": {
-  "es": "La Maestra Mei quiere ver cómo peleás contra un explorador con las manos atadas.",
-  "en": "Master Mei wants to see how you fight a scout with tied hands.",
-  "zh": "梅师父想看看你如何对付一个被缚住双手的斥候。"
+  "es": "Peleás contra el explorador ninja que capturó Gon. Tiene las manos atadas: no puede usar el Kawarimi.",
+  "en": "You fight the ninja scout Gon captured. His hands are tied: he can't use Kawarimi.",
+  "zh": "你要对战刚抓来的忍者斥候。他双手被缚：无法使用替身术。"
  },
  "stage.s3.title": {
   "es": "Emboscada en el bosque",
@@ -3110,9 +3110,9 @@
   "zh": "他太快了。"
  },
  "story.s2.pre.4": {
-  "es": "Antes de interrogarlo, el Abad quiere ver cómo peleás. Este tiene las manos atadas: sin trucos.",
-  "en": "Before we question him, the Abbot wants to see how you fight. This one has his hands tied: no tricks.",
-  "zh": "审问之前，方丈想看看你怎么打。这个被缚住了手：没有花招。"
+  "es": "Antes de interrogarlo, el Abad quiere ver cómo peleás. Vas a enfrentarte al explorador que trajo Gon: tiene las manos atadas, así que no podrá usar el Kawarimi.",
+  "en": "Before we question him, the Abbot wants to see how you fight. You'll face the scout Gon brought in: his hands are tied, so he can't use Kawarimi.",
+  "zh": "审问之前，方丈想看看你怎么打。你要对付刚带回来的斥候：他双手被缚，用不了替身术。"
  },
  "story.s2.post.0": {
   "es": "Bien. Rodeás con paciencia. Eso es lo importante.",
