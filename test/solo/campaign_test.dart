@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hexiege/engine/ai.dart';
 import 'package:hexiege/engine/pieces.dart';
+import 'package:hexiege/i18n/i18n.dart';
 import 'package:hexiege/solo/catalog.dart';
 
 void main() {
@@ -14,6 +15,15 @@ void main() {
           expect(c.stages.take(kFreeStagesPerCampaign).every((s) => s.level.index <= AiLevel.easy.index), isTrue);
         });
       }
+
+      test('el objetivo nombra al Líder del rival (también contra los del propio bando)', () {
+        setLanguage('es');
+        for (final s in c.stages) {
+          for (final leader in [PieceType.monk, PieceType.shogun]) {
+            if (s.goal.contains(leader.displayName)) expect(leader.faction, s.opp, reason: s.id);
+          }
+        }
+      });
 
       test('cada batalla tiene título, objetivo e intro', () {
         for (final s in c.stages) {
@@ -76,5 +86,14 @@ void main() {
       expect(f3.board.locateLeaders(0), hasLength(2));
       expect(f3.hands[0].keys.map((t) => t.faction).toSet(), containsAll([Faction.shaolin, Faction.ninja]));
     });
+  });
+
+  test('contra los del propio bando se juega con las mismas fichas', () {
+    final all = {for (final c in campaigns) ...{for (final s in c.stages) s.id: s}};
+    for (final id in ['s13', 's14', 's15', 's18']) {
+      expect(all[id]!.opp, Faction.shaolin, reason: id);
+      expect(all[id]!.build().factions, [Faction.shaolin, Faction.shaolin], reason: id);
+    }
+    expect(all['n7']!.opp, Faction.ninja);
   });
 }

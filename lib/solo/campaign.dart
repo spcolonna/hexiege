@@ -11,19 +11,21 @@ const _sh = Faction.shaolin, _nj = Faction.ninja, _oni = Faction.oni;
 Stage _battle(
   String id, {
   required Faction you,
+  Faction? opp,
   required AiLevel level,
   Rules rules = Rules.standard,
   bool noAbility = false,
   GameState Function()? build,
 }) {
-  final opp = you == _sh ? _nj : _sh;
+  // Sin indicar, el rival es del otro bando; contra los del propio, partida espejo.
+  final rival = opp ?? (you == _sh ? _nj : _sh);
   return Stage(
     id: id,
     kind: StageKind.campaign,
     you: you,
-    opp: opp,
+    opp: rival,
     level: level,
-    build: build ?? () => fresh(you, opp, rules: rules, noAbility: noAbility ? const {1} : const {}),
+    build: build ?? () => fresh(you, rival, rules: rules, noAbility: noAbility ? const {1} : const {}),
   );
 }
 
@@ -154,12 +156,12 @@ final shaolinCampaign = <Stage>[
   _battle('s11', you: _sh, level: AiLevel.normal, rules: _fastAbilities),
   _battle('s12', you: _sh, level: AiLevel.normal),
   // Acto III
-  _battle('s13', you: _sh, level: AiLevel.normal),
-  _battle('s14', you: _sh, level: AiLevel.normal, noAbility: true),
-  _battle('s15', you: _sh, level: AiLevel.normal),
+  _battle('s13', you: _sh, opp: _sh, level: AiLevel.normal),
+  _battle('s14', you: _sh, opp: _sh, level: AiLevel.normal, noAbility: true),
+  _battle('s15', you: _sh, opp: _sh, level: AiLevel.normal),
   _battle('s16', you: _sh, level: AiLevel.hard, rules: _earlySiege),
   _battle('s17', you: _sh, level: AiLevel.hard, rules: _extra(_nj, PieceType.kunoichi, 3)),
-  _battle('s18', you: _sh, level: AiLevel.hard, rules: _fastAbilities),
+  _battle('s18', you: _sh, opp: _sh, level: AiLevel.hard, rules: _fastAbilities),
   // Acto IV
   _battle('s19', you: _sh, level: AiLevel.hard),
   _battle('s20', you: _sh, level: AiLevel.hard, rules: _extra(_nj, PieceType.kunoichi, 3)),
@@ -179,7 +181,7 @@ final ninjaCampaign = <Stage>[
   _battle('n5', you: _nj, level: AiLevel.easy, rules: _earlySiege),
   _battle('n6', you: _nj, level: AiLevel.easy, rules: _extra(_sh, PieceType.tiger, 3)),
   // Acto II
-  _battle('n7', you: _nj, level: AiLevel.easy),
+  _battle('n7', you: _nj, opp: _nj, level: AiLevel.easy),
   _battle('n8', you: _nj, level: AiLevel.normal, rules: _earlySiege),
   _battle('n9', you: _nj, level: AiLevel.normal, rules: _extra(_sh, PieceType.tiger, 3)),
   _battle('n10', you: _nj, level: AiLevel.normal),

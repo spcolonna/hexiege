@@ -1445,9 +1445,9 @@
   "zh": "禀报"
  },
  "stage.n7.goal": {
-  "es": "Rodeá al Monje Superior.",
-  "en": "Surround the Grand Abbot.",
-  "zh": "包围方丈。"
+  "es": "Rodeá al Gran Shogun.",
+  "en": "Surround the Great Shogun.",
+  "zh": "包围大将军。"
  },
  "stage.n7.intro": {
   "es": "Le contás al Shogun que la puerta de la cripta late. Te manda a entrenar con Kuro.",
@@ -2560,9 +2560,9 @@
   "zh": "归来"
  },
  "stage.s13.goal": {
-  "es": "Rodeá al Gran Shogun.",
-  "en": "Surround the Great Shogun.",
-  "zh": "包围大将军。"
+  "es": "Rodeá al Monje Superior.",
+  "en": "Surround the Grand Abbot.",
+  "zh": "包围方丈。"
  },
  "stage.s13.intro": {
   "es": "Volvés al Templo. El Abad cerró la biblioteca. Gon quiere pelear, como antes.",
@@ -2590,9 +2590,9 @@
   "zh": "藏经阁"
  },
  "stage.s15.goal": {
-  "es": "Rodeá al Gran Shogun.",
-  "en": "Surround the Great Shogun.",
-  "zh": "包围大将军。"
+  "es": "Rodeá al Monje Superior.",
+  "en": "Surround the Grand Abbot.",
+  "zh": "包围方丈。"
  },
  "stage.s15.intro": {
   "es": "Forzás la puerta de la biblioteca a medianoche. La Maestra Mei te espera adentro.",

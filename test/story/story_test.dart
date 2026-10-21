@@ -90,13 +90,23 @@ void main() {
         home: StoryScreen(scene: scene, mine: const {Faction.shaolin}, title: 'Prueba'),
       ),
     );
+    // Lo que todavía no se dijo ya ocupa su lugar, pero no se ve.
+    bool seen(int i) => find.text(scene.text(i)).evaluate().any((e) {
+      var visible = true;
+      e.visitAncestorElements((a) {
+        final w = a.widget;
+        if (w is Visibility && !w.visible) visible = false;
+        return visible;
+      });
+      return visible;
+    });
     // Primero el momento (lugar y hora), después de una pausa.
-    await tester.pump(const Duration(milliseconds: 600));
-    expect(find.text(scene.text(0)), findsNothing);
-    await tester.pump(const Duration(milliseconds: 800));
-    expect(find.text(scene.text(0)), findsOneWidget);
-    expect(find.text(scene.text(2)), findsNothing);
-    // Tocar adelanta: aparece lo que se estaba escribiendo.
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(seen(0), isFalse);
+    await tester.pump(const Duration(milliseconds: 400));
+    expect(seen(0), isTrue);
+    expect(seen(2), isFalse);
+    // Tocar adelanta: aparece el próximo mensaje, ya escrito.
     for (var i = 0; i < scene.beats.length; i++) {
       await tester.tap(find.byType(ListView));
       await tester.pump(const Duration(milliseconds: 50));

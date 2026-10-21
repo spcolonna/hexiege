@@ -114,7 +114,7 @@ class StageIntro extends StatelessWidget {
                   _duel(t, s),
                   if (rivalLine != null) ...[
                     const SizedBox(height: 6),
-                    Text(rivalLine!, style: TextStyle(color: t.textMuted, fontSize: 12.5)),
+                    Text(rivalLine!, style: TextStyle(color: t.textMuted, fontSize: 14)),
                   ],
                   const Spacer(flex: 4),
                   SkinPrimaryButton(label: tr('common.start'), glyph: '始', onPressed: onStart),
@@ -136,37 +136,45 @@ class StageIntro extends StatelessWidget {
     );
   }
 
+  /// Vos contra el rival: retratos grandes con el nombre debajo.
   Widget _duel(HexTheme t, Skin s) {
-    Widget who(PlayerProfile p, {required bool right}) {
+    Widget who(PlayerProfile p) {
       final c = HexTheme.faction(p.faction);
-      final dot = AvatarFace(avatar: p.avatar, size: 30, color: c, borderColor: c);
-      final name = Flexible(
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            p.nickname,
-            maxLines: 1,
-            style: TextStyle(color: t.text, fontSize: 13.5, fontWeight: FontWeight.w800),
-          ),
-        ),
-      );
-      return Flexible(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: right ? [name, const SizedBox(width: 8), dot] : [dot, const SizedBox(width: 8), name],
+      return Expanded(
+        child: Column(
+          children: [
+            AvatarFace(
+              avatar: p.avatar,
+              frame: p.frame,
+              size: 84,
+              color: c,
+              borderColor: c,
+              borderWidth: 2.5,
+              shadow: [BoxShadow(color: c.withValues(alpha: 0.35), blurRadius: 14, spreadRadius: 1)],
+            ),
+            const SizedBox(height: 8),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                p.nickname,
+                maxLines: 1,
+                style: TextStyle(color: t.text, fontSize: 18, fontWeight: FontWeight.w900),
+              ),
+            ),
+          ],
         ),
       );
     }
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        who(me, right: false),
+        who(me),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Text('対', style: s.glyph(20, color: t.gold)),
+          padding: const EdgeInsets.only(top: 24),
+          child: Text('対', style: s.glyph(32, color: t.gold)),
         ),
-        who(rival, right: true),
+        who(rival),
       ],
     );
   }

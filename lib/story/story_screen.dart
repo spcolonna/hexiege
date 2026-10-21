@@ -38,7 +38,7 @@ Future<void> playScene(
   AppSettings.instance.markSceneSeen(scene.id);
 }
 
-/// Viñeta tipo charla: los mensajes entran de a uno, con "escribiendo…" antes.
+/// Viñeta tipo charla: los mensajes entran de a uno, ya escritos, con tiempo para leerlos.
 /// Tocar adelanta el próximo; mantener apretado acelera; arriba, la línea de
 /// tiempo de los momentos permite saltar o volver.
 class StoryScreen extends StatefulWidget {
@@ -61,8 +61,6 @@ class _StoryScreenState extends State<StoryScreen> {
   /// Mensajes a la vista.
   int _shown = 0;
 
-  /// El próximo mensaje se está "escribiendo".
-  bool _typing = false;
   bool _fast = false;
 
   List<Beat> get _beats => widget.scene.beats;
@@ -88,41 +86,34 @@ class _StoryScreenState extends State<StoryScreen> {
     super.dispose();
   }
 
-  /// Cuánto tarda en "escribirse" el mensaje [i]: según el largo del texto.
+  /// Cuánto se deja para leer el mensaje [i] antes del siguiente: según el largo del texto.
   Duration _delay(int i) {
     final b = _beats[i];
     final len = widget.scene.text(i).length;
     final ms = switch (b.kind) {
-      BeatKind.moment => 700,
-      BeatKind.narrate => (500 + len * 18).clamp(700, 2000),
-      _ => (350 + len * 22).clamp(600, 2200),
+      BeatKind.moment => 1000,
+      BeatKind.narrate => (800 + len * 18).clamp(1000, 2400),
+      _ => (700 + len * 22).clamp(1000, 2600),
     };
     return Duration(milliseconds: _fast ? ms ~/ 5 : ms);
   }
 
   void _queue() {
     if (!mounted || _done) return;
-    final i = _shown;
-    setState(() => _typing = true);
-    _timer = Timer(_delay(i), _reveal);
-    _follow();
+    _timer = Timer(_shown == 0 ? Duration.zero : _delay(_shown - 1), _reveal);
   }
 
   void _reveal() {
     _timer?.cancel();
     if (!mounted || _done) return;
     final b = _beats[_shown];
-    setState(() {
-      _shown++;
-      _typing = false;
-    });
+    setState(() => _shown++);
     SoundBoard.instance.play(b.kind == BeatKind.moment ? Sfx.turn : Sfx.tick, volume: 0.5);
     _follow();
-    // Una pausa breve para leer antes de que empiece el siguiente.
-    if (!_done) _timer = Timer(Duration(milliseconds: _fast ? 60 : 380), _queue);
+    _queue();
   }
 
-  /// Tocar: el mensaje que se está escribiendo aparece ya.
+  /// Tocar: el próximo mensaje aparece ya.
   void _tap() {
     if (_done) return;
     Haptics.select();
@@ -134,11 +125,8 @@ class _StoryScreenState extends State<StoryScreen> {
     Haptics.select();
     if (index >= _shown) {
       _timer?.cancel();
-      setState(() {
-        _shown = index + 1;
-        _typing = false;
-      });
-      _timer = Timer(const Duration(milliseconds: 500), _queue);
+      setState(() => _shown = index + 1);
+      _queue();
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final ctx = _keys[_strips.lastWhere((s) => s.first <= index).first]!.currentContext;
@@ -248,9 +236,9 @@ class _StoryScreenState extends State<StoryScreen> {
 
   bool _talks(int i) => _beats[i].kind == BeatKind.say || _beats[i].kind == BeatKind.think;
 
-  /// Mensajes en pantalla: los revelados y, si alguien está por hablar, su
-  /// globo con los puntos.
-  int get _visible => _shown + (_typing && !_done && _talks(_shown) ? 1 : 0);
+  /// Mensajes en pantalla. Los que faltan ya ocupan su lugar (invisibles):
+  /// así el cuadro tiene su tamaño final y no salta al aparecer un globo.
+  int get _visible => _shown;
 
   int get _seed => widget.scene.id.codeUnits.fold(7, (a, c) => (a * 31 + c) & 0xFFFFFF);
 
@@ -311,12 +299,14 @@ class _StoryScreenState extends State<StoryScreen> {
               if (k > 0) const SizedBox(width: 6),
               Expanded(
                 flex: s.flex[k],
-                child: _Enter(
-                  key: ValueKey(s.frames[k].first),
-                  animate: animate,
-                  from: pair ? (k == 0 ? -1 : 1) : (_sides(s.frames[k]).values.first ? -1 : 1),
-                  child: _frame(s.frames[k], cuts[k], wide: !pair),
-                ),
+                child: s.frames[k].first < _visible
+                    ? _Enter(
+                        key: ValueKey(s.frames[k].first),
+                        animate: animate,
+                        from: pair ? (k == 0 ? -1 : 1) : (_sides(s.frames[k]).values.first ? -1 : 1),
+                        child: _frame(s.frames[k], cuts[k], wide: !pair),
+                      )
+                    : _Hidden(child: _frame(s.frames[k], cuts[k], wide: !pair)),
               ),
             ],
           ],
@@ -347,19 +337,19 @@ class _StoryScreenState extends State<StoryScreen> {
       figures: sides,
       children: [
         for (final i in f.beats)
-          if (i < _visible)
-            _Pop(
-              key: ValueKey(i),
-              animate: animate,
-              origin: !_talks(i) || sides[_beats[i].who]! ? Alignment.bottomLeft : Alignment.bottomRight,
-              child: _talks(i)
+          _Pop(
+            key: ValueKey(i),
+            animate: animate,
+            hidden: i >= _visible,
+            origin: !_talks(i) || sides[_beats[i].who]! ? Alignment.bottomLeft : Alignment.bottomRight,
+            child: _talks(i)
                   ? _BalloonSlot(
                       left: sides[_beats[i].who]!,
                       // Un solo personaje: el globo arriba, del otro lado; dos: cada uno del suyo.
                       across: sides.length == 1,
                       wide: wide,
                       child: _Balloon(
-                        text: i < _shown ? widget.scene.text(i) : null,
+                        text: widget.scene.text(i),
                         left: sides[_beats[i].who]!,
                         thought: _beats[i].kind == BeatKind.think,
                       ),
@@ -874,6 +864,9 @@ class _FrameView extends StatelessWidget {
     final two = figures.length > 1;
     // Plano y contraplano: el encuadre mira hacia quien habla.
     final alignX = two ? 0.0 : (figures.values.first ? -0.7 : 0.7);
+    // Los personajes tienen alto fijo y los globos van todos encima: nunca
+    // les tapan la cara, por más texto que tenga el cuadro.
+    final figureHeight = two || !wide ? 118.0 : 148.0;
     return CustomPaint(
       painter: _FrameInk(seed, cut, shadow: true),
       foregroundPainter: _FrameInk(seed, cut),
@@ -885,9 +878,11 @@ class _FrameView extends StatelessWidget {
               child: _PlaceBackdrop(place: place, alignX: alignX),
             ),
             for (final MapEntry(key: who, value: left) in figures.entries)
-              Positioned.fill(
+              Positioned(
                 left: left ? cut.bl : 0,
                 right: left ? 0 : cut.br,
+                bottom: 0,
+                height: figureHeight,
                 child: _Figure(who: who, left: left, small: two || !wide),
               ),
             Padding(
@@ -898,7 +893,7 @@ class _FrameView extends StatelessWidget {
                 children: [
                   for (final c in children) Padding(padding: const EdgeInsets.only(bottom: 16), child: c),
                   // Lugar para los personajes.
-                  SizedBox(height: two ? 92 : 100),
+                  SizedBox(height: figureHeight - 6),
                 ],
               ),
             ),
@@ -930,7 +925,6 @@ class _Figure extends StatelessWidget {
             alignment: at,
             child: FractionallySizedBox(
               widthFactor: small ? 0.5 : 0.36,
-              heightFactor: 0.72,
               alignment: at,
               child: Transform.flip(
                 flipX: !left,
@@ -987,15 +981,35 @@ class _BalloonSlot extends StatelessWidget {
   }
 }
 
+/// Lo que todavía no apareció: no se ve ni se toca, pero ocupa su tamaño.
+class _Hidden extends StatelessWidget {
+  final Widget child;
+  const _Hidden({required this.child});
+
+  @override
+  Widget build(BuildContext context) =>
+      Visibility(visible: false, maintainSize: true, maintainAnimation: true, maintainState: true, child: child);
+}
+
 /// Aparición de un globo o cartel: crece desde la cola.
 class _Pop extends StatelessWidget {
   final Widget child;
   final bool animate;
+
+  /// Todavía no se dijo: ocupa su lugar sin verse.
+  final bool hidden;
   final Alignment origin;
-  const _Pop({super.key, required this.child, this.animate = true, this.origin = Alignment.bottomLeft});
+  const _Pop({
+    super.key,
+    required this.child,
+    this.animate = true,
+    this.hidden = false,
+    this.origin = Alignment.bottomLeft,
+  });
 
   @override
   Widget build(BuildContext context) {
+    if (hidden) return _Hidden(child: child);
     if (!animate) return child;
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: 1),
@@ -1037,10 +1051,10 @@ class _NameTag extends StatelessWidget {
 /// Globo de cómic: papel con borde de tinta y la cola abajo, hacia quien
 /// habla. El pensamiento es más redondo y suelta burbujitas en vez de cola.
 class _Balloon extends StatelessWidget {
-  final String? text;
+  final String text;
   final bool left;
   final bool thought;
-  const _Balloon({this.text, required this.left, this.thought = false});
+  const _Balloon({required this.text, required this.left, this.thought = false});
 
   @override
   Widget build(BuildContext context) {
@@ -1052,11 +1066,9 @@ class _Balloon extends StatelessWidget {
         borderRadius: BorderRadius.circular(thought ? 26 : 16),
         border: Border.all(color: _ink, width: thought ? 1.5 : 2),
       ),
-      child: text == null
-          ? const _Dots(color: _ink)
-          : Text.rich(
+      child: Text.rich(
               storySpans(
-                text!,
+                text,
                 TextStyle(
                   fontSize: 15,
                   height: 1.3,
@@ -1126,50 +1138,6 @@ class _Tail extends CustomPainter {
 
   @override
   bool shouldRepaint(_Tail old) => old.left != left;
-}
-
-/// Tres puntos que laten: alguien está escribiendo.
-class _Dots extends StatefulWidget {
-  final Color? color;
-  const _Dots({this.color});
-
-  @override
-  State<_Dots> createState() => _DotsState();
-}
-
-class _DotsState extends State<_Dots> with SingleTickerProviderStateMixin {
-  late final _c = AnimationController(vsync: this, duration: const Duration(milliseconds: 900))..repeat();
-
-  @override
-  void dispose() {
-    _c.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final t = HexTheme.of(context);
-    return AnimatedBuilder(
-      animation: _c,
-      builder: (_, _) => Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          for (var i = 0; i < 3; i++)
-            Container(
-              width: 7,
-              height: 7,
-              margin: const EdgeInsets.symmetric(horizontal: 2.5, vertical: 6),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: (widget.color ?? t.textMuted).withValues(alpha: 0.35 + 0.65 * _pulse((_c.value - i * 0.18) % 1)),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  static double _pulse(double x) => x < 0.5 ? x * 2 : (1 - x) * 2;
 }
 
 /// Texto del guion con **negrita** y *cursiva* (acotaciones, *hip*).

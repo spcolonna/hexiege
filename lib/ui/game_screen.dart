@@ -1191,8 +1191,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     showSkinSheet<void>(
       context,
       builder: (ctx) => Center(
-        child: Padding(
-          padding: EdgeInsets.zero,
+        // Cara a cara: el de arriba lo lee mirando hacia él.
+        child: RotatedBox(
+          quarterTurns: _flipFor(player) ? 2 : 0,
           child: Wrap(
             alignment: WrapAlignment.center,
             spacing: 10,
@@ -1300,15 +1301,18 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 )
               else
                 SafeArea(
+                  // De abajo hacia arriba: la barra de arriba se pinta última y
+                  // los emotes que cuelgan del marcador quedan sobre el objetivo.
                   child: Column(
+                    verticalDirection: VerticalDirection.up,
                     children: [
-                      _topBar(t),
-                      if (_tutorial) _coachCard() else if (_staged) _goalChip(t),
-                      _noticeCard(t),
-                      const Spacer(),
-                      _hintLine(t),
-                      const SizedBox(height: 8),
                       _dock(t),
+                      const SizedBox(height: 8),
+                      _hintLine(t),
+                      const Spacer(),
+                      _noticeCard(t),
+                      if (_tutorial) _coachCard() else if (_staged) _goalChip(t),
+                      _topBar(t),
                     ],
                   ),
                 ),
@@ -1499,14 +1503,35 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       padding: const EdgeInsets.fromLTRB(12, 0, 8, 4),
       child: Row(
         children: [
-          AvatarFace(
-            avatar: profile.avatar,
-            frame: profile.frame,
-            size: 36,
-            color: color,
-            borderColor: active ? t.gold : t.outline,
-            borderWidth: active ? 2.2 : 1.2,
-            shadow: [if (active) BoxShadow(color: color.withValues(alpha: 0.5), blurRadius: 10, spreadRadius: 1)],
+          // Tocando el avatar se manda un emote; sale como globo hacia el tablero.
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Pressable(
+                semanticLabel: tr('banner.emote'),
+                onTap: () => _pickEmote(p),
+                child: AvatarFace(
+                  avatar: profile.avatar,
+                  frame: profile.frame,
+                  size: 36,
+                  color: color,
+                  borderColor: active ? t.gold : t.outline,
+                  borderWidth: active ? 2.2 : 1.2,
+                  shadow: [if (active) BoxShadow(color: color.withValues(alpha: 0.5), blurRadius: 10, spreadRadius: 1)],
+                ),
+              ),
+              if (_emote[p] != null)
+                Positioned(
+                  left: 0,
+                  bottom: 42,
+                  child: EmoteBubble(
+                    key: ValueKey(_emoteKey[p]),
+                    emote: _emote[p]!,
+                    faction: profile.faction,
+                    pointUp: false,
+                  ),
+                ),
+            ],
           ),
           const SizedBox(width: 10),
           // El nombre se corta antes que mover la ronda y los botones.
@@ -1598,7 +1623,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   DuelSide _side(int p) {
     final g = _game;
-    final canEmote = !_tutorial && _isHuman(p) && (widget.aiPlayer != null || p == g.current);
+    final canEmote = !_tutorial && _isHuman(p);
     return DuelSide(
       profile: _profiles[p],
       active: g.current == p && !g.isOver,
