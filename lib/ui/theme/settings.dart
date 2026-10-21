@@ -28,6 +28,7 @@ class AppSettings extends ChangeNotifier {
   PieceStyle _pieceStyle = PieceStyle.images;
   Faction _faction = Faction.shaolin;
   bool _sound = true;
+  bool _music = true;
   bool _haptics = true;
   bool _storyUnlocked = false;
   bool _faceToFace = false;
@@ -40,11 +41,15 @@ class AppSettings extends ChangeNotifier {
   bool _tutorialDone = false;
   LadderRecord _ladder = const LadderRecord();
   Set<String> _cleared = {};
+  Map<String, int> _stars = {};
   Set<String> _seenScenes = {};
   Set<String> _seenPieces = {};
   Set<String> _giftsAnnounced = {};
   Set<String> _giftsOpened = {};
   int _wins = 0;
+  int _dailyLast = -1;
+  int _dailyStreak = 0;
+  int _dailyBest = 0;
   UiStyle _uiStyle = StyleUnlocks.base;
   Set<String> _ownedStyles = {};
 
@@ -61,6 +66,7 @@ class AppSettings extends ChangeNotifier {
   /// Las fichas muestran el carácter en lugar de la ilustración.
   bool get useGlyphs => currentLanguage == 'zh' && _pieceStyle == PieceStyle.glyphs;
   bool get sound => _sound;
+  bool get music => _music;
   bool get haptics => _haptics;
 
   /// Partida local cara a cara: el dispositivo en la mesa, la parte de arriba
@@ -144,10 +150,24 @@ class AppSettings extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Mejores estrellas (0 a 3) de una batalla.
+  int starsOf(String stageId) => _stars[stageId] ?? 0;
+
+  /// Guarda [n] estrellas si mejoran las que había. Devuelve true si mejoró.
+  bool recordStars(String stageId, int n) {
+    if (n <= starsOf(stageId)) return false;
+    _stars[stageId] = n;
+    _prefs?.setStringList('stars', [for (final e in _stars.entries) '${e.key}:${e.value}']);
+    notifyListeners();
+    return true;
+  }
+
   /// Borra el avance de la historia: las batallas [stageIds] vuelven a estar
   /// sin superar, las viñetas sin ver y el desbloqueo sin comprar.
   void resetStory(Iterable<String> stageIds) {
     _cleared.removeAll(stageIds);
+    _stars.removeWhere((id, _) => stageIds.contains(id));
+    _prefs?.setStringList('stars', [for (final e in _stars.entries) '${e.key}:${e.value}']);
     _seenScenes.clear();
     _storyUnlocked = false;
     _prefs?.setStringList('cleared', _cleared.toList());
@@ -171,6 +191,24 @@ class AppSettings extends ChangeNotifier {
   void markPieceSeen(String type) {
     if (!_seenPieces.add(type)) return;
     _prefs?.setStringList('seenPieces', _seenPieces.toList());
+    notifyListeners();
+  }
+
+  /// Desafío del día: último día resuelto, racha y mejor racha.
+  bool dailySolved(int day) => _dailyLast == day;
+
+  /// Racha vigente: se corta si ayer no se resolvió (hoy todavía se puede).
+  int dailyStreakOn(int day) => _dailyLast >= day - 1 ? _dailyStreak : 0;
+  int get dailyBest => _dailyBest;
+
+  void solveDaily(int day) {
+    if (_dailyLast == day) return;
+    _dailyStreak = _dailyLast == day - 1 ? _dailyStreak + 1 : 1;
+    _dailyLast = day;
+    if (_dailyStreak > _dailyBest) _dailyBest = _dailyStreak;
+    _prefs?.setInt('dailyLast', _dailyLast);
+    _prefs?.setInt('dailyStreak', _dailyStreak);
+    _prefs?.setInt('dailyBest', _dailyBest);
     notifyListeners();
   }
 
@@ -217,6 +255,7 @@ class AppSettings extends ChangeNotifier {
         ? ThemeMode.values[mode]
         : ThemeMode.system;
     _sound = p.getBool('sound') ?? true;
+    _music = p.getBool('music') ?? true;
     _haptics = p.getBool('haptics') ?? true;
     _storyUnlocked = p.getBool('storyUnlocked') ?? false;
     _faceToFace = p.getBool('faceToFace') ?? false;
@@ -232,11 +271,18 @@ class AppSettings extends ChangeNotifier {
     _onboarded = p.getBool('onboarded') ?? false;
     _tutorialDone = p.getBool('tutorialDone') ?? false;
     _cleared = (p.getStringList('cleared') ?? const []).toSet();
+    _stars = {
+      for (final e in p.getStringList('stars') ?? const <String>[])
+        if (e.split(':') case [final id, final n] when int.tryParse(n) != null) id: int.parse(n),
+    };
     _seenScenes = (p.getStringList('seenScenes') ?? const []).toSet();
     _seenPieces = (p.getStringList('seenPieces') ?? const []).toSet();
     _giftsAnnounced = (p.getStringList('giftsAnnounced') ?? const []).toSet();
     _giftsOpened = (p.getStringList('giftsOpened') ?? const []).toSet();
     _wins = p.getInt('wins') ?? 0;
+    _dailyLast = p.getInt('dailyLast') ?? -1;
+    _dailyStreak = p.getInt('dailyStreak') ?? 0;
+    _dailyBest = p.getInt('dailyBest') ?? 0;
     _ownedStyles = (p.getStringList('ownedStyles') ?? const []).toSet();
     final style = UiStyle.values.asNameMap()[p.getString('uiStyle')];
     _uiStyle = style != null && isStyleUnlocked(style) ? style : StyleUnlocks.base;
@@ -282,6 +328,12 @@ class AppSettings extends ChangeNotifier {
   set faction(Faction f) {
     _faction = f;
     _prefs?.setString('faction', f.name);
+    notifyListeners();
+  }
+
+  set music(bool v) {
+    _music = v;
+    _prefs?.setBool('music', v);
     notifyListeners();
   }
 

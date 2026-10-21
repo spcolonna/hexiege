@@ -20,7 +20,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await AppSettings.instance.load();
-  SoundBoard.instance.init(); // en segundo plano: no frena el arranque
+  SoundBoard.instance.init().then((_) => MusicBoard.instance.enable()); // en segundo plano
   Purchases.instance.init(); // compras pendientes y precio de la tienda
   StoryArt.load(); // qué arte de las viñetas ya está en el paquete
   await PieceArt.load();

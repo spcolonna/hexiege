@@ -61,6 +61,8 @@ void main() {
     await tester.pump();
     final s7 = shaolinCampaign[6];
     await tester.scrollUntilVisible(find.text(s7.title), 200);
+    await tester.ensureVisible(find.text(s7.title));
+    await tester.pump();
     expect(find.text('Historia completa · USD 1,99'), findsOneWidget);
     await tester.tap(find.text(s7.title));
     await tester.pump();

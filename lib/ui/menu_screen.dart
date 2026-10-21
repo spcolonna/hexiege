@@ -12,6 +12,7 @@ import 'codex_screen.dart';
 import 'gallery_screen.dart';
 import 'fx/sfx.dart';
 import 'game_screen.dart';
+import 'initiation_screen.dart';
 import 'matchmaking_screen.dart';
 import 'menu_layouts.dart';
 import 'piece_chip.dart';
@@ -38,6 +39,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
+    MusicBoard.instance.play(MusicTrack.menu);
     // Regalos ganados antes de que existiera la galería (o en otra pantalla).
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) GiftToast.check(context, delay: const Duration(milliseconds: 1200));
@@ -179,7 +181,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
 
   void _tutorial() {
     Haptics.select();
-    Navigator.push(context, MaterialPageRoute(builder: (_) => const GameScreen.tutorial()));
+    Navigator.push(context, MaterialPageRoute(builder: (_) => const InitiationScreen()));
   }
 
   void _solo() {
@@ -246,6 +248,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               ],
               const SizedBox(height: 12),
               SkinToggle(label: tr('common.sound'), value: s.sound, onChanged: (v) => s.sound = v),
+              SkinToggle(label: tr('settings.music'), value: s.music, onChanged: (v) => s.music = v),
               SkinToggle(label: tr('settings.haptics'), value: s.haptics, onChanged: (v) => s.haptics = v),
               const SizedBox(height: 12),
               // Restaurar compras (lo exige Apple) y estado de la historia.

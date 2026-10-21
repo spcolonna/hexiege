@@ -7,7 +7,7 @@ import '../engine/hex.dart';
 import '../engine/pieces.dart';
 import 'fx/piece_renderer.dart';
 import 'fx/sfx.dart';
-import 'game_screen.dart';
+import 'initiation_screen.dart';
 import 'hex_layout.dart';
 import 'menu_screen.dart';
 import 'piece_chip.dart';
@@ -53,7 +53,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Haptics.medium();
     final nav = Navigator.of(context);
     nav.pushReplacement(_fade(const MenuScreen()));
-    if (tutorial) nav.push(_fade(const GameScreen.tutorial()));
+    if (tutorial) nav.push(_fade(const InitiationScreen()));
   }
 
   static Route<void> _fade(Widget page) => PageRouteBuilder(
@@ -156,11 +156,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget _intro(HexTheme t) => Column(
     children: [
       const Expanded(child: Center(child: _SurroundDemo())),
-      _text(
-        t,
-        tr('onboarding.p1Title'),
-        tr('onboarding.p1Body'),
-      ),
+      _text(t, tr('onboarding.p1Title'), tr('onboarding.p1Body')),
       const SizedBox(height: 12),
     ],
   );

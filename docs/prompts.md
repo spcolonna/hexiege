@@ -20,6 +20,7 @@ Prompts para **ChatGPT** (generador de imágenes), en inglés porque así sigue 
 | Bloque | Qué | Carpeta | Imágenes |
 |---|---|---|---|
 | A | Historia: ilustraciones de momentos clave restantes (opcionales) | `assets/story/` | 5 |
+| B | Ícono de la app en estilo Ema: 3 variantes para elegir una | `assets/icon/` | 3 |
 
 Las ilustraciones son el panel grande que corta la página en los momentos clave; mientras falten, la viñeta
 simplemente no lo muestra. Las 7 que más se ven ya están integradas. Adjuntá `assets/story/art_wall.webp` como
@@ -96,6 +97,61 @@ CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange rob
 STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
+```
+
+## Bloque B — Ícono de la app en estilo Ema (3 variantes)
+
+Archivos, en orden: `app_icon_ema_a.png`, `app_icon_ema_b.png`, `app_icon_ema_c.png`. Carpeta: `assets/icon/`. Se
+elige una y Claude genera los íconos de iOS y Android con ella. Hay un boceto hecho con el arte del juego en
+`store/icon/app_icon.png` (lo dibuja `flutter test tool/render_icon_test.dart`) como referencia de composición.
+
+```
+Generate exactly 3 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately. Each image is its own file: do NOT combine them into a grid, collage or contact sheet.
+
+Image 1 — app_icon_ema_a:
+Create a SQUARE 1024×1024 PNG image, fully opaque (no transparency anywhere), with square corners (do not round the corners, the phone will do that).
+
+PURPOSE: This is the app icon of "Hexiege", a hexagonal strategy board game where Shaolin monks (white marble and jade green) fight a ninja clan (black obsidian and crimson). The game's interface uses Japanese votive wooden plaques (ema) hanging from red cords, on washi paper. The icon will be seen very small (about 60×60 pixels) on a phone home screen, so it must read as one bold, simple shape.
+
+STYLE: Polished, painterly 3D game-icon rendering with real materials: warm natural wood with visible grain, polished stone, thick red braided cord. Soft light from the upper left, clear highlights and soft shadows so everything reads as thick physical objects. Rich but limited palette: warm wood, ink black, jade green, crimson, a touch of gold.
+
+BACKGROUND: A smooth, dark, warm background filling the whole square: deep charcoal brown (#231E1A) with a gentle lighter glow behind the subject. No pattern, no scene.
+
+COMPOSITION: The subject is centered and fills about 70% of the canvas. Keep about 12% of empty margin on every side (the corners get cut off). Big, simple shapes; very little fine detail.
+
+DO NOT INCLUDE: any text, letters, logo, signature or Chinese/Japanese characters; a border or frame around the image; rounded corners; transparency; cartoon, anime or flat vector style.
+
+SUBJECT: A single wooden ema plaque (a pentagon: rectangle with a pointed gable roof on top) hanging slightly tilted from a short thick red cord tied in a knot at the top. Mounted on the plaque, two hexagonal stone game tiles slightly overlapping, as if they just clashed: the front-left tile is polished white marble with a jade-green (#2F9E6E) rim and a small carved lotus in bas-relief; the back-right tile is polished black obsidian with a crimson (#C0404F) rim and a small carved crescent moon in bas-relief.
+
+Image 2 — app_icon_ema_b:
+Create a SQUARE 1024×1024 PNG image, fully opaque (no transparency anywhere), with square corners (do not round the corners, the phone will do that).
+
+PURPOSE: This is the app icon of "Hexiege", a hexagonal strategy board game where Shaolin monks (white marble and jade green) fight a ninja clan (black obsidian and crimson). The game's interface uses Japanese votive wooden plaques (ema) hanging from red cords, on washi paper. The icon will be seen very small (about 60×60 pixels) on a phone home screen, so it must read as one bold, simple shape.
+
+STYLE: Polished, painterly 3D game-icon rendering with real materials: warm natural wood with visible grain, polished stone, thick red braided cord. Soft light from the upper left, clear highlights and soft shadows so everything reads as thick physical objects. Rich but limited palette: warm wood, ink black, jade green, crimson, a touch of gold.
+
+BACKGROUND: A smooth, dark, warm background filling the whole square: deep charcoal brown (#231E1A) with a gentle lighter glow behind the subject. No pattern, no scene.
+
+COMPOSITION: The subject is centered and fills about 70% of the canvas. Keep about 12% of empty margin on every side (the corners get cut off). Big, simple shapes; very little fine detail.
+
+DO NOT INCLUDE: any text, letters, logo, signature or Chinese/Japanese characters; a border or frame around the image; rounded corners; transparency; cartoon, anime or flat vector style.
+
+SUBJECT: A single wooden ema plaque (a pentagon: rectangle with a pointed gable roof on top) seen straight from the front, hanging from a short thick red cord. Inlaid in its center, filling most of the plaque, one large hexagonal tile split diagonally in two halves: the upper-left half polished white marble with a jade-green rim, the lower-right half polished black obsidian with a crimson rim, joined by a thin line of gold like kintsugi.
+
+Image 3 — app_icon_ema_c:
+Create a SQUARE 1024×1024 PNG image, fully opaque (no transparency anywhere), with square corners (do not round the corners, the phone will do that).
+
+PURPOSE: This is the app icon of "Hexiege", a hexagonal strategy board game where Shaolin monks (white marble and jade green) fight a ninja clan (black obsidian and crimson). The game's interface uses Japanese votive wooden plaques (ema) hanging from red cords, on washi paper. The icon will be seen very small (about 60×60 pixels) on a phone home screen, so it must read as one bold, simple shape.
+
+STYLE: Polished, painterly 3D game-icon rendering with real materials: warm natural wood with visible grain, polished stone, thick red braided cord. Soft light from the upper left, clear highlights and soft shadows so everything reads as thick physical objects. Rich but limited palette: warm wood, ink black, jade green, crimson, a touch of gold.
+
+BACKGROUND: A smooth, dark, warm background filling the whole square: deep charcoal brown (#231E1A) with a gentle lighter glow behind the subject. No pattern, no scene.
+
+COMPOSITION: The subject is centered and fills about 70% of the canvas. Keep about 12% of empty margin on every side (the corners get cut off). Big, simple shapes; very little fine detail.
+
+DO NOT INCLUDE: any text, letters, logo, signature or Chinese/Japanese characters; a border or frame around the image; rounded corners; transparency; cartoon, anime or flat vector style.
+
+SUBJECT: Two small wooden ema plaques (pentagons: rectangles with pointed gable roofs) hanging side by side from one red cord, overlapping a little and swaying toward each other. The left plaque carries a polished white marble hexagonal tile with a jade-green rim; the right plaque carries a polished black obsidian hexagonal tile with a crimson rim. A small red paper seal-shaped disc (no characters on it) hangs from the cord between them.
 ```
 
 ---

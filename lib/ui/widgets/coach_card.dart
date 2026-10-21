@@ -123,6 +123,58 @@ class CoachCard extends StatelessWidget {
   }
 }
 
+/// Consejo del Sensei en la Iniciación: sin pasos ni objetivo fijo, cambia
+/// con la partida y entra con un pequeño rebote.
+class GuideCard extends StatelessWidget {
+  final String title;
+  final String body;
+  const GuideCard({super.key, required this.title, required this.body});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = HexTheme.of(context);
+    return _PopIn(
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(10, 4, 10, 0),
+        padding: const EdgeInsets.fromLTRB(12, 10, 14, 12),
+        decoration: BoxDecoration(
+          color: t.surface,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: t.gold.withValues(alpha: 0.7), width: 1.5),
+          boxShadow: [
+            BoxShadow(
+              color: t.shadow.withValues(alpha: t.shadow.a * 0.35),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const _SenseiAvatar(done: false),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: t.text),
+                  ),
+                  const SizedBox(height: 3),
+                  Text(body, style: TextStyle(fontSize: 13.5, height: 1.3, color: t.textMuted)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _Goal extends StatelessWidget {
   final String text;
   final bool retry;

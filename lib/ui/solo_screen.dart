@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../i18n/i18n.dart';
 import '../solo/catalog.dart';
+import '../solo/daily.dart';
 import 'campaign_screen.dart';
 import 'fx/sfx.dart';
 import 'game_screen.dart';
@@ -58,6 +59,8 @@ class SoloScreen extends StatelessWidget {
                       children: [
                         const SizedBox(height: 8),
                         if (next != null) _continue(context, next),
+                        const SizedBox(height: 12),
+                        _daily(context, t, s),
                         const SizedBox(height: 18),
                         _mode(
                           glyph: '記',
@@ -111,6 +114,35 @@ class SoloScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  /// Desafío del día con la racha: resuelto hoy, o la llama que espera.
+  Widget _daily(BuildContext context, HexTheme t, AppSettings s) {
+    final today = Daily.today;
+    final solved = s.dailySolved(today);
+    final streak = s.dailyStreakOn(today);
+    return SkinTile(
+      glyph: '日',
+      color: t.gold,
+      highlight: !solved,
+      title: tr('daily.title'),
+      text: [
+        tr(solved ? 'daily.solved' : 'daily.text', {'n': Daily.turns}),
+        if (streak > 0) trN('daily.streak', streak),
+        if (s.dailyBest > 1) tr('daily.best', {'n': s.dailyBest}),
+      ].join('  ·  '),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.local_fire_department_rounded, color: streak > 0 ? t.danger : t.textMuted, size: 22),
+          Text('$streak', style: Skin.of(context).display(20, color: streak > 0 ? t.text : t.textMuted)),
+        ],
+      ),
+      onTap: () {
+        Haptics.select();
+        Navigator.push(context, MaterialPageRoute(builder: (_) => GameScreen.stage(stage: Daily.forDay(today))));
+      },
     );
   }
 

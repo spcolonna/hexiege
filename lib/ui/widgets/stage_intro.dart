@@ -6,6 +6,7 @@ import '../theme/ui_style.dart';
 import 'avatar_face.dart';
 import 'duel_scoreboard.dart';
 import 'skin_kit.dart';
+import 'star_row.dart';
 
 /// Presentación de una etapa (campaña, desafío o problema) a pantalla
 /// completa, antes de la partida. En la partida solo queda el objetivo.
@@ -27,6 +28,9 @@ class StageIntro extends StatelessWidget {
   /// Texto del botón de volver (salir de la etapa o cerrar la presentación).
   final String backTooltip;
 
+  /// Estrellas ganadas en esta batalla, o null si no tiene (problemas).
+  final int? stars;
+
   const StageIntro({
     super.key,
     required this.glyph,
@@ -40,6 +44,7 @@ class StageIntro extends StatelessWidget {
     required this.onStart,
     required this.onBack,
     required this.backTooltip,
+    this.stars,
   });
 
   @override
@@ -107,6 +112,16 @@ class StageIntro extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: s.display(20, color: ink, height: 1.25),
                         ),
+                        if (stars != null) ...[
+                          const SizedBox(height: 10),
+                          StarRow(stars: stars!, size: 20),
+                          const SizedBox(height: 4),
+                          Text(
+                            starGoalsLine(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: t.textMuted, fontSize: 11.5, fontWeight: FontWeight.w700),
+                          ),
+                        ],
                       ],
                     ),
                   ),

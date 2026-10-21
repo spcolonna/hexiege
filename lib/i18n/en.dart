@@ -5,7 +5,8 @@ const en = <String, String>{
   'faction.ninja': 'Ninja Shadows',
   'ability.shaolin': 'Jade Meditation',
   'ability.ninja': 'Kawarimi',
-  'ability.shaolin.desc': 'Move an enemy piece on the edge (not the Leader) somewhere else, or swap two adjacent allied pieces.',
+  'ability.shaolin.desc':
+      'Move an enemy piece on the edge (not the Leader) somewhere else, or swap two adjacent allied pieces.',
   'ability.ninja.desc': 'Return a piece on the edge (not a Leader), yours or the enemy\'s, to its owner\'s hand.',
   'piece.monk': 'Grand Abbot',
   'piece.dragon': 'Celestial Dragon',
@@ -33,16 +34,19 @@ const en = <String, String>{
   'piece.shadow.short': 'Shadow',
   'piece.monk.rules': 'Leader. Slides 1 space.',
   'piece.dragon.rules': 'Flies in a straight line over adjacent pieces and lands on the first empty space.',
-  'piece.wukong.rules': 'Moves 1 space and can climb on top of pieces (pinning them). On the ground, it can copy the movement of an adjacent piece.',
+  'piece.wukong.rules':
+      'Moves 1 space and can climb on top of pieces (pinning them). On the ground, it can copy the movement of an adjacent piece.',
   'piece.tiger.rules': 'Charges 1–3 spaces in a straight line. If it ends facing an enemy piece, it pushes it 1 space.',
   'piece.crane.rules': 'Jumps in a straight line over 1 or 2 pieces.',
   'piece.serpent.rules': 'Slides 1 or 2 spaces. Adjacent enemy pieces lose their special effects.',
   'piece.shogun.rules': 'Leader. Slides 1 space. Once per game, it can swap places with an adjacent Shinobi.',
   'piece.shinobi.rules': 'Slides up to 4 spaces around the edge, even through narrow gaps.',
   'piece.kunoichi.rules': 'Slides up to 2 spaces and paralyzes an adjacent enemy piece for 1 turn.',
-  'piece.tengu.rules': 'Teleports to any empty space touching at least 3 pieces, but can\'t complete the enemy Leader\'s encirclement that way.',
+  'piece.tengu.rules':
+      'Teleports to any empty space touching at least 3 pieces, but can\'t complete the enemy Leader\'s encirclement that way.',
   'piece.kitsune.rules': 'Slides 1 or 2 spaces.',
-  'piece.shadow.rules': 'Slides 1 space and can leave an adjacent Shadow Seal: an enemy piece that lands there is paralyzed.',
+  'piece.shadow.rules':
+      'Slides 1 space and can leave an adjacent Shadow Seal: an enemy piece that lands there is paralyzed.',
   'event.own': '(own)',
   'event.rival': '(enemy)',
   'event.placed': 'Placed {piece}',
@@ -112,7 +116,8 @@ const en = <String, String>{
   'stage.cleared': 'Cleared!',
   'stage.notThisTime': 'Not this time',
   'tutorial.readyTitle': 'Ready to play!',
-  'tutorial.readyBody': 'You know the essentials. You\'ll discover the rest by playing: long-press any piece to read how it moves.',
+  'tutorial.readyBody':
+      'You know the essentials. You\'ll discover the rest by playing: long-press any piece to read how it moves.',
   'tutorial.playSensei': 'Play vs Sensei',
   'tutorial.restartLesson': 'Restart lesson',
   'game.jadeRelocate': 'Move an enemy piece',
@@ -162,7 +167,7 @@ const en = <String, String>{
   'menu.recordDraws': ' · {d}D',
   'menu.points': 'points',
   'menu.firstTime': 'First time?',
-  'menu.learn': 'Learn to play in 2 minutes with the Sensei.',
+  'menu.learn': 'Learn by playing: a guided match with the Sensei.',
   'menu.tagline': 'Surround the enemy Leader',
   'menu.yourFaction': 'Your faction',
   'settings.theme': 'Theme',
@@ -175,7 +180,8 @@ const en = <String, String>{
   'settings.pieceImages': 'Images',
   'settings.pieceGlyphs': 'Characters',
   'rules.title': 'Basic rules',
-  'rules.body': '• Each turn you take exactly one action: place a piece from your hand (touching only your own pieces), move one on the board, or use your faction\'s ability. The turn then passes automatically.\n• The ability has {charges} uses per game, with a {cooldown}-turn cooldown between uses.\n• One hive: no action may split the board into two groups.\n• You can\'t move pieces until your Leader is placed, and you must place it by your 4th turn.\n• Pieces can\'t slide between two pieces (narrow gaps), except the Shinobi.\n• You win when all 6 sides of the enemy Leader are occupied. If both Leaders are surrounded: draw.\n• Siege: from round {siege}, 5 occupied sides are enough. If nobody wins in {limit} rounds: draw.\n• Long-press a piece to see what it does.',
+  'rules.body':
+      '• Each turn you take exactly one action: place a piece from your hand (touching only your own pieces), move one on the board, or use your faction\'s ability. The turn then passes automatically.\n• The ability has {charges} uses per game, with a {cooldown}-turn cooldown between uses.\n• One hive: no action may split the board into two groups.\n• You can\'t move pieces until your Leader is placed, and you must place it by your 4th turn.\n• Pieces can\'t slide between two pieces (narrow gaps), except the Shinobi.\n• You win when all 6 sides of the enemy Leader are occupied. If both Leaders are surrounded: draw.\n• Siege: from round {siege}, 5 occupied sides are enough. If nobody wins in {limit} rounds: draw.\n• Long-press a piece to see what it does.',
   'rank.novice': 'Novice',
   'rank.disciple': 'Disciple',
   'rank.warrior': 'Warrior',
@@ -300,29 +306,37 @@ const en = <String, String>{
   'campaign.shaolin.title': 'The Temple\'s path',
   'campaign.shaolin.blurb': 'Ren, the Abbot\'s disciple, defends the Temple… and starts asking questions.',
   'campaign.ninja.title': 'Shadows over the Temple',
-  'campaign.ninja.blurb': 'Aya, kunoichi of the clan, goes after the Jade Scroll… and finds something with a heartbeat.',
+  'campaign.ninja.blurb':
+      'Aya, kunoichi of the clan, goes after the Jade Scroll… and finds something with a heartbeat.',
   'lesson.retry': 'Almost. Try again.',
   'lesson.l1.title': 'The hive',
-  'lesson.l1.body': 'Hexiege has no board: the pieces you place form the hive, and it grows wherever the players take it.',
+  'lesson.l1.body':
+      'Hexiege has no board: the pieces you place form the hive, and it grows wherever the players take it.',
   'lesson.l1.goal': 'Pick the Dragon from your hand and place it in the center.',
   'lesson.l2.title': 'Placing pieces',
-  'lesson.l2.body': 'New pieces may only touch your own pieces, never enemy ones. Valid spaces light up when you pick a piece.',
+  'lesson.l2.body':
+      'New pieces may only touch your own pieces, never enemy ones. Valid spaces light up when you pick a piece.',
   'lesson.l2.goal': 'Place the Crane next to your pieces.',
   'lesson.l3.title': 'Your Leader',
-  'lesson.l3.body': 'The Grand Abbot is your Leader (gold border). It must enter play by your 4th turn, and until it does you can\'t move pieces.',
+  'lesson.l3.body':
+      'The Grand Abbot is your Leader (gold border). It must enter play by your 4th turn, and until it does you can\'t move pieces.',
   'lesson.l3.goal': 'It\'s your 4th turn: place the Abbot.',
   'lesson.l4.title': 'One hive',
-  'lesson.l4.body': 'Tap one of your pieces to see where it can go. The hive can never be split: the pieces holding it together are locked.',
+  'lesson.l4.body':
+      'Tap one of your pieces to see where it can go. The hive can never be split: the pieces holding it together are locked.',
   'lesson.l4.goal': 'The Abbot and the Tiger hold the row together. Move the Serpent.',
   'lesson.l5.title': 'Every piece is different',
-  'lesson.l5.body': 'Each piece moves its own way. The Dragon flies in a straight line over the hive. Long-press any piece to read how it moves.',
+  'lesson.l5.body':
+      'Each piece moves its own way. The Dragon flies in a straight line over the hive. Long-press any piece to read how it moves.',
   'lesson.l5.goal': 'Fly the Dragon to the other end.',
   'lesson.l6.title': 'Surround the Leader',
-  'lesson.l6.body': 'You win when the enemy Leader is surrounded on all 6 sides, by pieces of any color. The Shogun is missing just one.',
+  'lesson.l6.body':
+      'You win when the enemy Leader is surrounded on all 6 sides, by pieces of any color. The Shogun is missing just one.',
   'lesson.l6.goal': 'Close the encirclement with the Serpent.',
   'lesson.l6.retry': 'That doesn\'t close the encirclement. Try again.',
   'lesson.l7.title': 'Faction ability',
-  'lesson.l7.body': 'Instead of moving or placing, you can use your faction\'s ability: {charges} uses per game, with a {cooldown}-turn cooldown. Shaolin has Jade Meditation. Your Abbot has 5 neighbors: it\'s in danger!',
+  'lesson.l7.body':
+      'Instead of moving or placing, you can use your faction\'s ability: {charges} uses per game, with a {cooldown}-turn cooldown. Shaolin has Jade Meditation. Your Abbot has 5 neighbors: it\'s in danger!',
   'lesson.l7.goal': 'Use the ability to move an enemy piece away from your Abbot.',
   'lesson.l7.retry': 'Your Abbot is still in danger. Try again.',
   'ai.novice': 'Apprentice',
@@ -341,10 +355,11 @@ const en = <String, String>{
   'solo.puzzlesSub': 'Surround the Leader in a few turns',
   'solo.continue': 'Continue',
   'onboarding.skip': 'Skip',
-  'onboarding.learn': 'Learn to play · 2 min',
+  'onboarding.learn': 'Initiation with the Sensei',
   'onboarding.know': 'I know how to play',
   'onboarding.p1Title': 'Surround the Leader',
-  'onboarding.p1Body': 'Pure strategy, no luck and no board. You win when the enemy Leader is surrounded on all 6 sides.',
+  'onboarding.p1Body':
+      'Pure strategy, no luck and no board. You win when the enemy Leader is surrounded on all 6 sides.',
   'onboarding.shaolin': 'They control the hive: they relocate enemy pieces.',
   'onboarding.ninja': 'They slip away and return pieces to hand.',
   'onboarding.p2Title': 'Two schools',
@@ -415,15 +430,22 @@ const en = <String, String>{
   'codex.factionAbility': 'Faction ability',
   'codex.prev': 'Previous',
   'codex.next': 'Next',
-  'codex.tip.monk': 'This is the piece you must protect: if it gets surrounded on all six sides, you lose. It can\'t squeeze between two touching pieces, so sometimes it has nowhere to go.',
-  'codex.tip.dragon': 'It flies over a whole row of pieces, however many there are, and lands in the first empty space.',
-  'codex.tip.wukong': 'It can climb on top of another piece and pin it. Here, next to the Dragon, it also copies its flight.',
-  'codex.tip.tiger': 'It charges in a straight line, up to 3 spaces. If it ends facing an enemy piece, it pushes it one space.',
+  'codex.tip.monk':
+      'This is the piece you must protect: if it gets surrounded on all six sides, you lose. It can\'t squeeze between two touching pieces, so sometimes it has nowhere to go.',
+  'codex.tip.dragon':
+      'It flies over a whole row of pieces, however many there are, and lands in the first empty space.',
+  'codex.tip.wukong':
+      'It can climb on top of another piece and pin it. Here, next to the Dragon, it also copies its flight.',
+  'codex.tip.tiger':
+      'It charges in a straight line, up to 3 spaces. If it ends facing an enemy piece, it pushes it one space.',
   'codex.tip.crane': 'It jumps in a straight line over one or two pieces in a row, never three.',
-  'codex.tip.serpent': 'Look at the enemy Kunoichi next to it: while the Serpent is adjacent, it loses its special effect.',
-  'codex.tip.shogun': 'This is the piece you must protect. Once per game it can swap places with an adjacent Shinobi (marked in gold).',
+  'codex.tip.serpent':
+      'Look at the enemy Kunoichi next to it: while the Serpent is adjacent, it loses its special effect.',
+  'codex.tip.shogun':
+      'This is the piece you must protect. Once per game it can swap places with an adjacent Shinobi (marked in gold).',
   'codex.tip.shinobi': 'It slips through narrow gaps no one else can enter: look at the enclosed gap next to the Monk.',
-  'codex.tip.kunoichi': 'After moving, it paralyzes an adjacent enemy piece, which can\'t move on its next turn (the one with the snowflake).',
+  'codex.tip.kunoichi':
+      'After moving, it paralyzes an adjacent enemy piece, which can\'t move on its next turn (the one with the snowflake).',
   'codex.tip.tengu': 'It doesn\'t walk: it appears in any gap touching at least 3 pieces, wherever it is.',
   'codex.tip.kitsune': 'Nimble and simple: it slides one or two spaces along the edge of the hive.',
   'codex.tip.shadow': 'When it moves it can leave a Seal (the circle): an enemy piece that steps there gets paralyzed.',
@@ -457,7 +479,8 @@ const en = <String, String>{
   'avatar.fan': 'Fan Kunoichi',
   'avatar.ronin': 'Rōnin',
   'local.faceToFace': 'Face to face',
-  'local.faceToFaceOn': 'Lay the device flat between you: the top half faces Player 2 and each of you has your own hand.',
+  'local.faceToFaceOn':
+      'Lay the device flat between you: the top half faces Player 2 and each of you has your own hand.',
   'local.faceToFaceOff': 'Pass the device back and forth each turn.',
   'game.yourTurn': 'Your turn',
   'avatar.oni': 'Oni Mask',
@@ -493,13 +516,16 @@ const en = <String, String>{
   'ability.oni.desc': 'The Oni has no ability: its power lies in its pieces.',
   'piece.oni': 'Ash Oni',
   'piece.oni.short': 'Oni',
-  'piece.oni.rules': 'Leader. Slides up to 2 spaces. In the final Seal it only falls if surrounded by both Shaolin and Ninja pieces.',
+  'piece.oni.rules':
+      'Leader. Slides up to 2 spaces. In the final Seal it only falls if surrounded by both Shaolin and Ninja pieces.',
   'piece.gaki': 'Gaki',
   'piece.gaki.short': 'Gaki',
-  'piece.gaki.rules': 'Leaps to any space on the edge of the hive, with no limit, and paralyzes an adjacent enemy piece.',
+  'piece.gaki.rules':
+      'Leaps to any space on the edge of the hive, with no limit, and paralyzes an adjacent enemy piece.',
   'piece.oniEye': 'Oni\'s Eye',
   'piece.oniEye.short': 'Eye',
-  'piece.oniEye.rules': 'Slides 1 space. Cancels the effects of enemy pieces within 2 spaces and is immune to Jade and Kawarimi.',
+  'piece.oniEye.rules':
+      'Slides 1 space. Cancels the effects of enemy pieces within 2 spaces and is immune to Jade and Kawarimi.',
   'stage.s9.title': 'The carvings',
   'stage.s9.goal': 'Surround the Great Shogun.',
   'stage.s9.intro': 'At an abandoned shrine, a ronin studies the same carvings as you.',
@@ -598,13 +624,15 @@ const en = <String, String>{
   'stage.n24.intro': 'The Jade Scroll lies on the altar. No one has beaten the Abbot in forty years.',
   'stage.f1.title': 'The ash vanguard',
   'stage.f1.goal': 'Surround the Ash Oni with your Shaolin pieces.',
-  'stage.f1.intro': 'The courtyard burns with grey flames. Tao shouts at you to surround it. Beware the Gaki: they leap to any edge.',
+  'stage.f1.intro':
+      'The courtyard burns with grey flames. Tao shouts at you to surround it. Beware the Gaki: they leap to any edge.',
   'stage.f2.title': 'The claw',
   'stage.f2.goal': 'Surround the Ash Oni with your Ninja pieces.',
   'stage.f2.intro': 'The stone garden is split in two. The Oni\'s Eye nullifies everything near it.',
   'stage.f3.title': 'The Seal',
   'stage.f3.goal': 'Seal the Oni: surround it with Shaolin and Ninja pieces together.',
-  'stage.f3.intro': 'Ren and Aya, together. You play both factions and both Leaders: lose either and you lose. Jade and Kawarimi share a cooldown.',
+  'stage.f3.intro':
+      'Ren and Aya, together. You play both factions and both Leaders: lose either and you lose. Jade and Kawarimi share a cooldown.',
   'campaign.finale.title': 'The Seal',
   'campaign.finale.blurb': 'The true ending. One hand of the Temple, one hand of the Shadow.',
   'campaign.finale.sub': 'The true ending',
@@ -623,7 +651,8 @@ const en = <String, String>{
   'story.s2.pre.1': 'Gon caught a scout in the forest.',
   'story.s2.pre.2': 'And you let yours get away, Ren.',
   'story.s2.pre.3': 'He was fast.',
-  'story.s2.pre.4': 'Before we question him, the Abbot wants to see how you fight. You\'ll face the scout Gon brought in: his hands are tied, so he can\'t use Kawarimi.',
+  'story.s2.pre.4':
+      'Before we question him, the Abbot wants to see how you fight. You\'ll face the scout Gon brought in: his hands are tied, so he can\'t use Kawarimi.',
   'story.s2.post.0': 'Good. You surround with patience. That\'s what matters.',
   'story.s2.post.1': 'Master, why do we always surround? Why not just strike?',
   'story.s2.post.2': '*(silence)* …Because that is how we were taught.',
@@ -711,7 +740,8 @@ const en = <String, String>{
   'story.s13.pre.0': 'The Temple. Ren returns after a week.',
   'story.s13.pre.1': 'Ren! The Abbot was furious. He locked the library.',
   'story.s13.pre.2': 'He locked the library?',
-  'story.s13.pre.3': 'And he put guards on the crypt. Something\'s going on. Let\'s spar, like old times. I missed you.',
+  'story.s13.pre.3':
+      'And he put guards on the crypt. Something\'s going on. Let\'s spar, like old times. I missed you.',
   'story.s13.post.0': 'You fight differently. More… like them.',
   'story.s13.post.1': 'Gon, do you know what\'s in the crypt?',
   'story.s13.post.2': 'No one goes down there. Only Tao.',
@@ -740,7 +770,8 @@ const en = <String, String>{
   'story.s17.pre.0': 'The Abbot\'s hall.',
   'story.s17.pre.1': 'The tremor is the clan\'s doing. Kage wants the Scroll to free something he doesn\'t understand.',
   'story.s17.pre.2': 'Master, Mei said that…',
-  'story.s17.pre.3': 'Mei talks too much. Ren, you will go to the clan\'s pagoda. You will defeat Kage. It is the only way to protect the Temple.',
+  'story.s17.pre.3':
+      'Mei talks too much. Ren, you will go to the clan\'s pagoda. You will defeat Kage. It is the only way to protect the Temple.',
   'story.s17.pre.4': 'Me?',
   'story.s17.pre.5': 'You are the best I have.',
   'story.s17.post.0': '*(quietly)* Ren. Don\'t go.',
@@ -849,7 +880,8 @@ const en = <String, String>{
   'story.n10.pre.0': 'A mountain path.',
   'story.n10.pre.1': 'A ninja looking at old stones. Odd.',
   'story.n10.pre.2': 'You know them?',
-  'story.n10.pre.3': 'I was a monk. I know what the Temple keeps quiet. Beat me and I\'ll tell you what the clan forgot.',
+  'story.n10.pre.3':
+      'I was a monk. I know what the Temple keeps quiet. Beat me and I\'ll tell you what the clan forgot.',
   'story.n10.post.0': 'Your clan says the Scroll is theirs. They\'re not lying.',
   'story.n10.post.1': 'But they don\'t remember **why**. Ask your Shogun what the Scroll says.',
   'story.n10.post.2': 'I already did. He doesn\'t know.',
@@ -870,7 +902,8 @@ const en = <String, String>{
   'story.n12.post.3': 'My master never lies.',
   'story.n12.post.4': 'Then it won\'t be hard to ask him.',
   'story.n13.pre.0': 'Night. Inside the Temple.',
-  'story.n13.pre.1': 'Aya sneaks in again. This time she isn\'t looking for the library: she\'s looking for the stairway.',
+  'story.n13.pre.1':
+      'Aya sneaks in again. This time she isn\'t looking for the library: she\'s looking for the stairway.',
   'story.n13.post.0': 'Steps going down, and down. The air grows hot.',
   'story.n14.pre.0': 'The crypt.',
   'story.n14.pre.1': 'A vast hall. On the floor, six stones in a hexagon around a crack.',
@@ -923,7 +956,8 @@ const en = <String, String>{
   'story.n24.pre.2': 'There\'s always a first time.',
   'story.n24.pre.3': 'If you beat me, read it. And you will understand why I kept silent.',
   'story.n24.post.0': 'Aya unrolls the Jade Scroll.',
-  'story.n24.post.1': '*(reading)* "Six stones around. One hand of the Temple, one hand of the Shadow. If one is missing, the seal will not close."',
+  'story.n24.post.1':
+      '*(reading)* "Six stones around. One hand of the Temple, one hand of the Shadow. If one is missing, the seal will not close."',
   'story.n24.post.2': '…It\'s not a weapon. It\'s a ritual. And it needs both of us.',
   'story.n24.post.3': 'I know. That\'s why I never said it. I would rather break alone than ask the clan for help.',
   'story.n24.post.4': 'The ground splits beneath the courtyard. A column of ash rises to the sky.',
@@ -947,7 +981,8 @@ const en = <String, String>{
   'story.f2.post.3': 'Kage told me half.',
   'story.f2.post.4': 'The Scroll tells the other. One hand of the Temple and one of the Shadow.',
   'story.f2.post.5': 'Then… together.',
-  'story.f2.post.6': '*(taking human form)* Like Daishin and Kagerō. I was the promise they made to each other. And I was fading.',
+  'story.f2.post.6':
+      '*(taking human form)* Like Daishin and Kagerō. I was the promise they made to each other. And I was fading.',
   'story.f3.pre.0': '*(wounded, arriving)* Ren… forgive me.',
   'story.f3.pre.1': '*(arriving over the wall)* Aya. Do what the Scroll says.',
   'story.f3.pre.2': 'Six stones. Two hands. Now.',
@@ -958,7 +993,8 @@ const en = <String, String>{
   'story.f3.post.4': 'If we don\'t forget again.',
   'story.f3.post.5': 'Then let\'s not forget.',
   'story.f3.post.6': 'One duel a year. Temple against clan. On the board.',
-  'story.f3.post.7': 'And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.',
+  'story.f3.post.7':
+      'And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.',
   'story.f3.post.8': 'Until the next crack.',
   'who.narrator': 'Narration',
   'who.ren': 'Ren',
@@ -1014,6 +1050,62 @@ const en = <String, String>{
   'store.unlock': 'Unlock',
   'store.priceFallback': 'USD 1.99',
   'settings.resetStory': 'Reset story',
-  'settings.resetStoryText': 'Progress in both campaigns and The Seal is erased, and the story scenes play again from the start. Puzzles and challenges are kept.',
+  'settings.resetStoryText':
+      'Progress in both campaigns and The Seal is erased, and the story scenes play again from the start. Puzzles and challenges are kept.',
   'settings.resetStoryConfirm': 'Reset',
+  'initiation.title': 'Initiation',
+  'initiation.body':
+      'A real match against the Sensei, with advice move by move. Choose the school you want to learn with.',
+  'initiation.lessons': 'I\'d rather take short lessons, rule by rule',
+  'initiation.wonTitle': 'Initiation complete',
+  'initiation.wonBody':
+      'You are a disciple now: {faction} has opened its doors to you. The story awaits, and the Temple and the Shadows each keep half of a secret.',
+  'initiation.lostTitle': 'The Sensei won this time',
+  'initiation.lostBody':
+      'It\'s part of the path. Watch your Leader\'s free sides: when they pulse red, it\'s time to defend.',
+  'initiation.story': 'Start the story',
+  'guide.welcome.title': 'Welcome to the dojo',
+  'guide.welcome.body':
+      'Whoever surrounds the rival Leader on all 6 sides wins. Any piece counts, yours too. Start by placing a piece from your hand: I\'ll mark a good space.',
+  'guide.place.title': 'Prepare the ground',
+  'guide.place.body':
+      'Your {leader} must enter within {n} turns. Meanwhile, place pieces: they go next to yours and can\'t touch the rival\'s.',
+  'guide.leader.title': 'Time for your Leader',
+  'guide.leader.body':
+      'This turn you must place your {leader}. Put it where it keeps free sides: if it gets surrounded, you lose.',
+  'guide.move.title': 'You can move now',
+  'guide.move.body':
+      'With your Leader in play, your pieces can move. Tap one to see where it goes; press and hold to read what each one does.',
+  'guide.ability.title': '{ability} ready',
+  'guide.ability.body': '{desc} Tap the seal at the bottom right when it suits you.',
+  'guide.pieces.title': 'Every piece is different',
+  'guide.pieces.body':
+      'Press and hold a piece in your hand or on the board to see its special rule. The best moves make use of those effects.',
+  'guide.press.title': 'Close the ring',
+  'guide.press.body':
+      'The rival Leader still has {n} sides to fill. Bring pieces closer: every side you take brings it nearer to falling. The golden space is my suggestion.',
+  'guide.attack.title': 'It\'s almost surrounded!',
+  'guide.attack.body': 'The rival Leader has {n} free sides left, the ones pulsing gold. Take them before it escapes.',
+  'guide.finish.title': 'One more side and you win!',
+  'guide.finish.body': 'Take the golden space next to the rival Leader and the Initiation is yours.',
+  'guide.defend.title': 'Your Leader is in danger!',
+  'guide.defend.body':
+      'It has {n} free sides left, the ones pulsing red. Move your Leader or pull one of your pieces away from it: yours box it in too.',
+  'store.act': 'Act {n}',
+  'stars.win': 'Win the battle',
+  'stars.fast': 'Win in {n} rounds or fewer',
+  'stars.safe': 'Never let your Leader have more than {n} sides taken',
+  'stars.record': 'New record!',
+  'stars.count': '{n} of 3 stars',
+  'daily.title': 'Daily challenge',
+  'daily.text': 'Surround the Leader in {n} turns. A new one every day.',
+  'daily.solved': 'Solved today. Another one tomorrow.',
+  'daily.streak.one': '{n}-day streak',
+  'daily.streak.other': '{n}-day streak',
+  'daily.best': 'Best: {n}',
+  'daily.won.one': 'Daily challenge solved. {n}-day streak: come back tomorrow to keep it going.',
+  'daily.won.other': 'Daily challenge solved. {n}-day streak! Come back tomorrow to keep it going.',
+  'stage.daily.title': 'Daily challenge',
+  'stage.daily.intro': 'There is only one first move that wins. The Sensei will defend to the very end.',
+  'settings.music': 'Music',
 };

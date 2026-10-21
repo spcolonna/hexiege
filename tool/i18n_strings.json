@@ -805,9 +805,9 @@
   "zh": "第一次玩？"
  },
  "menu.learn": {
-  "es": "Aprendé a jugar en 2 minutos con el Sensei.",
-  "en": "Learn to play in 2 minutes with the Sensei.",
-  "zh": "跟师父 2 分钟学会玩法。"
+  "es": "Aprendé jugando: una partida guiada con el Sensei.",
+  "en": "Learn by playing: a guided match with the Sensei.",
+  "zh": "边玩边学：与师父进行一局指导对弈。"
  },
  "menu.tagline": {
   "es": "Rodeá al Líder enemigo",
@@ -1700,9 +1700,9 @@
   "zh": "跳过"
  },
  "onboarding.learn": {
-  "es": "Aprender a jugar · 2 min",
-  "en": "Learn to play · 2 min",
-  "zh": "学习玩法 · 2 分钟"
+  "es": "Iniciación con el Sensei",
+  "en": "Initiation with the Sensei",
+  "zh": "随师父入门"
  },
  "onboarding.know": {
   "es": "Ya sé jugar",
@@ -5073,5 +5073,230 @@
   "es": "Reiniciar",
   "en": "Reset",
   "zh": "重置"
+ },
+ "initiation.title": {
+  "es": "Iniciación",
+  "en": "Initiation",
+  "zh": "入门"
+ },
+ "initiation.body": {
+  "es": "Una partida de verdad contra el Sensei, con sus consejos jugada a jugada. Elegí la escuela con la que querés aprender.",
+  "en": "A real match against the Sensei, with advice move by move. Choose the school you want to learn with.",
+  "zh": "与师父真正对弈一局，每一步都有指点。选择你想修习的门派。"
+ },
+ "initiation.lessons": {
+  "es": "Prefiero lecciones cortas, regla por regla",
+  "en": "I'd rather take short lessons, rule by rule",
+  "zh": "我想先上短课，一条一条学规则"
+ },
+ "initiation.wonTitle": {
+  "es": "Iniciación completa",
+  "en": "Initiation complete",
+  "zh": "入门完成"
+ },
+ "initiation.wonBody": {
+  "es": "Ya sos discípulo: {faction} te abrió sus puertas. La historia te espera, y el Templo y las Sombras guardan cada uno la mitad de un secreto.",
+  "en": "You are a disciple now: {faction} has opened its doors to you. The story awaits, and the Temple and the Shadows each keep half of a secret.",
+  "zh": "你已是弟子：{faction}为你敞开了大门。故事在等着你，寺院与暗影各守着一半的秘密。"
+ },
+ "initiation.lostTitle": {
+  "es": "El Sensei ganó esta vez",
+  "en": "The Sensei won this time",
+  "zh": "这次师父赢了"
+ },
+ "initiation.lostBody": {
+  "es": "Es parte del camino. Mirá los lados libres de tu Líder: cuando laten en rojo, es hora de defender.",
+  "en": "It's part of the path. Watch your Leader's free sides: when they pulse red, it's time to defend.",
+  "zh": "这也是修行的一部分。留意首领身边的空位：当它们红光跳动时，就该防守了。"
+ },
+ "initiation.story": {
+  "es": "Empezar la historia",
+  "en": "Start the story",
+  "zh": "开始故事"
+ },
+ "guide.welcome.title": {
+  "es": "Bienvenido al dojo",
+  "en": "Welcome to the dojo",
+  "zh": "欢迎来到道场"
+ },
+ "guide.welcome.body": {
+  "es": "Gana quien rodee al Líder rival por sus 6 lados. Cualquier ficha cuenta, también las tuyas. Empezá colocando una ficha de tu mano: te marco una buena casilla.",
+  "en": "Whoever surrounds the rival Leader on all 6 sides wins. Any piece counts, yours too. Start by placing a piece from your hand: I'll mark a good space.",
+  "zh": "谁先把对方首领的六个边围满谁就赢。任何棋子都算数，包括你自己的。先从手中放一枚棋子吧：我会标出一个好位置。"
+ },
+ "guide.place.title": {
+  "es": "Prepará el terreno",
+  "en": "Prepare the ground",
+  "zh": "布好阵地"
+ },
+ "guide.place.body": {
+  "es": "Tu {leader} tiene que entrar en {n} turnos como mucho. Mientras, colocá fichas: van pegadas a las tuyas y sin tocar a las rivales.",
+  "en": "Your {leader} must enter within {n} turns. Meanwhile, place pieces: they go next to yours and can't touch the rival's.",
+  "zh": "你的{leader}最多{n}回合内必须登场。在此之前继续放子：新子要贴着自己的棋子，且不能碰到对方的。"
+ },
+ "guide.leader.title": {
+  "es": "Hora de tu Líder",
+  "en": "Time for your Leader",
+  "zh": "首领登场"
+ },
+ "guide.leader.body": {
+  "es": "Este turno tenés que colocar a tu {leader}. Ponelo donde le queden lados libres: si lo rodean, perdés.",
+  "en": "This turn you must place your {leader}. Put it where it keeps free sides: if it gets surrounded, you lose.",
+  "zh": "这回合必须放下你的{leader}。放在四周还有空位的地方：被围满就输了。"
+ },
+ "guide.move.title": {
+  "es": "Ya podés mover",
+  "en": "You can move now",
+  "zh": "现在可以移动了"
+ },
+ "guide.move.body": {
+  "es": "Con tu Líder en juego, tus fichas se mueven. Tocá una para ver adónde va; mantené apretado para leer qué hace cada una.",
+  "en": "With your Leader in play, your pieces can move. Tap one to see where it goes; press and hold to read what each one does.",
+  "zh": "首领上场后，你的棋子就能移动。点一下查看能去哪里；长按可阅读每枚棋子的能力。"
+ },
+ "guide.ability.title": {
+  "es": "{ability} lista",
+  "en": "{ability} ready",
+  "zh": "{ability}已就绪"
+ },
+ "guide.ability.body": {
+  "es": "{desc} Tocá el sello de abajo a la derecha cuando te convenga.",
+  "en": "{desc} Tap the seal at the bottom right when it suits you.",
+  "zh": "{desc}合适的时候点右下角的印章。"
+ },
+ "guide.pieces.title": {
+  "es": "Cada ficha es distinta",
+  "en": "Every piece is different",
+  "zh": "每枚棋子各不相同"
+ },
+ "guide.pieces.body": {
+  "es": "Mantené apretada una ficha de tu mano o del tablero para ver su regla especial. Las mejores jugadas aprovechan esos efectos.",
+  "en": "Press and hold a piece in your hand or on the board to see its special rule. The best moves make use of those effects.",
+  "zh": "长按手中或棋盘上的棋子可查看它的特殊规则。好棋往往会利用这些效果。"
+ },
+ "guide.press.title": {
+  "es": "Cerrá el cerco",
+  "en": "Close the ring",
+  "zh": "收紧包围"
+ },
+ "guide.press.body": {
+  "es": "Al Líder rival le faltan {n} lados. Acercá fichas: cada lado que ocupás lo deja más cerca de caer. La casilla dorada es mi sugerencia.",
+  "en": "The rival Leader still has {n} sides to fill. Bring pieces closer: every side you take brings it nearer to falling. The golden space is my suggestion.",
+  "zh": "对方首领还差{n}个边。把棋子靠过去：每占一边，它就离失败更近。金色格子是我的建议。"
+ },
+ "guide.attack.title": {
+  "es": "¡Está casi rodeado!",
+  "en": "It's almost surrounded!",
+  "zh": "快被围住了！"
+ },
+ "guide.attack.body": {
+  "es": "Al Líder rival le quedan {n} lados libres, los que laten en dorado. Ocupalos antes de que se escape.",
+  "en": "The rival Leader has {n} free sides left, the ones pulsing gold. Take them before it escapes.",
+  "zh": "对方首领只剩{n}个空位，就是金光跳动的那些。在它逃走前占住它们。"
+ },
+ "guide.finish.title": {
+  "es": "¡Un lado más y ganás!",
+  "en": "One more side and you win!",
+  "zh": "再占一边就赢了！"
+ },
+ "guide.finish.body": {
+  "es": "Ocupá la casilla dorada junto al Líder rival y la Iniciación es tuya.",
+  "en": "Take the golden space next to the rival Leader and the Initiation is yours.",
+  "zh": "占住对方首领旁的金色格子，入门就完成了。"
+ },
+ "guide.defend.title": {
+  "es": "¡Tu Líder corre peligro!",
+  "en": "Your Leader is in danger!",
+  "zh": "你的首领有危险！"
+ },
+ "guide.defend.body": {
+  "es": "Le quedan {n} lados libres, los que laten en rojo. Mové tu Líder o sacá una de tus fichas de al lado: las tuyas también lo encierran.",
+  "en": "It has {n} free sides left, the ones pulsing red. Move your Leader or pull one of your pieces away from it: yours box it in too.",
+  "zh": "它只剩{n}个空位，就是红光跳动的那些。移动首领，或把身边自己的棋子移开：自己的棋子也会把它围住。"
+ },
+ "store.act": {
+  "es": "Acto {n}",
+  "en": "Act {n}",
+  "zh": "第{n}幕"
+ },
+ "stars.win": {
+  "es": "Ganá la batalla",
+  "en": "Win the battle",
+  "zh": "赢得战斗"
+ },
+ "stars.fast": {
+  "es": "Ganá en {n} rondas o menos",
+  "en": "Win in {n} rounds or fewer",
+  "zh": "在{n}回合内获胜"
+ },
+ "stars.safe": {
+  "es": "Que tu Líder nunca tenga más de {n} lados ocupados",
+  "en": "Never let your Leader have more than {n} sides taken",
+  "zh": "首领被占的边从不超过{n}个"
+ },
+ "stars.record": {
+  "es": "¡Nuevo récord!",
+  "en": "New record!",
+  "zh": "新纪录！"
+ },
+ "stars.count": {
+  "es": "{n} de 3 estrellas",
+  "en": "{n} of 3 stars",
+  "zh": "3星中的{n}星"
+ },
+ "daily.title": {
+  "es": "Desafío del día",
+  "en": "Daily challenge",
+  "zh": "每日挑战"
+ },
+ "daily.text": {
+  "es": "Rodeá al Líder en {n} turnos. Uno nuevo cada día.",
+  "en": "Surround the Leader in {n} turns. A new one every day.",
+  "zh": "在{n}回合内围住首领。每天一题。"
+ },
+ "daily.solved": {
+  "es": "Resuelto hoy. Mañana hay otro.",
+  "en": "Solved today. Another one tomorrow.",
+  "zh": "今日已解。明天还有新题。"
+ },
+ "daily.streak.one": {
+  "es": "Racha de {n} día",
+  "en": "{n}-day streak",
+  "zh": "连续{n}天"
+ },
+ "daily.streak.other": {
+  "es": "Racha de {n} días",
+  "en": "{n}-day streak",
+  "zh": "连续{n}天"
+ },
+ "daily.best": {
+  "es": "Mejor: {n}",
+  "en": "Best: {n}",
+  "zh": "最佳：{n}"
+ },
+ "daily.won.one": {
+  "es": "Desafío del día resuelto. Racha de {n} día: volvé mañana para seguirla.",
+  "en": "Daily challenge solved. {n}-day streak: come back tomorrow to keep it going.",
+  "zh": "每日挑战完成。已连续{n}天：明天再来保持连胜。"
+ },
+ "daily.won.other": {
+  "es": "Desafío del día resuelto. ¡Racha de {n} días! Volvé mañana para seguirla.",
+  "en": "Daily challenge solved. {n}-day streak! Come back tomorrow to keep it going.",
+  "zh": "每日挑战完成。已连续{n}天！明天再来保持连胜。"
+ },
+ "stage.daily.title": {
+  "es": "Desafío del día",
+  "en": "Daily challenge",
+  "zh": "每日挑战"
+ },
+ "stage.daily.intro": {
+  "es": "Hay una sola primera jugada que gana. El Sensei va a defender lo mejor que pueda.",
+  "en": "There is only one first move that wins. The Sensei will defend to the very end.",
+  "zh": "只有一种第一步能赢。师父会尽力防守。"
+ },
+ "settings.music": {
+  "es": "Música",
+  "en": "Music",
+  "zh": "音乐"
  }
 }

@@ -4,6 +4,7 @@ import '../i18n/i18n.dart';
 import '../engine/ai.dart';
 import '../engine/pieces.dart';
 import '../solo/catalog.dart';
+import '../solo/stars.dart';
 import '../store/paywall.dart';
 import '../store/purchases.dart';
 import 'game_screen.dart';
@@ -12,6 +13,7 @@ import 'theme/settings.dart';
 import 'theme/ui_style.dart';
 import 'widgets/arena_backdrop.dart';
 import 'widgets/skin_kit.dart';
+import 'widgets/star_row.dart';
 
 /// Lista de problemas, desafíos o batallas: se desbloquean de a una.
 class StageListScreen extends StatelessWidget {
@@ -33,12 +35,14 @@ class StageListScreen extends StatelessWidget {
             builder: (context, _) {
               final s = AppSettings.instance;
               final cleared = stages.where((x) => s.isCleared(x.id)).length;
+              final starred = stages.where(Stars.appliesTo).toList();
+              final stars = starred.fold(0, (a, x) => a + s.starsOf(x.id));
               return Column(
                 children: [
                   SkinHeader(
                     title: title,
                     subtitle: subtitle,
-                    trailing: '$cleared/${stages.length}',
+                    trailing: starred.isEmpty ? '$cleared/${stages.length}' : '★ $stars/${starred.length * 3}',
                     backTooltip: tr('common.back'),
                   ),
                   Expanded(
@@ -90,14 +94,16 @@ class StageListScreen extends StatelessWidget {
           title: st.title,
           text: paywalled ? tr('store.locked', {'price': Purchases.instance.price}) : _detail(st),
           highlight: done,
-          trailing: Icon(
-            done
-                ? Icons.workspace_premium_rounded
-                : paywalled || !open
-                ? Icons.lock_rounded
-                : Icons.play_arrow_rounded,
-            color: done || paywalled ? t.gold : t.textMuted,
-          ),
+          trailing: done && Stars.appliesTo(st)
+              ? StarRow(stars: AppSettings.instance.starsOf(st.id), size: 15)
+              : Icon(
+                  done
+                      ? Icons.workspace_premium_rounded
+                      : paywalled || !open
+                      ? Icons.lock_rounded
+                      : Icons.play_arrow_rounded,
+                  color: done || paywalled ? t.gold : t.textMuted,
+                ),
           onTap: paywalled
               ? () async {
                   if (await showPaywall(context)) play();

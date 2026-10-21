@@ -11,6 +11,7 @@ import 'package:hexiege/solo/catalog.dart';
 import 'package:hexiege/story/story_screen.dart';
 import 'package:hexiege/tutorial/lessons.dart';
 import 'package:hexiege/ui/game_screen.dart';
+import 'package:hexiege/ui/initiation_screen.dart';
 import 'package:hexiege/ui/matchmaking_screen.dart';
 import 'package:hexiege/ui/menu_screen.dart';
 import 'package:hexiege/ui/onboarding_screen.dart';
@@ -93,7 +94,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 300));
     }
     expect(find.text('¿Cómo te llamamos?'), findsOneWidget);
-    expect(find.text('Aprender a jugar · 2 min'), findsOneWidget);
+    expect(find.text('Iniciación con el Sensei'), findsOneWidget);
     await tester.enterText(find.byType(TextField), 'Seba');
     await tester.tap(find.text('Ya sé jugar'));
     await tester.pump();
@@ -471,5 +472,21 @@ void main() {
     expect(SoloScreen.nextUp((id) => id == 's1')?.id, 's2');
     expect(SoloScreen.nextUp((id) => id.startsWith('s'))?.id, 'n1');
     expect(SoloScreen.nextUp((_) => true), isNull);
+  });
+
+  testWidgets('iniciación: elegir escuela abre la partida guiada con el Sensei', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(_app(const InitiationScreen(), ThemeMode.light));
+    await tester.pump();
+    expect(find.text('Iniciación'), findsOneWidget);
+    await tester.tap(find.text(Faction.ninja.displayName));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(find.byType(GameScreen), findsOneWidget);
+    expect(find.text('Bienvenido al dojo'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
+    await tester.pump(const Duration(seconds: 3));
   });
 }

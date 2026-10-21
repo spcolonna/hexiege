@@ -36,7 +36,11 @@ class Flight {
     required this.duration,
     this.arc = 0,
     this.onLand,
+    this.squeeze = false,
   });
+
+  /// Al aterrizar aprieta el cerco del Líder rival (háptico más firme).
+  final bool squeeze;
 
   double get end => start + duration;
 }
@@ -70,6 +74,22 @@ class BoardFx extends ChangeNotifier {
   double now = 0;
 
   final flights = <Flight>[];
+
+  /// Remate de la partida: el Líder capturado y las fichas que lo encierran,
+  /// que se encienden de a una antes de que caiga el sello. [won] dice si el
+  /// remate es del jugador local (dorado) o en su contra (rojo).
+  ({Hex leader, List<Hex> ring, double start, bool won})? finisher;
+  int _finisherLit = -1;
+  bool _finisherStamped = false;
+
+  /// Segundos entre que se enciende una ficha del cerco y la siguiente.
+  static const finisherStep = 0.13;
+
+  /// Duración del remate desde que aterriza la última ficha.
+  static double finisherSeconds(int ring) => finisherStep * ring + 0.75;
+
+  /// Momento (en el reloj de [now]) en que cae el sello del remate.
+  double get finisherStampAt => finisher == null ? 0 : finisher!.start + finisherStep * finisher!.ring.length + 0.15;
   final impacts = <Impact>[];
 
   /// id de ficha → momento en que aterrizó (para el rebote de asentamiento).
@@ -132,10 +152,17 @@ class BoardFx extends ChangeNotifier {
       }
     }
     flights.removeWhere((f) => f.landed);
+    _tickFinisher();
     impacts.removeWhere((i) => now > i.start + i.duration);
     settles.removeWhere((_, t) => now - t > 0.5);
     bumps.removeWhere((_, b) => now - b.$2 > 0.45);
-    final idle = flights.isEmpty && impacts.isEmpty && settles.isEmpty && bumps.isEmpty && now - _shakeStart > 0.35;
+    final idle =
+        flights.isEmpty &&
+        impacts.isEmpty &&
+        settles.isEmpty &&
+        bumps.isEmpty &&
+        now - _shakeStart > 0.35 &&
+        (finisher == null || now > finisherStampAt + 0.8);
     notifyListeners();
     if (idle && !ambient) _ticker.stop();
   }
@@ -161,10 +188,31 @@ class BoardFx extends ChangeNotifier {
           ? Sfx.place
           : Sfx.land,
     );
-    heavy ? Haptics.heavy() : Haptics.medium();
+    // Apoyar es un toque suave; cerrar el cerco sobre el Líder rival, uno firme.
+    f.squeeze ? Haptics.medium() : Haptics.light();
+  }
+
+  /// Enciende el cerco ficha por ficha y estampa el sello sobre el Líder.
+  void _tickFinisher() {
+    final fin = finisher;
+    if (fin == null) return;
+    final lit = ((now - fin.start) / finisherStep).floor().clamp(-1, fin.ring.length - 1);
+    while (_finisherLit < lit) {
+      _finisherLit++;
+      SoundBoard.instance.play(Sfx.tick, volume: 0.5 + 0.08 * _finisherLit);
+      Haptics.select();
+    }
+    if (!_finisherStamped && now >= finisherStampAt) {
+      _finisherStamped = true;
+      SoundBoard.instance.play(Sfx.stamp);
+      _shakeStart = now;
+      _shakeAmp = layout.size * 0.16;
+      fin.won ? Haptics.heavy() : Haptics.double();
+    }
   }
 
   void clear() {
+    finisher = null;
     flights.clear();
     impacts.clear();
     settles.clear();
@@ -192,10 +240,15 @@ class BoardFx extends ChangeNotifier {
   }
 
   /// Anima la transición [before] → [after]. Devuelve los segundos que dura.
-  double animate(GameState before, GameState after) {
+  /// [viewer] es el jugador local: el remate se ve dorado si gana él y rojo si
+  /// pierde (null = Pass & Play, siempre dorado).
+  double animate(GameState before, GameState after, {int? viewer}) {
     now = _clock.elapsedMicroseconds / 1e6;
     final a = _positions(before), b = _positions(after);
     final actor = before.current;
+    // La jugada que cierra la partida va en cámara lenta.
+    final slow = after.winner != null && !before.isOver ? 2.0 : 1.0;
+    final squeeze = after.leaderPressure(1 - actor) > before.leaderPressure(1 - actor);
     final step = layout.size * stackStep;
     final mine = <Flight>[], others = <Flight>[];
 
@@ -212,7 +265,8 @@ class BoardFx extends ChangeNotifier {
             toElev: level * step,
             kind: FlightKind.drop,
             start: now,
-            duration: 0.34,
+            duration: 0.34 * slow,
+            squeeze: squeeze,
           ),
         );
       } else if (prev.$1 != hex || prev.$2 != level) {
@@ -226,8 +280,9 @@ class BoardFx extends ChangeNotifier {
           toElev: level * step,
           kind: FlightKind.move,
           start: now,
-          duration: (0.36 + dist / 1400).clamp(0.36, 0.75),
+          duration: (0.36 + dist / 1400).clamp(0.36, 0.75) * slow,
           arc: min(layout.size * 1.2, dist * 0.18),
+          squeeze: squeeze && piece.owner == actor,
         );
         (piece.owner == actor ? mine : others).add(f);
       }
@@ -244,7 +299,7 @@ class BoardFx extends ChangeNotifier {
           toElev: level * step,
           kind: FlightKind.vanish,
           start: now,
-          duration: 0.45,
+          duration: 0.45 * slow,
         ),
       );
     }
@@ -293,8 +348,27 @@ class BoardFx extends ChangeNotifier {
         impacts.add(Impact(f.from, now, ImpactKind.ability, 1, f.piece.id));
       }
     }
+    var end = all.isEmpty ? now : all.map((f) => f.end).reduce(max);
+    final fin = slow > 1 ? _finisherFor(after, viewer) : null;
+    if (fin != null) {
+      finisher = (leader: fin.leader, ring: fin.ring, start: end + 0.1, won: fin.won);
+      _finisherLit = -1;
+      _finisherStamped = false;
+      end = finisherStampAt + 0.45;
+    }
     wake();
-    return all.isEmpty ? 0 : all.map((f) => f.end).reduce(max) - now;
+    return end - now;
+  }
+
+  /// El Líder que cayó y las fichas que lo rodean, en orden de reloj.
+  static ({Hex leader, List<Hex> ring, bool won})? _finisherFor(GameState g, int? viewer) {
+    final w = g.winner;
+    if (w == null) return null;
+    for (final h in g.board.locateLeaders(1 - w)) {
+      if (!g.leaderCapturedOn(g.board, 1 - w, h)) continue;
+      return (leader: h, ring: h.neighbors.where(g.board.isOccupied).toList(), won: viewer == null || viewer == w);
+    }
+    return null;
   }
 
   /// Posición/altura/escala/opacidad de una ficha en vuelo en el instante actual.

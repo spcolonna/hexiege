@@ -112,6 +112,25 @@ class GameState {
   int leaderPressure(int p) =>
       board.locateLeaders(p).fold(0, (m, h) => board.occupiedNeighbors(h) > m ? board.occupiedNeighbors(h) : m);
 
+  /// Lados que le faltan al rival para capturar al Líder de [p] más rodeado
+  /// (null si no está en el tablero).
+  int? leaderMargin(int p) {
+    int? best;
+    for (final h in board.locateLeaders(p)) {
+      final m = captureThreshold - board.occupiedNeighbors(h);
+      if (best == null || m < best) best = m;
+    }
+    return best;
+  }
+
+  /// Casillas libres junto al Líder de [p] que, ocupadas, lo dejan capturado
+  /// o a un paso (solo cuando le faltan [within] lados o menos).
+  Set<Hex> leaderOpenings(int p, {int within = 2}) => {
+    for (final h in board.locateLeaders(p))
+      if (captureThreshold - board.occupiedNeighbors(h) case final m when m > 0 && m <= within)
+        ...h.neighbors.where((n) => !board.isOccupied(n)),
+  };
+
   /// El Líder de [owner] en [h] está capturado en [b]. Con [Rules.mixedSeal],
   /// el Líder Oni además necesita fichas rivales de las dos facciones alrededor.
   bool leaderCapturedOn(Board b, int owner, Hex h) {

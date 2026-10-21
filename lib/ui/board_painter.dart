@@ -35,6 +35,14 @@ class BoardPainter extends CustomPainter {
   /// Jugador cuyas fichas se dibujan giradas 180° (cara a cara), o null.
   final int? flipOwner;
 
+  /// Jugador local: los huecos que le quedan a su Líder laten en rojo y los
+  /// del Líder rival en dorado (la oportunidad).
+  final int viewer;
+
+  /// Mostrar también los huecos del Líder rival (en los problemas no: sería
+  /// regalar la solución).
+  final bool opportunities;
+
   BoardPainter({
     required this.game,
     required this.layout,
@@ -47,6 +55,8 @@ class BoardPainter extends CustomPainter {
     this.swapTargets = const {},
     this.spotlight = const {},
     this.flipOwner,
+    this.viewer = 0,
+    this.opportunities = true,
     this.fx,
   }) : super(repaint: fx);
 
@@ -63,6 +73,7 @@ class BoardPainter extends CustomPainter {
       canvas.drawPath(layout.hexPath(m, scale: 0.98), Paint()..color = theme.lastMove);
     }
     _paintSiege(canvas);
+    _paintDanger(canvas);
     _paintSeals(canvas);
     if (selected != null) {
       canvas.drawPath(
@@ -79,6 +90,7 @@ class BoardPainter extends CustomPainter {
     _paintTargets(canvas);
     _paintSpotlight(canvas);
     _paintFlights(canvas);
+    _paintFinisher(canvas);
     canvas.restore();
   }
 
@@ -134,6 +146,105 @@ class BoardPainter extends CustomPainter {
         Paint()
           ..color = theme.danger.withValues(alpha: strength * (0.6 + 0.4 * pulse))
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, layout.size * 0.5),
+      );
+    }
+  }
+
+  /// Latido (lub-dub) para los avisos de peligro: dos picos por ciclo.
+  static double heartbeat(double now, {double period = 1.1}) {
+    final p = (now % period) / period;
+    double peak(double at) => exp(-pow((p - at) / 0.05, 2).toDouble());
+    return min(1, peak(0.02) + 0.75 * peak(0.2));
+  }
+
+  /// Huecos que le quedan a un Líder casi rodeado (2 o menos): laten.
+  void _paintDanger(Canvas canvas) {
+    if (game.isOver) return;
+    for (var owner = 0; owner < 2; owner++) {
+      if (owner != viewer && !opportunities) continue;
+      final open = game.leaderOpenings(owner);
+      if (open.isEmpty) continue;
+      final last = game.leaderMargin(owner) == 1;
+      final color = owner == viewer ? theme.danger : theme.gold;
+      final beat = heartbeat(_now, period: last ? 0.8 : 1.15);
+      for (final h in open) {
+        final path = layout.hexPath(h, scale: 0.9);
+        canvas.drawPath(path, Paint()..color = color.withValues(alpha: (last ? 0.16 : 0.1) + 0.22 * beat));
+        canvas.drawPath(
+          path,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2 + 2.5 * beat
+            ..color = color.withValues(alpha: 0.45 + 0.5 * beat),
+        );
+      }
+    }
+  }
+
+  /// Remate: cada ficha del cerco se enciende en orden y cae el sello 封 sobre el Líder.
+  void _paintFinisher(Canvas canvas) {
+    final fin = fx?.finisher;
+    if (fin == null) return;
+    final color = fin.won ? theme.gold : theme.danger;
+    final step = layout.size * BoardFx.stackStep;
+    Offset top(Hex h) => layout.toPixel(h) - Offset(0, (game.board.height(h) - 1) * step);
+    for (var i = 0; i < fin.ring.length; i++) {
+      final t = _now - (fin.start + BoardFx.finisherStep * i);
+      if (t < 0) continue;
+      // Destello al encenderse que queda como brasa.
+      final flash = exp(-t / 0.18);
+      final c = top(fin.ring[i]);
+      canvas.drawPath(
+        PieceRenderer.hexAt(c, layout.size * (0.98 + 0.25 * flash)),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = layout.size * (0.1 + 0.12 * flash)
+          ..color = color.withValues(alpha: 0.55 + 0.4 * flash)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, layout.size * 0.12),
+      );
+      canvas.drawPath(
+        PieceRenderer.hexAt(c, layout.size * 0.94),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2
+          ..color = color.withValues(alpha: 0.9),
+      );
+    }
+    final ts = _now - fx!.finisherStampAt;
+    if (ts < -0.5) return;
+    final c = top(fin.leader);
+    // El Líder se oscurece mientras se cierra el cerco.
+    final dim = ((ts + 0.5) / 0.5).clamp(0.0, 1.0);
+    canvas.drawPath(
+      PieceRenderer.hexAt(c, layout.size * 0.92),
+      Paint()..color = Colors.black.withValues(alpha: 0.35 * dim),
+    );
+    if (ts < 0) return;
+    // El sello baja de grande a su tamaño y rebota apenas.
+    final e = Curves.easeInCubic.transform((ts / 0.18).clamp(0, 1));
+    final scale = 2.4 - 1.4 * e + (ts > 0.18 ? 0.06 * exp(-(ts - 0.18) / 0.08) * sin((ts - 0.18) * 40) : 0);
+    final r = layout.size * 0.78 * scale;
+    final ink = theme.danger;
+    canvas.drawCircle(c, r, Paint()..color = ink.withValues(alpha: 0.9 * e));
+    canvas.drawCircle(
+      c,
+      r * 0.86,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = r * 0.06
+        ..color = Colors.white.withValues(alpha: 0.85 * e),
+    );
+    PieceRenderer.text(canvas, '封', c, r * 1.05, Colors.white.withValues(alpha: e));
+    // Onda de tinta al estampar.
+    if (ts > 0.18 && ts < 0.9) {
+      final w = (ts - 0.18) / 0.72;
+      canvas.drawCircle(
+        c,
+        layout.size * (0.9 + 1.6 * Curves.easeOutCubic.transform(w)),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = layout.size * 0.14 * (1 - w)
+          ..color = ink.withValues(alpha: 0.5 * (1 - w)),
       );
     }
   }

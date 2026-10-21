@@ -247,6 +247,21 @@ def turn_chime(variant='b'):
     return lowpass(x * attack, 2000)
 
 
+def heartbeat():
+    """Latido grave (lub-dub) para el Líder en peligro: fundamental para auriculares
+    y armónicos medios para que se sienta en el parlante del teléfono."""
+    t = t_axis(0.62)
+    x = np.zeros_like(t)
+    for at, amp, f in [(0.0, 1.0, 62), (0.2, 0.72, 54)]:
+        s = int(SR * at)
+        tt = t[: len(t) - s]
+        x[s:] += partial(tt, f, 0.11, amp, drop=0.6, drop_time=0.02)
+        x[s:] += partial(tt, f * 2.02, 0.07, amp * 0.55, drop=0.4, drop_time=0.02)
+        x[s:] += partial(tt, f * 3.1, 0.04, amp * 0.22)
+    attack = np.clip(t / 0.004, 0, 1)
+    return fade(lowpass(x * attack, 900), ms=20)
+
+
 def write_stones(variant, out):
     for i in range(3):
         if variant in DOMINO:
@@ -283,6 +298,7 @@ def main():
     write('defeat', gong(base=73, decay=1.6, bright=0.45), peak=0.75)
     write('emote', pop(), peak=0.5)
     write('turn', turn_chime(TURN_VARIANT), peak=0.45)
+    write('heartbeat', heartbeat(), peak=0.9)
     print('ok →', os.path.abspath(OUT))
 
 

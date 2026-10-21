@@ -13,15 +13,19 @@ import '../i18n/i18n.dart';
 import '../match/ladder.dart';
 import '../match/matchmaker.dart';
 import '../solo/catalog.dart';
+import '../solo/daily.dart';
 import '../solo/solver.dart';
+import '../solo/stars.dart';
 import '../store/paywall.dart';
 import '../story/script.dart';
 import '../story/story_screen.dart';
+import '../tutorial/guide.dart';
 import '../tutorial/lessons.dart';
 import 'board_painter.dart';
 import 'fx/board_fx.dart';
 import 'fx/sfx.dart';
 import 'gallery_screen.dart';
+import 'campaign_screen.dart';
 import 'hex_layout.dart';
 import 'matchmaking_screen.dart';
 import 'piece_chip.dart';
@@ -37,10 +41,15 @@ import 'widgets/duel_scoreboard.dart';
 import 'widgets/skin_kit.dart';
 import 'widgets/ranked_result.dart';
 import 'widgets/stage_intro.dart';
+import 'widgets/star_row.dart';
 
 /// Función top-level: el closure no captura el State (que no es enviable entre isolates).
-Future<List<AiAction>> _thinkInIsolate(GameState snapshot, AiLevel level, Map<String, int> seen) =>
-    Isolate.run(() => AiPlayer(level, seen: seen).chooseTurn(snapshot));
+Future<List<AiAction>> _thinkInIsolate(
+  GameState snapshot,
+  AiLevel level,
+  Map<String, int> seen, {
+  bool abilities = true,
+}) => Isolate.run(() => AiPlayer(level, seen: seen, useAbilities: abilities).chooseTurn(snapshot));
 
 /// Defensa del rival en un problema: busca la respuesta que evita el cerco.
 Future<List<AiAction>> _defendInIsolate(GameState snapshot, int attackerTurns) =>
@@ -72,6 +81,9 @@ class GameScreen extends StatefulWidget {
   /// parte de arriba girada hacia el Jugador 2.
   final bool faceToFace;
 
+  /// Iniciación: partida completa contra el Sensei, con sus consejos.
+  final bool initiation;
+
   const GameScreen({
     super.key,
     required this.p0,
@@ -82,7 +94,8 @@ class GameScreen extends StatefulWidget {
   }) : lesson = null,
        match = null,
        stage = null,
-       nextStage = null;
+       nextStage = null,
+       initiation = false;
 
   /// Contenido de un jugador: vos sos el jugador 0 y la IA el 1.
   GameScreen.stage({super.key, required Stage this.stage, this.nextStage})
@@ -92,7 +105,8 @@ class GameScreen extends StatefulWidget {
       aiLevel = stage.level,
       lesson = null,
       match = null,
-      faceToFace = false;
+      faceToFace = false,
+      initiation = false;
 
   /// Tutorial: vos (Shaolin) contra el Sensei, con escenarios armados.
   const GameScreen.tutorial({super.key, this.lesson = 0})
@@ -103,7 +117,22 @@ class GameScreen extends StatefulWidget {
       match = null,
       stage = null,
       nextStage = null,
-      faceToFace = false;
+      faceToFace = false,
+      initiation = false;
+
+  /// Iniciación: elegiste [faction] y el Sensei juega con la otra, sin
+  /// habilidad y a nivel novato, mientras te aconseja.
+  GameScreen.initiation({super.key, required Faction faction})
+    : p0 = faction,
+      p1 = playableFactions.firstWhere((f) => f != faction),
+      aiPlayer = 1,
+      aiLevel = AiLevel.novice,
+      lesson = null,
+      match = null,
+      stage = null,
+      nextStage = null,
+      faceToFace = false,
+      initiation = true;
 
   /// Partida por puntos contra el rival del emparejamiento. Quien empieza
   /// juega con las fichas claras (jugador 0).
@@ -115,7 +144,8 @@ class GameScreen extends StatefulWidget {
       lesson = null,
       stage = null,
       nextStage = null,
-      faceToFace = false;
+      faceToFace = false,
+      initiation = false;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -165,6 +195,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   Lesson? get _lesson => _lessonIdx == null ? null : lessons[_lessonIdx!];
   bool get _tutorial => _lessonIdx != null;
 
+  // Iniciación
+  bool get _init => widget.initiation;
+  GuideTip? _tip;
+  AiAction? _suggestion;
+  final _seenTips = <String>{};
+
   // Partida por puntos
   bool get _ranked => widget.match != null;
   bool _reported = false;
@@ -195,6 +231,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _fx = BoardFx(this, _layout);
+    _live++;
+    MusicBoard.instance.play(_musicTrack);
     _lessonIdx = widget.lesson;
     _game = _lesson?.build() ?? _stage?.build() ?? GameState(widget.p0, widget.p1);
     _stageStart = _game.copy();
@@ -238,7 +276,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 isAi: true,
               ),
             ]
-          : _tutorial
+          : _tutorial || _init
           ? [
               PlayerProfile(
                 nickname: nick,
@@ -272,16 +310,39 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               ),
             ];
     }
-    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _maybeRunAi();
+      _refreshGuide();
+    });
   }
+
+  /// La campaña suena con su facción y El Sello con el Oni; el resto, con la tuya.
+  MusicTrack get _musicTrack {
+    final s = widget.stage;
+    if (s != null && finale.any((x) => x.id == s.id)) return MusicTrack.oni;
+    final mine = s != null && s.kind == StageKind.campaign
+        ? campaigns.firstWhere((c) => c.stages.any((x) => x.id == s.id)).faction
+        : widget.aiPlayer == 1
+        ? widget.p0
+        : widget.aiPlayer == 0
+        ? widget.p1
+        : widget.p0;
+    return mine == Faction.ninja ? MusicTrack.ninja : MusicTrack.shaolin;
+  }
+
+  /// Partidas abiertas: al pasar a la siguiente batalla la nueva se abre
+  /// antes de cerrar la vieja, y la música del menú no debe colarse.
+  static int _live = 0;
 
   @override
   void dispose() {
+    if (--_live == 0) MusicBoard.instance.play(MusicTrack.menu);
     for (final t in _emoteTimers) {
       t?.cancel();
     }
     _retryTimer?.cancel();
     _noticeTimer?.cancel();
+    _camera?.dispose();
     _fx.dispose();
     _transform.dispose();
     super.dispose();
@@ -401,12 +462,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     try {
       actions = puzzleTurns != null
           ? await _defendInIsolate(snapshot, puzzleTurns)
-          : await _thinkInIsolate(snapshot, level, Map.of(_aiSeen));
+          : await _thinkInIsolate(snapshot, level, Map.of(_aiSeen), abilities: !_init);
     } catch (e) {
       debugPrint('IA en isolate falló ($e); calculando en el hilo principal');
       actions = puzzleTurns != null
           ? defend(snapshot, puzzleTurns)
-          : AiPlayer(level, seen: Map.of(_aiSeen)).chooseTurn(snapshot);
+          : AiPlayer(level, seen: Map.of(_aiSeen), useAbilities: !_init).chooseTurn(snapshot);
     }
     if (epoch != _epoch) return; // se reinició la partida mientras pensaba
     // Pausa mínima para que se perciba el "pensamiento". En partidas por
@@ -453,7 +514,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _Mode.jadeSwap => tr('game.hint.jadeSwap'),
       _Mode.jadeSwapTarget => tr('game.hint.jadeSwapTarget'),
       _Mode.kawarimi => tr('game.hint.kawarimi'),
-      _Mode.idle when _tutorial => '', // el Sensei ya dice qué hacer
+      _Mode.idle when _tutorial || _init => '', // el Sensei ya dice qué hacer
       _Mode.idle =>
         _game.mustPlaceLeader
             ? tr('game.hint.mustLeader')
@@ -478,9 +539,20 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     for (final e in events) {
       _log.add((round: before.round, e: e));
     }
-    final dur = _fx.animate(before, _game);
+    final dur = _fx.animate(before, _game, viewer: widget.aiPlayer == null ? null : _mySeat);
+    if (_fx.finisher != null && !before.isOver) _zoomTo(_fx.finisher!.leader);
+    if (_init) {
+      if (before.current == _mySeat && _game.current != _mySeat && onceTips.contains(_tip?.id)) {
+        _seenTips.add(_tip!.id);
+      }
+      _tip = null;
+      _suggestion = null;
+      if (!_game.isOver && _game.current == _mySeat) {
+        Future.delayed(Duration(milliseconds: (dur * 1000).round() + 250), _refreshGuide);
+      }
+    }
+    if (!_tutorial && !_game.isOver) _warnLeader(before, after: dur);
     if (before.current != _game.current) {
-      Haptics.light();
       if (_isHuman(_game.current) && !_game.isOver) {
         Future.delayed(const Duration(milliseconds: 200), () => SoundBoard.instance.play(Sfx.turn, volume: 0.6));
       }
@@ -510,6 +582,49 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       }
     }
     return dur;
+  }
+
+  /// Latido cuando al Líder propio le quedan 2 lados libres o menos (más
+  /// fuerte con 1). Suena solo cuando el cerco se aprieta, no en cada turno.
+  void _warnLeader(GameState before, {required double after}) {
+    final me = widget.aiPlayer == null ? _game.current : _mySeat;
+    final now = _game.leaderMargin(me), was = before.leaderMargin(me);
+    if (now == null || now > 2 || now < 1 || (was != null && was <= now)) return;
+    Future.delayed(Duration(milliseconds: (after * 1000).round() + 120), () {
+      if (!mounted || _game.isOver) return;
+      SoundBoard.instance.play(Sfx.heartbeat, volume: now == 1 ? 1 : 0.75);
+      now == 1 ? Haptics.double() : Haptics.medium();
+    });
+  }
+
+  // Cámara del remate: se acerca al Líder que cae.
+  Size _viewport = Size.zero;
+  AnimationController? _camera;
+
+  void _zoomTo(Hex h, {double scale = 1.55}) {
+    if (_viewport.isEmpty) return;
+    final p = _layout.toPixel(h);
+    // Un poco por encima del centro: abajo queda la mano.
+    final focus = Offset(_viewport.width / 2, _viewport.height * 0.44);
+    final target = Matrix4.identity()
+      ..translateByDouble(focus.dx - p.dx * scale, focus.dy - p.dy * scale, 0, 1)
+      ..scaleByDouble(scale, scale, 1, 1);
+    final tween = Matrix4Tween(begin: _transform.value.clone(), end: target);
+    _camera?.dispose();
+    final c = _camera = AnimationController(vsync: this, duration: const Duration(milliseconds: 900));
+    final curve = CurvedAnimation(parent: c, curve: Curves.easeInOutCubic);
+    c.addListener(() => _transform.value = tween.evaluate(curve));
+    if (MediaQuery.disableAnimationsOf(context)) {
+      c.value = 1;
+    } else {
+      c.forward();
+    }
+  }
+
+  /// Vuelve a encuadrar el tablero (revancha o reinicio).
+  void _recenter() {
+    _camera?.stop();
+    _centered = false;
   }
 
   /// Muestra qué efectos se dispararon, cuando la animación ya los mostró.
@@ -610,6 +725,93 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _introScene();
   }
 
+  // ----------------------------------------------------------- iniciación
+
+  /// Calcula la jugada que haría el Sensei en tu lugar y el consejo del momento.
+  Future<void> _refreshGuide() async {
+    if (!_init || !mounted || _game.isOver || _game.current != _mySeat) return;
+    final epoch = _epoch, ply = _game.ply;
+    setState(() => _tip = guideTip(_game, _mySeat, seen: _seenTips));
+    List<AiAction> turn;
+    try {
+      turn = await _thinkInIsolate(_game.copy(), AiLevel.normal, const {});
+    } catch (_) {
+      turn = AiPlayer(AiLevel.normal).chooseTurn(_game.copy());
+    }
+    if (!mounted || epoch != _epoch || ply != _game.ply) return;
+    setState(() {
+      _suggestion = turn.firstOrNull;
+      _tip = guideTip(_game, _mySeat, seen: _seenTips, suggestion: _suggestion);
+    });
+  }
+
+  void _finishInitiation({required bool won}) {
+    if (won) {
+      AppSettings.instance.tutorialDone = true;
+      GiftToast.check(context);
+    }
+    showSkinDialog<void>(
+      context,
+      dismissible: false,
+      builder: (ctx) => SkinDialog(
+        glyph: won ? '入' : '再',
+        glyphColor: won ? HexTheme.of(ctx).gold : null,
+        title: tr(won ? 'initiation.wonTitle' : 'initiation.lostTitle'),
+        message: tr(won ? 'initiation.wonBody' : 'initiation.lostBody', {'faction': widget.p0.displayName}),
+        actions: [
+          SkinAction(tr('common.menu'), () {
+            Navigator.pop(ctx);
+            Navigator.pop(context);
+          }),
+          if (won)
+            SkinAction(
+              tr('initiation.story'),
+              () {
+                Navigator.pop(ctx);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const CampaignScreen()));
+              },
+              primary: true,
+              glyph: '記',
+            )
+          else
+            SkinAction(
+              tr('common.retry'),
+              () {
+                Navigator.pop(ctx);
+                _fx.clear();
+                _epoch++;
+                _recenter();
+                setState(() {
+                  _game = GameState(widget.p0, widget.p1);
+                  _aiSeen.clear();
+                  _aiThinking = false;
+                  _clearHistory();
+                  _reset();
+                });
+                WidgetsBinding.instance.addPostFrameCallback((_) => _refreshGuide());
+              },
+              primary: true,
+              glyph: '戦',
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _guideCard() {
+    final tip = _tip;
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      transitionBuilder: (c, a) => FadeTransition(
+        opacity: a,
+        child: SizeTransition(sizeFactor: a, axisAlignment: -1, child: c),
+      ),
+      child: tip == null
+          ? const SizedBox(width: double.infinity, key: ValueKey('none'))
+          : GuideCard(key: ValueKey(tip.id), title: tip.title, body: tip.body),
+    );
+  }
+
   // ----------------------------------------------------------- un jugador
 
   void _checkStage({required double after}) {
@@ -620,7 +822,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _stageOver = true;
       _reset();
     });
-    if (ok) AppSettings.instance.markCleared(_stage!.id);
+    final daily = _stage!.id == Daily.id;
+    if (ok && daily) {
+      AppSettings.instance.solveDaily(Daily.today);
+    } else if (ok) {
+      AppSettings.instance.markCleared(_stage!.id);
+    }
+    // Estrellas: se calculan sobre toda la partida y se guarda el récord.
+    final goals = ok && Stars.appliesTo(_stage!) ? Stars.goals(_stageStart, [..._history, _game], _game) : null;
+    final previous = AppSettings.instance.starsOf(_stage!.id);
+    if (goals != null) AppSettings.instance.recordStars(_stage!.id, Stars.count(goals));
     final wait = Duration(milliseconds: (after * 1000).round() + 500);
     GiftToast.check(context, delay: wait + const Duration(milliseconds: 900));
     Future.delayed(wait, () async {
@@ -640,7 +851,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           if (!mounted) return;
         }
       }
-      _showStageResult(ok);
+      _showStageResult(ok, goals: goals, previous: previous);
     });
   }
 
@@ -693,6 +904,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     if (s.kind == StageKind.campaign && widget.nextStage == null) {
       return tr(_game.inSiege ? 'stage.campaignDone.siege' : 'stage.campaignDone');
     }
+    if (s.id == Daily.id) {
+      return trN('daily.won', AppSettings.instance.dailyStreakOn(Daily.today));
+    }
     if (!s.isPuzzle) return tr(_game.inSiege ? 'stage.won.siege' : 'stage.won', {'title': s.title});
     final used = s.puzzleTurns! - s.turnsLeft(_stageStart, _game)! + 1;
     return trN('stage.closedIn', used);
@@ -705,7 +919,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     return tr(_stage!.isPuzzle ? 'stage.lost.puzzle' : 'stage.lost');
   }
 
-  void _showStageResult(bool ok) {
+  void _showStageResult(bool ok, {List<bool>? goals, int previous = 0}) {
     final next = widget.nextStage;
     showSkinDialog<void>(
       context,
@@ -717,6 +931,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           glyphColor: ok ? HexTheme.of(ctx).gold : null,
           title: tr(ok ? 'stage.cleared' : 'stage.notThisTime'),
           message: end?.text ?? (ok ? _stageWinText() : _stageFailText()),
+          body: goals == null ? null : StarsReveal(goals: goals, previous: previous),
           actions: [
             SkinAction(tr('common.back'), () {
               Navigator.pop(ctx);
@@ -753,6 +968,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     if (!mounted || !_staged) return;
     final fresh = _stage!.build();
     _epoch++;
+    _fx.clear();
+    _recenter();
     _fx.animate(_game, fresh);
     setState(() {
       _game = fresh;
@@ -814,6 +1031,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   void _undo() {
     if (_history.isEmpty || _aiThinking) return;
     _fx.clear();
+    if (_game.isOver) _recenter();
     Haptics.light();
     setState(() {
       _game = _popHistory();
@@ -1030,6 +1248,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final humanLost = widget.aiPlayer != null && w == widget.aiPlayer;
     SoundBoard.instance.play(humanLost ? Sfx.defeat : Sfx.victory);
     Haptics.heavy();
+    if (_init) {
+      _finishInitiation(won: !humanLost && !_game.draw);
+      return;
+    }
     if (widget.aiPlayer != null) _showEmote(widget.aiPlayer!, humanLost ? Emote.smug : Emote.gg);
     if (_ranked) {
       _report(_game.draw ? MatchResult.draw : (humanLost ? MatchResult.loss : MatchResult.win));
@@ -1063,6 +1285,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               Navigator.pop(ctx);
               _fx.clear();
               _epoch++;
+              _recenter();
               setState(() {
                 _game = GameState(widget.p0, widget.p1);
                 _aiSeen.clear();
@@ -1311,7 +1534,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                       _hintLine(t),
                       const Spacer(),
                       _noticeCard(t),
-                      if (_tutorial) _coachCard() else if (_staged) _goalChip(t),
+                      if (_tutorial) _coachCard() else if (_staged) _goalChip(t) else if (_init) _guideCard(),
                       _topBar(t),
                     ],
                   ),
@@ -1335,7 +1558,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     );
   }
 
-  Set<Hex> get _spotlight => _tutorial && _coach == CoachState.doing ? _lesson!.spotlight : const {};
+  Set<Hex> get _spotlight => _tutorial && _coach == CoachState.doing
+      ? _lesson!.spotlight
+      : _init && !_locked && (_mode == _Mode.idle || _mode == _Mode.placing)
+      ? (_tip?.spotlight ?? const {})
+      : const {};
 
   Widget _coachCard() {
     final l = _lesson!;
@@ -1371,6 +1598,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       backTooltip: tr(first ? 'common.menu' : 'common.close'),
       onBack: first ? () => Navigator.maybePop(context) : _startStage,
       onStart: _startStage,
+      stars: Stars.appliesTo(s) ? AppSettings.instance.starsOf(s.id) : null,
     );
   }
 
@@ -1443,9 +1671,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   }
 
   bool get _hasSiege {
+    if (_fx.finisher != null) return true;
     for (var p = 0; p < 2; p++) {
-      final h = _game.board.locateLeader(p);
-      if (h != null && _game.board.occupiedNeighbors(h) >= 4) return true;
+      if (_game.leaderPressure(p) >= 4 || _game.leaderOpenings(p).isNotEmpty) return true;
     }
     return false;
   }
@@ -1465,7 +1693,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               _roundButton(t, Icons.more_horiz_rounded, tr('game.more'), _openMore),
             ],
           ),
-          if (!_tutorial) ...[
+          if (!_tutorial && !_init) ...[
             const SizedBox(height: 6),
             DuelScoreboard(me: _side(_mySeat), rival: _side(_oppSeat), center: _roundMark(t)),
           ],
@@ -1848,13 +2076,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   Widget _board(HexTheme t, Set<Hex> targets) {
     return LayoutBuilder(
       builder: (context, constraints) {
+        _viewport = constraints.biggest;
         if (!_centered) {
           _centered = true;
           // Centrado en la zona visible entre las barras superior e inferior.
           _transform.value = Matrix4.identity()
             ..translateByDouble(
               constraints.maxWidth / 2 - _canvas / 2,
-              constraints.maxHeight / 2 - _canvas / 2 + (_tutorial ? 50 : (_staged ? 15 : 0)),
+              constraints.maxHeight / 2 - _canvas / 2 + (_tutorial || _init ? 50 : (_staged ? 15 : 0)),
               0,
               1,
             );
@@ -1887,6 +2116,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 lastMove: _lastMove,
                 spotlight: _spotlight,
                 flipOwner: _f2f ? 1 : null,
+                viewer: widget.aiPlayer == null ? _game.current : _mySeat,
+                opportunities: !(_stage?.isPuzzle ?? false),
               ),
             ),
           ),
@@ -2078,6 +2309,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
   Widget _handItem(HexTheme t, PieceType type, int count, int owner, {required bool enabled, required double cell}) {
     final selected = _mode == _Mode.placing && _placing == type;
+    // Iniciación: la ficha que el Sensei sugiere colocar late en la mano.
+    final suggested =
+        _init &&
+        enabled &&
+        _mode == _Mode.idle &&
+        _suggestion is PlaceAction &&
+        (_suggestion as PlaceAction).type == type;
     // Sin nombre a la vista: el tooltip (manual) lo da a lectores de pantalla
     // y mantener apretado abre la ficha con sus reglas.
     return Tooltip(
@@ -2116,23 +2354,33 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             decoration: BoxDecoration(
               color: selected ? t.highlight.withValues(alpha: 0.18) : t.text.withValues(alpha: 0.06),
               borderRadius: BorderRadius.circular(cell * 0.22),
-              border: Border.all(color: selected ? t.highlight : t.outline.withValues(alpha: 0.5), width: 1.6),
+              border: Border.all(
+                color: selected
+                    ? t.highlight
+                    : suggested
+                    ? t.gold
+                    : t.outline.withValues(alpha: 0.5),
+                width: suggested ? 2.4 : 1.6,
+              ),
             ),
             child: Stack(
               clipBehavior: Clip.none,
               children: [
                 // La ficha elegida "se levanta" de la mano.
-                TweenAnimationBuilder<double>(
-                  tween: Tween(end: selected ? 0.4 : 0),
-                  duration: const Duration(milliseconds: 260),
-                  curve: selected ? Curves.easeOutBack : Curves.easeIn,
-                  builder: (_, lift, _) => PieceChip(
-                    type: type,
-                    owner: owner,
-                    size: cell * 0.46,
-                    lift: lift,
-                    mirror: _game.factions[0] == _game.factions[1],
-                    ash: _game.factions[owner] == Faction.oni,
+                _Pulse(
+                  active: suggested,
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween(end: selected ? 0.4 : 0),
+                    duration: const Duration(milliseconds: 260),
+                    curve: selected ? Curves.easeOutBack : Curves.easeIn,
+                    builder: (_, lift, _) => PieceChip(
+                      type: type,
+                      owner: owner,
+                      size: cell * 0.46,
+                      lift: lift,
+                      mirror: _game.factions[0] == _game.factions[1],
+                      ash: _game.factions[owner] == Faction.oni,
+                    ),
                   ),
                 ),
                 if (count > 1)

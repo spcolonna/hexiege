@@ -52,6 +52,7 @@ class CampaignScreen extends StatelessWidget {
     };
     // El Sello se abre recién con las dos campañas terminadas.
     final open = isUnlocked(c.stages, 0, s.isCleared);
+    final stars = c.stages.fold(0, (a, x) => a + s.starsOf(x.id));
     final status = !open
         ? tr('campaign.finaleLocked')
         : next == null
@@ -60,7 +61,7 @@ class CampaignScreen extends StatelessWidget {
     final tile = SkinTile(
       leading: PieceChip(type: leader, owner: c.faction == Faction.shaolin ? 0 : 1, size: 24, ash: c.isFinale),
       title: c.title,
-      text: '${c.blurb}\n$status',
+      text: '${c.blurb}\n$status${stars > 0 ? '  ·  ★ $stars/${c.stages.length * 3}' : ''}',
       progress: done / c.stages.length,
       color: color,
       highlight: next == null,
