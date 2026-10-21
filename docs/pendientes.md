@@ -27,7 +27,7 @@ Botón "Galería" en el menú (con un punto si hay regalos sin abrir).
 - Logos en `assets/brand/` (versión crema para fondo oscuro y versión color para fondo claro).
 
 ## Tienda (idea, sin implementar)
-Todo cosmético; nada da ventaja en la partida. Prompts del arte en `docs/asset_prompts.md`, secciones 3 a 8 (todo listo para pegar).
+Todo cosmético; nada da ventaja en la partida. Prompts del arte en `docs/prompts.md` (juego e historia, todo listo para pegar).
 
 - **Moneda: jade.** Se gana con victorias (más contra niveles altos de IA o en la ladder), misiones del día ("ganá con el Tigre", "colocá 3 Serpientes"), batallas de campaña la primera vez y rachas de días jugados. Sin dinero real por ahora; si algún día se suma, se venden paquetes de jade, nunca ventajas.
 - **Qué se vende:**

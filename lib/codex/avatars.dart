@@ -25,8 +25,15 @@ class Avatars {
     AvatarDef('kitsune', Faction.ninja),
   ];
 
+  /// Retratos de personajes de la historia: no se eligen como avatar.
+  static const story = [
+    AvatarDef('abbot', Faction.shaolin),
+    AvatarDef('shogun', Faction.ninja),
+    AvatarDef('ashoni', Faction.oni),
+  ];
+
   static AvatarDef? byId(String id) {
-    for (final a in all) {
+    for (final a in [...all, ...story]) {
       if (a.id == id) return a;
     }
     return null;
