@@ -12,7 +12,7 @@ TestFlight.
    su facción. La mano sigue teniendo 11 fichas y se balancea de a pares, base contra
    variante.
 3. **El azar queda solo en lo cosmético.** El gacha (Omikuji) nunca da fichas jugables.
-4. **No hay publicidad que interrumpa.** Solo videos con recompensa, y son opcionales.
+4. **No hay publicidad que interrumpa.** Solo videos con recompensa, opcionales, y recién cuando salga el gacha de fichas nuevas (no en el lanzamiento).
 5. **El competitivo futuro tiene un modo Clásico** con solo fichas base, como el Hive sin
    expansiones.
 
@@ -107,7 +107,7 @@ No salen en el lanzamiento. Llegan en una segunda tanda (2 variantes), para que 
 primero se balancee con su set base.
 
 ### Historia: "La tormenta del Khan"
-Es una campaña de **12 batallas** que se juega con la Horda:
+Es una campaña de **24 batallas** (igual de larga que las de Shaolin y Ninja) que se juega con la Horda. Se puede ir programando, pero queda oculta e inaccesible hasta su lanzamiento:
 - **Protagonista:** **Khutulun**, la princesa luchadora (figura histórica, sobrina de Kublai
   Khan), que cruza el mar para tomar el Templo y el clan.
 - **A mitad de campaña** descubre que Shaolin y Ninja ahora pelean juntos y que bajo el
@@ -268,6 +268,9 @@ Cada paso se puede publicar por separado en TestFlight.
 
 ## 7. Preguntas abiertas
 
-- ¿Las variantes también se venden con plata (USD 0,99), o solo con koban?
-- ¿Arrancamos con publicidad, o primero probamos solo con compras para ver si hace falta?
-- ¿La campaña de la Horda es de 12 batallas, o una más corta (6) para sacarla antes?
+- **Fichas nuevas (para después, nada en el lanzamiento).** Seguro vienen fichas nuevas; falta definir:
+  - ¿Sustituyen a una ficha base (variante) o se suman al mazo?
+  - Cantidad: se da 1 copia; quien quiera más puede conseguir más hasta un tope (¿cuál?).
+  - ¿Se venden con plata o solo con koban?
+- ~~¿Arrancamos con publicidad?~~ No: la publicidad entra recién con el gacha de fichas nuevas.
+- ~~¿La campaña de la Horda es de 12 o 6 batallas?~~ 24, como las otras; oculta hasta que salga.
