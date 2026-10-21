@@ -195,12 +195,16 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
         listenable: AppSettings.instance,
         builder: (ctx, _) {
           final s = AppSettings.instance;
+          final styles = UiStyle.values.where(s.isStyleUnlocked).toList();
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SkinLabel(tr('settings.uiStyle')),
-              for (final style in UiStyle.values)
-                Padding(padding: const EdgeInsets.only(bottom: 8), child: _StyleOption(style)),
+              // Con un solo estilo abierto no hay nada que elegir.
+              if (styles.length > 1) ...[
+                SkinLabel(tr('settings.uiStyle')),
+                for (final style in styles)
+                  Padding(padding: const EdgeInsets.only(bottom: 8), child: _StyleOption(style)),
+              ],
               SkinLabel(tr('settings.table')),
               const _TablePreview(),
               const SizedBox(height: 10),

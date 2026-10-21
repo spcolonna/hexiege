@@ -19,14 +19,14 @@ enum UiStyle {
   String get blurb => tr('uiStyle.$name.blurb');
 }
 
-/// Qué estilos tiene el jugador. Hoy todos están abiertos para probarlos; el
-/// día que sean de pago alcanza con poner [allFree] en false y sumar las
-/// compras a [owned].
+/// Qué estilos tiene el jugador. El juego sale solo con Ema; Caja y Panal
+/// quedan guardados para venderse como cosméticos: se suman a [owned] al
+/// comprarlos (y [allFree] en true los abre todos para probarlos).
 class StyleUnlocks {
-  static const allFree = true;
+  static const allFree = false;
 
   /// El estilo que viene con el juego.
-  static const base = UiStyle.box;
+  static const base = UiStyle.ema;
 
   static bool isUnlocked(UiStyle s, Set<String> owned) => allFree || s == base || owned.contains(s.name);
 }

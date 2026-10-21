@@ -165,13 +165,22 @@ class PieceRenderer {
         canvas.drawLine(Offset(face.dx - r, y - r * 0.3), Offset(face.dx + r, y + r * 0.22), vein);
       }
     }
-    // Brillo especular en el borde superior
+    // Bisel: un filo claro concéntrico, más brillante arriba a la izquierda
+    // (de donde viene la luz) y apagado abajo a la derecha.
+    final bevel = Rect.fromCircle(center: face, radius: r);
     canvas.drawPath(
-      hexAt(face - Offset(0, r * 0.06), r * 0.9),
+      hexAt(face, r * 0.9),
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = r * 0.06
-        ..color = Colors.white.withValues(alpha: tone == 0 ? 0.35 : 0.08),
+        ..shader = LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withValues(alpha: tone == 0 ? 0.45 : 0.12),
+            Colors.white.withValues(alpha: tone == 0 ? 0.08 : 0.02),
+          ],
+        ).createShader(bevel),
     );
     canvas.restore();
 

@@ -44,7 +44,7 @@ class _FakeMatchmaker implements Matchmaker {
   }
 }
 
-Widget _app(Widget home, ThemeMode mode, [Skin skin = Skin.box]) => MaterialApp(
+Widget _app(Widget home, ThemeMode mode, [Skin skin = Skin.ema]) => MaterialApp(
   theme: HexTheme.light.toThemeData(skin),
   darkTheme: HexTheme.dark.toThemeData(skin),
   themeMode: mode,
@@ -252,8 +252,9 @@ void main() {
       expect(find.text('Discípulo'), findsOneWidget);
       expect(find.text('1000'), findsOneWidget);
     } else {
-      // Sin online: la opción se ve apagada y no hay rango ni puntos.
-      expect(find.text('Online · Próximamente'), findsOneWidget);
+      // Sin online: la tablilla se ve apagada y no hay rango ni puntos.
+      expect(find.text('Online'), findsOneWidget);
+      expect(find.text('próximamente'), findsOneWidget);
       expect(find.text('Buscar partida'), findsNothing);
       expect(find.text('1000'), findsNothing);
     }
@@ -428,23 +429,22 @@ void main() {
       }
     }
 
-    testWidgets('Ajustes cambia el estilo y lo recuerda', (tester) async {
+    testWidgets('Ajustes no ofrece estilos: el juego sale solo con Ema', (tester) async {
       tester.view.physicalSize = const Size(1170, 2532);
       tester.view.devicePixelRatio = 3;
       addTearDown(tester.view.reset);
-      addTearDown(() => AppSettings.instance.uiStyle = UiStyle.box);
+      expect(AppSettings.instance.uiStyle, UiStyle.ema);
       await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.light));
       await tester.pump(const Duration(milliseconds: 400));
       await tester.tap(find.byTooltip('Ajustes'));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 500));
       for (final s in UiStyle.values) {
-        expect(find.text(s.displayName), findsOneWidget);
-        expect(AppSettings.instance.isStyleUnlocked(s), isTrue);
+        expect(find.text(s.displayName), findsNothing);
+        expect(AppSettings.instance.isStyleUnlocked(s), s == UiStyle.ema);
       }
-      await tester.tap(find.text('Panal'));
-      await tester.pump();
-      expect(AppSettings.instance.uiStyle, UiStyle.comb);
+      AppSettings.instance.uiStyle = UiStyle.comb;
+      expect(AppSettings.instance.uiStyle, UiStyle.ema);
       expect(tester.takeException(), isNull);
     });
 

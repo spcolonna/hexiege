@@ -415,7 +415,7 @@ class EmaMenu extends StatelessWidget {
       children: [
         Row(
           children: [
-            FloatingPieces(float: m.float, size: 17, axis: Axis.vertical),
+            FloatingPieces(float: m.float, size: 30, axis: Axis.vertical),
             const SizedBox(width: 12),
             Flexible(
               child: FittedBox(
@@ -528,6 +528,7 @@ class EmaMenu extends StatelessWidget {
                     EmaPlaque(
                       width: w,
                       tilt: -0.04,
+                      wind: 0,
                       glyph: '独',
                       label: tr('solo.title'),
                       sub: m.soloProgress,
@@ -537,6 +538,7 @@ class EmaMenu extends StatelessWidget {
                       m.findMatch,
                       EmaPlaque(
                         width: w * 1.12,
+                        wind: 1,
                         glyph: '戦',
                         label: m.findMatch == null ? 'Online' : tr('menu.findMatch'),
                         sub: m.findMatch == null ? tr('menu.soon') : null,
@@ -544,7 +546,7 @@ class EmaMenu extends StatelessWidget {
                         onTap: m.findMatch ?? () {},
                       ),
                     ),
-                    EmaPlaque(width: w, tilt: 0.035, glyph: '友', label: tr('menu.local'), onTap: m.local),
+                    EmaPlaque(width: w, tilt: 0.035, wind: 2, glyph: '友', label: tr('menu.local'), onTap: m.local),
                   ],
                 ),
               ],
@@ -566,10 +568,13 @@ class EmaMenu extends StatelessWidget {
   }
 }
 
-/// Tablilla votiva colgada de su cordón. Al tocarla se balancea.
+/// Tablilla votiva colgada de su cordón. Al tocarla se balancea, y cada
+/// tanto pasa una ráfaga de viento que las mueve de izquierda a derecha:
+/// [wind] es su lugar en la fila, para que la ráfaga llegue a cada una después.
 class EmaPlaque extends StatefulWidget {
   final double width;
   final double tilt;
+  final int wind;
   final String glyph;
   final String label;
   final String? sub;
@@ -583,6 +588,7 @@ class EmaPlaque extends StatefulWidget {
     required this.onTap,
     this.sub,
     this.tilt = 0,
+    this.wind = 0,
     this.main = false,
   });
 
@@ -590,13 +596,26 @@ class EmaPlaque extends StatefulWidget {
   State<EmaPlaque> createState() => _EmaPlaqueState();
 }
 
-class _EmaPlaqueState extends State<EmaPlaque> with SingleTickerProviderStateMixin {
+class _EmaPlaqueState extends State<EmaPlaque> with TickerProviderStateMixin {
   late final _swing = AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
+  late final _wind = AnimationController(vsync: this, duration: const Duration(seconds: 7))..repeat();
 
   @override
   void dispose() {
     _swing.dispose();
+    _wind.dispose();
     super.dispose();
+  }
+
+  /// Ángulo que le da el viento: un vaivén leve y constante, y una ráfaga por
+  /// ciclo que la empuja (el borde de abajo hacia la derecha) y la deja oscilar.
+  double _windAngle() {
+    final t = _wind.value;
+    final breeze = 0.012 * sin(2 * pi * (2 * t + widget.wind * 0.3));
+    final u = (t - 0.06 * widget.wind) % 1;
+    const len = 0.32;
+    final gust = u < len ? -0.075 * sin(u / len * 3 * pi) * (1 - u / len) : 0.0;
+    return breeze + gust;
   }
 
   @override
@@ -620,10 +639,11 @@ class _EmaPlaqueState extends State<EmaPlaque> with SingleTickerProviderStateMix
         widget.onTap();
       },
       child: AnimatedBuilder(
-        animation: _swing,
+        animation: Listenable.merge([_swing, _wind]),
         builder: (_, child) {
           final p = _swing.value;
-          final a = widget.tilt + 0.16 * sin(p * 3 * pi) * (1 - p);
+          final calm = MediaQuery.of(context).disableAnimations;
+          final a = widget.tilt + 0.16 * sin(p * 3 * pi) * (1 - p) + (calm ? 0 : _windAngle());
           return Transform.rotate(angle: a, alignment: Alignment.topCenter, child: child);
         },
         child: Column(

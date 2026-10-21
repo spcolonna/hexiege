@@ -679,7 +679,6 @@ class _PieceToken3DState extends State<PieceToken3D> with SingleTickerProviderSt
     final tone = type.faction == Faction.shaolin ? 0 : 1;
     final r = d / 2 * 0.92;
     final thick = d * 0.13;
-    const layers = 14;
 
     Matrix4 at(double z, {bool flip = false}) {
       final m = Matrix4.identity()
@@ -706,22 +705,57 @@ class _PieceToken3DState extends State<PieceToken3D> with SingleTickerProviderSt
       at(thick / 2, flip: true),
       _BackPainter(theme: theme, faction: type.faction, tone: tone, r: r, emblem: _emblem),
     );
-    final side = theme.stoneSide[tone];
-    final edges = [
-      for (var i = 0; i < layers; i++)
-        layer(
-          at(-thick / 2 + thick * (i + 0.5) / layers),
-          _EdgePainter(
-            r: r * 1.045, // llega al borde exterior del filo de facción
-            // Canto con un poco de volumen: más claro hacia el centro del espesor.
-            color: Color.lerp(side, theme.stone[tone][1], 0.25 * sin(pi * (i + 0.5) / layers))!,
+    // El canto son las seis caras del prisma, de piedra como la cara: cada una
+    // es un rectángulo parado sobre un lado del hexágono. Llega al borde
+    // exterior del filo de facción.
+    final re = r * 1.045;
+    final apothem = re * cos(pi / 6);
+    final spin = Matrix4.identity()
+      ..rotateX(_rx)
+      ..rotateY(_ry);
+    double depth(double x, double y) => spin.entry(2, 0) * x + spin.entry(2, 1) * y;
+    final texture = PieceArt.stone(type.faction);
+    final sides = <(double, Widget)>[];
+    for (var k = 0; k < 6; k++) {
+      final a = pi / 3 * k;
+      final nx = cos(a), ny = sin(a);
+      final m = at(0)
+        ..translateByDouble(nx * apothem, ny * apothem, 0, 1)
+        ..rotateZ(a + pi / 2)
+        ..rotateX(pi / 2);
+      // Luz desde arriba a la izquierda y hacia el que mira.
+      final lit = (-0.45 * (spin.entry(0, 0) * nx + spin.entry(0, 1) * ny) -
+              0.7 * (spin.entry(1, 0) * nx + spin.entry(1, 1) * ny) -
+              0.55 * depth(nx, ny))
+          .clamp(0.0, 1.0);
+      sides.add((
+        depth(nx * apothem, ny * apothem),
+        Transform(
+          transform: m,
+          alignment: Alignment.center,
+          child: CustomPaint(
+            size: Size.square(d),
+            painter: _SidePainter(
+              width: re,
+              thick: thick,
+              texture: texture,
+              fallback: theme.stoneSide[tone],
+              scale: 2.6 * r,
+              offset: k * re,
+              lit: lit,
+              dark: tone == 1,
+            ),
           ),
         ),
-    ];
+      ));
+    }
+    // De atrás hacia adelante: primero lo más lejano.
+    sides.sort((a, b) => b.$1.compareTo(a.$1));
+    final edges = [for (final s in sides) s.$2];
 
     // Se pinta de atrás hacia adelante según hacia dónde mira la ficha.
     final facingFront = cos(_rx) * cos(_ry) > 0;
-    final stack = facingFront ? [back, ...edges.reversed, front] : [front, ...edges, back];
+    final stack = facingFront ? [back, ...edges, front] : [front, ...edges, back];
     return SizedBox(
       width: d * 1.6,
       height: d * 1.6,
@@ -834,17 +868,65 @@ class _BackPainter extends CustomPainter {
   bool shouldRepaint(covariant _BackPainter o) => o.emblem != emblem || o.theme != theme;
 }
 
-class _EdgePainter extends CustomPainter {
-  final double r;
-  final Color color;
-  _EdgePainter({required this.r, required this.color});
+/// Una cara del canto: un rectángulo de [width] × [thick] con la piedra de la
+/// facción. [offset] corre la textura para que cada cara muestre otra veta.
+class _SidePainter extends CustomPainter {
+  final double width, thick, scale, offset, lit;
+  final ui.Image? texture;
+  final Color fallback;
+  final bool dark;
+  _SidePainter({
+    required this.width,
+    required this.thick,
+    required this.texture,
+    required this.fallback,
+    required this.scale,
+    required this.offset,
+    required this.lit,
+    required this.dark,
+  });
 
   @override
-  void paint(Canvas canvas, Size size) =>
-      canvas.drawPath(PieceRenderer.hexAt(size.center(Offset.zero), r), Paint()..color = color);
+  void paint(Canvas canvas, Size size) {
+    // Se agranda un pelo para que las caras vecinas se toquen sin rendija.
+    final rect = Rect.fromCenter(center: size.center(Offset.zero), width: width + 1.5, height: thick);
+    final img = texture;
+    if (img != null) {
+      final k = scale / img.width;
+      final m = Matrix4.identity()
+        ..translateByDouble(rect.left - offset, rect.top - offset * 0.37, 0, 1)
+        ..scaleByDouble(k, k, 1, 1);
+      canvas.drawRect(
+        rect,
+        Paint()
+          ..shader = ImageShader(img, TileMode.repeated, TileMode.repeated, m.storage)
+          ..filterQuality = FilterQuality.medium,
+      );
+    } else {
+      canvas.drawRect(rect, Paint()..color = fallback);
+    }
+    // Volumen: más oscuro contra las dos caras, y según cuánta luz le llega.
+    canvas.drawRect(
+      rect,
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.black.withValues(alpha: 0.22),
+            Colors.transparent,
+            Colors.black.withValues(alpha: 0.22),
+          ],
+        ).createShader(rect),
+    );
+    canvas.drawRect(rect, Paint()..color = Colors.black.withValues(alpha: (1 - lit) * (dark ? 0.35 : 0.45)));
+    if (lit > 0.5) {
+      canvas.drawRect(rect, Paint()..color = Colors.white.withValues(alpha: (lit - 0.5) * (dark ? 0.12 : 0.25)));
+    }
+  }
 
   @override
-  bool shouldRepaint(covariant _EdgePainter o) => o.color != color || o.r != r;
+  bool shouldRepaint(covariant _SidePainter o) => o.lit != lit || o.texture != texture || o.thick != thick;
 }
 
 // ------------------------------------------------------------ aviso de regalo
