@@ -19,72 +19,20 @@ Prompts para **ChatGPT** (generador de imágenes), en inglés porque así sigue 
 
 | Bloque | Qué | Carpeta | Imágenes |
 |---|---|---|---|
-| A | Historia: ilustraciones de momentos clave (1 de 2) | `assets/story/` | 6 |
-| B | Historia: ilustraciones de momentos clave (2 de 2) | `assets/story/` | 5 |
+| A | Historia: ilustraciones de momentos clave restantes (opcionales) | `assets/story/` | 5 |
 
-Con estos dos bloques el arte del juego queda completo. Las ilustraciones son el panel grande que corta la página
-en los momentos clave; mientras falten, la viñeta simplemente no lo muestra.
+Las ilustraciones son el panel grande que corta la página en los momentos clave; mientras falten, la viñeta
+simplemente no lo muestra. Las 7 que más se ven ya están integradas. Adjuntá `assets/story/art_wall.webp` como
+referencia de estilo y las figuras `char_*` de quienes aparecen.
 
-## Bloque A — Ilustraciones de momentos clave, 1 de 2 (6)
+## Bloque A — Ilustraciones de momentos clave restantes (5)
 
-Archivos, en orden: `art_fox_cell.png`, `art_ash_ceiling.png`, `art_carvings.png`, `art_duel_shrine.png`, `art_pagoda.png`, `art_stairs.png`. Carpeta: `assets/story/`.
+Archivos, en orden: `art_pagoda.png`, `art_stairs.png`, `art_crypt.png`, `art_drunken_tale.png`, `art_scroll.png`. Carpeta: `assets/story/`.
 
 ```
-Generate exactly 6 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately.
+Generate exactly 5 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately. Each image is its own file: do NOT combine them into a grid, collage or contact sheet.
 
-Image 1 — art_fox_cell:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: A dim stone prison cell; the white fox spirit stands in the doorway glowing softly, a young ninja prisoner looks at it surprised, mist curling around. Accent: pale silver-white glow.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-
-Image 2 — art_ash_ceiling:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: Ren and the abbot in the abbot's hall look up as grey ash falls from cracks in the wooden ceiling like snow. Accent: ash grey with a faint ember-orange glow in the cracks.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-
-Image 3 — art_carvings:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: An abandoned forest shrine; on moss-covered standing stones, carved reliefs show six stones in a hexagon around a horned figure, with a monk and a ninja side by side. Ren touches the carving. Accent: moss green.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-
-Image 4 — art_duel_shrine:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: Ren and Aya facing each other at dawn in front of an old forest shrine, staff against fan, mist between them; the white fox watches from the shrine steps. Accent: pale dawn gold and crimson.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-
-Image 5 — art_pagoda:
+Image 1 — art_pagoda:
 Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
 
 PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
@@ -97,7 +45,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 
-Image 6 — art_stairs:
+Image 2 — art_stairs:
 Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
 
 PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
@@ -109,16 +57,8 @@ CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange rob
 STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-```
 
-## Bloque B — Ilustraciones de momentos clave, 2 de 2 (5)
-
-Archivos, en orden: `art_crypt.png`, `art_drunken_tale.png`, `art_scroll.png`, `art_oni_rises.png`, `art_seal.png`. Carpeta: `assets/story/`.
-
-```
-Generate exactly 5 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately.
-
-Image 1 — art_crypt:
+Image 3 — art_crypt:
 Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
 
 PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
@@ -131,7 +71,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 
-Image 2 — art_drunken_tale:
+Image 4 — art_drunken_tale:
 Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
 
 PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
@@ -144,38 +84,12 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 
-Image 3 — art_scroll:
+Image 5 — art_scroll:
 Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
 
 PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
 
 SUBJECT: Aya in the temple library unrolling a long jade-green scroll on an altar; the old abbot sits defeated on the floor behind her. Through the window, a column of ash rises into the sky. Accent: jade green and ember orange.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-
-Image 4 — art_oni_rises:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: The temple courtyard split by a burning crack; the colossal ash demon rises from it, horns and burning eyes in the smoke; tiny figures of monks and ninjas below. Accent: ember orange and ash grey.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-
-Image 5 — art_seal:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: Ren and Aya side by side, back to back, with six glowing stones around them in a hexagon, three glowing jade green and three glowing crimson; the ash demon fades into sparks above them; the white fox shines between them. Accent: jade green and crimson.
 
 CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
 
@@ -198,7 +112,7 @@ ya está quedan abajo por si hay que regenerar algo.
 | Figuras de personajes (`char_*`) | `assets/story/` | 16 | ✅ |
 | Escenarios (`bg_*`) | `assets/story/` | 22 | ✅ |
 | Retratos redondos (`avatar_abbot`, `avatar_shogun`, `avatar_ashoni`) | `assets/avatars/` | 3 | ✅ |
-| Ilustraciones de momentos clave (`art_*`) | `assets/story/` | 12 | 1 ✅ · 11 ⬜ (bloques A y B) |
+| Ilustraciones de momentos clave (`art_*`) | `assets/story/` | 12 | 7 ✅ · 5 ⬜ (pagoda, stairs, crypt, drunken_tale, scroll; opcionales) |
 
 Cómo las usa el juego:
 - **Figuras:** quien habla está parado abajo, de su lado del cuadro; el juego espeja la figura cuando va a la
@@ -248,7 +162,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_fox_cell.png` ⬜ (en bloque A o B)
+### `art_fox_cell.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.
@@ -266,7 +180,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_ash_ceiling.png` ⬜ (en bloque A o B)
+### `art_ash_ceiling.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.
@@ -284,7 +198,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_carvings.png` ⬜ (en bloque A o B)
+### `art_carvings.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.
@@ -302,7 +216,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_duel_shrine.png` ⬜ (en bloque A o B)
+### `art_duel_shrine.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.
@@ -410,7 +324,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_oni_rises.png` ⬜ (en bloque A o B)
+### `art_oni_rises.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.
@@ -428,7 +342,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_seal.png` ⬜ (en bloque A o B)
+### `art_seal.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.

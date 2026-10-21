@@ -253,8 +253,10 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                   onPressed: s.storyUnlocked || Purchases.instance.busy ? null : Purchases.instance.restore,
                 ),
               ),
-              const SizedBox(height: 8),
-              SkinButton(label: tr('settings.resetStory'), glyph: '始', onPressed: _confirmResetStory),
+              if (kStoryResetButton) ...[
+                const SizedBox(height: 8),
+                SkinButton(label: tr('settings.resetStory'), glyph: '始', onPressed: _confirmResetStory),
+              ],
               const SizedBox(height: 22),
               const _StudioCredit(),
             ],
