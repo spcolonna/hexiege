@@ -4,8 +4,10 @@ import '../i18n/i18n.dart';
 import '../codex/avatars.dart';
 import '../codex/cosmetics.dart';
 import '../config.dart';
+import '../engine/ai.dart';
 import '../engine/pieces.dart';
 import '../engine/rules.dart';
+import '../match/rivals.dart';
 import '../solo/catalog.dart';
 import '../store/purchases.dart';
 import 'codex_screen.dart';
@@ -152,16 +154,23 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
     showSkinDialog<void>(context, builder: (_) => const _RenameDialog());
   }
 
-  /// Partida local en un mismo dispositivo: cada jugador elige su facción.
+  /// Partida local: contra un amigo en el mismo dispositivo o contra un rival IA.
   void _passAndPlay() {
     showSkinSheet<void>(
       context,
       title: tr('menu.localTitle'),
       builder: (ctx) => _LocalSetup(
         first: _faction,
-        onStart: (p0, p1) {
+        onStart: (p0, p1, rival) {
           Navigator.pop(ctx);
-          Navigator.push(context, _fade(GameScreen(p0: p0, p1: p1, faceToFace: AppSettings.instance.faceToFace)));
+          Navigator.push(
+            context,
+            _fade(
+              rival == null
+                  ? GameScreen(p0: p0, p1: p1, faceToFace: AppSettings.instance.faceToFace)
+                  : GameScreen(p0: p0, p1: p1, aiPlayer: 1, aiLevel: rival.level, rival: rival),
+            ),
+          );
         },
       ),
     );
@@ -692,10 +701,11 @@ class _StudioCredit extends StatelessWidget {
   }
 }
 
-/// Hoja de la partida local: facción de cada jugador y modo cara a cara.
+/// Hoja de la partida local: contra un amigo (facción de cada uno y cara a
+/// cara) o contra un rival IA elegido de una galería de personajes.
 class _LocalSetup extends StatefulWidget {
   final Faction first;
-  final void Function(Faction p0, Faction p1) onStart;
+  final void Function(Faction p0, Faction p1, Rival? rival) onStart;
   const _LocalSetup({required this.first, required this.onStart});
 
   @override
@@ -704,9 +714,55 @@ class _LocalSetup extends StatefulWidget {
 
 class _LocalSetupState extends State<_LocalSetup> {
   late final _picks = [widget.first, playableFactions.firstWhere((f) => f != widget.first)];
+  var _vsAi = false;
+  late var _rival = Rival.byId(AppSettings.instance.lastRival);
+  late final _rivals = PageController(viewportFraction: 0.84, initialPage: Rival.all.indexOf(_rival));
+
+  @override
+  void dispose() {
+    _rivals.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SkinChoice<bool>(
+          options: [SkinOption(false, tr('local.vsFriend')), SkinOption(true, tr('local.vsAi'))],
+          selected: _vsAi,
+          onChanged: (v) => setState(() => _vsAi = v),
+        ),
+        const SizedBox(height: 12),
+        AnimatedSize(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOutCubic,
+          alignment: Alignment.topCenter,
+          child: _vsAi ? _aiSetup(context) : _friendSetup(context),
+        ),
+      ],
+    );
+  }
+
+  Widget _factionRow(int seat, {bool mirror = false}) => Row(
+    children: [
+      for (final f in playableFactions) ...[
+        Expanded(
+          child: _FactionPick(
+            faction: f,
+            seat: seat,
+            mirror: mirror,
+            selected: _picks[seat] == f,
+            onTap: () => setState(() => _picks[seat] = f),
+          ),
+        ),
+        if (f != playableFactions.last) const SizedBox(width: 10),
+      ],
+    ],
+  );
+
+  Widget _friendSetup(BuildContext context) {
     final t = HexTheme.of(context);
     final mirror = _picks[0] == _picks[1];
     return Column(
@@ -715,22 +771,7 @@ class _LocalSetupState extends State<_LocalSetup> {
         Text(tr('menu.localBody'), style: TextStyle(color: t.textMuted, fontSize: 15, height: 1.4)),
         for (final seat in [0, 1]) ...[
           SkinLabel(tr(seat == 0 ? 'local.player1' : 'local.player2')),
-          Row(
-            children: [
-              for (final f in playableFactions) ...[
-                Expanded(
-                  child: _FactionPick(
-                    faction: f,
-                    seat: seat,
-                    mirror: mirror,
-                    selected: _picks[seat] == f,
-                    onTap: () => setState(() => _picks[seat] = f),
-                  ),
-                ),
-                if (f != playableFactions.last) const SizedBox(width: 10),
-              ],
-            ],
-          ),
+          _factionRow(seat, mirror: mirror),
         ],
         AnimatedSize(
           duration: const Duration(milliseconds: 200),
@@ -764,9 +805,135 @@ class _LocalSetupState extends State<_LocalSetup> {
           height: 56,
           label: tr('common.start'),
           color: HexTheme.faction(_picks[0]),
-          onPressed: () => widget.onStart(_picks[0], _picks[1]),
+          onPressed: () => widget.onStart(_picks[0], _picks[1], null),
         ),
       ],
+    );
+  }
+
+  Widget _aiSetup(BuildContext context) {
+    final t = HexTheme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(tr('local.aiBody'), style: TextStyle(color: t.textMuted, fontSize: 15, height: 1.4)),
+        const SizedBox(height: 10),
+        SizedBox(
+          height: 178,
+          child: PageView.builder(
+            controller: _rivals,
+            itemCount: Rival.all.length,
+            onPageChanged: (i) {
+              skinTap();
+              setState(() => _rival = Rival.all[i]);
+              AppSettings.instance.lastRival = _rival.id;
+            },
+            itemBuilder: (_, i) => AnimatedBuilder(
+              animation: _rivals,
+              builder: (_, child) {
+                // La tarjeta del centro al frente; las de los costados, más chicas.
+                final page = _rivals.hasClients && _rivals.position.haveDimensions
+                    ? _rivals.page ?? i.toDouble()
+                    : Rival.all.indexOf(_rival).toDouble();
+                final d = (page - i).abs().clamp(0.0, 1.0);
+                return Transform.scale(
+                  scale: 1 - 0.08 * d,
+                  child: Opacity(opacity: 1 - 0.45 * d, child: child),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: _RivalCard(
+                  rival: Rival.all[i],
+                  selected: Rival.all[i] == _rival,
+                  onTap: () =>
+                      _rivals.animateToPage(i, duration: const Duration(milliseconds: 320), curve: Curves.easeOutCubic),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SkinLabel(tr('local.yourSchool')),
+        _factionRow(0, mirror: _picks[0] == _rival.faction),
+        const SizedBox(height: 16),
+        SkinButton(
+          height: 56,
+          label: tr('local.playVs', {'name': _rival.name}),
+          color: HexTheme.faction(_picks[0]),
+          onPressed: () => widget.onStart(_picks[0], _rival.faction, _rival),
+        ),
+      ],
+    );
+  }
+}
+
+/// Un rival de la galería: retrato, nombre, fuerza, su frase y si ya lo venciste.
+class _RivalCard extends StatelessWidget {
+  final Rival rival;
+  final bool selected;
+  final VoidCallback onTap;
+  const _RivalCard({required this.rival, required this.selected, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    final t = HexTheme.of(context);
+    final color = HexTheme.faction(rival.faction);
+    final beaten = AppSettings.instance.rivalBeaten(rival.id);
+    return Pressable(
+      semanticLabel: rival.name,
+      onTap: onTap,
+      child: SkinPanel(
+        highlight: selected ? color : null,
+        padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              children: [
+                AvatarFace(avatar: rival.avatar, size: 66, color: color, borderColor: color, borderWidth: 2.5),
+                const SizedBox(height: 6),
+                if (beaten)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(color: t.gold, borderRadius: BorderRadius.circular(6)),
+                    child: Text(
+                      '✓ ${tr('local.beaten')}',
+                      style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.w900, color: t.surfaceHigh),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    rival.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Skin.of(context).display(20, color: t.text),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    '${rival.level.displayName} · ~${rival.rating} · ${rival.faction.displayName}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w800, color: color),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    '«${rival.quote}»',
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 13.5, height: 1.3, fontStyle: FontStyle.italic, color: t.textMuted),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

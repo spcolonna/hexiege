@@ -12,6 +12,7 @@ import '../engine/pieces.dart';
 import '../i18n/i18n.dart';
 import '../match/ladder.dart';
 import '../match/matchmaker.dart';
+import '../match/rivals.dart';
 import '../solo/catalog.dart';
 import '../solo/daily.dart';
 import '../solo/solver.dart';
@@ -84,6 +85,9 @@ class GameScreen extends StatefulWidget {
   /// Iniciación: partida completa contra el Sensei, con sus consejos.
   final bool initiation;
 
+  /// Rival casual elegido en la partida local (null = el Sensei o un amigo).
+  final Rival? rival;
+
   const GameScreen({
     super.key,
     required this.p0,
@@ -91,6 +95,7 @@ class GameScreen extends StatefulWidget {
     this.aiPlayer,
     this.aiLevel = AiLevel.normal,
     this.faceToFace = false,
+    this.rival,
   }) : lesson = null,
        match = null,
        stage = null,
@@ -106,7 +111,8 @@ class GameScreen extends StatefulWidget {
       lesson = null,
       match = null,
       faceToFace = false,
-      initiation = false;
+      initiation = false,
+      rival = null;
 
   /// Tutorial: vos (Shaolin) contra el Sensei, con escenarios armados.
   const GameScreen.tutorial({super.key, this.lesson = 0})
@@ -118,7 +124,8 @@ class GameScreen extends StatefulWidget {
       stage = null,
       nextStage = null,
       faceToFace = false,
-      initiation = false;
+      initiation = false,
+      rival = null;
 
   /// Iniciación: elegiste [faction] y el Sensei juega con la otra, sin
   /// habilidad y a nivel novato, mientras te aconseja.
@@ -132,7 +139,8 @@ class GameScreen extends StatefulWidget {
       stage = null,
       nextStage = null,
       faceToFace = false,
-      initiation = true;
+      initiation = true,
+      rival = null;
 
   /// Partida por puntos contra el rival del emparejamiento. Quien empieza
   /// juega con las fichas claras (jugador 0).
@@ -145,7 +153,8 @@ class GameScreen extends StatefulWidget {
       stage = null,
       nextStage = null,
       faceToFace = false,
-      initiation = false;
+      initiation = false,
+      rival = null;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -303,11 +312,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 avatar: AppSettings.instance.avatarFor(widget.p0),
                 frame: AppSettings.instance.frame,
               ),
-              PlayerProfile(
-                nickname: '${tr('common.sensei')} · ${widget.aiLevel.displayName}',
-                faction: widget.p1,
-                isAi: true,
-              ),
+              if (widget.rival case final r?)
+                PlayerProfile(nickname: r.name, faction: widget.p1, isAi: true, avatar: r.avatar)
+              else
+                PlayerProfile(
+                  nickname: '${tr('common.sensei')} · ${widget.aiLevel.displayName}',
+                  faction: widget.p1,
+                  isAi: true,
+                ),
             ];
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -1337,7 +1349,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _showRankedResult();
       return;
     }
-    if (widget.aiPlayer != null && !_game.draw && !humanLost) AppSettings.instance.recordWin();
+    if (widget.aiPlayer != null && !_game.draw && !humanLost) {
+      AppSettings.instance.recordWin();
+      if (widget.rival case final r?) AppSettings.instance.markRivalBeaten(r.id);
+    }
     GiftToast.check(context);
     final text = _game.endedByLimit
         ? tr('game.over.drawLimit', {'n': _game.rules.roundLimit!})

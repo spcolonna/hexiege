@@ -43,6 +43,8 @@ class AppSettings extends ChangeNotifier {
   Set<String> _cleared = {};
   Map<String, int> _stars = {};
   Set<String> _seenScenes = {};
+  Set<String> _rivalsBeaten = {};
+  String _lastRival = 'ren';
   Set<String> _seenPieces = {};
   Set<String> _giftsAnnounced = {};
   Set<String> _giftsOpened = {};
@@ -176,6 +178,24 @@ class AppSettings extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Rivales casuales vencidos al menos una vez (por id de `Rival`).
+  bool rivalBeaten(String id) => _rivalsBeaten.contains(id);
+
+  void markRivalBeaten(String id) {
+    if (!_rivalsBeaten.add(id)) return;
+    _prefs?.setStringList('rivalsBeaten', _rivalsBeaten.toList());
+    notifyListeners();
+  }
+
+  /// Último rival elegido en la partida local (para volver a mostrarlo primero).
+  String get lastRival => _lastRival;
+  set lastRival(String id) {
+    if (_lastRival == id) return;
+    _lastRival = id;
+    _prefs?.setString('lastRival', id);
+    notifyListeners();
+  }
+
   /// Viñetas de la historia ya vistas (por id de escena, p. ej. "s1.pre").
   bool isSceneSeen(String sceneId) => _seenScenes.contains(sceneId);
 
@@ -276,6 +296,8 @@ class AppSettings extends ChangeNotifier {
         if (e.split(':') case [final id, final n] when int.tryParse(n) != null) id: int.parse(n),
     };
     _seenScenes = (p.getStringList('seenScenes') ?? const []).toSet();
+    _rivalsBeaten = (p.getStringList('rivalsBeaten') ?? const []).toSet();
+    _lastRival = p.getString('lastRival') ?? 'ren';
     _seenPieces = (p.getStringList('seenPieces') ?? const []).toSet();
     _giftsAnnounced = (p.getStringList('giftsAnnounced') ?? const []).toSet();
     _giftsOpened = (p.getStringList('giftsOpened') ?? const []).toSet();

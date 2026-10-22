@@ -477,6 +477,38 @@ void main() {
     expect(SoloScreen.nextUp((_) => true), isNull);
   });
 
+  testWidgets('local contra la IA: elegir un rival y jugar con su nombre', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    AppSettings.instance.lastRival = 'ren';
+    await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.light));
+    await tester.pump(const Duration(seconds: 2));
+    await tester.ensureVisible(find.text('Local'));
+    await tester.pump(const Duration(seconds: 1));
+    Future<void> settle() async {
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+    }
+
+    await tester.tap(find.text('Local'));
+    await settle();
+    await tester.tap(find.text('Contra la IA'));
+    await settle();
+    expect(find.text('Ren, el discípulo'), findsOneWidget);
+    // Siguiente rival: la Zorra Blanca.
+    await tester.drag(find.text('Ren, el discípulo'), const Offset(-200, 0));
+    await settle();
+    expect(AppSettings.instance.lastRival, 'fox');
+    await tester.ensureVisible(find.text('Jugar contra La Zorra Blanca'));
+    await tester.tap(find.text('Jugar contra La Zorra Blanca'));
+    await settle();
+    final game = tester.widget<GameScreen>(find.byType(GameScreen));
+    expect((game.rival?.id, game.aiPlayer, game.p1), ('fox', 1, Faction.ninja));
+    await tester.pumpWidget(const SizedBox());
+  });
+
   testWidgets('sala de la ficha: se desliza de la piedra al movimiento y a la leyenda', (tester) async {
     tester.view.physicalSize = const Size(1170, 2532);
     tester.view.devicePixelRatio = 3;
