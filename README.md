@@ -37,18 +37,19 @@ Las reglas ajustables viven en `Rules`; `Rules.standard` es el juego oficial y `
 | Partidas trabadas con el Líder a 5 vecinos y el último hueco inalcanzable | **Asedio**: desde la ronda 35 alcanzan 5 lados; en la ronda 50, empate |
 | La IA iba y venía con la misma ficha | Castigo por repetir posiciones |
 | En Maestro Ninja ganaba ~70% (ver abajo) | **Tengu**: puede llegar junto al Líder rival, pero no cerrar el cerco con el teletransporte (`TenguNearLeader.notClosing`) |
+| Ninja seguía arriba en todos los niveles (Difícil 24% / 65% con 80 partidas) | **Shinobi**: hasta **3** casillas (antes 4) |
 
 Se descartó desempatar por "Líder más rodeado" al llegar al límite: quien movía último ganaba 24 de 28 veces.
 
 Resultado con las reglas oficiales (Shaolin / Ninja, resto empates o límite):
 
-| Nivel | Shaolin | Ninja | Empieza y gana | Terminan en Asedio |
-|---|---|---|---|---|
-| Aprendiz (120) | 22% | 48% | 45% | 37% |
-| Fácil (120) | 39% | 37% | 55% | 44% |
-| Normal (120) | 37% | 34% | 48% | 43% |
-| Difícil (56) | 39% | 34% | 39% | 38% |
-| Maestro (56) | 36% | 54% | 34% | 18% |
+| Nivel | Shinobi 4 (antes) | **Shinobi 3 (actual)** | Terminan en Asedio |
+|---|---|---|---|
+| Aprendiz (200) | 28% / 51% | 25% / 41% | 38% |
+| Fácil (200) | 38% / 52% | 40% / 41% | 45% |
+| Normal (200) | 25% / 39% | 28% / 35% | 43% |
+| Difícil (80) | 24% / 65% | 45% / 40% | 35% |
+| Maestro (60) | 36% / 54% | 32% / 50% | 45% |
 
 Con ~60 partidas el ruido es de ±15 puntos (Maestro con las mismas reglas dio 77%, 66% y 66% para Ninja en tres corridas).
 
