@@ -57,8 +57,12 @@ class CodexScene {
       game.setupPut(owner, t, at);
     }
     extra?.call(game);
-    final lifted = Board.copy(game.board)..pop(subject);
-    final targets = destinationsFor(type, lifted, subject, game.rules);
+    // Los destinos salen de las reglas reales de la partida (One-Hive incluida),
+    // así el códice nunca muestra un movimiento que en juego no se puede hacer.
+    final oni = type.faction == Faction.oni;
+    final targets = oni
+        ? destinationsFor(type, Board.copy(game.board)..pop(subject), subject, game.rules)
+        : game.moveTargets(subject);
     final swaps = type == PieceType.shogun
         ? subject.neighbors.where((n) => game.board.top(n)?.type == PieceType.shinobi).toSet()
         : <Hex>{};
@@ -87,6 +91,8 @@ class CodexScene {
             (1, PieceType.shogun, Hex(1, 0)),
             (1, PieceType.kitsune, Hex(1, -1)),
             (0, PieceType.serpent, Hex(-1, 1)),
+            // La Grulla une los dos lados: sin ella el Monje sería el único puente.
+            (0, PieceType.crane, Hex(0, 1)),
           ],
           null,
         );
@@ -111,6 +117,7 @@ class CodexScene {
             (1, PieceType.shinobi, Hex(2, 0)),
             (0, PieceType.monk, Hex(-1, 0)),
             (1, PieceType.shogun, Hex(0, 1)),
+            (0, PieceType.serpent, Hex(-1, 1)),
           ],
           null,
         );
@@ -158,6 +165,7 @@ class CodexScene {
             (0, PieceType.shinobi, Hex(1, 0)),
             (1, PieceType.tiger, Hex(2, -1)),
             (1, PieceType.monk, Hex(-1, 1)),
+            (0, PieceType.kitsune, Hex(0, 1)),
           ],
           null,
         );

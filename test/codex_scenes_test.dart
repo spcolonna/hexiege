@@ -4,13 +4,17 @@ import 'package:hexiege/codex/gifts.dart';
 import 'package:hexiege/engine/pieces.dart';
 
 void main() {
-  test('cada ficha del códice tiene adónde moverse y la colmena está conectada', () {
+  test('cada ficha del códice tiene movimientos legales y la colmena está conectada', () {
     for (final t in PieceType.values) {
       final s = CodexScene.of(t);
       // ignore: avoid_print
       print('${t.name}: ${s.tour.map((h) => '(${h.q},${h.r})').join(' ')} swaps=${s.swapTargets.length}');
       expect(s.targets, isNotEmpty, reason: t.name);
       expect(s.game.board.isConnected(), isTrue, reason: t.name);
+      if (t.faction == Faction.oni) continue;
+      // Legal en partida: levantarla no parte la colmena y los destinos son los reales.
+      expect(s.game.board.canLift(s.subject), isTrue, reason: t.name);
+      expect(s.targets, s.game.moveTargets(s.subject), reason: t.name);
     }
   });
 
