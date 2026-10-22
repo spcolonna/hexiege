@@ -1,23 +1,22 @@
 #!/bin/bash
 # Compila el IPA para App Store Connect.
-# Los frameworks de native assets (objective_c) traen un slice x86_64 de
-# simulador que App Store Connect rechaza (409): se quita y se re-exporta.
+# Los frameworks de native assets (objective_c) quedan cacheados en
+# build/native_assets y .dart_tool: si la última build fue de simulador, se
+# cuelan al IPA y App Store Connect lo rechaza (409). Por eso se limpia todo
+# antes y se verifica que cada framework sea solo arm64 de iOS (platform 2).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 OPTS="${1:-ios/ExportOptions.plist}"
-
+flutter clean >/dev/null
+flutter pub get >/dev/null
 flutter build ipa --release --export-options-plist="$OPTS"
-
-ARCHIVE=build/ios/archive/Runner.xcarchive
-for fw in "$ARCHIVE"/Products/Applications/Runner.app/Frameworks/*.framework; do
+ok=1
+for fw in build/ios/archive/Runner.xcarchive/Products/Applications/Runner.app/Frameworks/*.framework; do
   bin="$fw/$(basename "$fw" .framework)"
-  if lipo -archs "$bin" | grep -q x86_64; then
-    echo "Quitando x86_64 de $(basename "$fw")"
-    lipo -remove x86_64 "$bin" -output "$bin"
-  fi
+  archs=$(lipo -archs "$bin")
+  platforms=$(otool -l "$bin" | awk '/LC_BUILD_VERSION/{f=1} f&&/platform/{print $2; f=0}' | sort -u | tr '\n' ' ')
+  echo "$(basename "$fw"): $archs / platform $platforms"
+  if [ "$archs" != "arm64" ] || [ "$platforms" != "2 " ]; then ok=0; fi
 done
-
-rm -rf build/ios/ipa
-xcodebuild -exportArchive -archivePath "$ARCHIVE" \
-  -exportPath build/ios/ipa -exportOptionsPlist "$OPTS" -allowProvisioningUpdates | tail -3
+[ $ok = 1 ] || { echo "ERROR: hay frameworks que no son de dispositivo iOS"; exit 1; }
 ls -la build/ios/ipa/*.ipa
