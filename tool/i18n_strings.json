@@ -520,9 +520,9 @@
   "zh": "回合用尽，未能捕获首领。"
  },
  "stage.lost.draw": {
-  "es": "Ambos Líderes quedaron rodeados: es empate.",
-  "en": "Both Leaders were surrounded: it's a draw.",
-  "zh": "双方首领同时被包围：平局。"
+  "es": "Los dos Líderes quedaron rodeados en la misma jugada: es empate. Para avanzar hay que ganar.",
+  "en": "Both Leaders were surrounded by the same move: it's a draw. You need a win to move on.",
+  "zh": "同一步中双方首领都被包围：平局。需要获胜才能继续。"
  },
  "stage.lost.surrounded": {
   "es": "Rodearon a tu Líder.",
@@ -595,9 +595,9 @@
   "zh": "平局！{n} 回合内无人捕获首领。"
  },
  "game.over.drawBoth": {
-  "es": "¡Empate! Ambos Líderes quedaron rodeados.",
-  "en": "Draw! Both Leaders were surrounded.",
-  "zh": "平局！双方首领同时被包围。"
+  "es": "Los dos Líderes quedaron rodeados en la misma jugada: nadie gana.",
+  "en": "Both Leaders were surrounded by the same move: nobody wins.",
+  "zh": "同一步中双方首领都被包围：无人获胜。"
  },
  "game.over.win.siege": {
   "es": "¡Gana {name}!\n{faction} sitió al Líder enemigo.",

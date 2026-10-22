@@ -77,8 +77,9 @@ class BoardFx extends ChangeNotifier {
 
   /// Remate de la partida: el Líder capturado y las fichas que lo encierran,
   /// que se encienden de a una antes de que caiga el sello. [won] dice si el
-  /// remate es del jugador local (dorado) o en su contra (rojo).
-  ({Hex leader, List<Hex> ring, double start, bool won})? finisher;
+  /// remate es del jugador local (dorado), en su contra (rojo) o un empate por
+  /// doble cerco (null): entonces caen los dos Líderes y el sello es 和.
+  ({List<Hex> leaders, List<Hex> ring, double start, bool? won})? finisher;
   int _finisherLit = -1;
   bool _finisherStamped = false;
 
@@ -207,7 +208,14 @@ class BoardFx extends ChangeNotifier {
       SoundBoard.instance.play(Sfx.stamp);
       _shakeStart = now;
       _shakeAmp = layout.size * 0.16;
-      fin.won ? Haptics.heavy() : Haptics.double();
+      switch (fin.won) {
+        case true:
+          Haptics.heavy();
+        case false:
+          Haptics.double();
+        case null:
+          Haptics.medium();
+      }
     }
   }
 
@@ -247,7 +255,8 @@ class BoardFx extends ChangeNotifier {
     final a = _positions(before), b = _positions(after);
     final actor = before.current;
     // La jugada que cierra la partida va en cámara lenta.
-    final slow = after.winner != null && !before.isOver ? 2.0 : 1.0;
+    final decided = after.winner != null || (after.draw && !after.endedByLimit);
+    final slow = decided && !before.isOver ? 2.0 : 1.0;
     final squeeze = after.leaderPressure(1 - actor) > before.leaderPressure(1 - actor);
     final step = layout.size * stackStep;
     final mine = <Flight>[], others = <Flight>[];
@@ -351,7 +360,7 @@ class BoardFx extends ChangeNotifier {
     var end = all.isEmpty ? now : all.map((f) => f.end).reduce(max);
     final fin = slow > 1 ? _finisherFor(after, viewer) : null;
     if (fin != null) {
-      finisher = (leader: fin.leader, ring: fin.ring, start: end + 0.1, won: fin.won);
+      finisher = (leaders: fin.leaders, ring: fin.ring, start: end + 0.1, won: fin.won);
       _finisherLit = -1;
       _finisherStamped = false;
       end = finisherStampAt + 0.45;
@@ -360,15 +369,19 @@ class BoardFx extends ChangeNotifier {
     return end - now;
   }
 
-  /// El Líder que cayó y las fichas que lo rodean, en orden de reloj.
-  static ({Hex leader, List<Hex> ring, bool won})? _finisherFor(GameState g, int? viewer) {
+  /// Los Líderes que cayeron (dos si es empate por doble cerco) y las fichas
+  /// que los rodean, en orden de reloj.
+  static ({List<Hex> leaders, List<Hex> ring, bool? won})? _finisherFor(GameState g, int? viewer) {
     final w = g.winner;
-    if (w == null) return null;
-    for (final h in g.board.locateLeaders(1 - w)) {
-      if (!g.leaderCapturedOn(g.board, 1 - w, h)) continue;
-      return (leader: h, ring: h.neighbors.where(g.board.isOccupied).toList(), won: viewer == null || viewer == w);
-    }
-    return null;
+    final losers = w != null ? [1 - w] : (g.draw && !g.endedByLimit ? [0, 1] : const <int>[]);
+    final leaders = [
+      for (final p in losers) ...g.board.locateLeaders(p).where((h) => g.leaderCapturedOn(g.board, p, h)).take(1),
+    ];
+    if (leaders.isEmpty) return null;
+    final ring = <Hex>{
+      for (final h in leaders) ...h.neighbors.where((n) => g.board.isOccupied(n) && !leaders.contains(n)),
+    }.toList();
+    return (leaders: leaders, ring: ring, won: w == null ? null : viewer == null || viewer == w);
   }
 
   /// Posición/altura/escala/opacidad de una ficha en vuelo en el instante actual.

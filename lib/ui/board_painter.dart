@@ -194,8 +194,8 @@ class BoardPainter extends CustomPainter {
         if (n < 3) continue;
         final close = need - n <= 1;
         final color = !close ? theme.textMuted : (owner == viewer ? theme.danger : theme.gold);
-        final c = layout.toPixel(h) +
-            Offset(layout.size * 0.62, -layout.size * 0.78 - (game.board.height(h) - 1) * step);
+        final c =
+            layout.toPixel(h) + Offset(layout.size * 0.62, -layout.size * 0.78 - (game.board.height(h) - 1) * step);
         final r = RRect.fromRectAndRadius(
           Rect.fromCenter(center: c, width: layout.size * 0.98, height: layout.size * 0.5),
           Radius.circular(layout.size * 0.25),
@@ -213,11 +213,17 @@ class BoardPainter extends CustomPainter {
     }
   }
 
-  /// Remate: cada ficha del cerco se enciende en orden y cae el sello 封 sobre el Líder.
+  /// Remate: cada ficha del cerco se enciende en orden y cae el sello 封 sobre
+  /// el Líder (o 和 sobre los dos, si cayeron a la vez: empate).
   void _paintFinisher(Canvas canvas) {
     final fin = fx?.finisher;
     if (fin == null) return;
-    final color = fin.won ? theme.gold : theme.danger;
+    final draw = fin.won == null;
+    final color = switch (fin.won) {
+      true => theme.gold,
+      false => theme.danger,
+      null => theme.highlight,
+    };
     final step = layout.size * BoardFx.stackStep;
     Offset top(Hex h) => layout.toPixel(h) - Offset(0, (game.board.height(h) - 1) * step);
     for (var i = 0; i < fin.ring.length; i++) {
@@ -247,7 +253,7 @@ class BoardPainter extends CustomPainter {
     }
     // En Asedio queda un lado libre: se marca para que no parezca un error.
     if (_now > fin.start + BoardFx.finisherStep * fin.ring.length) {
-      for (final h in fin.leader.neighbors.where((n) => !game.board.isOccupied(n))) {
+      for (final h in {for (final l in fin.leaders) ...l.neighbors.where((n) => !game.board.isOccupied(n))}) {
         canvas.drawPath(
           layout.hexPath(h, scale: 0.86),
           Paint()
@@ -260,8 +266,13 @@ class BoardPainter extends CustomPainter {
     }
     final ts = _now - fx!.finisherStampAt;
     if (ts < -0.5) return;
-    final c = top(fin.leader);
-    // El Líder se oscurece mientras se cierra el cerco.
+    for (final leader in fin.leaders) {
+      _paintStamp(canvas, top(leader), ts, draw ? '和' : '封', draw ? theme.text : theme.danger);
+    }
+  }
+
+  /// El Líder se oscurece y le cae el sello encima, con su onda de tinta.
+  void _paintStamp(Canvas canvas, Offset c, double ts, String glyph, Color ink) {
     final dim = ((ts + 0.5) / 0.5).clamp(0.0, 1.0);
     canvas.drawPath(
       PieceRenderer.hexAt(c, layout.size * 0.92),
@@ -272,7 +283,6 @@ class BoardPainter extends CustomPainter {
     final e = Curves.easeInCubic.transform((ts / 0.18).clamp(0, 1));
     final scale = 2.4 - 1.4 * e + (ts > 0.18 ? 0.06 * exp(-(ts - 0.18) / 0.08) * sin((ts - 0.18) * 40) : 0);
     final r = layout.size * 0.78 * scale;
-    final ink = theme.danger;
     canvas.drawCircle(c, r, Paint()..color = ink.withValues(alpha: 0.9 * e));
     canvas.drawCircle(
       c,
@@ -282,7 +292,7 @@ class BoardPainter extends CustomPainter {
         ..strokeWidth = r * 0.06
         ..color = Colors.white.withValues(alpha: 0.85 * e),
     );
-    PieceRenderer.text(canvas, '封', c, r * 1.05, Colors.white.withValues(alpha: e));
+    PieceRenderer.text(canvas, glyph, c, r * 1.05, Colors.white.withValues(alpha: e));
     // Onda de tinta al estampar.
     if (ts > 0.18 && ts < 0.9) {
       final w = (ts - 0.18) / 0.72;

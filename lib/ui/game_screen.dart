@@ -552,7 +552,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       _log.add((round: before.round, e: e));
     }
     final dur = _fx.animate(before, _game, viewer: widget.aiPlayer == null ? null : _mySeat);
-    if (_fx.finisher != null && !before.isOver) _zoomTo(_fx.finisher!.leader);
+    if (_fx.finisher != null && !before.isOver) _zoomTo(_fx.finisher!.leaders.first);
     if (_init) {
       if (before.current == _mySeat && _game.current != _mySeat && onceTips.contains(_tip?.id)) {
         _seenTips.add(_tip!.id);
@@ -952,10 +952,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       dismissible: false,
       builder: (ctx) {
         final end = ok ? _campaignEnd(ctx) : null;
+        // Empate por doble cerco: no es derrota, pero tampoco pasa la etapa.
+        final tie = !ok && _game.draw && !_game.endedByLimit;
         return SkinDialog(
-          glyph: ok ? (end != null ? '終' : '勝') : '再',
+          glyph: ok ? (end != null ? '終' : '勝') : (tie ? '和' : '再'),
           glyphColor: ok ? HexTheme.of(ctx).gold : null,
-          title: tr(ok ? 'stage.cleared' : 'stage.notThisTime'),
+          title: tr(ok ? 'stage.cleared' : (tie ? 'common.draw' : 'stage.notThisTime')),
           message: end?.text ?? (ok ? _stageWinText() : _stageFailText()),
           body: goals == null ? null : StarsReveal(goals: goals, previous: previous),
           actions: [

@@ -309,6 +309,27 @@ void main() {
       expect(g.winner, 0);
     });
 
+    test('cerrar los dos cercos en la misma jugada es empate', () {
+      final g = GameState(Faction.shaolin, Faction.ninja);
+      put(g, PieceType.monk, 0, h(0, 0));
+      put(g, PieceType.shogun, 1, h(1, 0));
+      // Todo ocupado alrededor de los dos Líderes menos el hueco que comparten, (1,-1).
+      for (final (t, o, at) in [
+        (PieceType.serpent, 0, h(0, -1)),
+        (PieceType.serpent, 0, h(-1, 0)),
+        (PieceType.dragon, 0, h(-1, 1)),
+        (PieceType.crane, 0, h(0, 1)),
+        (PieceType.kitsune, 1, h(2, 0)),
+        (PieceType.kitsune, 1, h(2, -1)),
+        (PieceType.tengu, 1, h(1, 1)),
+        (PieceType.serpent, 0, h(1, -2)),
+      ]) {
+        put(g, t, o, at);
+      }
+      expect(g.move(h(1, -2), h(1, -1)), isTrue);
+      expect((g.draw, g.winner, g.endedByLimit), (true, null, false));
+    });
+
     test('al terminar la última ronda la partida es empate', () {
       final g = GameState(Faction.shaolin, Faction.ninja, rules: const Rules(siegeRound: null, roundLimit: 1));
       put(g, PieceType.monk, 0, h(0, 0));
