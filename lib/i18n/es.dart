@@ -38,7 +38,7 @@ const es = <String, String>{
   'piece.crane.rules': 'Salta en línea recta sobre 1 o 2 fichas.',
   'piece.serpent.rules': 'Se desliza 1 o 2 casillas. Las fichas enemigas adyacentes pierden sus efectos especiales.',
   'piece.shogun.rules': 'Líder. Se desliza 1 casilla. Una vez por partida, intercambia lugar con un Shinobi adyacente.',
-  'piece.shinobi.rules': 'Se desliza hasta 4 casillas por el perímetro, incluso por huecos estrechos.',
+  'piece.shinobi.rules': 'Se desliza hasta 3 casillas por el perímetro, incluso por huecos estrechos.',
   'piece.kunoichi.rules': 'Se desliza hasta 2 casillas y paraliza a una ficha enemiga adyacente por 1 turno.',
   'piece.tengu.rules': 'Se teletransporta a cualquier hueco que toque al menos 3 fichas, pero no puede cerrar así el cerco del Líder rival.',
   'piece.kitsune.rules': 'Se desliza 1 o 2 casillas.',

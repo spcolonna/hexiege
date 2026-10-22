@@ -185,9 +185,9 @@
   "zh": "首领。滑行 1 格。每局一次，可与相邻的忍者交换位置。"
  },
  "piece.shinobi.rules": {
-  "es": "Se desliza hasta 4 casillas por el perímetro, incluso por huecos estrechos.",
-  "en": "Slides up to 4 spaces around the edge, even through narrow gaps.",
-  "zh": "沿外围滑行最多 4 格，可穿过狭窄缝隙。"
+  "es": "Se desliza hasta 3 casillas por el perímetro, incluso por huecos estrechos.",
+  "en": "Slides up to 3 spaces around the edge, even through narrow gaps.",
+  "zh": "沿外围滑行最多 3 格，可穿过狭窄缝隙。"
  },
  "piece.kunoichi.rules": {
   "es": "Se desliza hasta 2 casillas y paraliza a una ficha enemiga adyacente por 1 turno.",

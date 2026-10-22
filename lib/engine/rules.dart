@@ -64,7 +64,7 @@ class Rules {
     this.abilityCooldown = 3,
     this.abilityCharges = 3,
     this.hands = startingHands,
-    this.shinobiRange = 4,
+    this.shinobiRange = 3,
     this.craneShortJump = true,
     this.tenguMinTouch = 3,
     this.siegeRound = 35,

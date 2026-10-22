@@ -38,7 +38,7 @@ const en = <String, String>{
   'piece.crane.rules': 'Jumps in a straight line over 1 or 2 pieces.',
   'piece.serpent.rules': 'Slides 1 or 2 spaces. Adjacent enemy pieces lose their special effects.',
   'piece.shogun.rules': 'Leader. Slides 1 space. Once per game, it can swap places with an adjacent Shinobi.',
-  'piece.shinobi.rules': 'Slides up to 4 spaces around the edge, even through narrow gaps.',
+  'piece.shinobi.rules': 'Slides up to 3 spaces around the edge, even through narrow gaps.',
   'piece.kunoichi.rules': 'Slides up to 2 spaces and paralyzes an adjacent enemy piece for 1 turn.',
   'piece.tengu.rules': 'Teleports to any empty space touching at least 3 pieces, but can\'t complete the enemy Leader\'s encirclement that way.',
   'piece.kitsune.rules': 'Slides 1 or 2 spaces.',

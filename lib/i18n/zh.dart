@@ -38,7 +38,7 @@ const zh = <String, String>{
   'piece.crane.rules': '沿直线跳过 1 或 2 枚棋子。',
   'piece.serpent.rules': '滑行 1 或 2 格。相邻的敌方棋子失去特殊效果。',
   'piece.shogun.rules': '首领。滑行 1 格。每局一次，可与相邻的忍者交换位置。',
-  'piece.shinobi.rules': '沿外围滑行最多 4 格，可穿过狭窄缝隙。',
+  'piece.shinobi.rules': '沿外围滑行最多 3 格，可穿过狭窄缝隙。',
   'piece.kunoichi.rules': '滑行最多 2 格，并使一枚相邻敌方棋子麻痹 1 回合。',
   'piece.tengu.rules': '瞬移到任何至少接触 3 枚棋子的空格，但不能以此完成对敌方首领的包围。',
   'piece.kitsune.rules': '滑行 1 或 2 格。',
