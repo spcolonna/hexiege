@@ -31,7 +31,7 @@ class AppSettings extends ChangeNotifier {
   bool _music = true;
   bool _haptics = true;
   bool _storyUnlocked = false;
-  bool _faceToFace = false;
+  bool _faceToFace = true;
   String? _nickname; // null = el nombre por defecto del idioma
   String? _avatar; // null = el de la facción con que se juega
   String? _frame; // null = sin marco
@@ -278,7 +278,7 @@ class AppSettings extends ChangeNotifier {
     _music = p.getBool('music') ?? true;
     _haptics = p.getBool('haptics') ?? true;
     _storyUnlocked = p.getBool('storyUnlocked') ?? false;
-    _faceToFace = p.getBool('faceToFace') ?? false;
+    _faceToFace = p.getBool('faceToFace') ?? true;
     _nickname = p.getString('nickname');
     final avatar = p.getString('avatar');
     _avatar = avatar != null && Avatars.byId(avatar) != null ? avatar : null;

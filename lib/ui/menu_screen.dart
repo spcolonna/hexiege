@@ -819,7 +819,7 @@ class _LocalSetupState extends State<_LocalSetup> {
         Text(tr('local.aiBody'), style: TextStyle(color: t.textMuted, fontSize: 15, height: 1.4)),
         const SizedBox(height: 10),
         SizedBox(
-          height: 178,
+          height: 164,
           child: PageView.builder(
             controller: _rivals,
             itemCount: Rival.all.length,
@@ -916,15 +916,21 @@ class _RivalCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    '${rival.level.displayName} · ~${rival.rating} · ${rival.faction.displayName}',
+                    '${rival.level.displayName} · ~${rival.rating}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w800, color: color),
                   ),
+                  Text(
+                    rival.faction.displayName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 12, color: t.textMuted),
+                  ),
                   const SizedBox(height: 6),
                   Text(
                     '«${rival.quote}»',
-                    maxLines: 4,
+                    maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 13.5, height: 1.3, fontStyle: FontStyle.italic, color: t.textMuted),
                   ),
