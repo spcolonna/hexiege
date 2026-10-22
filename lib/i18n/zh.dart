@@ -1064,4 +1064,9 @@ const zh = <String, String>{
   'game.reason.full': '完全包围：首领的6面全部被占据。',
   'game.reason.siege': '围城：从第{round}回合起，占据6面中的5面即可，首领已被占{sides}面。',
   'game.reason.split': '周围：敌方棋子{enemy}枚，己方{own}枚（全部计算）。',
+  'game.ability.pick': '选择棋子',
+  'game.ability.charges.one': '剩余1次',
+  'game.ability.charges.other': '剩余{n}次',
+  'game.ability.cooldown.one': '1回合后充能',
+  'game.ability.cooldown.other': '{n}回合后充能',
 };

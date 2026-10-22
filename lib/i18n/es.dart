@@ -1064,4 +1064,9 @@ const es = <String, String>{
   'game.reason.full': 'Cerco completo: los 6 lados del Líder quedaron ocupados.',
   'game.reason.siege': 'Asedio: desde la ronda {round} alcanza con 5 de 6 lados, y el Líder tenía {sides}.',
   'game.reason.split': 'Alrededor: {enemy} fichas rivales y {own} propias (todas cuentan).',
+  'game.ability.pick': 'Elegir ficha',
+  'game.ability.charges.one': 'Te queda 1 uso',
+  'game.ability.charges.other': 'Te quedan {n} usos',
+  'game.ability.cooldown.one': 'se recarga en 1 turno',
+  'game.ability.cooldown.other': 'se recarga en {n} turnos',
 };

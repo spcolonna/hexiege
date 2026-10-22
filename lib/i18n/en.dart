@@ -1064,4 +1064,9 @@ const en = <String, String>{
   'game.reason.full': 'Full surround: all 6 sides of the Leader were occupied.',
   'game.reason.siege': 'Siege: from round {round}, 5 of 6 sides are enough, and the Leader had {sides}.',
   'game.reason.split': 'Around it: {enemy} enemy pieces and {own} of its own (all of them count).',
+  'game.ability.pick': 'Pick a piece',
+  'game.ability.charges.one': '1 use left',
+  'game.ability.charges.other': '{n} uses left',
+  'game.ability.cooldown.one': 'recharges in 1 turn',
+  'game.ability.cooldown.other': 'recharges in {n} turns',
 };

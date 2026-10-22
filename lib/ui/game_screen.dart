@@ -1157,14 +1157,78 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     }
   }
 
+  /// Qué hace la habilidad de [me] y cuánto le queda: encabeza su hoja.
+  Widget _abilityAbout(HexTheme t, int me) {
+    final g = _game;
+    final factions = g.rules.dualAbility.contains(me) ? [Faction.shaolin, Faction.ninja] : [g.factions[me]];
+    final charges = g.abilityChargesLeft(me);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final f in factions)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 6),
+            child: Text(f.abilityDescription, style: TextStyle(fontSize: 15, height: 1.35, color: t.text)),
+          ),
+        Text(
+          [
+            if (charges != null) trN('game.ability.charges', charges),
+            trN('game.ability.cooldown', g.rules.abilityCooldown),
+          ].join(' · '),
+          style: TextStyle(fontSize: 13, color: t.textMuted),
+        ),
+        const SizedBox(height: 14),
+      ],
+    );
+  }
+
+  /// Mantener apretado el sello: solo explica la habilidad, sin usarla.
+  void _explainAbility(int me) {
+    Haptics.select();
+    final f = _game.factions[me];
+    showSkinSheet<void>(
+      context,
+      flipped: _flipFor(me),
+      title: _game.rules.dualAbility.contains(me)
+          ? '${Faction.shaolin.abilityName} · ${Faction.ninja.abilityName}'
+          : f.abilityName,
+      builder: (ctx) => _abilityAbout(HexTheme.of(ctx), me),
+    );
+  }
+
   void _startAbility() {
     if (!_game.abilityAvailable) return;
     Haptics.select();
+    void enter(_Mode mode) => setState(() {
+      _reset();
+      _mode = mode;
+    });
     if (!_game.hasAbility(Faction.shaolin)) {
-      setState(() {
-        _reset();
-        _mode = _Mode.kawarimi;
-      });
+      // En la lección va directo; en partida, primero se explica qué hace.
+      if (_tutorial) return enter(_Mode.kawarimi);
+      final targets = _game.kawarimiTargets().length;
+      showSkinSheet<void>(
+        context,
+        flipped: _flipFor(_game.current),
+        title: Faction.ninja.abilityName,
+        builder: (ctx) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _abilityAbout(HexTheme.of(ctx), _game.current),
+            SkinTile(
+              glyph: '替',
+              title: tr('game.ability.pick'),
+              text: trN('common.options', targets),
+              onTap: targets == 0
+                  ? null
+                  : () {
+                      Navigator.pop(ctx);
+                      enter(_Mode.kawarimi);
+                    },
+            ),
+          ],
+        ),
+      );
       return;
     }
     int options(Set<Hex> sources, _Mode mode) =>
@@ -1189,6 +1253,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       builder: (ctx) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          _abilityAbout(HexTheme.of(ctx), _game.current),
           SkinTile(
             glyph: '移',
             title: tr('game.jadeRelocate'),
@@ -1279,9 +1344,10 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         : _game.draw
         ? tr('game.over.drawBoth')
         : tr(_game.inSiege ? 'game.over.win.siege' : 'game.over.win', {
-            'name': _profiles[w!].nickname,
-            'faction': _game.factions[w].displayName,
-          }) + _captureReason();
+                'name': _profiles[w!].nickname,
+                'faction': _game.factions[w].displayName,
+              }) +
+              _captureReason();
     if (!mounted) return;
     showSkinDialog<void>(
       context,
@@ -2235,29 +2301,34 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         : [name, if (cd > 0) '($cd)', if (charges != null) '×$charges'].join(' ');
     return Tooltip(
       message: cancel ? tr('common.cancel') : label,
-      child: Pressable(
-        onTap: cancel ? () => setState(_reset) : (ready ? _startAbility : null),
-        child: SizedBox(
-          width: 64,
-          height: 68,
-          child: Stack(
-            clipBehavior: Clip.none,
-            alignment: Alignment.center,
-            children: [
-              AnimatedOpacity(
-                duration: const Duration(milliseconds: 250),
-                opacity: ready || cancel ? 1 : 0.4,
-                child: _Pulse(
-                  active: beckon,
-                  child: KanjiBadge(faction == Faction.shaolin ? '玉' : '変', size: 58, color: color),
+      triggerMode: TooltipTriggerMode.manual,
+      child: GestureDetector(
+        onLongPress: () => _explainAbility(me),
+        child: Pressable(
+          onTap: cancel ? () => setState(_reset) : (ready ? _startAbility : null),
+          child: SizedBox(
+            width: 64,
+            height: 68,
+            child: Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: [
+                AnimatedOpacity(
+                  duration: const Duration(milliseconds: 250),
+                  opacity: ready || cancel ? 1 : 0.4,
+                  child: _Pulse(
+                    active: beckon,
+                    child: KanjiBadge(faction == Faction.shaolin ? '玉' : '変', size: 58, color: color),
+                  ),
                 ),
-              ),
-              if (cancel)
-                const Icon(Icons.close_rounded, color: Colors.white, size: 28)
-              else if (cd > 0 && charges != 0)
-                Positioned(top: 0, right: 0, child: _sealTag(t, '$cd', t.text)),
-              if (!cancel && charges != null) Positioned(bottom: 0, right: -2, child: _sealTag(t, '×$charges', t.gold)),
-            ],
+                if (cancel)
+                  const Icon(Icons.close_rounded, color: Colors.white, size: 28)
+                else if (cd > 0 && charges != 0)
+                  Positioned(top: 0, right: 0, child: _sealTag(t, '$cd', t.text)),
+                if (!cancel && charges != null)
+                  Positioned(bottom: 0, right: -2, child: _sealTag(t, '×$charges', t.gold)),
+              ],
+            ),
           ),
         ),
       ),

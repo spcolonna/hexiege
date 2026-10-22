@@ -5313,5 +5313,30 @@
   "es": "Alrededor: {enemy} fichas rivales y {own} propias (todas cuentan).",
   "en": "Around it: {enemy} enemy pieces and {own} of its own (all of them count).",
   "zh": "周围：敌方棋子{enemy}枚，己方{own}枚（全部计算）。"
+ },
+ "game.ability.pick": {
+  "es": "Elegir ficha",
+  "en": "Pick a piece",
+  "zh": "选择棋子"
+ },
+ "game.ability.charges.one": {
+  "es": "Te queda 1 uso",
+  "en": "1 use left",
+  "zh": "剩余1次"
+ },
+ "game.ability.charges.other": {
+  "es": "Te quedan {n} usos",
+  "en": "{n} uses left",
+  "zh": "剩余{n}次"
+ },
+ "game.ability.cooldown.one": {
+  "es": "se recarga en 1 turno",
+  "en": "recharges in 1 turn",
+  "zh": "1回合后充能"
+ },
+ "game.ability.cooldown.other": {
+  "es": "se recarga en {n} turnos",
+  "en": "recharges in {n} turns",
+  "zh": "{n}回合后充能"
  }
 }
