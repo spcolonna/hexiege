@@ -90,6 +90,7 @@ class BoardPainter extends CustomPainter {
     _paintTargets(canvas);
     _paintSpotlight(canvas);
     _paintFlights(canvas);
+    _paintLeaderCount(canvas);
     _paintFinisher(canvas);
     canvas.restore();
   }
@@ -181,6 +182,37 @@ class BoardPainter extends CustomPainter {
     }
   }
 
+  /// Marcador junto a cada Líder con 3 lados ocupados o más: «4/6» (o «/5»
+  /// en Asedio), para que el cerco se lea antes de que se cierre.
+  void _paintLeaderCount(Canvas canvas) {
+    if (game.isOver || fx?.finisher != null) return;
+    final need = game.captureThreshold;
+    final step = layout.size * BoardFx.stackStep;
+    for (var owner = 0; owner < 2; owner++) {
+      for (final h in game.board.locateLeaders(owner)) {
+        final n = game.board.occupiedNeighbors(h);
+        if (n < 3) continue;
+        final close = need - n <= 1;
+        final color = !close ? theme.textMuted : (owner == viewer ? theme.danger : theme.gold);
+        final c = layout.toPixel(h) +
+            Offset(layout.size * 0.62, -layout.size * 0.78 - (game.board.height(h) - 1) * step);
+        final r = RRect.fromRectAndRadius(
+          Rect.fromCenter(center: c, width: layout.size * 0.98, height: layout.size * 0.5),
+          Radius.circular(layout.size * 0.25),
+        );
+        canvas.drawRRect(r, Paint()..color = theme.surface.withValues(alpha: 0.92));
+        canvas.drawRRect(
+          r,
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.5
+            ..color = color,
+        );
+        PieceRenderer.text(canvas, '$n/$need', c, layout.size * 0.32, color);
+      }
+    }
+  }
+
   /// Remate: cada ficha del cerco se enciende en orden y cae el sello 封 sobre el Líder.
   void _paintFinisher(Canvas canvas) {
     final fin = fx?.finisher;
@@ -202,13 +234,29 @@ class BoardPainter extends CustomPainter {
           ..color = color.withValues(alpha: 0.55 + 0.4 * flash)
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, layout.size * 0.12),
       );
+      // El borde interior lleva el color de quien ocupa ese lado: se ve que
+      // también cuentan las fichas propias del Líder.
+      final owner = game.board.top(fin.ring[i])?.owner;
       canvas.drawPath(
         PieceRenderer.hexAt(c, layout.size * 0.94),
         Paint()
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 2
-          ..color = color.withValues(alpha: 0.9),
+          ..strokeWidth = 3.5
+          ..color = (owner == null ? color : HexTheme.faction(game.factions[owner])).withValues(alpha: 0.95),
       );
+    }
+    // En Asedio queda un lado libre: se marca para que no parezca un error.
+    if (_now > fin.start + BoardFx.finisherStep * fin.ring.length) {
+      for (final h in fin.leader.neighbors.where((n) => !game.board.isOccupied(n))) {
+        canvas.drawPath(
+          layout.hexPath(h, scale: 0.86),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2
+            ..color = theme.textMuted.withValues(alpha: 0.8),
+        );
+        PieceRenderer.text(canvas, '圍', layout.toPixel(h), layout.size * 0.7, theme.textMuted.withValues(alpha: 0.75));
+      }
     }
     final ts = _now - fx!.finisherStampAt;
     if (ts < -0.5) return;

@@ -123,6 +123,18 @@ class GameState {
     return best;
   }
 
+  /// Cómo quedó rodeado el Líder caído de [p]: lados ocupados y de quién son
+  /// las fichas de arriba (null si ninguno de sus Líderes está capturado).
+  ({Hex leader, int sides, int enemy, int own})? captureBreakdown(int p) {
+    for (final h in board.locateLeaders(p)) {
+      if (!leaderCapturedOn(board, p, h)) continue;
+      final around = [for (final n in h.neighbors) ?board.top(n)];
+      final own = around.where((x) => x.owner == p).length;
+      return (leader: h, sides: around.length, enemy: around.length - own, own: own);
+    }
+    return null;
+  }
+
   /// Casillas libres junto al Líder de [p] que, ocupadas, lo dejan capturado
   /// o a un paso (solo cuando le faltan [within] lados o menos).
   Set<Hex> leaderOpenings(int p, {int within = 2}) => {

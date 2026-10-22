@@ -899,7 +899,21 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     setState(() => _intro = true);
   }
 
-  String _stageWinText() {
+  /// Por qué cayó el Líder: cerco completo o Asedio, y de quién eran las
+  /// fichas de alrededor (todas cuentan). Vacío si no hubo captura.
+  String _captureReason() {
+    final w = _game.winner;
+    final b = w == null ? null : _game.captureBreakdown(1 - w);
+    if (b == null) return '';
+    final how = _game.inSiege
+        ? tr('game.reason.siege', {'round': _game.rules.siegeRound!, 'sides': b.sides})
+        : tr('game.reason.full');
+    return '\n\n$how ${tr('game.reason.split', {'enemy': b.enemy, 'own': b.own})}';
+  }
+
+  String _stageWinText() => _stageWinLine() + (_stage!.isPuzzle ? '' : _captureReason());
+
+  String _stageWinLine() {
     final s = _stage!;
     if (s.kind == StageKind.campaign && widget.nextStage == null) {
       return tr(_game.inSiege ? 'stage.campaignDone.siege' : 'stage.campaignDone');
@@ -915,7 +929,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   String _stageFailText() {
     if (_game.endedByLimit) return tr('stage.lost.limit');
     if (_game.draw) return tr('stage.lost.draw');
-    if (_game.winner == 1) return tr('stage.lost.surrounded');
+    if (_game.winner == 1) return tr('stage.lost.surrounded') + _captureReason();
     return tr(_stage!.isPuzzle ? 'stage.lost.puzzle' : 'stage.lost');
   }
 
@@ -1267,7 +1281,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         : tr(_game.inSiege ? 'game.over.win.siege' : 'game.over.win', {
             'name': _profiles[w!].nickname,
             'faction': _game.factions[w].displayName,
-          });
+          }) + _captureReason();
     if (!mounted) return;
     showSkinDialog<void>(
       context,

@@ -5298,5 +5298,20 @@
   "es": "Música",
   "en": "Music",
   "zh": "音乐"
+ },
+ "game.reason.full": {
+  "es": "Cerco completo: los 6 lados del Líder quedaron ocupados.",
+  "en": "Full surround: all 6 sides of the Leader were occupied.",
+  "zh": "完全包围：首领的6面全部被占据。"
+ },
+ "game.reason.siege": {
+  "es": "Asedio: desde la ronda {round} alcanza con 5 de 6 lados, y el Líder tenía {sides}.",
+  "en": "Siege: from round {round}, 5 of 6 sides are enough, and the Leader had {sides}.",
+  "zh": "围城：从第{round}回合起，占据6面中的5面即可，首领已被占{sides}面。"
+ },
+ "game.reason.split": {
+  "es": "Alrededor: {enemy} fichas rivales y {own} propias (todas cuentan).",
+  "en": "Around it: {enemy} enemy pieces and {own} of its own (all of them count).",
+  "zh": "周围：敌方棋子{enemy}枚，己方{own}枚（全部计算）。"
  }
 }
