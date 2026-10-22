@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hexiege/i18n/i18n.dart';
+import 'package:hexiege/ui/codex_screen.dart';
+import 'package:hexiege/ui/gallery_screen.dart';
 import 'package:hexiege/config.dart';
 import 'package:hexiege/engine/ai.dart';
 import 'package:hexiege/engine/pieces.dart';
@@ -472,6 +475,24 @@ void main() {
     expect(SoloScreen.nextUp((id) => id == 's1')?.id, 's2');
     expect(SoloScreen.nextUp((id) => id.startsWith('s'))?.id, 'n1');
     expect(SoloScreen.nextUp((_) => true), isNull);
+  });
+
+  testWidgets('sala de la ficha: se desliza de la piedra al movimiento y a la leyenda', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(_app(const PieceViewerScreen(type: PieceType.monk), ThemeMode.light));
+    await tester.pump();
+    expect(find.byType(PieceToken3D), findsOneWidget);
+    await tester.tap(find.text('Movimiento'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(find.byType(CodexBoard), findsOneWidget);
+    await tester.tap(find.text('Leyenda'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(find.text(tr('lore.monk.epithet')), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
   });
 
   testWidgets('iniciación: elegir escuela abre la partida guiada con el Sensei', (tester) async {

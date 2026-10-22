@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../codex/codex_scenes.dart';
 import '../codex/gifts.dart';
 import '../engine/pieces.dart';
 import '../i18n/i18n.dart';
@@ -512,27 +513,54 @@ class _RaysPainter extends CustomPainter {
 
 // ------------------------------------------------------------ visor 3D
 
-/// La ficha de piedra sola, para girarla y acercarla.
-class PieceViewerScreen extends StatelessWidget {
+/// La sala de una ficha: tres páginas que se recorren deslizando de costado.
+/// 形 la piedra en 3D, 動 cómo se mueve (solo ella) y 傳 su leyenda.
+class PieceViewerScreen extends StatefulWidget {
   final PieceType type;
   const PieceViewerScreen({super.key, required this.type});
 
   @override
+  State<PieceViewerScreen> createState() => _PieceViewerScreenState();
+}
+
+class _PieceViewerScreenState extends State<PieceViewerScreen> {
+  static const _tabs = [('形', 'gallery.tab.piece'), ('動', 'gallery.tab.move'), ('傳', 'gallery.tab.lore')];
+  static const _muted = Color(0xB3FFFFFF);
+  final _pages = PageController();
+
+  @override
+  void dispose() {
+    _pages.dispose();
+    super.dispose();
+  }
+
+  /// Página actual con decimales (0 antes del primer layout).
+  double get _page => _pages.hasClients && _pages.position.haveDimensions ? _pages.page ?? 0 : 0;
+
+  void _go(int i) {
+    Haptics.select();
+    _pages.animateToPage(i, duration: const Duration(milliseconds: 420), curve: Curves.easeOutCubic);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final type = widget.type;
     final color = HexTheme.faction(type.faction);
-    const muted = Color(0xB3FFFFFF);
     return Scaffold(
       backgroundColor: const Color(0xFF0E0C0B),
       body: Stack(
         children: [
-          // Luz cenital sobre la ficha.
+          // Luz cenital que se corre apenas al pasar de página.
           Positioned.fill(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  center: const Alignment(0, -0.25),
-                  radius: 0.9,
-                  colors: [Color.lerp(color, const Color(0xFF3A3530), 0.75)!, const Color(0xFF0E0C0B)],
+            child: AnimatedBuilder(
+              animation: _pages,
+              builder: (_, _) => DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    center: Alignment(-0.5 + 0.5 * _page, -0.25),
+                    radius: 0.9,
+                    colors: [Color.lerp(color, const Color(0xFF3A3530), 0.75)!, const Color(0xFF0E0C0B)],
+                  ),
                 ),
               ),
             ),
@@ -547,33 +575,198 @@ class PieceViewerScreen extends StatelessWidget {
                       icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
                       onPressed: () => Navigator.pop(context),
                     ),
+                    Expanded(child: _tabBar(color)),
+                    const SizedBox(width: 48),
                   ],
                 ),
-                Expanded(child: PieceToken3D(type: type)),
-                Text(type.displayName, style: Skin.of(context).display(30, color: Colors.white)),
-                const SizedBox(height: 2),
-                Text(
-                  type.faction.displayName,
-                  style: TextStyle(color: color, fontSize: 15, fontWeight: FontWeight.w700),
+                Expanded(
+                  child: PageView(
+                    controller: _pages,
+                    onPageChanged: (_) => Haptics.select(),
+                    children: [_stonePage(color), _movePage(color), _lorePage(color)],
+                  ),
                 ),
-                const SizedBox(height: 10),
-                Text(
-                  tr('gallery.gestures'),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: muted, fontSize: 12),
-                ),
-                const SizedBox(height: 12),
-                SkinLink(
-                  label: tr('gallery.howItMoves'),
-                  color: Colors.white,
-                  onPressed: () =>
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => CodexPieceScreen(initial: type))),
-                ),
-                const SizedBox(height: 16),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _tabBar(Color color) {
+    final skin = Skin.of(context);
+    return LayoutBuilder(
+      builder: (context, box) {
+        final w = box.maxWidth / _tabs.length;
+        return AnimatedBuilder(
+          animation: _pages,
+          builder: (_, _) => SizedBox(
+            height: 56,
+            child: Stack(
+              children: [
+                // Pincelada bajo la pestaña activa: sigue al dedo mientras se desliza.
+                Positioned(
+                  left: w * _page + w * 0.22,
+                  bottom: 4,
+                  width: w * 0.56,
+                  height: 3,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(2)),
+                  ),
+                ),
+                Row(
+                  children: [
+                    for (final (i, (glyph, key)) in _tabs.indexed)
+                      Expanded(
+                        child: Semantics(
+                          button: true,
+                          selected: _page.round() == i,
+                          label: tr(key),
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () => _go(i),
+                            child: Opacity(
+                              opacity: (1 - (_page - i).abs() * 0.55).clamp(0.4, 1.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(glyph, style: skin.glyph(22, color: Colors.white)),
+                                  Text(
+                                    tr(key),
+                                    style: const TextStyle(color: _muted, fontSize: 11, fontWeight: FontWeight.w700),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _title(Color color) => Column(
+    children: [
+      Text(widget.type.displayName, style: Skin.of(context).display(30, color: Colors.white)),
+      const SizedBox(height: 2),
+      Text(
+        widget.type.faction.displayName,
+        style: TextStyle(color: color, fontSize: 15, fontWeight: FontWeight.w700),
+      ),
+    ],
+  );
+
+  Widget _stonePage(Color color) => Column(
+    children: [
+      Expanded(child: PieceToken3D(type: widget.type)),
+      _title(color),
+      const SizedBox(height: 10),
+      Text(
+        tr('gallery.gestures'),
+        textAlign: TextAlign.center,
+        style: const TextStyle(color: _muted, fontSize: 12),
+      ),
+      const SizedBox(height: 8),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Text.rich(
+          TextSpan(
+            text: tr('gallery.swipe'),
+            children: const [TextSpan(text: '  ›')],
+          ),
+          textAlign: TextAlign.center,
+          style: TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w700),
+        ),
+      ),
+      const SizedBox(height: 18),
+    ],
+  );
+
+  Widget _movePage(Color color) {
+    final t = HexTheme.of(context);
+    final type = widget.type;
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+      children: [
+        _title(color),
+        const SizedBox(height: 16),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: ColoredBox(
+            color: t.surface,
+            child: Padding(
+              padding: const EdgeInsets.all(6),
+              child: AspectRatio(aspectRatio: 1.15, child: CodexBoard(scene: CodexScene.of(type))),
+            ),
+          ),
+        ),
+        const SizedBox(height: 18),
+        Text(
+          type.rulesText,
+          style: const TextStyle(fontSize: 17, height: 1.4, color: Colors.white, fontWeight: FontWeight.w700),
+        ),
+        const SizedBox(height: 10),
+        Text(tr('codex.tip.${type.name}'), style: const TextStyle(fontSize: 15, height: 1.45, color: _muted)),
+      ],
+    );
+  }
+
+  Widget _lorePage(Color color) {
+    final skin = Skin.of(context);
+    final type = widget.type;
+    return LayoutBuilder(
+      builder: (context, box) => AnimatedBuilder(
+        animation: _pages,
+        builder: (_, child) {
+          // 0 cuando la página está centrada; 1 cuando todavía está a la derecha.
+          final off = (2 - _page).clamp(0.0, 1.0);
+          return Stack(
+            children: [
+              // El kanji grande llega más lento que el texto: parallax.
+              Positioned(
+                right: -box.maxWidth * 0.12 - off * box.maxWidth * 0.55,
+                top: 0,
+                child: Text(
+                  type.glyph,
+                  style: skin.glyph(box.maxWidth * 0.78, color: color.withValues(alpha: 0.16 * (1 - off * 0.6))),
+                ),
+              ),
+              Transform.translate(offset: Offset(off * 40, 0), child: child),
+            ],
+          );
+        },
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(28, 12, 28, 32),
+          children: [
+            Center(child: PieceChip(type: type, owner: 0, size: 54, lift: 0.15)),
+            const SizedBox(height: 14),
+            Text(
+              type.displayName,
+              textAlign: TextAlign.center,
+              style: skin.display(30, color: Colors.white),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              tr('lore.${type.name}.epithet'),
+              textAlign: TextAlign.center,
+              style: TextStyle(color: color, fontSize: 15, fontStyle: FontStyle.italic, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 18),
+            Center(child: Container(width: 46, height: 2, color: color.withValues(alpha: 0.7))),
+            const SizedBox(height: 18),
+            for (final para in tr('lore.${type.name}').split('\n\n')) ...[
+              Text(para, style: const TextStyle(fontSize: 16, height: 1.6, color: Color(0xE6FFFFFF))),
+              const SizedBox(height: 14),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -724,10 +917,11 @@ class _PieceToken3DState extends State<PieceToken3D> with SingleTickerProviderSt
         ..rotateZ(a + pi / 2)
         ..rotateX(pi / 2);
       // Luz desde arriba a la izquierda y hacia el que mira.
-      final lit = (-0.45 * (spin.entry(0, 0) * nx + spin.entry(0, 1) * ny) -
-              0.7 * (spin.entry(1, 0) * nx + spin.entry(1, 1) * ny) -
-              0.55 * depth(nx, ny))
-          .clamp(0.0, 1.0);
+      final lit =
+          (-0.45 * (spin.entry(0, 0) * nx + spin.entry(0, 1) * ny) -
+                  0.7 * (spin.entry(1, 0) * nx + spin.entry(1, 1) * ny) -
+                  0.55 * depth(nx, ny))
+              .clamp(0.0, 1.0);
       sides.add((
         depth(nx * apothem, ny * apothem),
         Transform(
@@ -912,11 +1106,7 @@ class _SidePainter extends CustomPainter {
         ..shader = LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            Colors.black.withValues(alpha: 0.22),
-            Colors.transparent,
-            Colors.black.withValues(alpha: 0.22),
-          ],
+          colors: [Colors.black.withValues(alpha: 0.22), Colors.transparent, Colors.black.withValues(alpha: 0.22)],
         ).createShader(rect),
     );
     canvas.drawRect(rect, Paint()..color = Colors.black.withValues(alpha: (1 - lit) * (dark ? 0.35 : 0.45)));

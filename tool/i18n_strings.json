@@ -5338,5 +5338,145 @@
   "es": "se recarga en {n} turnos",
   "en": "recharges in {n} turns",
   "zh": "{n}回合后充能"
+ },
+ "gallery.tab.piece": {
+  "es": "Ficha",
+  "en": "Piece",
+  "zh": "棋子"
+ },
+ "gallery.tab.move": {
+  "es": "Movimiento",
+  "en": "Movement",
+  "zh": "走法"
+ },
+ "gallery.tab.lore": {
+  "es": "Leyenda",
+  "en": "Legend",
+  "zh": "传说"
+ },
+ "gallery.swipe": {
+  "es": "Deslizá para ver cómo se mueve y su leyenda",
+  "en": "Swipe to see how it moves and its legend",
+  "zh": "滑动查看走法与传说"
+ },
+ "lore.monk.epithet": {
+  "es": "El que no da un paso de más",
+  "en": "The one who never takes a step too many",
+  "zh": "从不多走一步的人"
+ },
+ "lore.monk": {
+  "es": "Cada Abad del Templo de Jade recibe el mismo voto el día que asume: no abandonar nunca la montaña. Por eso el Monje Superior avanza de a un paso, sin prisa, y nunca se aleja de los suyos.\n\nDicen que Daishin, el primero, fue quien cerró el anillo de piedras alrededor del Oni de Ceniza. Desde entonces cada Abad sabe que, si lo rodean a él, el Templo cae con él.\n\nHōshin, el Abad de hoy, lleva años escuchando cómo cruje el sello bajo sus pies. No se lo dijo a nadie.",
+  "en": "Every Abbot of the Jade Temple swears the same vow on the day they take office: never to leave the mountain. That is why the Grand Abbot moves one step at a time, unhurried, and never strays from their own.\n\nThey say Daishin, the first of them, closed the ring of stones around the Ash Oni. Since then every Abbot knows that if they are surrounded, the Temple falls with them.\n\nHōshin, today's Abbot, has heard the seal creaking beneath their feet for years. They have told no one.",
+  "zh": "玉寺的每一位住持在继任之日都立下同样的誓言：永不离开此山。所以大住持一次只走一步，从容不迫，从不远离同伴。\n\n相传第一位住持大心，正是用石环围住灰烬之鬼的人。从那以后，每位住持都明白：若自己被围，寺院也将随之陷落。\n\n如今的住持宝心，多年来一直听见脚下的封印在开裂。他谁也没有告诉。"
+ },
+ "lore.dragon.epithet": {
+  "es": "La línea recta del cielo",
+  "en": "The straight line of the sky",
+  "zh": "天空的直线"
+ },
+ "lore.dragon": {
+  "es": "Los monjes del Dragón Celestial entrenan saltando sobre los techos del Templo sin tocar las tejas. Cuando encuentran un muro de cuerpos, no lo rodean: pasan por encima y caen en el primer hueco libre.\n\nCuenta la tradición que el primer Dragón voló sobre el ejército del Clan entero para llevarle a Daishin la sexta piedra del sello.\n\nPor eso nunca dobla: el que se desvía, decían los viejos, llega tarde.",
+  "en": "Monks of the Celestial Dragon train by leaping across the Temple roofs without touching a tile. When they meet a wall of bodies they don't go around it: they pass over and land in the first open gap.\n\nTradition says the first Dragon flew over the entire Clan army to bring Daishin the sixth stone of the seal.\n\nThat is why it never turns: whoever strays, the elders said, arrives too late.",
+  "zh": "天龙僧在寺院屋顶上跳跃修行，脚不沾瓦。遇到人墙时，他们不绕路，而是从上方越过，落在第一个空位。\n\n相传第一位天龙越过了整支宗族大军，为大心送去封印的第六块石头。\n\n所以它从不转弯。老人们说：走偏的人，总是来得太迟。"
+ },
+ "lore.wukong.epithet": {
+  "es": "El que aprende mirando",
+  "en": "The one who learns by watching",
+  "zh": "看一眼就学会的人"
+ },
+ "lore.wukong": {
+  "es": "Nadie recuerda cuándo llegó el Rey Mono al Templo. Un día estaba sentado en el tejado, comiendo los duraznos del Abad, y nadie pudo bajarlo.\n\nNo tiene técnica propia: mira al que tiene al lado y lo imita mejor que el original. Le gusta treparse a las espaldas de los demás, amigos o enemigos, y quedarse ahí arriba, riéndose.\n\nLos monjes jóvenes lo adoran. Los viejos cuentan los duraznos.",
+  "en": "No one remembers when the Monkey King arrived at the Temple. One day it was sitting on the roof eating the Abbot's peaches, and no one could get it down.\n\nIt has no technique of its own: it watches whoever is beside it and copies them better than the original. It loves climbing onto others' backs, friend or foe, and staying up there, laughing.\n\nThe young monks adore it. The old ones count the peaches.",
+  "zh": "没人记得猴王是什么时候来到寺院的。某天它就坐在屋顶上吃住持的桃子，谁也弄不下来。\n\n它没有自己的招式：看一眼身边的人，就模仿得比本人还好。它最爱爬到别人背上，不论敌友，然后待在上面哈哈大笑。\n\n年轻的僧人都喜欢它。年长的僧人则在数桃子。"
+ },
+ "lore.tiger.epithet": {
+  "es": "La piedra que embiste",
+  "en": "The stone that charges",
+  "zh": "冲锋的石头"
+ },
+ "lore.tiger": {
+  "es": "Los Tigres de Mármol fueron tallados de la misma roca que las seis piedras del sello. Los monjes que llevan su máscara entrenan corriendo en línea recta contra las columnas del patio.\n\nCuando un Tigre carga, no frena por cortesía: el que queda enfrente sale empujado un paso atrás.\n\nSolo la Serpiente de Jade sabe calmarlo. Nadie entiende cómo.",
+  "en": "The Marble Tigers were carved from the same rock as the six seal stones. Monks who wear their mask train by running in a straight line at the courtyard columns.\n\nWhen a Tiger charges it doesn't stop out of courtesy: whoever stands in front gets pushed one step back.\n\nOnly the Jade Serpent knows how to calm it. Nobody understands how.",
+  "zh": "大理石虎是用与六块封印石同一块岩石雕成的。戴着虎面具的僧人，修行时会笔直冲向庭院的石柱。\n\n虎一旦冲锋，绝不会出于礼貌而停下：挡在前面的人会被撞退一步。\n\n只有玉蛇能让它平静下来。没人知道是怎么做到的。"
+ },
+ "lore.crane.epithet": {
+  "es": "La que salta lo justo",
+  "en": "The one who leaps just enough",
+  "zh": "跳得恰到好处"
+ },
+ "lore.crane": {
+  "es": "La Grulla de Viento es el estilo más antiguo del Templo, anterior incluso al sello. Sus discípulas pasan años aprendiendo a medir un salto: ni uno de más, ni uno de menos.\n\nSalta por encima de una o dos figuras y se posa del otro lado sin hacer ruido. Más lejos, dicen, el viento ya no la sostiene.\n\nEn las noches de luna, la Maestra Mei todavía practica sola en el patio.",
+  "en": "The Wind Crane is the oldest style in the Temple, older even than the seal. Its disciples spend years learning to measure a leap: not one too many, not one too few.\n\nIt jumps over one or two figures and lands on the other side without a sound. Any farther, they say, and the wind no longer holds it.\n\nOn moonlit nights, Master Mei still practices alone in the courtyard.",
+  "zh": "风鹤是寺院里最古老的流派，甚至早于封印。弟子们要花多年学会丈量一跳：不多一分，也不少一分。\n\n它能越过一到两个身影，悄无声息地落在另一边。人们说，再远一些，风就托不住它了。\n\n月夜里，梅师父仍会独自在庭院练习。"
+ },
+ "lore.serpent.epithet": {
+  "es": "La calma que apaga",
+  "en": "The calm that dims",
+  "zh": "熄灭锋芒的宁静"
+ },
+ "lore.serpent": {
+  "es": "La Serpiente de Jade no ataca: se enrosca. Los monjes que siguen su camino meditan tanto que su calma se contagia, y los enemigos que se les acercan olvidan sus propios trucos.\n\nAvanza dos pasos, despacio, y donde se detiene las técnicas rivales se apagan.\n\nEl Pergamino de Jade lleva su nombre por una razón que el Templo prefirió olvidar.",
+  "en": "The Jade Serpent doesn't attack: it coils. Monks who follow its path meditate so deeply that their calm spreads, and enemies who come close forget their own tricks.\n\nIt moves two steps, slowly, and wherever it stops, rival techniques go quiet.\n\nThe Jade Scroll bears its name for a reason the Temple chose to forget.",
+  "zh": "玉蛇从不进攻，它只是盘绕。修习此道的僧人冥想极深，他们的平静会传染，靠近的敌人会忘记自己的招数。\n\n它缓缓走两步，停在哪里，哪里的敌方技艺便会沉寂。\n\n玉卷以它命名，背后的原因，寺院宁愿遗忘。"
+ },
+ "lore.shogun.epithet": {
+  "es": "El que carga con la leyenda",
+  "en": "The one who carries the legend",
+  "zh": "背负传说的人"
+ },
+ "lore.shogun": {
+  "es": "El Gran Shogun manda sobre todas las sombras del Clan, pero se mueve como un hombre común: de a un paso, con el peso de trescientos años sobre los hombros.\n\nUna vez por batalla puede cambiar de lugar con uno de sus shinobi. Lo llaman \"el paso prestado\" y es el secreto mejor guardado del Clan.\n\nKage, el Shogun de hoy, cree que el pergamino fue robado. Nunca se preguntó para qué servía.",
+  "en": "The Great Shogun commands every shadow in the Clan, yet moves like an ordinary person: one step at a time, carrying three hundred years on their shoulders.\n\nOnce per battle they can trade places with one of their shinobi. It's called \"the borrowed step\", and it's the Clan's best-kept secret.\n\nKage, today's Shogun, believes the scroll was stolen. They never asked what it was for.",
+  "zh": "大将军统领宗族所有的影子，却像普通人一样行走：一次一步，肩上压着三百年的重量。\n\n每场战斗中，他可以与一名忍者互换位置一次。宗族称之为“借来的一步”，这是宗族保守得最好的秘密。\n\n如今的将军影，认为卷轴是被偷走的。他从未问过它有什么用。"
+ },
+ "lore.shinobi.epithet": {
+  "es": "El que pasa por donde nadie pasa",
+  "en": "The one who slips where no one can",
+  "zh": "穿过无人能过之处"
+ },
+ "lore.shinobi": {
+  "es": "Los shinobi aprenden a caminar antes por las paredes que por el suelo. Recorren el borde de la batalla a toda velocidad y se cuelan por rendijas donde un monje quedaría atascado.\n\nNo saltan ni vuelan: se deslizan, siempre pegados a algo, como el agua que encuentra la grieta.\n\nKuro, el jonin, dice que un buen shinobi nunca está donde lo buscás. Aya todavía se lo toma como un desafío.",
+  "en": "Shinobi learn to walk on walls before they walk on floors. They race along the edge of the battle and slip through gaps where a monk would get stuck.\n\nThey don't jump or fly: they glide, always pressed against something, like water finding the crack.\n\nKuro, the jonin, says a good shinobi is never where you look for them. Aya still takes that as a challenge.",
+  "zh": "忍者先学会在墙上行走，再学会在地上行走。他们沿着战场边缘飞驰，钻进僧人会卡住的缝隙。\n\n他们不跳也不飞，只是滑行，永远贴着什么东西，就像找到裂缝的水。\n\n上忍黑说，好的忍者永远不在你找的地方。绫至今仍把这句话当作挑战。"
+ },
+ "lore.kunoichi.epithet": {
+  "es": "El abanico que paraliza",
+  "en": "The fan that freezes",
+  "zh": "令人定住的扇子"
+ },
+ "lore.kunoichi": {
+  "es": "Las kunoichi pelean con abanicos de hierro y agujas finas como un pelo. No necesitan golpear fuerte: un toque en el lugar justo y el rival queda quieto un turno entero.\n\nSe mueven dos pasos, elegantes, y siempre eligen a quién dejar inmóvil al llegar.\n\nAya es la kunoichi más joven del Clan. También es la única que leyó el pergamino al revés.",
+  "en": "Kunoichi fight with iron fans and needles thin as a hair. They don't need to strike hard: one touch in the right spot and the rival stays frozen for a whole turn.\n\nThey move two steps, gracefully, and always choose whom to freeze when they arrive.\n\nAya is the youngest kunoichi in the Clan. She is also the only one who read the scroll backwards.",
+  "zh": "女忍者用铁扇和细如发丝的针作战。她们不需要重击：在恰当的位置轻轻一点，对手就会整整一回合动弹不得。\n\n她们优雅地走两步，抵达时总会选定让谁定住。\n\n绫是宗族中最年轻的女忍者，也是唯一一个把卷轴倒着读过的人。"
+ },
+ "lore.tengu.epithet": {
+  "es": "El que aparece en la espesura",
+  "en": "The one who appears in the thick of it",
+  "zh": "出现在密集之处"
+ },
+ "lore.tengu": {
+  "es": "Los Tengu viven en los cedros más altos de la montaña y bajan solo cuando hay ruido. No caminan: desaparecen en un remolino de plumas y aparecen donde la pelea es más densa.\n\nNecesitan multitudes para esconderse; en un claro vacío no pueden posarse.\n\nUn viejo pacto les prohíbe dar el último golpe a un Líder. Ningún Tengu recuerda quién lo firmó, pero ninguno lo rompe.",
+  "en": "The Tengu live in the tallest cedars on the mountain and come down only when there is noise. They don't walk: they vanish in a swirl of feathers and appear wherever the fight is thickest.\n\nThey need crowds to hide in; in an empty clearing they cannot land.\n\nAn old pact forbids them from dealing the final blow to a Leader. No Tengu remembers who signed it, but none of them breaks it.",
+  "zh": "天狗住在山上最高的雪松上，只在有喧闹时才下山。它们不走路：在一阵羽毛旋风中消失，出现在战斗最密集的地方。\n\n它们需要人群来藏身；在空旷的林间空地无法落脚。\n\n一项古老的盟约禁止它们给首领最后一击。没有天狗记得是谁签下的，但谁也不曾违背。"
+ },
+ "lore.kitsune.epithet": {
+  "es": "La sonrisa entre dos mundos",
+  "en": "The smile between two worlds",
+  "zh": "两个世界之间的微笑"
+ },
+ "lore.kitsune": {
+  "es": "Las kitsune del Clan son guerreras que llevan la máscara del zorro en honor a la Zorra Blanca, el espíritu que acompañó a Kagerō cuando se selló al Oni.\n\nSe mueven dos pasos, ligeras, y nunca dejan huella. No tienen trucos: tienen paciencia.\n\nDicen que a veces una kitsune se queda mirando el Templo con una sonrisa, como si supiera algo que nadie más sabe.",
+  "en": "The Clan's kitsune are warriors who wear the fox mask in honor of the White Fox, the spirit who walked beside Kagerō when the Oni was sealed.\n\nThey move two steps, light-footed, and never leave a trace. They have no tricks: they have patience.\n\nThey say a kitsune sometimes stares at the Temple with a smile, as if she knew something no one else does.",
+  "zh": "宗族的狐武者戴着狐狸面具，以纪念白狐。白狐是在封印灰烬之鬼时陪伴阳炎的灵。\n\n她们轻盈地走两步，从不留下痕迹。她们没有诡计，只有耐心。\n\n人们说，狐武者有时会带着微笑凝望寺院，仿佛知道别人都不知道的事。"
+ },
+ "lore.shadow.epithet": {
+  "es": "La que deja una trampa en el suelo",
+  "en": "The one who leaves a trap on the ground",
+  "zh": "在地上留下陷阱的人"
+ },
+ "lore.shadow": {
+  "es": "Nadie ve llegar a la Sombra Errante. Se mueve de a un paso, sin apuro, y al pasar deja una marca de tinta en el suelo: quien la pisa queda clavado en el lugar.\n\nEl Clan solo confía este arte a una sombra por generación, y solo puede haber un sello suyo en el tablero a la vez.\n\nKagerō fue la primera Sombra. La marca que dejaba tenía seis lados.",
+  "en": "No one sees the Wandering Shadow coming. It moves one step at a time, unhurried, and as it passes it leaves an ink mark on the ground: whoever steps on it is pinned in place.\n\nThe Clan entrusts this art to only one shadow per generation, and only one of its seals can be on the board at a time.\n\nKagerō was the first Shadow. The mark she left had six sides.",
+  "zh": "没人看得见游影何时到来。它一次走一步，不慌不忙，经过时在地上留下墨印：谁踩上去，就会被钉在原地。\n\n宗族每一代只把这门技艺传给一个影子，棋盘上同一时间只能有一个它的封印。\n\n阳炎是第一位游影。她留下的印记，有六条边。"
  }
 }
