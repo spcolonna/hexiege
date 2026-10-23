@@ -17,8 +17,7 @@ Prompts para **ChatGPT** (generador de imágenes), en inglés porque así sigue 
 
 # Para generar ahora
 
-Nada: todo el arte está generado e integrado. Solo queda, sin generar:
-- **Fichas en alta resolución:** re-descargarlas de ChatGPT (ver «1. Fichas en alta resolución»).
+Nada: todo el arte está generado e integrado.
 
 Los bloques A, B y C de abajo ya están en el juego; quedan por si hay que regenerar algo.
 
@@ -245,7 +244,7 @@ Cómo las usa el juego:
 
 | # | Qué | Para qué | Cantidad | Estado |
 |---|---|---|---|---|
-| 1 | Fichas en alta resolución | Zoom nítido en el visor 3D | 12 (re-descargar, no generar) | ⬜ |
+| 1 | Fichas en alta resolución | Zoom nítido en el visor 3D | 12 (re-descargar, no generar) | ✖ descartado: priorizamos el peso de la app |
 | 2 | Banner de Google Play | Obligatorio para publicar en Android | 1 | ✅ `store/feature_graphic.png` (1024×500) |
 | 3 | Avatares que faltan | Perfil | 2 | ✅ en el juego |
 | 4 | Emotes | Partida | 16 | ✅ en el juego |
@@ -1231,7 +1230,9 @@ DO NOT INCLUDE: any text, letters, signature, seal stamp or Chinese/Japanese cha
 
 # Prompts individuales — Juego
 
-## 1. Fichas en alta resolución ⬜ (no se genera nada)
+## 1. Fichas en alta resolución ✖ (descartado)
+
+Descartado por ahora: preferimos fichas algo menos nítidas en el zoom antes que sumar peso a la app.
 
 El visor 3D de la galería deja hacer zoom, pero las fichas quedaron a 512 px y de cerca se ven algo borrosas.
 ChatGPT las generó a 1024 px; el problema es que achicamos esa versión al integrarla.
