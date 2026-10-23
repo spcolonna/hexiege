@@ -672,7 +672,6 @@ class _Stage extends StatelessWidget {
         ? -1.0
         : 1.0;
     final left = a == null ? b.who == hero || (b.who!.side != null && b.who!.side == hero.side) : a.x <= 0.5;
-    final old = i != f.lines.last;
     final balloon = _Balloon(
       text: scene.text(i),
       who: b.who!,
@@ -684,11 +683,7 @@ class _Stage extends StatelessWidget {
       alignment: tail == 0 ? Alignment.center : (left ? Alignment.centerLeft : Alignment.centerRight),
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: size.width * 0.8),
-        child: AnimatedOpacity(
-          opacity: old ? 0.5 : 1,
-          duration: const Duration(milliseconds: 250),
-          child: pop(i, balloon, left ? Alignment.bottomLeft : Alignment.bottomRight),
-        ),
+        child: pop(i, balloon, left ? Alignment.bottomLeft : Alignment.bottomRight),
       ),
     );
   }
@@ -732,6 +727,20 @@ class _Backdrop extends StatelessWidget {
 /// Un personaje de cuerpo entero (o su retrato, si falta el arte), mirando
 /// hacia el centro.
 class _Figure extends StatelessWidget {
+  /// Figuras cuyo dibujo toca el borde izquierdo o derecho (ver bloque D de docs/prompts.md).
+  static const _cut = <Who, (bool, bool)>{
+    Who.gon: (true, true),
+    Who.abbot: (true, true),
+    Who.tao: (true, true),
+    Who.kage: (true, true),
+    Who.oni: (true, true),
+    Who.guard: (true, true),
+    Who.fox: (true, false),
+    Who.jubei: (false, true),
+    Who.ninja: (false, true),
+    Who.kunoichi: (false, true),
+  };
+
   final Who who;
   final bool faceLeft;
   final double width, height;
@@ -741,16 +750,34 @@ class _Figure extends StatelessWidget {
   Widget build(BuildContext context) {
     final art = Scene.figureAsset(who);
     if (StoryArt.has(art)) {
+      final image = Image.asset(
+        art,
+        fit: BoxFit.contain,
+        alignment: Alignment.bottomCenter,
+        filterQuality: FilterQuality.medium,
+        gaplessPlayback: true,
+      );
+      // Si el dibujo llega al borde (un brazo, el bastón), ese costado se
+      // disuelve en tinta en vez de terminar en un corte recto.
+      final (cutLeft, cutRight) = _cut[who] ?? (false, false);
       // Las figuras miran a la derecha: las del lado derecho se espejan.
       return Transform.flip(
         flipX: faceLeft,
-        child: Image.asset(
-          art,
-          fit: BoxFit.contain,
-          alignment: Alignment.bottomCenter,
-          filterQuality: FilterQuality.medium,
-          gaplessPlayback: true,
-        ),
+        child: !cutLeft && !cutRight
+            ? image
+            : ShaderMask(
+                blendMode: BlendMode.dstIn,
+                shaderCallback: (r) => LinearGradient(
+                  colors: [
+                    Color(cutLeft ? 0x00000000 : 0xFF000000),
+                    const Color(0xFF000000),
+                    const Color(0xFF000000),
+                    Color(cutRight ? 0x00000000 : 0xFF000000),
+                  ],
+                  stops: const [0, 0.1, 0.9, 1],
+                ).createShader(r),
+                child: image,
+              ),
       );
     }
     final t = HexTheme.of(context);

@@ -172,16 +172,17 @@ class AppSettings extends ChangeNotifier {
   }
 
   /// Borra el avance de la historia: las batallas [stageIds] vuelven a estar
-  /// sin superar, las viñetas sin ver y el desbloqueo sin comprar.
-  void resetStory(Iterable<String> stageIds) {
+  /// sin superar y las viñetas sin ver. Con [relock], el desbloqueo vuelve a
+  /// estar sin comprar (una compra real no se pierde).
+  void resetStory(Iterable<String> stageIds, {bool relock = true}) {
     _cleared.removeAll(stageIds);
     _stars.removeWhere((id, _) => stageIds.contains(id));
     _prefs?.setStringList('stars', [for (final e in _stars.entries) '${e.key}:${e.value}']);
     _seenScenes.clear();
-    _storyUnlocked = false;
+    if (relock) _storyUnlocked = false;
     _prefs?.setStringList('cleared', _cleared.toList());
     _prefs?.setStringList('seenScenes', const []);
-    _prefs?.setBool('storyUnlocked', false);
+    _prefs?.setBool('storyUnlocked', _storyUnlocked);
     notifyListeners();
   }
 

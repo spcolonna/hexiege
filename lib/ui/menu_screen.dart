@@ -344,7 +344,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
             AppSettings.instance.resetStory([
               for (final c in campaigns)
                 for (final st in c.stages) st.id,
-            ]);
+            ], relock: kSimulatedPurchase);
             Haptics.medium();
             Navigator.pop(ctx);
           }, primary: true),

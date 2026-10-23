@@ -235,6 +235,12 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   bool _intro = false;
   bool _introSeen = false;
 
+  /// Cambia al cerrar una viñeta: la presentación vuelve a entrar con su animación.
+  int _introTake = 0;
+
+  /// La viñeta tapa la presentación: espera a que se cierre para entrar.
+  bool _storyOnTop = false;
+
   /// Asiento del jugador local (abajo) y del rival (arriba).
   int get _mySeat => widget.aiPlayer == null ? 0 : 1 - widget.aiPlayer!;
   int get _oppSeat => 1 - _mySeat;
@@ -261,8 +267,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     // Campaña: la viñeta de antes, la primera vez, sobre la presentación.
     final pre = _stage == null ? null : Scene.of(_stage!.id, post: false);
     if (pre != null && !AppSettings.instance.isSceneSeen(pre.id)) {
+      _storyOnTop = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) playScene(context, pre, mine: _storySides, title: _stage!.title);
+        if (mounted) _playIntroScene(pre);
       });
     }
     final nick = AppSettings.instance.nickname;
@@ -1710,11 +1717,27 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     );
   }
 
+  /// La viñeta de antes de la batalla; al cerrarla, la presentación entra de nuevo.
+  Future<void> _playIntroScene(Scene pre, {bool replay = false}) async {
+    setState(() => _storyOnTop = true);
+    await playScene(context, pre, mine: _storySides, title: _stage!.title, replay: replay);
+    if (mounted) {
+      setState(() {
+        _storyOnTop = false;
+        _introTake++;
+      });
+    }
+  }
+
   Widget _stageIntro() {
     final s = _stage!;
+    final pre = Scene.of(s.id, post: false);
     // La primera vez, volver es salir de la etapa; después solo cierra la presentación.
     final first = !_introSeen;
     return StageIntro(
+      key: ValueKey(_introTake),
+      play: !_storyOnTop,
+      onReplay: pre == null ? null : () => _playIntroScene(pre, replay: true),
       glyph: s.kind == StageKind.campaign ? '記' : '試',
       label: switch (s.kind) {
         StageKind.puzzle => tr('stageKind.puzzle'),

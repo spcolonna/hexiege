@@ -17,7 +17,37 @@ Prompts para **ChatGPT** (generador de imágenes), en inglés porque así sigue 
 
 # Para generar ahora
 
-Nada: todo el arte está generado e integrado.
+## Bloque D — Figuras cortadas en los costados (10) ⬜
+
+Estas figuras tocan el borde izquierdo o derecho del dibujo: un brazo, un hombro o el bastón terminan en un corte
+recto. En el juego los costados ahora se disuelven en tinta, pero conviene regenerarlas enteras. Una imagen por
+pedido; adjuntá la figura actual (`assets/story/char_<nombre>.webp`) como referencia del personaje y del estilo.
+Se guarda igual que antes (PNG 2:3 con transparencia; después se pasa a webp 768×1152).
+
+| Archivo | Qué se corta |
+|---|---|
+| `char_gon` | el bastón a la izquierda y el antebrazo vendado a la derecha |
+| `char_abbot` | las mangas de los dos lados |
+| `char_tao` | los brazos y la calabaza de los dos lados |
+| `char_kage` | los hombros de la armadura de los dos lados |
+| `char_oni` | la capa de los dos lados |
+| `char_guard` | la lanza y los hombros de los dos lados |
+| `char_jubei` | la espada a la derecha |
+| `char_ninja` | el brazo derecho |
+| `char_kunoichi` | la mano derecha |
+| `char_fox` | la cola a la izquierda |
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Recreate the attached character EXACTLY: same person, same face, same clothes, same colors, same pose and the same ink-wash style. Only the framing changes.
+
+Create a PORTRAIT image with a 2:3 aspect ratio (1024×1536), with a TRANSPARENT background (PNG with alpha). If transparency is impossible, use a perfectly flat pure magenta (#FF00FF) background with no gradient, no shadow and no texture.
+
+FRAMING: Half-body, from the waist up, cut off cleanly ONLY at the bottom edge of the image. The WHOLE silhouette must fit inside the image with clear empty margin on the left and the right (at least 6% of the width on each side): both arms, both hands, both shoulders, sleeves, capes, tails and any weapon or staff must be complete and must NOT touch the left, right or top edges. If something is too wide, make the figure a little smaller or hold the weapon more upright. Three-quarter view, body turned TOWARD THE RIGHT side of the image.
+
+DO NOT INCLUDE: any background, floor, cast shadow or scenery; any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame or border; other characters.
+```
 
 Los bloques A, B y C de abajo ya están en el juego; quedan por si hay que regenerar algo.
 
@@ -231,6 +261,7 @@ ya está quedan abajo por si hay que regenerar algo.
 | Retratos de los rivales (`avatar_ninja`, `_scout`, `_acolyte`, `_guard`, `_kunoichi`) | `assets/avatars/` | 5 | ✅ |
 | Ilustraciones de momentos clave (`art_*`) | `assets/story/` | 12 | ✅ |
 | Ilustraciones nuevas del Acto I, pensadas para el paneo | `assets/story/` | 9 | ⬜ (≈2,7 MB) |
+| Figuras regeneradas sin cortes en los costados (bloque D) | `assets/story/` | 10 | ⬜ |
 
 Cómo las usa el juego (la viñeta es una hoja alta, casi 9:16, y una cámara recorre el arte de 3:2):
 - **Figuras:** de medio cuerpo, paradas abajo; el juego espeja la figura cuando va a la derecha, por eso todas

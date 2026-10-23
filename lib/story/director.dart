@@ -51,7 +51,7 @@ class Frame {
   /// Quiénes se fueron en este golpe (se desvanecen) y con qué estilo.
   final Map<Who, String?> leaving;
 
-  /// Globos a la vista: los últimos dos dichos o pensados (índices de golpe).
+  /// Globo a la vista: lo último dicho o pensado (índice de golpe).
   final List<int> lines;
 
   /// Cartel de arriba: el momento o la última narración de la página.
@@ -88,8 +88,8 @@ abstract final class Director {
   /// Dónde se para cada uno: el protagonista ([hero]) a la izquierda, el resto enfrente.
   static const left = 0.27, right = 0.73, center = 0.5;
 
-  /// Cuántos globos quedan a la vista.
-  static const maxLines = 2;
+  /// Cuántos globos quedan a la vista: solo el de este golpe; el anterior se va al tocar.
+  static const maxLines = 1;
 
   static List<Frame> run(Scene scene, {required Who hero}) {
     final frames = <Frame>[];
@@ -174,18 +174,9 @@ abstract final class Director {
         cast = [...cast, Actor(b.who!, _slot(b.who!, hero, cast), i)];
       }
 
-      switch (b.kind) {
-        case BeatKind.moment:
-          caption = i;
-          lines = [];
-        case BeatKind.narrate:
-          caption = i;
-        case BeatKind.say || BeatKind.think:
-          lines = [...lines, i];
-          if (lines.length > maxLines) lines = lines.sublist(lines.length - maxLines);
-        case BeatKind.pause:
-          break;
-      }
+      // Cada toque se lleva el globo anterior.
+      lines = b.talks ? [i] : [];
+      if (b.kind == BeatKind.moment || b.kind == BeatKind.narrate) caption = i;
 
       if (framed != null) {
         shot = framed;

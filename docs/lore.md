@@ -78,13 +78,20 @@ Rival: explorador ninja · IA: novato · Regla: normal
 - [arte art_wall · plano .2,.3 x1.5]
 - Narración [plano .45,.5 x1.05 lento]: Una sombra cruza el muro. Nadie la ve entrar.
 - *Dentro, el dormitorio de los discípulos.* [lugar dormitory · plano .5,.5 x1.25]
-- Abad [entra der sombra]: Ren. Despertate.
-- Ren [entra izq]: ¿Maestro? ¿Qué pasa?
+- Narración: Veinte esteras en fila. Diecinueve discípulos duermen.
+- Ren [entra izq] *(pensando)*: Rodear. Esperar. Cerrar. Rodear. Esperar. Cerrar…
+- Abad [entra der sombra]: ¿Otra vez jugando de memoria?
+- Ren: ¡Maestro! No… no podía dormir.
+- Abad: Mejor. Esta noche te necesito despierto.
 - Abad: Alguien entró al Templo. Andá a ver quién se atreve.
 - Ren: ¿Solo yo?
 - Abad: Si es uno, alcanza con vos.
 - [plano .62,.42 x1.45]
 - Abad: Si son más… gritá.
+- Ren: Sí, maestro.
+- [sale Abad · plano .35,.5 x1.3 lento]
+- Narración: Ren llegó al Templo envuelto en una manta, una noche de lluvia gris. Fue el Abad quien lo levantó del escalón.
+- Ren *(pensando)*: Dieciséis años me cuidó. Esta noche me toca a mí.
 
 **Después**
 - *El muro, un instante después.* [lugar wall · plano .35,.5 x1.3]
@@ -93,8 +100,11 @@ Rival: explorador ninja · IA: novato · Regla: normal
 - [sale Ninja corre · plano .85,.28 x1.3 lento]
 - Narración: El ninja salta y la noche se lo traga. No se llevó nada.
 - Ren *(pensando)*: Nada robado. Nada roto.
+- [plano .7,.45 x1.5 lento]
+- Narración: En la piedra del muro quedó una marca fresca: seis puntos alrededor de uno.
+- Ren *(pensando)*: Como un Líder rodeado en el tablero.
 - [plano .5,.5 x1.1 lento]
-- Ren *(pensando)*: Entonces… ¿a qué vino?
+- Ren *(pensando)*: ¿A qué vino?
 
 #### s2 · Patio de entrenamiento
 Rival: el explorador capturado · IA: fácil · Regla: el rival no usa habilidad
@@ -102,13 +112,20 @@ Rival: el explorador capturado · IA: fácil · Regla: el rival no usa habilidad
 - *A la mañana. Patio de entrenamiento.* [plano .2,.55 x1.3]
 - [plano .75,.5 x1.15 lento]
 - Narración: El sol pega sobre los postes de madera. Los discípulos entrenan desde el alba.
-- Mei [entra der]: Gon atrapó a un explorador en el bosque.
-- Gon [entra centro corre]: Y vos dejaste escapar al tuyo, Ren.
-- Ren [entra izq]: Era rápido.
-- Gon: Excusas.
-- Mei: Basta. Antes de interrogarlo, el Abad quiere ver cómo peleás.
-- [sale Gon · entra Explorador centro sombra]
-- Mei: Vas a enfrentarte al explorador que trajo Gon. Tiene las manos atadas: no podrá usar el Kawarimi.
+- Gon [entra der corre]: ¡Ren! ¿Te enteraste?
+- Ren [entra izq]: ¿De qué?
+- Gon: Atrapé a un explorador en el bosque. Yo solo.
+- Ren: …Yo dejé escapar al mío.
+- Gon: Ya sé. Lo sabe todo el Templo.
+- Gon: Esta vez el Abad me felicitó a mí.
+- Ren: Te lo ganaste, Gon. De verdad.
+- Gon *(pensando)*: Dos palabras me dijo. «Bien hecho.» A Ren le habría dado diez.
+- Mei [entra centro]: Basta de charla.
+- Mei: Antes de interrogarlo, el Abad quiere ver cómo pelea Ren contra él.
+- Gon: ¿Ren? ¡Lo atrapé yo!
+- Mei: Por eso hoy descansás vos.
+- [sale Gon · entra Explorador der sombra]
+- Mei: Tiene las manos atadas: no podrá usar el Kawarimi.
 - Explorador: Atado y todo, te gano, monjecito.
 
 **Después**
@@ -118,8 +135,17 @@ Rival: el explorador capturado · IA: fácil · Regla: el rival no usa habilidad
 - Ren: ¿Por qué no golpeamos y ya?
 - [plano .72,.45 x1.45 lento]
 - Mei: …
-- Mei: Porque así nos enseñaron.
-- Ren *(pensando)*: Eso no es una respuesta.
+- Mei: Yo le hice la misma pregunta a mi maestra. Tenía tu edad.
+- Ren: ¿Y qué le contestó?
+- Mei: «Porque así nos enseñaron.»
+- Ren: Eso no es una respuesta.
+- Mei: No. No lo es.
+- [sale Mei · plano .4,.5 x1.2 lento]
+- Ren *(pensando)*: Nunca la había visto bajar la vista.
+- Explorador [entra der sombra]: En el clan también rodeamos, ¿sabés?
+- Ren: ¿Ustedes?
+- Explorador: Mi abuela decía que no es una pelea.
+- Explorador [plano .7,.45 x1.5]: Que es una oración.
 
 #### s3 · Emboscada en el bosque
 Rival: tres ninjas · IA: fácil · Regla: tu Monje empieza con 3 fichas enemigas al lado
@@ -127,21 +153,29 @@ Rival: tres ninjas · IA: fácil · Regla: tu Monje empieza con 3 fichas enemiga
 - *Esa tarde. El camino al pueblo.* [plano .2,.45 x1.35]
 - [plano .6,.5 x1.1 lento]
 - Narración: Ren baja al pueblo a buscar arroz. El canasto vacío le golpea la espalda.
-- Ren [entra izq]: Qué silencio…
+- Ren [entra izq] *(pensando)*: «Una oración.» ¿Una oración a quién?
+- Ren: Qué silencio…
 - [plano .22,.3 x1.5]
 - Narración: Ni un pájaro. Ni el viento.
 - [entra Ninja der sombra · entra Explorador centro sombra · temblor · destello]
 - Narración: Tres sombras caen de los árboles.
-- Ninja: Es el discípulo del Abad. ¡Rodéenlo!
+- Ninja: Es el discípulo del Abad.
+- Ren: ¿Me conocen?
+- Ninja [plano .7,.42 x1.5]: Todo el clan conoce al chico de la manta.
+- Ninja: ¡Rodéenlo!
 
 **Después**
 - *El camino, al caer el sol.* [lugar road · plano .55,.5 x1.2]
 - [entra Ren izq · entra Ninja der]
 - Ren: ¿Por qué me esperaban a mí?
 - Ninja: …
+- Ren: ¿Qué es eso del chico de la manta?
 - Ninja [sale Ninja corre]: ¡Preguntale al viejo qué guarda abajo!
 - [plano .85,.4 x1.3 lento]
 - Ren *(pensando)*: ¿Abajo?
+- [plano .4,.65 x1.4 lento]
+- Narración: El canasto quedó volcado. El arroz, desparramado en el camino.
+- Ren *(pensando)*: Lo junto igual. En el Templo hay un preso que no come desde ayer.
 
 #### s4 · La celda
 Rival: rescatistas ninja · IA: fácil · Regla: normal
@@ -150,10 +184,15 @@ Rival: rescatistas ninja · IA: fácil · Regla: normal
 - [plano .7,.5 x1.25 lento]
 - Narración: Bajo el ala vieja del Templo arde una sola antorcha. Detrás de los barrotes, alguien no duerme.
 - [entra Explorador der sombra · plano .72,.55 x1.4]
-- Ren [entra izq]: Tus amigos me emboscaron en el camino. ¿Qué buscan?
+- Ren [entra izq]: Te traje arroz.
+- Explorador: …¿Envenenado?
+- Ren: Con tierra, nada más. Se me cayó en el camino.
 - Explorador: …
+- Explorador: Gracias.
+- Ren: Tus amigos me emboscaron. Me llamaron «el chico de la manta». ¿Qué buscan?
 - Explorador: No te voy a decir nada, monje.
 - Ren: Entonces esperamos. Tengo toda la noche.
+- Explorador: Mi hermano menor es igual que vos. Pregunta y pregunta.
 - [plano .5,.15 x1.4 · onom golpe · temblor]
 - Narración: Un golpe seco en el techo. Después, otro.
 - [humo · destello]
@@ -178,6 +217,7 @@ Rival: rescatistas ninja · IA: fácil · Regla: normal
 - [lugar cells · entra Ren izq ya · entra Explorador der ya · entra Zorra Blanca centro humo · niebla · plano .55,.5 x1.2]
 - Explorador: …Sí, señora.
 - Ren: ¿Señora? ¿Quién…?
+- Zorra Blanca: Comé vos el arroz, chico de la manta. Lo vas a necesitar.
 - [sale Zorra Blanca humo · sale Explorador humo · destello · niebla]
 - Narración: La zorra y el explorador desaparecen en la niebla.
 - [plano .72,.5 x1.55 lento]
@@ -190,17 +230,25 @@ Rival: el clan cubre la huida · IA: fácil · Regla: el Asedio empieza en la ro
 - Gon [entra der corre]: ¡Están por todo el muro! Quieren cubrir la huida.
 - Ren [entra izq corre]: Gon, ¿vos viste a la zorra?
 - Gon: ¿Qué zorra?
+- Gon: Ren, si cruzan el muro norte, bajan derecho al pueblo.
+- Ren: …Tu hermana.
+- [plano .72,.42 x1.45]
+- Gon: Por eso no pasa ninguno. Ninguno.
 - [plano .2,.4 x1.3]
-- Gon: ¡Ren! ¡Concentrate!
+- Gon: ¡Concentrate, Ren! ¡Ahora!
 
 **Después**
 - [plano .5,.5 x1.1 lento]
 - Narración: Los ninjas se retiran al bosque. El muro queda en silencio.
 - Gon [entra der]: ¡Corren como conejos!
 - Ren [entra izq]: …
-- Ren *(pensando)*: «Venimos a advertir.»
+- Gon: Peleaste bien. No se lo cuentes a nadie.
+- Ren: ¿Que peleé bien?
+- Gon: Que te lo dije yo.
+- [sale Gon · plano .4,.5 x1.2 lento]
+- Ren *(pensando)*: «Venimos a advertir.» «El chico de la manta.» «Lo que guarda abajo.»
 - [plano .9,.3 x1.5 lento]
-- Ren *(pensando)*: ¿A advertir de qué?
+- Ren *(pensando)*: Mañana le pregunto al Abad. Aunque se enoje.
 
 #### s6 · JEFE — Kuro, el jonin del humo
 Rival: Kuro · IA: fácil (jefe) · Regla: Kuro tiene un Shinobi de más
@@ -209,23 +257,31 @@ Rival: Kuro · IA: fácil (jefe) · Regla: Kuro tiene un Shinobi de más
 - [plano .55,.5 x1.15 lento]
 - Narración: La niebla del alba cubre los escalones. Alguien espera en la puerta, solo.
 - [entra Kuro der sombra · humo]
-- Kuro: El discípulo del Abad.
-- Ren [entra izq]: ¿Quién sos?
-- Kuro: Me contaron que rodeás bien.
-- Kuro [plano .62,.45 x1.45]: Soy alguien que se va a llevar lo que es nuestro. Hoy, o la próxima.
+- Kuro: El chico de la manta.
+- Ren [entra izq]: ¿Por qué todos me llaman así? ¿Quién sos?
+- Kuro: Me contaron que rodeás bien. Que le llevaste arroz a un preso.
+- Kuro: Un monje que le da de comer a un ninja… Eso no se ve seguido.
+- Ren: ¿Qué quieren del Templo?
+- Kuro [plano .62,.45 x1.45]: Lo que es nuestro. Hoy, o la próxima.
 
 **Después**
 - Kuro [entra der]: Bien peleado.
 - Kuro: Pero no entendés nada de lo que defendés.
+- Ren [entra izq]: ¡Entonces explicame!
+- Kuro: Preguntale a tu maestro de qué manta hablamos. Y mirale los ojos cuando conteste.
 - [sale Kuro humo · humo]
-- Ren [entra izq]: ¡Esperá!
+- Ren: ¡Esperá!
 - *Más tarde. La sala del Abad.* [lugar abbotHall · plano .7,.5 x1.3]
 - Ren [entra izq]: Maestro, el ninja dijo que venían a advertir.
 - Abad [entra der]: …
-- Ren: Habló de algo que guardamos abajo.
+- Ren: Habló de algo que guardamos abajo. Y me llaman «el chico de la manta».
+- [plano .62,.45 x1.45 lento]
+- Abad: ¿Quién te dijo eso?
+- Ren: Kuro. El jonin del humo.
 - Abad: Nadie habló con nadie, Ren.
-- Ren: Pero…
+- Ren: Pero yo llegué en una manta. Usted me lo contó. ¿Qué tiene que ver el clan con…?
 - Abad [plano .6,.4 x1.5 · temblor]: **Olvidalo.** Es una orden.
+- Ren *(pensando)*: Nunca me había gritado.
 - [temblor · onom temblor]
 - Narración: El suelo tiembla, apenas.
 - [arte art_ash_ceiling · plano .3,.65 x1.25]
@@ -233,6 +289,7 @@ Rival: Kuro · IA: fácil (jefe) · Regla: Kuro tiene un Shinobi de más
 - Ren: ¿Maestro…?
 - Narración: No es polvo. Es **ceniza**.
 - Abad *(pensando)*: Ya empezó.
+- Abad *(pensando)*: Igual que la noche en que lo encontré.
 - **→ Fin del Acto I · desbloqueo**
 
 ### Acto II · El bosque de los susurros

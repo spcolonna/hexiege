@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 /// Partidas por puntos contra otros jugadores. Apagadas hasta que exista el
 /// emparejamiento online real: hoy el rival sería la IA presentada como persona.
 /// Con esto en false el menú muestra la opción deshabilitada y oculta el rango.
@@ -10,8 +8,9 @@ const kOnlineMatches = false;
 /// en App Store Connect; en TestFlight se paga con la cuenta de sandbox).
 const kSimulatedPurchase = false;
 
-/// "Reiniciar historia" en el menú: solo para probar (debug o compra simulada).
-const kStoryResetButton = kSimulatedPurchase || kDebugMode;
+/// "Reiniciar historia" en el menú. Visible mientras se prueba la historia;
+/// apagar antes de publicar.
+const kStoryResetButton = true;
 
 /// Política de privacidad publicada (la misma que figura en las tiendas).
 const kPrivacyUrl = 'https://spcolonna.github.io/hexiege/privacidad.html';

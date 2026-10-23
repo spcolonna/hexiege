@@ -3055,14 +3055,14 @@
   "zh": "寺内，弟子们的寝舍。"
  },
  "story.s1.pre.5": {
-  "es": "Ren. Despertate.",
-  "en": "Ren. Wake up.",
-  "zh": "仁，醒醒。"
+  "es": "Veinte esteras en fila. Diecinueve discípulos duermen.",
+  "en": "Twenty mats in a row. Nineteen disciples asleep.",
+  "zh": "二十张草席排成一列。十九个弟子在熟睡。"
  },
  "story.s1.pre.6": {
-  "es": "¿Maestro? ¿Qué pasa?",
-  "en": "Master? What's wrong?",
-  "zh": "师父？出什么事了？"
+  "es": "Rodear. Esperar. Cerrar. Rodear. Esperar. Cerrar…",
+  "en": "Surround. Wait. Close. Surround. Wait. Close…",
+  "zh": "围住。等待。合拢。围住。等待。合拢……"
  },
  "story.s1.post.0": {
   "es": "El muro, un instante después.",
@@ -3077,7 +3077,7 @@
  "story.s2.pre.0": {
   "es": "A la mañana. Patio de entrenamiento.",
   "en": "Morning. The training yard.",
-  "zh": "清晨。练武场。"
+  "zh": "早晨。练武场。"
  },
  "story.s2.pre.2": {
   "es": "El sol pega sobre los postes de madera. Los discípulos entrenan desde el alba.",
@@ -3085,64 +3085,64 @@
   "zh": "阳光照在木桩上。弟子们从黎明起就在练功。"
  },
  "story.s2.pre.3": {
-  "es": "Gon atrapó a un explorador en el bosque.",
-  "en": "Gon caught a scout in the forest.",
-  "zh": "刚在林子里抓到了一个斥候。"
+  "es": "¡Ren! ¿Te enteraste?",
+  "en": "Ren! Did you hear?",
+  "zh": "仁！你听说了吗？"
  },
  "story.s2.pre.4": {
-  "es": "Y vos dejaste escapar al tuyo, Ren.",
-  "en": "And you let yours get away, Ren.",
-  "zh": "而你让你那个跑了，仁。"
+  "es": "¿De qué?",
+  "en": "Hear what?",
+  "zh": "听说什么？"
  },
  "story.s2.post.0": {
   "es": "El patio, al mediodía.",
   "en": "The yard, at noon.",
-  "zh": "练武场，正午。"
+  "zh": "中午，练武场。"
  },
  "story.s2.post.1": {
   "es": "Bien. Rodeás con paciencia. Eso es lo importante.",
   "en": "Good. You surround with patience. That's what matters.",
-  "zh": "很好。你包围时很有耐心。这才是关键。"
+  "zh": "不错。你包围得很有耐心。这才是关键。"
  },
  "story.s2.post.2": {
   "es": "Maestra, ¿por qué siempre rodeamos?",
-  "en": "Master, why do we always surround?",
+  "en": "Master Mei, why do we always surround?",
   "zh": "师父，我们为什么总是包围？"
  },
  "story.s3.pre.0": {
   "es": "Esa tarde. El camino al pueblo.",
   "en": "That afternoon. The road to the village.",
-  "zh": "那天下午。通往村子的路。"
+  "zh": "那天下午。去村子的路上。"
  },
  "story.s3.pre.2": {
   "es": "Ren baja al pueblo a buscar arroz. El canasto vacío le golpea la espalda.",
-  "en": "Ren goes down to the village for rice. The empty basket bumps against his back.",
-  "zh": "仁下山去村里买米。空篮子在背上一下下地撞着。"
+  "en": "Ren heads down to the village for rice. The empty basket bumps against his back.",
+  "zh": "仁下山去村里买米。空篮子拍打着他的背。"
  },
  "story.s3.pre.3": {
-  "es": "Qué silencio…",
-  "en": "So quiet…",
-  "zh": "好安静……"
+  "es": "«Una oración.» ¿Una oración a quién?",
+  "en": "\"A prayer.\" A prayer to whom?",
+  "zh": "“祈祷。”向谁祈祷？"
  },
  "story.s3.post.0": {
   "es": "El camino, al caer el sol.",
   "en": "The road, at sunset.",
-  "zh": "日落时分，山路。"
+  "zh": "日落时分，路上。"
  },
  "story.s4.pre.0": {
   "es": "Noche. Las celdas del Templo.",
   "en": "Night. The Temple cells.",
-  "zh": "夜。寺院的牢房。"
+  "zh": "夜。寺里的牢房。"
  },
  "story.s4.pre.2": {
   "es": "Bajo el ala vieja del Templo arde una sola antorcha. Detrás de los barrotes, alguien no duerme.",
-  "en": "Beneath the old wing of the Temple a single torch burns. Behind the bars, someone isn't sleeping.",
-  "zh": "寺院旧翼之下，只燃着一支火把。铁栏后面，有人没有睡。"
+  "en": "Beneath the old wing of the Temple burns a single torch. Behind the bars, someone is awake.",
+  "zh": "寺院旧翼下只点着一支火把。铁栏后面，有人没睡。"
  },
  "story.s4.pre.4": {
-  "es": "Tus amigos me emboscaron en el camino. ¿Qué buscan?",
-  "en": "Your friends ambushed me on the road. What are they after?",
-  "zh": "你的同伙在路上伏击了我。他们想要什么？"
+  "es": "Te traje arroz.",
+  "en": "I brought you rice.",
+  "zh": "我给你带了米饭。"
  },
  "story.s4.post.0": {
   "es": "El humo se disipa. Las celdas.",
@@ -3166,13 +3166,13 @@
  },
  "story.s5.pre.1": {
   "es": "¡Están por todo el muro! Quieren cubrir la huida.",
-  "en": "They're all over the wall! They want to cover the escape.",
-  "zh": "墙上到处都是他们！他们想掩护撤退。"
+  "en": "They're all over the wall! They're covering the escape.",
+  "zh": "墙上到处都是他们！他们在掩护撤退。"
  },
  "story.s5.pre.2": {
   "es": "Gon, ¿vos viste a la zorra?",
   "en": "Gon, did you see the fox?",
-  "zh": "刚，你看到那只狐狸了吗？"
+  "zh": "刚，你看见那只狐狸了吗？"
  },
  "story.s5.pre.3": {
   "es": "¿Qué zorra?",
@@ -3182,7 +3182,7 @@
  "story.s5.post.1": {
   "es": "Los ninjas se retiran al bosque. El muro queda en silencio.",
   "en": "The ninjas retreat into the forest. The wall falls silent.",
-  "zh": "忍者们退回了树林。寺墙重归寂静。"
+  "zh": "忍者退回林中。城墙恢复了寂静。"
  },
  "story.s6.pre.0": {
   "es": "Amanecer. El portón principal.",
@@ -3192,7 +3192,7 @@
  "story.s6.pre.2": {
   "es": "La niebla del alba cubre los escalones. Alguien espera en la puerta, solo.",
   "en": "The morning mist covers the steps. Someone waits at the gate, alone.",
-  "zh": "晨雾笼罩着台阶。有人独自在门前等候。"
+  "zh": "晨雾笼罩着台阶。有人独自在门口等着。"
  },
  "story.s6.post.0": {
   "es": "Bien peleado.",
@@ -3205,29 +3205,24 @@
   "zh": "但你根本不懂你在守护什么。"
  },
  "story.s6.post.3": {
+  "es": "Preguntale a tu maestro de qué manta hablamos. Y mirale los ojos cuando conteste.",
+  "en": "Ask your master which blanket we mean. And watch his eyes when he answers.",
+  "zh": "去问你师父，我们说的是哪条毯子。他回答的时候，看着他的眼睛。"
+ },
+ "story.s6.post.5": {
   "es": "¡Esperá!",
   "en": "Wait!",
   "zh": "等等！"
  },
- "story.s6.post.4": {
+ "story.s6.post.6": {
   "es": "Más tarde. La sala del Abad.",
   "en": "Later. The Abbot's hall.",
   "zh": "稍后。方丈的大殿。"
  },
- "story.s6.post.5": {
+ "story.s6.post.7": {
   "es": "Maestro, el ninja dijo que venían a advertir.",
   "en": "Master, the ninja said they came to warn us.",
   "zh": "师父，那个忍者说他们是来警告的。"
- },
- "story.s6.post.6": {
-  "es": "…",
-  "en": "…",
-  "zh": "……"
- },
- "story.s6.post.7": {
-  "es": "Habló de algo que guardamos abajo.",
-  "en": "He spoke of something we keep down below.",
-  "zh": "他说我们在下面藏着什么东西。"
  },
  "story.s7.pre.0": {
   "es": "Días después. Fuera del Templo, sin permiso.",
@@ -4404,6 +4399,11 @@
   "en": "Kunoichi",
   "zh": "女忍"
  },
+ "story.replay": {
+  "es": "Releer la historia",
+  "en": "Read the story again",
+  "zh": "重读故事"
+ },
  "story.skip": {
   "es": "Saltar",
   "en": "Skip",
@@ -5185,29 +5185,29 @@
   "zh": "通过「封印」第 {n} 战即可获得。"
  },
  "story.s4.pre.5": {
+  "es": "…¿Envenenado?",
+  "en": "…Poisoned?",
+  "zh": "……下了毒？"
+ },
+ "story.s4.pre.6": {
+  "es": "Con tierra, nada más. Se me cayó en el camino.",
+  "en": "Just a bit of dirt. I dropped it on the road.",
+  "zh": "只有点土。路上撒了。"
+ },
+ "story.s4.pre.7": {
   "es": "…",
   "en": "…",
   "zh": "……"
  },
- "story.s4.pre.6": {
-  "es": "No te voy a decir nada, monje.",
-  "en": "I'm not telling you anything, monk.",
-  "zh": "我什么都不会告诉你，和尚。"
+ "story.s4.pre.9": {
+  "es": "Tus amigos me emboscaron. Me llamaron «el chico de la manta». ¿Qué buscan?",
+  "en": "Your friends ambushed me. They called me \"the blanket boy.\" What are you after?",
+  "zh": "你的同伙伏击了我。他们叫我“裹毯子的孩子”。你们到底想要什么？"
  },
- "story.s4.pre.7": {
+ "story.s4.pre.11": {
   "es": "Entonces esperamos. Tengo toda la noche.",
   "en": "Then we wait. I have all night.",
   "zh": "那我们就等。我有一整夜。"
- },
- "story.s4.pre.9": {
-  "es": "Un golpe seco en el techo. Después, otro.",
-  "en": "A dull thud on the roof. Then another.",
-  "zh": "屋顶上一声闷响。接着，又是一声。"
- },
- "story.s4.pre.11": {
-  "es": "¡Ren! ¡Vinieron a sacarlo!",
-  "en": "Ren! They've come to get him out!",
-  "zh": "仁！他们来救他了！"
  },
  "story.s4.post.5": {
   "es": "No me abandonaron. Me dejaron para que hable con vos.",
@@ -5259,40 +5259,30 @@
   "en": "My lady? Who…?",
   "zh": "大人？是谁……？"
  },
- "story.s4.post.19": {
-  "es": "La zorra y el explorador desaparecen en la niebla.",
-  "en": "The fox and the scout vanish into the mist.",
-  "zh": "白狐和斥候消失在雾中。"
- },
- "story.s4.post.21": {
-  "es": "La celda sigue cerrada. Con llave. Desde afuera.",
-  "en": "The cell is still shut. Locked. From the outside.",
-  "zh": "牢门依旧紧闭。上了锁。从外面锁的。"
- },
  "onom.golpe": {
   "es": "¡PUM!",
   "en": "THUD!",
   "zh": "砰！"
  },
  "story.s1.pre.7": {
-  "es": "Alguien entró al Templo. Andá a ver quién se atreve.",
-  "en": "Someone has entered the Temple. Go see who dares.",
-  "zh": "有人闯进了寺院。去看看是谁这么大胆。"
+  "es": "¿Otra vez jugando de memoria?",
+  "en": "Playing from memory again?",
+  "zh": "又在默背棋局？"
  },
  "story.s1.pre.8": {
+  "es": "¡Maestro! No… no podía dormir.",
+  "en": "Master! No… I couldn't sleep.",
+  "zh": "师父！没……我睡不着。"
+ },
+ "story.s1.pre.9": {
+  "es": "Mejor. Esta noche te necesito despierto.",
+  "en": "Good. Tonight I need you awake.",
+  "zh": "正好。今晚我需要你醒着。"
+ },
+ "story.s1.pre.11": {
   "es": "¿Solo yo?",
   "en": "Just me?",
   "zh": "就我一个？"
- },
- "story.s1.pre.9": {
-  "es": "Si es uno, alcanza con vos.",
-  "en": "If it's one, you're enough.",
-  "zh": "若只有一个，你足够了。"
- },
- "story.s1.pre.11": {
-  "es": "Si son más… gritá.",
-  "en": "If there are more… shout.",
-  "zh": "若不止……就喊。"
  },
  "story.s1.post.4": {
   "es": "El ninja salta y la noche se lo traga. No se llevó nada.",
@@ -5305,34 +5295,34 @@
   "zh": "没有偷东西。也没有弄坏什么。"
  },
  "story.s1.post.7": {
-  "es": "Entonces… ¿a qué vino?",
-  "en": "Then… why did he come?",
-  "zh": "那……他到底来做什么？"
+  "es": "En la piedra del muro quedó una marca fresca: seis puntos alrededor de uno.",
+  "en": "On the stone of the wall, a fresh mark: six dots around one.",
+  "zh": "墙石上留下一个新鲜的记号：六个点围着一个点。"
  },
  "story.s2.pre.5": {
-  "es": "Era rápido.",
-  "en": "He was fast.",
-  "zh": "他太快了。"
+  "es": "Atrapé a un explorador en el bosque. Yo solo.",
+  "en": "I caught a scout in the forest. By myself.",
+  "zh": "我在林子里抓到一个斥候。就我一个人。"
  },
  "story.s2.pre.6": {
-  "es": "Excusas.",
-  "en": "Excuses.",
-  "zh": "借口。"
+  "es": "…Yo dejé escapar al mío.",
+  "en": "…I let mine get away.",
+  "zh": "……我让我那个跑了。"
  },
  "story.s2.pre.7": {
-  "es": "Basta. Antes de interrogarlo, el Abad quiere ver cómo peleás.",
-  "en": "Enough. Before we question him, the Abbot wants to see how you fight.",
-  "zh": "够了。审问之前，方丈想看看你怎么打。"
+  "es": "Ya sé. Lo sabe todo el Templo.",
+  "en": "I know. The whole Temple knows.",
+  "zh": "我知道。全寺都知道。"
  },
  "story.s2.pre.9": {
-  "es": "Vas a enfrentarte al explorador que trajo Gon. Tiene las manos atadas: no podrá usar el Kawarimi.",
-  "en": "You'll face the scout Gon brought in. His hands are tied: he can't use Kawarimi.",
-  "zh": "你要对付刚带回来的斥候。他双手被缚，用不了替身术。"
+  "es": "Te lo ganaste, Gon. De verdad.",
+  "en": "You earned it, Gon. Really.",
+  "zh": "这是你应得的，刚。真的。"
  },
  "story.s2.pre.10": {
-  "es": "Atado y todo, te gano, monjecito.",
-  "en": "Tied up and all, I'll still beat you, little monk.",
-  "zh": "就算绑着，我也能赢你，小和尚。"
+  "es": "Dos palabras me dijo. «Bien hecho.» A Ren le habría dado diez.",
+  "en": "Two words he gave me. \"Well done.\" To Ren he'd have given ten.",
+  "zh": "他只跟我说了两个字：“很好。”要是仁，他会说十句。"
  },
  "story.s2.post.3": {
   "es": "¿Por qué no golpeamos y ya?",
@@ -5345,34 +5335,24 @@
   "zh": "……"
  },
  "story.s2.post.6": {
-  "es": "Porque así nos enseñaron.",
-  "en": "Because that is how we were taught.",
-  "zh": "因为我们就是这样被教的。"
+  "es": "Yo le hice la misma pregunta a mi maestra. Tenía tu edad.",
+  "en": "I asked my own master the same question. I was your age.",
+  "zh": "我在你这个年纪，也这样问过我的师父。"
  },
  "story.s2.post.7": {
-  "es": "Eso no es una respuesta.",
-  "en": "That's not an answer.",
-  "zh": "这不算回答。"
+  "es": "¿Y qué le contestó?",
+  "en": "And what did she answer?",
+  "zh": "她怎么回答？"
  },
- "story.s3.pre.5": {
-  "es": "Ni un pájaro. Ni el viento.",
-  "en": "Not a bird. Not a breath of wind.",
-  "zh": "没有鸟叫。也没有风。"
- },
- "story.s3.pre.7": {
+ "story.s3.pre.8": {
   "es": "Tres sombras caen de los árboles.",
   "en": "Three shadows drop from the trees.",
   "zh": "三道黑影从树上落下。"
  },
- "story.s3.pre.8": {
-  "es": "Es el discípulo del Abad. ¡Rodéenlo!",
-  "en": "It's the Abbot's disciple. Surround him!",
-  "zh": "是方丈的弟子。围住他！"
- },
  "story.s3.post.2": {
   "es": "¿Por qué me esperaban a mí?",
   "en": "Why were you waiting for me?",
-  "zh": "你们为什么在等我？"
+  "zh": "你们为什么要等我？"
  },
  "story.s3.post.3": {
   "es": "…",
@@ -5380,19 +5360,14 @@
   "zh": "……"
  },
  "story.s3.post.4": {
-  "es": "¡Preguntale al viejo qué guarda abajo!",
-  "en": "Ask the old man what he keeps down below!",
-  "zh": "去问那老头，他在下面藏了什么！"
- },
- "story.s3.post.6": {
-  "es": "¿Abajo?",
-  "en": "Down below?",
-  "zh": "下面？"
+  "es": "¿Qué es eso del chico de la manta?",
+  "en": "What's this about the blanket boy?",
+  "zh": "“裹毯子的孩子”是什么意思？"
  },
  "story.s5.pre.5": {
-  "es": "¡Ren! ¡Concentrate!",
-  "en": "Ren! Focus!",
-  "zh": "仁！专心！"
+  "es": "…Tu hermana.",
+  "en": "…Your sister.",
+  "zh": "……你妹妹。"
  },
  "story.s5.post.2": {
   "es": "¡Corren como conejos!",
@@ -5405,74 +5380,64 @@
   "zh": "……"
  },
  "story.s5.post.4": {
-  "es": "«Venimos a advertir.»",
-  "en": "\"We came to warn you.\"",
-  "zh": "“我们是来警告的。”"
+  "es": "Peleaste bien. No se lo cuentes a nadie.",
+  "en": "You fought well. Don't tell anyone.",
+  "zh": "你打得不错。别跟别人说。"
  },
  "story.s5.post.6": {
-  "es": "¿A advertir de qué?",
-  "en": "Warn us about what?",
-  "zh": "警告什么？"
+  "es": "Que te lo dije yo.",
+  "en": "That I said so.",
+  "zh": "说是我夸你的。"
  },
  "story.s6.pre.4": {
-  "es": "El discípulo del Abad.",
-  "en": "The Abbot's disciple.",
-  "zh": "方丈的弟子。"
+  "es": "El chico de la manta.",
+  "en": "The blanket boy.",
+  "zh": "裹毯子的孩子。"
  },
  "story.s6.pre.5": {
-  "es": "¿Quién sos?",
-  "en": "Who are you?",
-  "zh": "你是谁？"
+  "es": "¿Por qué todos me llaman así? ¿Quién sos?",
+  "en": "Why does everyone call me that? Who are you?",
+  "zh": "为什么大家都这么叫我？你是谁？"
  },
  "story.s6.pre.6": {
-  "es": "Me contaron que rodeás bien.",
-  "en": "They tell me you surround well.",
-  "zh": "听说你很会包围。"
+  "es": "Me contaron que rodeás bien. Que le llevaste arroz a un preso.",
+  "en": "They told me you surround well. That you brought rice to a prisoner.",
+  "zh": "听说你很会包围。还给囚犯送了米饭。"
  },
  "story.s6.pre.7": {
-  "es": "Soy alguien que se va a llevar lo que es nuestro. Hoy, o la próxima.",
-  "en": "Someone who's going to take back what's ours. Today, or next time.",
-  "zh": "一个要拿回我们东西的人。今天，或者下一次。"
+  "es": "Un monje que le da de comer a un ninja… Eso no se ve seguido.",
+  "en": "A monk who feeds a ninja… You don't see that often.",
+  "zh": "一个给忍者送饭的和尚……可不常见。"
  },
  "story.s6.post.8": {
-  "es": "Nadie habló con nadie, Ren.",
-  "en": "No one spoke with anyone, Ren.",
-  "zh": "谁也没跟谁说过话，仁。"
+  "es": "…",
+  "en": "…",
+  "zh": "……"
  },
  "story.s6.post.9": {
-  "es": "Pero…",
-  "en": "But…",
-  "zh": "可是……"
+  "es": "Habló de algo que guardamos abajo. Y me llaman «el chico de la manta».",
+  "en": "He spoke of something we keep down below. And they call me \"the blanket boy.\"",
+  "zh": "他说我们在下面藏着什么东西。而且他们叫我“裹毯子的孩子”。"
  },
- "story.s6.post.10": {
+ "story.s6.post.12": {
+  "es": "Kuro. El jonin del humo.",
+  "en": "Kuro. The smoke jonin.",
+  "zh": "黑。烟之上忍。"
+ },
+ "story.s6.post.14": {
+  "es": "Pero yo llegué en una manta. Usted me lo contó. ¿Qué tiene que ver el clan con…?",
+  "en": "But I came here in a blanket. You told me so yourself. What does the clan have to do with…?",
+  "zh": "可我是裹着毯子来的。是您亲口告诉我的。忍者跟这有什么……"
+ },
+ "story.s6.post.15": {
   "es": "**Olvidalo.** Es una orden.",
   "en": "**Forget it.** That is an order.",
   "zh": "**忘了它。**这是命令。"
  },
- "story.s6.post.12": {
-  "es": "El suelo tiembla, apenas.",
-  "en": "The floor trembles, ever so slightly.",
-  "zh": "地面微微颤动。"
- },
- "story.s6.post.14": {
-  "es": "Del techo cae un polvo gris.",
-  "en": "A grey dust falls from the ceiling.",
-  "zh": "屋顶落下一层灰色的尘。"
- },
- "story.s6.post.15": {
-  "es": "¿Maestro…?",
-  "en": "Master…?",
-  "zh": "师父……？"
- },
  "story.s6.post.16": {
-  "es": "No es polvo. Es **ceniza**.",
-  "en": "It isn't dust. It's **ash**.",
-  "zh": "那不是尘土。是**灰烬**。"
- },
- "story.s6.post.17": {
-  "es": "Ya empezó.",
-  "en": "It has begun.",
-  "zh": "已经开始了。"
+  "es": "Nunca me había gritado.",
+  "en": "He's never shouted at me before.",
+  "zh": "他从来没对我吼过。"
  },
  "story.n1.pre.6": {
   "es": "…",
@@ -6743,5 +6708,295 @@
   "es": "Hasta la próxima grieta.",
   "en": "Until the next crack.",
   "zh": "直到下一道裂缝。"
+ },
+ "story.s1.pre.10": {
+  "es": "Alguien entró al Templo. Andá a ver quién se atreve.",
+  "en": "Someone has entered the Temple. Go see who dares.",
+  "zh": "有人闯进了寺院。去看看是谁这么大胆。"
+ },
+ "story.s1.pre.12": {
+  "es": "Si es uno, alcanza con vos.",
+  "en": "If it's one, you're enough.",
+  "zh": "若只有一个，你足够了。"
+ },
+ "story.s1.pre.14": {
+  "es": "Si son más… gritá.",
+  "en": "If there are more… shout.",
+  "zh": "若不止……就喊。"
+ },
+ "story.s1.pre.15": {
+  "es": "Sí, maestro.",
+  "en": "Yes, Master.",
+  "zh": "是，师父。"
+ },
+ "story.s1.pre.17": {
+  "es": "Ren llegó al Templo envuelto en una manta, una noche de lluvia gris. Fue el Abad quien lo levantó del escalón.",
+  "en": "Ren came to the Temple wrapped in a blanket, on a night of grey rain. It was the Abbot who lifted him from the step.",
+  "zh": "仁是裹着一条毯子来到寺里的，那是一个下着灰雨的夜晚。是方丈亲手把他从台阶上抱起来的。"
+ },
+ "story.s1.pre.18": {
+  "es": "Dieciséis años me cuidó. Esta noche me toca a mí.",
+  "en": "Sixteen years he looked after me. Tonight it's my turn.",
+  "zh": "他照顾了我十六年。今晚轮到我了。"
+ },
+ "story.s1.post.8": {
+  "es": "Como un Líder rodeado en el tablero.",
+  "en": "Like a Leader surrounded on the board.",
+  "zh": "就像棋盘上被围住的首领。"
+ },
+ "story.s1.post.10": {
+  "es": "¿A qué vino?",
+  "en": "Why did he come?",
+  "zh": "他到底来做什么？"
+ },
+ "story.s2.pre.8": {
+  "es": "Esta vez el Abad me felicitó a mí.",
+  "en": "This time the Abbot congratulated me.",
+  "zh": "这次方丈夸的是我。"
+ },
+ "story.s2.pre.11": {
+  "es": "Basta de charla.",
+  "en": "Enough chatter.",
+  "zh": "别聊了。"
+ },
+ "story.s2.pre.12": {
+  "es": "Antes de interrogarlo, el Abad quiere ver cómo pelea Ren contra él.",
+  "en": "Before questioning him, the Abbot wants to see Ren fight him.",
+  "zh": "审问之前，方丈想看仁和他交手。"
+ },
+ "story.s2.pre.13": {
+  "es": "¿Ren? ¡Lo atrapé yo!",
+  "en": "Ren? I caught him!",
+  "zh": "仁？人是我抓的！"
+ },
+ "story.s2.pre.14": {
+  "es": "Por eso hoy descansás vos.",
+  "en": "That's why you rest today.",
+  "zh": "所以今天你休息。"
+ },
+ "story.s2.pre.16": {
+  "es": "Tiene las manos atadas: no podrá usar el Kawarimi.",
+  "en": "His hands are tied: he can't use Kawarimi.",
+  "zh": "他双手被绑：用不了替身术。"
+ },
+ "story.s2.pre.17": {
+  "es": "Atado y todo, te gano, monjecito.",
+  "en": "Tied up or not, I'll beat you, little monk.",
+  "zh": "绑着手也照样赢你，小和尚。"
+ },
+ "story.s2.post.8": {
+  "es": "«Porque así nos enseñaron.»",
+  "en": "\"Because that is how we were taught.\"",
+  "zh": "“因为我们就是这样被教的。”"
+ },
+ "story.s2.post.9": {
+  "es": "Eso no es una respuesta.",
+  "en": "That's not an answer.",
+  "zh": "这不算回答。"
+ },
+ "story.s2.post.10": {
+  "es": "No. No lo es.",
+  "en": "No. It isn't.",
+  "zh": "对。不算。"
+ },
+ "story.s2.post.12": {
+  "es": "Nunca la había visto bajar la vista.",
+  "en": "I'd never seen her look away.",
+  "zh": "我从没见过她垂下眼睛。"
+ },
+ "story.s2.post.13": {
+  "es": "En el clan también rodeamos, ¿sabés?",
+  "en": "In the clan we surround too, you know?",
+  "zh": "你知道吗？我们忍者也讲究包围。"
+ },
+ "story.s2.post.14": {
+  "es": "¿Ustedes?",
+  "en": "You do?",
+  "zh": "你们也是？"
+ },
+ "story.s2.post.15": {
+  "es": "Mi abuela decía que no es una pelea.",
+  "en": "My grandmother said it isn't a fight.",
+  "zh": "我奶奶说，那不是打斗。"
+ },
+ "story.s2.post.16": {
+  "es": "Que es una oración.",
+  "en": "She said it's a prayer.",
+  "zh": "那是一种祈祷。"
+ },
+ "story.s3.pre.4": {
+  "es": "Qué silencio…",
+  "en": "So quiet…",
+  "zh": "好安静……"
+ },
+ "story.s3.pre.6": {
+  "es": "Ni un pájaro. Ni el viento.",
+  "en": "Not a bird. Not the wind.",
+  "zh": "没有鸟叫。没有风声。"
+ },
+ "story.s3.pre.9": {
+  "es": "Es el discípulo del Abad.",
+  "en": "It's the Abbot's disciple.",
+  "zh": "是方丈的弟子。"
+ },
+ "story.s3.pre.10": {
+  "es": "¿Me conocen?",
+  "en": "You know me?",
+  "zh": "你们认识我？"
+ },
+ "story.s3.pre.11": {
+  "es": "Todo el clan conoce al chico de la manta.",
+  "en": "The whole clan knows the blanket boy.",
+  "zh": "全族都认识那个裹毯子的孩子。"
+ },
+ "story.s3.pre.12": {
+  "es": "¡Rodéenlo!",
+  "en": "Surround him!",
+  "zh": "围住他！"
+ },
+ "story.s3.post.5": {
+  "es": "¡Preguntale al viejo qué guarda abajo!",
+  "en": "Ask the old man what he keeps down below!",
+  "zh": "去问那个老头，他在下面藏了什么！"
+ },
+ "story.s3.post.7": {
+  "es": "¿Abajo?",
+  "en": "Down below?",
+  "zh": "下面？"
+ },
+ "story.s3.post.9": {
+  "es": "El canasto quedó volcado. El arroz, desparramado en el camino.",
+  "en": "The basket lies overturned. The rice is scattered across the road.",
+  "zh": "篮子翻倒了。米撒了一路。"
+ },
+ "story.s3.post.10": {
+  "es": "Lo junto igual. En el Templo hay un preso que no come desde ayer.",
+  "en": "I'll gather it anyway. There's a prisoner at the Temple who hasn't eaten since yesterday.",
+  "zh": "还是捡起来吧。寺里有个囚犯从昨天起就没吃东西。"
+ },
+ "story.s4.pre.8": {
+  "es": "Gracias.",
+  "en": "Thank you.",
+  "zh": "谢谢。"
+ },
+ "story.s4.pre.10": {
+  "es": "No te voy a decir nada, monje.",
+  "en": "I won't tell you anything, monk.",
+  "zh": "我什么也不会告诉你，和尚。"
+ },
+ "story.s4.pre.12": {
+  "es": "Mi hermano menor es igual que vos. Pregunta y pregunta.",
+  "en": "My little brother is just like you. Questions and more questions.",
+  "zh": "我弟弟跟你一样。问个不停。"
+ },
+ "story.s4.pre.14": {
+  "es": "Un golpe seco en el techo. Después, otro.",
+  "en": "A dull thud on the roof. Then another.",
+  "zh": "屋顶上一声闷响。接着又一声。"
+ },
+ "story.s4.pre.16": {
+  "es": "¡Ren! ¡Vinieron a sacarlo!",
+  "en": "Ren! They've come to break him out!",
+  "zh": "仁！他们来救他了！"
+ },
+ "story.s4.post.18": {
+  "es": "Comé vos el arroz, chico de la manta. Lo vas a necesitar.",
+  "en": "Eat the rice yourself, blanket boy. You'll need it.",
+  "zh": "米饭你自己吃吧，裹毯子的孩子。你会用得上。"
+ },
+ "story.s4.post.20": {
+  "es": "La zorra y el explorador desaparecen en la niebla.",
+  "en": "The fox and the scout vanish into the mist.",
+  "zh": "白狐和斥候消失在雾中。"
+ },
+ "story.s4.post.22": {
+  "es": "La celda sigue cerrada. Con llave. Desde afuera.",
+  "en": "The cell is still shut. Locked. From the outside.",
+  "zh": "牢门依旧紧闭。上了锁。从外面锁的。"
+ },
+ "story.s5.pre.4": {
+  "es": "Ren, si cruzan el muro norte, bajan derecho al pueblo.",
+  "en": "Ren, if they cross the north wall, they go straight down to the village.",
+  "zh": "仁，他们要是翻过北墙，就直接下到村子里了。"
+ },
+ "story.s5.pre.7": {
+  "es": "Por eso no pasa ninguno. Ninguno.",
+  "en": "So not one gets through. Not one.",
+  "zh": "所以一个也不能放过去。一个也不能。"
+ },
+ "story.s5.pre.9": {
+  "es": "¡Concentrate, Ren! ¡Ahora!",
+  "en": "Focus, Ren! Now!",
+  "zh": "专心点，仁！快！"
+ },
+ "story.s5.post.5": {
+  "es": "¿Que peleé bien?",
+  "en": "That I fought well?",
+  "zh": "说我打得不错？"
+ },
+ "story.s5.post.8": {
+  "es": "«Venimos a advertir.» «El chico de la manta.» «Lo que guarda abajo.»",
+  "en": "\"We came to warn you.\" \"The blanket boy.\" \"What he keeps down below.\"",
+  "zh": "“我们是来警告的。”“裹毯子的孩子。”“他在下面藏的东西。”"
+ },
+ "story.s5.post.10": {
+  "es": "Mañana le pregunto al Abad. Aunque se enoje.",
+  "en": "Tomorrow I'll ask the Abbot. Even if he gets angry.",
+  "zh": "明天我去问方丈。就算他会生气。"
+ },
+ "story.s6.pre.8": {
+  "es": "¿Qué quieren del Templo?",
+  "en": "What do you want from the Temple?",
+  "zh": "你们想从寺里得到什么？"
+ },
+ "story.s6.pre.9": {
+  "es": "Lo que es nuestro. Hoy, o la próxima.",
+  "en": "What is ours. Today, or next time.",
+  "zh": "属于我们的东西。今天，或者下一次。"
+ },
+ "story.s6.post.2": {
+  "es": "¡Entonces explicame!",
+  "en": "Then explain it to me!",
+  "zh": "那你告诉我！"
+ },
+ "story.s6.post.11": {
+  "es": "¿Quién te dijo eso?",
+  "en": "Who told you that?",
+  "zh": "谁跟你说的？"
+ },
+ "story.s6.post.13": {
+  "es": "Nadie habló con nadie, Ren.",
+  "en": "No one spoke with anyone, Ren.",
+  "zh": "谁也没跟谁说过话，仁。"
+ },
+ "story.s6.post.18": {
+  "es": "El suelo tiembla, apenas.",
+  "en": "The floor trembles, ever so slightly.",
+  "zh": "地面微微颤动。"
+ },
+ "story.s6.post.20": {
+  "es": "Del techo cae un polvo gris.",
+  "en": "A grey dust falls from the ceiling.",
+  "zh": "屋顶落下一层灰色的尘。"
+ },
+ "story.s6.post.21": {
+  "es": "¿Maestro…?",
+  "en": "Master…?",
+  "zh": "师父……？"
+ },
+ "story.s6.post.22": {
+  "es": "No es polvo. Es **ceniza**.",
+  "en": "It isn't dust. It's **ash**.",
+  "zh": "那不是尘土。是**灰烬**。"
+ },
+ "story.s6.post.23": {
+  "es": "Ya empezó.",
+  "en": "It has begun.",
+  "zh": "已经开始了。"
+ },
+ "story.s6.post.24": {
+  "es": "Igual que la noche en que lo encontré.",
+  "en": "Just like the night I found him.",
+  "zh": "就像我找到他的那个夜晚。"
  }
 }
