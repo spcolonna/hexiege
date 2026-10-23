@@ -13,6 +13,7 @@ import '../i18n/i18n.dart';
 import '../match/ladder.dart';
 import '../match/matchmaker.dart';
 import '../match/rivals.dart';
+import '../match/saved_game.dart';
 import '../solo/catalog.dart';
 import '../solo/daily.dart';
 import '../solo/solver.dart';
@@ -88,6 +89,9 @@ class GameScreen extends StatefulWidget {
   /// Rival casual elegido en la partida local (null = el Sensei o un amigo).
   final Rival? rival;
 
+  /// Partida casual guardada desde la que se retoma.
+  final GameState? resume;
+
   const GameScreen({
     super.key,
     required this.p0,
@@ -96,6 +100,7 @@ class GameScreen extends StatefulWidget {
     this.aiLevel = AiLevel.normal,
     this.faceToFace = false,
     this.rival,
+    this.resume,
   }) : lesson = null,
        match = null,
        stage = null,
@@ -112,7 +117,8 @@ class GameScreen extends StatefulWidget {
       match = null,
       faceToFace = false,
       initiation = false,
-      rival = null;
+      rival = null,
+      resume = null;
 
   /// Tutorial: vos (Shaolin) contra el Sensei, con escenarios armados.
   const GameScreen.tutorial({super.key, this.lesson = 0})
@@ -125,7 +131,8 @@ class GameScreen extends StatefulWidget {
       nextStage = null,
       faceToFace = false,
       initiation = false,
-      rival = null;
+      rival = null,
+      resume = null;
 
   /// Iniciación: elegiste [faction] y el Sensei juega con la otra, sin
   /// habilidad y a nivel novato, mientras te aconseja.
@@ -140,7 +147,8 @@ class GameScreen extends StatefulWidget {
       nextStage = null,
       faceToFace = false,
       initiation = true,
-      rival = null;
+      rival = null,
+      resume = null;
 
   /// Partida por puntos contra el rival del emparejamiento. Quien empieza
   /// juega con las fichas claras (jugador 0).
@@ -154,7 +162,8 @@ class GameScreen extends StatefulWidget {
       nextStage = null,
       faceToFace = false,
       initiation = false,
-      rival = null;
+      rival = null,
+      resume = null;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -243,7 +252,8 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     _live++;
     MusicBoard.instance.play(_musicTrack);
     _lessonIdx = widget.lesson;
-    _game = _lesson?.build() ?? _stage?.build() ?? GameState(widget.p0, widget.p1);
+    _game = _lesson?.build() ?? _stage?.build() ?? widget.resume?.copy() ?? GameState(widget.p0, widget.p1);
+    _lifecycle = AppLifecycleListener(onHide: _autosave);
     _stageStart = _game.copy();
     // Las etapas arrancan con su presentación; la escena se arma al cerrarla.
     _intro = _staged;
@@ -346,8 +356,29 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   /// antes de cerrar la vieja, y la música del menú no debe colarse.
   static int _live = 0;
 
+  /// Partida casual (local o contra un rival): se guarda para retomarla.
+  bool get _casual => !_staged && !_tutorial && !_init && !_ranked;
+  late final AppLifecycleListener _lifecycle;
+
+  void _autosave() {
+    if (!_casual) return;
+    if (_game.isOver) {
+      SavedGame.clear();
+    } else {
+      SavedGame(
+        _game,
+        aiPlayer: widget.aiPlayer,
+        aiLevel: widget.aiLevel,
+        faceToFace: widget.faceToFace,
+        rival: widget.rival,
+      ).save();
+    }
+  }
+
   @override
   void dispose() {
+    _autosave();
+    _lifecycle.dispose();
     if (--_live == 0) MusicBoard.instance.play(MusicTrack.menu);
     for (final t in _emoteTimers) {
       t?.cancel();
@@ -547,6 +578,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     if (!action(_game)) return 0;
     _history.add(before);
     _logLens.add(_log.length);
+    _autosave();
     final events = _game.lastEvents;
     for (final e in events) {
       _log.add((round: before.round, e: e));

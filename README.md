@@ -19,6 +19,23 @@ dart run tool/puzzle_gen.dart 1400 15                  # busca problemas "cerco 
 dart run tool/stages.dart normal 12 c01 s6             # ¿se puede ganar? un jugador IA contra desafíos o batallas
 ```
 
+## Publicar
+- **iOS:** `tool/build_ipa.sh` (limpia y verifica que el IPA no lleve frameworks de simulador).
+- **Android:** `tool/build_aab.sh` (App Bundle firmado y con el Dart ofuscado; los símbolos quedan en `build/symbols/android`).
+
+### Clave de Android (una sola vez)
+Google Play pide que el bundle venga firmado con tu clave de subida. Sin `android/key.properties` el release sale con la clave debug y Play lo rechaza.
+1. Crear la clave (pide contraseñas y datos; guardá el `.jks` y las contraseñas fuera del repo, por ejemplo en tu gestor de contraseñas):
+   `keytool -genkey -v -keystore ~/keys/hexiege-upload.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload`
+2. Crear `android/key.properties` (está en `.gitignore`):
+   ```
+   storePassword=…
+   keyPassword=…
+   keyAlias=upload
+   storeFile=/Users/<vos>/keys/hexiege-upload.jks
+   ```
+3. `tool/build_aab.sh` y subir el `.aab` a Play Console. Al crear la app, dejar activada la firma de apps de Google Play: Google guarda la clave final y la tuya queda solo para subir (si se pierde, se puede resetear desde Play Console).
+
 ## IA (`lib/engine/ai.dart`)
 - Turnos candidatos = acción principal, o habilidad (las 2–5 mejores) + acción principal.
 - Cinco niveles: **Aprendiz** y **Fácil** (greedy con ruido), **Normal** (minimax de 2 capas, el rival sin habilidades), **Difícil** y **Maestro** (alfa-beta por turnos completos con profundización iterativa, haz acotado y tiempo límite de 1,2 s / 2,5 s; el rival también usa habilidades).

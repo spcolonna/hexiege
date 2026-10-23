@@ -12,3 +12,6 @@ const kSimulatedPurchase = false;
 
 /// "Reiniciar historia" en el menú: solo para probar (debug o compra simulada).
 const kStoryResetButton = kSimulatedPurchase || kDebugMode;
+
+/// Política de privacidad publicada (la misma que figura en las tiendas).
+const kPrivacyUrl = 'https://spcolonna.github.io/hexiege/privacidad.html';

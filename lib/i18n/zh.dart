@@ -1115,4 +1115,9 @@ const zh = <String, String>{
   'rival.mei.quote': '我不会让你赢。这就是我的礼物。',
   'rival.kuro': '上忍 黑',
   'rival.kuro.quote': '好的忍者永远不在你找的地方。',
+  'menu.resumeTitle': '未完成的对局',
+  'menu.resumeBody': '有一局停在第 {round} 回合，要继续吗？',
+  'menu.resume': '继续',
+  'menu.newGame': '新对局',
+  'settings.privacy': '隐私政策',
 };

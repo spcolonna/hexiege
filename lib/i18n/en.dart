@@ -1115,4 +1115,9 @@ const en = <String, String>{
   'rival.mei.quote': 'I won\'t let you win. That is my gift.',
   'rival.kuro': 'Kuro, the jōnin',
   'rival.kuro.quote': 'A good shinobi is never where you look for them.',
+  'menu.resumeTitle': 'Unfinished game',
+  'menu.resumeBody': 'You left a game unfinished in round {round}. Pick it up?',
+  'menu.resume': 'Continue',
+  'menu.newGame': 'New game',
+  'settings.privacy': 'Privacy policy',
 };

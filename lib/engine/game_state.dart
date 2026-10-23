@@ -81,6 +81,68 @@ class GameState {
 
   GameState copy() => GameState._copy(this);
 
+  /// Foto de la partida para retomarla (solo con las reglas estándar).
+  Map<String, Object?> toJson() => {
+    'factions': [for (final f in factions) f.name],
+    'board': [
+      for (final h in board.occupied)
+        {
+          'q': h.q,
+          'r': h.r,
+          'stack': [for (final p in board.stackAt(h)) [p.id, p.type.name, p.owner]],
+        },
+    ],
+    'hands': [
+      for (final hand in hands) {for (final e in hand.entries) e.key.name: e.value},
+    ],
+    'current': current,
+    'ply': ply,
+    'turnsTaken': turnsTaken,
+    'cooldowns': cooldowns,
+    'paralyzedUntil': {for (final e in paralyzedUntil.entries) '${e.key}': e.value},
+    'seals': [for (final e in seals.entries) [e.key.q, e.key.r, e.value]],
+    'shogunSwapUsed': shogunSwapUsed,
+    'abilityUses': abilityUses,
+    'lastActionWasAbility': lastActionWasAbility,
+    'nextId': _nextId,
+  };
+
+  /// Inversa de [toJson]; lanza si la foto no es válida.
+  factory GameState.fromJson(Map<String, Object?> j) {
+    List<Object?> list(String k) => j[k]! as List<Object?>;
+    final f = [for (final n in list('factions')) Faction.values.byName(n! as String)];
+    final g = GameState(f[0], f[1]);
+    for (final c in list('board').cast<Map<String, Object?>>()) {
+      final h = Hex(c['q']! as int, c['r']! as int);
+      for (final p in (c['stack']! as List<Object?>).cast<List<Object?>>()) {
+        g.board.push(h, Piece(p[0]! as int, PieceType.values.byName(p[1]! as String), p[2]! as int));
+      }
+    }
+    final hands = list('hands').cast<Map<String, Object?>>();
+    for (var i = 0; i < 2; i++) {
+      g.hands[i]
+        ..clear()
+        ..addAll({for (final e in hands[i].entries) PieceType.values.byName(e.key): e.value! as int});
+    }
+    void ints(List<int> to, String k) => to.setAll(0, list(k).cast<int>());
+    ints(g.turnsTaken, 'turnsTaken');
+    ints(g.cooldowns, 'cooldowns');
+    ints(g.abilityUses, 'abilityUses');
+    g.shogunSwapUsed.setAll(0, list('shogunSwapUsed').cast<bool>());
+    for (final e in (j['paralyzedUntil']! as Map<String, Object?>).entries) {
+      g.paralyzedUntil[int.parse(e.key)] = e.value! as int;
+    }
+    for (final s in list('seals').cast<List<Object?>>()) {
+      g.seals[Hex(s[0]! as int, s[1]! as int)] = s[2]! as int;
+    }
+    g
+      ..current = j['current']! as int
+      ..ply = j['ply']! as int
+      ..lastActionWasAbility = j['lastActionWasAbility']! as bool
+      .._nextId = j['nextId']! as int;
+    return g;
+  }
+
   /// Saca una ficha de la mano de [owner] y la pone en [at] sin validar reglas.
   /// Solo para armar escenarios (tutorial, tests).
   Piece setupPut(int owner, PieceType type, Hex at) {

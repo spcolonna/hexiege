@@ -45,6 +45,7 @@ class AppSettings extends ChangeNotifier {
   Set<String> _seenScenes = {};
   Set<String> _rivalsBeaten = {};
   String _lastRival = 'ren';
+  String? _savedGame;
   Set<String> _seenPieces = {};
   Set<String> _giftsAnnounced = {};
   Set<String> _giftsOpened = {};
@@ -188,6 +189,14 @@ class AppSettings extends ChangeNotifier {
   }
 
   /// Último rival elegido en la partida local (para volver a mostrarlo primero).
+  /// Partida casual a medias (JSON de `SavedGame`), para retomarla.
+  String? get savedGame => _savedGame;
+  set savedGame(String? v) {
+    if (_savedGame == v) return;
+    _savedGame = v;
+    v == null ? _prefs?.remove('savedGame') : _prefs?.setString('savedGame', v);
+  }
+
   String get lastRival => _lastRival;
   set lastRival(String id) {
     if (_lastRival == id) return;
@@ -298,6 +307,7 @@ class AppSettings extends ChangeNotifier {
     _seenScenes = (p.getStringList('seenScenes') ?? const []).toSet();
     _rivalsBeaten = (p.getStringList('rivalsBeaten') ?? const []).toSet();
     _lastRival = p.getString('lastRival') ?? 'ren';
+    _savedGame = p.getString('savedGame');
     _seenPieces = (p.getStringList('seenPieces') ?? const []).toSet();
     _giftsAnnounced = (p.getStringList('giftsAnnounced') ?? const []).toSet();
     _giftsOpened = (p.getStringList('giftsOpened') ?? const []).toSet();

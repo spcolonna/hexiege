@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import '../theme/settings.dart';
 
@@ -87,10 +87,18 @@ class MusicBoard {
   double _level = 0;
   bool _listening = false;
   bool _enabled = false;
+  AppLifecycleListener? _lifecycle;
 
   /// La app la habilita al arrancar (en los tests queda muda y sin timers).
+  /// En segundo plano se pausa y al volver sigue donde estaba.
   void enable() {
     _enabled = true;
+    _lifecycle ??= AppLifecycleListener(
+      onHide: () => _player?.pause().ignore(),
+      onShow: () {
+        if (_playing != null) _player?.resume().ignore();
+      },
+    );
     if (_want != null) play(_want!);
   }
 

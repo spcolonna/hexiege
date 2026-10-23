@@ -7,9 +7,13 @@ import 'package:hexiege/ui/codex_screen.dart';
 import 'package:hexiege/ui/gallery_screen.dart';
 import 'package:hexiege/config.dart';
 import 'package:hexiege/engine/ai.dart';
+import 'package:hexiege/engine/game_state.dart';
+import 'package:hexiege/engine/hex.dart';
 import 'package:hexiege/engine/pieces.dart';
 import 'package:hexiege/match/ladder.dart';
 import 'package:hexiege/match/matchmaker.dart';
+import 'package:hexiege/match/rivals.dart';
+import 'package:hexiege/match/saved_game.dart';
 import 'package:hexiege/solo/catalog.dart';
 import 'package:hexiege/story/story_screen.dart';
 import 'package:hexiege/tutorial/lessons.dart';
@@ -477,11 +481,36 @@ void main() {
     expect(SoloScreen.nextUp((_) => true), isNull);
   });
 
+  testWidgets('local: una partida a medias se ofrece para retomarla', (tester) async {
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    final g = GameState(Faction.shaolin, Faction.ninja)..place(PieceType.serpent, Hex.origin);
+    SavedGame(g, aiPlayer: 1, aiLevel: AiLevel.easy, rival: Rival.byId('fox')).save();
+    await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.light));
+    await tester.pump(const Duration(seconds: 2));
+    await tester.ensureVisible(find.text('Local'));
+    await tester.pump(const Duration(seconds: 1));
+    await tester.tap(find.text('Local'));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    expect(find.text('Partida a medias'), findsOneWidget);
+    await tester.tap(find.text('Continuar'));
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    expect(find.byType(GameScreen), findsOneWidget);
+    expect(find.text('La Zorra Blanca'), findsWidgets);
+    AppSettings.instance.savedGame = null;
+  });
+
   testWidgets('local contra la IA: elegir un rival y jugar con su nombre', (tester) async {
     tester.view.physicalSize = const Size(1170, 2532);
     tester.view.devicePixelRatio = 3;
     addTearDown(tester.view.reset);
     AppSettings.instance.lastRival = 'ren';
+    AppSettings.instance.savedGame = null; // sin partida a medias de otra prueba
     await tester.pumpWidget(_app(const MenuScreen(), ThemeMode.light));
     await tester.pump(const Duration(seconds: 2));
     await tester.ensureVisible(find.text('Local'));

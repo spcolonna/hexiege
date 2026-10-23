@@ -5568,5 +5568,30 @@
   "es": "Un buen shinobi nunca está donde lo buscás.",
   "en": "A good shinobi is never where you look for them.",
   "zh": "好的忍者永远不在你找的地方。"
+ },
+ "menu.resumeTitle": {
+  "es": "Partida a medias",
+  "en": "Unfinished game",
+  "zh": "未完成的对局"
+ },
+ "menu.resumeBody": {
+  "es": "Quedó una partida sin terminar en la ronda {round}. ¿La seguís?",
+  "en": "You left a game unfinished in round {round}. Pick it up?",
+  "zh": "有一局停在第 {round} 回合，要继续吗？"
+ },
+ "menu.resume": {
+  "es": "Continuar",
+  "en": "Continue",
+  "zh": "继续"
+ },
+ "menu.newGame": {
+  "es": "Nueva partida",
+  "en": "New game",
+  "zh": "新对局"
+ },
+ "settings.privacy": {
+  "es": "Política de privacidad",
+  "en": "Privacy policy",
+  "zh": "隐私政策"
  }
 }

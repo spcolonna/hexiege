@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../i18n/i18n.dart';
 import '../codex/avatars.dart';
@@ -8,6 +10,7 @@ import '../engine/ai.dart';
 import '../engine/pieces.dart';
 import '../engine/rules.dart';
 import '../match/rivals.dart';
+import '../match/saved_game.dart';
 import '../solo/catalog.dart';
 import '../store/purchases.dart';
 import 'codex_screen.dart';
@@ -155,7 +158,44 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
   }
 
   /// Partida local: contra un amigo en el mismo dispositivo o contra un rival IA.
-  void _passAndPlay() {
+  /// Si quedó una a medias, ofrece retomarla antes.
+  Future<void> _passAndPlay() async {
+    final saved = SavedGame.load();
+    if (saved != null) {
+      final resume = await showSkinDialog<bool>(
+        context,
+        builder: (ctx) => SkinDialog(
+          glyph: '続',
+          title: tr('menu.resumeTitle'),
+          message: tr('menu.resumeBody', {'round': '${saved.state.round}'}),
+          actions: [
+            SkinAction(tr('menu.resume'), () => Navigator.pop(ctx, true), primary: true),
+            SkinAction(tr('menu.newGame'), () => Navigator.pop(ctx, false)),
+          ],
+        ),
+      );
+      if (!mounted || resume == null) return;
+      if (resume) {
+        final g = saved.state;
+        Navigator.push(
+          context,
+          _fade(
+            GameScreen(
+              p0: g.factions[0],
+              p1: g.factions[1],
+              aiPlayer: saved.aiPlayer,
+              aiLevel: saved.aiLevel,
+              faceToFace: saved.faceToFace,
+              rival: saved.rival,
+              resume: g,
+            ),
+          ),
+        );
+        return;
+      }
+      SavedGame.clear();
+    }
+    if (!mounted) return;
     showSkinSheet<void>(
       context,
       title: tr('menu.localTitle'),
@@ -273,6 +313,12 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                 const SizedBox(height: 8),
                 SkinButton(label: tr('settings.resetStory'), glyph: '始', onPressed: _confirmResetStory),
               ],
+              const SizedBox(height: 8),
+              SkinButton(
+                label: tr('settings.privacy'),
+                glyph: '私',
+                onPressed: () => launchUrl(Uri.parse(kPrivacyUrl), mode: LaunchMode.externalApplication),
+              ),
               const SizedBox(height: 22),
               const _StudioCredit(),
             ],
@@ -691,9 +737,21 @@ class _StudioCredit extends StatelessWidget {
             filterQuality: FilterQuality.medium,
           ),
           const SizedBox(width: 10),
-          Text(
-            tr('settings.madeBy'),
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0.6, color: t.textMuted),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                tr('settings.madeBy'),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0.6, color: t.textMuted),
+              ),
+              FutureBuilder(
+                future: PackageInfo.fromPlatform(),
+                builder: (context, snap) => Text(
+                  snap.hasData ? 'v${snap.data!.version} (${snap.data!.buildNumber})' : '',
+                  style: TextStyle(fontSize: 11, color: t.textMuted),
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -1115,4 +1115,9 @@ const es = <String, String>{
   'rival.mei.quote': 'No te voy a dejar ganar. Ese es mi regalo.',
   'rival.kuro': 'Kuro, el jōnin',
   'rival.kuro.quote': 'Un buen shinobi nunca está donde lo buscás.',
+  'menu.resumeTitle': 'Partida a medias',
+  'menu.resumeBody': 'Quedó una partida sin terminar en la ronda {round}. ¿La seguís?',
+  'menu.resume': 'Continuar',
+  'menu.newGame': 'Nueva partida',
+  'settings.privacy': 'Política de privacidad',
 };
