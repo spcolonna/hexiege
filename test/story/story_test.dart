@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hexiege/codex/avatars.dart';
 import 'package:hexiege/engine/pieces.dart';
 import 'package:hexiege/i18n/i18n.dart';
 import 'package:hexiege/solo/campaign.dart';
@@ -122,7 +123,8 @@ void main() {
       for (final st in c.stages) {
         final who = Scene.opponentOf(st.id);
         expect(who, isNotNull, reason: st.id);
-        expect(who!.avatar, isNotEmpty, reason: st.id);
+        // Un retrato pintado del catálogo, nunca un carácter suelto.
+        expect(Avatars.byId(who!.avatar), isNotNull, reason: '${st.id}: ${who.avatar}');
       }
     }
   });

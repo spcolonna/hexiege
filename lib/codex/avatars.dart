@@ -30,6 +30,11 @@ class Avatars {
     AvatarDef('abbot', Faction.shaolin),
     AvatarDef('shogun', Faction.ninja),
     AvatarDef('ashoni', Faction.oni),
+    AvatarDef('ninja', Faction.ninja),
+    AvatarDef('scout', Faction.ninja),
+    AvatarDef('acolyte', Faction.shaolin),
+    AvatarDef('guard', Faction.ninja),
+    AvatarDef('kunoichi', Faction.ninja),
   ];
 
   static AvatarDef? byId(String id) {

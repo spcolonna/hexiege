@@ -21,6 +21,7 @@ Prompts para **ChatGPT** (generador de imágenes), en inglés porque así sigue 
 |---|---|---|---|
 | A | Fichas del Oni para el final de la historia (opcionales) | `assets/pieces/` | 3 |
 | B | Marco y piedra de las fichas como en el ícono Ema | `assets/textures/` | 5 |
+| C | Retratos redondos de los rivales de la historia (hoy recortes provisorios) | `assets/avatars/` | 5 |
 
 Además, sin generar nada:
 - **Fichas en alta resolución:** re-descargarlas de ChatGPT (ver «1. Fichas en alta resolución»).
@@ -152,6 +153,82 @@ LIGHTING: Completely even, flat, shadowless lighting across the whole image. No 
 DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
 ```
 
+## Bloque C — Retratos redondos de los rivales de la historia (5)
+
+Archivos, en orden: `avatar_ninja.png`, `avatar_scout.png`, `avatar_acolyte.png`, `avatar_guard.png`,
+`avatar_kunoichi.png`. Carpeta: `assets/avatars/`. Son los rivales de las batallas de la historia que no tenían
+retrato. Hoy el juego usa un recorte provisorio de su figura (`assets/story/char_*.webp`); adjuntá esa figura
+como referencia para que sea el mismo personaje y `assets/avatars/avatar_abbot.webp` como referencia de estilo.
+
+```
+Generate exactly 5 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately. Each image is its own file: do NOT combine them into a grid, collage or contact sheet.
+
+Image 1 — avatar_ninja:
+Create a SQUARE image (1:1, 1024×1024), fully opaque.
+
+PURPOSE: A character portrait for the story mode of a mobile strategy game about Shaolin monks versus ninja clans. The game crops it into a CIRCLE and shows it small (about 64×64 pixels), so the face must be large, centered and readable at that size.
+
+SUBJECT: A clan ninja foot soldier, anonymous, black hood and face mask showing only sharp, alert eyes, a crimson headband knotted at the side, black outfit with crimson cords. Accent color: crimson.
+
+COMPOSITION: The face is centered and fills about 55% of the canvas height. The background is a soft, plain rice-paper wash in the accent color, darker toward the edges. Everything important stays inside a centered circle covering 85% of the canvas (the corners will be cut).
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with confident brush strokes, combined with a limited flat color palette: warm off-white rice paper, deep ink black, and ONE accent color given in the subject. Clean shapes, strong silhouette, expressive but not cartoonish. Head and shoulders portrait, facing the viewer or slightly turned.
+
+DO NOT INCLUDE: any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame, border or circle drawn around the portrait; photographic realism; 3D render; anime style; extra characters.
+
+Image 2 — avatar_scout:
+Create a SQUARE image (1:1, 1024×1024), fully opaque.
+
+PURPOSE: A character portrait for the story mode of a mobile strategy game about Shaolin monks versus ninja clans. The game crops it into a CIRCLE and shows it small (about 64×64 pixels), so the face must be large, centered and readable at that size.
+
+SUBJECT: A young ninja scout, about fifteen, messy black hair tied up with a crimson band, mask pulled down to the neck, a small scar on the cheek, nervous but defiant expression, grey-black outfit, a coil of rope on the shoulder. Accent color: slate grey.
+
+COMPOSITION: The face is centered and fills about 55% of the canvas height. The background is a soft, plain rice-paper wash in the accent color, darker toward the edges. Everything important stays inside a centered circle covering 85% of the canvas (the corners will be cut).
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with confident brush strokes, combined with a limited flat color palette: warm off-white rice paper, deep ink black, and ONE accent color given in the subject. Clean shapes, strong silhouette, expressive but not cartoonish. Head and shoulders portrait, facing the viewer or slightly turned.
+
+DO NOT INCLUDE: any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame, border or circle drawn around the portrait; photographic realism; 3D render; anime style; extra characters.
+
+Image 3 — avatar_acolyte:
+Create a SQUARE image (1:1, 1024×1024), fully opaque.
+
+PURPOSE: A character portrait for the story mode of a mobile strategy game about Shaolin monks versus ninja clans. The game crops it into a CIRCLE and shows it small (about 64×64 pixels), so the face must be large, centered and readable at that size.
+
+SUBJECT: A small Shaolin novice, about ten, round face, shaved head, wide curious eyes and a cheerful half smile, oversized saffron robe with a white collar, the top of a straw broom peeking over the shoulder. Accent color: saffron.
+
+COMPOSITION: The face is centered and fills about 55% of the canvas height. The background is a soft, plain rice-paper wash in the accent color, darker toward the edges. Everything important stays inside a centered circle covering 85% of the canvas (the corners will be cut).
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with confident brush strokes, combined with a limited flat color palette: warm off-white rice paper, deep ink black, and ONE accent color given in the subject. Clean shapes, strong silhouette, expressive but not cartoonish. Head and shoulders portrait, facing the viewer or slightly turned.
+
+DO NOT INCLUDE: any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame, border or circle drawn around the portrait; photographic realism; 3D render; anime style; extra characters.
+
+Image 4 — avatar_guard:
+Create a SQUARE image (1:1, 1024×1024), fully opaque.
+
+PURPOSE: A character portrait for the story mode of a mobile strategy game about Shaolin monks versus ninja clans. The game crops it into a CIRCLE and shows it small (about 64×64 pixels), so the face must be large, centered and readable at that size.
+
+SUBJECT: A heavy-set pagoda guard of the ninja clan, about forty, thick black beard, stern frowning face under a dark headband, dark lamellar armor laced with crimson cords over black clothes. Accent color: dark crimson.
+
+COMPOSITION: The face is centered and fills about 55% of the canvas height. The background is a soft, plain rice-paper wash in the accent color, darker toward the edges. Everything important stays inside a centered circle covering 85% of the canvas (the corners will be cut).
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with confident brush strokes, combined with a limited flat color palette: warm off-white rice paper, deep ink black, and ONE accent color given in the subject. Clean shapes, strong silhouette, expressive but not cartoonish. Head and shoulders portrait, facing the viewer or slightly turned.
+
+DO NOT INCLUDE: any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame, border or circle drawn around the portrait; photographic realism; 3D render; anime style; extra characters.
+
+Image 5 — avatar_kunoichi:
+Create a SQUARE image (1:1, 1024×1024), fully opaque.
+
+PURPOSE: A character portrait for the story mode of a mobile strategy game about Shaolin monks versus ninja clans. The game crops it into a CIRCLE and shows it small (about 64×64 pixels), so the face must be large, centered and readable at that size.
+
+SUBJECT: An elite clan kunoichi, cold and elegant, about twenty-five, dark hair in a tight bun pierced with a long needle, a few loose strands, sharp eyes and dark red lips, black outfit with a high crimson-lined collar. Accent color: deep wine red.
+
+COMPOSITION: The face is centered and fills about 55% of the canvas height. The background is a soft, plain rice-paper wash in the accent color, darker toward the edges. Everything important stays inside a centered circle covering 85% of the canvas (the corners will be cut).
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with confident brush strokes, combined with a limited flat color palette: warm off-white rice paper, deep ink black, and ONE accent color given in the subject. Clean shapes, strong silhouette, expressive but not cartoonish. Head and shoulders portrait, facing the viewer or slightly turned.
+
+DO NOT INCLUDE: any text, letters, signature, seal stamp or Chinese/Japanese characters; a frame, border or circle drawn around the portrait; photographic realism; 3D render; anime style; extra characters.
+```
+
 ---
 
 # Estado
@@ -166,6 +243,7 @@ ya está quedan abajo por si hay que regenerar algo.
 | Figuras de personajes (`char_*`) | `assets/story/` | 16 | ✅ |
 | Escenarios (`bg_*`) | `assets/story/` | 22 | ✅ |
 | Retratos redondos (`avatar_abbot`, `avatar_shogun`, `avatar_ashoni`) | `assets/avatars/` | 3 | ✅ |
+| Retratos de los rivales (`avatar_ninja`, `_scout`, `_acolyte`, `_guard`, `_kunoichi`) | `assets/avatars/` | 5 | ⬜ provisorios (recorte de la figura): bloque C |
 | Ilustraciones de momentos clave (`art_*`) | `assets/story/` | 12 | ✅ |
 
 Cómo las usa el juego:

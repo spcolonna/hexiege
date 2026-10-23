@@ -34,7 +34,7 @@ enum Who {
     narrator || jubei || fox => null,
   };
 
-  /// Retrato del catálogo de avatares o, mientras no haya arte, un carácter.
+  /// Retrato del catálogo de avatares (vacío para el narrador).
   String get avatar => switch (this) {
     ren => 'novice',
     aya => 'fan',
@@ -47,10 +47,11 @@ enum Who {
     abbot => 'abbot',
     kage => 'shogun',
     oni => 'ashoni',
-    ninja || scout => '忍',
-    novice => '童',
-    guard => '衛',
-    kunoichi => '扇',
+    ninja => 'ninja',
+    scout => 'scout',
+    novice => 'acolyte',
+    guard => 'guard',
+    kunoichi => 'kunoichi',
     narrator => '',
   };
 }
