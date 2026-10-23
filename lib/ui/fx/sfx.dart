@@ -37,6 +37,10 @@ class SoundBoard {
   final _rng = Random();
   bool _ready = false;
 
+  /// En segundo plano no se dispara nada (timers pendientes, la IA que termina).
+  bool _hidden = false;
+  AppLifecycleListener? _lifecycle;
+
   Future<void> init() async {
     if (_ready) return;
     try {
@@ -50,13 +54,19 @@ class SoundBoard {
       for (final s in Sfx.values) {
         for (var i = 0; i < s.variants; i++) {
           final name = s.variants > 1 ? '${s.name}_$i' : s.name;
+          // mediaPlayer: al terminar, el reproductor vuelve al pool. En
+          // lowLatency nunca vuelve y cada golpe crea uno nuevo; iOS los
+          // retomaba todos juntos al desbloquear el teléfono.
           _pools[name] = await AudioPool.createFromAsset(
             path: 'sfx/$name.wav',
             maxPlayers: 3,
-            playerMode: PlayerMode.lowLatency,
           );
         }
       }
+      _lifecycle ??= AppLifecycleListener(
+        onHide: () => _hidden = true,
+        onShow: () => _hidden = false,
+      );
       _ready = true;
     } catch (e) {
       debugPrint('Audio no disponible: $e');
@@ -64,7 +74,7 @@ class SoundBoard {
   }
 
   void play(Sfx s, {double volume = 1}) {
-    if (!_ready || !AppSettings.instance.sound) return;
+    if (!_ready || _hidden || !AppSettings.instance.sound) return;
     final name = s.variants > 1 ? '${s.name}_${_rng.nextInt(s.variants)}' : s.name;
     final v = (volume * (0.9 + _rng.nextDouble() * 0.1)).clamp(0.0, 1.0);
     _pools[name]?.start(volume: v).ignore();
