@@ -17,6 +17,9 @@ class PieceRenderer {
   /// Grosor visible del canto, relativo al radio.
   static const depthRatio = 0.16;
 
+  /// Radio interno del marco de piedra, relativo al radio de la ficha.
+  static const rimRatio = 0.84;
+
   static Path hexAt(Offset c, double r) {
     final path = Path();
     for (var i = 0; i < 6; i++) {
@@ -165,40 +168,27 @@ class PieceRenderer {
         canvas.drawLine(Offset(face.dx - r, y - r * 0.3), Offset(face.dx + r, y + r * 0.22), vein);
       }
     }
-    // Bisel: un filo claro concéntrico, más brillante arriba a la izquierda
-    // (de donde viene la luz) y apagado abajo a la derecha.
-    final bevel = Rect.fromCircle(center: face, radius: r);
+    // Sombra del marco sobre la cara: la piedra queda hundida dentro de él.
     canvas.drawPath(
-      hexAt(face, r * 0.9),
+      hexAt(face, r * rimRatio),
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = r * 0.06
-        ..shader = LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.white.withValues(alpha: tone == 0 ? 0.45 : 0.12),
-            Colors.white.withValues(alpha: tone == 0 ? 0.08 : 0.02),
-          ],
-        ).createShader(bevel),
+        ..strokeWidth = r * 0.07
+        ..color = Colors.black.withValues(alpha: tone == 0 ? 0.22 : 0.4)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, max(0.5, r * 0.025)),
     );
     canvas.restore();
 
-    canvas.drawPath(
-      facePath,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = max(1.5, r * 0.09)
-        ..color = HexTheme.faction(tone == 2 ? Faction.oni : type.faction),
-    );
+    _rim(canvas, faction: tone == 2 ? Faction.oni : type.faction, face: face, r: r, seed: seed);
     art ??= AppSettings.instance.useGlyphs ? null : PieceArt.of(type);
     void leaderRing() {
       if (!type.isLeader) return;
+      // Filete de oro en el borde interno del marco, como el del Ema.
       canvas.drawPath(
-        hexAt(face, r * 0.8),
+        hexAt(face, r * (rimRatio - 0.015)),
         Paint()
           ..style = PaintingStyle.stroke
-          ..strokeWidth = max(1.0, r * 0.06)
+          ..strokeWidth = max(1.0, r * 0.05)
           ..color = theme.gold,
       );
     }
@@ -215,10 +205,10 @@ class PieceRenderer {
     if (art != null) {
       // Relieve tallado: la ilustración ocupa la cara, recortada al hexágono.
       canvas.save();
-      canvas.clipPath(hexAt(face, featured ? r * 0.95 : r * 0.86));
+      canvas.clipPath(hexAt(face, featured ? r * 0.95 : r * (rimRatio - 0.03)));
       paintImage(
         canvas: canvas,
-        rect: Rect.fromCircle(center: face, radius: featured ? r * 0.9 : r * 0.8),
+        rect: Rect.fromCircle(center: face, radius: featured ? r * 0.9 : r * 0.78),
         image: art,
         fit: BoxFit.contain,
         filterQuality: hiRes ? FilterQuality.high : FilterQuality.medium,
@@ -230,6 +220,93 @@ class PieceRenderer {
     if (flip) canvas.restore();
     // En el tablero el anillo va encima del arte para que se distinga al líder.
     if (!featured) leaderRing();
+  }
+
+  /// Marco de piedra de la facción (jade, mármol rojo o brasa) tallado en seis
+  /// facetas: las que miran a la luz (arriba a la izquierda) brillan y las
+  /// opuestas quedan en sombra.
+  static void _rim(Canvas canvas, {required Faction faction, required Offset face, required double r, int seed = 0}) {
+    final inner = r * rimRatio;
+    final band = Path.combine(PathOperation.difference, hexAt(face, r), hexAt(face, inner));
+    final color = HexTheme.faction(faction);
+    final texture = PieceArt.rim(faction);
+    if (texture != null) {
+      final k = 2.4 * r / texture.width;
+      final rnd = Random(seed + 7);
+      final m = Matrix4.identity()
+        ..translateByDouble(face.dx - r * (0.2 + rnd.nextDouble()), face.dy - r * (0.2 + rnd.nextDouble()), 0, 1)
+        ..scaleByDouble(k, k, 1, 1);
+      canvas.drawPath(
+        band,
+        Paint()
+          ..shader = ImageShader(texture, TileMode.mirror, TileMode.mirror, m.storage)
+          ..filterQuality = FilterQuality.medium,
+      );
+    } else {
+      canvas.drawPath(
+        band,
+        Paint()
+          ..shader = LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.lerp(color, Colors.white, 0.08)!,
+              Color.lerp(color, Colors.black, 0.22)!,
+              Color.lerp(color, Colors.black, 0.5)!,
+            ],
+          ).createShader(Rect.fromCircle(center: face, radius: r)),
+      );
+      // Vetas de la piedra: trazos claros cortos que cruzan el marco.
+      if (r > 18) {
+        canvas.save();
+        canvas.clipPath(band);
+        final rnd = Random(seed * 31 + faction.index);
+        final vein = Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = max(0.5, r * 0.018)
+          ..strokeCap = StrokeCap.round
+          ..color = Color.lerp(color, Colors.white, 0.55)!.withValues(alpha: 0.35);
+        for (var i = 0; i < 14; i++) {
+          final a = rnd.nextDouble() * 2 * pi;
+          final p0 = face + Offset(cos(a), sin(a)) * r * (rimRatio - 0.02);
+          final p1 = p0 + Offset(cos(a + 0.9), sin(a + 0.9)) * r * (0.12 + rnd.nextDouble() * 0.2);
+          canvas.drawLine(p0, p1, vein);
+        }
+        canvas.restore();
+      }
+    }
+    // Facetas: cada lado del marco recibe luz según hacia dónde mira.
+    const light = Offset(-0.6, -0.8);
+    for (var i = 0; i < 6; i++) {
+      final a0 = pi / 180 * (60 * i - 30), a1 = pi / 180 * (60 * i + 30);
+      final normal = Offset(cos(pi / 180 * 60 * i), sin(pi / 180 * 60 * i));
+      final lit = normal.dx * light.dx + normal.dy * light.dy;
+      final facet = Path()
+        ..moveTo(face.dx + cos(a0) * r, face.dy + sin(a0) * r)
+        ..lineTo(face.dx + cos(a1) * r, face.dy + sin(a1) * r)
+        ..lineTo(face.dx + cos(a1) * inner, face.dy + sin(a1) * inner)
+        ..lineTo(face.dx + cos(a0) * inner, face.dy + sin(a0) * inner)
+        ..close();
+      canvas.drawPath(
+        facet,
+        Paint()..color = (lit > 0 ? Colors.white : Colors.black).withValues(alpha: 0.32 * lit.abs()),
+      );
+    }
+    // Aristas: filo claro afuera y un surco oscuro donde el marco se hunde.
+    canvas.drawPath(
+      hexAt(face, r - max(0.4, r * 0.012)),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = max(0.6, r * 0.022)
+        ..color = Colors.black.withValues(alpha: 0.45),
+    );
+    canvas.drawPath(
+      hexAt(face, inner),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = max(0.6, r * 0.02)
+        ..color = Color.lerp(color, Colors.black, 0.6)!,
+    );
   }
 
   static void text(Canvas canvas, String s, Offset center, double fontSize, Color color) {

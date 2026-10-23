@@ -20,9 +20,15 @@ Prompts para **ChatGPT** (generador de imágenes), en inglés porque así sigue 
 | Bloque | Qué | Carpeta | Imágenes |
 |---|---|---|---|
 | A | Fichas del Oni para el final de la historia (opcionales) | `assets/pieces/` | 3 |
+| B | Marco y piedra de las fichas como en el ícono Ema | `assets/textures/` | 5 |
 
 Además, sin generar nada:
 - **Fichas en alta resolución:** re-descargarlas de ChatGPT (ver «1. Fichas en alta resolución»).
+
+El bloque B es lo que falta para que las fichas del tablero se vean como las del ícono: un marco grueso de
+jade (Shaolin), mármol rojo (Ninja) o brasa (Oni) y la cara de mármol blanco con vetas de jade u obsidiana
+pulida. El marco biselado ya está en el juego, pintado con el color de la facción; con estas texturas pasa a
+ser piedra de verdad.
 
 Las fichas del Oni solo aparecen en el final (etapas f1–f3). Mientras falten, el juego las dibuja como piedra de
 ceniza con su kanji (鬼, 饿, 眼). Van igual que las demás fichas: figura tallada con fondo transparente. Adjuntá
@@ -82,6 +88,70 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; blood or gore; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
+## Bloque B — Marco y piedra de las fichas, estilo Ema (5)
+
+Archivos, en orden: `shaolin_rim.png`, `ninja_rim.png`, `oni_rim.png`, `shaolin_stone.png`, `ninja_stone.png`. Carpeta: `assets/textures/`.
+Adjuntá `store/icon/app_icon_ema.png` como referencia: es la piedra del ícono la que buscamos.
+
+```
+Generate exactly 5 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately. Each image is its own file: do NOT combine them into a grid, collage or contact sheet.
+
+Image 1 — shaolin_rim:
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone of the thick beveled FRAME around each game piece in a hexagonal board game. The game cuts it into a thin hexagonal band (only a few pixels wide on screen) and adds the bevel lighting itself, so the texture must read as a rich, saturated stone color even when tiny.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of polished deep green nephrite jade, like an antique carved jade frame: base color a rich jade green (around #2F7A4E), with soft cloudy lighter patches (#5FAE7A) and a few fine pale mineral veins. A subtle glassy polish, but no reflections.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
+
+Image 2 — ninja_rim:
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone of the thick beveled FRAME around each game piece in a hexagonal board game. The game cuts it into a thin hexagonal band (only a few pixels wide on screen) and adds the bevel lighting itself, so the texture must read as a rich, saturated stone color even when tiny.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of polished deep crimson marble, like cinnabar lacquer stone: base color a rich dark red (around #A8232E), with soft lighter veins and cloudy patches (#C94550) and a few fine darker veins (#6E1219). A subtle glassy polish, but no reflections.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
+
+Image 3 — oni_rim:
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone of the thick beveled FRAME around each game piece in a hexagonal board game. The game cuts it into a thin hexagonal band (only a few pixels wide on screen) and adds the bevel lighting itself, so the texture must read as a rich, saturated stone color even when tiny.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of dark burnt volcanic stone with a warm ember-orange body (around #B8541C), cloudy darker patches (#6A2E12) and thin glowing orange cracks (#E0702A) like cooling lava.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
+
+Image 4 — shaolin_stone:
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone surface of the game pieces in a hexagonal board game. The game cuts it into a small hexagon (about 50×50 pixels on screen), frames it with a beveled stone rim and places a white polished marble carving on top of it. So it must be calm and must not compete with the carving.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of honed (matte) warm white marble (around #E8E4D8) with soft, cloudy jade-green veins (#7FB08E) that branch gently across the surface, like the white-and-jade marble of a temple altar. The veins are soft and low-contrast. A tiny bit darker than pure white, so a white marble carving still stands out on it.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
+
+Image 5 — ninja_stone:
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone surface of the game pieces in a hexagonal board game. The game cuts it into a small hexagon (about 50×50 pixels on screen), frames it with a beveled stone rim and places a black obsidian carving with crimson veins on top of it. So it must be calm and must not compete with the carving.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of polished black obsidian (around #1E1C1F) with large, softly faceted conchoidal fracture planes in slightly lighter charcoal (#38343A) and a faint glassy sheen, like volcanic glass. A little lighter than pure black, so a black obsidian carving with crimson veins still stands out on it.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
+```
+
 ---
 
 # Estado
@@ -121,6 +191,7 @@ Cómo las usa el juego:
 | 8 | Tapetes de mesa | Ajustes (debajo del tablero) | 5 | ✅ en el juego |
 | 9 | Ícono de la app estilo Ema | Ícono de iOS y Android | 1 de 3 variantes | ✅ variante B en el juego |
 | 10 | Fichas del Oni | Final de la historia (hoy se dibujan con kanji) | 3 | ⬜ (bloque A; opcionales) |
+| 11 | Marco y piedra estilo Ema | Que las fichas se vean como en el ícono | 5 | ⬜ (bloque B; el marco ya se pinta sin ellas) |
 
 Las capturas de pantalla para App Store y Google Play no se generan: se sacan del juego.
 
@@ -1861,6 +1932,83 @@ LIGHTING: A single soft light from the upper left. The upper-left edges of the c
 COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole shape is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: one big slit-pupil eye with a heavy brow and radiating tendrils.
 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; blood or gore; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
+```
+
+---
+
+## 11. Marco y piedra de las fichas, estilo Ema ⬜ (5) — `assets/textures/`
+
+Los `*_rim` son nuevos (el juego los busca solos). `shaolin_stone` y `ninja_stone` reemplazan la piedra clásica
+actual: los prompts anteriores quedan en «Textura de la piedra de las fichas», por si se quiere volver.
+
+### `shaolin_rim.png` — Marco de jade (Shaolin)
+
+```
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone of the thick beveled FRAME around each game piece in a hexagonal board game. The game cuts it into a thin hexagonal band (only a few pixels wide on screen) and adds the bevel lighting itself, so the texture must read as a rich, saturated stone color even when tiny.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of polished deep green nephrite jade, like an antique carved jade frame: base color a rich jade green (around #2F7A4E), with soft cloudy lighter patches (#5FAE7A) and a few fine pale mineral veins. A subtle glassy polish, but no reflections.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
+```
+
+### `ninja_rim.png` — Marco de mármol rojo (Ninja)
+
+```
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone of the thick beveled FRAME around each game piece in a hexagonal board game. The game cuts it into a thin hexagonal band (only a few pixels wide on screen) and adds the bevel lighting itself, so the texture must read as a rich, saturated stone color even when tiny.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of polished deep crimson marble, like cinnabar lacquer stone: base color a rich dark red (around #A8232E), with soft lighter veins and cloudy patches (#C94550) and a few fine darker veins (#6E1219). A subtle glassy polish, but no reflections.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
+```
+
+### `oni_rim.png` — Marco de brasa (Oni, final de la historia)
+
+```
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone of the thick beveled FRAME around each game piece in a hexagonal board game. The game cuts it into a thin hexagonal band (only a few pixels wide on screen) and adds the bevel lighting itself, so the texture must read as a rich, saturated stone color even when tiny.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of dark burnt volcanic stone with a warm ember-orange body (around #B8541C), cloudy darker patches (#6A2E12) and thin glowing orange cracks (#E0702A) like cooling lava.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
+```
+
+### `shaolin_stone.png` — Piedra clásica Shaolin: mármol blanco con vetas de jade (reemplaza la actual)
+
+```
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone surface of the game pieces in a hexagonal board game. The game cuts it into a small hexagon (about 50×50 pixels on screen), frames it with a beveled stone rim and places a white polished marble carving on top of it. So it must be calm and must not compete with the carving.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of honed (matte) warm white marble (around #E8E4D8) with soft, cloudy jade-green veins (#7FB08E) that branch gently across the surface, like the white-and-jade marble of a temple altar. The veins are soft and low-contrast. A tiny bit darker than pure white, so a white marble carving still stands out on it.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
+```
+
+### `ninja_stone.png` — Piedra clásica Ninja: obsidiana pulida (reemplaza la actual)
+
+```
+Create a square 1024×1024 PNG image, fully opaque, that is a SEAMLESS TILEABLE texture: the left edge must continue perfectly into the right edge and the top edge into the bottom edge, with no visible seams when tiled.
+
+PURPOSE: This is the stone surface of the game pieces in a hexagonal board game. The game cuts it into a small hexagon (about 50×50 pixels on screen), frames it with a beveled stone rim and places a black obsidian carving with crimson veins on top of it. So it must be calm and must not compete with the carving.
+
+SUBJECT: A perfectly flat, straight-on, top-down view of a slab of polished black obsidian (around #1E1C1F) with large, softly faceted conchoidal fracture planes in slightly lighter charcoal (#38343A) and a faint glassy sheen, like volcanic glass. A little lighter than pure black, so a black obsidian carving with crimson veins still stands out on it.
+
+LIGHTING: Completely even, flat, shadowless lighting across the whole image. No highlight spot, no gradient, no vignette, no bevel.
+
+DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
 ```
 
 ---

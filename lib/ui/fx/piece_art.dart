@@ -11,6 +11,7 @@ import '../theme/settings.dart';
 class PieceArt {
   static final _images = <PieceType, ui.Image>{};
   static final _stones = <String, ui.Image>{}; // por asset
+  static final _rims = <Faction, ui.Image>{};
 
   static String assetPath(PieceType t) => 'assets/pieces/${t.faction.name}_${t.name}.webp';
 
@@ -21,6 +22,10 @@ class PieceArt {
   static ui.Image? stone(Faction f) =>
       _stones[Cosmetics.stone(f, AppSettings.instance.stoneFor(f))?.asset] ??
       _stones[Cosmetics.stone(f, Cosmetics.classic)!.asset];
+
+  /// Piedra del marco de las fichas de [f] (`assets/textures/<facción>_rim.webp`):
+  /// jade, mármol rojo o brasa. Sin ella el marco se pinta con el color de la facción.
+  static ui.Image? rim(Faction f) => _rims[f];
 
   static final _full = <String, Future<ui.Image?>>{};
 
@@ -57,6 +62,13 @@ class PieceArt {
         final data = await rootBundle.load(s.asset);
         final codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
         _stones[s.asset] = (await codec.getNextFrame()).image;
+      }
+      for (final f in Faction.values) {
+        final path = 'assets/textures/${f.name}_rim.webp';
+        if (!available.contains(path)) continue;
+        final data = await rootBundle.load(path);
+        final codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+        _rims[f] = (await codec.getNextFrame()).image;
       }
     } catch (_) {
       // Sin arte: se usan los caracteres y la piedra pintada.
