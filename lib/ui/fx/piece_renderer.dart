@@ -74,12 +74,15 @@ class PieceRenderer {
     // espejo (misma facción en ambos lados) manda el asiento, para distinguirlos.
     final tone = ash ? 2 : (mirror ? owner : (type.faction == Faction.shaolin ? 0 : 1));
 
-    // Canto: la misma forma desplazada hacia abajo, en tono del lateral.
-    final side = theme.stoneSideOf(tone);
-    canvas.drawPath(hexAt(face + Offset(0, depth), r), Paint()..color = side);
-    canvas.drawPath(
-      hexAt(face + Offset(0, depth * 0.5), r),
-      Paint()..color = Color.lerp(side, theme.stoneOf(tone)[1], 0.35)!,
+    _side(
+      canvas,
+      theme: theme,
+      faction: tone == 2 ? Faction.oni : type.faction,
+      tone: tone,
+      face: face,
+      r: r,
+      depth: depth,
+      seed: seed,
     );
 
     final facePath = hexAt(face, r);
@@ -220,6 +223,75 @@ class PieceRenderer {
     if (flip) canvas.restore();
     // En el tablero el anillo va encima del arte para que se distinga al líder.
     if (!featured) leaderRing();
+  }
+
+  /// Canto: la cara desplazada [depth] hacia abajo, de la misma piedra que el
+  /// marco. Las dos facetas visibles de cada lado reciben distinta luz (la de la
+  /// izquierda más clara) y el canto se oscurece hacia la base, donde apoya.
+  static void _side(
+    Canvas canvas, {
+    required HexTheme theme,
+    required Faction faction,
+    required int tone,
+    required Offset face,
+    required double r,
+    required double depth,
+    int seed = 0,
+  }) {
+    final base = face + Offset(0, depth);
+    final band = Path.combine(PathOperation.difference, hexAt(base, r), hexAt(face, r));
+    final texture = PieceArt.rim(faction);
+    if (texture != null) {
+      final k = 2.4 * r / texture.width;
+      final rnd = Random(seed + 7);
+      // El mismo recorte que el marco, así la veta baja del marco al canto.
+      final m = Matrix4.identity()
+        ..translateByDouble(face.dx - r * (0.2 + rnd.nextDouble()), face.dy - r * (0.2 + rnd.nextDouble()), 0, 1)
+        ..scaleByDouble(k, k, 1, 1);
+      canvas.drawPath(
+        band,
+        Paint()
+          ..shader = ImageShader(texture, TileMode.mirror, TileMode.mirror, m.storage)
+          ..filterQuality = FilterQuality.medium,
+      );
+    } else {
+      final side = theme.stoneSideOf(tone);
+      canvas.drawPath(band, Paint()..color = Color.lerp(side, HexTheme.faction(faction), 0.5)!);
+    }
+    canvas.save();
+    canvas.clipPath(band);
+    // Facetas: la de abajo a la izquierda mira a la luz, la de la derecha queda en sombra.
+    final w = r * cos(pi / 6);
+    final left = Path()
+      ..moveTo(face.dx - w - 1, face.dy - r)
+      ..lineTo(face.dx, face.dy - r)
+      ..lineTo(face.dx, base.dy + r + 1)
+      ..lineTo(face.dx - w - 1, base.dy + r + 1)
+      ..close();
+    canvas.drawPath(left, Paint()..color = Colors.white.withValues(alpha: 0.10));
+    canvas.drawRect(
+      Rect.fromLTRB(face.dx + w * 0.55, face.dy - r, face.dx + w + 1, base.dy + r + 1),
+      Paint()..color = Colors.black.withValues(alpha: 0.28),
+    );
+    // Arriba toma algo de luz y abajo se hunde en la sombra de la base.
+    canvas.drawRect(
+      Rect.fromLTRB(face.dx - r, face.dy, face.dx + r, base.dy + r),
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.black.withValues(alpha: 0.22), Colors.black.withValues(alpha: 0.58)],
+        ).createShader(Rect.fromLTRB(face.dx - r, face.dy + r * 0.4, face.dx + r, base.dy + r)),
+    );
+    canvas.restore();
+    // Filo de la base: una línea oscura donde el canto apoya en el tablero.
+    canvas.drawPath(
+      hexAt(base, r - max(0.3, r * 0.01)),
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = max(0.6, r * 0.02)
+        ..color = Colors.black.withValues(alpha: 0.35),
+    );
   }
 
   /// Marco de piedra de la facción (jade, mármol rojo o brasa) tallado en seis

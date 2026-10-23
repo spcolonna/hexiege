@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:ui' as ui;
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -832,36 +833,74 @@ class _PieceToken3DState extends State<PieceToken3D> with SingleTickerProviderSt
     });
   }
 
+  // El doble toque se detecta a mano: el reconocedor de giro gana siempre.
+  Duration _pressAt = Duration.zero, _lastTap = Duration.zero;
+  double _travel = 0;
+  int _fingers = 1;
+
+  void _onScaleStart(ScaleStartDetails _) {
+    _touching = _handled = true;
+    _zoomStart = _zoom;
+    _vx = _vy = 0;
+    _pressAt = _last;
+    _travel = 0;
+    _fingers = 1;
+  }
+
+  void _onScaleUpdate(ScaleUpdateDetails e) => setState(() {
+    _travel += e.focalPointDelta.distance;
+    _fingers = max(_fingers, e.pointerCount);
+    _ry -= e.focalPointDelta.dx * 0.011;
+    _rx = (_rx + e.focalPointDelta.dy * 0.011).clamp(-1.3, 1.3);
+    if (e.pointerCount > 1) _zoom = _zoomTarget = (_zoomStart * e.scale).clamp(0.8, 2.6);
+  });
+
+  void _onScaleEnd(ScaleEndDetails e) {
+    _touching = false;
+    final tap = _fingers == 1 && _travel < 12 && _last - _pressAt < const Duration(milliseconds: 300);
+    if (tap) {
+      if (_pressAt - _lastTap < const Duration(milliseconds: 350)) {
+        _lastTap = Duration.zero;
+        Haptics.select();
+        _zoomTarget = _zoomTarget > 1.2 ? 1 : 2;
+        _handled = false; // vuelve a mecerse de frente
+      } else {
+        _lastTap = _pressAt;
+      }
+      return;
+    }
+    final v = e.velocity.pixelsPerSecond;
+    _vy = (-v.dx * 0.011).clamp(-14.0, 14.0);
+    _vx = (v.dy * 0.011).clamp(-6.0, 6.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = HexTheme.of(context);
     return LayoutBuilder(
       builder: (context, box) {
         final d = min(box.maxWidth, box.maxHeight) * 0.66;
-        return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onScaleStart: (_) {
-            _touching = _handled = true;
-            _zoomStart = _zoom;
-            _vx = _vy = 0;
-          },
-          onScaleUpdate: (e) => setState(() {
-            _ry -= e.focalPointDelta.dx * 0.011;
-            _rx = (_rx + e.focalPointDelta.dy * 0.011).clamp(-1.3, 1.3);
-            if (e.pointerCount > 1) _zoom = _zoomTarget = (_zoomStart * e.scale).clamp(0.8, 2.6);
-          }),
-          onScaleEnd: (e) {
-            _touching = false;
-            final v = e.velocity.pixelsPerSecond;
-            _vy = (-v.dx * 0.011).clamp(-14.0, 14.0);
-            _vx = (v.dy * 0.011).clamp(-6.0, 6.0);
-          },
-          onDoubleTap: () {
-            Haptics.select();
-            _zoomTarget = _zoomTarget > 1.2 ? 1 : 2;
-            _handled = false; // vuelve a mecerse de frente
-          },
-          child: Center(child: _token(theme, d)),
+        // Solo la ficha (no toda la página) captura el gesto, y lo gana de
+        // entrada: girarla en horizontal no pasa de página.
+        final grip = min(d * 1.1 * _zoom, min(box.maxWidth, box.maxHeight));
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            _token(theme, d),
+            RawGestureDetector(
+              behavior: HitTestBehavior.opaque,
+              gestures: {
+                _EagerScaleRecognizer: GestureRecognizerFactoryWithHandlers<_EagerScaleRecognizer>(
+                  _EagerScaleRecognizer.new,
+                  (g) => g
+                    ..onStart = _onScaleStart
+                    ..onUpdate = _onScaleUpdate
+                    ..onEnd = _onScaleEnd,
+                ),
+              },
+              child: SizedBox.square(dimension: grip),
+            ),
+          ],
         );
       },
     );
@@ -898,16 +937,16 @@ class _PieceToken3DState extends State<PieceToken3D> with SingleTickerProviderSt
       at(thick / 2, flip: true),
       _BackPainter(theme: theme, faction: type.faction, tone: tone, r: r, emblem: _emblem),
     );
-    // El canto son las seis caras del prisma, de piedra como la cara: cada una
-    // es un rectángulo parado sobre un lado del hexágono. Llega al borde
-    // exterior del filo de facción.
-    final re = r * 1.045;
+    // El canto son las seis caras del prisma, de la piedra del marco: cada una
+    // es un rectángulo parado sobre un lado del hexágono. Apenas por dentro del
+    // borde de la cara, para que entre ambos no quede rendija por donde se vea el dorso.
+    final re = r * 0.995;
     final apothem = re * cos(pi / 6);
     final spin = Matrix4.identity()
       ..rotateX(_rx)
       ..rotateY(_ry);
     double depth(double x, double y) => spin.entry(2, 0) * x + spin.entry(2, 1) * y;
-    final texture = PieceArt.stone(type.faction);
+    final texture = PieceArt.rim(type.faction) ?? PieceArt.stone(type.faction);
     final sides = <(double, Widget)>[];
     for (var k = 0; k < 6; k++) {
       final a = pi / 3 * k;
@@ -972,6 +1011,16 @@ class _PieceToken3DState extends State<PieceToken3D> with SingleTickerProviderSt
         ],
       ),
     );
+  }
+}
+
+/// Giro y pellizco que se quedan con el toque apenas empieza, antes que el
+/// arrastre horizontal del [PageView] de la galería.
+class _EagerScaleRecognizer extends ScaleGestureRecognizer {
+  @override
+  void addAllowedPointer(PointerDownEvent event) {
+    super.addAllowedPointer(event);
+    resolve(GestureDisposition.accepted);
   }
 }
 
