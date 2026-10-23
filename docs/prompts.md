@@ -19,139 +19,68 @@ Prompts para **ChatGPT** (generador de imágenes), en inglés porque así sigue 
 
 | Bloque | Qué | Carpeta | Imágenes |
 |---|---|---|---|
-| A | Historia: ilustraciones de momentos clave restantes (opcionales) | `assets/story/` | 5 |
-| B | Ícono de la app en estilo Ema: 3 variantes para elegir una | `assets/icon/` | 3 |
+| A | Fichas del Oni para el final de la historia (opcionales) | `assets/pieces/` | 3 |
 
-Las ilustraciones son el panel grande que corta la página en los momentos clave; mientras falten, la viñeta
-simplemente no lo muestra. Las 7 que más se ven ya están integradas. Adjuntá `assets/story/art_wall.webp` como
-referencia de estilo y las figuras `char_*` de quienes aparecen.
+Además, sin generar nada:
+- **Ícono Ema:** las 3 variantes ya están en `assets/icons/`; falta elegir una (ver «9. Ícono de la app estilo Ema»).
+- **Fichas en alta resolución:** re-descargarlas de ChatGPT (ver «1. Fichas en alta resolución»).
 
-## Bloque A — Ilustraciones de momentos clave restantes (5)
+Las fichas del Oni solo aparecen en el final (etapas f1–f3). Mientras falten, el juego las dibuja como piedra de
+ceniza con su kanji (鬼, 饿, 眼). Van igual que las demás fichas: figura tallada con fondo transparente. Adjuntá
+`assets/pieces/ninja_shogun.webp` como referencia de estilo y, si querés, `assets/story/char_oni.webp` para el Oni.
 
-Archivos, en orden: `art_pagoda.png`, `art_stairs.png`, `art_crypt.png`, `art_drunken_tale.png`, `art_scroll.png`. Carpeta: `assets/story/`.
+## Bloque A — Fichas del Oni (3)
 
-```
-Generate exactly 5 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately. Each image is its own file: do NOT combine them into a grid, collage or contact sheet.
-
-Image 1 — art_pagoda:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: A five-storey dark pagoda on a cliff at night, crimson lanterns on every floor; Ren, tiny, climbs the stone steps toward it. Accent: crimson.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-
-Image 2 — art_stairs:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: Seen from a rooftop at night: two monks with lanterns guard a stone stairway that descends into the ground in the temple courtyard; the stone door at the bottom glows faintly. Aya's silhouette watches from the roof edge in the foreground. Accent: warm lantern orange.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-
-Image 3 — art_crypt:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: A huge underground crypt; on the floor six large stones form a hexagon around a deep glowing crack; three stones are split and ash rises from them. A tiny Aya stands at the edge for scale. Accent: ember orange in the dark.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-
-Image 4 — art_drunken_tale:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: Tao sits on the crypt steps with his gourd telling a story; behind him, painted as a faded mural in smoke, a monk and a ninja woman stand back to back surrounding a demon with six stones. Aya listens. Accent: warm red.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-
-Image 5 — art_scroll:
-Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
-
-PURPOSE: A full-width comic "splash panel" for the key moments of the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). It is masked by a ragged ink brush stroke, so the outer edges may be lost; it is shown on a phone about 360 pixels wide, so it needs one clear focal point and a strong silhouette.
-
-SUBJECT: Aya in the temple library unrolling a long jade-green scroll on an altar; the old abbot sits defeated on the floor behind her. Through the window, a column of ash rises into the sky. Accent: jade green and ember orange.
-
-CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. The drunken master TAO is an old round-bellied monk with a wine gourd. The ABBOT is an old monk with a white beard and jade prayer beads.
-
-STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
-
-DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
-```
-
-## Bloque B — Ícono de la app en estilo Ema (3 variantes)
-
-Archivos, en orden: `app_icon_ema_a.png`, `app_icon_ema_b.png`, `app_icon_ema_c.png`. Carpeta: `assets/icon/`. Se
-elige una y Claude genera los íconos de iOS y Android con ella. Hay un boceto hecho con el arte del juego en
-`store/icon/app_icon.png` (lo dibuja `flutter test tool/render_icon_test.dart`) como referencia de composición.
+Archivos, en orden: `oni_oni.png`, `oni_gaki.png`, `oni_oniEye.png`. Carpeta: `assets/pieces/`.
+Ojo: el tercero se llama `oni_oniEye.png`, con la E mayúscula (así lo busca el código).
 
 ```
 Generate exactly 3 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately. Each image is its own file: do NOT combine them into a grid, collage or contact sheet.
 
-Image 1 — app_icon_ema_a:
-Create a SQUARE 1024×1024 PNG image, fully opaque (no transparency anywhere), with square corners (do not round the corners, the phone will do that).
+Image 1 — oni_oni:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
-PURPOSE: This is the app icon of "Hexiege", a hexagonal strategy board game where Shaolin monks (white marble and jade green) fight a ninja clan (black obsidian and crimson). The game's interface uses Japanese votive wooden plaques (ema) hanging from red cords, on washi paper. The icon will be seen very small (about 60×60 pixels) on a phone home screen, so it must read as one bold, simple shape.
+PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
-STYLE: Polished, painterly 3D game-icon rendering with real materials: warm natural wood with visible grain, polished stone, thick red braided cord. Soft light from the upper left, clear highlights and soft shadows so everything reads as thick physical objects. Rich but limited palette: warm wood, ink black, jade green, crimson, a touch of gold.
+SUBJECT: A huge horned demon (oni) shown from the chest up, facing the viewer straight on (perfect front view). Two thick curved horns, a heavy brow, a wide snarling mouth with two short tusks, a wild mane that dissolves upward into drifting flakes of ash. Massive shoulders, one clawed hand raised in front of the chest. Ancient, enormous, half-awake menace.
 
-BACKGROUND: A smooth, dark, warm background filling the whole square: deep charcoal brown (#231E1A) with a gentle lighter glow behind the subject. No pattern, no scene.
+MATERIAL AND STYLE: The whole figure is carved from a single block of rough gray volcanic ash stone, like a temple bas-relief sculpture that has been cut out along its outline. Thin glowing ember-orange cracks (#E0702A) run through the stone like cooling lava, and the eyes, the inside of the mouth and the cracks in the horns are carved in the same glowing ember orange. No other colors: no skin tones, no painted cloth, no gold. Every outer edge of the figure has a crisp pale-gray rim highlight so the figure stays readable on a gray tile. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands, no fabric texture.
 
-COMPOSITION: The subject is centered and fills about 70% of the canvas. Keep about 12% of empty margin on every side (the corners get cut off). Big, simple shapes; very little fine detail.
+LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-DO NOT INCLUDE: any text, letters, logo, signature or Chinese/Japanese characters; a border or frame around the image; rounded corners; transparency; cartoon, anime or flat vector style.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The bottom of the figure ends in a soft, clean horizontal cut, like the bottom edge of a bust. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: two big horns above a snarling tusked face and broad shoulders.
 
-SUBJECT: A single wooden ema plaque (a pentagon: rectangle with a pointed gable roof on top) hanging slightly tilted from a short thick red cord tied in a knot at the top. Mounted on the plaque, two hexagonal stone game tiles slightly overlapping, as if they just clashed: the front-left tile is polished white marble with a jade-green (#2F9E6E) rim and a small carved lotus in bas-relief; the back-right tile is polished black obsidian with a crimson (#C0404F) rim and a small carved crescent moon in bas-relief.
+DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; blood or gore; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 
-Image 2 — app_icon_ema_b:
-Create a SQUARE 1024×1024 PNG image, fully opaque (no transparency anywhere), with square corners (do not round the corners, the phone will do that).
+Image 2 — oni_gaki:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
-PURPOSE: This is the app icon of "Hexiege", a hexagonal strategy board game where Shaolin monks (white marble and jade green) fight a ninja clan (black obsidian and crimson). The game's interface uses Japanese votive wooden plaques (ema) hanging from red cords, on washi paper. The icon will be seen very small (about 60×60 pixels) on a phone home screen, so it must read as one bold, simple shape.
+PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
-STYLE: Polished, painterly 3D game-icon rendering with real materials: warm natural wood with visible grain, polished stone, thick red braided cord. Soft light from the upper left, clear highlights and soft shadows so everything reads as thick physical objects. Rich but limited palette: warm wood, ink black, jade green, crimson, a touch of gold.
+SUBJECT: A gaki (hungry ghost): a gaunt, hunched spirit crouched as if about to leap, three-quarter view facing the viewer. Thin bony limbs, a swollen round belly, a long thin neck, a small head with a tiny pinched mouth and big hollow eyes. One long-fingered hand reaching forward, grasping at the air. Its lower body trails off into a curl of ash smoke instead of feet.
 
-BACKGROUND: A smooth, dark, warm background filling the whole square: deep charcoal brown (#231E1A) with a gentle lighter glow behind the subject. No pattern, no scene.
+MATERIAL AND STYLE: The whole figure is carved from a single block of rough gray volcanic ash stone, like a temple bas-relief sculpture that has been cut out along its outline. Thin glowing ember-orange cracks (#E0702A) run through the stone like cooling lava, and the hollow eyes and the reaching fingertips are carved in the same glowing ember orange. No other colors: no skin tones, no painted cloth, no gold. Every outer edge of the figure has a crisp pale-gray rim highlight so the figure stays readable on a gray tile. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands, no fabric texture.
 
-COMPOSITION: The subject is centered and fills about 70% of the canvas. Keep about 12% of empty margin on every side (the corners get cut off). Big, simple shapes; very little fine detail.
+LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-DO NOT INCLUDE: any text, letters, logo, signature or Chinese/Japanese characters; a border or frame around the image; rounded corners; transparency; cartoon, anime or flat vector style.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: a hunched starving spirit with a long neck, a reaching claw and a smoky tail.
 
-SUBJECT: A single wooden ema plaque (a pentagon: rectangle with a pointed gable roof on top) seen straight from the front, hanging from a short thick red cord. Inlaid in its center, filling most of the plaque, one large hexagonal tile split diagonally in two halves: the upper-left half polished white marble with a jade-green rim, the lower-right half polished black obsidian with a crimson rim, joined by a thin line of gold like kintsugi.
+DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; blood or gore; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 
-Image 3 — app_icon_ema_c:
-Create a SQUARE 1024×1024 PNG image, fully opaque (no transparency anywhere), with square corners (do not round the corners, the phone will do that).
+Image 3 — oni_oniEye:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
 
-PURPOSE: This is the app icon of "Hexiege", a hexagonal strategy board game where Shaolin monks (white marble and jade green) fight a ninja clan (black obsidian and crimson). The game's interface uses Japanese votive wooden plaques (ema) hanging from red cords, on washi paper. The icon will be seen very small (about 60×60 pixels) on a phone home screen, so it must read as one bold, simple shape.
+PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
 
-STYLE: Polished, painterly 3D game-icon rendering with real materials: warm natural wood with visible grain, polished stone, thick red braided cord. Soft light from the upper left, clear highlights and soft shadows so everything reads as thick physical objects. Rich but limited palette: warm wood, ink black, jade green, crimson, a touch of gold.
+SUBJECT: A single giant demon eye carved in stone, seen straight from the front: a heavy-lidded almond-shaped eye with a vertical slit pupil, framed by a thick furrowed brow and deep wrinkles, with short jagged ash tendrils radiating out from the eyelids like dead roots. Watchful, calm, unsettling.
 
-BACKGROUND: A smooth, dark, warm background filling the whole square: deep charcoal brown (#231E1A) with a gentle lighter glow behind the subject. No pattern, no scene.
+MATERIAL AND STYLE: The whole figure is carved from a single block of rough gray volcanic ash stone, like a temple bas-relief sculpture that has been cut out along its outline. Thin glowing ember-orange cracks (#E0702A) run through the stone like cooling lava, and the iris and the cracks along the tendrils are carved in the same glowing ember orange. No other colors: no skin tones, no painted cloth, no gold. Every outer edge of the figure has a crisp pale-gray rim highlight so the figure stays readable on a gray tile. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands, no fabric texture.
 
-COMPOSITION: The subject is centered and fills about 70% of the canvas. Keep about 12% of empty margin on every side (the corners get cut off). Big, simple shapes; very little fine detail.
+LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
 
-DO NOT INCLUDE: any text, letters, logo, signature or Chinese/Japanese characters; a border or frame around the image; rounded corners; transparency; cartoon, anime or flat vector style.
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole shape is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: one big slit-pupil eye with a heavy brow and radiating tendrils.
 
-SUBJECT: Two small wooden ema plaques (pentagons: rectangles with pointed gable roofs) hanging side by side from one red cord, overlapping a little and swaying toward each other. The left plaque carries a polished white marble hexagonal tile with a jade-green rim; the right plaque carries a polished black obsidian hexagonal tile with a crimson rim. A small red paper seal-shaped disc (no characters on it) hangs from the cord between them.
+DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; blood or gore; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
 ---
@@ -168,7 +97,7 @@ ya está quedan abajo por si hay que regenerar algo.
 | Figuras de personajes (`char_*`) | `assets/story/` | 16 | ✅ |
 | Escenarios (`bg_*`) | `assets/story/` | 22 | ✅ |
 | Retratos redondos (`avatar_abbot`, `avatar_shogun`, `avatar_ashoni`) | `assets/avatars/` | 3 | ✅ |
-| Ilustraciones de momentos clave (`art_*`) | `assets/story/` | 12 | 7 ✅ · 5 ⬜ (pagoda, stairs, crypt, drunken_tale, scroll; opcionales) |
+| Ilustraciones de momentos clave (`art_*`) | `assets/story/` | 12 | ✅ |
 
 Cómo las usa el juego:
 - **Figuras:** quien habla está parado abajo, de su lado del cuadro; el juego espeja la figura cuando va a la
@@ -191,6 +120,8 @@ Cómo las usa el juego:
 | 6 | Íconos de la tienda | Tienda | 3 | ⏸ generados; se usan cuando exista la tienda |
 | 7 | Piedras de ficha (skins) | Ajustes | 4 | ✅ en el juego |
 | 8 | Tapetes de mesa | Ajustes (debajo del tablero) | 5 | ✅ en el juego |
+| 9 | Ícono de la app estilo Ema | Ícono de iOS y Android | 3 variantes | ⏸ generadas en `assets/icons/`; falta elegir una |
+| 10 | Fichas del Oni | Final de la historia (hoy se dibujan con kanji) | 3 | ⬜ (bloque A; opcionales) |
 
 Las capturas de pantalla para App Store y Google Play no se generan: se sacan del juego.
 
@@ -290,7 +221,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_pagoda.png` ⬜ (en bloque A o B)
+### `art_pagoda.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.
@@ -308,7 +239,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_stairs.png` ⬜ (en bloque A o B)
+### `art_stairs.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.
@@ -326,7 +257,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_crypt.png` ⬜ (en bloque A o B)
+### `art_crypt.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.
@@ -344,7 +275,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_drunken_tale.png` ⬜ (en bloque A o B)
+### `art_drunken_tale.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.
@@ -362,7 +293,7 @@ STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice 
 DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
 ```
 
-### `art_scroll.png` ⬜ (en bloque A o B)
+### `art_scroll.png` ✅
 
 ```
 Create ONE single image. Start immediately, without asking questions.
@@ -1808,6 +1739,128 @@ SURFACE: Smooth dark grey river slate, matte, very fine grain, soft cool tones.
 VIEW AND LIGHTING: Perfectly flat, straight-on, top-down view. Completely even, soft, shadowless lighting. No highlight spot, no gradient, no vignette.
 
 DO NOT INCLUDE: any object, game piece, hexagon, grid, line pattern, border or frame; any text, letters, symbol or logo; strong or high-contrast details; a perspective view; a photographic scene.
+```
+
+---
+
+## 9. Ícono de la app estilo Ema ⏸ (3 variantes, generadas)
+
+Están en `assets/icons/app_icon_ema_{a,b,c}.png`. Se elige una y Claude genera con ella los íconos de iOS y
+Android (`flutter_launcher_icons.yaml`: la copia a `assets/icon/app_icon.png` y arma `app_icon_fg.png` para el
+ícono adaptativo de Android). Prompt de las tres, por si hay que regenerar:
+
+```
+Generate exactly 3 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately. Each image is its own file: do NOT combine them into a grid, collage or contact sheet.
+
+Image 1 — app_icon_ema_a:
+Create a SQUARE 1024×1024 PNG image, fully opaque (no transparency anywhere), with square corners (do not round the corners, the phone will do that).
+
+PURPOSE: This is the app icon of "Hexiege", a hexagonal strategy board game where Shaolin monks (white marble and jade green) fight a ninja clan (black obsidian and crimson). The game's interface uses Japanese votive wooden plaques (ema) hanging from red cords, on washi paper. The icon will be seen very small (about 60×60 pixels) on a phone home screen, so it must read as one bold, simple shape.
+
+STYLE: Polished, painterly 3D game-icon rendering with real materials: warm natural wood with visible grain, polished stone, thick red braided cord. Soft light from the upper left, clear highlights and soft shadows so everything reads as thick physical objects. Rich but limited palette: warm wood, ink black, jade green, crimson, a touch of gold.
+
+BACKGROUND: A smooth, dark, warm background filling the whole square: deep charcoal brown (#231E1A) with a gentle lighter glow behind the subject. No pattern, no scene.
+
+COMPOSITION: The subject is centered and fills about 70% of the canvas. Keep about 12% of empty margin on every side (the corners get cut off). Big, simple shapes; very little fine detail.
+
+DO NOT INCLUDE: any text, letters, logo, signature or Chinese/Japanese characters; a border or frame around the image; rounded corners; transparency; cartoon, anime or flat vector style.
+
+SUBJECT: A single wooden ema plaque (a pentagon: rectangle with a pointed gable roof on top) hanging slightly tilted from a short thick red cord tied in a knot at the top. Mounted on the plaque, two hexagonal stone game tiles slightly overlapping, as if they just clashed: the front-left tile is polished white marble with a jade-green (#2F9E6E) rim and a small carved lotus in bas-relief; the back-right tile is polished black obsidian with a crimson (#C0404F) rim and a small carved crescent moon in bas-relief.
+
+Image 2 — app_icon_ema_b:
+Create a SQUARE 1024×1024 PNG image, fully opaque (no transparency anywhere), with square corners (do not round the corners, the phone will do that).
+
+PURPOSE: This is the app icon of "Hexiege", a hexagonal strategy board game where Shaolin monks (white marble and jade green) fight a ninja clan (black obsidian and crimson). The game's interface uses Japanese votive wooden plaques (ema) hanging from red cords, on washi paper. The icon will be seen very small (about 60×60 pixels) on a phone home screen, so it must read as one bold, simple shape.
+
+STYLE: Polished, painterly 3D game-icon rendering with real materials: warm natural wood with visible grain, polished stone, thick red braided cord. Soft light from the upper left, clear highlights and soft shadows so everything reads as thick physical objects. Rich but limited palette: warm wood, ink black, jade green, crimson, a touch of gold.
+
+BACKGROUND: A smooth, dark, warm background filling the whole square: deep charcoal brown (#231E1A) with a gentle lighter glow behind the subject. No pattern, no scene.
+
+COMPOSITION: The subject is centered and fills about 70% of the canvas. Keep about 12% of empty margin on every side (the corners get cut off). Big, simple shapes; very little fine detail.
+
+DO NOT INCLUDE: any text, letters, logo, signature or Chinese/Japanese characters; a border or frame around the image; rounded corners; transparency; cartoon, anime or flat vector style.
+
+SUBJECT: A single wooden ema plaque (a pentagon: rectangle with a pointed gable roof on top) seen straight from the front, hanging from a short thick red cord. Inlaid in its center, filling most of the plaque, one large hexagonal tile split diagonally in two halves: the upper-left half polished white marble with a jade-green rim, the lower-right half polished black obsidian with a crimson rim, joined by a thin line of gold like kintsugi.
+
+Image 3 — app_icon_ema_c:
+Create a SQUARE 1024×1024 PNG image, fully opaque (no transparency anywhere), with square corners (do not round the corners, the phone will do that).
+
+PURPOSE: This is the app icon of "Hexiege", a hexagonal strategy board game where Shaolin monks (white marble and jade green) fight a ninja clan (black obsidian and crimson). The game's interface uses Japanese votive wooden plaques (ema) hanging from red cords, on washi paper. The icon will be seen very small (about 60×60 pixels) on a phone home screen, so it must read as one bold, simple shape.
+
+STYLE: Polished, painterly 3D game-icon rendering with real materials: warm natural wood with visible grain, polished stone, thick red braided cord. Soft light from the upper left, clear highlights and soft shadows so everything reads as thick physical objects. Rich but limited palette: warm wood, ink black, jade green, crimson, a touch of gold.
+
+BACKGROUND: A smooth, dark, warm background filling the whole square: deep charcoal brown (#231E1A) with a gentle lighter glow behind the subject. No pattern, no scene.
+
+COMPOSITION: The subject is centered and fills about 70% of the canvas. Keep about 12% of empty margin on every side (the corners get cut off). Big, simple shapes; very little fine detail.
+
+DO NOT INCLUDE: any text, letters, logo, signature or Chinese/Japanese characters; a border or frame around the image; rounded corners; transparency; cartoon, anime or flat vector style.
+
+SUBJECT: Two small wooden ema plaques (pentagons: rectangles with pointed gable roofs) hanging side by side from one red cord, overlapping a little and swaying toward each other. The left plaque carries a polished white marble hexagonal tile with a jade-green rim; the right plaque carries a polished black obsidian hexagonal tile with a crimson rim. A small red paper seal-shaped disc (no characters on it) hangs from the cord between them.
+```
+
+## 10. Fichas del Oni ⬜ (3) — `assets/pieces/`
+
+### Oni de Ceniza (Líder) — `oni_oni`
+Habilidad: Líder del jefe final. Se desliza hasta 2 casillas.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
+
+PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
+
+SUBJECT: A huge horned demon (oni) shown from the chest up, facing the viewer straight on (perfect front view). Two thick curved horns, a heavy brow, a wide snarling mouth with two short tusks, a wild mane that dissolves upward into drifting flakes of ash. Massive shoulders, one clawed hand raised in front of the chest. Ancient, enormous, half-awake menace.
+
+MATERIAL AND STYLE: The whole figure is carved from a single block of rough gray volcanic ash stone, like a temple bas-relief sculpture that has been cut out along its outline. Thin glowing ember-orange cracks (#E0702A) run through the stone like cooling lava, and the eyes, the inside of the mouth and the cracks in the horns are carved in the same glowing ember orange. No other colors: no skin tones, no painted cloth, no gold. Every outer edge of the figure has a crisp pale-gray rim highlight so the figure stays readable on a gray tile. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands, no fabric texture.
+
+LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
+
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The bottom of the figure ends in a soft, clean horizontal cut, like the bottom edge of a bust. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: two big horns above a snarling tusked face and broad shoulders.
+
+DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; blood or gore; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
+```
+
+### Gaki — `oni_gaki`
+Habilidad: Salta a cualquier casilla del borde y paraliza a una ficha enemiga adyacente.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
+
+PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
+
+SUBJECT: A gaki (hungry ghost): a gaunt, hunched spirit crouched as if about to leap, three-quarter view facing the viewer. Thin bony limbs, a swollen round belly, a long thin neck, a small head with a tiny pinched mouth and big hollow eyes. One long-fingered hand reaching forward, grasping at the air. Its lower body trails off into a curl of ash smoke instead of feet.
+
+MATERIAL AND STYLE: The whole figure is carved from a single block of rough gray volcanic ash stone, like a temple bas-relief sculpture that has been cut out along its outline. Thin glowing ember-orange cracks (#E0702A) run through the stone like cooling lava, and the hollow eyes and the reaching fingertips are carved in the same glowing ember orange. No other colors: no skin tones, no painted cloth, no gold. Every outer edge of the figure has a crisp pale-gray rim highlight so the figure stays readable on a gray tile. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands, no fabric texture.
+
+LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
+
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole figure is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: a hunched starving spirit with a long neck, a reaching claw and a smoky tail.
+
+DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; blood or gore; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
+```
+
+### Ojo del Oni — `oni_oniEye`
+Habilidad: Se desliza 1 casilla y anula los efectos de las fichas enemigas cercanas.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), PNG with a fully transparent background (real alpha channel, no white or checkerboard background).
+
+PURPOSE: This is the icon for a game piece in a hexagonal board game. It will be shown very small (about 50×50 pixels) on top of a hexagonal stone tile that the game draws itself. So the image must contain ONLY the carved figure, with nothing behind it.
+
+SUBJECT: A single giant demon eye carved in stone, seen straight from the front: a heavy-lidded almond-shaped eye with a vertical slit pupil, framed by a thick furrowed brow and deep wrinkles, with short jagged ash tendrils radiating out from the eyelids like dead roots. Watchful, calm, unsettling.
+
+MATERIAL AND STYLE: The whole figure is carved from a single block of rough gray volcanic ash stone, like a temple bas-relief sculpture that has been cut out along its outline. Thin glowing ember-orange cracks (#E0702A) run through the stone like cooling lava, and the iris and the cracks along the tendrils are carved in the same glowing ember orange. No other colors: no skin tones, no painted cloth, no gold. Every outer edge of the figure has a crisp pale-gray rim highlight so the figure stays readable on a gray tile. The carving is deep and simple, with broad smooth planes and strong grooves that separate the main shapes. Very little fine detail: no individual hair strands, no fabric texture.
+
+LIGHTING: A single soft light from the upper left. The upper-left edges of the carving catch highlights, and the grooves and lower-right edges fall into soft shadow, so the relief reads clearly as raised 3D stone. No cast shadow on the ground.
+
+COMPOSITION: The figure is compact: its overall shape is about as tall as it is wide (never a long thin horizontal or vertical shape), perfectly centered, and it fills an imaginary circle that covers about 80% of the canvas width. All four corners must stay completely empty and transparent. The whole shape is visible, nothing is cropped. The silhouette must be bold and instantly recognizable even when shrunk to 50 pixels: one big slit-pupil eye with a heavy brow and radiating tendrils.
+
+DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; blood or gore; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
 ---
