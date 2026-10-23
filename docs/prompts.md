@@ -22,7 +22,6 @@ Prompts para **ChatGPT** (generador de imágenes), en inglés porque así sigue 
 | A | Fichas del Oni para el final de la historia (opcionales) | `assets/pieces/` | 3 |
 
 Además, sin generar nada:
-- **Ícono Ema:** las 3 variantes ya están en `assets/icons/`; falta elegir una (ver «9. Ícono de la app estilo Ema»).
 - **Fichas en alta resolución:** re-descargarlas de ChatGPT (ver «1. Fichas en alta resolución»).
 
 Las fichas del Oni solo aparecen en el final (etapas f1–f3). Mientras falten, el juego las dibuja como piedra de
@@ -120,7 +119,7 @@ Cómo las usa el juego:
 | 6 | Íconos de la tienda | Tienda | 3 | ⏸ generados; se usan cuando exista la tienda |
 | 7 | Piedras de ficha (skins) | Ajustes | 4 | ✅ en el juego |
 | 8 | Tapetes de mesa | Ajustes (debajo del tablero) | 5 | ✅ en el juego |
-| 9 | Ícono de la app estilo Ema | Ícono de iOS y Android | 3 variantes | ⏸ generadas en `assets/icons/`; falta elegir una |
+| 9 | Ícono de la app estilo Ema | Ícono de iOS y Android | 1 de 3 variantes | ✅ variante B en el juego |
 | 10 | Fichas del Oni | Final de la historia (hoy se dibujan con kanji) | 3 | ⬜ (bloque A; opcionales) |
 
 Las capturas de pantalla para App Store y Google Play no se generan: se sacan del juego.
@@ -1743,11 +1742,12 @@ DO NOT INCLUDE: any object, game piece, hexagon, grid, line pattern, border or f
 
 ---
 
-## 9. Ícono de la app estilo Ema ⏸ (3 variantes, generadas)
+## 9. Ícono de la app estilo Ema ✅ (variante B en el juego)
 
-Están en `assets/icons/app_icon_ema_{a,b,c}.png`. Se elige una y Claude genera con ella los íconos de iOS y
-Android (`flutter_launcher_icons.yaml`: la copia a `assets/icon/app_icon.png` y arma `app_icon_fg.png` para el
-ícono adaptativo de Android). Prompt de las tres, por si hay que regenerar:
+Se eligió la B (`app_icon_ema_b`: una sola placa con la ficha partida en mármol y obsidiana). Para regenerar los
+íconos: poner la imagen a 1024 en `assets/icon/app_icon.png` y una copia con el borde desvanecido en
+`app_icon_fg.png`, y correr `dart run flutter_launcher_icons` (fondo adaptativo `#1E1712`). Hay una copia en
+`store/icon/app_icon_ema.png`. Prompt de las tres variantes, por si hay que regenerar:
 
 ```
 Generate exactly 3 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately. Each image is its own file: do NOT combine them into a grid, collage or contact sheet.
@@ -2185,7 +2185,7 @@ DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carvi
 
 ---
 
-## Ícono de la app — `assets/icon/app_icon.png` ✅ en el juego
+## Ícono de la app (versión anterior, reemplazada por el Ema) — `assets/icon/app_icon.png`
 
 1024×1024, **completamente opaco** (iOS rechaza íconos con transparencia) y sin esquinas redondeadas: el sistema
 las recorta. Se ve a 60 px en la pantalla de inicio, así que tiene que leerse con una sola forma.
