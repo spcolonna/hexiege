@@ -24,8 +24,8 @@
   "zh": ["日落时分，路上。", "你们为什么要等我？", "……", "“裹毯子的孩子”是什么意思？", "去问那个老头，他在下面藏了什么！", "下面？", "篮子翻倒了。米撒了一路。", "还是捡起来吧。寺里有个囚犯从昨天起就没吃东西。"]
  },
  "s4.pre": {
-  "en": ["Night. The Temple cells.", "Beneath the old wing of the Temple burns a single torch. Behind the bars, someone is awake.", "I brought you rice.", "…Poisoned?", "Just a bit of dirt. I dropped it on the road.", "…", "Thank you.", "Your friends ambushed me. They called me \"the blanket boy.\" What are you after?", "I won't tell you anything, monk.", "Then we wait. I have all night.", "My little brother is just like you. Questions and more questions.", "A dull thud on the roof. Then another.", "Ren! They've come to break him out!"],
-  "zh": ["夜。寺里的牢房。", "寺院旧翼下只点着一支火把。铁栏后面，有人没睡。", "我给你带了米饭。", "……下了毒？", "只有点土。路上撒了。", "……", "谢谢。", "你的同伙伏击了我。他们叫我“裹毯子的孩子”。你们到底想要什么？", "我什么也不会告诉你，和尚。", "那我们就等。我有一整夜。", "我弟弟跟你一样。问个不停。", "屋顶上一声闷响。接着又一声。", "仁！他们来救他了！"]
+  "en": ["Night. The Temple cells.", "Beneath the old wing of the Temple burns a single torch. Behind the bars, someone is awake.", "I brought you rice.", "…Poisoned?", "Just a bit of dirt. I dropped it on the road.", "…", "Thank you.", "Your friends ambushed me. They called me \"the blanket boy.\" What are you after?", "I won't tell you anything, monk.", "Then we wait. I have all night.", "My little sister is just like you. Questions and more questions.", "A dull thud on the roof. Then another.", "Ren! They've come to break him out!"],
+  "zh": ["夜。寺里的牢房。", "寺院旧翼下只点着一支火把。铁栏后面，有人没睡。", "我给你带了米饭。", "……下了毒？", "只有点土。路上撒了。", "……", "谢谢。", "你的同伙伏击了我。他们叫我“裹毯子的孩子”。你们到底想要什么？", "我什么也不会告诉你，和尚。", "那我们就等。我有一整夜。", "我妹妹跟你一样。问个不停。", "屋顶上一声闷响。接着又一声。", "仁！他们来救他了！"]
  },
  "s4.post": {
   "en": ["The smoke clears. The cells.", "The rescuers fled. They left the scout behind.", "Your friends abandoned you.", "They didn't abandon me. They left me here to talk to you.", "Listen, kid. We didn't come to steal.", "**We came to warn you.**", "Warn us about what?", "What your Abbot keeps down below…", "The torch goes out on its own. A cold mist seeps in under the door.", "At the cell door stands a white fox. No one saw it come in.", "It is not yet time for him to know.", "…Yes, my lady.", "My lady? Who…?", "Eat the rice yourself, blanket boy. You'll need it.", "The fox and the scout vanish into the mist.", "The cell is still shut. Locked. From the outside."],
@@ -192,52 +192,52 @@
   "zh": ["……你赢了。", "现在听着，因为没人会告诉你。", "……", "你的寺院底下沉睡着灰烬鬼。它在三百年前被封印。", "你的方丈知道封印正在破碎。他早就知道了。", "那他会重修封印。", "他做不到。**一个人做不到。**", "忍者一直都知道：卷轴是我们盟约的一半。", "什么盟约？", "这我不知道。所以我才想要它。", "师父……骗了我。", "远处，寺院上空，升起一道灰烬之柱。"]
  },
  "n1.pre": {
-  "en": ["The clan's pagoda. Night.", "High on the mountain, the clan's red lanterns never go out.", "The Jade Scroll belongs to us.", "The monks stole it centuries ago.", "What does the Scroll say, my lord?", "…", "That doesn't matter. What matters is that it comes home.", "Always the same answer.", "Later. The Temple wall.", "The wall guard.", "Get past him without a sound.", "Like a shadow."],
-  "zh": ["夜。忍者一族的宝塔。", "山巅之上，一族的红灯笼从不熄灭。", "翡翠卷轴是我们的。", "几百年前被和尚们偷走了。", "主上，卷轴上写着什么？", "……", "那不重要。重要的是让它回家。", "永远是同一个回答。", "稍后。寺墙。", "守墙的卫兵。", "悄无声息地过去。", "像影子一样。"]
+  "en": ["The clan's pagoda. Night.", "High on the mountain, the clan's red lanterns never go out.", "The Jade Scroll belongs to us.", "The monks stole it centuries ago.", "What does the Scroll say, my lord?", "…", "That doesn't matter. What matters is that it comes home.", "Always the same answer.", "Tonight you climb the wall for the first time. Kuro will guide you.", "If you see a young disciple with a staff, do him no harm.", "Why, my lord?", "Because I say so.", "Aya grew up in the pagoda. Her grandmother taught her the board before she taught her to walk.", "\"It isn't a fight, Aya. It's a prayer.\" She never told me to whom.", "Later. The Temple wall.", "Nervous, little sister?", "Shut up, Sora.", "Both of you. The wall guard.", "Get past him without a sound.", "Like a shadow."],
+  "zh": ["夜。忍者一族的宝塔。", "山巅之上，一族的红灯笼从不熄灭。", "翡翠卷轴是我们的。", "几百年前被和尚们偷走了。", "主上，卷轴上写着什么？", "……", "那不重要。重要的是让它回家。", "永远是同一个回答。", "今晚你第一次上墙。黑会带你。", "要是看见一个拿棍的年轻弟子，别伤他。", "为什么，主上？", "因为我这么说。", "绫在宝塔里长大。她奶奶教她下棋，比教她走路还早。", "“那不是打斗，绫。是一种祈祷。”她从没告诉我是向谁祈祷。", "稍后。寺墙。", "紧张吗，小妹？", "闭嘴，空。", "你们两个。守墙的卫兵。", "悄无声息地过去。", "像影子一样。"]
  },
  "n1.post": {
-  "en": ["The guard sleeps against the wall. He never noticed.", "We're in.", "Good. Now, the hard part."],
-  "zh": ["卫兵靠着墙睡着了。他什么也没察觉。", "进来了。", "很好。接下来才是难的。"]
+  "en": ["The guard sleeps against the wall. He never noticed.", "Inside.", "Good. Now, the hard part.", "I'll take the north wing. I have something to do.", "What? Kuro didn't say anything about…", "Big-brother business.", "Every time he says that, he's lying."],
+  "zh": ["卫兵靠着墙睡着了。根本没察觉。", "进去。", "很好。接下来才是难的。", "我走北翼。我有件事要办。", "什么事？黑可没说过……", "哥哥的事。", "他每次这么说，都是在撒谎。"]
  },
  "n2.pre": {
-  "en": ["The novices' yard.", "A shadow! Alarm!", "They're kids.", "They haven't learned Jade Meditation yet.", "Don't let them shout any louder."],
-  "zh": ["小沙弥的院子。", "有黑影！快报警！", "他们还是孩子。", "他们还没学会翡翠冥想。", "别让他们喊得更大声。"]
+  "en": ["The novices' yard.", "A shadow! Alarm!", "They're children.", "They're the age I was when they put a tantō in my hand.", "Don't let them shout any louder. Don't hurt anyone.", "He said that quickly. As if he cared."],
+  "zh": ["小沙弥的院子。", "有影子！警报！", "他们还是孩子。", "我被塞进一把短刀的时候，也就他们这么大。", "别让他们喊得更大声。不许伤人。", "他说得很快。好像他在乎似的。"]
  },
  "n2.post": {
-  "en": ["Kuro… why do we surround?", "In the clan they teach us to surround too.", "Because that's how you win.", "But why **that** way?", "…", "You ask too many questions."],
-  "zh": ["黑……我们为什么要包围？", "族里也教我们包围。", "因为这样才能赢。", "可是为什么**偏偏**是这样？", "……", "你问得太多了。"]
+  "en": ["Kuro… why do we surround?", "In the clan they teach us to surround too.", "Because that's how you win.", "But why **that** way?", "…", "The time I asked my master that, he hit me with a cane.", "Are you going to hit me?", "No. But I'm not going to answer you either.", "You ask too many questions, Aya. Just like your grandmother."],
+  "zh": ["黑……我们为什么要包围？", "族里也教我们包围。", "因为这样才能赢。", "可为什么要**这样**赢？", "……", "我问我师父这个问题的时候，他用棍子打了我。", "那你要打我吗？", "不。但我也不会回答你。", "你问得太多了，绫。跟你奶奶一样。"]
  },
  "n3.pre": {
-  "en": ["The inner courtyard.", "A master makes his rounds by the incense burner. He doesn't look up.", "They never look up.", "Aya drops onto the guard master before he can react."],
-  "zh": ["内院。", "一位师父在香炉旁巡视。他没有抬头。", "他们从来不往上看。", "绫从天而降，守卫师父还没反应过来。"]
+  "en": ["The inner courtyard.", "A master makes his rounds by the incense burner. He never looks up.", "They never look up.", "Sora should be back by now.", "Aya drops onto the guard master before he can react."],
+  "zh": ["内院。", "一位师父在香炉旁巡夜。他从不抬头看。", "他们从不往上看。", "空早该回来了。", "绫从天而降，落在值守师父身上，他还没来得及反应。"]
  },
  "n3.post": {
-  "en": ["From the rooftop, Aya sees something strange: the monks aren't guarding the library.", "They're guarding a **staircase** that leads beneath the Temple.", "What are they keeping down there?"],
-  "zh": ["绫在屋顶上看到了奇怪的事：和尚们守的不是藏经阁。", "他们守着一道通往寺院地下的**阶梯**。", "他们在下面藏着什么？"]
+  "en": ["From the rooftop, Aya sees something strange: the monks aren't guarding the library.", "They're guarding a **staircase** that leads beneath the Temple.", "The Shogun said the Scroll is in the library.", "Then… what are they keeping down there?"],
+  "zh": ["绫从屋顶上看到一件怪事：和尚们守的不是藏经阁。", "他们守着一道通往寺院地下的**阶梯**。", "大将军说卷轴在藏经阁里。", "那……他们在下面藏了什么？"]
  },
  "n4.pre": {
-  "en": ["The entrance to the crypt.", "A mouth of stone in the ground. Below, the torches burn without flickering.", "Halt! No one goes down.", "What's down there?", "I don't know.", "And you won't find out either."],
-  "zh": ["地穴入口。", "地上一张石头的嘴。下面，火把燃烧得纹丝不动。", "站住！谁也不许下去。", "下面有什么？", "我不知道。", "你也别想知道。"]
+  "en": ["The crypt entrance.", "A stone mouth in the ground. Below, the torches burn without flickering.", "Halt! No one goes down.", "What's down there?", "I don't know.", "And you won't find out either.", "You're guarding something you don't even know?", "My sister sleeps in the village below. If you get through, you get through her.", "…", "I have someone too. And I'm not going back without knowing."],
+  "zh": ["地穴入口。", "地上一张石口。下面的火把燃得纹丝不动。", "站住！谁也不许下去。", "下面有什么？", "我不知道。", "你也别想知道。", "你守着连自己都不知道是什么的东西？", "我妹妹睡在山下的村子里。你们要过去，就得先过她那一关。", "……", "我也有要守护的人。不弄清楚，我不回去。"]
  },
  "n4.post": {
-  "en": ["Gon lies sprawled on the steps. Aya goes down to the stone door.", "…", "The stone is **warm**. And it beats, slowly.", "…Like a heart."],
-  "zh": ["刚倒在台阶上。绫走到石门前。", "……", "石头是**温的**。而且在缓缓跳动。", "……像一颗心脏。"]
+  "en": ["Gon lies sprawled on the steps. Aya goes down to the stone door.", "…", "The stone is **warm**. And it beats, slowly.", "…Like a heart.", "Grandmother… is this what we were praying to?"],
+  "zh": ["刚倒在台阶上。绫走到石门前。", "……", "石头是**温的**。而且在缓缓跳动。", "……像一颗心脏。", "奶奶……我们祈祷的，就是这个吗？"]
  },
  "n5.pre": {
-  "en": ["Bells. The whole Temple wakes.", "They've seen us! We're leaving.", "But the staircase…", "Now, Aya!"],
-  "zh": ["钟声。整座寺院都醒了。", "被发现了！撤！", "可是那道阶梯……", "快走，绫！"]
+  "en": ["Bells. The whole Temple wakes.", "They've seen us! We're leaving.", "But the staircase… and Sora!", "Now, Aya!"],
+  "zh": ["钟声。整座寺院都醒了。", "被发现了！撤！", "可是那道阶梯……还有空！", "快走，绫！"]
  },
  "n5.post": {
-  "en": ["The north wall.", "They escape over the north wall. One of their own didn't make it.", "Where's the scout?", "In the cells. They caught him.", "We're going back for him.", "…"],
-  "zh": ["北墙。", "他们从北墙逃了出去。有一个同伴没能跟上。", "斥候呢？", "在牢房里。他被抓住了。", "我们要回去救他。", "……"]
+  "en": ["The north wall.", "They escape over the north wall. One of their own didn't make it.", "Where's Sora?", "They caught him in the forest at dawn. He's in the cells.", "We're going back for him.", "…", "The Shogun said no. A scout isn't worth a mission.", "He's not a scout. He's my brother.", "I know.", "That's why I'm telling you and not the Shogun: the roof over the cells is loose."],
+  "zh": ["北墙。", "他们从北墙逃了出去。有一个人没能回来。", "空在哪里？", "黎明时在林子里被抓了。关在牢房里。", "我们回去救他。", "……", "大将军说不行。一个斥候不值得一次任务。", "他不是斥候。他是我哥哥。", "我知道。", "所以我告诉你，而不是告诉大将军：牢房的屋顶松了。"]
  },
  "n6.pre": {
-  "en": ["The next night. The cells.", "Aya comes back alone to rescue the scout.", "Mei is waiting for her.", "You came back for your comrade. That says something good about you.", "I don't need your approval.", "No. You need to get past me."],
-  "zh": ["第二天夜里。牢房。", "绫独自回来营救斥候。", "梅正在等她。", "你回来救你的同伴。这说明你心地不坏。", "我不需要你的认可。", "不。你需要过我这一关。"]
+  "en": ["The next night. The cells.", "Aya returns alone, through the loose roof, to rescue her brother.", "Sora…", "Mei is waiting for her.", "You came back for your brother. That says something good about you.", "How do you know he's my brother?", "He talks about you all the time. The sister who asks and asks.", "I don't need your approval.", "No. You need to get past me."],
+  "zh": ["第二天夜里。牢房。", "绫独自一人，从松动的屋顶回来救她哥哥。", "空……", "梅在等着她。", "你回来救你哥哥。这说明你心地不坏。", "您怎么知道他是我哥哥？", "他一直在说你。说他那个问个不停的妹妹。", "我不需要您的认可。", "对。你需要的是过我这一关。"]
  },
  "n6.post": {
-  "en": ["…Go.", "Take him with you.", "You're letting us go?", "Something greater than this war is coming.", "The less blood, the better.", "The crypt staircase.", "What you came looking for is not what you think.", "Who are you?", "Beneath Aya's feet, the stone **beats** once more. Stronger."],
-  "zh": ["……走吧。", "带他一起走。", "您放我们走？", "比这场战争更大的东西就要来了。", "流的血越少越好。", "地穴的阶梯。", "你来寻找的，不是你以为的那样东西。", "你是谁？", "在绫的脚下，石头又**跳动**了一下。更强了。"]
+  "en": ["…Go.", "Take him with you.", "You're letting us go?", "Something greater than this war is coming.", "The less blood, the better.", "Aya. There's something I have to tell you.", "Later. First we get out.", "The crypt staircase.", "What you came looking for is not what you think.", "Who are you?", "Ask your brother who he carries messages for.", "Beneath Aya's feet, the stone **beats** once more. Stronger."],
+  "zh": ["……走吧。", "带他一起走。", "您放我们走？", "比这场战争更大的东西就要来了。", "流的血越少越好。", "绫，有件事我得告诉你。", "以后再说。先出去。", "地穴的阶梯。", "你来寻找的，不是你以为的那样东西。", "你是谁？", "去问你哥哥，他在替谁传信。", "在绫的脚下，石头又**跳动**了一下。更强了。"]
  },
  "n7.pre": {
   "en": ["The pagoda.", "My lord, the crypt door beats.", "There is something alive beneath the Temple.", "Monks' superstitions.", "I touched it myself.", "…", "Kuro. Train her. She is distracted.", "Yes, my lord."],

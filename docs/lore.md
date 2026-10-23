@@ -43,8 +43,13 @@ dos llevan a sus bandos a una guerra que despierta al Oni.
 | **Gon** | Templo | `staff` | Compañero de Ren, rival amistoso. |
 | **Kuro** | Clan | `jonin` | Jonin, mentor de Aya. Fiel al Shogun hasta el final. |
 | **Jubei, el ronin** | Ninguno | `ronin` | Ex monje expulsado por preguntar demasiado. Ayuda a los dos protagonistas. |
+| **Sora** | Clan | `scout` | Hermano mayor de Aya, explorador. Es el que Gon captura. A escondidas lleva mensajes de la Zorra Blanca: "venimos a advertir". |
 | **La Zorra Blanca** | Espíritu | `kitsune` | Aparece en las dos campañas. Habla en acertijos. Es el lazo entre Daishin y Kagerō. |
 | **El Oni de Ceniza** | — | *nuevo* | El demonio sellado. Casi no habla: cuando lo hace, en ceniza. |
+
+**Hilos abiertos del Acto I (resolver en los actos II–IV):**
+- **El chico de la manta.** Ren llegó al Templo de bebé, envuelto en una manta, una noche de lluvia gris (ceniza: la primera grieta del sello). El clan lo conoce por ese nombre y el Shogun ordena no hacerle daño. Propuesta: la manta es del clan; Ren es hijo de una kunoichi y un monje, las "dos manos" del ritual en una sola persona.
+- **Sora y la Zorra.** Sora cruza el muro para dejar la marca de los seis puntos y advertir al Templo, por encargo de la Zorra, sin que el clan lo sepa.
 
 **Retratos nuevos a generar:** Abad Hōshin, Gran Shogun Kage y el Oni de Ceniza (el avatar `oni` actual es un ninja con máscara, no el demonio).
 Opcional: versiones con otra expresión de Ren y Aya.
@@ -192,7 +197,7 @@ Rival: rescatistas ninja · IA: fácil · Regla: normal
 - Ren: Tus amigos me emboscaron. Me llamaron «el chico de la manta». ¿Qué buscan?
 - Explorador: No te voy a decir nada, monje.
 - Ren: Entonces esperamos. Tengo toda la noche.
-- Explorador: Mi hermano menor es igual que vos. Pregunta y pregunta.
+- Explorador: Mi hermana menor es igual que vos. Pregunta y pregunta.
 - [plano .5,.15 x1.4 · onom golpe · temblor]
 - Narración: Un golpe seco en el techo. Después, otro.
 - [humo · destello]
@@ -692,17 +697,31 @@ Rival: guardia del muro · IA: novato · Regla: normal
 - Kage: …
 - Kage [plano .7,.4 x1.4]: Eso no importa. Importa que vuelva a casa.
 - Aya *(pensando)*: Siempre la misma respuesta.
+- Kage: Esta noche subís al muro por primera vez. Kuro te guía.
+- Kage: Si ves a un discípulo joven con un bastón, no le hagas daño.
+- Aya: ¿Por qué, mi señor?
+- Kage: Porque lo digo yo.
+- [sale Kage · plano .3,.5 x1.2 lento]
+- Narración: Aya creció en la pagoda. Su abuela le enseñó el tablero antes que a caminar.
+- Aya *(pensando)*: «No es una pelea, Aya. Es una oración.» Nunca me dijo a quién.
 - *Más tarde. El muro del Templo.* [lugar wall · plano .5,.5 x1.3]
-- Kuro [entra der sombra]: El guardia del muro.
+- Explorador [entra centro sombra]: ¿Nerviosa, hermanita?
+- Aya [entra izq]: Callate, Sora.
+- Kuro [entra der sombra]: Los dos. El guardia del muro.
 - [plano .14,.45 x1.6]
 - Kuro: Pasalo sin hacer ruido.
-- Aya [entra izq]: Como una sombra.
+- Aya: Como una sombra.
 
 **Después**
 - [plano .75,.5 x1.25 lento]
 - Narración: El guardia duerme contra el muro. Ni se enteró.
 - Aya [entra izq corre]: Adentro.
 - Kuro [entra der sombra]: Bien. Ahora, lo difícil.
+- Explorador [entra centro sombra]: Yo voy por el ala norte. Tengo algo que hacer.
+- Aya: ¿Qué cosa? Kuro no dijo nada de…
+- Explorador [sale Explorador corre]: Cosas de hermano mayor.
+- [plano .4,.5 x1.3 lento]
+- Aya *(pensando)*: Cada vez que dice eso, miente.
 
 #### n2 · Los novicios
 Rival: novicios · IA: fácil · Regla: el rival no usa habilidad
@@ -711,8 +730,9 @@ Rival: novicios · IA: fácil · Regla: el rival no usa habilidad
 - [plano .75,.5 x1.2 lento]
 - Novicio [entra der corre]: ¡Una sombra! ¡Alarma!
 - Aya [entra izq]: Son chicos.
-- Aya: Todavía no aprendieron la Meditación de Jade.
-- Kuro [entra centro sombra]: Que no griten más fuerte.
+- Aya *(pensando)*: Tienen la edad que yo tenía cuando me pusieron un tantō en la mano.
+- Kuro [entra centro sombra]: Que no griten más fuerte. Sin lastimar a nadie.
+- Aya *(pensando)*: Eso lo dijo rápido. Como si le importara.
 
 **Después**
 - Aya [entra izq]: Kuro… ¿por qué rodeamos?
@@ -721,7 +741,10 @@ Rival: novicios · IA: fácil · Regla: el rival no usa habilidad
 - Aya: Pero ¿por qué **así**?
 - [plano .7,.45 x1.45 lento]
 - Kuro: …
-- Kuro: Preguntás demasiado.
+- Kuro: La vez que le pregunté eso a mi maestro, me pegó con una vara.
+- Aya: ¿Y vos me vas a pegar?
+- Kuro: No. Pero tampoco te voy a contestar.
+- Kuro: Preguntás demasiado, Aya. Igual que tu abuela.
 
 #### n3 · Golpe por sorpresa
 Rival: maestro de guardia · IA: fácil · Regla: el Monje rival empieza con 3 de tus fichas al lado
@@ -731,6 +754,7 @@ Rival: maestro de guardia · IA: fácil · Regla: el Monje rival empieza con 3 d
 - Narración: Un maestro hace la ronda junto al incensario. No mira hacia arriba.
 - [plano .7,.25 x1.45]
 - Aya *(pensando)*: Nunca miran hacia arriba.
+- Aya *(pensando)*: Sora ya debería haber vuelto.
 - [temblor · destello]
 - Narración: Aya cae sobre el maestro de guardia antes de que reaccione.
 
@@ -738,7 +762,8 @@ Rival: maestro de guardia · IA: fácil · Regla: el Monje rival empieza con 3 d
 - [arte art_stairs · plano .2,.4 x1.3]
 - Narración [plano .55,.6 x1.15 lento]: Desde el tejado, Aya ve algo raro: los monjes no custodian la biblioteca.
 - Narración: Custodian una **escalera** que baja bajo el Templo.
-- Aya *(pensando)*: ¿Qué guardan ahí abajo?
+- Aya *(pensando)*: El Shogun dijo que el Pergamino está en la biblioteca.
+- Aya *(pensando)*: Entonces… ¿qué guardan ahí abajo?
 
 #### n4 · La escalera
 Rival: Gon · IA: fácil · Regla: normal
@@ -750,6 +775,11 @@ Rival: Gon · IA: fácil · Regla: normal
 - Aya [entra izq]: ¿Qué hay abajo?
 - Gon: No lo sé.
 - Gon: Y no lo vas a saber vos tampoco.
+- Aya: ¿Defendés algo que ni sabés qué es?
+- Gon: Mi hermana duerme en el pueblo de abajo. Si ustedes pasan, pasan por ella.
+- Aya: …
+- [plano .3,.45 x1.4]
+- Aya: Yo también tengo a alguien. Y no pienso volver sin saber.
 
 **Después**
 - [plano .5,.65 x1.45 lento]
@@ -758,6 +788,7 @@ Rival: Gon · IA: fácil · Regla: normal
 - [plano .5,.72 x1.7 lento · latido]
 - Narración: La piedra está **tibia**. Y late, despacio.
 - Aya: …Como un corazón.
+- Aya *(pensando)*: Abuela… ¿a esto le rezábamos?
 
 #### n5 · Alarma
 Rival: monjes de guardia · IA: fácil · Regla: el Asedio empieza en la ronda 15
@@ -765,28 +796,36 @@ Rival: monjes de guardia · IA: fácil · Regla: el Asedio empieza en la ronda 1
 - *Campanas. Todo el Templo despierta.* [plano .82,.55 x1.6]
 - [onom campana · temblor]
 - Kuro [entra der corre]: ¡Nos vieron! Nos vamos.
-- Aya [entra izq]: Pero la escalera…
+- Aya [entra izq]: Pero la escalera… ¡y Sora!
 - [plano .3,.5 x1.25]
 - Kuro: ¡Ahora, Aya!
 
 **Después**
 - *El muro norte.* [lugar wall · plano .7,.4 x1.3]
 - Narración: Escapan por el muro norte. Uno de los suyos no llegó.
-- Aya [entra izq]: ¿Dónde está el explorador?
-- Kuro [entra der]: En las celdas. Lo atraparon.
+- Aya [entra izq]: ¿Dónde está Sora?
+- Kuro [entra der]: Lo atraparon en el bosque, al alba. Está en las celdas.
 - Aya: Vamos a volver por él.
 - Kuro: …
+- Kuro: El Shogun dijo que no. Un explorador no vale una misión.
+- Aya: No es un explorador. Es mi hermano.
+- [plano .7,.45 x1.45 lento]
+- Kuro: Ya sé.
+- Kuro: Por eso te lo digo a vos y no al Shogun: el techo de las celdas está flojo.
 
 #### n6 · JEFE — Maestra Mei
 Rival: Mei · IA: fácil (jefe) · Regla: Mei tiene un Tigre de más
 **Antes**
 - *Noche siguiente. Las celdas.* [plano .2,.5 x1.4]
 - [plano .55,.5 x1.2 lento]
-- Narración: Aya vuelve sola a rescatar al explorador.
+- Narración: Aya vuelve sola, por el techo flojo, a rescatar a su hermano.
+- Aya [entra izq]: Sora…
 - [entra Mei der sombra]
 - Narración: Mei la está esperando.
-- Mei: Volviste por tu compañero. Eso dice algo bueno de vos.
-- Aya [entra izq]: No necesito su aprobación.
+- Mei: Volviste por tu hermano. Eso dice algo bueno de vos.
+- Aya: ¿Cómo sabe que es mi hermano?
+- Mei: Habla de vos todo el tiempo. De la hermana que pregunta y pregunta.
+- Aya: No necesito su aprobación.
 - Mei [plano .7,.45 x1.45]: No. Necesitás pasar por mí.
 
 **Después**
@@ -795,10 +834,13 @@ Rival: Mei · IA: fácil (jefe) · Regla: Mei tiene un Tigre de más
 - Aya [entra izq]: ¿Nos deja ir?
 - Mei: Algo más grande que esta guerra viene.
 - Mei: Cuanto menos sangre, mejor.
+- Explorador [entra centro sombra]: Aya. Hay algo que tengo que contarte.
+- Aya: Después. Primero salimos.
 - *La escalera de la cripta.* [lugar cryptStairs · oscuro · niebla · plano .5,.55 x1.3]
 - [plano .5,.6 x1.55 lento]
 - Zorra Blanca [entra der humo]: Lo que viniste a buscar no es lo que pensás.
 - Aya [entra izq]: ¿Quién sos?
+- Zorra Blanca: Preguntale a tu hermano para quién lleva mensajes.
 - [sale Zorra Blanca humo]
 - [latido · temblor]
 - Narración: Bajo los pies de Aya, la piedra **late** una vez más. Más fuerte.
