@@ -1120,4 +1120,5 @@ const zh = <String, String>{
   'menu.resume': '继续',
   'menu.newGame': '新对局',
   'settings.privacy': '隐私政策',
+  'stages.versusWho': '{you} 对 {who}',
 };

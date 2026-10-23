@@ -1120,4 +1120,5 @@ const es = <String, String>{
   'menu.resume': 'Continuar',
   'menu.newGame': 'Nueva partida',
   'settings.privacy': 'Política de privacidad',
+  'stages.versusWho': '{you} vs {who}',
 };

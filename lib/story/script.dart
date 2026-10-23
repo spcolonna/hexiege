@@ -82,6 +82,9 @@ class Scene {
 
   static Iterable<String> get ids => _script.keys;
 
+  /// Personaje contra el que se juega la batalla [stageId] (null si no es de la historia).
+  static Who? opponentOf(String stageId) => _opponents[stageId];
+
   String get stageId => id.substring(0, id.indexOf('.'));
   bool get isPost => id.endsWith('.post');
 

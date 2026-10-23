@@ -287,13 +287,16 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 avatar: AppSettings.instance.avatarFor(widget.p0),
                 frame: AppSettings.instance.frame,
               ),
-              PlayerProfile(
-                nickname: _stage!.isPuzzle
-                    ? tr('common.sensei')
-                    : '${tr('common.sensei')} · ${widget.aiLevel.displayName}',
-                faction: widget.p1,
-                isAi: true,
-              ),
+              if (Scene.opponentOf(_stage!.id) case final who?)
+                PlayerProfile(nickname: who.displayName, faction: widget.p1, isAi: true, avatar: who.avatar)
+              else
+                PlayerProfile(
+                  nickname: _stage!.isPuzzle
+                      ? tr('common.sensei')
+                      : '${tr('common.sensei')} · ${widget.aiLevel.displayName}',
+                  faction: widget.p1,
+                  isAi: true,
+                ),
             ]
           : _tutorial || _init
           ? [

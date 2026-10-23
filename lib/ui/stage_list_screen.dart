@@ -5,6 +5,7 @@ import '../engine/ai.dart';
 import '../engine/pieces.dart';
 import '../solo/catalog.dart';
 import '../solo/stars.dart';
+import '../story/script.dart';
 import '../store/paywall.dart';
 import '../store/purchases.dart';
 import 'game_screen.dart';
@@ -118,6 +119,10 @@ class StageListScreen extends StatelessWidget {
 
   String _detail(Stage st) => switch (st.kind) {
     StageKind.puzzle => tr('stages.puzzleDetail', {'n': st.puzzleTurns!, 'faction': st.you.displayName}),
+    StageKind.campaign when Scene.opponentOf(st.id) != null => tr('stages.versusWho', {
+      'you': st.you.displayName,
+      'who': Scene.opponentOf(st.id)!.displayName,
+    }),
     _ => tr('stages.versus', {'you': st.you.displayName, 'opp': st.opp.displayName, 'level': st.level.displayName}),
   };
 }

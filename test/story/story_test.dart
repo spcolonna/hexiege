@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hexiege/engine/pieces.dart';
 import 'package:hexiege/i18n/i18n.dart';
+import 'package:hexiege/solo/campaign.dart';
 import 'package:hexiege/solo/catalog.dart';
 import 'package:hexiege/story/page.dart';
 import 'package:hexiege/story/script.dart';
@@ -114,5 +115,15 @@ void main() {
     await tester.pump(const Duration(milliseconds: 500));
     expect(find.text('Continuar'), findsOneWidget);
     expect(find.text('Saltar'), findsNothing);
+  });
+
+  test('cada batalla de la historia tiene un rival con nombre y retrato', () {
+    for (final c in campaigns) {
+      for (final st in c.stages) {
+        final who = Scene.opponentOf(st.id);
+        expect(who, isNotNull, reason: st.id);
+        expect(who!.avatar, isNotEmpty, reason: st.id);
+      }
+    }
   });
 }

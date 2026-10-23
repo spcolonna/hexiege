@@ -5593,5 +5593,10 @@
   "es": "Política de privacidad",
   "en": "Privacy policy",
   "zh": "隐私政策"
+ },
+ "stages.versusWho": {
+  "es": "{you} vs {who}",
+  "en": "{you} vs {who}",
+  "zh": "{you} 对 {who}"
  }
 }
