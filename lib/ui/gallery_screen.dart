@@ -8,6 +8,7 @@ import 'package:flutter/scheduler.dart';
 
 import '../codex/codex_scenes.dart';
 import '../codex/gifts.dart';
+import '../codex/rewards.dart';
 import '../engine/pieces.dart';
 import '../i18n/i18n.dart';
 import 'codex_screen.dart';
@@ -19,6 +20,7 @@ import 'theme/hex_theme.dart';
 import 'theme/settings.dart';
 import 'theme/ui_style.dart';
 import 'widgets/arena_backdrop.dart';
+import 'widgets/reward_ui.dart';
 import 'widgets/skin_kit.dart';
 
 /// Galería: las fichas que el jugador fue ganando como regalo. Las ganadas sin
@@ -1175,10 +1177,53 @@ class _SidePainter extends CustomPainter {
 class GiftToast {
   static OverlayEntry? _current;
 
-  /// Revisa si hay regalos nuevos y, si los hay, los anuncia.
+  /// Revisa si hay regalos nuevos (fichas o cosméticos) y, si los hay, los anuncia.
   static void check(BuildContext context, {Duration delay = const Duration(milliseconds: 700)}) {
-    final fresh = Gift.takeNew();
-    if (fresh.isEmpty) return;
+    final gifts = Gift.takeNew();
+    final rewards = Reward.takeNew();
+    if (gifts.isNotEmpty) {
+      final color = HexTheme.faction(gifts.first.type.faction);
+      _show(
+        context,
+        delay,
+        title: gifts.length == 1
+            ? tr('gallery.toast.one', {'name': gifts.first.type.displayName})
+            : tr('gallery.toast.many', {'n': gifts.length}),
+        headline: tr('gallery.toast.title'),
+        tap: tr('gallery.toast.tap'),
+        icon: (t) => CustomPaint(
+          size: const Size.square(46),
+          painter: GiftBoxPainter(color: color, gold: t.gold),
+        ),
+        onOpen: () =>
+            Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => const GalleryScreen())),
+      );
+    }
+    if (rewards.isNotEmpty) {
+      // Después del cartel de las fichas, si lo hubo.
+      _show(
+        context,
+        gifts.isEmpty ? delay : delay + _GiftToastViewState.shown + const Duration(milliseconds: 500),
+        title: rewards.length == 1
+            ? tr('reward.toast.one', {'name': tr(rewards.first.nameKey)})
+            : tr('reward.toast.many', {'n': rewards.length}),
+        headline: tr('reward.title'),
+        tap: tr('reward.toast.tap'),
+        icon: (t) => RewardPreview(rewards.first, size: 46),
+        onOpen: () => showRewardReveal(context, rewards),
+      );
+    }
+  }
+
+  static void _show(
+    BuildContext context,
+    Duration delay, {
+    required String headline,
+    required String title,
+    required String tap,
+    required Widget Function(HexTheme t) icon,
+    required VoidCallback onOpen,
+  }) {
     Future.delayed(delay, () {
       if (!context.mounted) return;
       final overlay = Overlay.of(context, rootOverlay: true);
@@ -1186,13 +1231,15 @@ class GiftToast {
       late final OverlayEntry entry;
       entry = OverlayEntry(
         builder: (ctx) => _GiftToastView(
-          gifts: fresh,
+          headline: headline,
+          title: title,
+          tap: tap,
+          icon: icon,
           onDone: () {
             if (entry.mounted) entry.remove();
             if (_current == entry) _current = null;
           },
-          onOpen: () =>
-              Navigator.of(context, rootNavigator: true).push(MaterialPageRoute(builder: (_) => const GalleryScreen())),
+          onOpen: onOpen,
         ),
       );
       _current = entry;
@@ -1204,23 +1251,35 @@ class GiftToast {
 }
 
 class _GiftToastView extends StatefulWidget {
-  final List<Gift> gifts;
+  final String headline;
+  final String title;
+  final String tap;
+  final Widget Function(HexTheme t) icon;
   final VoidCallback onDone;
   final VoidCallback onOpen;
-  const _GiftToastView({required this.gifts, required this.onDone, required this.onOpen});
+  const _GiftToastView({
+    required this.headline,
+    required this.title,
+    required this.tap,
+    required this.icon,
+    required this.onDone,
+    required this.onOpen,
+  });
 
   @override
   State<_GiftToastView> createState() => _GiftToastViewState();
 }
 
 class _GiftToastViewState extends State<_GiftToastView> with SingleTickerProviderStateMixin {
+  static const shown = Duration(milliseconds: 4200);
+
   late final _c = AnimationController(vsync: this, duration: const Duration(milliseconds: 380))..forward();
   Timer? _timer;
 
   @override
   void initState() {
     super.initState();
-    _timer = Timer(const Duration(milliseconds: 4200), _close);
+    _timer = Timer(shown, _close);
   }
 
   Future<void> _close() async {
@@ -1240,11 +1299,6 @@ class _GiftToastViewState extends State<_GiftToastView> with SingleTickerProvide
   @override
   Widget build(BuildContext context) {
     final t = HexTheme.of(context);
-    final g = widget.gifts;
-    final color = HexTheme.faction(g.first.type.faction);
-    final title = g.length == 1
-        ? tr('gallery.toast.one', {'name': g.first.type.displayName})
-        : tr('gallery.toast.many', {'n': g.length});
     return Positioned(
       left: 12,
       right: 12,
@@ -1266,10 +1320,7 @@ class _GiftToastViewState extends State<_GiftToastView> with SingleTickerProvide
               padding: const EdgeInsets.fromLTRB(10, 8, 14, 8),
               child: Row(
                 children: [
-                  CustomPaint(
-                    size: const Size.square(46),
-                    painter: GiftBoxPainter(color: color, gold: t.gold),
-                  ),
+                  widget.icon(t),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Column(
@@ -1277,7 +1328,7 @@ class _GiftToastViewState extends State<_GiftToastView> with SingleTickerProvide
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          tr('gallery.toast.title').toUpperCase(),
+                          widget.headline.toUpperCase(),
                           style: TextStyle(
                             color: t.gold,
                             fontSize: 11,
@@ -1286,10 +1337,10 @@ class _GiftToastViewState extends State<_GiftToastView> with SingleTickerProvide
                           ),
                         ),
                         Text(
-                          title,
+                          widget.title,
                           style: TextStyle(color: t.text, fontSize: 15, fontWeight: FontWeight.w700),
                         ),
-                        Text(tr('gallery.toast.tap'), style: TextStyle(color: t.textMuted, fontSize: 12)),
+                        Text(widget.tap, style: TextStyle(color: t.textMuted, fontSize: 12)),
                       ],
                     ),
                   ),

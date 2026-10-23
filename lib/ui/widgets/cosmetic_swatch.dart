@@ -4,7 +4,7 @@ import '../theme/hex_theme.dart';
 import 'skin_kit.dart';
 
 /// Una opción cosmética (mesa, piedra, marco): la muestra y su nombre debajo.
-/// La elegida lleva borde dorado.
+/// La elegida lleva borde dorado; la que falta ganar, apagada y con candado.
 class CosmeticSwatch extends StatelessWidget {
   final Widget child;
   final String label;
@@ -12,6 +12,7 @@ class CosmeticSwatch extends StatelessWidget {
   final VoidCallback onTap;
   final double size;
   final bool round;
+  final bool locked;
   const CosmeticSwatch({
     super.key,
     required this.child,
@@ -20,6 +21,7 @@ class CosmeticSwatch extends StatelessWidget {
     required this.onTap,
     this.size = 54,
     this.round = false,
+    this.locked = false,
   });
 
   @override
@@ -52,7 +54,17 @@ class CosmeticSwatch extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: selected ? t.gold : t.outline, width: selected ? 3 : 1.2),
                     ),
-              child: child,
+              child: locked
+                  ? Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Opacity(opacity: 0.3, child: child),
+                        Center(
+                          child: Icon(Icons.lock_rounded, size: size * 0.38, color: t.textMuted),
+                        ),
+                      ],
+                    )
+                  : child,
             ),
             const SizedBox(height: 5),
             Text(
@@ -63,7 +75,7 @@ class CosmeticSwatch extends StatelessWidget {
                 fontSize: 10.5,
                 height: 1.15,
                 fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
-                color: selected ? t.text : t.textMuted,
+                color: selected ? t.text : t.textMuted.withValues(alpha: locked ? 0.6 : 1),
               ),
             ),
           ],

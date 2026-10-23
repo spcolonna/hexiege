@@ -1,7 +1,6 @@
 import '../engine/pieces.dart';
 
-/// Aro que rodea al avatar. Hoy se eligen libremente; a futuro, premios de la
-/// ladder o compras en la tienda.
+/// Aro que rodea al avatar. Se gana avanzando en la campaña (ver `Reward`).
 class FrameDef {
   final String id;
   const FrameDef(this.id);

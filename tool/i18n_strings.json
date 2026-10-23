@@ -5598,5 +5598,65 @@
   "es": "{you} vs {who}",
   "en": "{you} vs {who}",
   "zh": "{you} 对 {who}"
+ },
+ "reward.title": {
+  "es": "¡Premio!",
+  "en": "Reward!",
+  "zh": "奖励！"
+ },
+ "reward.toast.one": {
+  "es": "Ganaste: {name}",
+  "en": "You earned: {name}",
+  "zh": "获得：{name}"
+ },
+ "reward.toast.many": {
+  "es": "Ganaste {n} premios nuevos",
+  "en": "You earned {n} new rewards",
+  "zh": "获得 {n} 个新奖励"
+ },
+ "reward.toast.tap": {
+  "es": "Tocá para ver y usar",
+  "en": "Tap to see and use",
+  "zh": "点击查看并使用"
+ },
+ "reward.use": {
+  "es": "Usar",
+  "en": "Use",
+  "zh": "使用"
+ },
+ "reward.inUse": {
+  "es": "En uso ✓",
+  "en": "In use ✓",
+  "zh": "使用中 ✓"
+ },
+ "reward.kind.avatar": {
+  "es": "Avatar",
+  "en": "Avatar",
+  "zh": "头像"
+ },
+ "reward.kind.frame": {
+  "es": "Marco",
+  "en": "Frame",
+  "zh": "头像框"
+ },
+ "reward.kind.stone": {
+  "es": "Piedra",
+  "en": "Stone",
+  "zh": "棋石"
+ },
+ "reward.kind.table": {
+  "es": "Mesa",
+  "en": "Table",
+  "zh": "桌面"
+ },
+ "reward.hint.either": {
+  "es": "Se gana al superar la batalla {n} de cualquier campaña.",
+  "en": "Earned by beating battle {n} of either campaign.",
+  "zh": "通过任一战役第 {n} 战即可获得。"
+ },
+ "reward.hint.finale": {
+  "es": "Se gana al superar la batalla {n} de El Sello.",
+  "en": "Earned by beating battle {n} of The Seal.",
+  "zh": "通过「封印」第 {n} 战即可获得。"
  }
 }

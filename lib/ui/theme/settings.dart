@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../codex/avatars.dart';
 import '../../codex/cosmetics.dart';
+import '../../codex/rewards.dart';
 import '../../engine/pieces.dart';
 import '../../i18n/i18n.dart';
 import '../../match/ladder.dart';
@@ -81,10 +82,12 @@ class AppSettings extends ChangeNotifier {
   String? get avatar => _avatar;
 
   /// Avatar con que se muestra al jugador cuando juega con [f].
-  String avatarFor(Faction f) => _avatar ?? Avatars.defaultFor(f);
+  /// Un premio todavía no ganado no se muestra aunque haya quedado guardado.
+  String avatarFor(Faction f) =>
+      _avatar != null && Reward.isOpen(RewardKind.avatar, _avatar) ? _avatar! : Avatars.defaultFor(f);
 
   /// Marco del avatar (null = sin marco).
-  String? get frame => _frame;
+  String? get frame => Reward.isOpen(RewardKind.frame, _frame) ? _frame : null;
 
   set frame(String? id) {
     _frame = Cosmetics.frame(id)?.id;
@@ -92,7 +95,7 @@ class AppSettings extends ChangeNotifier {
   }
 
   /// Tapete debajo del tablero (null = la mesa del tema de la facción).
-  String? get table => _table;
+  String? get table => Reward.isOpen(RewardKind.table, _table) ? _table : null;
 
   set table(String? id) {
     _table = Cosmetics.table(id)?.id;
@@ -100,7 +103,10 @@ class AppSettings extends ChangeNotifier {
   }
 
   /// Piedra elegida para las fichas de [f].
-  String stoneFor(Faction f) => _stones[f] ?? Cosmetics.classic;
+  String stoneFor(Faction f) {
+    final id = _stones[f];
+    return id != null && Reward.isOpen(RewardKind.stone, id, f) ? id : Cosmetics.classic;
+  }
 
   void setStone(Faction f, String id) {
     if (Cosmetics.stone(f, id) == null) return;
@@ -254,7 +260,12 @@ class AppSettings extends ChangeNotifier {
   bool isGiftAnnounced(String type) => _giftsAnnounced.contains(type);
 
   void announceGifts(Iterable<String> types) {
-    if (!types.any(_giftsAnnounced.add)) return;
+    // Sin `any`: cortaría en el primero y los demás se volverían a anunciar.
+    var added = false;
+    for (final t in types) {
+      added = _giftsAnnounced.add(t) || added;
+    }
+    if (!added) return;
     _prefs?.setStringList('giftsAnnounced', _giftsAnnounced.toList());
     notifyListeners();
   }

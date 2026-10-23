@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../i18n/i18n.dart';
 import '../codex/avatars.dart';
 import '../codex/cosmetics.dart';
+import '../codex/rewards.dart';
 import '../config.dart';
 import '../engine/ai.dart';
 import '../engine/pieces.dart';
@@ -28,6 +29,7 @@ import 'theme/ui_style.dart';
 import 'widgets/arena_backdrop.dart';
 import 'widgets/avatar_face.dart';
 import 'widgets/cosmetic_swatch.dart';
+import 'widgets/reward_ui.dart';
 import 'widgets/skin_kit.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -505,21 +507,46 @@ class _RenameDialogState extends State<_RenameDialog> {
             runSpacing: 10,
             children: [
               for (final a in Avatars.all)
-                Pressable(
-                  semanticLabel: tr(a.nameKey),
-                  onTap: () {
-                    skinTap();
-                    setState(() => _avatar = a.id);
-                  },
-                  child: AvatarFace(
-                    avatar: a.id,
-                    size: 54,
-                    color: HexTheme.faction(a.faction),
-                    borderColor: a.id == _avatar ? t.gold : t.outline,
-                    borderWidth: a.id == _avatar ? 3 : 1.2,
-                    shadow: [if (a.id == _avatar) BoxShadow(color: t.gold.withValues(alpha: 0.5), blurRadius: 10)],
+                if (Reward.of(RewardKind.avatar, a.id) case final r? when !r.isEarned)
+                  Pressable(
+                    semanticLabel: '${tr(a.nameKey)} · ${tr('gallery.locked')}',
+                    onTap: () => showLockedReward(context, r),
+                    child: SizedBox.square(
+                      dimension: 54,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Opacity(
+                            opacity: 0.25,
+                            child: AvatarFace(
+                              avatar: a.id,
+                              size: 54,
+                              color: HexTheme.faction(a.faction),
+                              borderColor: t.outline,
+                              borderWidth: 1.2,
+                            ),
+                          ),
+                          Icon(Icons.lock_rounded, size: 20, color: t.textMuted),
+                        ],
+                      ),
+                    ),
+                  )
+                else
+                  Pressable(
+                    semanticLabel: tr(a.nameKey),
+                    onTap: () {
+                      skinTap();
+                      setState(() => _avatar = a.id);
+                    },
+                    child: AvatarFace(
+                      avatar: a.id,
+                      size: 54,
+                      color: HexTheme.faction(a.faction),
+                      borderColor: a.id == _avatar ? t.gold : t.outline,
+                      borderWidth: a.id == _avatar ? 3 : 1.2,
+                      shadow: [if (a.id == _avatar) BoxShadow(color: t.gold.withValues(alpha: 0.5), blurRadius: 10)],
+                    ),
                   ),
-                ),
             ],
           ),
           const SizedBox(height: 14),
@@ -535,7 +562,10 @@ class _RenameDialogState extends State<_RenameDialog> {
                   size: 40,
                   label: tr(f?.nameKey ?? 'frame.none'),
                   selected: f?.id == _frame,
-                  onTap: () => setState(() => _frame = f?.id),
+                  locked: !Reward.isOpen(RewardKind.frame, f?.id),
+                  onTap: () => Reward.isOpen(RewardKind.frame, f?.id)
+                      ? setState(() => _frame = f?.id)
+                      : showLockedReward(context, Reward.of(RewardKind.frame, f?.id)!),
                   child: Padding(
                     padding: const EdgeInsets.all(4),
                     child: AvatarFace(
@@ -671,7 +701,10 @@ class _TablePicker extends StatelessWidget {
           CosmeticSwatch(
             label: tr(c.nameKey),
             selected: s.table == c.id,
-            onTap: () => s.table = c.id,
+            locked: !Reward.isOpen(RewardKind.table, c.id),
+            onTap: () => Reward.isOpen(RewardKind.table, c.id)
+                ? s.table = c.id
+                : showLockedReward(context, Reward.of(RewardKind.table, c.id)!),
             child: Image.asset(c.asset, fit: BoxFit.cover, cacheWidth: 160),
           ),
       ],
@@ -706,7 +739,10 @@ class _StonePicker extends StatelessWidget {
                   CosmeticSwatch(
                     label: tr(st.nameKey),
                     selected: s.stoneFor(faction) == st.id,
-                    onTap: () => s.setStone(faction, st.id),
+                    locked: !Reward.isOpen(RewardKind.stone, st.id, faction),
+                    onTap: () => Reward.isOpen(RewardKind.stone, st.id, faction)
+                        ? s.setStone(faction, st.id)
+                        : showLockedReward(context, Reward.of(RewardKind.stone, st.id, faction)!),
                     child: Image.asset(st.asset, fit: BoxFit.cover, cacheWidth: 160),
                   ),
               ],
