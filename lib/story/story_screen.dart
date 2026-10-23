@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,15 +11,14 @@ import '../ui/fx/sfx.dart';
 import '../ui/theme/hex_theme.dart';
 import '../ui/theme/settings.dart';
 import '../ui/theme/ui_style.dart';
-import '../ui/widgets/arena_backdrop.dart';
 import '../ui/widgets/avatar_face.dart';
 import '../ui/widgets/skin_kit.dart';
-import 'page.dart';
+import 'director.dart';
 import 'script.dart';
 
 /// Muestra una viñeta a pantalla completa y la marca como vista al cerrarla.
-/// [mine]: bandos que van a la izquierda (el tuyo). Con [replay] el texto
-/// aparece entero, para releer desde el Pergamino.
+/// [mine]: bandos que van a la izquierda (el tuyo). Con [replay] se relee
+/// desde el Pergamino (sin la ayuda de "tocá para seguir").
 Future<void> playScene(
   BuildContext context,
   Scene scene, {
@@ -38,116 +38,156 @@ Future<void> playScene(
   AppSettings.instance.markSceneSeen(scene.id);
 }
 
-/// Viñeta tipo charla: los mensajes entran de a uno, ya escritos, con tiempo para leerlos.
-/// Tocar adelanta el próximo; mantener apretado acelera; arriba, la línea de
-/// tiempo de los momentos permite saltar o volver.
+/// La viñeta como un libro de tinta: cada toque es un golpe (la cámara recorre
+/// el lugar, alguien entra, dice algo, se va) y cada momento da vuelta la
+/// página. Nada avanza solo: el sello de abajo avisa cuándo tocar. Mantener
+/// apretado lee de corrido.
 class StoryScreen extends StatefulWidget {
   final Scene scene;
   final Set<Faction> mine;
   final String? title;
   final bool replay;
-  const StoryScreen({super.key, required this.scene, required this.mine, this.title, this.replay = false});
+
+  /// Golpe desde el que arranca (para probar una escena a mitad).
+  final int start;
+  const StoryScreen({
+    super.key,
+    required this.scene,
+    required this.mine,
+    this.title,
+    this.replay = false,
+    this.start = 0,
+  });
 
   @override
   State<StoryScreen> createState() => _StoryScreenState();
 }
 
-class _StoryScreenState extends State<StoryScreen> {
-  final _scroll = ScrollController();
-  late final List<Strip> _strips = layoutPage(widget.scene);
-  late final Map<int, GlobalKey> _keys = {for (final s in _strips) s.first: GlobalKey()};
-  Timer? _timer;
+class _StoryScreenState extends State<StoryScreen> with TickerProviderStateMixin {
+  late final Who _hero = widget.mine.contains(Faction.shaolin) ? Who.ren : Who.aya;
+  late final List<Frame> _frames = Director.run(widget.scene, hero: _hero);
 
-  /// Mensajes a la vista.
-  int _shown = 0;
+  /// El golpe de cada toque (0..1): cámara, entradas, globos y efectos.
+  late final AnimationController _beat = AnimationController(vsync: this)..addStatusListener(_settled);
 
-  bool _fast = false;
+  /// Vuelta de página entre momentos.
+  late final AnimationController _turn = AnimationController(vsync: this, duration: const Duration(milliseconds: 750));
 
-  List<Beat> get _beats => widget.scene.beats;
-  bool get _done => _shown >= _beats.length;
+  /// Respiración de la cámara cuando nada se mueve.
+  late final AnimationController _idle = AnimationController(vsync: this, duration: const Duration(seconds: 16))
+    ..repeat();
+
+  int _at = -1;
+  bool _auto = false;
+  Timer? _autoTimer;
+
+  /// El golpe terminó de entrar: aparece el sello para seguir.
+  bool get _ready => _at >= 0 && !_beat.isAnimating && !_turn.isAnimating;
+  bool get _done => _at == _frames.length - 1 && _ready;
+  Frame get _frame => _frames[_at];
+  Frame? get _prev => _at > 0 ? _frames[_at - 1] : null;
 
   @override
   void initState() {
     super.initState();
     StoryArt.load().then((_) {
-      if (mounted) setState(() {});
+      if (mounted) Future.delayed(const Duration(milliseconds: 250), () => _play(widget.start));
     });
-    if (widget.replay) {
-      _shown = _beats.length;
-    } else {
-      _timer = Timer(const Duration(milliseconds: 500), _queue);
-    }
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
-    _scroll.dispose();
+    _autoTimer?.cancel();
+    _beat.dispose();
+    _turn.dispose();
+    _idle.dispose();
     super.dispose();
   }
 
-  /// Cuánto se deja para leer el mensaje [i] antes del siguiente: según el largo del texto.
-  Duration _delay(int i) {
-    final b = _beats[i];
-    final len = widget.scene.text(i).length;
-    final ms = switch (b.kind) {
-      BeatKind.moment => 1000,
-      BeatKind.narrate => (800 + len * 18).clamp(1000, 2400),
-      _ => (700 + len * 22).clamp(1000, 2600),
-    };
-    return Duration(milliseconds: _fast ? ms ~/ 5 : ms);
+  Duration _length(Frame f) {
+    final b = widget.scene.beats[f.beat];
+    final moves = f.from != f.shot;
+    final ms = f.slow
+        ? 2600
+        : f.fx.contains(Fx.flash) || f.fx.contains(Fx.smoke) || f.leaving.isNotEmpty || moves
+        ? 1100
+        : b.kind == BeatKind.pause
+        ? 900
+        : 650;
+    return Duration(milliseconds: _auto ? ms ~/ 2 : ms);
   }
 
-  void _queue() {
-    if (!mounted || _done) return;
-    _timer = Timer(_shown == 0 ? Duration.zero : _delay(_shown - 1), _reveal);
-  }
-
-  void _reveal() {
-    _timer?.cancel();
-    if (!mounted || _done) return;
-    final b = _beats[_shown];
-    setState(() => _shown++);
-    SoundBoard.instance.play(b.kind == BeatKind.moment ? Sfx.turn : Sfx.tick, volume: 0.5);
-    _follow();
-    _queue();
-  }
-
-  /// Tocar: el próximo mensaje aparece ya.
-  void _tap() {
-    if (_done) return;
-    Haptics.select();
-    _reveal();
-  }
-
-  /// Saltar a un momento: muestra todo hasta ahí y lo lleva a la vista.
-  void _jump(int index) {
-    Haptics.select();
-    if (index >= _shown) {
-      _timer?.cancel();
-      setState(() => _shown = index + 1);
-      _queue();
+  Future<void> _play(int i) async {
+    if (!mounted || i >= _frames.length) return;
+    setState(() => _at = i);
+    final f = _frames[i];
+    final turning = i > 0 && f.newPageFrom(_prev);
+    _beat
+      ..duration = _length(f)
+      ..value = 0;
+    if (turning) {
+      SoundBoard.instance.play(Sfx.turn, volume: 0.6);
+      await _turn.forward(from: 0);
+      if (!mounted || _at != i) return;
     }
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final ctx = _keys[_strips.lastWhere((s) => s.first <= index).first]!.currentContext;
-      if (ctx != null) Scrollable.ensureVisible(ctx, duration: const Duration(milliseconds: 400), alignment: 0.05);
-    });
+    _cue(f);
+    _beat.forward(from: 0);
   }
 
-  void _skip() {
-    _timer?.cancel();
+  /// El sonido del golpe.
+  void _cue(Frame f) {
+    final b = widget.scene.beats[f.beat];
+    final sfx = f.fx.contains(Fx.pulse)
+        ? Sfx.heartbeat
+        : f.onom != null || f.fx.contains(Fx.shake)
+        ? Sfx.stamp
+        : f.cast.any((a) => a.since == f.beat && a.style == 'humo') || f.leaving.values.contains('humo')
+        ? Sfx.frost
+        : b.kind == BeatKind.moment
+        ? null
+        : b.hasText
+        ? Sfx.tick
+        : null;
+    if (sfx != null) SoundBoard.instance.play(sfx, volume: 0.5);
+    if (f.fx.contains(Fx.shake)) Haptics.medium();
+    if (f.fx.contains(Fx.pulse)) Haptics.light();
+  }
+
+  void _settled(AnimationStatus s) {
+    if (s != AnimationStatus.completed || !mounted) return;
+    setState(() {});
+    if (_auto && !_done) {
+      final b = widget.scene.beats[_at];
+      final len = b.hasText ? widget.scene.text(_at).length : 0;
+      _autoTimer = Timer(Duration(milliseconds: 500 + len * 25), _next);
+    }
+  }
+
+  /// Tocar: si el golpe todavía entra, lo completa; si no, el siguiente.
+  void _tap() {
+    if (_at < 0) return;
+    if (_turn.isAnimating || _beat.isAnimating) {
+      if (_turn.isAnimating) {
+        _turn.value = 1;
+        _cue(_frame);
+      }
+      _beat.value = 1;
+      setState(() {});
+      return;
+    }
+    _next();
+  }
+
+  void _next() {
+    _autoTimer?.cancel();
+    if (_at >= _frames.length - 1) return;
+    Haptics.select();
+    _play(_at + 1);
+  }
+
+  void _close() {
+    _autoTimer?.cancel();
     Navigator.of(context).maybePop();
-  }
-
-  void _follow() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_scroll.hasClients) return;
-      _scroll.animateTo(
-        _scroll.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeOutCubic,
-      );
-    });
   }
 
   @override
@@ -155,50 +195,49 @@ class _StoryScreenState extends State<StoryScreen> {
     final t = HexTheme.of(context);
     final skin = Skin.of(context);
     return Scaffold(
-      body: ArenaBackdrop(
-        accent: t.gold,
-        child: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 8, 0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        widget.title ?? '',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: skin.display(22, color: t.text),
-                      ),
+      backgroundColor: _night,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 6, 8, 0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      widget.title ?? '',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: skin.display(20, color: _paper.withValues(alpha: 0.9)),
                     ),
-                    // Altura fija: el título no salta cuando se va "Saltar".
-                    SizedBox(
-                      height: 44,
-                      child: _done ? null : SkinLink(label: tr('story.skip'), onPressed: _skip),
-                    ),
-                  ],
-                ),
-              ),
-              _Timeline(scene: widget.scene, shown: _shown, onTap: _jump),
-              Expanded(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: _tap,
-                  onLongPressStart: (_) {
-                    _fast = true;
-                    _reveal();
-                  },
-                  onLongPressEnd: (_) => _fast = false,
-                  child: ListView(
-                    controller: _scroll,
-                    padding: const EdgeInsets.fromLTRB(14, 8, 14, 28),
-                    children: _page(),
                   ),
+                  // Altura fija: el título no salta cuando se va "Saltar".
+                  SizedBox(
+                    height: 44,
+                    child: _done ? null : SkinLink(label: tr('story.skip'), onPressed: _close, color: _paper),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: _tap,
+                onLongPressStart: (_) {
+                  _auto = true;
+                  _tap();
+                },
+                onLongPressEnd: (_) => _auto = false,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 6, 12, 8),
+                  child: _at < 0 ? const SizedBox.expand() : _book(),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 4, 20, 14),
+            ),
+            SizedBox(
+              height: 74,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
                 child: AnimatedSwitcher(
                   duration: const Duration(milliseconds: 300),
                   child: _done
@@ -206,216 +245,690 @@ class _StoryScreenState extends State<StoryScreen> {
                           key: const ValueKey('go'),
                           label: tr('story.continue'),
                           color: t.gold,
-                          onPressed: _skip,
+                          onPressed: _close,
                         )
-                      : Text(
-                          tr('story.hint'),
+                      : Center(
                           key: const ValueKey('hint'),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 12, color: t.textMuted),
+                          child: Text(
+                            widget.replay || _at > 3 ? '' : tr('story.hint'),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 12, color: _paper.withValues(alpha: 0.55)),
+                          ),
                         ),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Quién se para a la izquierda: el protagonista de la campaña (Ren o Aya).
-  /// Si no habla en la escena, el primero que hable; el resto, enfrente.
-  late final Who _anchor = () {
-    final hero = widget.mine.contains(Faction.shaolin) ? Who.ren : Who.aya;
-    final talkers = [
-      for (final b in _beats)
-        if (b.kind == BeatKind.say || b.kind == BeatKind.think) b.who!,
-    ];
-    return talkers.contains(hero) || talkers.isEmpty ? hero : talkers.first;
-  }();
-
-  bool _talks(int i) => _beats[i].kind == BeatKind.say || _beats[i].kind == BeatKind.think;
-
-  /// Mensajes en pantalla. Los que faltan ya ocupan su lugar (invisibles):
-  /// así el cuadro tiene su tamaño final y no salta al aparecer un globo.
-  int get _visible => _shown;
-
-  int get _seed => widget.scene.id.codeUnits.fold(7, (a, c) => (a * 31 + c) & 0xFFFFFF);
-
-  /// La página: las tiras que ya empezaron, con la ilustración clave antes de la suya.
-  List<Widget> _page() {
-    final splash = widget.scene.splash;
-    final animate = !widget.replay;
-    return [
-      for (final s in _strips)
-        if (s.first < _visible) ...[
-          if (splash != null && s.first == splash.$1 && StoryArt.has('assets/story/${splash.$2}.webp'))
-            _Enter(
-              key: const ValueKey('splash'),
-              animate: animate,
-              wipe: true,
-              child: _Splash(asset: 'assets/story/${splash.$2}.webp', seed: _seed),
             ),
-          KeyedSubtree(
-            key: _keys[s.first],
-            child: switch (s) {
-              MomentStrip(:final beat) => _Enter(
-                animate: animate,
-                wipe: true,
-                child: _MomentPanel(
-                  text: widget.scene.text(beat),
-                  place: widget.scene.placeAt(beat),
-                  seed: _seed + beat,
-                ),
-              ),
-              CaptionStrip(:final beat) => _Enter(
-                animate: animate,
-                child: _Caption(text: widget.scene.text(beat)),
-              ),
-              FrameStrip() => _strip(s, animate),
-            },
-          ),
-        ],
-    ];
-  }
-
-  /// Tira de cuadros: si son dos, el corte entre ellos va en diagonal y cada
-  /// uno entra desde su lado.
-  Widget _strip(FrameStrip s, bool animate) {
-    final pair = s.frames.length == 2;
-    // La diagonal alterna de tira en tira.
-    final lean = (s.first + _seed).isEven;
-    const cut = 18.0;
-    final cuts = pair
-        ? (lean ? [const _Cut(br: cut), const _Cut(tl: cut)] : [const _Cut(tr: cut), const _Cut(bl: cut)])
-        : [const _Cut()];
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 7),
-      child: IntrinsicHeight(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            for (var k = 0; k < s.frames.length; k++) ...[
-              if (k > 0) const SizedBox(width: 6),
-              Expanded(
-                flex: s.flex[k],
-                child: s.frames[k].first < _visible
-                    ? _Enter(
-                        key: ValueKey(s.frames[k].first),
-                        animate: animate,
-                        from: pair ? (k == 0 ? -1 : 1) : (_sides(s.frames[k]).values.first ? -1 : 1),
-                        child: _frame(s.frames[k], cuts[k], wide: !pair),
-                      )
-                    : _Hidden(child: _frame(s.frames[k], cuts[k], wide: !pair)),
-              ),
-            ],
           ],
         ),
       ),
     );
   }
 
-  /// Lado de cada personaje del cuadro (true = izquierda): el protagonista a
-  /// la izquierda; si charlan dos que no lo son, el primero.
-  Map<Who, bool> _sides(Frame f) {
-    final who = <Who>{
-      for (final i in f.beats)
-        if (_talks(i)) _beats[i].who!,
-    }.toList();
-    final two = who.length > 1 && !who.contains(_anchor);
-    return {for (final w in who) w: two ? w == who.first : w == _anchor};
+  /// La hoja actual y, mientras se da vuelta, la anterior encima.
+  Widget _book() {
+    return AnimatedBuilder(
+      animation: Listenable.merge([_beat, _turn, _idle]),
+      builder: (context, _) {
+        final f = _frame;
+        final turning = _turn.isAnimating && f.newPageFrom(_prev);
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            _Sheet(
+              scene: widget.scene,
+              frame: f,
+              prev: turning ? null : _prev,
+              t: turning ? 0 : Curves.linear.transform(_beat.value),
+              idle: _idle.value,
+              hero: _hero,
+              ready: _ready,
+              done: _done,
+            ),
+            if (turning) _PageTurn(v: _turn.value, child: _sheetOf(_prev!)),
+          ],
+        );
+      },
+    );
   }
 
-  Widget _frame(Frame f, _Cut cut, {required bool wide}) {
-    final sides = _sides(f);
-    final animate = !widget.replay;
-    return _FrameView(
-      seed: _seed + f.first * 7,
-      cut: cut,
-      place: widget.scene.placeAt(f.first),
-      wide: wide,
-      figures: sides,
+  Widget _sheetOf(Frame f) {
+    final i = _frames.indexOf(f);
+    return _Sheet(
+      scene: widget.scene,
+      frame: f,
+      prev: i > 0 ? _frames[i - 1] : null,
+      t: 1,
+      idle: _idle.value,
+      hero: _hero,
+      ready: false,
+      done: false,
+    );
+  }
+}
+
+/// La hoja que se da vuelta: gira sobre el lomo izquierdo y se oscurece; la
+/// de abajo recibe su sombra.
+class _PageTurn extends StatelessWidget {
+  final double v;
+  final Widget child;
+  const _PageTurn({required this.v, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    final e = Curves.easeInOutCubic.transform(v);
+    return Stack(
+      fit: StackFit.expand,
       children: [
-        for (final i in f.beats)
-          _Pop(
-            key: ValueKey(i),
-            animate: animate,
-            hidden: i >= _visible,
-            origin: !_talks(i) || sides[_beats[i].who]! ? Alignment.bottomLeft : Alignment.bottomRight,
-            child: _talks(i)
-                  ? _BalloonSlot(
-                      left: sides[_beats[i].who]!,
-                      // Un solo personaje: el globo arriba, del otro lado; dos: cada uno del suyo.
-                      across: sides.length == 1,
-                      wide: wide,
-                      child: _Balloon(
-                        text: widget.scene.text(i),
-                        left: sides[_beats[i].who]!,
-                        thought: _beats[i].kind == BeatKind.think,
-                      ),
-                    )
-                  : Align(
-                      alignment: Alignment.topLeft,
-                      child: _CaptionBox(
-                        child: Text.rich(
-                          storySpans(
-                            widget.scene.text(i),
-                            const TextStyle(fontSize: 13.5, height: 1.35, fontStyle: FontStyle.italic, color: _ink),
-                          ),
-                        ),
+        // Sombra sobre la hoja nueva, que se va aclarando.
+        IgnorePointer(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  _ink.withValues(alpha: 0.55 * (1 - e)),
+                  _ink.withValues(alpha: 0),
+                ],
+                stops: [0, 0.3 + 0.7 * (1 - e)],
+              ),
+            ),
+          ),
+        ),
+        if (e < 0.98)
+          Transform(
+            alignment: Alignment.centerLeft,
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.0011)
+              ..rotateY(-pi * 0.55 * e),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                child,
+                // La hoja se oscurece al levantarse.
+                IgnorePointer(
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          _ink.withValues(alpha: 0.05 * e),
+                          _ink.withValues(alpha: 0.7 * e),
+                        ],
                       ),
                     ),
+                  ),
+                ),
+              ],
             ),
+          ),
       ],
     );
   }
 }
 
-/// Línea de tiempo: un punto por momento; los alcanzados se pueden tocar.
-class _Timeline extends StatelessWidget {
+/// Una hoja del libro: el cuadro grande con su borde de tinta y, abajo, el
+/// número de página y el sello para seguir.
+class _Sheet extends StatelessWidget {
   final Scene scene;
-  final int shown;
-  final ValueChanged<int> onTap;
-  const _Timeline({required this.scene, required this.shown, required this.onTap});
+  final Frame frame;
+  final Frame? prev;
+  final double t, idle;
+  final Who hero;
+  final bool ready, done;
+  const _Sheet({
+    required this.scene,
+    required this.frame,
+    required this.prev,
+    required this.t,
+    required this.idle,
+    required this.hero,
+    required this.ready,
+    required this.done,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final moments = scene.moments;
-    if (moments.length < 2) return const SizedBox(height: 6);
-    final t = HexTheme.of(context);
-    final current = moments.lastIndexWhere((m) => m < shown);
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 6, 20, 2),
-      child: Row(
+    final seed = scene.id.hashCode ^ frame.page * 7919;
+    return Container(
+      decoration: BoxDecoration(
+        color: _paper,
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.5), blurRadius: 14, offset: const Offset(0, 6))],
+      ),
+      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+      child: Column(
         children: [
-          for (var k = 0; k < moments.length; k++) ...[
-            if (k > 0)
-              Expanded(
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  height: 2,
-                  color: (k <= current ? t.gold : t.textMuted).withValues(alpha: k <= current ? 0.8 : 0.3),
-                ),
+          Expanded(
+            child: CustomPaint(
+              painter: _FrameInk(seed, shadow: true),
+              foregroundPainter: _FrameInk(seed),
+              child: ClipPath(
+                clipper: _FrameClip(seed),
+                child: _Stage(scene: scene, frame: frame, prev: prev, t: t, idle: idle, hero: hero),
               ),
-            Tooltip(
-              message: scene.text(moments[k]),
-              child: GestureDetector(
-                onTap: () => onTap(moments[k]),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  width: k == current ? 16 : 11,
-                  height: k == current ? 16 : 11,
-                  margin: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: k <= current ? t.gold : Colors.transparent,
-                    border: Border.all(color: k <= current ? t.gold : t.textMuted.withValues(alpha: 0.6), width: 1.5),
+            ),
+          ),
+          SizedBox(
+            height: 34,
+            child: Row(
+              children: [
+                const SizedBox(width: 30),
+                Expanded(
+                  child: Text(
+                    '— ${frame.page + 1} —',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 11, letterSpacing: 2, color: _ink.withValues(alpha: 0.45)),
+                  ),
+                ),
+                SizedBox(
+                  width: 30,
+                  child: _TapSeal(visible: ready && !done, idle: idle),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Sello de tinta que late: "tocá para seguir".
+class _TapSeal extends StatelessWidget {
+  final bool visible;
+  final double idle;
+  const _TapSeal({required this.visible, required this.idle});
+
+  @override
+  Widget build(BuildContext context) {
+    final beat = 0.5 + 0.5 * sin(idle * 2 * pi * 12);
+    return AnimatedOpacity(
+      opacity: visible ? 1 : 0,
+      duration: Duration(milliseconds: visible ? 350 : 80),
+      child: Transform.translate(
+        offset: Offset(0, 2.5 * beat),
+        child: Container(
+          width: 22,
+          height: 22,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: _seal.withValues(alpha: 0.75 + 0.25 * beat),
+          ),
+          child: const Icon(Icons.keyboard_arrow_down_rounded, size: 18, color: _paper),
+        ),
+      ),
+    );
+  }
+}
+
+/// El cuadro: el fondo con la cámara, los personajes, los efectos y los textos.
+class _Stage extends StatelessWidget {
+  final Scene scene;
+  final Frame frame;
+  final Frame? prev;
+  final double t, idle;
+  final Who hero;
+  const _Stage({
+    required this.scene,
+    required this.frame,
+    required this.prev,
+    required this.t,
+    required this.idle,
+    required this.hero,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final f = frame;
+    final camT = (f.slow ? Curves.easeInOutSine : Curves.easeOutCubic).transform(t);
+    final drift = idle * 2 * pi;
+    final cam = f.from.lerp(f.shot, camT);
+    final shot = Shot(
+      cam.x + 0.01 * sin(drift),
+      cam.y + 0.006 * sin(drift * 2),
+      cam.zoom + 0.015 * (1 + sin(drift + 1)),
+    );
+    final shake = f.fx.contains(Fx.shake) ? Offset(sin(t * 46) * 9 * (1 - t), cos(t * 39) * 5 * (1 - t)) : Offset.zero;
+    final sameArt = prev != null && prev!.page == f.page && prev!.art == f.art && prev!.place == f.place;
+    return LayoutBuilder(
+      builder: (context, box) {
+        final size = box.biggest;
+        return Transform.translate(
+          offset: shake,
+          child: Stack(
+            fit: StackFit.expand,
+            clipBehavior: Clip.hardEdge,
+            children: [
+              if (!sameArt && prev != null && prev!.page == f.page)
+                _Backdrop(art: prev!.art, place: prev!.place, shot: shot, size: size),
+              Opacity(
+                opacity: sameArt || prev == null || prev!.page != f.page ? 1 : Curves.easeOut.transform(t),
+                child: _Backdrop(art: f.art, place: f.place, shot: shot, size: size),
+              ),
+              if (f.fx.contains(Fx.dark) || f.place.night) _Vignette(strength: f.fx.contains(Fx.dark) ? 0.85 : 0.5),
+              if (f.fx.contains(Fx.fog)) _Fog(idle: idle),
+              if (f.art == null) ..._cast(size),
+              if (f.fx.contains(Fx.smoke)) _Smoke(t: t, at: _smokeAt(size), size: size),
+              for (final a in f.cast)
+                if (a.since == f.beat && a.style == 'humo' && f.art == null)
+                  _Smoke(t: t, at: Offset(a.x * size.width, size.height * 0.72), size: size, small: true),
+              if (prev != null && prev!.page == f.page)
+                for (final MapEntry(key: who, value: style) in f.leaving.entries)
+                  if (style == 'humo' && prev!.actor(who) != null)
+                    _Smoke(
+                      t: t,
+                      at: Offset(prev!.actor(who)!.x * size.width, size.height * 0.72),
+                      size: size,
+                      small: true,
+                    ),
+              if (f.fx.contains(Fx.pulse)) _Pulse(t: t),
+              if (f.fx.contains(Fx.flash))
+                IgnorePointer(
+                  child: ColoredBox(color: Colors.white.withValues(alpha: 0.9 * pow(1 - t, 2))),
+                ),
+              if (f.onom != null) _Onom(text: tr('onom.${f.onom}'), t: t),
+              ..._texts(context, size),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Offset _smokeAt(Size s) => Offset(s.width * 0.5, s.height * 0.55);
+
+  double _enter(Actor a) => a.since == frame.beat && a.style != 'ya' ? Curves.easeOutCubic.transform(t) : 1;
+
+  /// Los personajes parados abajo; quien no habla, un poco en sombra.
+  List<Widget> _cast(Size size) {
+    final f = frame;
+    final (w, h) = _figureSize(size);
+    Widget figure(Actor a, double v, {bool leaving = false}) {
+      final style = leaving ? f.leaving[a.who] : a.style;
+      final dx = switch (style) {
+        'humo' || 'sombra' => 0.0,
+        'corre' => (a.x < 0.5 ? -1 : 1) * size.width * 0.5,
+        _ => (a.x < 0.5 ? -1 : 1) * size.width * 0.12,
+      };
+      final talking = f.speaker == a.who;
+      final dim = f.speaker != null && !talking;
+      Widget body = _Figure(who: a.who, faceLeft: a.x > 0.5, width: w, height: h);
+      if (dim) {
+        body = ColorFiltered(colorFilter: const ColorFilter.matrix(_shade), child: body);
+      }
+      if (style == 'sombra' && v < 1) {
+        body = ColorFiltered(
+          colorFilter: ColorFilter.mode(_ink.withValues(alpha: 1 - v), BlendMode.srcATop),
+          child: body,
+        );
+      }
+      if (style == 'humo' && v < 1) {
+        body = ImageFiltered(
+          imageFilter: ImageFilter.blur(sigmaX: 10 * (1 - v), sigmaY: 10 * (1 - v)),
+          child: body,
+        );
+      }
+      return Positioned(
+        left: a.x * size.width - w / 2 + dx * (1 - v),
+        bottom: -h * 0.03,
+        width: w,
+        height: h,
+        child: Opacity(
+          opacity: style == 'sombra' ? v.clamp(0.0, 1.0) : (v * 1.6).clamp(0.0, 1.0),
+          child: Transform.scale(
+            scale: (talking ? 1.035 : 1) * (style == 'humo' ? 0.9 + 0.1 * v : 1),
+            alignment: Alignment.bottomCenter,
+            child: body,
+          ),
+        ),
+      );
+    }
+
+    return [
+      if (prev != null && prev!.page == f.page)
+        for (final who in f.leaving.keys)
+          if (prev!.actor(who) case final a?) figure(a, 1 - Curves.easeInCubic.transform(t), leaving: true),
+      for (final a in [...f.cast]..sort((a, b) => (a.who == f.speaker ? 1 : 0) - (b.who == f.speaker ? 1 : 0)))
+        figure(a, _enter(a)),
+    ];
+  }
+
+  /// Medio cuerpo: alto según el cuadro; con más gente, más chicos (se
+  /// superponen apenas, como en una viñeta).
+  (double, double) _figureSize(Size size) {
+    final f = frame;
+    final crowd = f.cast.length + (prev?.page == f.page ? f.leaving.length : 0);
+    final w = min(size.height * 0.6 * 2 / 3, size.width * (crowd > 2 ? 0.44 : (crowd > 1 ? 0.58 : 0.64)));
+    return (w, w * 1.5);
+  }
+
+  /// Arriba, el cartel (momento o narración); los globos, sobre las cabezas.
+  List<Widget> _texts(BuildContext context, Size size) {
+    final f = frame;
+    final cap = f.caption;
+    final moment = cap != null && scene.beats[cap].kind == BeatKind.moment;
+    Widget pop(int beat, Widget child, Alignment origin) {
+      if (beat != f.beat) return child;
+      final v = Curves.easeOutBack.transform((t * 1.6).clamp(0.0, 1.0));
+      return Opacity(
+        opacity: (t * 2.5).clamp(0.0, 1.0),
+        child: Transform.scale(scale: 0.6 + 0.4 * v, alignment: origin, child: child),
+      );
+    }
+
+    final figures = f.art == null && f.cast.isNotEmpty;
+    return [
+      if (cap != null)
+        Positioned(
+          left: 10,
+          right: 10,
+          top: 10,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: pop(
+              cap,
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: size.width * 0.86),
+                child: Transform.rotate(
+                  angle: -0.012,
+                  child: _CaptionBox(
+                    child: Text.rich(
+                      storySpans(
+                        scene.text(cap),
+                        moment
+                            ? Skin.of(context).display(17, color: _ink, height: 1.2)
+                            : const TextStyle(fontSize: 14.5, height: 1.38, fontStyle: FontStyle.italic, color: _ink),
+                      ),
+                    ),
                   ),
                 ),
               ),
+              Alignment.topLeft,
             ),
+          ),
+        ),
+      Positioned(
+        left: 10,
+        right: 10,
+        bottom: figures ? _figureSize(size).$2 * 0.86 : size.height * 0.08,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final i in f.lines) ...[const SizedBox(height: 14), _balloon(i, size, pop)],
           ],
-        ],
+        ),
+      ),
+    ];
+  }
+
+  Widget _balloon(int i, Size size, Widget Function(int, Widget, Alignment) pop) {
+    final f = frame;
+    final b = scene.beats[i];
+    final a = f.actor(b.who!);
+    // Sin figura (sobre una ilustración o fuera de cuadro), el globo no tiene cola.
+    final tail = a == null
+        ? null
+        : (a.x - 0.5).abs() < 0.1
+        ? 0.0
+        : a.x < 0.5
+        ? -1.0
+        : 1.0;
+    final left = a == null ? b.who == hero || (b.who!.side != null && b.who!.side == hero.side) : a.x <= 0.5;
+    final old = i != f.lines.last;
+    final balloon = _Balloon(
+      text: scene.text(i),
+      who: b.who!,
+      left: left,
+      tail: tail,
+      thought: b.kind == BeatKind.think,
+    );
+    return Align(
+      alignment: tail == 0 ? Alignment.center : (left ? Alignment.centerLeft : Alignment.centerRight),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: size.width * 0.8),
+        child: AnimatedOpacity(
+          opacity: old ? 0.5 : 1,
+          duration: const Duration(milliseconds: 250),
+          child: pop(i, balloon, left ? Alignment.bottomLeft : Alignment.bottomRight),
+        ),
+      ),
+    );
+  }
+}
+
+/// El fondo (o la ilustración) encuadrado por la cámara.
+class _Backdrop extends StatelessWidget {
+  final String? art;
+  final Place place;
+  final Shot shot;
+  final Size size;
+  const _Backdrop({required this.art, required this.place, required this.shot, required this.size});
+
+  /// Todo el arte de las viñetas es 3:2.
+  static const aspect = 1.5;
+
+  @override
+  Widget build(BuildContext context) {
+    final asset = art != null && StoryArt.has('assets/story/$art.webp') ? 'assets/story/$art.webp' : place.asset;
+    // Tamaño con el que el arte cubre el cuadro, por el acercamiento.
+    final base = max(size.width / aspect, size.height);
+    final h = base * max(shot.zoom, 1.0), w = h * aspect;
+    // El punto [shot] queda en el centro, sin dejar ver los bordes del arte.
+    final left = (size.width / 2 - shot.x * w).clamp(size.width - w, 0.0);
+    final top = (size.height / 2 - shot.y * h).clamp(size.height - h, 0.0);
+    final child = StoryArt.has(asset)
+        ? Image.asset(asset, fit: BoxFit.fill, filterQuality: FilterQuality.medium, gaplessPlayback: true)
+        : CustomPaint(
+            painter: _InkLandscape(place, (shot.x - 0.5) * 2),
+            child: Center(
+              child: Text(place.glyph, style: Skin.of(context).glyph(96, color: Colors.white.withValues(alpha: 0.09))),
+            ),
+          );
+    return Stack(
+      fit: StackFit.expand,
+      children: [Positioned(left: left, top: top, width: w, height: h, child: child)],
+    );
+  }
+}
+
+/// Un personaje de cuerpo entero (o su retrato, si falta el arte), mirando
+/// hacia el centro.
+class _Figure extends StatelessWidget {
+  final Who who;
+  final bool faceLeft;
+  final double width, height;
+  const _Figure({required this.who, required this.faceLeft, required this.width, required this.height});
+
+  @override
+  Widget build(BuildContext context) {
+    final art = Scene.figureAsset(who);
+    if (StoryArt.has(art)) {
+      // Las figuras miran a la derecha: las del lado derecho se espejan.
+      return Transform.flip(
+        flipX: faceLeft,
+        child: Image.asset(
+          art,
+          fit: BoxFit.contain,
+          alignment: Alignment.bottomCenter,
+          filterQuality: FilterQuality.medium,
+          gaplessPlayback: true,
+        ),
+      );
+    }
+    final t = HexTheme.of(context);
+    return Align(
+      alignment: const Alignment(0, 0.6),
+      child: AvatarFace(
+        avatar: who.avatar,
+        size: width * 0.62,
+        color: who.side == null ? t.gold : HexTheme.faction(who.side!),
+        borderColor: _ink,
+        borderWidth: 2.5,
+        shadow: [BoxShadow(color: _ink.withValues(alpha: 0.4), offset: const Offset(2, 3))],
+      ),
+    );
+  }
+}
+
+/// Noche: los bordes del cuadro se cierran en tinta.
+class _Vignette extends StatelessWidget {
+  final double strength;
+  const _Vignette({required this.strength});
+
+  @override
+  Widget build(BuildContext context) => IgnorePointer(
+    child: DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: RadialGradient(
+          radius: 0.95,
+          colors: [
+            Colors.transparent,
+            _ink.withValues(alpha: strength),
+          ],
+          stops: const [0.45, 1],
+        ),
+      ),
+    ),
+  );
+}
+
+/// Niebla que pasa despacio delante del lugar.
+class _Fog extends StatelessWidget {
+  final double idle;
+  const _Fog({required this.idle});
+
+  @override
+  Widget build(BuildContext context) => IgnorePointer(child: CustomPaint(painter: _FogPainter(idle)));
+}
+
+class _FogPainter extends CustomPainter {
+  final double idle;
+  _FogPainter(this.idle);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    for (var k = 0; k < 4; k++) {
+      final u = (idle * (1 + k * 0.4) + k * 0.27) % 1;
+      final c = Offset(size.width * (1.3 - 1.6 * u), size.height * (0.45 + 0.13 * k));
+      canvas.drawOval(
+        Rect.fromCenter(center: c, width: size.width * 1.1, height: size.height * 0.16),
+        Paint()
+          ..color = Colors.white.withValues(alpha: 0.16)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 26),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_FogPainter old) => old.idle != idle;
+}
+
+/// Bocanada de humo que se abre y se disipa.
+class _Smoke extends StatelessWidget {
+  final double t;
+  final Offset at;
+  final Size size;
+  final bool small;
+  const _Smoke({required this.t, required this.at, required this.size, this.small = false});
+
+  @override
+  Widget build(BuildContext context) => IgnorePointer(child: CustomPaint(painter: _SmokePainter(t, at, small)));
+}
+
+class _SmokePainter extends CustomPainter {
+  final double t;
+  final Offset at;
+  final bool small;
+  _SmokePainter(this.t, this.at, this.small);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (t >= 1) return;
+    final r = Random(7);
+    final reach = size.width * (small ? 0.22 : 0.55);
+    final fade = t < 0.25 ? t / 0.25 : 1 - (t - 0.25) / 0.75;
+    for (var k = 0; k < 11; k++) {
+      final a = r.nextDouble() * 2 * pi;
+      final d = reach * (0.2 + 0.8 * r.nextDouble()) * Curves.easeOutCubic.transform(t);
+      final rad = reach * (0.25 + 0.25 * r.nextDouble()) * (0.5 + t);
+      canvas.drawCircle(
+        at + Offset(cos(a) * d, sin(a) * d * 0.6 - t * reach * 0.3),
+        rad,
+        Paint()
+          ..color = Color.lerp(
+            const Color(0xFFE8E2D6),
+            const Color(0xFF8A847A),
+            r.nextDouble(),
+          )!.withValues(alpha: 0.75 * fade)
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, rad * 0.45),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_SmokePainter old) => old.t != t;
+}
+
+/// Latido: el cuadro se cierra en rojo oscuro dos veces.
+class _Pulse extends StatelessWidget {
+  final double t;
+  const _Pulse({required this.t});
+
+  @override
+  Widget build(BuildContext context) {
+    final p = max(0.0, sin(t * pi * 2)) * (1 - t * 0.5);
+    return IgnorePointer(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            radius: 0.9,
+            colors: [
+              Colors.transparent,
+              const Color(0xFF5A0F0A).withValues(alpha: 0.75 * p),
+            ],
+            stops: const [0.35, 1],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Onomatopeya de tinta: cae grande sobre el cuadro y se asienta.
+class _Onom extends StatelessWidget {
+  final String text;
+  final double t;
+  const _Onom({required this.text, required this.t});
+
+  @override
+  Widget build(BuildContext context) {
+    final v = Curves.easeOutBack.transform((t * 2.2).clamp(0.0, 1.0));
+    final style = Skin.of(context).display(54, height: 1);
+    return IgnorePointer(
+      child: Align(
+        alignment: const Alignment(0.3, -0.55),
+        child: Opacity(
+          opacity: (t * 4).clamp(0.0, 1.0),
+          child: Transform.rotate(
+            angle: -0.16,
+            child: Transform.scale(
+              scale: 1.8 - 0.8 * v,
+              child: Stack(
+                children: [
+                  Text(
+                    text,
+                    style: style.copyWith(
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 9
+                        ..strokeJoin = StrokeJoin.round
+                        ..color = _ink,
+                    ),
+                  ),
+                  Text(text, style: style.copyWith(color: _paper)),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -443,184 +956,82 @@ abstract final class StoryArt {
 const _paper = Color(0xFFFBF6EA);
 const _captionPaper = Color(0xFFF0E2B6);
 const _ink = Color(0xFF1B1712);
+const _night = Color(0xFF15120E);
+const _seal = Color(0xFFB0302A);
 
-/// Entrada de un panel: los diálogos llegan desde el lado de quien habla con
-/// un rebote y un leve giro; los momentos se descubren como una pincelada.
-class _Enter extends StatelessWidget {
-  final Widget child;
-  final bool animate;
-  final double from;
-  final bool wipe;
-  const _Enter({super.key, required this.child, this.animate = true, this.from = 0, this.wipe = false});
+/// Quien no habla queda en penumbra: más oscuro y algo desaturado.
+const _shade = <double>[
+  0.5, 0.1, 0.02, 0, 0, //
+  0.06, 0.52, 0.04, 0, 0, //
+  0.06, 0.1, 0.46, 0, 0, //
+  0, 0, 0, 1, 0, //
+];
 
-  @override
-  Widget build(BuildContext context) {
-    if (!animate) return child;
-    final w = MediaQuery.sizeOf(context).width;
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0, end: 1),
-      duration: Duration(milliseconds: wipe ? 650 : 520),
-      curve: from == 0 ? Curves.easeOutCubic : Curves.easeOutBack,
-      builder: (_, v, c) {
-        if (wipe) return ClipRect(clipper: _Wipe(v), child: c);
-        if (from == 0) {
-          return Opacity(
-            opacity: v.clamp(0.0, 1.0),
-            child: Transform.scale(scale: 0.94 + 0.06 * v, child: c),
-          );
-        }
-        return Opacity(
-          opacity: (v * 1.8).clamp(0.0, 1.0),
-          child: Transform.translate(
-            offset: Offset(from * w * 0.6 * (1 - v), 0),
-            child: Transform.rotate(angle: from * 0.07 * (1 - v), child: c),
-          ),
-        );
-      },
-      child: child,
-    );
-  }
-}
-
-/// Recorte de izquierda a derecha: el pincel pasa y deja ver el panel.
-class _Wipe extends CustomClipper<Rect> {
-  final double v;
-  _Wipe(this.v);
-
-  @override
-  Rect getClip(Size size) => Rect.fromLTWH(-20, -40, (size.width + 40) * v.clamp(0.0, 1.0), size.height + 80);
-
-  @override
-  bool shouldReclip(_Wipe old) => old.v != v;
-}
-
-/// Forma de una pincelada horizontal: el arranque redondo y cargado de
-/// tinta, los bordes apenas temblorosos y la cola seca que se abre en cerdas.
-Path _brush(Size s, int seed) {
+/// Contorno del cuadro con el pulso de un trazo a mano: cada borde tiembla
+/// apenas. [inset] lo achica (negativo, lo agranda).
+Path _framePath(Size s, int seed, double inset) {
   final r = Random(seed);
-  final w = s.width, h = s.height;
-  // Temblor suave del borde: dos senos con fase al azar.
-  double Function(double) wobble(double amp) {
-    final p1 = r.nextDouble() * 2 * pi, p2 = r.nextDouble() * 2 * pi;
-    final f1 = 1 + r.nextDouble() * 1.5, f2 = 3 + r.nextDouble() * 3;
-    return (t) => amp * (0.7 * sin(t * 2 * pi * f1 + p1) + 0.3 * sin(t * 2 * pi * f2 + p2));
+  final pts = [
+    Offset(inset, inset),
+    Offset(s.width - inset, inset),
+    Offset(s.width - inset, s.height - inset),
+    Offset(inset, s.height - inset),
+  ];
+  final p = Path()..moveTo(pts[0].dx, pts[0].dy);
+  for (var e = 0; e < 4; e++) {
+    final a = pts[e], b = pts[(e + 1) % 4];
+    final d = b - a;
+    final n = Offset(-d.dy, d.dx) / d.distance;
+    final phase = r.nextDouble() * 2 * pi, freq = 2 + r.nextDouble() * 3;
+    const steps = 20;
+    for (var k = 1; k <= steps; k++) {
+      final t = k / steps;
+      p.lineTo(
+        a.dx + d.dx * t + n.dx * 1.6 * sin(t * pi) * sin(t * pi * freq + phase),
+        a.dy + d.dy * t + n.dy * 1.6 * sin(t * pi) * sin(t * pi * freq + phase),
+      );
+    }
   }
-
-  final top = wobble(h * 0.025), bottom = wobble(h * 0.025);
-  final x0 = w * 0.035, x1 = w * (0.86 + 0.03 * r.nextDouble());
-  final y0 = h * 0.05, y1 = h * 0.95;
-  final p = Path()..moveTo(x0, y0 + top(0));
-  const steps = 24;
-  for (var i = 1; i <= steps; i++) {
-    final t = i / steps;
-    // Hacia la cola el trazo se afina un poco.
-    p.lineTo(x0 + (x1 - x0) * t, y0 + top(t) + h * 0.04 * t * t);
-  }
-  // Cola: cerdas de largo desparejo, de arriba hacia abajo.
-  const bristles = 9;
-  final tailTop = y0 + h * 0.04, tailBottom = y1 - h * 0.04;
-  for (var j = 0; j < bristles; j++) {
-    final a = tailTop + (tailBottom - tailTop) * j / bristles;
-    final b = tailTop + (tailBottom - tailTop) * (j + 1) / bristles;
-    final reach = w * (0.035 + 0.1 * r.nextDouble()) * (j == 0 || j == bristles - 1 ? 0.6 : 1);
-    p
-      ..lineTo(x1 + reach, a + (b - a) * (0.35 + 0.3 * r.nextDouble()))
-      ..lineTo(x1 - w * 0.015 * r.nextDouble(), b);
-  }
-  for (var i = steps; i >= 0; i--) {
-    final t = i / steps;
-    p.lineTo(x0 + (x1 - x0) * t, y1 + bottom(t) - h * 0.04 * t * t);
-  }
-  // Arranque: la panza redonda donde el pincel apoyó.
-  final bulge = w * (0.03 + 0.015 * r.nextDouble());
-  p
-    ..quadraticBezierTo(x0 - bulge, y1 - h * 0.05, x0 - bulge * 0.8, h * 0.5)
-    ..quadraticBezierTo(x0 - bulge, y0 + h * 0.05, x0, y0 + top(0))
-    ..close();
-  // Un par de cerdas sueltas que se escapan de la cola.
-  for (var k = 0; k < 2; k++) {
-    final y = h * (k == 0 ? 0.12 + 0.1 * r.nextDouble() : 0.78 + 0.1 * r.nextDouble());
-    final th = h * (0.025 + 0.02 * r.nextDouble());
-    final from = x1 - w * 0.12, to = x1 + w * (0.06 + 0.06 * r.nextDouble());
-    p
-      ..moveTo(from, y - th)
-      ..quadraticBezierTo((from + to) / 2, y - th * 1.4, to, y)
-      ..quadraticBezierTo((from + to) / 2, y + th * 0.6, from, y + th)
-      ..close();
-  }
-  return p;
+  return p..close();
 }
 
-class _BrushClip extends CustomClipper<Path> {
+class _FrameClip extends CustomClipper<Path> {
   final int seed;
-  _BrushClip(this.seed);
+  _FrameClip(this.seed);
 
   @override
-  Path getClip(Size size) => _brush(size, seed);
+  Path getClip(Size size) => _framePath(size, seed + 1, 2);
 
   @override
-  bool shouldReclip(_BrushClip old) => old.seed != seed;
+  bool shouldReclip(_FrameClip old) => old.seed != seed;
 }
 
-class _BrushShadow extends CustomPainter {
+/// Tinta del cuadro: detrás, la sombra dura; delante, el borde de grosor
+/// desparejo (dos contornos que tiemblan distinto).
+class _FrameInk extends CustomPainter {
   final int seed;
-  _BrushShadow(this.seed);
+  final bool shadow;
+  _FrameInk(this.seed, {this.shadow = false});
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawPath(
-      _brush(size, seed).shift(const Offset(3, 4)),
-      Paint()
-        ..color = _ink.withValues(alpha: 0.3)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2),
-    );
-  }
-
-  @override
-  bool shouldRepaint(_BrushShadow old) => old.seed != seed;
-}
-
-/// La pincelada como máscara: deja ver [child] (el escenario) con su sombra.
-class _BrushFrame extends StatelessWidget {
-  final int seed;
-  final Widget child;
-  const _BrushFrame({required this.seed, required this.child});
-
-  @override
-  Widget build(BuildContext context) => CustomPaint(
-    painter: _BrushShadow(seed),
-    child: ClipPath(clipper: _BrushClip(seed), child: child),
-  );
-}
-
-/// Fondo del escenario. [alignX] corre el encuadre: quien habla a la
-/// izquierda ve un lado del lugar y quien responde, el otro (plano y contraplano).
-class _PlaceBackdrop extends StatelessWidget {
-  final Place place;
-  final double alignX;
-  const _PlaceBackdrop({required this.place, this.alignX = 0});
-
-  @override
-  Widget build(BuildContext context) {
-    if (StoryArt.has(place.asset)) {
-      return Image.asset(
-        place.asset,
-        fit: BoxFit.cover,
-        alignment: Alignment(alignX, -0.2),
-        filterQuality: FilterQuality.medium,
-      );
+    final outer = _framePath(size, seed, -1);
+    if (shadow) {
+      canvas.drawPath(outer.shift(const Offset(3, 4)), Paint()..color = _ink.withValues(alpha: 0.3));
+      return;
     }
-    return CustomPaint(
-      painter: _InkLandscape(place, alignX),
-      child: Center(
-        child: Text(place.glyph, style: Skin.of(context).glyph(96, color: Colors.white.withValues(alpha: 0.09))),
-      ),
+    canvas.drawPath(
+      Path.combine(PathOperation.difference, outer, _framePath(size, seed + 1, 2)),
+      Paint()..color = _ink,
     );
   }
+
+  @override
+  bool shouldRepaint(_FrameInk old) => old.seed != seed;
 }
 
-/// Paisaje de tinta provisorio: cielo en degradé, una luna y tres capas de
-/// colinas que se corren con el encuadre.
+/// Paisaje de tinta provisorio: cielo en degradé y tres capas de colinas que
+/// se corren con el encuadre.
 class _InkLandscape extends CustomPainter {
   final Place place;
   final double alignX;
@@ -665,49 +1076,6 @@ class _InkLandscape extends CustomPainter {
   bool shouldRepaint(_InkLandscape old) => old.place != place || old.alignX != alignX;
 }
 
-/// Panel de un momento: el escenario entero y el cartel de lugar y hora.
-class _MomentPanel extends StatelessWidget {
-  final String text;
-  final Place place;
-  final int seed;
-  const _MomentPanel({required this.text, required this.place, required this.seed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: SizedBox(
-        height: 170,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Positioned.fill(
-              child: _BrushFrame(
-                seed: seed,
-                child: _PlaceBackdrop(place: place),
-              ),
-            ),
-            Positioned(
-              left: 6,
-              top: -4,
-              right: 70,
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Transform.rotate(
-                  angle: -0.015,
-                  child: _CaptionBox(
-                    child: Text(text, style: Skin.of(context).display(16, color: _ink, height: 1.2)),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 /// Cartel de cómic: papel amarillento, borde de tinta y sombra dura.
 class _CaptionBox extends StatelessWidget {
   final Widget child;
@@ -725,301 +1093,81 @@ class _CaptionBox extends StatelessWidget {
   );
 }
 
-/// Narración: un cartel suelto entre paneles.
-class _Caption extends StatelessWidget {
+/// Globo de cómic con el nombre de quien habla en la solapa: papel con borde
+/// de tinta y la cola hacia abajo, de su lado. El pensamiento es más redondo
+/// y suelta burbujitas en vez de cola.
+class _Balloon extends StatelessWidget {
   final String text;
-  const _Caption({required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(22, 10, 22, 10),
-      child: Transform.rotate(
-        angle: -0.01,
-        child: _CaptionBox(
-          child: Text.rich(
-            storySpans(text, const TextStyle(fontSize: 15, height: 1.4, fontStyle: FontStyle.italic, color: _ink)),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Ilustración de un momento clave, a todo el ancho.
-class _Splash extends StatelessWidget {
-  final String asset;
-  final int seed;
-  const _Splash({required this.asset, required this.seed});
-
-  @override
-  Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.symmetric(vertical: 10),
-    child: AspectRatio(
-      aspectRatio: 3 / 2,
-      child: _BrushFrame(
-        seed: seed ^ 0x5A5A,
-        child: Image.asset(asset, fit: BoxFit.cover, filterQuality: FilterQuality.medium),
-      ),
-    ),
-  );
-}
-
-/// Esquinas recortadas de un cuadro (cuánto entra cada una en horizontal):
-/// así el corte entre dos cuadros de una tira queda en diagonal.
-class _Cut {
-  final double tl, tr, br, bl;
-  const _Cut({this.tl = 0, this.tr = 0, this.br = 0, this.bl = 0});
-
-  double get left => max(tl, bl);
-  double get right => max(tr, br);
-}
-
-/// Contorno de un cuadro con el pulso de un trazo a mano: cada borde tiembla
-/// apenas. [inset] lo achica (negativo, lo agranda).
-Path _framePath(Size s, int seed, _Cut c, double inset) {
-  final r = Random(seed);
-  final pts = [
-    Offset(c.tl + inset, inset),
-    Offset(s.width - c.tr - inset, inset),
-    Offset(s.width - c.br - inset, s.height - inset),
-    Offset(c.bl + inset, s.height - inset),
-  ];
-  final p = Path()..moveTo(pts[0].dx, pts[0].dy);
-  for (var e = 0; e < 4; e++) {
-    final a = pts[e], b = pts[(e + 1) % 4];
-    final d = b - a;
-    final n = Offset(-d.dy, d.dx) / d.distance;
-    final phase = r.nextDouble() * 2 * pi, freq = 2 + r.nextDouble() * 3;
-    const steps = 14;
-    for (var k = 1; k <= steps; k++) {
-      final t = k / steps;
-      p.lineTo(
-        a.dx + d.dx * t + n.dx * 1.4 * sin(t * pi) * sin(t * pi * freq + phase),
-        a.dy + d.dy * t + n.dy * 1.4 * sin(t * pi) * sin(t * pi * freq + phase),
-      );
-    }
-  }
-  return p..close();
-}
-
-class _FrameClip extends CustomClipper<Path> {
-  final int seed;
-  final _Cut cut;
-  _FrameClip(this.seed, this.cut);
-
-  @override
-  Path getClip(Size size) => _framePath(size, seed + 1, cut, 1.5);
-
-  @override
-  bool shouldReclip(_FrameClip old) => old.seed != seed || old.cut != cut;
-}
-
-/// Tinta del cuadro: detrás, la sombra dura; delante, el borde de grosor
-/// desparejo (dos contornos que tiemblan distinto).
-class _FrameInk extends CustomPainter {
-  final int seed;
-  final _Cut cut;
-  final bool shadow;
-  _FrameInk(this.seed, this.cut, {this.shadow = false});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final outer = _framePath(size, seed, cut, -1.5);
-    if (shadow) {
-      canvas.drawPath(outer.shift(const Offset(3, 4)), Paint()..color = _ink.withValues(alpha: 0.35));
-      return;
-    }
-    canvas.drawPath(
-      Path.combine(PathOperation.difference, outer, _framePath(size, seed + 1, cut, 1.5)),
-      Paint()..color = _ink,
-    );
-  }
-
-  @override
-  bool shouldRepaint(_FrameInk old) => old.seed != seed || old.cut != cut;
-}
-
-/// Un cuadro de la tira: el escenario de fondo, los personajes parados abajo
-/// y, arriba, los carteles y globos en el orden en que se dicen.
-class _FrameView extends StatelessWidget {
-  final int seed;
-  final _Cut cut;
-  final Place place;
-  final bool wide;
-  final Map<Who, bool> figures;
-  final List<Widget> children;
-  const _FrameView({
-    required this.seed,
-    required this.cut,
-    required this.place,
-    required this.wide,
-    required this.figures,
-    required this.children,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final two = figures.length > 1;
-    // Plano y contraplano: el encuadre mira hacia quien habla.
-    final alignX = two ? 0.0 : (figures.values.first ? -0.7 : 0.7);
-    // Los personajes tienen alto fijo y los globos van todos encima: nunca
-    // les tapan la cara, por más texto que tenga el cuadro.
-    final figureHeight = two || !wide ? 118.0 : 148.0;
-    return CustomPaint(
-      painter: _FrameInk(seed, cut, shadow: true),
-      foregroundPainter: _FrameInk(seed, cut),
-      child: ClipPath(
-        clipper: _FrameClip(seed, cut),
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: _PlaceBackdrop(place: place, alignX: alignX),
-            ),
-            for (final MapEntry(key: who, value: left) in figures.entries)
-              Positioned(
-                left: left ? cut.bl : 0,
-                right: left ? 0 : cut.br,
-                bottom: 0,
-                height: figureHeight,
-                child: _Figure(who: who, left: left, small: two || !wide),
-              ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(8 + cut.left, 10, 8 + cut.right, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  for (final c in children) Padding(padding: const EdgeInsets.only(bottom: 16), child: c),
-                  // Lugar para los personajes.
-                  SizedBox(height: figureHeight - 6),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Personaje parado en el borde de abajo, de su lado: la figura si hay arte;
-/// si no, su retrato. Abajo, el nombre en el color de su bando.
-class _Figure extends StatelessWidget {
   final Who who;
   final bool left;
-  final bool small;
-  const _Figure({required this.who, required this.left, required this.small});
+
+  /// Hacia dónde apunta la cola: -1 izquierda, 0 centro, 1 derecha, null sin cola.
+  final double? tail;
+  final bool thought;
+  const _Balloon({required this.text, required this.who, required this.left, this.tail, this.thought = false});
 
   @override
   Widget build(BuildContext context) {
     final t = HexTheme.of(context);
     final color = who.side == null ? t.gold : HexTheme.faction(who.side!);
-    final art = Scene.figureAsset(who);
-    final at = left ? Alignment.bottomLeft : Alignment.bottomRight;
-    return Stack(
-      children: [
-        if (StoryArt.has(art))
-          Align(
-            alignment: at,
-            child: FractionallySizedBox(
-              widthFactor: small ? 0.5 : 0.36,
-              alignment: at,
-              child: Transform.flip(
-                flipX: !left,
-                child: Image.asset(art, fit: BoxFit.contain, alignment: at, filterQuality: FilterQuality.medium),
+    final body = Container(
+      constraints: const BoxConstraints(minWidth: 80),
+      padding: const EdgeInsets.fromLTRB(14, 12, 14, 11),
+      decoration: BoxDecoration(
+        color: _paper,
+        borderRadius: BorderRadius.circular(thought ? 26 : 16),
+        border: Border.all(color: _ink, width: thought ? 1.5 : 2),
+        boxShadow: [BoxShadow(color: _ink.withValues(alpha: 0.25), offset: const Offset(2, 3))],
+      ),
+      child: Text.rich(
+        storySpans(
+          text,
+          TextStyle(fontSize: 15.5, height: 1.3, color: _ink, fontStyle: thought ? FontStyle.italic : FontStyle.normal),
+        ),
+      ),
+    );
+    Widget bubble(double d) => Container(
+      width: d,
+      height: d,
+      decoration: BoxDecoration(
+        color: _paper,
+        shape: BoxShape.circle,
+        border: Border.all(color: _ink, width: 1.4),
+      ),
+    );
+    return Padding(
+      padding: const EdgeInsets.only(top: 9),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          body,
+          Positioned(
+            left: left ? 12 : null,
+            right: left ? null : 12,
+            top: -11,
+            child: _NameTag(label: who.displayName, color: color),
+          ),
+          if (tail != null && thought) ...[
+            Positioned.fill(
+              bottom: -21,
+              child: Align(
+                alignment: Alignment(tail! * 0.85, 1),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [bubble(10), const SizedBox(height: 2), bubble(6)],
+                ),
               ),
             ),
-          )
-        else
-          Positioned(
-            left: left ? 14 : null,
-            right: left ? null : 14,
-            bottom: 24,
-            child: AvatarFace(
-              avatar: who.avatar,
-              size: small ? 62 : 76,
-              color: color,
-              borderColor: _ink,
-              borderWidth: 2.5,
-              shadow: [BoxShadow(color: _ink.withValues(alpha: 0.4), offset: const Offset(2, 3))],
+          ] else if (tail != null)
+            Positioned.fill(
+              bottom: -13,
+              child: Align(
+                alignment: Alignment(tail! * 0.85, 1),
+                child: CustomPaint(size: const Size(16, 14), painter: _Tail(tail! <= 0)),
+              ),
             ),
-          ),
-        Positioned(
-          left: left ? 8 : null,
-          right: left ? null : 8,
-          bottom: 7,
-          child: _NameTag(label: who.displayName, color: color),
-        ),
-      ],
-    );
-  }
-}
-
-/// Lugar del globo en el cuadro: pegado al lado de quien habla o, con [across],
-/// del lado de enfrente (el personaje queda abajo y la cola apunta hacia él).
-class _BalloonSlot extends StatelessWidget {
-  final bool left;
-  final bool across;
-  final bool wide;
-  final Widget child;
-  const _BalloonSlot({required this.left, required this.across, required this.wide, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    final right = across ? left : !left;
-    // Cuánto del ancho queda libre del otro lado.
-    final free = wide ? (across ? 30 : 26) : 1;
-    final slot = Expanded(
-      flex: 100 - free,
-      child: Align(alignment: right ? Alignment.centerRight : Alignment.centerLeft, child: child),
-    );
-    return Row(
-      children: right ? [Spacer(flex: free), slot] : [slot, Spacer(flex: free)],
-    );
-  }
-}
-
-/// Lo que todavía no apareció: no se ve ni se toca, pero ocupa su tamaño.
-class _Hidden extends StatelessWidget {
-  final Widget child;
-  const _Hidden({required this.child});
-
-  @override
-  Widget build(BuildContext context) =>
-      Visibility(visible: false, maintainSize: true, maintainAnimation: true, maintainState: true, child: child);
-}
-
-/// Aparición de un globo o cartel: crece desde la cola.
-class _Pop extends StatelessWidget {
-  final Widget child;
-  final bool animate;
-
-  /// Todavía no se dijo: ocupa su lugar sin verse.
-  final bool hidden;
-  final Alignment origin;
-  const _Pop({
-    super.key,
-    required this.child,
-    this.animate = true,
-    this.hidden = false,
-    this.origin = Alignment.bottomLeft,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (hidden) return _Hidden(child: child);
-    if (!animate) return child;
-    return TweenAnimationBuilder<double>(
-      tween: Tween(begin: 0, end: 1),
-      duration: const Duration(milliseconds: 380),
-      curve: Curves.easeOutBack,
-      builder: (_, v, c) => Opacity(
-        opacity: v.clamp(0.0, 1.0),
-        child: Transform.scale(scale: 0.5 + 0.5 * v, alignment: origin, child: c),
+        ],
       ),
-      child: child,
     );
   }
 }
@@ -1034,76 +1182,17 @@ class _NameTag extends StatelessWidget {
   Widget build(BuildContext context) => Transform.rotate(
     angle: -0.03,
     child: Container(
-      padding: const EdgeInsets.fromLTRB(9, 3, 9, 4),
+      padding: const EdgeInsets.fromLTRB(8, 2, 8, 3),
       decoration: BoxDecoration(
         color: color,
-        border: Border.all(color: _ink, width: 1.5),
-        boxShadow: [BoxShadow(color: _ink.withValues(alpha: 0.35), offset: const Offset(2, 2))],
+        border: Border.all(color: _ink, width: 1.4),
       ),
       child: Text(
         label,
-        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800, letterSpacing: 0.3, color: Colors.white),
+        style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w800, letterSpacing: 0.3, color: Colors.white),
       ),
     ),
   );
-}
-
-/// Globo de cómic: papel con borde de tinta y la cola abajo, hacia quien
-/// habla. El pensamiento es más redondo y suelta burbujitas en vez de cola.
-class _Balloon extends StatelessWidget {
-  final String text;
-  final bool left;
-  final bool thought;
-  const _Balloon({required this.text, required this.left, this.thought = false});
-
-  @override
-  Widget build(BuildContext context) {
-    final body = Container(
-      constraints: const BoxConstraints(minWidth: 64),
-      padding: const EdgeInsets.fromLTRB(13, 9, 13, 10),
-      decoration: BoxDecoration(
-        color: _paper,
-        borderRadius: BorderRadius.circular(thought ? 26 : 16),
-        border: Border.all(color: _ink, width: thought ? 1.5 : 2),
-      ),
-      child: Text.rich(
-              storySpans(
-                text,
-                TextStyle(
-                  fontSize: 15,
-                  height: 1.3,
-                  color: _ink,
-                  fontStyle: thought ? FontStyle.italic : FontStyle.normal,
-                ),
-              ),
-            ),
-    );
-    Widget bubble(double d) => Container(
-      width: d,
-      height: d,
-      decoration: BoxDecoration(
-        color: _paper,
-        shape: BoxShape.circle,
-        border: Border.all(color: _ink, width: 1.4),
-      ),
-    );
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        body,
-        if (thought) ...[
-          Positioned(left: left ? 14 : null, right: left ? null : 14, bottom: -12, child: bubble(10)),
-          Positioned(left: left ? 6 : null, right: left ? null : 6, bottom: -21, child: bubble(6)),
-        ] else
-          Positioned(
-            left: left ? 16 : null,
-            right: left ? null : 16,
-            bottom: -13,
-            child: CustomPaint(size: const Size(16, 14), painter: _Tail(left)),
-          ),
-      ],
-    );
-  }
 }
 
 /// Cola del globo: tapa el borde de abajo y apunta hacia abajo y afuera.

@@ -5,7 +5,7 @@ import 'package:hexiege/engine/pieces.dart';
 import 'package:hexiege/i18n/i18n.dart';
 import 'package:hexiege/solo/campaign.dart';
 import 'package:hexiege/solo/catalog.dart';
-import 'package:hexiege/story/page.dart';
+import 'package:hexiege/story/director.dart';
 import 'package:hexiege/story/script.dart';
 import 'package:hexiege/story/story_screen.dart';
 import 'package:hexiege/ui/theme/hex_theme.dart';
@@ -27,9 +27,9 @@ void main() {
       for (final id in Scene.ids) {
         final sc = Scene.of(id.split('.').first, post: id.endsWith('post'))!;
         for (var i = 0; i < sc.beats.length; i++) {
-          expect(sc.text(i), isNot('story.$id.$i'));
           final b = sc.beats[i];
-          expect(b.who == null, b.kind == BeatKind.moment, reason: '$id.$i');
+          if (b.hasText) expect(sc.text(i), isNot('story.$id.$i'));
+          expect(b.who == null, b.kind == BeatKind.moment || b.kind == BeatKind.pause, reason: '$id.$i');
         }
       }
       for (final w in Who.values) {
@@ -40,8 +40,10 @@ void main() {
     test('cada momento tiene escenario y toda escena sabe dónde transcurre', () {
       for (final id in Scene.ids) {
         final sc = Scene.of(id.split('.').first, post: id.endsWith('post'))!;
+        // Cada momento dice dónde transcurre: en el mapa de escenarios o con «lugar».
         for (final m in sc.moments) {
-          expect(Scene.momentPlace(id, m), isNotNull, reason: '$id.$m');
+          final placed = sc.beats[m].cues.any((c) => c.kind == CueKind.place);
+          expect(placed || Scene.momentPlace(id, m) != null, isTrue, reason: '$id.$m');
         }
         final sp = sc.splash;
         if (sp != null) expect(sp.$1, lessThan(sc.beats.length), reason: id);
@@ -52,26 +54,46 @@ void main() {
       expect(Scene.of('f3', post: true)!.placeAt(3), Place.epilogue);
     });
 
-    test('la página reparte todos los mensajes en orden, de a uno o dos globos por cuadro', () {
-      var pairs = 0, frames = 0;
+    test('el director arma un cuadro por golpe: páginas, elenco y globos coherentes', () {
       for (final id in Scene.ids) {
         final sc = Scene.of(id.split('.').first, post: id.endsWith('post'))!;
-        final strips = layoutPage(sc);
-        expect([for (final s in strips) ...s.beats], List.generate(sc.beats.length, (i) => i), reason: id);
-        for (final s in strips.whereType<FrameStrip>()) {
-          expect(s.frames.length, s.flex.length);
-          if (s.frames.length == 2) pairs++;
-          for (final f in s.frames) {
-            frames++;
-            final talk = f.beats.where((i) => sc.beats[i].kind == BeatKind.say || sc.beats[i].kind == BeatKind.think);
-            expect(talk.length, inInclusiveRange(1, 2), reason: '$id ${f.beats}');
+        final frames = Director.run(sc, hero: Who.ren);
+        expect(frames, hasLength(sc.beats.length), reason: id);
+        var page = 0;
+        for (final f in frames) {
+          final b = sc.beats[f.beat];
+          // Las páginas avanzan de a una; cada momento abre una.
+          expect(f.page - page, inInclusiveRange(0, 1), reason: '$id.${f.beat}');
+          if (b.kind == BeatKind.moment && f.beat > 0) expect(f.page, page + 1, reason: '$id.${f.beat}');
+          page = f.page;
+          // Quien habla está en escena (salvo sobre una ilustración o mientras se va).
+          if (b.talks && f.art == null && !f.leaving.containsKey(b.who)) {
+            expect(f.actor(b.who!), isNotNull, reason: '$id.${f.beat}');
           }
+          expect(f.lines.length, lessThanOrEqualTo(Director.maxLines));
+          for (final l in f.lines) {
+            expect(sc.beats[l].talks, isTrue);
+          }
+          expect(f.cast.map((a) => a.who).toSet(), hasLength(f.cast.length), reason: '$id.${f.beat}');
+          final cue = f.caption;
+          if (cue != null) expect(sc.beats[cue].kind, anyOf(BeatKind.moment, BeatKind.narrate));
         }
-        final splash = sc.splash?.$1;
-        if (splash != null) expect(strips.any((s) => s.first == splash), isTrue, reason: id);
       }
-      // Que la página mezcle tiras de un cuadro y de dos.
-      expect(pairs * 2, greaterThan(frames ~/ 3));
+    });
+
+    test('la celda: paneo, el preso, la zorra y la celda vacía', () {
+      final sc = Scene.of('s4', post: true)!;
+      final f = Director.run(sc, hero: Who.ren);
+      // Abre con un paneo lento antes de que nadie hable.
+      expect(sc.beats[1].kind, BeatKind.pause);
+      expect(f[1].slow, isTrue);
+      expect(f[1].cast, isEmpty);
+      // La zorra llega en una ilustración, en página nueva.
+      final art = f.indexWhere((x) => x.art == 'art_fox_cell');
+      expect(f[art].page, f[art - 1].page + 1);
+      // Al final, Ren queda solo.
+      expect(f.last.cast.map((a) => a.who), [Who.ren]);
+      expect(sc.beats.last.kind, BeatKind.think);
     });
 
     test('el cruce de la batalla 12 es la misma charla desde los dos lados', () {
@@ -83,7 +105,7 @@ void main() {
     });
   });
 
-  testWidgets('la viñeta entra de a un mensaje, se adelanta tocando y termina', (tester) async {
+  testWidgets('la viñeta avanza de a un golpe por toque y termina', (tester) async {
     setLanguage('es');
     final scene = Scene.of('s1', post: false)!;
     await tester.pumpWidget(
@@ -92,28 +114,20 @@ void main() {
         home: StoryScreen(scene: scene, mine: const {Faction.shaolin}, title: 'Prueba'),
       ),
     );
-    // Lo que todavía no se dijo ya ocupa su lugar, pero no se ve.
-    bool seen(int i) => find.text(scene.text(i)).evaluate().any((e) {
-      var visible = true;
-      e.visitAncestorElements((a) {
-        final w = a.widget;
-        if (w is Visibility && !w.visible) visible = false;
-        return visible;
-      });
-      return visible;
-    });
-    // Primero el momento (lugar y hora), después de una pausa.
-    await tester.pump(const Duration(milliseconds: 300));
-    expect(seen(0), isFalse);
     await tester.pump(const Duration(milliseconds: 400));
-    expect(seen(0), isTrue);
-    expect(seen(2), isFalse);
-    // Tocar adelanta: aparece el próximo mensaje, ya escrito.
-    for (var i = 0; i < scene.beats.length; i++) {
-      await tester.tap(find.byType(ListView));
+    await tester.pump(const Duration(seconds: 3));
+    // Sin tocar, no avanza: solo el momento.
+    expect(find.text(scene.text(0)), findsOneWidget);
+    expect(find.text(scene.text(2)), findsNothing);
+    await tester.pump(const Duration(seconds: 5));
+    expect(find.text(scene.text(2)), findsNothing);
+    // Cada toque completa el golpe o pasa al siguiente.
+    for (var i = 0; i < scene.beats.length * 2; i++) {
+      await tester.tapAt(const Offset(200, 300));
       await tester.pump(const Duration(milliseconds: 50));
     }
-    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pump(const Duration(milliseconds: 400));
     expect(find.text('Continuar'), findsOneWidget);
     expect(find.text('Saltar'), findsNothing);
   });

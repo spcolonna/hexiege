@@ -33,6 +33,12 @@ enum Place {
   const Place(this.art, this.top, this.bottom, this.glyph);
 
   String get asset => 'assets/story/$art.webp';
+
+  /// Lugares en penumbra: el cuadro se cierra en tinta por los bordes.
+  bool get night => switch (this) {
+    wall || cells || forest || dormitory || cryptStairs || crypt || pagodaTop => true,
+    _ => false,
+  };
 }
 
 /// Dónde transcurre cada momento ("escena.índice" del mensaje que lo abre).
@@ -41,9 +47,9 @@ const _momentPlaces = <String, Place>{
   's2.pre.0': Place.yard,
   's3.pre.0': Place.road,
   's4.pre.0': Place.cells,
+  's4.post.0': Place.cells,
   's5.pre.0': Place.wall,
   's6.pre.0': Place.gate,
-  's6.post.1': Place.abbotHall,
   's7.pre.0': Place.mountainPath,
   's8.pre.0': Place.bridge,
   's9.pre.0': Place.shrine,
@@ -59,7 +65,6 @@ const _momentPlaces = <String, Place>{
   's19.pre.0': Place.pagoda,
   's24.pre.0': Place.pagodaTop,
   'n1.pre.0': Place.pagoda,
-  'n1.pre.4': Place.wall,
   'n2.pre.0': Place.yard,
   'n3.pre.0': Place.courtyard,
   'n4.pre.0': Place.cryptStairs,
@@ -84,13 +89,9 @@ const _momentPlaces = <String, Place>{
 /// Ilustraciones de los momentos clave: un panel grande antes del mensaje
 /// indicado. Se muestran solo si el arte (`assets/story/art_<id>.webp`) existe.
 const _splashes = <String, (int, String)>{
-  's1.pre': (1, 'art_wall'),
-  's4.post': (2, 'art_fox_cell'),
-  's6.post': (7, 'art_ash_ceiling'),
   's9.pre': (1, 'art_carvings'),
   's12.pre': (1, 'art_duel_shrine'),
   's19.pre': (1, 'art_pagoda'),
-  'n3.post': (1, 'art_stairs'),
   'n12.pre': (1, 'art_duel_shrine'),
   'n14.pre': (1, 'art_crypt'),
   'n16.post': (0, 'art_drunken_tale'),

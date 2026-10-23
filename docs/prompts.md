@@ -230,13 +230,15 @@ ya está quedan abajo por si hay que regenerar algo.
 | Retratos redondos (`avatar_abbot`, `avatar_shogun`, `avatar_ashoni`) | `assets/avatars/` | 3 | ✅ |
 | Retratos de los rivales (`avatar_ninja`, `_scout`, `_acolyte`, `_guard`, `_kunoichi`) | `assets/avatars/` | 5 | ✅ |
 | Ilustraciones de momentos clave (`art_*`) | `assets/story/` | 12 | ✅ |
+| Ilustraciones nuevas del Acto I, pensadas para el paneo | `assets/story/` | 9 | ⬜ (≈2,7 MB) |
 
-Cómo las usa el juego:
-- **Figuras:** quien habla está parado abajo, de su lado del cuadro; el juego espeja la figura cuando va a la
-  derecha, por eso todas miran a la derecha. Fondo transparente (o magenta `#FF00FF`, que se recorta).
-- **Escenarios:** el mismo fondo se recorta en tiras anchas y en cuadros altos o anchos, y el encuadre se corre
-  según quién habla: por eso piden detalles en los tres tercios, arriba tranquilo y abajo despejado.
-- **Ilustraciones:** panel ancho enmascarado por una pincelada; necesitan un foco claro.
+Cómo las usa el juego (la viñeta es una hoja alta, casi 9:16, y una cámara recorre el arte de 3:2):
+- **Figuras:** de medio cuerpo, paradas abajo; el juego espeja la figura cuando va a la derecha, por eso todas
+  miran a la derecha. Fondo transparente (o magenta `#FF00FF`, que se recorta).
+- **Escenarios:** la cámara ve cerca de un 40 % del ancho y panea o se acerca a un punto: por eso piden detalles
+  en los tres tercios, arriba tranquilo y abajo despejado (ahí van los personajes).
+- **Ilustraciones:** ocupan la hoja entera y la cámara pasa de un punto de interés a otro (por ejemplo, del preso
+  a la zorra). Conviene que tengan dos o tres focos repartidos a lo ancho, cada uno legible por separado.
 - **Retratos:** se recortan en círculo, como los avatares.
 - Al integrarlas se pasan a `.webp`. El juego detecta solo qué arte existe y, si falta algo, dibuja un respaldo.
 
@@ -261,6 +263,191 @@ Las capturas de pantalla para App Store y Google Play no se generan: se sacan de
 ---
 
 # Prompts individuales — Historia
+
+## Ilustraciones del Acto I para la viñeta por golpes — `assets/story/`
+
+Nuevas, para que la cámara tenga qué recorrer en los momentos fuertes del Acto I. Cada una suma unos 300 KB.
+Al integrarlas se pasan a `.webp` y se agregan al guion con `[arte <nombre>]`.
+
+### `art_cell_bars.png` ⬜
+
+Dónde va: s4 Antes, cuando el explorador aparece tras los barrotes.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
+
+PURPOSE: A comic illustration for the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). On the phone it fills a tall panel and a slow camera pans and zooms across it, showing about 40% of the width at a time: it needs two or three clear points of interest spread from left to right, each readable on its own, with a calm top area for captions.
+
+SUBJECT: Left: torchlight on an iron-banded cell door. Center: behind the bars, the narrowed eyes of a young ninja prisoner catching the light. Right: the shadow of a young monk with a staff stretched long across the stone floor. Accent: warm amber torchlight against deep brown darkness.
+
+CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. KURO is a lean ninja jonin in charcoal grey with a smoke-grey scarf. MASTER MEI is a middle-aged Shaolin nun in saffron and jade. GON is a stocky young monk with a bo staff. The ABBOT is an old monk with a white beard and jade prayer beads. The GRAND SHOGUN KAGE wears black lacquered armor with crimson cords.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
+
+DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
+```
+
+### `art_smoke_roof.png` ⬜
+
+Dónde va: s4 Antes, el golpe en el techo y la bomba de humo.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
+
+PURPOSE: A comic illustration for the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). On the phone it fills a tall panel and a slow camera pans and zooms across it, showing about 40% of the width at a time: it needs two or three clear points of interest spread from left to right, each readable on its own, with a calm top area for captions.
+
+SUBJECT: Left: roof tiles bursting inward with splinters. Center: a thick white smoke bomb blooming into the corridor of the cells. Right: two ninja silhouettes dropping through the hole on ropes. Accent: white smoke, a touch of crimson on their scarves.
+
+CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. KURO is a lean ninja jonin in charcoal grey with a smoke-grey scarf. MASTER MEI is a middle-aged Shaolin nun in saffron and jade. GON is a stocky young monk with a bo staff. The ABBOT is an old monk with a white beard and jade prayer beads. The GRAND SHOGUN KAGE wears black lacquered armor with crimson cords.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
+
+DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
+```
+
+### `art_ambush_trees.png` ⬜
+
+Dónde va: s3 Antes, "Tres sombras caen de los árboles".
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
+
+PURPOSE: A comic illustration for the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). On the phone it fills a tall panel and a slow camera pans and zooms across it, showing about 40% of the width at a time: it needs two or three clear points of interest spread from left to right, each readable on its own, with a calm top area for captions.
+
+SUBJECT: Seen from slightly above: a mountain road at dusk. Left: twisted pine branches with a ninja crouched on one. Center: the young monk REN with an empty basket on his back, looking up. Right: two more ninja shadows leaping down from the trees. Accent: orange dusk sky, crimson scarves.
+
+CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. KURO is a lean ninja jonin in charcoal grey with a smoke-grey scarf. MASTER MEI is a middle-aged Shaolin nun in saffron and jade. GON is a stocky young monk with a bo staff. The ABBOT is an old monk with a white beard and jade prayer beads. The GRAND SHOGUN KAGE wears black lacquered armor with crimson cords.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
+
+DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
+```
+
+### `art_kuro_gate.png` ⬜
+
+Dónde va: s6 Antes, Kuro espera solo en el portón.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
+
+PURPOSE: A comic illustration for the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). On the phone it fills a tall panel and a slow camera pans and zooms across it, showing about 40% of the width at a time: it needs two or three clear points of interest spread from left to right, each readable on its own, with a calm top area for captions.
+
+SUBJECT: Left: the red temple gate and stone steps half lost in dawn mist. Center: KURO standing alone on the top step, smoke curling from his sleeves. Right: the rising sun behind mountain peaks. Accent: pale gold dawn, charcoal smoke.
+
+CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. KURO is a lean ninja jonin in charcoal grey with a smoke-grey scarf. MASTER MEI is a middle-aged Shaolin nun in saffron and jade. GON is a stocky young monk with a bo staff. The ABBOT is an old monk with a white beard and jade prayer beads. The GRAND SHOGUN KAGE wears black lacquered armor with crimson cords.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
+
+DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
+```
+
+### `art_kage_hall.png` ⬜
+
+Dónde va: n1 Antes, Kage habla del Pergamino.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
+
+PURPOSE: A comic illustration for the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). On the phone it fills a tall panel and a slow camera pans and zooms across it, showing about 40% of the width at a time: it needs two or three clear points of interest spread from left to right, each readable on its own, with a calm top area for captions.
+
+SUBJECT: Inside the clan pagoda at night. Left: rows of red paper lanterns. Center: the GRAND SHOGUN KAGE seated in black lacquered armor, his face half in shadow. Right: AYA kneeling with her head bowed, her fan at her side. Accent: crimson lantern light.
+
+CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. KURO is a lean ninja jonin in charcoal grey with a smoke-grey scarf. MASTER MEI is a middle-aged Shaolin nun in saffron and jade. GON is a stocky young monk with a bo staff. The ABBOT is an old monk with a white beard and jade prayer beads. The GRAND SHOGUN KAGE wears black lacquered armor with crimson cords.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
+
+DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
+```
+
+### `art_bell.png` ⬜
+
+Dónde va: n5 Antes, las campanas despiertan al Templo.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
+
+PURPOSE: A comic illustration for the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). On the phone it fills a tall panel and a slow camera pans and zooms across it, showing about 40% of the width at a time: it needs two or three clear points of interest spread from left to right, each readable on its own, with a calm top area for captions.
+
+SUBJECT: Left: a monk swinging the heavy wooden ram into a giant bronze temple bell. Center: visible ripples of sound in the night mist. Right: lanterns lighting up one after another in the temple windows, and two ninja silhouettes on a rooftop. Accent: bronze and warm lantern gold.
+
+CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. KURO is a lean ninja jonin in charcoal grey with a smoke-grey scarf. MASTER MEI is a middle-aged Shaolin nun in saffron and jade. GON is a stocky young monk with a bo staff. The ABBOT is an old monk with a white beard and jade prayer beads. The GRAND SHOGUN KAGE wears black lacquered armor with crimson cords.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
+
+DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
+```
+
+### `art_warm_door.png` ⬜
+
+Dónde va: n4 Después, la puerta de piedra que late.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
+
+PURPOSE: A comic illustration for the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). On the phone it fills a tall panel and a slow camera pans and zooms across it, showing about 40% of the width at a time: it needs two or three clear points of interest spread from left to right, each readable on its own, with a calm top area for captions.
+
+SUBJECT: Left: steep stone steps going down into darkness with torches. Center: a massive carved stone door with six round stones set in a ring, glowing faintly from within like a heartbeat. Right: AYA’s gloved hand touching the stone, close-up. Accent: deep ember red glow.
+
+CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. KURO is a lean ninja jonin in charcoal grey with a smoke-grey scarf. MASTER MEI is a middle-aged Shaolin nun in saffron and jade. GON is a stocky young monk with a bo staff. The ABBOT is an old monk with a white beard and jade prayer beads. The GRAND SHOGUN KAGE wears black lacquered armor with crimson cords.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
+
+DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
+```
+
+### `art_mei_cells.png` ⬜
+
+Dónde va: n6 Antes, Mei espera en las celdas.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
+
+PURPOSE: A comic illustration for the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). On the phone it fills a tall panel and a slow camera pans and zooms across it, showing about 40% of the width at a time: it needs two or three clear points of interest spread from left to right, each readable on its own, with a calm top area for captions.
+
+SUBJECT: A long cell corridor at night. Left: empty cells with open doors. Center: MASTER MEI standing calmly in the middle of the corridor holding a paper lantern. Right: AYA crouching on a ceiling beam, watching her. Accent: soft lantern gold, jade on Mei’s robe.
+
+CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. KURO is a lean ninja jonin in charcoal grey with a smoke-grey scarf. MASTER MEI is a middle-aged Shaolin nun in saffron and jade. GON is a stocky young monk with a bo staff. The ABBOT is an old monk with a white beard and jade prayer beads. The GRAND SHOGUN KAGE wears black lacquered armor with crimson cords.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
+
+DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
+```
+
+### `art_fox_stairs.png` ⬜
+
+Dónde va: n6 Después, la Zorra Blanca en la escalera.
+
+```
+Create ONE single image. Start immediately, without asking questions.
+
+Create a LANDSCAPE image with a 3:2 aspect ratio (1536×1024), fully opaque.
+
+PURPOSE: A comic illustration for the story mode of a mobile strategy game about Shaolin monks (white marble, jade green, saffron) versus a ninja clan (black, crimson). On the phone it fills a tall panel and a slow camera pans and zooms across it, showing about 40% of the width at a time: it needs two or three clear points of interest spread from left to right, each readable on its own, with a calm top area for captions.
+
+SUBJECT: The crypt staircase in heavy fog. Left: AYA on the top step, turned back in surprise. Center: the WHITE FOX sitting halfway down the stairs, glowing softly. Right: the stairs descending into a faint red pulsing light. Accent: silver-white glow and a hint of ember red.
+
+CONTINUITY: The young monk REN is a teenage boy, shaved head, saffron-orange robe, wooden staff. The kunoichi AYA is a young woman, black hair in a high ponytail, purple-black outfit, mask around the neck, a folding war fan. The WHITE FOX is a slender white fox spirit with several soft glowing tails. KURO is a lean ninja jonin in charcoal grey with a smoke-grey scarf. MASTER MEI is a middle-aged Shaolin nun in saffron and jade. GON is a stocky young monk with a bo staff. The ABBOT is an old monk with a white beard and jade prayer beads. The GRAND SHOGUN KAGE wears black lacquered armor with crimson cords.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) on warm off-white rice paper, confident brush strokes, lots of empty paper, limited palette of ink black plus the accent colors given. Cinematic framing, atmospheric mist, dramatic like a comic splash page. Not cartoonish.
+
+DO NOT INCLUDE: any text, letters, speech bubbles, signature, seal stamp or Chinese/Japanese characters; a frame or border; photographic realism; 3D render; anime style.
+```
 
 ## Ilustraciones de momentos clave — `assets/story/`
 

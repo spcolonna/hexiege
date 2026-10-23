@@ -56,17 +56,135 @@ enum Who {
   };
 }
 
-enum BeatKind { moment, say, think, narrate }
+/// [pause]: un golpe sin texto, solo puesta en escena (la cámara se mueve,
+/// alguien entra o se va); igual espera un toque.
+enum BeatKind { moment, say, think, narrate, pause }
 
-/// Un mensaje de la viñeta: un cambio de momento (lugar o tiempo), una línea
-/// dicha o pensada, o narración.
+/// Un golpe de la viñeta: un cambio de momento (lugar o tiempo), una línea
+/// dicha o pensada, narración o una pausa muda. Cada uno espera un toque.
+/// [cues] es la puesta en escena que lo acompaña.
 class Beat {
   final BeatKind kind;
   final Who? who;
-  const Beat.moment() : kind = BeatKind.moment, who = null;
-  const Beat.say(Who this.who) : kind = BeatKind.say;
-  const Beat.think(Who this.who) : kind = BeatKind.think;
-  const Beat.narrate(Who this.who) : kind = BeatKind.narrate;
+  final List<Cue> cues;
+  const Beat.moment([this.cues = const []]) : kind = BeatKind.moment, who = null;
+  const Beat.say(Who this.who, [this.cues = const []]) : kind = BeatKind.say;
+  const Beat.think(Who this.who, [this.cues = const []]) : kind = BeatKind.think;
+  const Beat.narrate(Who this.who, [this.cues = const []]) : kind = BeatKind.narrate;
+  const Beat.pause([this.cues = const []]) : kind = BeatKind.pause, who = null;
+
+  bool get talks => kind == BeatKind.say || kind == BeatKind.think;
+  bool get hasText => kind != BeatKind.pause;
+}
+
+enum CueKind { cam, enter, exit, clear, fx, onom, art, place, page }
+
+/// Efectos de un golpe. Los de [lasting] quedan hasta el próximo cambio de página.
+enum Fx {
+  shake,
+  flash,
+  smoke,
+  pulse,
+  dark,
+  fog;
+
+  bool get lasting => this == dark || this == fog;
+}
+
+/// Una indicación de puesta en escena (en `docs/lore.md`, entre corchetes).
+class Cue {
+  final CueKind kind;
+  final Who? who;
+
+  /// Cámara: centro (0..1 sobre el fondo) y acercamiento (1 = el fondo justo
+  /// cubre el cuadro). Entrada: [x] es dónde se para (0..1 del cuadro).
+  final double x, y, zoom;
+
+  /// Cámara lenta (un paneo largo).
+  final bool slow;
+
+  /// Estilo de entrada o salida (`humo`, `sombra`, `corre`), arte o clave de onomatopeya.
+  final String? name;
+  final Fx? fx;
+  final Place? place;
+
+  const Cue.cam(this.x, this.y, this.zoom, {this.slow = false})
+    : kind = CueKind.cam,
+      who = null,
+      name = null,
+      fx = null,
+      place = null;
+  const Cue.enter(Who this.who, this.x, [this.name])
+    : kind = CueKind.enter,
+      y = 0,
+      zoom = 0,
+      slow = false,
+      fx = null,
+      place = null;
+  const Cue.exit(Who this.who, [this.name])
+    : kind = CueKind.exit,
+      x = 0,
+      y = 0,
+      zoom = 0,
+      slow = false,
+      fx = null,
+      place = null;
+  const Cue.clear()
+    : kind = CueKind.clear,
+      who = null,
+      x = 0,
+      y = 0,
+      zoom = 0,
+      slow = false,
+      name = null,
+      fx = null,
+      place = null;
+  const Cue.fx(Fx this.fx)
+    : kind = CueKind.fx,
+      who = null,
+      x = 0,
+      y = 0,
+      zoom = 0,
+      slow = false,
+      name = null,
+      place = null;
+  const Cue.onom(String this.name)
+    : kind = CueKind.onom,
+      who = null,
+      x = 0,
+      y = 0,
+      zoom = 0,
+      slow = false,
+      fx = null,
+      place = null;
+  const Cue.art(String this.name)
+    : kind = CueKind.art,
+      who = null,
+      x = 0,
+      y = 0,
+      zoom = 0,
+      slow = false,
+      fx = null,
+      place = null;
+  const Cue.place(Place this.place)
+    : kind = CueKind.place,
+      who = null,
+      x = 0,
+      y = 0,
+      zoom = 0,
+      slow = false,
+      name = null,
+      fx = null;
+  const Cue.page()
+    : kind = CueKind.page,
+      who = null,
+      x = 0,
+      y = 0,
+      zoom = 0,
+      slow = false,
+      name = null,
+      fx = null,
+      place = null;
 }
 
 /// Viñeta de una batalla: [pre] antes de jugarla, [post] al ganarla.
@@ -102,6 +220,13 @@ class Scene {
 
   /// Retrato de cuerpo para los paneles (puede no existir todavía).
   static String figureAsset(Who w) => 'assets/story/char_${w.name}.webp';
+
+  /// Golpes con texto, en orden (las pausas mudas no cuentan).
+  Iterable<int> get lines sync* {
+    for (var i = 0; i < beats.length; i++) {
+      if (beats[i].hasText) yield i;
+    }
+  }
 
   /// Índices de los mensajes que abren un momento.
   List<int> get moments => [

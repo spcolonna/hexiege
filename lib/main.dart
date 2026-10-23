@@ -5,6 +5,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'i18n/i18n.dart';
 
 import 'store/purchases.dart';
+import 'engine/pieces.dart';
+import 'story/script.dart';
 import 'story/story_screen.dart';
 import 'ui/brand_intro.dart';
 import 'ui/game_intro.dart';
@@ -26,6 +28,8 @@ Future<void> main() async {
   await PieceArt.load();
   runApp(HexiegeApp(onboarding: !AppSettings.instance.onboarded));
 }
+
+const _storyDemo = String.fromEnvironment('STORY');
 
 class HexiegeApp extends StatelessWidget {
   /// Primer arranque: bienvenida antes del menú. Se decide una sola vez para que
@@ -51,8 +55,16 @@ class HexiegeApp extends StatelessWidget {
         themeAnimationDuration: const Duration(milliseconds: 450),
         themeAnimationCurve: Curves.easeInOut,
         builder: (context, child) => _PhoneFrame(child: child!),
-        // Estudio → juego → bienvenida o menú.
-        home: BrandIntro(next: GameIntro(next: onboarding ? const OnboardingScreen() : const MenuScreen())),
+        // Estudio → juego → bienvenida o menú. Para probar una viñeta:
+        // flutter run --dart-define=STORY=s4.post [--dart-define=STORY_AT=9]
+        home: _storyDemo.isNotEmpty
+            ? StoryScreen(
+                scene: Scene.of(_storyDemo.split('.').first, post: _storyDemo.endsWith('post'))!,
+                mine: {_storyDemo.startsWith('n') ? Faction.ninja : Faction.shaolin},
+                title: _storyDemo,
+                start: const int.fromEnvironment('STORY_AT'),
+              )
+            : BrandIntro(next: GameIntro(next: onboarding ? const OnboardingScreen() : const MenuScreen())),
       ),
     );
   }
@@ -82,7 +94,10 @@ class _PhoneFrame extends StatelessWidget {
         child: SizedBox(
           width: width,
           child: ClipRect(
-            child: MediaQuery(data: mq.copyWith(size: Size(width, size.height)), child: scaled),
+            child: MediaQuery(
+              data: mq.copyWith(size: Size(width, size.height)),
+              child: scaled,
+            ),
           ),
         ),
       ),
