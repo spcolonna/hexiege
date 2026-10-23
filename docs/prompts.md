@@ -190,8 +190,8 @@ Cómo las usa el juego:
 | 7 | Piedras de ficha (skins) | Ajustes | 4 | ✅ en el juego |
 | 8 | Tapetes de mesa | Ajustes (debajo del tablero) | 5 | ✅ en el juego |
 | 9 | Ícono de la app estilo Ema | Ícono de iOS y Android | 1 de 3 variantes | ✅ variante B en el juego |
-| 10 | Fichas del Oni | Final de la historia (hoy se dibujan con kanji) | 3 | ⬜ (bloque A; opcionales) |
-| 11 | Marco y piedra estilo Ema | Que las fichas se vean como en el ícono | 5 | ⬜ (bloque B; el marco ya se pinta sin ellas) |
+| 10 | Fichas del Oni | Final de la historia | 3 | ✅ en el juego |
+| 11 | Marco y piedra estilo Ema | Que las fichas se vean como en el ícono | 5 | ✅ en el juego |
 
 Las capturas de pantalla para App Store y Google Play no se generan: se sacan del juego.
 
@@ -1869,7 +1869,7 @@ DO NOT INCLUDE: any text, letters, logo, signature or Chinese/Japanese character
 SUBJECT: Two small wooden ema plaques (pentagons: rectangles with pointed gable roofs) hanging side by side from one red cord, overlapping a little and swaying toward each other. The left plaque carries a polished white marble hexagonal tile with a jade-green rim; the right plaque carries a polished black obsidian hexagonal tile with a crimson rim. A small red paper seal-shaped disc (no characters on it) hangs from the cord between them.
 ```
 
-## 10. Fichas del Oni ⬜ (3) — `assets/pieces/`
+## 10. Fichas del Oni ✅ (3) — `assets/pieces/`
 
 ### Oni de Ceniza (Líder) — `oni_oni`
 Habilidad: Líder del jefe final. Se desliza hasta 2 casillas.
@@ -1936,7 +1936,7 @@ DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion,
 
 ---
 
-## 11. Marco y piedra de las fichas, estilo Ema ⬜ (5) — `assets/textures/`
+## 11. Marco y piedra de las fichas, estilo Ema ✅ (5) — `assets/textures/`
 
 Los `*_rim` son nuevos (el juego los busca solos). `shaolin_stone` y `ninja_stone` reemplazan la piedra clásica
 actual: los prompts anteriores quedan en «Textura de la piedra de las fichas», por si se quiere volver.
