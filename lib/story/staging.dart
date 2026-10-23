@@ -79,16 +79,7 @@ const _momentPlaces = <String, Place>{
   'n18.pre.0': Place.pagoda,
   'n19.pre.0': Place.courtyard,
   'n24.pre.0': Place.library,
-  'f1.pre.0': Place.library,
-  'f1.pre.4': Place.ashCourtyard,
-  'f2.pre.0': Place.brokenGarden,
-  'f2.post.2': Place.ashCourtyard,
-  'f3.post.2': Place.epilogue,
 };
-
-/// Ilustraciones de los momentos clave: un panel grande antes del mensaje
-/// indicado. Se muestran solo si el arte (`assets/story/art_<id>.webp`) existe.
-const _splashes = <String, (int, String)>{'f1.pre': (5, 'art_oni_rises'), 'f3.post': (0, 'art_seal')};
 
 final _sceneOrder = _script.keys.toList();
 

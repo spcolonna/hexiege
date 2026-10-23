@@ -93,7 +93,6 @@ abstract final class Director {
 
   static List<Frame> run(Scene scene, {required Who hero}) {
     final frames = <Frame>[];
-    final splash = scene.splash;
     final rnd = Random(scene.id.hashCode);
     var page = 0;
     var place = scene.placeAt(0);
@@ -106,10 +105,7 @@ abstract final class Director {
 
     for (var i = 0; i < scene.beats.length; i++) {
       final b = scene.beats[i];
-      final cues = [
-        if (splash != null && splash.$1 == i) ...[const Cue.page(), Cue.art(splash.$2)],
-        ...b.cues,
-      ];
+      final cues = b.cues;
       final has = cues.map((c) => c.kind).toSet();
       final turn = i > 0 && (b.kind == BeatKind.moment || has.contains(CueKind.page) || has.contains(CueKind.art));
       if (turn) page++;

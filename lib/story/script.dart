@@ -226,9 +226,6 @@ class Scene {
   /// Escenario fijado por el momento que abre el mensaje [i] (null si no abre uno).
   static Place? momentPlace(String sceneId, int i) => _momentPlaces['$sceneId.$i'];
 
-  /// Ilustración clave de la escena: (antes de qué mensaje, nombre del arte).
-  (int, String)? get splash => _splashes[id];
-
   /// Retrato de cuerpo para los paneles (puede no existir todavía).
   static String figureAsset(Who w) => 'assets/story/char_${w.name}.webp';
 

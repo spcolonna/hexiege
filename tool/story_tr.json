@@ -384,27 +384,27 @@
   "zh": ["绫展开了翡翠卷轴。", "*（读着）*“六石环绕。寺院一手，暗影一手。缺其一，封印不合。”", "……这不是武器。是仪式。而且需要我们两边。", "我知道。所以我从未说出口。", "我宁愿独自崩溃，也不愿向忍者求助。", "庭院底下的大地裂开。一道灰烬之柱冲上天空。", "我拿到了卷轴。", "但只有我一个人，它毫无用处。"]
  },
  "f1.pre": {
-  "en": ["The same night. The pagoda and the library.", "Ren defeated Kage. Aya defeated the Abbot. At the same hour.", "Beneath the Temple, the last stone splits.", "**At last. Fighting each other, as always.**", "The Temple courtyard, in grey flames.", "Master Tao! What is that?", "What your Abbot didn't want to tell you. Surround it, kid. Now!"],
-  "zh": ["同一夜。宝塔与藏经阁。", "仁击败了影。绫击败了方丈。同一时刻。", "寺院底下，最后一块石头裂开了。", "**终于。还是一样，自相残杀。**", "寺院庭院，燃着灰色的火焰。", "陶师父！那是什么？", "你的方丈不肯告诉你的东西。包围它，小子。快！"]
+  "en": ["The same night.", "At the top of the pagoda, Ren defeated Kage.", "In the library, Aya defeated the Abbot. At the same hour.", "Beneath the Temple, the last stone splits.", "**At last. Fighting each other, as always.**", "The Temple courtyard, in grey flames.", "Master Tao! What is that?", "What your Abbot didn't want to tell you.", "A monk. Just one.", "Surround it, kid. Now!"],
+  "zh": ["同一夜。", "宝塔之巅，仁击败了影。", "藏经阁中，绫击败了方丈。同一时刻。", "寺院底下，最后一块石头裂开了。", "**终于。还是一样，自相残杀。**", "寺院庭院，燃着灰色的火焰。", "陶师父！那是什么？", "你的方丈不肯告诉你的东西。", "一个和尚。只有一个。", "包围它，小子。快！"]
  },
  "f1.post": {
-  "en": ["The Oni retreats into the crack. But it doesn't close.", "Surrounding it stops it. **It doesn't seal it.**"],
-  "zh": ["灰烬鬼退回了裂缝。但裂缝没有合上。", "包围它能阻止它。**却封印不了它。**"]
+  "en": ["The Oni retreats into the crack.", "But it doesn't close.", "…", "Surrounding it stops it.", "**It doesn't seal it.**"],
+  "zh": ["灰烬鬼退回了裂缝。", "但裂缝没有合上。", "……", "包围它能阻止它。", "**却封印不了它。**"]
  },
  "f2.pre": {
   "en": ["The stone garden, split in two.", "Kuro! Help me!", "That thing came from beneath the Temple!", "I know. Let's surround it."],
   "zh": ["石庭，裂成两半。", "黑！帮我！", "那东西是从寺院底下出来的！", "我知道。我们包围它。"]
  },
  "f2.post": {
-  "en": ["The Oni retreats again. Bigger.", "One hand alone is not enough. It never was.", "The courtyard. Ren and Aya, face to face.", "Kage told me half.", "The Scroll tells the other. One hand of the Temple and one of the Shadow.", "Then… together.", "*(taking human form)* Like Daishin and Kagerō. I was the promise they made to each other. And I was fading."],
-  "zh": ["灰烬鬼又退了回去。变得更大了。", "一只手是不够的。从来都不够。", "庭院。仁与绫，面对面。", "影告诉了我一半。", "卷轴写着另一半。寺院一手，暗影一手。", "那么……一起。", "*（化为人形）*就像大心和阳炎。我是他们彼此许下的诺言。而我正在熄灭。"]
+  "en": ["The Oni retreats again. Bigger.", "One hand alone is not enough.", "It never was.", "The courtyard. Ren and Aya, face to face.", "Kage told me half.", "The Scroll tells the other.", "One hand of the Temple and one of the Shadow.", "Then… together.", "*(taking human form)* Like Daishin and Kagerō.", "I was the promise they made to each other.", "And I was fading."],
+  "zh": ["灰烬鬼又退了回去。变得更大了。", "一只手是不够的。", "从来都不够。", "庭院。仁与绫，面对面。", "影告诉了我一半。", "卷轴写着另一半。", "寺院一手，暗影一手。", "那么……一起。", "*（化为人形）*就像大心和阳炎。", "我是他们彼此许下的诺言。", "而我正在熄灭。"]
  },
  "f3.pre": {
-  "en": ["*(wounded, arriving)* Ren… forgive me.", "*(arriving over the wall)* Aya. Do what the Scroll says.", "Six stones. Two hands. Now."],
-  "zh": ["*（负伤赶来）*仁……原谅我。", "*（翻墙而来）*绫。照卷轴说的做。", "六块石。两只手。就是现在。"]
+  "en": ["*(wounded, arriving)* Ren… forgive me.", "*(arriving over the wall)* Aya. Do what the Scroll says.", "Six stones. Two hands.", "Now."],
+  "zh": ["*（负伤赶来）*仁……原谅我。", "*（翻墙而来）*绫。照卷轴说的做。", "六块石。两只手。", "就是现在。"]
  },
  "f3.post": {
-  "en": ["Six stones light up green and red. The crack closes.", "The Oni dies out like an ember in the rain.", "A week later.", "The seal will hold for another three hundred years.", "If we don't forget again.", "Then let's not forget.", "One duel a year. Temple against clan. On the board.", "And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.", "Until the next crack."],
-  "zh": ["六块石头亮起绿光与红光。裂缝合上了。", "灰烬鬼如雨中的余烬般熄灭。", "一周后。", "封印还能再撑三百年。", "只要我们别再遗忘。", "那就别忘了。", "每年一场对决。寺院对忍者。在棋盘上。", "**荣誉之战**就此开始：僧人与忍者彼此对弈，永远记得如何包围恶鬼。", "直到下一道裂缝。"]
+  "en": ["Six stones light up green and red.", "The crack closes.", "The Oni dies out like an ember in the rain.", "A week later.", "The seal will hold for another three hundred years.", "If we don't forget again.", "Then let's not forget.", "One duel a year. Temple against clan.", "On the board.", "And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.", "Until the next crack."],
+  "zh": ["六块石头亮起绿光与红光。", "裂缝合上了。", "灰烬鬼如雨中的余烬般熄灭。", "一周后。", "封印还能再撑三百年。", "只要我们别再遗忘。", "那就别忘了。", "每年一场对决。寺院对忍者。", "在棋盘上。", "**荣誉之战**就此开始：僧人与忍者彼此对弈，永远记得如何包围恶鬼。", "直到下一道裂缝。"]
  }
 }

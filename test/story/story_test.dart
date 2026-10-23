@@ -45,13 +45,11 @@ void main() {
           final placed = sc.beats[m].cues.any((c) => c.kind == CueKind.place);
           expect(placed || Scene.momentPlace(id, m) != null, isTrue, reason: '$id.$m');
         }
-        final sp = sc.splash;
-        if (sp != null) expect(sp.$1, lessThan(sc.beats.length), reason: id);
       }
       // Sin momento propio, sigue donde terminó la anterior.
       expect(Scene.of('s21', post: true)!.placeAt(0), Place.pagodaTop);
       expect(Scene.of('f3', post: true)!.placeAt(0), Place.ashCourtyard);
-      expect(Scene.of('f3', post: true)!.placeAt(3), Place.epilogue);
+      expect(Scene.of('f3', post: true)!.placeAt(5), Place.epilogue);
     });
 
     test('el director arma un cuadro por golpe: páginas, elenco y globos coherentes', () {

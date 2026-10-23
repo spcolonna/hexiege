@@ -4215,164 +4215,109 @@
   "zh": "我知道。所以我从未说出口。"
  },
  "story.f1.pre.0": {
-  "es": "La misma noche. La pagoda y la biblioteca.",
-  "en": "The same night. The pagoda and the library.",
-  "zh": "同一夜。宝塔与藏经阁。"
+  "es": "La misma noche.",
+  "en": "The same night.",
+  "zh": "同一夜。"
  },
  "story.f1.pre.1": {
-  "es": "Ren venció a Kage. Aya venció al Abad. A la misma hora.",
-  "en": "Ren defeated Kage. Aya defeated the Abbot. At the same hour.",
-  "zh": "仁击败了影。绫击败了方丈。同一时刻。"
+  "es": "En la cima de la pagoda, Ren venció a Kage.",
+  "en": "At the top of the pagoda, Ren defeated Kage.",
+  "zh": "宝塔之巅，仁击败了影。"
  },
- "story.f1.pre.2": {
+ "story.f1.pre.3": {
+  "es": "En la biblioteca, Aya venció al Abad. A la misma hora.",
+  "en": "In the library, Aya defeated the Abbot. At the same hour.",
+  "zh": "藏经阁中，绫击败了方丈。同一时刻。"
+ },
+ "story.f1.pre.5": {
   "es": "Bajo el Templo, la última piedra se parte.",
   "en": "Beneath the Temple, the last stone splits.",
   "zh": "寺院底下，最后一块石头裂开了。"
  },
- "story.f1.pre.3": {
+ "story.f1.pre.6": {
   "es": "**Por fin. Peleándose, como siempre.**",
   "en": "**At last. Fighting each other, as always.**",
   "zh": "**终于。还是一样，自相残杀。**"
  },
- "story.f1.pre.4": {
-  "es": "El patio del Templo, en llamas grises.",
-  "en": "The Temple courtyard, in grey flames.",
-  "zh": "寺院庭院，燃着灰色的火焰。"
- },
- "story.f1.pre.5": {
-  "es": "¡Maestro Tao! ¿Qué es eso?",
-  "en": "Master Tao! What is that?",
-  "zh": "陶师父！那是什么？"
- },
- "story.f1.pre.6": {
-  "es": "Lo que tu Abad no quiso contarte. Rodealo, chico. ¡Ahora!",
-  "en": "What your Abbot didn't want to tell you. Surround it, kid. Now!",
-  "zh": "你的方丈不肯告诉你的东西。包围它，小子。快！"
- },
- "story.f1.post.0": {
-  "es": "El Oni retrocede a la grieta. Pero no se cierra.",
-  "en": "The Oni retreats into the crack. But it doesn't close.",
-  "zh": "灰烬鬼退回了裂缝。但裂缝没有合上。"
- },
  "story.f1.post.1": {
-  "es": "Rodearlo lo detiene. **No lo sella.**",
-  "en": "Surrounding it stops it. **It doesn't seal it.**",
-  "zh": "包围它能阻止它。**却封印不了它。**"
+  "es": "El Oni retrocede a la grieta.",
+  "en": "The Oni retreats into the crack.",
+  "zh": "灰烬鬼退回了裂缝。"
  },
  "story.f2.pre.0": {
   "es": "El jardín de piedra, partido en dos.",
   "en": "The stone garden, split in two.",
   "zh": "石庭，裂成两半。"
  },
- "story.f2.pre.1": {
+ "story.f2.pre.2": {
   "es": "¡Kuro! ¡Ayudame!",
   "en": "Kuro! Help me!",
   "zh": "黑！帮我！"
  },
- "story.f2.pre.2": {
+ "story.f2.pre.3": {
   "es": "¡Esa cosa vino de abajo del Templo!",
   "en": "That thing came from beneath the Temple!",
   "zh": "那东西是从寺院底下出来的！"
  },
- "story.f2.pre.3": {
-  "es": "Lo sé. Rodeemoslo.",
-  "en": "I know. Let's surround it.",
-  "zh": "我知道。我们包围它。"
- },
- "story.f2.post.0": {
+ "story.f2.post.1": {
   "es": "El Oni vuelve a retroceder. Más grande.",
   "en": "The Oni retreats again. Bigger.",
   "zh": "灰烬鬼又退了回去。变得更大了。"
  },
- "story.f2.post.1": {
-  "es": "Una mano sola no alcanza. Nunca alcanzó.",
-  "en": "One hand alone is not enough. It never was.",
-  "zh": "一只手是不够的。从来都不够。"
- },
  "story.f2.post.2": {
+  "es": "Una mano sola no alcanza.",
+  "en": "One hand alone is not enough.",
+  "zh": "一只手是不够的。"
+ },
+ "story.f2.post.3": {
+  "es": "Nunca alcanzó.",
+  "en": "It never was.",
+  "zh": "从来都不够。"
+ },
+ "story.f2.post.4": {
   "es": "El patio. Ren y Aya, frente a frente.",
   "en": "The courtyard. Ren and Aya, face to face.",
   "zh": "庭院。仁与绫，面对面。"
  },
- "story.f2.post.3": {
+ "story.f2.post.6": {
   "es": "Kage me dijo la mitad.",
   "en": "Kage told me half.",
   "zh": "影告诉了我一半。"
  },
- "story.f2.post.4": {
-  "es": "El Pergamino dice la otra. Una mano del Templo y una de la Sombra.",
-  "en": "The Scroll tells the other. One hand of the Temple and one of the Shadow.",
-  "zh": "卷轴写着另一半。寺院一手，暗影一手。"
- },
- "story.f2.post.5": {
-  "es": "Entonces… juntos.",
-  "en": "Then… together.",
-  "zh": "那么……一起。"
- },
- "story.f2.post.6": {
-  "es": "*(tomando forma humana)* Como Daishin y Kagerō. Yo era la promesa que se hicieron. Y me estaba apagando.",
-  "en": "*(taking human form)* Like Daishin and Kagerō. I was the promise they made to each other. And I was fading.",
-  "zh": "*（化为人形）*就像大心和阳炎。我是他们彼此许下的诺言。而我正在熄灭。"
- },
- "story.f3.pre.0": {
+ "story.f3.pre.2": {
   "es": "*(herido, llegando)* Ren… perdoname.",
   "en": "*(wounded, arriving)* Ren… forgive me.",
   "zh": "*（负伤赶来）*仁……原谅我。"
  },
- "story.f3.pre.1": {
-  "es": "*(llegando por el muro)* Aya. Hacé lo que dice el Pergamino.",
-  "en": "*(arriving over the wall)* Aya. Do what the Scroll says.",
-  "zh": "*（翻墙而来）*绫。照卷轴说的做。"
- },
- "story.f3.pre.2": {
-  "es": "Seis piedras. Dos manos. Ahora.",
-  "en": "Six stones. Two hands. Now.",
-  "zh": "六块石。两只手。就是现在。"
- },
- "story.f3.post.0": {
-  "es": "Seis piedras se encienden de verde y de rojo. La grieta se cierra.",
-  "en": "Six stones light up green and red. The crack closes.",
-  "zh": "六块石头亮起绿光与红光。裂缝合上了。"
- },
  "story.f3.post.1": {
+  "es": "Seis piedras se encienden de verde y de rojo.",
+  "en": "Six stones light up green and red.",
+  "zh": "六块石头亮起绿光与红光。"
+ },
+ "story.f3.post.2": {
+  "es": "La grieta se cierra.",
+  "en": "The crack closes.",
+  "zh": "裂缝合上了。"
+ },
+ "story.f3.post.3": {
   "es": "El Oni se apaga como una brasa en la lluvia.",
   "en": "The Oni dies out like an ember in the rain.",
   "zh": "灰烬鬼如雨中的余烬般熄灭。"
  },
- "story.f3.post.2": {
+ "story.f3.post.4": {
   "es": "Una semana después.",
   "en": "A week later.",
   "zh": "一周后。"
  },
- "story.f3.post.3": {
+ "story.f3.post.6": {
   "es": "El sello aguantará otros trescientos años.",
   "en": "The seal will hold for another three hundred years.",
   "zh": "封印还能再撑三百年。"
  },
- "story.f3.post.4": {
+ "story.f3.post.7": {
   "es": "Si no volvemos a olvidarnos.",
   "en": "If we don't forget again.",
   "zh": "只要我们别再遗忘。"
- },
- "story.f3.post.5": {
-  "es": "Entonces no lo olvidemos.",
-  "en": "Then let's not forget.",
-  "zh": "那就别忘了。"
- },
- "story.f3.post.6": {
-  "es": "Un duelo por año. Templo contra clan. En el tablero.",
-  "en": "One duel a year. Temple against clan. On the board.",
-  "zh": "每年一场对决。寺院对忍者。在棋盘上。"
- },
- "story.f3.post.7": {
-  "es": "Y así empezaron los **duelos de honor**: monjes y ninjas, enfrentados para no olvidar cómo se rodea a un demonio.",
-  "en": "And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.",
-  "zh": "**荣誉之战**就此开始：僧人与忍者彼此对弈，永远记得如何包围恶鬼。"
- },
- "story.f3.post.8": {
-  "es": "Hasta la próxima grieta.",
-  "en": "Until the next crack.",
-  "zh": "直到下一道裂缝。"
  },
  "who.narrator": {
   "es": "Narración",
@@ -6678,5 +6623,125 @@
   "es": "Pero sola no sirve.",
   "en": "But alone, it's useless.",
   "zh": "但只有我一个人，它毫无用处。"
+ },
+ "story.f1.pre.7": {
+  "es": "El patio del Templo, en llamas grises.",
+  "en": "The Temple courtyard, in grey flames.",
+  "zh": "寺院庭院，燃着灰色的火焰。"
+ },
+ "story.f1.pre.9": {
+  "es": "¡Maestro Tao! ¿Qué es eso?",
+  "en": "Master Tao! What is that?",
+  "zh": "陶师父！那是什么？"
+ },
+ "story.f1.pre.10": {
+  "es": "Lo que tu Abad no quiso contarte.",
+  "en": "What your Abbot didn't want to tell you.",
+  "zh": "你的方丈不肯告诉你的东西。"
+ },
+ "story.f1.pre.12": {
+  "es": "Un monje. Uno solo.",
+  "en": "A monk. Just one.",
+  "zh": "一个和尚。只有一个。"
+ },
+ "story.f1.pre.13": {
+  "es": "Rodealo, chico. ¡Ahora!",
+  "en": "Surround it, kid. Now!",
+  "zh": "包围它，小子。快！"
+ },
+ "story.f1.post.2": {
+  "es": "Pero no se cierra.",
+  "en": "But it doesn't close.",
+  "zh": "但裂缝没有合上。"
+ },
+ "story.f1.post.3": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.f1.post.4": {
+  "es": "Rodearlo lo detiene.",
+  "en": "Surrounding it stops it.",
+  "zh": "包围它能阻止它。"
+ },
+ "story.f1.post.5": {
+  "es": "**No lo sella.**",
+  "en": "**It doesn't seal it.**",
+  "zh": "**却封印不了它。**"
+ },
+ "story.f2.pre.5": {
+  "es": "Lo sé. Rodeemoslo.",
+  "en": "I know. Let's surround it.",
+  "zh": "我知道。我们包围它。"
+ },
+ "story.f2.post.7": {
+  "es": "El Pergamino dice la otra.",
+  "en": "The Scroll tells the other.",
+  "zh": "卷轴写着另一半。"
+ },
+ "story.f2.post.9": {
+  "es": "Una mano del Templo y una de la Sombra.",
+  "en": "One hand of the Temple and one of the Shadow.",
+  "zh": "寺院一手，暗影一手。"
+ },
+ "story.f2.post.11": {
+  "es": "Entonces… juntos.",
+  "en": "Then… together.",
+  "zh": "那么……一起。"
+ },
+ "story.f2.post.13": {
+  "es": "*(tomando forma humana)* Como Daishin y Kagerō.",
+  "en": "*(taking human form)* Like Daishin and Kagerō.",
+  "zh": "*（化为人形）*就像大心和阳炎。"
+ },
+ "story.f2.post.14": {
+  "es": "Yo era la promesa que se hicieron.",
+  "en": "I was the promise they made to each other.",
+  "zh": "我是他们彼此许下的诺言。"
+ },
+ "story.f2.post.15": {
+  "es": "Y me estaba apagando.",
+  "en": "And I was fading.",
+  "zh": "而我正在熄灭。"
+ },
+ "story.f3.pre.4": {
+  "es": "*(llegando por el muro)* Aya. Hacé lo que dice el Pergamino.",
+  "en": "*(arriving over the wall)* Aya. Do what the Scroll says.",
+  "zh": "*（翻墙而来）*绫。照卷轴说的做。"
+ },
+ "story.f3.pre.6": {
+  "es": "Seis piedras. Dos manos.",
+  "en": "Six stones. Two hands.",
+  "zh": "六块石。两只手。"
+ },
+ "story.f3.pre.7": {
+  "es": "Ahora.",
+  "en": "Now.",
+  "zh": "就是现在。"
+ },
+ "story.f3.post.9": {
+  "es": "Entonces no lo olvidemos.",
+  "en": "Then let's not forget.",
+  "zh": "那就别忘了。"
+ },
+ "story.f3.post.10": {
+  "es": "Un duelo por año. Templo contra clan.",
+  "en": "One duel a year. Temple against clan.",
+  "zh": "每年一场对决。寺院对忍者。"
+ },
+ "story.f3.post.11": {
+  "es": "En el tablero.",
+  "en": "On the board.",
+  "zh": "在棋盘上。"
+ },
+ "story.f3.post.13": {
+  "es": "Y así empezaron los **duelos de honor**: monjes y ninjas, enfrentados para no olvidar cómo se rodea a un demonio.",
+  "en": "And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.",
+  "zh": "**荣誉之战**就此开始：僧人与忍者彼此对弈，永远记得如何包围恶鬼。"
+ },
+ "story.f3.post.14": {
+  "es": "Hasta la próxima grieta.",
+  "en": "Until the next crack.",
+  "zh": "直到下一道裂缝。"
  }
 }

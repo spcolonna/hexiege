@@ -1073,38 +1073,60 @@ Rival: el Abad · IA: maestro (jefe final) · Regla: normal
 ## 6. El Sello — el verdadero final
 
 *Se abre con las dos campañas terminadas. Prólogo antes de F1:*
-- *La misma noche. La pagoda y la biblioteca.*
-- Narración: Ren venció a Kage. Aya venció al Abad. A la misma hora.
-- Narración: Bajo el Templo, la última piedra se parte.
-- Oni: **Por fin. Peleándose, como siempre.**
+- *La misma noche.* [lugar pagodaTop · plano .8,.25 x1.4]
+- Narración [plano .5,.55 x1.15 lento]: En la cima de la pagoda, Ren venció a Kage.
+- [lugar library · página · plano .55,.55 x1.45]
+- Narración [plano .45,.5 x1.1 lento]: En la biblioteca, Aya venció al Abad. A la misma hora.
+- [arte art_oni_rises · plano .5,.85 x1.5 · temblor · onom temblor]
+- Narración [plano .5,.45 x1.15 lento]: Bajo el Templo, la última piedra se parte.
+- Oni [plano .5,.3 x1.5 · latido]: **Por fin. Peleándose, como siempre.**
 
 #### f1 · La vanguardia de ceniza
 Ren solo, con fichas Shaolin, contra el Oni · IA: difícil · Regla: el Oni tiene sus fichas propias (Gaki y Ojo del Oni)
 **Antes**
-- *El patio del Templo, en llamas grises.*
-- Ren: ¡Maestro Tao! ¿Qué es eso?
-- Tao: Lo que tu Abad no quiso contarte. Rodealo, chico. ¡Ahora!
+- *El patio del Templo, en llamas grises.* [lugar ashCourtyard · plano .5,.3 x1.45 · humo]
+- [plano .5,.6 x1.1 lento · niebla]
+- Ren [entra izq corre]: ¡Maestro Tao! ¿Qué es eso?
+- Tao [entra der]: Lo que tu Abad no quiso contarte.
+- [plano .5,.25 x1.5 · temblor · onom temblor]
+- Oni [entra centro humo · latido]: Un monje. Uno solo.
+- Tao [plano .65,.5 x1.3]: Rodealo, chico. ¡Ahora!
 
 **Después**
-- Narración: El Oni retrocede a la grieta. Pero no se cierra.
-- Zorra Blanca: Rodearlo lo detiene. **No lo sella.**
+- [lugar ashCourtyard · plano .5,.35 x1.3 lento · humo]
+- Narración [plano .5,.7 x1.4 lento]: El Oni retrocede a la grieta.
+- Narración [latido]: Pero no se cierra.
+- Ren [entra izq]: …
+- Zorra Blanca [entra der humo · plano .7,.45 x1.4]: Rodearlo lo detiene.
+- Zorra Blanca [latido]: **No lo sella.**
 
 #### f2 · La garra
 Aya sola, con fichas Ninja, contra el Oni · IA: difícil · Regla: igual que f1
 **Antes**
-- *El jardín de piedra, partido en dos.*
-- Aya: ¡Kuro! ¡Ayudame!
-- Kuro: ¡Esa cosa vino de abajo del Templo!
-- Aya: Lo sé. Rodeemoslo.
+- *El jardín de piedra, partido en dos.* [lugar brokenGarden · plano .5,.65 x1.45]
+- [plano .5,.5 x1.1 lento · temblor]
+- Aya [entra izq corre]: ¡Kuro! ¡Ayudame!
+- Kuro [entra der sombra]: ¡Esa cosa vino de abajo del Templo!
+- [plano .5,.25 x1.5 lento · oscuro · onom temblor]
+- Aya [plano .3,.45 x1.35]: Lo sé. Rodeemoslo.
 
 **Después**
+- [lugar brokenGarden · plano .5,.35 x1.3 lento · humo]
 - Narración: El Oni vuelve a retroceder. Más grande.
-- Zorra Blanca: Una mano sola no alcanza. Nunca alcanzó.
-- *El patio. Ren y Aya, frente a frente.*
-- Ren: Kage me dijo la mitad.
-- Aya: El Pergamino dice la otra. Una mano del Templo y una de la Sombra.
-- Ren: Entonces… juntos.
-- Zorra Blanca *(tomando forma humana)*: Como Daishin y Kagerō. Yo era la promesa que se hicieron. Y me estaba apagando.
+- Zorra Blanca [entra der humo]: Una mano sola no alcanza.
+- Zorra Blanca [plano .7,.45 x1.4]: Nunca alcanzó.
+- *El patio. Ren y Aya, frente a frente.* [lugar ashCourtyard · plano .5,.5 x1.4]
+- [plano .5,.55 x1.1 lento]
+- Ren [entra izq]: Kage me dijo la mitad.
+- Aya [entra der]: El Pergamino dice la otra.
+- [arte art_scroll · plano .55,.7 x1.5]
+- Aya [off · plano .5,.5 x1.2 lento]: Una mano del Templo y una de la Sombra.
+- [lugar ashCourtyard · página · entra Aya der ya · plano .5,.5 x1.25]
+- Ren [entra izq]: Entonces… juntos.
+- [plano .5,.45 x1.3 · destello · humo]
+- Zorra Blanca [entra centro humo] *(tomando forma humana)*: Como Daishin y Kagerō.
+- Zorra Blanca [plano .5,.4 x1.5 lento]: Yo era la promesa que se hicieron.
+- Zorra Blanca [latido]: Y me estaba apagando.
 
 #### f3 · El Sello
 Ren y Aya juntos: Monje y Shogun en la misma mano, fichas de las dos facciones · IA: maestro · Regla especial:
@@ -1113,20 +1135,32 @@ Ren y Aya juntos: Monje y Shogun en la misma mano, fichas de las dos facciones �
 - El Oni solo queda sellado si lo rodean fichas de **las dos facciones** (al menos una de cada una).
 
 **Antes**
-- Abad *(herido, llegando)*: Ren… perdoname.
-- Kage *(llegando por el muro)*: Aya. Hacé lo que dice el Pergamino.
-- Zorra Blanca: Seis piedras. Dos manos. Ahora.
+- [lugar ashCourtyard · plano .5,.3 x1.5 · niebla · temblor · onom temblor]
+- [plano .5,.6 x1.1 lento · entra Ren izq ya]
+- Abad [entra der corre · plano .65,.5 x1.3] *(herido, llegando)*: Ren… perdoname.
+- [página · plano .5,.5 x1.25 · entra Aya izq ya]
+- Kage [entra der sombra] *(llegando por el muro)*: Aya. Hacé lo que dice el Pergamino.
+- [página · plano .5,.35 x1.5 lento · oscuro · latido]
+- Zorra Blanca [entra centro humo]: Seis piedras. Dos manos.
+- Zorra Blanca [destello · plano .5,.45 x1.4]: Ahora.
 
 **Después — Epílogo**
-- Narración: Seis piedras se encienden de verde y de rojo. La grieta se cierra.
-- Narración: El Oni se apaga como una brasa en la lluvia.
-- *Una semana después.*
-- Abad: El sello aguantará otros trescientos años.
-- Kage: Si no volvemos a olvidarnos.
-- Ren: Entonces no lo olvidemos.
-- Aya: Un duelo por año. Templo contra clan. En el tablero.
+- [arte art_seal · plano .5,.5 x1.45 · destello]
+- Narración [plano .5,.6 x1.15 lento]: Seis piedras se encienden de verde y de rojo.
+- Narración [latido · plano .5,.45 x1.3]: La grieta se cierra.
+- Narración [plano .5,.3 x1.05 lento · humo]: El Oni se apaga como una brasa en la lluvia.
+- *Una semana después.* [lugar epilogue · plano .5,.4 x1.4]
+- [plano .5,.55 x1.1 lento]
+- Abad [entra der]: El sello aguantará otros trescientos años.
+- Kage [entra izq sombra]: Si no volvemos a olvidarnos.
+- [página · plano .5,.5 x1.2]
+- Ren [entra izq]: Entonces no lo olvidemos.
+- Aya [entra der]: Un duelo por año. Templo contra clan.
+- Aya [plano .7,.45 x1.35]: En el tablero.
+- [plano .5,.4 x1.05 lento · vacía]
 - Narración: Y así empezaron los **duelos de honor**: monjes y ninjas, enfrentados para no olvidar cómo se rodea a un demonio.
-- Zorra Blanca: Hasta la próxima grieta.
+- Zorra Blanca [entra centro humo · plano .5,.45 x1.4]: Hasta la próxima grieta.
+- [sale Zorra Blanca humo · plano .5,.5 x1.0 lento]
 - **→ Fin. Desbloqueo:** marco y avatar especial del Oni.
 
 ---
