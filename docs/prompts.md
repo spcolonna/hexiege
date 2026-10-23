@@ -17,25 +17,12 @@ Prompts para **ChatGPT** (generador de imágenes), en inglés porque así sigue 
 
 # Para generar ahora
 
-| Bloque | Qué | Carpeta | Imágenes |
-|---|---|---|---|
-| A | Fichas del Oni para el final de la historia (opcionales) | `assets/pieces/` | 3 |
-| B | Marco y piedra de las fichas como en el ícono Ema | `assets/textures/` | 5 |
-| C | Retratos redondos de los rivales de la historia (hoy recortes provisorios) | `assets/avatars/` | 5 |
-
-Además, sin generar nada:
+Nada: todo el arte está generado e integrado. Solo queda, sin generar:
 - **Fichas en alta resolución:** re-descargarlas de ChatGPT (ver «1. Fichas en alta resolución»).
 
-El bloque B es lo que falta para que las fichas del tablero se vean como las del ícono: un marco grueso de
-jade (Shaolin), mármol rojo (Ninja) o brasa (Oni) y la cara de mármol blanco con vetas de jade u obsidiana
-pulida. El marco biselado ya está en el juego, pintado con el color de la facción; con estas texturas pasa a
-ser piedra de verdad.
+Los bloques A, B y C de abajo ya están en el juego; quedan por si hay que regenerar algo.
 
-Las fichas del Oni solo aparecen en el final (etapas f1–f3). Mientras falten, el juego las dibuja como piedra de
-ceniza con su kanji (鬼, 饿, 眼). Van igual que las demás fichas: figura tallada con fondo transparente. Adjuntá
-`assets/pieces/ninja_shogun.webp` como referencia de estilo y, si querés, `assets/story/char_oni.webp` para el Oni.
-
-## Bloque A — Fichas del Oni (3)
+## Bloque A — Fichas del Oni (3) ✅
 
 Archivos, en orden: `oni_oni.png`, `oni_gaki.png`, `oni_oniEye.png`. Carpeta: `assets/pieces/`.
 Ojo: el tercero se llama `oni_oniEye.png`, con la E mayúscula (así lo busca el código).
@@ -89,7 +76,7 @@ COMPOSITION: The figure is compact: its overall shape is about as tall as it is 
 DO NOT INCLUDE: any background, frame, border, hexagon, circle, coin, medallion, plaque, base or pedestal; any text, letters or Chinese/Japanese characters; a halo or ring behind the head; extra figures or objects; blood or gore; photographic skin; cartoon, anime or flat vector style; a perspective tilt.
 ```
 
-## Bloque B — Marco y piedra de las fichas, estilo Ema (5)
+## Bloque B — Marco y piedra de las fichas, estilo Ema (5) ✅
 
 Archivos, en orden: `shaolin_rim.png`, `ninja_rim.png`, `oni_rim.png`, `shaolin_stone.png`, `ninja_stone.png`. Carpeta: `assets/textures/`.
 Adjuntá `store/icon/app_icon_ema.png` como referencia: es la piedra del ícono la que buscamos.
@@ -153,12 +140,11 @@ LIGHTING: Completely even, flat, shadowless lighting across the whole image. No 
 DO NOT INCLUDE: any shape, hexagon, border, frame, edge, rim or bevel; any carving, symbol, character, text or logo; cracks, holes, chips or moss; a perspective view; a photographic scene.
 ```
 
-## Bloque C — Retratos redondos de los rivales de la historia (5)
+## Bloque C — Retratos redondos de los rivales de la historia (5) ✅
 
 Archivos, en orden: `avatar_ninja.png`, `avatar_scout.png`, `avatar_acolyte.png`, `avatar_guard.png`,
 `avatar_kunoichi.png`. Carpeta: `assets/avatars/`. Son los rivales de las batallas de la historia que no tenían
-retrato. Hoy el juego usa un recorte provisorio de su figura (`assets/story/char_*.webp`); adjuntá esa figura
-como referencia para que sea el mismo personaje y `assets/avatars/avatar_abbot.webp` como referencia de estilo.
+retrato. Adjuntá su figura (`assets/story/char_*.webp`) como referencia para que sea el mismo personaje y `assets/avatars/avatar_abbot.webp` como referencia de estilo.
 
 ```
 Generate exactly 5 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately. Each image is its own file: do NOT combine them into a grid, collage or contact sheet.
@@ -243,7 +229,7 @@ ya está quedan abajo por si hay que regenerar algo.
 | Figuras de personajes (`char_*`) | `assets/story/` | 16 | ✅ |
 | Escenarios (`bg_*`) | `assets/story/` | 22 | ✅ |
 | Retratos redondos (`avatar_abbot`, `avatar_shogun`, `avatar_ashoni`) | `assets/avatars/` | 3 | ✅ |
-| Retratos de los rivales (`avatar_ninja`, `_scout`, `_acolyte`, `_guard`, `_kunoichi`) | `assets/avatars/` | 5 | ⬜ provisorios (recorte de la figura): bloque C |
+| Retratos de los rivales (`avatar_ninja`, `_scout`, `_acolyte`, `_guard`, `_kunoichi`) | `assets/avatars/` | 5 | ✅ |
 | Ilustraciones de momentos clave (`art_*`) | `assets/story/` | 12 | ✅ |
 
 Cómo las usa el juego:
