@@ -88,28 +88,19 @@ const _momentPlaces = <String, Place>{
 
 /// Ilustraciones de los momentos clave: un panel grande antes del mensaje
 /// indicado. Se muestran solo si el arte (`assets/story/art_<id>.webp`) existe.
-const _splashes = <String, (int, String)>{
-  's9.pre': (1, 'art_carvings'),
-  's12.pre': (1, 'art_duel_shrine'),
-  's19.pre': (1, 'art_pagoda'),
-  'n12.pre': (1, 'art_duel_shrine'),
-  'n14.pre': (1, 'art_crypt'),
-  'n16.post': (0, 'art_drunken_tale'),
-  'n24.post': (0, 'art_scroll'),
-  'f1.pre': (5, 'art_oni_rises'),
-  'f3.post': (0, 'art_seal'),
-};
+const _splashes = <String, (int, String)>{'f1.pre': (5, 'art_oni_rises'), 'f3.post': (0, 'art_seal')};
 
 final _sceneOrder = _script.keys.toList();
 
-/// Escenario del mensaje [i] de la escena [id]: el del último momento hasta
-/// ahí; si la escena no abre uno, sigue donde terminó la anterior.
+/// Escenario del mensaje [i] de la escena [id]: el del último momento o
+/// `lugar` hasta ahí; si la escena no abre uno, sigue donde terminó la anterior.
 Place _placeAt(String id, int i) {
   for (var s = _sceneOrder.indexOf(id); s >= 0; s--) {
     final sid = _sceneOrder[s];
     final beats = _script[sid]!;
     for (var k = (sid == id ? i : beats.length - 1); k >= 0; k--) {
-      final p = _momentPlaces['$sid.$k'];
+      final cue = beats[k].cues.lastWhere((c) => c.kind == CueKind.place, orElse: () => const Cue.page());
+      final p = cue.place ?? _momentPlaces['$sid.$k'];
       if (p != null) return p;
     }
   }

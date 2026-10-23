@@ -77,7 +77,8 @@ class Beat {
   bool get hasText => kind != BeatKind.pause;
 }
 
-enum CueKind { cam, enter, exit, clear, fx, onom, art, place, page }
+/// [voice]: quien habla lo hace fuera de cuadro (no entra solo).
+enum CueKind { cam, enter, exit, clear, fx, onom, art, place, page, voice }
 
 /// Efectos de un golpe. Los de [lasting] quedan hasta el próximo cambio de página.
 enum Fx {
@@ -175,6 +176,16 @@ class Cue {
       slow = false,
       name = null,
       fx = null;
+  const Cue.voice()
+    : kind = CueKind.voice,
+      who = null,
+      x = 0,
+      y = 0,
+      zoom = 0,
+      slow = false,
+      name = null,
+      fx = null,
+      place = null;
   const Cue.page()
     : kind = CueKind.page,
       who = null,

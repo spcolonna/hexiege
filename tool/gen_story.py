@@ -10,7 +10,7 @@ Puesta en escena, entre corchetes y separada por "·":
   - *Noche. Las celdas.* [plano …]
 Indicaciones: plano X,Y [xZOOM] [lento] · entra QUIÉN [izq|der|centro|0..1] [humo|sombra|corre]
 · sale QUIÉN [humo] · vacía · temblor · destello · humo · latido · oscuro · niebla
-· onom CLAVE (texto en onom.CLAVE) · arte NOMBRE · lugar PLACE · página
+· onom CLAVE (texto en onom.CLAVE) · arte NOMBRE · lugar PLACE · página · off (habla fuera de cuadro)
 Produce lib/story/script.g.dart (quién habla y de qué tipo es cada mensaje) y
 suma las claves story.<escena>.<n> a tool/i18n_strings.json.
 
@@ -120,6 +120,8 @@ def cues(src, ctx, speaker=None):
             if rest[0] not in places():
                 sys.exit(f'{ctx}: lugar desconocido «{rest[0]}»')
             out.append(f'Cue.place(Place.{rest[0]})')
+        elif head == 'off':
+            out.append('Cue.voice()')
         elif head in ('página', 'pagina'):
             out.append('Cue.page()')
         else:

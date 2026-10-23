@@ -167,13 +167,14 @@ abstract final class Director {
             art = null;
             caption = null;
             lines = [];
-          case CueKind.page:
+          case CueKind.page || CueKind.voice:
             break;
         }
       }
 
       // Quien habla y no está, entra por su lado.
-      if (b.talks && art == null && cast.every((a) => a.who != b.who) && !leaving.containsKey(b.who)) {
+      final offscreen = has.contains(CueKind.voice) || leaving.containsKey(b.who);
+      if (b.talks && art == null && !offscreen && cast.every((a) => a.who != b.who)) {
         cast = [...cast, Actor(b.who!, _slot(b.who!, hero, cast), i)];
       }
 

@@ -49,7 +49,7 @@ void main() {
         if (sp != null) expect(sp.$1, lessThan(sc.beats.length), reason: id);
       }
       // Sin momento propio, sigue donde terminó la anterior.
-      expect(Scene.of('s20', post: false)!.placeAt(0), Place.pagoda);
+      expect(Scene.of('s21', post: true)!.placeAt(0), Place.pagodaTop);
       expect(Scene.of('f3', post: true)!.placeAt(0), Place.ashCourtyard);
       expect(Scene.of('f3', post: true)!.placeAt(3), Place.epilogue);
     });
@@ -66,8 +66,9 @@ void main() {
           expect(f.page - page, inInclusiveRange(0, 1), reason: '$id.${f.beat}');
           if (b.kind == BeatKind.moment && f.beat > 0) expect(f.page, page + 1, reason: '$id.${f.beat}');
           page = f.page;
-          // Quien habla está en escena (salvo sobre una ilustración o mientras se va).
-          if (b.talks && f.art == null && !f.leaving.containsKey(b.who)) {
+          // Quien habla está en escena (salvo sobre una ilustración, en off o mientras se va).
+          final off = b.cues.any((c) => c.kind == CueKind.voice);
+          if (b.talks && f.art == null && !off && !f.leaving.containsKey(b.who)) {
             expect(f.actor(b.who!), isNotNull, reason: '$id.${f.beat}');
           }
           expect(f.lines.length, lessThanOrEqualTo(Director.maxLines));
@@ -98,10 +99,7 @@ void main() {
 
     test('el cruce de la batalla 12 es la misma charla desde los dos lados', () {
       final s = Scene.of('s12', post: false)!, n = Scene.of('n12', post: false)!;
-      expect(
-        [for (var i = 0; i < s.beats.length; i++) s.text(i)],
-        [for (var i = 0; i < n.beats.length; i++) n.text(i)],
-      );
+      expect([for (final i in s.lines) s.text(i)], [for (final i in n.lines) n.text(i)]);
     });
   });
 
