@@ -40,8 +40,8 @@ Future<void> playScene(
 
 /// La viñeta como un libro de tinta: cada toque es un golpe (la cámara recorre
 /// el lugar, alguien entra, dice algo, se va) y cada momento da vuelta la
-/// página. Nada avanza solo: el sello de abajo avisa cuándo tocar. Mantener
-/// apretado lee de corrido.
+/// página. Lo que tiene texto espera un toque (el sello de abajo avisa); los
+/// golpes mudos siguen solos al terminar. Mantener apretado lee de corrido.
 class StoryScreen extends StatefulWidget {
   final Scene scene;
   final Set<Faction> mine;
@@ -81,9 +81,11 @@ class _StoryScreenState extends State<StoryScreen> with TickerProviderStateMixin
   bool _auto = false;
   Timer? _autoTimer;
 
-  /// El golpe terminó de entrar: aparece el sello para seguir.
-  bool get _ready => _at >= 0 && !_beat.isAnimating && !_turn.isAnimating;
-  bool get _done => _at == _frames.length - 1 && _ready;
+  /// El golpe terminó de entrar y espera un toque: aparece el sello para seguir
+  /// (un golpe mudo que no es el último sigue solo).
+  bool get _ready => _at >= 0 && !_beat.isAnimating && !_turn.isAnimating && (_last || widget.scene.beats[_at].hasText);
+  bool get _last => _at == _frames.length - 1;
+  bool get _done => _last && _ready;
   Frame get _frame => _frames[_at];
   Frame? get _prev => _at > 0 ? _frames[_at - 1] : null;
 
@@ -156,6 +158,11 @@ class _StoryScreenState extends State<StoryScreen> with TickerProviderStateMixin
   void _settled(AnimationStatus s) {
     if (s != AnimationStatus.completed || !mounted) return;
     setState(() {});
+    // Un golpe mudo no tiene nada que leer: terminado el movimiento, sigue solo.
+    if (!_done && !widget.scene.beats[_at].hasText) {
+      _autoTimer = Timer(const Duration(milliseconds: 120), () => _next(felt: false));
+      return;
+    }
     if (_auto && !_done) {
       final b = widget.scene.beats[_at];
       final len = b.hasText ? widget.scene.text(_at).length : 0;
@@ -178,10 +185,10 @@ class _StoryScreenState extends State<StoryScreen> with TickerProviderStateMixin
     _next();
   }
 
-  void _next() {
+  void _next({bool felt = true}) {
     _autoTimer?.cancel();
     if (_at >= _frames.length - 1) return;
-    Haptics.select();
+    if (felt) Haptics.select();
     _play(_at + 1);
   }
 
@@ -481,9 +488,9 @@ class _Stage extends StatelessWidget {
     final drift = idle * 2 * pi;
     final cam = f.from.lerp(f.shot, camT);
     final shot = Shot(
-      cam.x + 0.01 * sin(drift),
-      cam.y + 0.006 * sin(drift * 2),
-      cam.zoom + 0.015 * (1 + sin(drift + 1)),
+      cam.x + 0.004 * sin(drift),
+      cam.y + 0.003 * sin(drift * 2),
+      cam.zoom + 0.006 * (1 + sin(drift + 1)),
     );
     final shake = f.fx.contains(Fx.shake) ? Offset(sin(t * 46) * 9 * (1 - t), cos(t * 39) * 5 * (1 - t)) : Offset.zero;
     final sameArt = prev != null && prev!.page == f.page && prev!.art == f.art && prev!.place == f.place;

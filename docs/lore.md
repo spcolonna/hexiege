@@ -1278,8 +1278,13 @@ El Oni no tiene habilidad de facción: su poder está en las fichas.
 ## 8. Cómo se ven las viñetas
 
 La viñeta es un libro de tinta: una hoja alta con un solo cuadro grande, el escenario detrás y una cámara
-que lo recorre. **Nada avanza solo**: cada toque es un golpe, y un sello rojo que late abajo avisa cuándo
-tocar. Si el golpe todavía está entrando, el toque lo completa; mantener apretado lee de corrido.
+que lo recorre. Cada línea con texto espera un toque, y un sello rojo que late abajo avisa cuándo tocar.
+Los **golpes mudos** (solo cámara, entradas o salidas) siguen solos al terminar: sin nada que leer, no se
+pide un toque. Si el golpe todavía está entrando, el toque lo completa; mantener apretado lee de corrido.
+
+- **Cámara quieta en los diálogos.** Mientras hablan, el fondo no se mueve solo (marea). El movimiento
+  se reserva para abrir momentos, las pausas y la narración; un `plano` en una línea de diálogo es un
+  acento puntual, usarlo poco.
 
 - Cada momento (las líneas en *cursiva*) **da vuelta la página**: plano general del lugar, la cámara se
   aleja despacio y lo recorre antes de que nadie hable.
@@ -1292,7 +1297,7 @@ tocar. Si el golpe todavía está entrando, el toque lo completa; mantener apret
 ### Puesta en escena
 
 Entre corchetes, separada por `·`. Una línea que es solo corchetes es un **golpe mudo**: la cámara se
-mueve o alguien entra, y espera un toque. Junto a un nombre, acompaña esa línea; `entra` sin nombre es
+mueve o alguien entra, y sigue sola al terminar. Junto a un nombre, acompaña esa línea; `entra` sin nombre es
 quien habla.
 
 | Indicación | Qué hace |

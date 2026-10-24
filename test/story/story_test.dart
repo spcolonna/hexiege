@@ -128,6 +128,30 @@ void main() {
     expect(find.text('Saltar'), findsNothing);
   });
 
+  testWidgets('los golpes mudos siguen solos hasta el próximo texto', (tester) async {
+    setLanguage('es');
+    final scene = Scene.of('s1', post: false)!;
+    final next = scene.lines.skip(1).first;
+    expect(scene.beats[1].hasText, isFalse, reason: 's1.pre abre con un momento y una pausa');
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: HexTheme.light.toThemeData(Skin.box),
+        home: StoryScreen(scene: scene, mine: const {Faction.shaolin}, title: 'Prueba'),
+      ),
+    );
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.pump(const Duration(seconds: 3));
+    // Un solo toque: las pausas corren solas y frenan en la línea siguiente.
+    await tester.tapAt(const Offset(200, 300));
+    for (var i = 0; i < 40; i++) {
+      await tester.pump(const Duration(milliseconds: 250));
+    }
+    expect(find.text(scene.text(next)), findsOneWidget);
+    if (next + 1 < scene.beats.length && scene.beats[next + 1].hasText) {
+      expect(find.text(scene.text(next + 1)), findsNothing);
+    }
+  });
+
   test('cada batalla de la historia tiene un rival con nombre y retrato', () {
     for (final c in campaigns) {
       for (final st in c.stages) {

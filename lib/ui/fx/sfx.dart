@@ -33,7 +33,7 @@ class SoundBoard {
   SoundBoard._();
   static final instance = SoundBoard._();
 
-  final _pools = <String, AudioPool>{};
+  final _pools = <String, List<_Voice>>{};
   final _rng = Random();
   bool _ready = false;
 
@@ -54,13 +54,12 @@ class SoundBoard {
       for (final s in Sfx.values) {
         for (var i = 0; i < s.variants; i++) {
           final name = s.variants > 1 ? '${s.name}_$i' : s.name;
-          // mediaPlayer: al terminar, el reproductor vuelve al pool. En
-          // lowLatency nunca vuelve y cada golpe crea uno nuevo; iOS los
-          // retomaba todos juntos al desbloquear el teléfono.
-          _pools[name] = await AudioPool.createFromAsset(
-            path: 'sfx/$name.wav',
-            maxPlayers: 3,
-          );
+          // Reproductores propios y fijos. El AudioPool del paquete encola cada
+          // golpe detrás de un candado: si iOS se traba unos segundos, los
+          // golpes se acumulan y suenan todos juntos después.
+          _pools[name] = [
+            for (var v = 0; v < voices; v++) await _Voice.load('sfx/$name.wav'),
+          ];
         }
       }
       _lifecycle ??= AppLifecycleListener(
@@ -77,7 +76,52 @@ class SoundBoard {
     if (!_ready || _hidden || !AppSettings.instance.sound) return;
     final name = s.variants > 1 ? '${s.name}_${_rng.nextInt(s.variants)}' : s.name;
     final v = (volume * (0.9 + _rng.nextDouble() * 0.1)).clamp(0.0, 1.0);
-    _pools[name]?.start(volume: v).ignore();
+    final pool = _pools[name];
+    if (pool == null) return;
+    // Uno libre (sin una llamada nativa pendiente); si no hay, el golpe se pierde.
+    final voice = pool.where((x) => !x.busy).fold<_Voice?>(null, (a, x) => a == null || x.used < a.used ? x : a);
+    voice?.play(v).ignore();
+  }
+
+  /// Reproductores por sonido: hasta 3 golpes iguales superpuestos.
+  static const voices = 3;
+}
+
+/// Un reproductor precargado. Un golpe que llega tarde (el teléfono se trabó)
+/// se descarta: un efecto fuera de tiempo es peor que ninguno.
+class _Voice {
+  final AudioPlayer player;
+  _Voice(this.player);
+
+  static const late = Duration(milliseconds: 250);
+
+  bool busy = false;
+  int used = 0;
+
+  static Future<_Voice> load(String path) async {
+    final p = AudioPlayer();
+    await p.setReleaseMode(ReleaseMode.stop);
+    await p.setSource(AssetSource(path));
+    return _Voice(p);
+  }
+
+  Future<void> play(double volume) async {
+    busy = true;
+    used = DateTime.now().microsecondsSinceEpoch;
+    final asked = Stopwatch()..start();
+    try {
+      await player.stop();
+      if (asked.elapsed > late) return;
+      await player.setVolume(volume);
+      if (asked.elapsed > late) return;
+      await player.resume();
+      // Si la llamada quedó colgada y volvió tarde, se corta.
+      if (asked.elapsed > late) await player.stop();
+    } catch (_) {
+      // Sin audio no se juega peor.
+    } finally {
+      busy = false;
+    }
   }
 }
 

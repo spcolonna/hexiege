@@ -83,7 +83,8 @@ class Frame {
 
 /// El director: recorre los golpes de la escena y arma cada cuadro. Lo que
 /// el guion no indica lo decide solo: cada momento abre página con un plano
-/// general, quien habla y no está entra por su lado, y la cámara mira hacia él.
+/// general y quien habla y no está entra por su lado. En los diálogos la cámara
+/// no se mueve sola; recorre el lugar en los momentos, las pausas y la narración.
 abstract final class Director {
   /// Dónde se para cada uno: el protagonista ([hero]) a la izquierda, el resto enfrente.
   static const left = 0.27, right = 0.73, center = 0.5;
@@ -186,10 +187,8 @@ abstract final class Director {
         from = Shot(0.5 + 0.14 * side, 0.45, 1.3);
         shot = Shot(0.5 - 0.06 * side, 0.5, art == null ? 1.04 : 1.0);
         slow = true;
-      } else if (b.talks && art == null && cast.any((a) => a.who == b.who)) {
-        // Plano y contraplano: el fondo se corre apenas hacia quien habla.
-        final a = cast.firstWhere((a) => a.who == b.who);
-        shot = Shot((0.5 + (a.x - 0.5) * 0.45).clamp(0.0, 1.0), shot.y, max(shot.zoom, 1.1));
+      } else if (b.talks) {
+        // Mientras hablan, la cámara queda quieta: moverla marea más de lo que suma.
       } else if (b.kind == BeatKind.narrate) {
         shot = Shot(shot.x, shot.y, shot.zoom + 0.06);
       }
