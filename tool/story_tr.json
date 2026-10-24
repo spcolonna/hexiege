@@ -144,52 +144,52 @@
   "zh": ["哼。", "你跟大心一样倔。", "名字，师父。", "十兵卫。", "你父亲叫十兵卫。两天前的夜里，他十六年来第一次下到我的地穴。", "他没打我。他求我原谅他。你明白吗？求我。", "他在哪儿？", "他去了宝塔。去向影讨那只忍族没给你母亲的手。", "可影从不借出自己的手。他会把它砍下来。", "那我就去宝塔。但不是为了方丈。", "为了你父亲。", "为了他们俩。为了我们三个。", "仁走下山去。在他身后，寺院的钟没有响。", "*（在大门口）*仁！去问影大心是谁！让他从头到尾讲给你听！"]
  },
  "s19.pre": {
-  "en": ["The clan's pagoda. Five floors.", "Ren arrives alone. The door is open, as if they were expecting him.", "The Shogun said the Abbot's boy would come.", "…", "That he should climb, if he can."],
-  "zh": ["忍者一族的宝塔。五层。", "仁独自到来。大门敞开着，好像早就在等他。", "将军说过，方丈的那个小子会来。", "……", "让他上来，如果他有本事的话。"]
+  "en": ["The clan's pagoda. The afternoon of the new moon.", "Ren walks all night and all morning. He arrives as the sun goes down. The door is open, as if they were expecting him.", "The boy in the blanket.", "You know me?", "The whole clan knows you. The Shogun left an order in case you came.", "What order?", "That you climb if you can. And that you go back down in one piece if you can't.", "I'm looking for a man. A ronin. He came two days ago.", "Those who climb asking questions climb fighting."],
+  "zh": ["忍者的宝塔。新月那天的午后。", "仁走了一整夜，又走了一上午。太阳落山时他才到。大门敞开，仿佛在等他。", "裹着襁褓的那个孩子。", "你们认识我？", "全族都认识你。将军留了话，说你要是来了就照办。", "什么话？", "能上就让你上。上不去，就让你完完整整地下去。", "我在找一个人。一个浪人。两天前来的。", "边问边上的人，都得边打边上。"]
  },
  "s19.post": {
-  "en": ["One floor.", "Four to go."],
-  "zh": ["一层。", "还有四层。"]
+  "en": ["…The Shogun was right. You fight like someone from here.", "Like who?", "Ask upstairs. I'd like to keep my head.", "A whistle drifts down from above. Two long notes, one short.", "Someone's warning them I'm coming.", "Or someone's calling me."],
+  "zh": ["……将军说得对。你打起来像是我们这边的人。", "像谁？", "上楼去问。我还想留着脑袋。", "楼上传来一声口哨。两长，一短。", "有人在通报我上来了。", "又或者，有人在叫我。"]
  },
  "s20.pre": {
-  "en": ["Second floor. The floor of fans.", "Red lanterns, curtains that move without wind. And behind every curtain, an open fan.", "Aya told us about you. She said you ask a lot of questions.", "Is she here?", "She's gone. To the Temple.", "While you climb up, she goes down."],
-  "zh": ["第二层。扇之层。", "红灯笼，无风自动的帘幕。每道帘幕后，都有一把张开的扇子。", "绫提起过你。她说你问题很多。", "她在这儿吗？", "她走了。去寺院了。", "你往上爬的时候，她正往下走。"]
+  "en": ["Second floor. The floor of fans.", "Red lanterns, curtains that move with no wind. On the wall, a row of hanging fans. One of the hooks is empty.", "Don't look at that hook, monk.", "Whose was it?", "A woman who left sixteen years ago and never came back. No one has used it since.", "…Natsu.", "The curtains stop moving.", "That name isn't spoken on this floor. Least of all by a monk.", "Take off that blanket. It isn't yours.", "It's the only thing I have of hers."],
+  "zh": ["第二层。扇之层。", "红灯笼，无风自动的帘子。墙上挂着一排扇子。其中一个钩子是空的。", "别看那个钩子，和尚。", "那是谁的？", "一个十六年前走了就没再回来的人。从那以后，没人用过它。", "……夏。", "帘子不动了。", "这一层不许提那个名字。和尚更不许。", "把那条襁褓摘下来。那不是你的。", "那是我唯一拥有的、她的东西。"]
  },
  "s20.post": {
-  "en": ["Aya at the Temple…", "And the Abbot, alone?"],
-  "zh": ["绫在寺院……", "那方丈岂不是一个人？"]
+  "en": ["You throw sideways, like she did. Nobody taught you that, did they?", "Nobody.", "Then it's in your blood.", "*(quietly)* Your father is on the fourth floor, with Aya's brother. The Shogun, on the fifth.", "And Aya left for the Temple last night. While you climb, she walks into your home.", "Aya at the Temple. The Abbot going down alone.", "And the new moon, tonight."],
+  "zh": ["你出手是斜着来的，跟她一样。没人教过你，对吧？", "没人教过。", "那就是血里带的。", "*（低声）*你父亲在第四层，和绫的哥哥关在一起。将军在第五层。", "绫昨晚去了寺院。你往上爬的时候，她正走进你的家。", "绫在寺院。方丈要一个人下去。", "而新月，就在今夜。"]
  },
  "s21.pre": {
-  "en": ["Third floor. The rafters.", "The Tengu leap from beam to beam. They never touch the floor.", "Come down and fight!", "Two paths, one same night.", "Hurry, little monk."],
-  "zh": ["第三层。梁木之间。", "天狗在梁与梁之间跳跃。从不落地。", "下来打！", "两条路，同一个夜晚。", "快点，小和尚。"]
+  "en": ["Third floor. The beams.", "The Tengu leap from beam to beam. They never touch the floor.", "Come down and fight!", "No monk gets past the third floor. None ever has.", "One did. My father.", "Your father climbed with open hands. We let him through. And the Shogun locked him up anyway.", "Two paths, one night.", "Hurry, little monk. The hand that holds the stone is trembling."],
+  "zh": ["第三层。横梁。", "天狗在梁间跳跃，从不落地。", "下来打！", "和尚过不了第三层。从来没有过。", "有一个过了。我父亲。", "你父亲是摊开双手上来的。我们放他过去了。可将军还是把他关了起来。", "两条路，同一个夜晚。", "快点，小和尚。托着那块石头的手在发抖。"]
  },
  "s21.post": {
-  "en": ["Wait! What's happening at the Temple?", "What had to happen.", "From the railing, the Temple can be seen far away. Above it, a red light that isn't the dawn."],
-  "zh": ["等等！寺院出了什么事？", "该发生的事。", "从栏杆望去，能看见远处的寺院。寺院上空，有一道不是晨光的红光。"]
+  "en": ["Wait! Whose hand?", "You already know whose.", "Did you know her?", "I watched her embroider your blanket by Kiku's fire. She kept pricking her fingers and laughing.", "The night she went down, she asked me one thing: to watch you grow up. I watched.", "From the railing you can see the Temple, far away. Above it, a red light that isn't dawn."],
+  "zh": ["等等！谁的手？", "你已经知道是谁的了。", "你认识她？", "我看着她在菊的火堆旁绣你的襁褓。她老是扎到手指，然后笑。", "她下去的那一夜，只求了我一件事：看着你长大。我看着了。", "从栏杆望出去，远处是寺院。寺院上空有一道红光，那不是黎明。"]
  },
  "s22.pre": {
-  "en": ["Fourth floor.", "I told you we'd meet again.", "I'm not here to steal anything.", "I've come to talk to your Shogun.", "No one talks to the Shogun without going through me."],
-  "zh": ["第四层。", "我说过我们还会再见。", "我不是来偷东西的。", "我是来找你们将军谈的。", "不过我这一关，谁也别想见将军。"]
+  "en": ["Fourth floor. The cells.", "A corridor of barred doors. At the far end, two seated shadows. One of them coughs.", "I told you we'd meet again.", "I'm not here to steal anything.", "I'm here for the man in that cell.", "Yesterday your cousin beat me. Today, you. The clan is getting old.", "My cousin?", "Aya. Nobody told you? Natsu was her aunt.", "…", "Beat me and I open it. Lose, and you stay with them until the moon has passed."],
+  "zh": ["第四层。牢房。", "一条走廊，两旁都是铁栅门。尽头坐着两个人影。其中一个在咳嗽。", "我说过我们还会见面。", "我不是来偷东西的。", "我是来找那间牢房里的人的。", "昨天你的表亲赢了我。今天是你。忍者老了。", "我的表亲？", "绫。没人告诉你吗？夏是她的姑姑。", "……", "赢了我，我就开门。输了，你就跟他们关在一起，等新月过去。"]
  },
  "s22.post": {
-  "en": ["…", "Go up.", "But when he tells you the truth, you'll wish you hadn't heard it."],
-  "zh": ["……", "上去吧。", "但等他告诉你真相，你会宁愿自己没听过。"]
+  "en": ["…", "The last time someone of your blood beat me, I carried her to the wall in the rain.", "Kuro takes out a key. Turns it. The door creaks.", "…", "…", "Neither of them knows what to say. Jubei looks at the blanket. Then at him.", "You have her eyes.", "I was told I had yours.", "She wanted you to be called Ren. The old man let you keep the name.", "It's the only thing he didn't take from me.", "Go to the Temple. Before the Abbot goes down.", "And you?", "I'm going up. Someone has to ask the clan for its hand.", "I already asked. He locked me up.", "He told you no. He owes me a life.", "Over the valley rooftops we'll be there in two hours. Come on, ronin. My sister is there.", "*(leaving)* Ren. Don't go down alone. Promise me."],
+  "zh": ["……", "上一次有你这血脉的人赢了我，我冒着雨把她送到了墙下。", "黑掏出一把钥匙。一转。门吱呀一声开了。", "……", "……", "两人谁都不知道该说什么。十兵卫看着那条襁褓。然后看着他。", "你有她的眼睛。", "有人说我有您的眼睛。", "她想给你取名叫仁。那老头把这个名字留给了你。", "这是他唯一没从我这里夺走的东西。", "你们去寺院。赶在方丈下去之前。", "那你呢？", "我上去。总得有人向忍者讨那只手。", "我已经讨过了。他把我关了起来。", "他对您说了不。可他欠我一条命。", "走山谷的屋顶，两个时辰就到。走吧，浪人。我妹妹在那儿。", "*（离开时）*仁。别一个人下去。答应我。"]
  },
  "s23.pre": {
-  "en": ["The last door.", "Behind the door, a single breath. Slow.", "The Abbot told me to defeat him.", "Tao told me to listen to him.", "No one enters."],
-  "zh": ["最后一道门。", "门后，只有一个人的呼吸。缓慢。", "方丈要我打败他。", "陶要我听他说。", "谁也不许进。"]
+  "en": ["The last staircase.", "Behind the door, a single breath. Slow.", "The Abbot sent me to defeat him.", "Tao, to ask him. My father, not to go down alone.", "And my mother couldn't tell me anything.", "No one enters. The Great Shogun's orders.", "The Great Shogun is expecting me.", "That's why. He wants you tired."],
+  "zh": ["最后一段楼梯。", "门后，只有一声呼吸。缓慢。", "方丈派我来打败他。", "陶要我问他。父亲要我别一个人下去。", "而母亲，什么都没能告诉我。", "谁都不许进。大将军的命令。", "大将军在等我。", "所以才拦你。他要你累着进去。"]
  },
  "s23.post": {
-  "en": ["The elite guard falls. The door opens by itself.", "*(from inside)* Come in, disciple of Hōshin."],
-  "zh": ["精锐守卫倒下了。门自己开了。", "*（从里面）*进来吧，法真的弟子。"]
+  "en": ["The elite guard falls. The door opens by itself.", "*(from inside)* Come in, son of Natsu.", "Son of Natsu.", "It's the first time anyone has called me that."],
+  "zh": ["精锐护卫倒下了。门自己开了。", "*（从里面）*进来吧，夏的儿子。", "夏的儿子。", "这是第一次有人这样叫我。"]
  },
  "s24.pre": {
-  "en": ["The top of the pagoda.", "Wind. The moon over the mountains. And a man in black armor who doesn't turn around.", "Hōshin sent you to kill me.", "To defeat you.", "To him it's the same thing.", "Very well. Surround me if you can."],
-  "zh": ["宝塔之巅。", "风。群山上的月亮。还有一个身穿黑甲、没有回头的男人。", "法真派你来杀我。", "是来打败你。", "对他来说都一样。", "好。有本事就包围我。"]
+  "en": ["The top of the pagoda.", "Wind. No moon: tonight it won't rise. And a man in black armor who doesn't turn around.", "Hōshin sent you to defeat me.", "Yes.", "And what did you come for?", "To ask you who Daishin is.", "For the first time, Kage turns around.", "That drunk Tao. He never knew when to keep quiet.", "And to ask for the clan's hand.", "Your mother asked me for it in this room. I told her no.", "Do you know why the clan gives its hand to no one, boy?", "…", "Because the last time it did, it lost it. Surround me and I'll tell you the rest."],
+  "zh": ["宝塔之巅。", "风。没有月亮：今夜它不会升起。还有一个身穿黑甲、不肯回头的男人。", "法真派你来打败我。", "是。", "那你自己是来做什么的？", "来问您，大心是谁。", "影第一次转过身来。", "陶那个酒鬼。从来不知道什么时候该闭嘴。", "还有，来向忍者讨那只手。", "你母亲就在这间屋里向我讨过。我拒绝了她。", "你知道忍者为什么不把手交给任何人吗，孩子？", "……", "因为上一次交出去，就再也没收回来。包围我，我就把剩下的告诉你。"]
  },
  "s24.post": {
-  "en": ["…You won.", "Now listen, because no one else will tell you.", "…", "Beneath your Temple sleeps the Ash Oni. It was sealed three hundred years ago.", "Your Abbot knows the seal is breaking. He has known for years.", "Then he'll renew it.", "He can't. **Not alone.**", "The clan always knew: the Scroll is one half of our pact.", "What pact?", "That I don't know. That's why I wanted it.", "My master… lied to me.", "In the distance, above the Temple, a column of ash rises."],
-  "zh": ["……你赢了。", "现在听着，因为没人会告诉你。", "……", "你的寺院底下沉睡着灰烬鬼。它在三百年前被封印。", "你的方丈知道封印正在破碎。他早就知道了。", "那他会重修封印。", "他做不到。**一个人做不到。**", "忍者一直都知道：卷轴是我们盟约的一半。", "什么盟约？", "这我不知道。所以我才想要它。", "师父……骗了我。", "远处，寺院上空，升起一道灰烬之柱。"]
+  "en": ["…You won. The way she used to win.", "Daishin.", "Daishin was a monk. Kagerō, a ninja. They surrounded the Oni together, each with one hand.", "Both sides tell that much, by halves. What no one tells is what came after.", "They married. They had two sons.", "The elder founded the Temple. The younger, the clan.", "…Brothers.", "They fought over the Scroll the day their mother died. Each kept half the truth and erased the other.", "Three hundred years later, the Temple and the clan are a family that doesn't remember.", "Natsu knew. And you are the first in three hundred years born of both sides.", "That's why the Oni calls for Daishin in dreams.", "Kage looks at his hand. Then he holds it out.", "The clan owes you a life. And I owe one to your mother.", "In the distance, above the Temple, a column of ash rises.", "We're too late.", "Not yet."],
+  "zh": ["……你赢了。跟她以前一样。", "大心。", "大心是和尚。阳炎是忍者。他们一起包围了灰烬鬼，各出一只手。", "这些两边都讲，各讲一半。没人讲的，是后来的事。", "他们成了亲。生了两个儿子。", "哥哥建了寺院。弟弟建了忍者一族。", "……兄弟。", "母亲去世那天，他们为了卷轴反目。各自留下一半真相，抹掉了另一半。", "三百年后，寺院和忍者是一个忘了自己是一家的家族。", "夏知道这些。而你，是三百年来第一个两边血脉都有的人。", "所以灰烬鬼才在梦里呼唤大心。", "影看着自己的手。然后把它伸了出来。", "忍者欠你一条命。而我欠你母亲一条。", "远处，寺院上空，升起一道灰烬之柱。", "我们来晚了。", "还没有。"]
  },
  "n1.pre": {
   "en": ["The clan's pagoda. Night.", "High on the mountain, the clan's red lanterns never go out.", "Tonight, a fifteen-year-old girl kneels before the Shogun. It's her first mission.", "The Jade Scroll belongs to us.", "The monks stole it centuries ago.", "What does the Scroll say, my lord?", "…", "That doesn't matter. What matters is that it comes home.", "Always the same answer.", "Tonight you climb the wall for the first time. Kuro will guide you. Your brother goes with you.", "Not to steal. Not yet. I want to know how many guards they have, and where.", "One more thing.", "If you see a young disciple, short-haired, who plays the board alone… do him no harm.", "Why, my lord?", "Because I say so.", "Who is he?", "An old debt. The clan's, not mine.", "Aya grew up in the pagoda. Her grandmother Kiku taught her the board before she could walk.", "Kiku died last winter. Her last words were a phrase no one understood.", "“When the stone beats, surround again.”", "What stone, Grandma?", "Later. The Temple wall.", "Nervous, little sister?", "Shut up, Sora.", "Your knees are shaking. Mine used to shake too.", "Yours still do.", "Both of you. Quiet. The wall guard.", "Get past him without a sound. If he shouts, the mission's over.", "Like a shadow."],
@@ -336,75 +336,75 @@
   "zh": ["……你赢了我。", "那一夜你在场。你说过的。", "我把她送到寺院的墙下。下着雨。她怀里抱着那个婴儿。", "她跟我说：“要是我回不来，就让忍族欠这孩子一条命。”我发誓保守秘密。", "沉默了十六年。够了。", "那你自己去寺院吧。但别把卷轴带给将军。", "那带给谁？", "带给握着另一只手的人。", "*（从暗处）*把卷轴带给我，绫。不然就别回来。", "十兵卫在塔楼。仁在寺院。方丈在烧自己的手。", "而明天，就是新月。"]
  },
  "n19.pre": {
-  "en": ["The last night before the new moon.", "The Temple is emptier than ever. They say the Abbot's disciple went to the pagoda.", "Ren and me.", "Each of us in the other's house."],
-  "zh": ["新月前的最后一夜。", "寺院比任何时候都空。听说方丈的弟子去了宝塔。", "仁和我。", "各自在对方的家里。"]
+  "en": ["The Temple. The afternoon of the new moon.", "Aya spent the whole day among the roof tiles, without moving. Now the sun is setting, and tonight the moon won't rise.", "They say the Abbot's disciple left last night. For the pagoda.", "Ren and me. Each of us in the other's home.", "In the courtyard, monks carry buckets of water toward the crypt stairs. To cool something that burns.", "Kuro said: to whoever holds the other hand.", "Ren is that hand, and he's not here. Then I'll carry the Scroll myself.", "Up there! On the roof!"],
+  "zh": ["寺院。新月那天的午后。", "绫在屋瓦间趴了整整一天，一动不动。现在太阳落下，今夜月亮不会升起。", "听说方丈的弟子昨晚走了。去了宝塔。", "仁和我。各自在对方的家里。", "庭院里，僧人们提着水桶往地穴的楼梯去。去浇灭某个在烧的东西。", "黑说过：交给握着另一只手的人。", "仁就是那只手，可他不在。那卷轴就由我来带。", "在上面！屋顶上！"]
  },
  "n19.post": {
-  "en": ["The library is in sight."],
-  "zh": ["藏经阁就在眼前了。"]
+  "en": ["The lookouts have stopped shouting.", "The cells.", "Climbing down the eaves, Aya passes a barred window. Inside, three kunoichi, tied up.", "Aya? Did the Shogun send you?", "No one sent me. Same as you.", "We came to get Natsu's boy out. We were too late: he'd already gone.", "Aya… the old man goes down tonight. We heard him say it. \"Before midnight.\"", "Then I have until midnight."],
+  "zh": ["哨兵不再喊了。", "牢房。", "顺着屋檐往下爬时，绫经过一扇装着铁栏的窗。里面绑着三名女忍。", "绫？是将军派你来的？", "没人派我。跟你们一样。", "我们是来救夏的孩子的。来晚了：他已经走了。", "绫……那老头今夜要下去。我们听见他说的。“午夜之前。”", "那我只有到午夜为止。"]
  },
  "n20.pre": {
-  "en": ["The library doors.", "The Marble Tigers guard the library. They push everything in their path.", "You again."],
-  "zh": ["藏经阁的大门。", "石虎守着藏经阁。挡路的一切都会被推开。", "又是你们。"]
+  "en": ["The library doors.", "The padlock is broken. Someone forced the door two nights ago and no one locked it again. Now the Marble Tigers guard it.", "You again.", "The Abbot said no one touches the Scroll tonight. Not even us.", "What does he want it for?", "To take it down below."],
+  "zh": ["藏经阁的大门。", "锁已经坏了。两夜前有人撬开了门，之后没人再锁上。如今由石虎看守。", "又是你们。", "方丈说了，今夜谁都不许碰卷轴。连我们也不行。", "他要卷轴做什么？", "带到下面去。"]
  },
  "n20.post": {
-  "en": ["The ground shakes.", "The lamps go out on their own.", "It's waking up."],
-  "zh": ["地面在震动。", "灯火自己熄灭了。", "它正在醒来。"]
+  "en": ["The ground shakes. The lamps go out by themselves.", "In the darkness, on the wall, a hand of ash appears. A small one. It draws six dots around one, and fades.", "Aunt.", "She's getting tired."],
+  "zh": ["大地震动。灯自己熄了。", "黑暗中，墙上浮现出一只灰烬的手。很小。它画出六个点围着一个点，然后消散了。", "姑姑。", "她快撑不住了。"]
  },
  "n21.pre": {
-  "en": ["I came to ask you something.", "Are you going to fight me again?", "Yes. To know if you're ready.", "If you read it, there's no turning back."],
-  "zh": ["我来是想求你一件事。", "你又要跟我打？", "是。看看你准备好了没有。", "一旦读了，就再也回不了头。"]
+  "en": ["The courtyard, near midnight.", "Two shadows leap over the Temple wall. One lands badly and coughs.", "Aya!", "Sora?! How did you get out of the tower?", "Ren got us out. He's climbing up to find the Shogun.", "I'm going for the ones from the bridge. He wants to talk to you.", "Give me the Scroll, Aya.", "What for?", "I was a monk. I'm a hand of the Temple. I go down with the Abbot and the two of us close it.", "And the clan's hand?", "…", "One alone isn't enough. The Scroll says so. My aunt says so.", "Your aunt went down alone because I didn't make it. No one else of her blood goes down while I'm breathing.", "That's exactly what the Abbot told you. And he locked you up.", "Jubei stands still. Then he raises his hands to fight.", "Then you'll have to get past me."],
+  "zh": ["庭院，将近午夜。", "两道黑影翻过寺院的墙。其中一个落地不稳，咳了起来。", "绫！", "空？！你怎么从塔里出来的？", "仁把我们放出来的。他正往上爬去找将军。", "我去救桥上那几个。他有话跟你说。", "把卷轴给我，绫。", "做什么？", "我做过和尚。我是寺院的一只手。我跟方丈一起下去，我们两个把它合上。", "那忍者的手呢？", "……", "一个人不够。卷轴这么说。我姑姑也这么说。", "你姑姑一个人下去，是因为我没赶到。只要我还有一口气，她的血脉就不会再有人下去。", "方丈当年对您说的，就是这句话。然后把您关了起来。", "十兵卫站着不动。然后举起双手，摆出架势。", "那你就得从我身上过去。"]
  },
  "n21.post": {
-  "en": ["You're ready.", "I'll distract the ones at the door.", "A monk helping a ninja. Like in Tao's story."],
-  "zh": ["你准备好了。", "门口的人我来引开。", "一个和尚帮一个忍者。就像陶讲的故事。"]
+  "en": ["…", "She would have beaten you too.", "She always beat me. That's why I loved her.", "Sixteen years hating the old man for locking me up, and tonight I was about to do the same to you.", "We go down together. You, me and the Scroll.", "First we have to get it from the Abbot.", "Go to the library. I'll distract the ones at the door.", "A monk helping a ninja. Like in Tao's tale."],
+  "zh": ["……", "她也会赢您的。", "她总是赢我。所以我才爱她。", "恨了那老头十六年，恨他把我关起来，今夜我却要对你做同样的事。", "我们一起下去。你、我，还有卷轴。", "得先从方丈手里拿到它。", "去藏经阁。门口那些人我来引开。", "一个帮忍者的和尚。就像陶讲的故事。"]
  },
  "n22.pre": {
-  "en": ["You again. Ren isn't here to defend you.", "I didn't come for him.", "Too bad for you."],
-  "zh": ["又是你。仁不在，没人护着你。", "我不是来找他的。", "那你就倒霉了。"]
+  "en": ["The library hall.", "You again. Ren isn't here to defend you.", "I didn't come for him.", "The Abbot said no one gets through. Tonight least of all.", "Do you know what happens if he goes down alone?", "He fixes it. Like always.", "Like sixteen years ago. That night grey rain fell.", "Your sister coughs ash, Gon. If the Abbot goes down alone, she'll cough more.", "Don't talk about Hana!"],
+  "zh": ["藏经阁的走廊。", "又是你。仁不在，没人护着你。", "我不是为他来的。", "方丈说了，谁都不许过。今夜更不行。", "你知道他一个人下去会怎样吗？", "他会修好。一直都是这样。", "就像十六年前那样。那一夜下了灰雨。", "你妹妹咳的是灰，刚。方丈要是一个人下去，她会咳得更厉害。", "不许提花！"]
  },
  "n22.post": {
-  "en": ["Why don't you finish me?", "Because you're not my enemy.", "None of you are.", "…"],
-  "zh": ["你为什么不了结我？", "因为你不是我的敌人。", "你们谁都不是。", "……"]
+  "en": ["Why don't you finish me?", "Because you're not my enemy.", "None of you are.", "…", "If what you say is true… will Hana get better?", "If we close it right, yes. With both hands.", "*(stepping aside)* Then hurry. The Abbot has the Scroll in his hand and a candle burning down."],
+  "zh": ["你为什么不给我最后一击？", "因为你不是我的敌人。", "你们谁都不是。", "……", "要是你说的是真的……花会好起来吗？", "合得对，就会。用两只手。", "*（让开）*那就快点。方丈手里拿着卷轴，蜡烛快烧完了。"]
  },
  "n23.pre": {
-  "en": ["I let you go once.", "And not now.", "Now I can't.", "The Abbot is inside."],
-  "zh": ["我放过你一次。", "这次不会了。", "这次我不能。", "方丈就在里面。"]
+  "en": ["The archive door.", "I let you go once.", "And not now.", "Now I can't. Tonight the Abbot goes down, and I swore to guard his back.", "Do you know what the Scroll says?", "I know what the page I tore out said. A woman who waited at the foot of a staircase.", "If I let you through and you're wrong, that's two empty graves."],
+  "zh": ["藏书室的门。", "我放过你一次。", "这次不放了。", "这次我做不到。今夜方丈要下去，我发过誓要护着他的背后。", "您知道卷轴上写着什么吗？", "我知道我撕掉的那一页写着什么。一个在楼梯底下等人的女人。", "要是我放你过去，你又错了，那就是两座空坟。"]
  },
  "n23.post": {
-  "en": ["…", "*(stepping aside)* Let someone read it. At last."],
-  "zh": ["……", "*（让开）*总该有人读它了。终于。"]
+  "en": ["…", "You fight like her. Like someone who didn't come to steal.", "I came to finish what she started.", "*(stepping aside)* Let someone read it. At last."],
+  "zh": ["……", "你打起来像她。像一个不是来偷东西的人。", "我是来完成她开始的事。", "*（让开）*让人读一读吧。终于。"]
  },
  "n24.pre": {
-  "en": ["The library. The Jade Scroll on the altar.", "No one has beaten me in forty years.", "There's a first time for everything.", "If you beat me, read it.", "And you will understand why I kept silent."],
-  "zh": ["藏经阁。翡翠卷轴放在祭坛上。", "四十年来，没人赢过我。", "凡事总有第一次。", "你要是赢了我，就读吧。", "你会明白我为什么一直沉默。"]
+  "en": ["The library. The Jade Scroll on the altar.", "The Abbot sits before the altar. His hands are bandaged, and the bandages are grey.", "Natsu's niece.", "You know me?", "You have her way of coming in without asking.", "You let her go down alone.", "She left her son in my arms. And I couldn't stop her.", "Tonight I go down. No one else.", "You alone aren't enough. You know it.", "It's enough for a few years. For the boy to grow up far away.", "Ren isn't far away. He's at the pagoda, asking the Shogun for his hand.", "For the first time, the Abbot's bandaged hands tremble.", "In forty years no one has beaten me. If you beat me, read it."],
+  "zh": ["藏经阁。翡翠卷轴在祭坛上。", "方丈坐在祭坛前。双手缠着绷带，绷带是灰色的。", "夏的侄女。", "您认识我？", "你跟她一样，进门从不问人。", "是您让她一个人下去的。", "是她把儿子放进我怀里。我拦不住她。", "今夜我下去。别人都不行。", "您一个人不够。您知道的。", "够撑几年。够那孩子在远处长大。", "仁不在远处。他在宝塔，向将军讨那只手。", "方丈缠着绷带的手，第一次颤抖起来。", "四十年来没人赢过我。你要是赢了，就读吧。"]
  },
  "n24.post": {
-  "en": ["Aya unrolls the Jade Scroll.", "*(reading)* \"Six stones around. One hand of the Temple, one hand of the Shadow. If one is missing, the seal will not close.\"", "…It's not a weapon. It's a ritual. And it needs both of us.", "I know. That's why I never said it.", "I would rather break alone than ask the clan for help.", "The ground splits open beneath the courtyard. A column of ash rises to the sky.", "I have the Scroll.", "But alone, it's useless."],
-  "zh": ["绫展开了翡翠卷轴。", "*（读着）*“六石环绕。寺院一手，暗影一手。缺其一，封印不合。”", "……这不是武器。是仪式。而且需要我们两边。", "我知道。所以我从未说出口。", "我宁愿独自崩溃，也不愿向忍者求助。", "庭院底下的大地裂开。一道灰烬之柱冲上天空。", "我拿到了卷轴。", "但只有我一个人，它毫无用处。"]
+  "en": ["Aya unrolls the Jade Scroll.", "*(reading)* \"Six stones around. One hand of the Temple, one hand of the Shadow. If one is missing, the seal takes its toll on whoever closes it.\"", "…It's not a weapon. It's a ritual. And it needs both of us.", "I know. I always knew.", "She asked me for her monk, and I told her no. That's how I killed her.", "Then this time, say yes to someone.", "The ground splits open beneath the courtyard. A column of ash rises to the sky.", "And in the ash, for an instant, a woman's hand letting go.", "I have the Scroll.", "But alone, it's useless."],
+  "zh": ["绫展开了翡翠卷轴。", "*（读着）*“六石环绕。寺院一手，暗影一手。缺其一，封印便向合印之人索债。”", "……这不是武器。是仪式。而且需要我们两边。", "我知道。我一直都知道。", "她向我要她的和尚，我拒绝了。我就是这样害死了她。", "那这一次，对某个人说声好吧。", "庭院底下的大地裂开。一道灰烬之柱冲上天空。", "灰烬之中，有那么一瞬，一只女人的手松开了。", "我拿到了卷轴。", "但只有我一个人，它毫无用处。"]
  },
  "f1.pre": {
-  "en": ["The same night.", "At the top of the pagoda, Ren defeated Kage.", "In the library, Aya defeated the Abbot. At the same hour.", "Beneath the Temple, the last stone splits.", "**At last. Fighting each other, as always.**", "The Temple courtyard, in grey flames.", "Master Tao! What is that?", "What your Abbot didn't want to tell you.", "A monk. Just one.", "Surround it, kid. Now!"],
-  "zh": ["同一夜。", "宝塔之巅，仁击败了影。", "藏经阁中，绫击败了方丈。同一时刻。", "寺院底下，最后一块石头裂开了。", "**终于。还是一样，自相残杀。**", "寺院庭院，燃着灰色的火焰。", "陶师父！那是什么？", "你的方丈不肯告诉你的东西。", "一个和尚。只有一个。", "包围它，小子。快！"]
+  "en": ["The same night.", "At the top of the pagoda, Ren defeated Kage.", "In the library, Aya defeated the Abbot. At the same hour.", "Beneath the Temple, the hand that held the last stone lets go.", "**At last. She grew tired.**", "**And you, fighting each other. As always.**", "The Temple courtyard, in grey flames.", "Master Tao! Am I too late?", "Your mother held on as long as she could, kid. She let go.", "A monk. Just one. As always.", "Surround it, kid. Now!"],
+  "zh": ["同一夜。", "宝塔之巅，仁击败了影。", "藏经阁中，绫击败了方丈。同一时刻。", "寺院底下，托着最后一块石头的那只手松开了。", "**终于。她累了。**", "**而你们，还在自相残杀。一如既往。**", "寺院庭院，燃着灰色的火焰。", "陶师父！我来晚了吗？", "你母亲撑到了最后，小子。她松手了。", "一个和尚。只有一个。一如既往。", "包围它，小子。快！"]
  },
  "f1.post": {
   "en": ["The Oni retreats into the crack.", "But it doesn't close.", "…", "Surrounding it stops it.", "**It doesn't seal it.**"],
   "zh": ["灰烬鬼退回了裂缝。", "但裂缝没有合上。", "……", "包围它能阻止它。", "**却封印不了它。**"]
  },
  "f2.pre": {
-  "en": ["The stone garden, split in two.", "Kuro! Help me!", "That thing came from beneath the Temple!", "I know. Let's surround it."],
-  "zh": ["石庭，裂成两半。", "黑！帮我！", "那东西是从寺院底下出来的！", "我知道。我们包围它。"]
+  "en": ["The stone garden, split in two.", "Jubei! And the Abbot?", "Alive. But he can't even stand.", "Then we'll surround it ourselves."],
+  "zh": ["石庭，裂成两半。", "十兵卫！方丈呢？", "还活着。可他连站都站不起来。", "那就由我们来包围它。"]
  },
  "f2.post": {
-  "en": ["The Oni retreats again. Bigger.", "One hand alone is not enough.", "It never was.", "The courtyard. Ren and Aya, face to face.", "Kage told me half.", "The Scroll tells the other.", "One hand of the Temple and one of the Shadow.", "Then… together.", "*(taking human form)* Like Daishin and Kagerō.", "I was the promise they made to each other.", "And I was fading."],
-  "zh": ["灰烬鬼又退了回去。变得更大了。", "一只手是不够的。", "从来都不够。", "庭院。仁与绫，面对面。", "影告诉了我一半。", "卷轴写着另一半。", "寺院一手，暗影一手。", "那么……一起。", "*（化为人形）*就像大心和阳炎。", "我是他们彼此许下的诺言。", "而我正在熄灭。"]
+  "en": ["The Oni retreats again. Bigger.", "One hand alone is not enough.", "It never was.", "The courtyard. Ren and Aya, face to face.", "Kage told me half.", "The Scroll tells the other.", "One hand of the Temple and one of the Shadow.", "Kuro told me to give it to whoever held the other hand.", "My mother went down alone.", "We go together.", "*(taking human form)* Like Daishin and Kagerō.", "I was the promise they made to each other.", "And I was fading."],
+  "zh": ["灰烬鬼又退了回去。变得更大了。", "一只手是不够的。", "从来都不够。", "庭院。仁与绫，面对面。", "影告诉了我一半。", "卷轴写着另一半。", "寺院一手，暗影一手。", "黑叫我把它交给握着另一只手的人。", "我母亲是一个人下去的。", "我们，一起。", "*（化为人形）*就像大心和阳炎。", "我是他们彼此许下的诺言。", "而我正在熄灭。"]
  },
  "f3.pre": {
-  "en": ["*(wounded, arriving)* Ren… forgive me.", "*(arriving over the wall)* Aya. Do what the Scroll says.", "Six stones. Two hands.", "Now."],
-  "zh": ["*（负伤赶来）*仁……原谅我。", "*（翻墙而来）*绫。照卷轴说的做。", "六块石。两只手。", "就是现在。"]
+  "en": ["*(wounded, arriving)* Ren… forgive me.", "*(arriving over the wall)* Aya. Do what the Scroll says.", "This time the clan isn't late.", "Six stones. Two hands.", "Now."],
+  "zh": ["*（负伤赶来）*仁……原谅我。", "*（翻墙而来）*绫。照卷轴说的做。", "这一次，忍者没有来迟。", "六块石。两只手。", "就是现在。"]
  },
  "f3.post": {
-  "en": ["Six stones light up green and red.", "The crack closes.", "The Oni dies out like an ember in the rain.", "A week later.", "The seal will hold for another three hundred years.", "If we don't forget again.", "Then let's not forget.", "One duel a year. Temple against clan.", "On the board.", "And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.", "Until the next crack."],
-  "zh": ["六块石头亮起绿光与红光。", "裂缝合上了。", "灰烬鬼如雨中的余烬般熄灭。", "一周后。", "封印还能再撑三百年。", "只要我们别再遗忘。", "那就别忘了。", "每年一场对决。寺院对忍者。", "在棋盘上。", "**荣誉之战**就此开始：僧人与忍者彼此对弈，永远记得如何包围恶鬼。", "直到下一道裂缝。"]
+  "en": ["Six stones light up green and red.", "The crack closes.", "The Oni dies out like an ember in the rain.", "Over the closed crack, a figure of ash remains. A small woman, with a fan.", "*(quietly)* Mom.", "Natsu.", "The figure raises her hand, like someone waving from far away. And the wind carries her off.", "A week later.", "In the back courtyard, the nameless stone has a name now. Beside it, a bowl and a burned fan.", "The seal will hold for another three hundred years.", "If we don't forget again.", "Then let's not forget.", "One duel a year. Temple against clan.", "On the board.", "And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.", "Until the next crack."],
+  "zh": ["六块石头亮起绿光与红光。", "裂缝合上了。", "灰烬鬼如雨中的余烬般熄灭。", "合上的裂缝上方，留下一个灰烬的身影。一个小个子的女人，拿着一把扇子。", "*（低声）*娘。", "夏。", "那身影抬起手，像是在远处挥手道别。然后被风带走了。", "一周后。", "后院里，那块无名的石头如今有了名字。旁边放着一只钵，和一把烧焦的扇子。", "封印还能再撑三百年。", "只要我们别再遗忘。", "那就别忘了。", "每年一场对决。寺院对忍者。", "在棋盘上。", "**荣誉之战**就此开始：僧人与忍者彼此对弈，永远记得如何包围恶鬼。", "直到下一道裂缝。"]
  }
 }

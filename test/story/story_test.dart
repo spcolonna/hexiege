@@ -49,7 +49,8 @@ void main() {
       // Sin momento propio, sigue donde terminó la anterior.
       expect(Scene.of('s21', post: true)!.placeAt(0), Place.pagodaTop);
       expect(Scene.of('f3', post: true)!.placeAt(0), Place.ashCourtyard);
-      expect(Scene.of('f3', post: true)!.placeAt(5), Place.epilogue);
+      final epilogue = Scene.of('f3', post: true)!;
+      expect(epilogue.placeAt(epilogue.moments.last), Place.epilogue);
     });
 
     test('el director arma un cuadro por golpe: páginas, elenco y globos coherentes', () {
