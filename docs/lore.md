@@ -1,7 +1,7 @@
 # Hexiege — Biblia de la historia y guion
 
-> Borrador para revisar antes de implementar. Todo en español; se traduce a inglés y chino
-> una vez aprobado. Cada batalla tiene una charla **antes** (viñetas que entran de a una) y
+> Fuente del guion: `tool/gen_story.py` lo convierte en `lib/story/script.g.dart` y las
+> traducciones en/zh viven en `tool/story_tr.json`. Cada batalla tiene una charla **antes** (viñetas que entran de a una) y
 > una **después** (al ganar). Las líneas en *cursiva* son separadores de momento (tiempo o
 > lugar) y marcan los puntos a los que se puede saltar en la línea de tiempo.
 
@@ -36,8 +36,8 @@ dos llevan a sus bandos a una guerra que despierta al Oni.
 |---|---|---|---|
 | **Ren** | Templo | `novice` | Discípulo joven. Protagonista Shaolin. Leal, curioso, demasiado obediente. |
 | **Aya** | Clan | `fan` | Kunoichi joven. Protagonista Ninja. Hábil, desconfiada, hace preguntas que no debe. |
-| **Abad Hōshin** | Templo | *nuevo* | Maestro de Ren. Sabio y orgulloso. Esconde que el sello se rompe. |
-| **Gran Shogun Kage** | Clan | *nuevo* | Líder del clan. Duro pero no cruel. Obedece una leyenda que no entiende. |
+| **Abad Hōshin** | Templo | `abbot` | Maestro de Ren. Sabio y orgulloso. Esconde que el sello se rompe. |
+| **Gran Shogun Kage** | Clan | `shogun` | Líder del clan. Duro pero no cruel. Obedece una leyenda que no entiende. |
 | **Maestra Mei** | Templo | `abbess` | Segunda del Templo. Sabe parte de la verdad y calla por lealtad. |
 | **Tao, el monje borracho** | Templo | `drunken` | Guardián de la cripta. Parece un payaso; es el que más sabe. |
 | **Gon** | Templo | `staff` | Compañero de Ren, rival amistoso. |
@@ -45,7 +45,7 @@ dos llevan a sus bandos a una guerra que despierta al Oni.
 | **Jubei, el ronin** | Ninguno | `ronin` | Ex monje expulsado por preguntar demasiado. Ayuda a los dos protagonistas. |
 | **Sora** | Clan | `scout` | Hermano mayor de Aya, explorador. Es el que Gon captura. A escondidas lleva mensajes de la Zorra Blanca: "venimos a advertir". |
 | **La Zorra Blanca** | Espíritu | `kitsune` | Aparece en las dos campañas. Habla en acertijos. Es el lazo entre Daishin y Kagerō. |
-| **El Oni de Ceniza** | — | *nuevo* | El demonio sellado. Casi no habla: cuando lo hace, en ceniza. |
+| **El Oni de Ceniza** | — | `ashoni` | El demonio sellado. Casi no habla: cuando lo hace, en ceniza. |
 
 **Hilos abiertos del Acto I (resolver en los actos II–IV):**
 - **El chico de la manta.** Ren llegó al Templo de bebé, envuelto en una manta, una noche de lluvia gris (ceniza: la primera grieta del sello). El clan lo conoce por ese nombre y el Shogun ordena no hacerle daño. Propuesta: la manta es del clan; Ren es hijo de una kunoichi y un monje, las "dos manos" del ritual en una sola persona.
@@ -80,7 +80,7 @@ dos llevan a sus bandos a una guerra que despierta al Oni.
 
 **Cronología del Acto IV:** alba 10, Aya llega al Templo y se esconde en los tejados · tarde 10, Ren llega a la pagoda (s19-s21) · anochecer, s22 (Ren libera a Jubei y a Sora, que corren al Templo por los tejados del valle) y n19-n20 · cerca de la medianoche, n21-n23 y s23 · medianoche, s24 y n24 a la misma hora: Kage le cuenta a Ren que Daishin y Kagerō fueron marido y mujer y que sus dos hijos fundaron el Templo y el clan; Aya lee el Pergamino. La mano de Natsu se suelta y el Oni sube (el Sello). En el epílogo, la figura de ceniza de Natsu se despide y su nombre queda tallado en la piedra del patio de atrás.
 
-**Retratos nuevos a generar:** Abad Hōshin, Gran Shogun Kage y el Oni de Ceniza (el avatar `oni` actual es un ninja con máscara, no el demonio).
+**Retratos:** todos los personajes que hablan tienen retrato y figura (`assets/avatars/`, `assets/story/char_*`). El Abad, Kage y el Oni (`ashoni`) son solo de la historia; el avatar elegible `oni` es un ninja con máscara.
 Opcional: versiones con otra expresión de Ren y Aya.
 
 ## 3. Estructura
@@ -2006,7 +2006,7 @@ Ren y Aya juntos: Monje y Shogun en la misma mano, fichas de las dos facciones �
 - Narración: Y así empezaron los **duelos de honor**: monjes y ninjas, enfrentados para no olvidar cómo se rodea a un demonio.
 - Zorra Blanca [entra centro humo · plano .5,.45 x1.4]: Hasta la próxima grieta.
 - [sale Zorra Blanca humo · plano .5,.5 x1.0 lento]
-- **→ Fin. Desbloqueo:** marco y avatar especial del Oni.
+- **→ Fin. Desbloqueo:** mesa Pizarra del río y marco de obsidiana.
 
 ---
 

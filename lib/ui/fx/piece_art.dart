@@ -18,10 +18,11 @@ class PieceArt {
   static ui.Image? of(PieceType t) => _images[t];
 
   /// Textura de la piedra de las fichas de [f]: la elegida en el perfil o, si
-  /// falta, la clásica (`assets/textures/<facción>_stone.webp`).
+  /// falta, la clásica (`assets/textures/<facción>_stone.webp`). El Oni no
+  /// tiene textura: su piedra de ceniza se pinta en código.
   static ui.Image? stone(Faction f) =>
       _stones[Cosmetics.stone(f, AppSettings.instance.stoneFor(f))?.asset] ??
-      _stones[Cosmetics.stone(f, Cosmetics.classic)!.asset];
+      _stones[Cosmetics.stone(f, Cosmetics.classic)?.asset];
 
   /// Piedra del marco de las fichas de [f] (`assets/textures/<facción>_rim.webp`):
   /// jade, mármol rojo o brasa. Sin ella el marco se pinta con el color de la facción.

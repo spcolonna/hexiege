@@ -3,8 +3,8 @@
 Juego de estrategia abstracta por facciones sobre tablero hexagonal sin límites (inspirado en *Hive*).
 Diseño original: [`../HexaGame.md`](../HexaGame.md).
 
-## Estado: MVP
-- Facciones: **Templo Shaolin** y **Sombras Ninja**, 11 fichas cada una.
+## Estado: listo para lanzar (TestFlight)
+- Facciones: **Templo Shaolin** y **Sombras Ninja**, 11 fichas (6 tipos) cada una.
 - Modos: **Buscar partida** (por puntos, contra rivales simulados por la IA), **Local** (Pass & Play), tutorial, **Problemas**, **Desafíos** y **Campaña**. Sin backend.
 
 ## Correr
@@ -111,7 +111,10 @@ Causa: el cierre del cerco. El Tengu y el Shinobi cerraban 22 de las 37 victoria
 - Todo el contenido es una `Stage`: posición inicial (`build`), objetivo, facciones y nivel de IA. `GameScreen.stage` la juega y `StageListScreen` la lista; se desbloquean de a una y el progreso se guarda en `AppSettings` (`cleared`).
 - **Problemas** (`puzzles.dart`): 18 "cerco en N" (12 en 1 turno, uno por ficha o habilidad, y 6 en 2). El rival defiende con `solver.dart`, que busca por fuerza bruta la respuesta que evita el cerco. `test/solo/puzzles_test.dart` exige que cada uno tenga cerco forzado en N y no antes. Los de 2 turnos p13–p18 salieron de `tool/puzzle_gen.dart`.
 - **Desafíos** (`challenges.dart`): 10 partidas contra la IA con reglas u objetivos especiales: límite de rondas, Asedio temprano, sin habilidad, sin Dragones, 3 Tengu rivales, espejos Shaolin/Ninja, una posición de arranque con el Monje rodeado y el nivel Maestro. Ganar los supera; empatar o llegar al límite, no. Se calibraron simulando un jugador Normal contra cada uno (ganables, ninguno trivial).
-- **Campaña** (`campaign.dart`, `ui/campaign_screen.dart`): una historia por facción, 8 batallas cada una con texto previo, de Aprendiz a Maestro. Mezcla reglas normales, rivales sin habilidad, emboscadas (el Líder empieza con 3 fichas enemigas al lado), Asedio temprano, manos reforzadas y habilidades rápidas.
+- **Campaña** (`campaign.dart`, `ui/campaign_screen.dart`): dos historias de 24 batallas (4 actos de 6, con un jefe al final de cada acto), El camino del Templo y Sombras sobre el Templo, más El Sello, el final conjunto (f1–f3). Mezcla reglas normales, rivales sin habilidad, emboscadas (el Líder empieza con 3 fichas enemigas al lado), Asedio temprano, manos reforzadas y habilidades rápidas.
+- **Historia** (`lib/story/`): viñetas antes y después de cada batalla. El guion se escribe en `docs/lore.md`; `python3 tool/gen_story.py` genera `script.g.dart` y `python3 tool/gen_i18n.py` las traducciones (en/zh en `tool/story_tr.json`).
+- **Compra** (`lib/store/`): el Acto I de cada campaña es gratis; el resto se desbloquea con una compra única (`paywall.dart`, `purchases.dart`).
+- **Galería y cosméticos** (`lib/codex/`, `ui/gallery_screen.dart`, `ui/codex_screen.dart`): visor de fichas, códice de movimientos, avatares, marcos, mesas y piedras que se ganan jugando (`rewards.dart`).
 
 ## Buscar partida (`lib/match/`)
 - **Sin selector de dificultad**: el nivel de la IA sale de los puntos del jugador (`LadderRecord`, cinco rangos de Novicio a Leyenda, uno por nivel) y se corre un escalón por rachas: 3+ victorias seguidas → más difícil; 3+ derrotas → más fácil (5+ → dos escalones). Ganar suma 25 (+5 por victoria en racha, hasta +15); perder resta 20.
