@@ -3220,39 +3220,39 @@
   "zh": "等等！"
  },
  "story.s7.pre.0": {
-  "es": "Días después. Fuera del Templo, sin permiso.",
-  "en": "Days later. Outside the Temple, without permission.",
-  "zh": "几天后。寺外，未经允许。"
+  "es": "Dos días después. La escalera de la montaña, antes del alba.",
+  "en": "Two days later. The mountain stairs, before dawn.",
+  "zh": "两天后。山间石阶，天亮之前。"
  },
  "story.s7.pre.2": {
-  "es": "Ren baja por la escalera de la montaña antes del alba. Nadie lo vio salir.",
-  "en": "Ren slips down the mountain stairs before dawn. No one saw him leave.",
-  "zh": "天亮前，仁顺着山间石阶溜了下去。没人看见他离开。"
+  "es": "Desde la noche de la ceniza, el Abad no le habla. Mei tampoco. A Gon lo mandaron a cuidar la cripta día y noche.",
+  "en": "Since the night of the ash, the Abbot won't speak to him. Neither will Mei. Gon has been sent to guard the crypt day and night.",
+  "zh": "自从落灰那一夜，方丈就不再跟他说话。梅也是。刚被派去日夜看守地穴。"
  },
  "story.s7.pre.3": {
-  "es": "Si el Abad no me lo dice, lo voy a averiguar.",
-  "en": "If the Abbot won't tell me, I'll find out myself.",
-  "zh": "既然方丈不肯告诉我，我就自己去查。"
+  "es": "Ren baja la escalera con un atado al hombro. Adentro, la manta.",
+  "en": "Ren walks down the stairs with a bundle on his shoulder. Inside, the blanket.",
+  "zh": "仁肩上挎着一个包袱走下石阶。里面是那条毯子。"
  },
  "story.s7.post.0": {
   "es": "El sendero, más adelante.",
-  "en": "The trail, further on.",
-  "zh": "山路，再往前。"
+  "en": "The path, farther on.",
+  "zh": "小路，再往前。"
  },
  "story.s7.post.2": {
-  "es": "Huellas en el barro. Pies livianos, de los que no quieren ser vistos.",
-  "en": "Footprints in the mud. Light feet, the kind that don't want to be seen.",
-  "zh": "泥里有脚印。脚步很轻，是不想被人看见的那种。"
+  "es": "Los exploradores huyen. Dejan huellas en el barro: pies livianos, de los que no quieren ser vistos.",
+  "en": "The scouts flee. They leave tracks in the mud: light feet, the kind that don't want to be seen.",
+  "zh": "斥候们逃走了。泥里留下脚印：脚步很轻，是不想被人看见的那种。"
  },
  "story.s8.pre.0": {
   "es": "El único puente sobre el río.",
   "en": "The only bridge over the river.",
-  "zh": "河上唯一的一座桥。"
+  "zh": "河上唯一的桥。"
  },
  "story.s8.pre.2": {
-  "es": "El río ruge abajo. Los ninjas bloquean el puente de punta a punta.",
-  "en": "The river roars below. The ninjas block the bridge from end to end.",
-  "zh": "河水在下面咆哮。忍者们从头到尾堵住了整座桥。"
+  "es": "El río ruge abajo. Del otro lado empieza la tierra del clan.",
+  "en": "The river roars below. On the other side, clan land begins.",
+  "zh": "河水在下方咆哮。对岸就是一族的地界。"
  },
  "story.s8.post.0": {
   "es": "La otra orilla.",
@@ -3267,7 +3267,7 @@
  "story.s9.pre.0": {
   "es": "El santuario abandonado.",
   "en": "The abandoned shrine.",
-  "zh": "废弃的神社。"
+  "zh": "荒废的神社。"
  },
  "story.s9.pre.2": {
   "es": "Musgo, piedras caídas, un torii que nadie cuida. Y algo tallado en la roca.",
@@ -3275,9 +3275,9 @@
   "zh": "青苔，倒下的石块，一座无人照看的鸟居。还有刻在岩石上的东西。"
  },
  "story.s9.pre.4": {
-  "es": "Seis piedras en hexágono, alrededor de una figura con cuernos.",
-  "en": "Six stones in a hexagon, around a horned figure.",
-  "zh": "六块石头排成六边形，围着一个长角的身影。"
+  "es": "Seis piedras en hexágono, alrededor de una figura con cuernos. De un lado, una mano con cuentas de monje. Del otro, una mano con un tantō.",
+  "en": "Six stones in a hexagon, around a horned figure. On one side, a hand holding monk's beads. On the other, a hand holding a tantō.",
+  "zh": "六块石头排成六边形，围着一个长角的身影。一边是一只握着念珠的手。另一边是一只握着短刀的手。"
  },
  "story.s9.pre.5": {
   "es": "Ese es el símbolo del Templo…",
@@ -3285,29 +3285,29 @@
   "zh": "那是寺院的标志……"
  },
  "story.s9.post.1": {
-  "es": "Fui monje, ¿sabés?",
-  "en": "I was a monk, you know.",
-  "zh": "我以前也是和尚，你知道吗。"
+  "es": "No rodeás como Hōshin. Rodeás como alguien que espera.",
+  "en": "You don't surround like Hōshin. You surround like someone who waits.",
+  "zh": "你包围的方式不像法真。你包围得像一个在等待的人。"
  },
  "story.s9.post.2": {
-  "es": "Me echaron por preguntar qué dice el Pergamino de Jade.",
-  "en": "They threw me out for asking what the Jade Scroll says.",
-  "zh": "他们把我赶出来，只因为我问翡翠卷轴上写着什么。"
+  "es": "Fui monje, ¿sabés? Me echaron por preguntar qué dice el Pergamino de Jade.",
+  "en": "I was a monk, you know. They threw me out for asking what the Jade Scroll says.",
+  "zh": "我当过和尚，知道吗？他们把我赶出来，因为我问了翡翠卷轴上写着什么。"
  },
  "story.s10.pre.0": {
   "es": "El bosque, de noche.",
   "en": "The forest, at night.",
-  "zh": "夜晚的树林。"
+  "zh": "夜晚的森林。"
  },
  "story.s10.pre.2": {
-  "es": "Te siguieron desde el santuario. Son muchos.",
-  "en": "They followed you from the shrine. There are many.",
-  "zh": "他们从神社一路跟着你。人很多。"
+  "es": "Jubei hizo un fuego y no habló en horas. Ahora lo mira a Ren como si buscara algo en su cara.",
+  "en": "Jubei lit a fire and hasn't spoken in hours. Now he looks at Ren as if searching for something in his face.",
+  "zh": "十兵卫生了火，几个时辰没说话。现在他看着仁，像在他脸上寻找什么。"
  },
  "story.s10.pre.3": {
-  "es": "¿Cuántos?",
-  "en": "How many?",
-  "zh": "多少？"
+  "es": "¿Hōshin te trató bien?",
+  "en": "Did Hōshin treat you well?",
+  "zh": "法真待你好吗？"
  },
  "story.s10.post.1": {
   "es": "Un shinobi caído suelta algo al huir: un pergamino pequeño, atado con hilo rojo.",
@@ -3320,24 +3320,24 @@
   "zh": "山谷。浓雾。"
  },
  "story.s11.pre.2": {
-  "es": "En la niebla nada se queda quieto. Ren perdió a Jubei hace una hora.",
-  "en": "Nothing stays still in the fog. Ren lost Jubei an hour ago.",
-  "zh": "雾里没有什么是静止的。一个时辰前，仁就跟丢了十兵卫。"
+  "es": "En la niebla nada se queda quieto. Ren camina hacia el santuario sin saber si va bien.",
+  "en": "Nothing stays still in the fog. Ren walks toward the shrine without knowing if he's on the right path.",
+  "zh": "雾里没有什么是静止的。仁朝神社走去，不知道自己有没有走对。"
  },
  "story.s11.pre.3": {
-  "es": "¿Jubei? ¡Jubei!",
-  "en": "Jubei? Jubei!",
-  "zh": "十兵卫？十兵卫！"
+  "es": "Natsu. ¿Quién es Natsu?",
+  "en": "Natsu. Who is Natsu?",
+  "zh": "夏。夏是谁？"
  },
  "story.s11.post.0": {
   "es": "La salida del valle.",
-  "en": "The edge of the valley.",
-  "zh": "山谷的出口。"
+  "en": "The valley's edge.",
+  "zh": "山谷出口。"
  },
  "story.s11.post.2": {
-  "es": "Mañana vas a conocer a alguien que hace tus mismas preguntas.",
-  "en": "Tomorrow you will meet someone who asks your same questions.",
-  "zh": "明天你会遇见一个和你问同样问题的人。"
+  "es": "Mañana, en el santuario, vas a conocer a alguien que hace tus mismas preguntas.",
+  "en": "Tomorrow, at the shrine, you'll meet someone who asks the same questions you do.",
+  "zh": "明天，在神社，你会遇见一个和你问着同样问题的人。"
  },
  "story.s12.pre.0": {
   "es": "El santuario, al amanecer.",
@@ -3347,7 +3347,7 @@
  "story.s12.pre.2": {
   "es": "Dos sombras en el mismo claro. Ninguna se mueve primero.",
   "en": "Two shadows in the same clearing. Neither moves first.",
-  "zh": "同一片空地上，两道身影。谁也没有先动。"
+  "zh": "同一片空地上，两道身影。谁都没有先动。"
  },
  "story.s12.pre.3": {
   "es": "Un monje. Solo. En mi bosque.",
@@ -3355,14 +3355,14 @@
   "zh": "一个和尚。独自一人。在我的林子里。"
  },
  "story.s12.pre.4": {
-  "es": "No es tu bosque.",
-  "en": "It's not your forest.",
-  "zh": "这不是你的林子。"
+  "es": "No es tu bosque. Y no vine solo: me mandó una zorra.",
+  "en": "It's not your forest. And I didn't come alone: a fox sent me.",
+  "zh": "这不是你的林子。我也不是一个人来的：是一只狐狸叫我来的。"
  },
  "story.s12.pre.5": {
-  "es": "…",
-  "en": "…",
-  "zh": "……"
+  "es": "…A mí también.",
+  "en": "…Me too.",
+  "zh": "……我也是。"
  },
  "story.s12.post.0": {
   "es": "Ganaste. Esta vez.",
@@ -3370,19 +3370,14 @@
   "zh": "你赢了。这一次。"
  },
  "story.s12.post.1": {
-  "es": "El tuyo dijo que venían a advertir. ¿De qué?",
-  "en": "Your friend said they came to warn us. About what?",
-  "zh": "你们的人说是来警告的。警告什么？"
+  "es": "Igual te la voy a mostrar. Quiero ver qué cara ponés.",
+  "en": "I'll show it to you anyway. I want to see the look on your face.",
+  "zh": "我还是会给你看。我想看看你是什么表情。"
  },
  "story.s12.post.2": {
-  "es": "No sé. Mi Shogun tampoco.",
-  "en": "I don't know. Neither does my Shogun.",
-  "zh": "我不知道。我的将军也不知道。"
- },
- "story.s12.post.3": {
-  "es": "Pero preguntale a tu Abad **qué hay debajo del Templo**.",
-  "en": "But ask your Abbot **what lies beneath the Temple**.",
-  "zh": "但去问问你的方丈，**寺院底下有什么**。"
+  "es": "Ren abre la manta sobre la piedra del santuario.",
+  "en": "Ren opens the blanket on the shrine's stone.",
+  "zh": "仁把毯子摊在神社的石头上。"
  },
  "story.s13.pre.0": {
   "es": "El Templo. Ren vuelve después de una semana.",
@@ -3840,29 +3835,29 @@
   "zh": "因为有比这场战争更大的东西要来了。我们之间流的血越少越好。"
  },
  "story.n7.pre.0": {
-  "es": "La pagoda.",
-  "en": "The pagoda.",
-  "zh": "宝塔。"
+  "es": "La pagoda. Ese mismo día.",
+  "en": "The pagoda. That same day.",
+  "zh": "宝塔。同一天。"
  },
  "story.n7.pre.2": {
-  "es": "Mi señor, la puerta de la cripta late.",
-  "en": "My lord, the crypt door beats.",
-  "zh": "主上，地穴的门在跳动。"
+  "es": "En la sala del Shogun, tres ninjas esperan de rodillas desde el alba. Son los que emboscaron al discípulo del Abad sin permiso.",
+  "en": "In the Shogun's hall, three ninjas have been kneeling since dawn. They're the ones who ambushed the Abbot's disciple without permission.",
+  "zh": "将军的大殿里，三个忍者从天亮起就一直跪着。正是他们擅自伏击了方丈的弟子。"
  },
  "story.n7.pre.3": {
-  "es": "Hay algo vivo debajo del Templo.",
-  "en": "There is something alive beneath the Temple.",
-  "zh": "寺院底下有活的东西。"
+  "es": "Desobedecieron. Pusieron en peligro al chico que les ordené no tocar.",
+  "en": "You disobeyed. You endangered the boy I ordered you not to touch.",
+  "zh": "你们违抗了命令。让我下令不准碰的那个孩子陷入危险。"
  },
  "story.n7.pre.4": {
-  "es": "Supersticiones de monjes.",
-  "en": "Monks' superstitions.",
-  "zh": "和尚的迷信罢了。"
+  "es": "Mi señor, solo queríamos traer a Sora de vuelta…",
+  "en": "My lord, we only wanted to bring Sora back…",
+  "zh": "主上，我们只是想把空带回来……"
  },
  "story.n7.post.0": {
   "es": "Peleás con rabia.",
-  "en": "You fight with anger.",
-  "zh": "你打得很愤怒。"
+  "en": "You fight angry.",
+  "zh": "你打得很冲。"
  },
  "story.n7.post.1": {
   "es": "Peleo con preguntas.",
@@ -3870,79 +3865,79 @@
   "zh": "我是带着疑问在打。"
  },
  "story.n8.pre.0": {
-  "es": "El jardín zen del Templo.",
-  "en": "The Temple's zen garden.",
-  "zh": "寺院的枯山水庭园。"
+  "es": "La noche siguiente. La torre de la pagoda.",
+  "en": "The next night. The pagoda tower.",
+  "zh": "第二天夜里。宝塔的塔楼。"
  },
  "story.n8.post.1": {
-  "es": "En el centro del jardín, seis piedras forman un hexágono.",
-  "en": "In the center of the garden, six stones form a hexagon.",
-  "zh": "庭园中央，六块石头围成一个六边形。"
+  "es": "En el centro del jardín, seis piedras forman un hexágono alrededor de una séptima, más chica.",
+  "en": "In the center of the garden, six stones form a hexagon around a seventh, smaller one.",
+  "zh": "庭院中央，六块石头排成六边形，围着第七块更小的石头。"
  },
  "story.n9.pre.0": {
   "es": "El paso del jardín.",
   "en": "The garden pass.",
-  "zh": "庭园的通道。"
+  "zh": "庭院的通道。"
  },
  "story.n9.post.1": {
+  "es": "Aya escapa entre los Tigres. Afuera del jardín la espera la niebla. Y en la niebla, algo blanco.",
+  "en": "Aya escapes between the Tigers. Outside the garden, the fog awaits her. And in the fog, something white.",
+  "zh": "绫从石虎之间逃了出去。庭院外，雾在等着她。雾中，有个白色的东西。"
+ },
+ "story.n9.post.2": {
   "es": "Seis piedras, dos manos.",
   "en": "Six stones, two hands.",
   "zh": "六块石头，两只手。"
  },
- "story.n9.post.2": {
-  "es": "¿Recordás la canción, kunoichi?",
-  "en": "Do you remember the song, kunoichi?",
-  "zh": "你还记得那首歌吗，女忍？"
- },
  "story.n10.pre.0": {
-  "es": "Un camino de montaña.",
-  "en": "A mountain road.",
-  "zh": "一条山路。"
+  "es": "A la mañana. Un camino de montaña.",
+  "en": "Morning. A mountain road.",
+  "zh": "早晨。一条山路。"
  },
  "story.n10.pre.2": {
-  "es": "Una ninja que mira piedras viejas. Raro.",
-  "en": "A ninja who looks at old stones. Strange.",
-  "zh": "一个盯着老石头看的忍者。真稀奇。"
+  "es": "Un ronin baja por el camino con un cuenco atado al cinto. Tiene una cicatriz en la ceja.",
+  "en": "A ronin comes down the road with a bowl tied to his belt. He has a scar on his eyebrow.",
+  "zh": "一个浪人沿山路走下来，腰间系着一只碗。他眉上有一道疤。"
  },
  "story.n10.pre.3": {
-  "es": "¿Las conocés?",
-  "en": "You know them?",
-  "zh": "你认识它们？"
+  "es": "Una ninja sentada en mi camino. Mala señal.",
+  "en": "A ninja sitting in my path. Bad sign.",
+  "zh": "一个女忍坐在我路上。不是好兆头。"
  },
  "story.n10.post.0": {
-  "es": "Tu clan dice que el Pergamino es suyo. No miente.",
-  "en": "Your clan says the Scroll is theirs. They're not lying.",
-  "zh": "你们一族说卷轴是他们的。他们没说谎。"
+  "es": "Rodeás como ella. Primero esperás. Después cerrás sin piedad.",
+  "en": "You surround like her. First you wait. Then you close without mercy.",
+  "zh": "你包围的方式和她一样。先等待。再毫不留情地合拢。"
  },
  "story.n10.post.1": {
-  "es": "Pero tampoco recuerda **por qué**.",
-  "en": "But they don't remember **why** either.",
-  "zh": "但他们也不记得**为什么**。"
+  "es": "Tu clan dice que el Pergamino es suyo. No miente.",
+  "en": "Your clan says the Scroll is theirs. They're not lying.",
+  "zh": "你们一族说卷轴是你们的。没有说谎。"
  },
  "story.n10.post.2": {
-  "es": "Preguntale a tu Shogun qué dice el Pergamino.",
-  "en": "Ask your Shogun what the Scroll says.",
-  "zh": "去问你的将军，卷轴上写着什么。"
+  "es": "El Pergamino es un pacto. Lo firmaron un monje y una ninja hace trescientos años. Daishin y Kagerō.",
+  "en": "The Scroll is a pact. A monk and a ninja signed it three hundred years ago. Daishin and Kagerō.",
+  "zh": "卷轴是一份盟约。三百年前由一个和尚和一个忍者签下。大心与阳炎。"
  },
  "story.n10.post.3": {
-  "es": "Ya le pregunté. No sabe.",
-  "en": "I already asked. He doesn't know.",
-  "zh": "我问过了。他不知道。"
+  "es": "¿Un pacto para qué?",
+  "en": "A pact for what?",
+  "zh": "什么样的盟约？"
  },
  "story.n11.pre.0": {
-  "es": "El bosque, de noche.",
-  "en": "The forest, at night.",
-  "zh": "夜晚的树林。"
+  "es": "Al día siguiente, de noche. El bosque.",
+  "en": "The next day, at night. The forest.",
+  "zh": "第二天夜里。森林。"
  },
  "story.n11.pre.1": {
-  "es": "Bombas de humo por todas partes. Que ningún monje sepa dónde estás.",
-  "en": "Smoke bombs everywhere. Don't let any monk know where you are.",
-  "zh": "烟雾弹四起。别让任何僧人知道你在哪。"
+  "es": "Aya sigue el rastro de Jubei hacia el este. Pero el bosque está lleno de monjes con antorchas.",
+  "en": "Aya follows Jubei's trail east. But the forest is full of monks with torches.",
+  "zh": "绫沿着十兵卫的踪迹往东追。可林子里到处是举着火把的和尚。"
  },
  "story.n11.post.1": {
-  "es": "Zorra… ¿quién sos?",
-  "en": "Fox… who are you?",
-  "zh": "狐狸……你是谁？"
+  "es": "Los monjes se pierden en el humo. Gon grita órdenes a nadie.",
+  "en": "The monks get lost in the smoke. Gon shouts orders at no one.",
+  "zh": "和尚们在烟雾中迷失了方向。刚对着空气发号施令。"
  },
  "story.n12.pre.0": {
   "es": "El santuario, al amanecer.",
@@ -3952,7 +3947,7 @@
  "story.n12.pre.2": {
   "es": "Dos sombras en el mismo claro. Ninguna se mueve primero.",
   "en": "Two shadows in the same clearing. Neither moves first.",
-  "zh": "同一片空地上，两道身影。谁也没有先动。"
+  "zh": "同一片空地上，两道身影。谁都没有先动。"
  },
  "story.n12.pre.3": {
   "es": "Un monje. Solo. En mi bosque.",
@@ -3960,14 +3955,14 @@
   "zh": "一个和尚。独自一人。在我的林子里。"
  },
  "story.n12.pre.4": {
-  "es": "No es tu bosque.",
-  "en": "It's not your forest.",
-  "zh": "这不是你的林子。"
+  "es": "No es tu bosque. Y no vine solo: me mandó una zorra.",
+  "en": "It's not your forest. And I didn't come alone: a fox sent me.",
+  "zh": "这不是你的林子。我也不是一个人来的：是一只狐狸叫我来的。"
  },
  "story.n12.pre.5": {
-  "es": "…",
-  "en": "…",
-  "zh": "……"
+  "es": "…A mí también.",
+  "en": "…Me too.",
+  "zh": "……我也是。"
  },
  "story.n12.post.0": {
   "es": "Ganaste. Esta vez.",
@@ -3975,24 +3970,19 @@
   "zh": "你赢了。这一次。"
  },
  "story.n12.post.1": {
-  "es": "Tu compañero dijo que venían a advertir. ¿De qué?",
-  "en": "Your comrade said you came to warn us. About what?",
-  "zh": "你的同伴说你们是来警告的。警告什么？"
+  "es": "La manta. Prometiste.",
+  "en": "The blanket. You promised.",
+  "zh": "毯子。你答应过的。"
  },
  "story.n12.post.2": {
-  "es": "No sé. Mi Shogun tampoco.",
-  "en": "I don't know. Neither does my Shogun.",
-  "zh": "我不知道。我的将军也不知道。"
- },
- "story.n12.post.3": {
-  "es": "Pero preguntale a tu Abad **qué hay debajo del Templo**.",
-  "en": "But ask your Abbot **what lies beneath the Temple**.",
-  "zh": "但去问问你的方丈，**寺院底下有什么**。"
+  "es": "Ren abre la manta sobre la piedra del santuario.",
+  "en": "Ren opens the blanket on the shrine's stone.",
+  "zh": "仁把毯子摊在神社的石头上。"
  },
  "story.n12.post.4": {
-  "es": "Mi maestro nunca miente.",
-  "en": "My master never lies.",
-  "zh": "我师父从不说谎。"
+  "es": "Seis puntos alrededor de uno, en hilo gris.",
+  "en": "Six dots around one, in grey thread.",
+  "zh": "六个点围着一个点，灰线绣的。"
  },
  "story.n13.pre.0": {
   "es": "Noche. El Templo, por dentro.",
@@ -5570,134 +5560,129 @@
   "zh": "隆隆……"
  },
  "story.s7.pre.5": {
+  "es": "Si nadie en el Templo me contesta, voy a buscar a alguien de afuera.",
+  "en": "If no one in the Temple will answer me, I'll find someone outside who will.",
+  "zh": "既然寺里没人肯回答我，我就去外面找人问。"
+ },
+ "story.s7.pre.6": {
   "es": "¿Saliendo a escondidas, chico? *hip*",
   "en": "Sneaking out, kid? *hic*",
   "zh": "偷偷溜出去啊，小子？*嗝*"
  },
- "story.s7.pre.6": {
-  "es": "¡Maestro Tao! No le diga a nadie.",
-  "en": "Master Tao! Don't tell anyone.",
-  "zh": "陶师父！别告诉任何人。"
- },
  "story.s7.pre.7": {
-  "es": "¿Yo? Yo no vi nada. Nunca veo nada. *hip*",
-  "en": "Me? I didn't see a thing. I never see anything. *hic*",
-  "zh": "我？我什么也没看见。我从来什么都看不见。*嗝*"
+  "es": "¡Maestro Tao!",
+  "en": "Master Tao!",
+  "zh": "陶师父！"
  },
  "story.s7.pre.8": {
-  "es": "Te acompaño.",
-  "en": "I'll come with you.",
-  "zh": "我陪你去。"
+  "es": "Yo no vi nada. Nunca veo nada. Es mi mayor talento. *hip*",
+  "en": "I didn't see a thing. I never see a thing. It's my greatest talent. *hic*",
+  "zh": "我什么都没看见。我从来什么都看不见。这是我最大的本事。*嗝*"
  },
  "story.s7.post.3": {
-  "es": "Van al este. Al viejo santuario.",
-  "en": "They head east. To the old shrine.",
+  "es": "Van al este. Al santuario viejo.",
+  "en": "They're heading east. To the old shrine.",
   "zh": "往东去了。去老神社。"
  },
  "story.s7.post.4": {
-  "es": "¿Usted sabe algo?",
-  "en": "Do you know something?",
-  "zh": "您知道些什么吗？"
+  "es": "¿Hay un santuario al este? Nunca lo oí nombrar.",
+  "en": "There's a shrine to the east? I've never heard of it.",
+  "zh": "东边有神社？我从没听说过。"
  },
  "story.s7.post.5": {
-  "es": "Sé tomar.",
-  "en": "I know how to drink.",
-  "zh": "我知道怎么喝酒。"
+  "es": "Porque al Templo no le gusta nombrarlo. Ahí hay piedras que cuentan lo que el Templo calla.",
+  "en": "Because the Temple doesn't like to name it. There are stones there that tell what the Temple keeps quiet.",
+  "zh": "因为寺里不愿提它。那里有些石头，会说出寺院不肯说的事。"
  },
  "story.s7.post.6": {
-  "es": "Lo demás lo olvidé. *hip*",
-  "en": "The rest I forgot. *hic*",
-  "zh": "别的都忘了。*嗝*"
+  "es": "¿Usted las vio?",
+  "en": "Have you seen them?",
+  "zh": "您见过吗？"
  },
  "story.s7.post.7": {
-  "es": "Para alguien que olvidó todo, lee muy bien las huellas.",
-  "en": "For someone who forgot everything, he reads tracks very well.",
-  "zh": "一个什么都忘了的人，看脚印倒是看得很准。"
+  "es": "Yo veo poco. Tomo mucho. *hip*",
+  "en": "I see little. I drink a lot. *hic*",
+  "zh": "我见得少。喝得多。*嗝*"
  },
  "story.s8.pre.4": {
-  "es": "La batalla va a ser larga, y no hay por dónde retirarse.",
-  "en": "It will be a long battle, with nowhere to retreat.",
-  "zh": "这一战会很漫长，而且无路可退。"
- },
- "story.s8.pre.5": {
   "es": "Maestro, ¿me ayuda?",
   "en": "Master, will you help me?",
   "zh": "师父，您能帮我吗？"
  },
+ "story.s8.pre.5": {
+  "es": "Yo de acá no paso. Este río es mi frontera.",
+  "en": "I don't go past here. This river is my border.",
+  "zh": "我不过这儿。这条河是我的边界。"
+ },
  "story.s8.pre.6": {
-  "es": "Yo te espero de este lado. Tengo… cosas que hacer. *hip*",
-  "en": "I'll wait for you on this side. I have… things to do. *hic*",
-  "zh": "我在这边等你。我还有……事要办。*嗝*"
+  "es": "¿La de quién?",
+  "en": "Whose border?",
+  "zh": "谁的边界？"
  },
  "story.s8.post.3": {
-  "es": "Del otro lado del río, Tao levanta la calabaza en un brindis.",
-  "en": "On the other side of the river, Tao raises his gourd in a toast.",
-  "zh": "河的另一边，陶举起酒葫芦遥遥一敬。"
+  "es": "Pasaste. Ahora el Shogun me va a dar otro mes.",
+  "en": "You made it. Now the Shogun's going to give me another month.",
+  "zh": "你过来了。这下将军又要罚我一个月了。"
  },
  "story.s8.post.4": {
-  "es": "¡Nunca dudé!",
-  "en": "I never doubted you!",
-  "zh": "我从没怀疑过你！"
+  "es": "¿Por qué tu Shogun me cuida? Decímelo y te dejo tranquila.",
+  "en": "Why does your Shogun protect me? Tell me and I'll leave you alone.",
+  "zh": "你们将军为什么护着我？告诉我，我就放过你。"
  },
  "story.s8.post.5": {
-  "es": "Bueno. Un poco.",
-  "en": "Well. A little.",
-  "zh": "好吧。有一点点。"
+  "es": "Porque sos una deuda.",
+  "en": "Because you're a debt.",
+  "zh": "因为你是一笔债。"
  },
  "story.s9.pre.6": {
-  "es": "…y ese es el del clan. ¿Juntos?",
-  "en": "…and that's the clan's. Together?",
-  "zh": "……那是忍者一族的。在一起？"
- },
- "story.s9.pre.8": {
-  "es": "Nadie mira esas piedras hace siglos. ¿Qué hace un monje acá?",
-  "en": "No one has looked at those stones in centuries. What's a monk doing here?",
-  "zh": "几百年没人看过这些石头了。一个和尚来这里做什么？"
+  "es": "…y ese es el del clan. Las dos manos cierran el mismo círculo.",
+  "en": "…and that's the clan's. Both hands close the same circle.",
+  "zh": "……那是一族的。两只手合成同一个圆。"
  },
  "story.s9.pre.9": {
-  "es": "¿Y vos quién sos?",
-  "en": "And who are you?",
-  "zh": "你又是谁？"
+  "es": "Nadie mira esas piedras hace siglos. ¿Qué hace un monje acá?",
+  "en": "No one's looked at those stones in centuries. What's a monk doing here?",
+  "zh": "几百年没人看过这些石头了。一个和尚来这儿干什么？"
  },
  "story.s9.pre.10": {
-  "es": "Uno que preguntó lo mismo que vos.",
-  "en": "Someone who asked the same thing you did.",
-  "zh": "一个和你问过同样问题的人。"
+  "es": "Busco a alguien que me diga la verdad.",
+  "en": "I'm looking for someone who'll tell me the truth.",
+  "zh": "我在找一个肯跟我说实话的人。"
  },
  "story.s9.pre.11": {
-  "es": "Mostrame cómo peleás y te contesto.",
-  "en": "Show me how you fight and I'll answer.",
-  "zh": "让我看看你怎么打，我就回答你。"
+  "es": "Mal lugar. Acá solo hay piedras y un ronin que perdió las ganas de hablar.",
+  "en": "Wrong place. There's nothing here but stones and a ronin who's lost the will to talk.",
+  "zh": "找错地方了。这里只有石头，和一个懒得开口的浪人。"
  },
  "story.s9.post.3": {
-  "es": "El Pergamino es sagrado. Solo el Abad lo lee.",
-  "en": "The Scroll is sacred. Only the Abbot reads it.",
-  "zh": "卷轴是神圣的。只有方丈能读。"
+  "es": "Tao dijo que te echaron la noche en que yo llegué.",
+  "en": "Tao said they threw you out the night I arrived.",
+  "zh": "陶说，他们赶走你的那一夜，正是我来的那一夜。"
  },
  "story.s9.post.5": {
-  "es": "Exacto.",
-  "en": "Exactly.",
-  "zh": "没错。"
+  "es": "Me dejaron en el escalón del Templo, envuelto en esto.",
+  "en": "They left me on the Temple step, wrapped in this.",
+  "zh": "他们把我放在寺院的台阶上，就裹着这个。"
  },
  "story.s9.post.6": {
-  "es": "¿Y nunca te preguntaste por qué?",
-  "en": "And you never wondered why?",
-  "zh": "你就从没想过为什么？"
+  "es": "Ren desata el atado y abre la manta sobre la piedra.",
+  "en": "Ren unties the bundle and opens the blanket on the stone.",
+  "zh": "仁解开包袱，把毯子摊在石头上。"
  },
  "story.s10.pre.5": {
-  "es": "Entre los bambúes, una sombra. Dos. Cuatro.",
-  "en": "Among the bamboo, a shadow. Two. Four.",
-  "zh": "竹林间，一道影子。两道。四道。"
+  "es": "…Bien. Eso es bueno.",
+  "en": "…Good. That's good.",
+  "zh": "……好。那就好。"
  },
  "story.s10.pre.6": {
-  "es": "Los Shinobi se meten por cualquier rendija.",
-  "en": "Shinobi slip through any gap.",
-  "zh": "忍者会从任何缝隙钻进来。"
+  "es": "Siempre fue mejor maestro que persona.",
+  "en": "He was always a better teacher than a man.",
+  "zh": "他当师父，一向比做人强。"
  },
  "story.s10.pre.7": {
-  "es": "Entonces no dejes rendijas.",
-  "en": "Then leave no gaps.",
-  "zh": "那就别留缝隙。"
+  "es": "¿Por qué te importa tanto cómo me trató?",
+  "en": "Why do you care so much how he treated me?",
+  "zh": "你为什么这么在意他怎么待我？"
  },
  "story.s10.post.2": {
   "es": "Tiene el sello del Shogun.",
@@ -5707,82 +5692,77 @@
  "story.s10.post.3": {
   "es": "Leelo.",
   "en": "Read it.",
-  "zh": "读读看。"
+  "zh": "念。"
  },
  "story.s10.post.4": {
-  "es": "*(leyendo)* «Traigan el Pergamino de Jade antes de la luna nueva.»",
-  "en": "*(reading)* \"Bring the Jade Scroll before the new moon.\"",
-  "zh": "*（读着）*“新月之前，带回翡翠卷轴。”"
+  "es": "*(leyendo)* «Traigan el Pergamino de Jade antes de la luna nueva. Si cae ceniza, ya no hay tiempo de pedirlo.»",
+  "en": "*(reading)* “Bring the Jade Scroll before the new moon. If ash falls, there is no more time to ask for it.”",
+  "zh": "*（读着）*「新月之前，带回翡翠卷轴。若落下灰烬，便再无时间去讨。」"
  },
  "story.s10.post.5": {
   "es": "La luna nueva es en diez días.",
   "en": "The new moon is in ten days.",
-  "zh": "新月就在十天后。"
- },
- "story.s11.pre.5": {
-  "es": "Seguime, pequeño monje.",
-  "en": "Follow me, little monk.",
-  "zh": "跟我来，小和尚。"
+  "zh": "离新月还有十天。"
  },
  "story.s11.pre.6": {
-  "es": "¡Vos! ¿Qué sos?",
-  "en": "You! What are you?",
-  "zh": "是你！你是什么？"
+  "es": "Si seguís por ahí, caés al río, pequeño monje.",
+  "en": "Keep going that way and you'll fall in the river, little monk.",
+  "zh": "再往那边走，你就掉进河里了，小和尚。"
  },
  "story.s11.pre.7": {
-  "es": "La que recuerda.",
-  "en": "The one who remembers.",
-  "zh": "记得一切的那一个。"
+  "es": "¡Vos! La de la celda.",
+  "en": "You! The one from the cell.",
+  "zh": "是你！牢房里那个。"
  },
  "story.s11.pre.8": {
-  "es": "Seguime y no te pierdas.",
-  "en": "Follow me, and don't get lost.",
-  "zh": "跟着我，别迷路。"
+  "es": "La de la celda, la del muro, la del bosque. Siempre la misma. Pocos me miran dos veces.",
+  "en": "The one from the cell, the wall, the forest. Always the same one. Few look at me twice.",
+  "zh": "牢房里那个，墙上那个，林子里那个。一直都是同一个。很少有人会多看我一眼。"
  },
  "story.s11.post.3": {
-  "es": "¿Quién?",
-  "en": "Who?",
-  "zh": "谁？"
+  "es": "¿El ronin? Dijo que me esperaba ahí.",
+  "en": "The ronin? He said he'd wait for me there.",
+  "zh": "那个浪人？他说会在那里等我。"
  },
  "story.s11.post.4": {
-  "es": "Alguien del otro lado.",
-  "en": "Someone from the other side.",
-  "zh": "另一边的人。"
+  "es": "El ronin fue a buscar a un viejo que no quiere ser encontrado.",
+  "en": "The ronin went looking for an old man who doesn't want to be found.",
+  "zh": "浪人去找一个不想被找到的老人了。"
  },
  "story.s11.post.6": {
-  "es": "Del otro lado… ¿del valle? ¿O de la guerra?",
-  "en": "The other side… of the valley? Or of the war?",
-  "zh": "另一边……山谷的另一边？还是战争的另一边？"
+  "es": "¿Del otro lado del valle?",
+  "en": "The other side of the valley?",
+  "zh": "山谷的另一边？"
  },
  "story.s12.pre.6": {
-  "es": "¿Vos también la ves? A la zorra blanca.",
-  "en": "You see her too? The white fox.",
-  "zh": "你也看得见她？那只白狐。"
+  "es": "Sos la del abanico. La que le ganó a Gon en la escalera y le pidió perdón.",
+  "en": "You're the one with the fan. The one who beat Gon on the stairs and apologized.",
+  "zh": "你是拿扇子的那个。在石阶上打败刚、还向他道歉的那个。"
  },
  "story.s12.pre.7": {
-  "es": "*(sorprendido)* Sí.",
-  "en": "*(surprised)* Yes.",
-  "zh": "*（惊讶）*看得见。"
+  "es": "Y vos sos el que le llevó arroz a mi hermano.",
+  "en": "And you're the one who brought my brother rice.",
+  "zh": "你是给我哥哥送饭的那个。"
  },
  "story.s12.pre.8": {
-  "es": "Entonces sabés que algo anda mal.",
-  "en": "Then you know something is wrong.",
-  "zh": "那你就知道有什么不对劲了。"
+  "es": "¿Sora es tu hermano? Me dijo que tenía una hermana que preguntaba demasiado.",
+  "en": "Sora's your brother? He said he had a sister who asked too many questions.",
+  "zh": "空是你哥哥？他说他有个妹妹，问题特别多。"
  },
  "story.s12.pre.9": {
-  "es": "Igual te voy a ganar.",
-  "en": "I'll still beat you.",
-  "zh": "不过我还是会赢你。"
+  "es": "Y él dijo que el arroz tenía tierra. Y que fue lo más rico que comió en una semana.",
+  "en": "And he said the rice had dirt in it. And that it was the best thing he'd eaten all week.",
+  "zh": "他还说那饭里有土。说那是他一个星期里吃过最香的东西。"
  },
  "story.s12.post.5": {
-  "es": "Una bomba de humo. Aya ya no está.",
-  "en": "A smoke bomb. Aya is gone.",
-  "zh": "一颗烟雾弹。绫已经不见了。"
+  "es": "…",
+  "en": "…",
+  "zh": "……"
  },
  "story.s12.post.7": {
-  "es": "Debajo del Templo. Otra vez.",
-  "en": "Beneath the Temple. Again.",
-  "zh": "寺院底下。又是这个。"
+  "es": "¿De dónde?",
+  "en": "From where?",
+  "zh": "在哪儿见过？"
  },
  "story.s13.pre.4": {
   "es": "Afuera. Aprendiendo cosas.",
@@ -6140,69 +6120,64 @@
   "zh": "远处，寺院上空，升起一道灰烬之柱。"
  },
  "story.n7.pre.5": {
-  "es": "La toqué yo.",
-  "en": "I touched it myself.",
-  "zh": "是我亲手摸到的。"
+  "es": "Sora volvió solo. Ustedes volvieron sin honor.",
+  "en": "Sora came back on his own. You came back without honor.",
+  "zh": "空自己回来了。你们回来时，却丢了荣誉。"
  },
  "story.n7.pre.6": {
-  "es": "…",
-  "en": "…",
-  "zh": "……"
- },
- "story.n7.pre.7": {
-  "es": "Kuro. Entrenala. Está distraída.",
-  "en": "Kuro. Train her. She is distracted.",
-  "zh": "黑。训练她。她心不在焉。"
+  "es": "Un mes en el puente del río. Comiendo lo que pesquen.",
+  "en": "A month on the river bridge. Eating whatever you catch.",
+  "zh": "去河上的桥守一个月。抓到什么吃什么。"
  },
  "story.n7.pre.8": {
-  "es": "Sí, mi señor.",
-  "en": "Yes, my lord.",
-  "zh": "是，主上。"
+  "es": "Mi señor. La puerta de la cripta late.",
+  "en": "My lord. The crypt door is beating.",
+  "zh": "主上。地穴的门在跳动。"
  },
  "story.n7.post.3": {
-  "es": "Las preguntas no ganan batallas.",
-  "en": "Questions don't win battles.",
-  "zh": "疑问赢不了战斗。"
+  "es": "Un novicio. En el portón del Templo, al alba. Cubrí la huida de ustedes.",
+  "en": "A novice. At the Temple gate, at dawn. I was covering your escape.",
+  "zh": "一个小沙弥。天亮时，在寺院门口。我在掩护你们撤退。"
  },
  "story.n7.post.4": {
-  "es": "Todavía.",
-  "en": "Not yet.",
-  "zh": "还没有而已。"
+  "es": "¿Un novicio te ganó a vos?",
+  "en": "A novice beat you?",
+  "zh": "一个小沙弥打赢了你？"
  },
  "story.n8.pre.2": {
-  "es": "Arena rastrillada en círculos perfectos. Nadie la pisa nunca.",
-  "en": "Sand raked into perfect circles. No one ever steps on it.",
-  "zh": "耙成完美圆圈的白沙。从来没人踩过。"
+  "es": "Si te ve el Shogun, nos encierra a los dos.",
+  "en": "If the Shogun sees you, he'll lock us both up.",
+  "zh": "要是被将军看见，我们俩都得关起来。"
  },
  "story.n8.pre.3": {
-  "es": "Hasta hoy.",
-  "en": "Until today.",
-  "zh": "直到今天。"
+  "es": "Entonces hablá rápido. La zorra. ¿Qué te dijo?",
+  "en": "Then talk fast. The fox. What did she tell you?",
+  "zh": "那就快说。狐狸。她跟你说了什么？"
  },
  "story.n8.pre.5": {
-  "es": "Los monjes cerraron el jardín. Hay que abrirse paso antes de que lleguen más.",
-  "en": "The monks have sealed off the garden. Break through before more arrive.",
-  "zh": "和尚们封锁了庭园。得在更多人赶来之前杀出一条路。"
+  "es": "Dijo que ahí está escrito lo que la abuela no se animó a contarnos.",
+  "en": "She said that's where it's written, what Grandma never dared to tell us.",
+  "zh": "她说，奶奶一直不敢告诉我们的事，就写在那里。"
  },
  "story.n8.post.3": {
-  "es": "Una tiene una grieta.",
-  "en": "One of them is cracked.",
-  "zh": "其中一块有一道裂缝。"
+  "es": "Una de las seis tiene una grieta. Fresca, del mismo día en que cayó ceniza.",
+  "en": "One of the six has a crack. Fresh, from the same day the ash fell.",
+  "zh": "六块中有一块裂了。是新裂的，就在落灰那天。"
  },
  "story.n8.post.4": {
-  "es": "Seis piedras…",
-  "en": "Six stones…",
-  "zh": "六块石头……"
+  "es": "Seis piedras alrededor de una. Como la marca de Sora.",
+  "en": "Six stones around one. Like Sora's mark.",
+  "zh": "六块石头围着一块。就像空的印记。"
  },
  "story.n8.post.5": {
-  "es": "Como el tablero.",
-  "en": "Like the board.",
-  "zh": "就像棋盘。"
+  "es": "Como el bordado de la abuela.",
+  "en": "Like Grandma's stitching.",
+  "zh": "就像奶奶的绣花。"
  },
  "story.n9.pre.1": {
-  "es": "Los Tigres de Mármol custodian el paso. Empujan todo lo que encuentran.",
-  "en": "The Marble Tigers guard the way. They push everything in their path.",
-  "zh": "石虎把守通道。挡路的一切都会被推开。"
+  "es": "Por el único paso de salida bajan los Tigres de Mármol, los guardianes del Templo. Empujan todo lo que encuentran.",
+  "en": "Down the only way out come the Marble Tigers, the Temple's guardians. They push everything in their path.",
+  "zh": "唯一的出口上，寺院的守护者石虎正走下来。挡路的一切都会被推开。"
  },
  "story.n9.pre.3": {
   "es": "Grandes, lentos y tercos.",
@@ -6215,69 +6190,69 @@
   "zh": "跟和尚一样。"
  },
  "story.n9.post.3": {
-  "es": "¿Qué canción?",
-  "en": "What song?",
-  "zh": "什么歌？"
+  "es": "¿Recordás la canción, nieta de Kiku?",
+  "en": "Do you remember the song, granddaughter of Kiku?",
+  "zh": "你还记得那首歌吗，菊的孙女？"
  },
  "story.n9.post.5": {
-  "es": "La que tu clan dejó de cantar.",
-  "en": "The one your clan stopped singing.",
-  "zh": "你们一族不再唱的那首。"
+  "es": "La que tu abuela tarareaba mientras rodeaba.",
+  "en": "The one your grandmother hummed while she surrounded.",
+  "zh": "你奶奶包围时哼的那首。"
  },
  "story.n10.pre.4": {
-  "es": "Fui monje. Sé lo que el Templo calla.",
-  "en": "I was a monk. I know what the Temple keeps quiet.",
-  "zh": "我以前是和尚。我知道寺院隐瞒了什么。"
+  "es": "¿Cómo te llamás?",
+  "en": "What's your name?",
+  "zh": "你叫什么名字？"
  },
  "story.n10.pre.5": {
-  "es": "Ganame y te cuento lo que el clan olvidó.",
-  "en": "Beat me and I'll tell you what the clan forgot.",
-  "zh": "赢了我，我就告诉你忍者一族忘了什么。"
+  "es": "Los ronin no tenemos nombre. Por eso somos ronin.",
+  "en": "Ronin have no name. That's why we're ronin.",
+  "zh": "浪人没有名字。所以才叫浪人。"
  },
  "story.n10.post.5": {
-  "es": "Entonces nadie en esta guerra sabe por qué pelea.",
-  "en": "Then no one in this war knows what they're fighting for.",
-  "zh": "那这场战争里，就没有一个人知道自己为何而战。"
+  "es": "Natsu quería lo mismo que vos: saber. Lo supo. Y le costó todo.",
+  "en": "Natsu wanted the same thing you do: to know. She found out. And it cost her everything.",
+  "zh": "夏想要的跟你一样：知道真相。她知道了。也为此付出了一切。"
  },
  "story.n11.pre.3": {
-  "es": "Ahora.",
-  "en": "Now.",
-  "zh": "就是现在。"
+  "es": "El de la escalera. El del brazo vendado. Ya se le está curando.",
+  "en": "The one from the stairs. The one with the bandaged arm. It's already healing.",
+  "zh": "石阶上那个。胳膊缠绷带的那个。伤已经快好了。"
  },
  "story.n11.pre.5": {
-  "es": "Mañana vas a conocer a alguien que hace tus mismas preguntas.",
-  "en": "Tomorrow you will meet someone who asks your same questions.",
-  "zh": "明天你会遇见一个和你问同样问题的人。"
+  "es": "¿Traer a quién?",
+  "en": "Bring who back?",
+  "zh": "把谁带回来？"
  },
  "story.n11.post.3": {
-  "es": "La que recuerda lo que ustedes olvidaron.",
-  "en": "The one who remembers what you all forgot.",
-  "zh": "记得你们所遗忘之事的那一个。"
+  "es": "Mañana, en el santuario, vas a conocer a alguien que hace tus mismas preguntas.",
+  "en": "Tomorrow, at the shrine, you'll meet someone who asks the same questions you do.",
+  "zh": "明天，在神社，你会遇见一个和你问着同样问题的人。"
  },
  "story.n12.pre.6": {
-  "es": "¿Vos también la ves? A la zorra blanca.",
-  "en": "You see her too? The white fox.",
-  "zh": "你也看得见她？那只白狐。"
+  "es": "Sos la del abanico. La que le ganó a Gon en la escalera y le pidió perdón.",
+  "en": "You're the one with the fan. The one who beat Gon on the stairs and apologized.",
+  "zh": "你是拿扇子的那个。在石阶上打败刚、还向他道歉的那个。"
  },
  "story.n12.pre.7": {
-  "es": "*(sorprendido)* Sí.",
-  "en": "*(surprised)* Yes.",
-  "zh": "*（惊讶）*看得见。"
+  "es": "Y vos sos el que le llevó arroz a mi hermano.",
+  "en": "And you're the one who brought my brother rice.",
+  "zh": "你是给我哥哥送饭的那个。"
  },
  "story.n12.pre.8": {
-  "es": "Entonces sabés que algo anda mal.",
-  "en": "Then you know something is wrong.",
-  "zh": "那你就知道有什么不对劲了。"
+  "es": "¿Sora es tu hermano? Me dijo que tenía una hermana que preguntaba demasiado.",
+  "en": "Sora's your brother? He said he had a sister who asked too many questions.",
+  "zh": "空是你哥哥？他说他有个妹妹，问题特别多。"
  },
  "story.n12.pre.9": {
-  "es": "Igual te voy a ganar.",
-  "en": "I'll still beat you.",
-  "zh": "不过我还是会赢你。"
+  "es": "Y él dijo que el arroz tenía tierra. Y que fue lo más rico que comió en una semana.",
+  "en": "And he said the rice had dirt in it. And that it was the best thing he'd eaten all week.",
+  "zh": "他还说那饭里有土。说那是他一个星期里吃过最香的东西。"
  },
  "story.n12.post.6": {
-  "es": "Entonces no te va a costar preguntarle.",
-  "en": "Then it won't be hard to ask him.",
-  "zh": "那问他应该不难吧。"
+  "es": "Ese bordado lo conozco. Puntada por puntada.",
+  "en": "I know that stitching. Every single stitch.",
+  "zh": "这种绣法我认得。每一针都认得。"
  },
  "story.n13.pre.2": {
   "es": "Aya se cuela otra vez.",
@@ -8008,5 +7983,1245 @@
   "es": "Gris. Como la tos de la abuela.",
   "en": "Grey. Like Grandma's cough.",
   "zh": "灰色的。像奶奶的咳嗽。"
+ },
+ "story.s7.pre.4": {
+  "es": "«Preguntale al viejo qué guarda abajo.» Le pregunté. Me gritó.",
+  "en": "“Ask the old man what he keeps down below.” I asked. He shouted at me.",
+  "zh": "「去问那个老头，他在下面藏了什么。」我问了。他冲我吼。"
+ },
+ "story.s7.pre.9": {
+  "es": "¿Le va a decir al Abad?",
+  "en": "Are you going to tell the Abbot?",
+  "zh": "您会告诉方丈吗？"
+ },
+ "story.s7.pre.10": {
+  "es": "¿Al Abad? Hace dieciséis años que el Abad y yo no nos decimos nada importante.",
+  "en": "The Abbot? The Abbot and I haven't said anything important to each other in sixteen years.",
+  "zh": "方丈？我跟方丈已经十六年没说过一句要紧话了。"
+ },
+ "story.s7.pre.11": {
+  "es": "Dieciséis años. Otra vez ese número.",
+  "en": "Sixteen years. That number again.",
+  "zh": "十六年。又是这个数字。"
+ },
+ "story.s7.pre.12": {
+  "es": "¿Qué llevás en ese atado?",
+  "en": "What's in that bundle?",
+  "zh": "你那包袱里装的什么？"
+ },
+ "story.s7.pre.13": {
+  "es": "…Mi manta.",
+  "en": "…My blanket.",
+  "zh": "……我的毯子。"
+ },
+ "story.s7.pre.14": {
+  "es": "Tao deja de sonreír. Por un momento, parece que no tomó nada en toda su vida.",
+  "en": "Tao stops smiling. For a moment, he looks like he's never had a drink in his life.",
+  "zh": "陶的笑容消失了。有那么一刻，他看起来像这辈子滴酒未沾。"
+ },
+ "story.s7.pre.15": {
+  "es": "Guardala bien. Y no se la muestres a cualquiera.",
+  "en": "Keep it safe. And don't show it to just anyone.",
+  "zh": "收好它。别随便给人看。"
+ },
+ "story.s7.pre.16": {
+  "es": "Te acompaño hasta el río. Más allá no.",
+  "en": "I'll walk you as far as the river. No farther.",
+  "zh": "我送你到河边。再远就不行了。"
+ },
+ "story.s7.pre.17": {
+  "es": "¿Por qué no más allá?",
+  "en": "Why no farther?",
+  "zh": "为什么不能再远？"
+ },
+ "story.s7.pre.18": {
+  "es": "Porque estoy viejo. Y porque lo juré. *hip*",
+  "en": "Because I'm old. And because I swore it. *hic*",
+  "zh": "因为我老了。也因为我发过誓。*嗝*"
+ },
+ "story.s7.pre.20": {
+  "es": "Entre los pinos, alguien los mira. Exploradores del clan, vigilando el Templo desde la noche del muro.",
+  "en": "Among the pines, someone is watching them. Clan scouts, spying on the Temple since the night of the wall.",
+  "zh": "松林间，有人在盯着他们。是一族的斥候，自翻墙那夜起就一直在监视寺院。"
+ },
+ "story.s7.pre.21": {
+  "es": "Ah. Tenemos público. Andá, chico. Yo aplaudo.",
+  "en": "Ah. We have an audience. Go on, kid. I'll clap.",
+  "zh": "啊。有观众了。去吧，小子。我来鼓掌。"
+ },
+ "story.s7.post.8": {
+  "es": "Pero la última vez que alguien siguió estas huellas fue hace dieciséis años.",
+  "en": "But the last time someone followed these tracks was sixteen years ago.",
+  "zh": "不过上一次有人追着这些脚印走，是十六年前。"
+ },
+ "story.s7.post.9": {
+  "es": "Un monje joven, el mejor de su generación. Bajó la montaña con preguntas.",
+  "en": "A young monk, the best of his generation. He went down the mountain with questions.",
+  "zh": "一个年轻和尚，同辈里最出色的。他带着疑问下了山。"
+ },
+ "story.s7.post.10": {
+  "es": "¿Y qué le pasó?",
+  "en": "And what happened to him?",
+  "zh": "后来呢？"
+ },
+ "story.s7.post.11": {
+  "es": "Volvió sin el hábito. El Abad lo echó esa misma noche.",
+  "en": "He came back without his robe. The Abbot threw him out that same night.",
+  "zh": "他回来时已经没了僧袍。方丈当晚就把他赶走了。"
+ },
+ "story.s7.post.12": {
+  "es": "La misma noche en que vos llegaste al escalón.",
+  "en": "The same night you showed up on the step.",
+  "zh": "就是你出现在台阶上的那一夜。"
+ },
+ "story.s7.post.13": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.s7.post.14": {
+  "es": "Para alguien que olvidó todo, lee muy bien las huellas. Y las fechas.",
+  "en": "For someone who forgot everything, you read tracks very well. And dates.",
+  "zh": "一个什么都忘了的人，脚印倒是读得很清楚。日子也记得很清楚。"
+ },
+ "story.s8.pre.3": {
+  "es": "Los ninjas bloquean el puente de punta a punta.",
+  "en": "The ninjas block the bridge from end to end.",
+  "zh": "忍者们把桥从头到尾堵死了。"
+ },
+ "story.s8.pre.7": {
+  "es": "La mía y la del Abad. La juramos juntos, una noche en que llovía gris.",
+  "en": "Mine and the Abbot's. We swore it together, one night when the rain fell grey.",
+  "zh": "我的，也是方丈的。那晚下着灰雨，我们一起发的誓。"
+ },
+ "story.s8.pre.8": {
+  "es": "Él juró no hablar nunca más de esa noche. Yo juré no cruzar este puente nunca más.",
+  "en": "He swore never to speak of that night again. I swore never to cross this bridge again.",
+  "zh": "他发誓再也不提那一夜。我发誓再也不过这座桥。"
+ },
+ "story.s8.pre.9": {
+  "es": "Él cumplió. Yo también. Y mirá cómo nos fue. *hip*",
+  "en": "He kept his word. So did I. And look how well it turned out. *hic*",
+  "zh": "他守住了。我也守住了。瞧瞧我们落得什么下场。*嗝*"
+ },
+ "story.s8.pre.11": {
+  "es": "…No puede ser.",
+  "en": "…It can't be.",
+  "zh": "……不会吧。"
+ },
+ "story.s8.pre.12": {
+  "es": "¡El chico de la manta! ¡Otra vez vos!",
+  "en": "The blanket boy! You again!",
+  "zh": "裹毯子的孩子！又是你！"
+ },
+ "story.s8.pre.13": {
+  "es": "Es la del camino. La que quería cambiarme por Sora.",
+  "en": "It's the one from the road. The one who wanted to trade me for Sora.",
+  "zh": "是路上那个。想拿我换空的那个。"
+ },
+ "story.s8.pre.14": {
+  "es": "¿Qué hacés acá?",
+  "en": "What are you doing here?",
+  "zh": "你在这儿干什么？"
+ },
+ "story.s8.pre.15": {
+  "es": "El Shogun nos castigó por desobedecer. Un mes cuidando este puente, comiendo pescado crudo.",
+  "en": "The Shogun punished us for disobeying. A month guarding this bridge, eating raw fish.",
+  "zh": "将军罚我们违抗命令。守这座桥一个月，吃生鱼。"
+ },
+ "story.s8.pre.16": {
+  "es": "Todo por tu culpa.",
+  "en": "All because of you.",
+  "zh": "全都怪你。"
+ },
+ "story.s8.pre.17": {
+  "es": "¿Mi culpa? ¡Me emboscaron ustedes!",
+  "en": "Because of me? You ambushed me!",
+  "zh": "怪我？是你们伏击我的！"
+ },
+ "story.s8.pre.18": {
+  "es": "Detalles. Esta vez no hay órdenes de cuidarte. Bueno, sí hay. Pero no de dejarte pasar.",
+  "en": "Details. This time there are no orders to protect you. Well, there are. But not to let you through.",
+  "zh": "细节而已。这次没有命令要护着你。好吧，有。但没说要放你过去。"
+ },
+ "story.s8.pre.19": {
+  "es": "¡La batalla va a ser larga, chico! ¡Y no hay por dónde retirarse!",
+  "en": "It's going to be a long battle, kid! And there's nowhere to retreat!",
+  "zh": "这一仗会很长，小子！而且无路可退！"
+ },
+ "story.s8.pre.20": {
+  "es": "¡Gracias, maestro!",
+  "en": "Thanks, Master!",
+  "zh": "谢谢师父！"
+ },
+ "story.s8.pre.21": {
+  "es": "¡De nada! *hip*",
+  "en": "Anytime! *hic*",
+  "zh": "不客气！*嗝*"
+ },
+ "story.s8.post.6": {
+  "es": "Es lo único que sé. Lo dijo él mismo, la noche que llegaste al Templo. Yo era una nena.",
+  "en": "That's all I know. He said it himself, the night you arrived at the Temple. I was a little girl.",
+  "zh": "我只知道这些。是他亲口说的，就在你来到寺里的那一夜。那时我还是个小女孩。"
+ },
+ "story.s8.post.7": {
+  "es": "«El clan le debe una vida a ese chico. Y el clan paga lo que debe.»",
+  "en": "“The clan owes that boy a life. And the clan pays what it owes.”",
+  "zh": "「一族欠那孩子一条命。一族欠的，一定会还。」"
+ },
+ "story.s8.post.9": {
+  "es": "Del otro lado del río, Tao levanta la calabaza en un brindis.",
+  "en": "On the other side of the river, Tao raises his gourd in a toast.",
+  "zh": "河的另一边，陶举起酒葫芦遥遥一敬。"
+ },
+ "story.s8.post.10": {
+  "es": "¡Nunca dudé!",
+  "en": "I never doubted you!",
+  "zh": "我从没怀疑过你！"
+ },
+ "story.s8.post.11": {
+  "es": "Bueno. Un poco.",
+  "en": "Well. A little.",
+  "zh": "好吧。有一点点。"
+ },
+ "story.s8.post.12": {
+  "es": "¡Chico! Si encontrás a un ronin con una cicatriz en la ceja, decile una cosa de mi parte.",
+  "en": "Kid! If you find a ronin with a scar on his eyebrow, tell him something from me.",
+  "zh": "小子！要是你遇到一个眉上有疤的浪人，替我带句话。"
+ },
+ "story.s8.post.13": {
+  "es": "¿Qué cosa?",
+  "en": "Tell him what?",
+  "zh": "什么话？"
+ },
+ "story.s8.post.14": {
+  "es": "Que Tao todavía le guarda el cuenco. Y que no fue culpa suya.",
+  "en": "That Tao still keeps his bowl. And that it wasn't his fault.",
+  "zh": "就说陶还给他留着碗。还有，那不是他的错。"
+ },
+ "story.s8.post.15": {
+  "es": "¿Qué no fue culpa suya?",
+  "en": "What wasn't his fault?",
+  "zh": "什么不是他的错？"
+ },
+ "story.s9.pre.7": {
+  "es": "Seis puntos alrededor de uno. Como mi manta.",
+  "en": "Six dots around one. Like my blanket.",
+  "zh": "六个点围着一个点。就像我的毯子。"
+ },
+ "story.s9.pre.12": {
+  "es": "¿Tenés una cicatriz en la ceja?",
+  "en": "Do you have a scar on your eyebrow?",
+  "zh": "你眉上有疤吗？"
+ },
+ "story.s9.pre.13": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.s9.pre.14": {
+  "es": "¿Quién te mandó?",
+  "en": "Who sent you?",
+  "zh": "谁派你来的？"
+ },
+ "story.s9.pre.15": {
+  "es": "Tao. Dijo que te guarda el cuenco.",
+  "en": "Tao. He said he still keeps your bowl.",
+  "zh": "陶。他说还给你留着碗。"
+ },
+ "story.s9.pre.16": {
+  "es": "El ronin se ríe sin ganas, como quien recibe una carta muy vieja.",
+  "en": "The ronin laughs without joy, like someone receiving a very old letter.",
+  "zh": "浪人笑了，笑得毫无兴致，像收到一封很旧很旧的信。"
+ },
+ "story.s9.pre.17": {
+  "es": "Ese borracho. Sigue vivo.",
+  "en": "That drunk. Still alive.",
+  "zh": "那个酒鬼。还活着。"
+ },
+ "story.s9.pre.18": {
+  "es": "Esta mañana me crucé con una ninja que me dijo un nombre que no oía hace dieciséis años. Y ahora vos me traés a Tao.",
+  "en": "This morning I ran into a ninja who said a name I hadn't heard in sixteen years. And now you bring me Tao.",
+  "zh": "今早我碰到一个女忍，她说出一个我十六年没听过的名字。现在你又给我带来了陶。"
+ },
+ "story.s9.pre.19": {
+  "es": "Hoy los muertos tienen ganas de hablar.",
+  "en": "Today the dead feel like talking.",
+  "zh": "今天，死人都想开口了。"
+ },
+ "story.s9.pre.20": {
+  "es": "Mostrame cómo peleás. Si rodeás como te enseñó Hōshin, no tenemos nada que decirnos.",
+  "en": "Show me how you fight. If you surround the way Hōshin taught you, we have nothing to say to each other.",
+  "zh": "让我看看你怎么打。要是你像法真教的那样包围，我们就没什么好说的。"
+ },
+ "story.s9.post.4": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.s9.post.8": {
+  "es": "Seis puntos alrededor de uno, en hilo gris.",
+  "en": "Six dots around one, in grey thread.",
+  "zh": "六个点围着一个点，灰线绣的。"
+ },
+ "story.s9.post.9": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.s9.post.10": {
+  "es": "¿De dónde sacaste esto?",
+  "en": "Where did you get this?",
+  "zh": "这是从哪儿来的？"
+ },
+ "story.s9.post.11": {
+  "es": "Ya te dije. Llegué envuelto en ella.",
+  "en": "I told you. I came wrapped in it.",
+  "zh": "我说过了。我来的时候就裹着它。"
+ },
+ "story.s9.post.12": {
+  "es": "No. No puede ser.",
+  "en": "No. It can't be.",
+  "zh": "不。不可能。"
+ },
+ "story.s9.post.13": {
+  "es": "Hōshin me dijo que el bebé había muerto esa noche. Con ella.",
+  "en": "Hōshin told me the baby died that night. With her.",
+  "zh": "法真跟我说，那孩子当晚就死了。和她一起。"
+ },
+ "story.s9.post.14": {
+  "es": "¿Con quién?",
+  "en": "With who?",
+  "zh": "和谁？"
+ },
+ "story.s9.post.15": {
+  "es": "Jubei no contesta. Mira la manta como si quemara.",
+  "en": "Jubei doesn't answer. He looks at the blanket as if it burned.",
+  "zh": "十兵卫没有回答。他盯着毯子，像是被烫到了。"
+ },
+ "story.s9.post.16": {
+  "es": "Esta noche no. No puedo.",
+  "en": "Not tonight. I can't.",
+  "zh": "今晚不行。我做不到。"
+ },
+ "story.s9.post.17": {
+  "es": "Mañana te cuento todo. Te lo juro, chico.",
+  "en": "Tomorrow I'll tell you everything. I swear it, kid.",
+  "zh": "明天我把一切都告诉你。我发誓，小子。"
+ },
+ "story.s9.post.18": {
+  "es": "Todos juran algo. Nadie me cuenta nada.",
+  "en": "Everyone swears something. No one tells me anything.",
+  "zh": "人人都在发誓。却没人告诉我任何事。"
+ },
+ "story.s10.pre.4": {
+  "es": "Como a un hijo. Me enseñó a leer, a rodear, a no tener miedo.",
+  "en": "Like a son. He taught me to read, to surround, to not be afraid.",
+  "zh": "像亲儿子一样。他教我读书，教我包围，教我不要害怕。"
+ },
+ "story.s10.pre.8": {
+  "es": "Porque…",
+  "en": "Because…",
+  "zh": "因为……"
+ },
+ "story.s10.pre.10": {
+  "es": "Entre los bambúes, una sombra. Dos. Cuatro.",
+  "en": "Among the bamboo, a shadow. Two. Four.",
+  "zh": "竹林间，一道黑影。两道。四道。"
+ },
+ "story.s10.pre.11": {
+  "es": "Te siguieron desde el santuario. No son exploradores: son shinobi del Shogun.",
+  "en": "They followed you from the shrine. Those aren't scouts: they're the Shogun's shinobi.",
+  "zh": "他们从神社一路跟着你。那不是斥候：是将军的忍者。"
+ },
+ "story.s10.pre.12": {
+  "es": "Los Shinobi se meten por cualquier rendija.",
+  "en": "Shinobi slip through any gap.",
+  "zh": "忍者会从任何缝隙钻进来。"
+ },
+ "story.s10.pre.13": {
+  "es": "Entonces no dejes rendijas. Y no te alejes del fuego.",
+  "en": "Then leave no gaps. And stay close to the fire.",
+  "zh": "那就别留缝隙。也别离火太远。"
+ },
+ "story.s10.post.6": {
+  "es": "¿Por qué la luna nueva?",
+  "en": "Why the new moon?",
+  "zh": "为什么是新月？"
+ },
+ "story.s10.post.7": {
+  "es": "Porque es la noche más oscura. Las cosas que duermen bajo tierra la sienten.",
+  "en": "Because it's the darkest night. The things that sleep underground feel it.",
+  "zh": "因为那是最黑的夜。沉睡在地下的东西能感觉到。"
+ },
+ "story.s10.post.8": {
+  "es": "Hace dieciséis años también cayó ceniza. Y también faltaban diez días para la luna nueva.",
+  "en": "Sixteen years ago, ash fell too. And it was also ten days before the new moon.",
+  "zh": "十六年前，也落过灰。那时也是离新月还有十天。"
+ },
+ "story.s10.post.9": {
+  "es": "¿Qué pasó esa luna nueva?",
+  "en": "What happened that new moon?",
+  "zh": "那次新月发生了什么？"
+ },
+ "story.s10.post.10": {
+  "es": "Alguien bajó a la cripta a hacer algo que no sabía hacer sola.",
+  "en": "Someone went down into the crypt to do something she didn't know how to do alone.",
+  "zh": "有人下到地穴，去做一件她一个人做不到的事。"
+ },
+ "story.s10.post.11": {
+  "es": "Y yo llegué tarde.",
+  "en": "And I got there too late.",
+  "zh": "而我去晚了。"
+ },
+ "story.s10.post.12": {
+  "es": "Más tarde. El fuego, casi apagado.",
+  "en": "Later. The fire, almost out.",
+  "zh": "稍后。火堆，快要熄了。"
+ },
+ "story.s10.post.13": {
+  "es": "Ren se duerme envuelto en la manta. Jubei vela hasta el alba.",
+  "en": "Ren falls asleep wrapped in the blanket. Jubei keeps watch until dawn.",
+  "zh": "仁裹着毯子睡着了。十兵卫守到天亮。"
+ },
+ "story.s10.post.14": {
+  "es": "Cuando Ren despierta, el ronin no está. En su lugar quedó un cuenco de madera y una nota.",
+  "en": "When Ren wakes, the ronin is gone. In his place, a wooden bowl and a note.",
+  "zh": "仁醒来时，浪人已经不见了。原地留下一只木碗和一张字条。"
+ },
+ "story.s10.post.15": {
+  "es": "*(leyendo)* «Perdón. Antes de contarte, tengo que hablar con alguien. Esperame en el santuario pasado mañana, al alba.»",
+  "en": "*(reading)* “Forgive me. Before I tell you, I have to talk to someone. Wait for me at the shrine the day after tomorrow, at dawn.”",
+  "zh": "*（读着）*「对不起。告诉你之前，我得先去找一个人谈谈。后天天亮，在神社等我。」"
+ },
+ "story.s10.post.16": {
+  "es": "¿Con quién? ¿Con el Abad?",
+  "en": "Talk to who? The Abbot?",
+  "zh": "找谁？方丈吗？"
+ },
+ "story.s10.post.17": {
+  "es": "El cuenco tiene algo tallado abajo. Un nombre: Natsu.",
+  "en": "There's something carved under the bowl. A name: Natsu.",
+  "zh": "碗底刻着字。一个名字：夏。"
+ },
+ "story.s11.pre.4": {
+  "es": "«El bebé murió esa noche. Con ella.» ¿Natsu es «ella»?",
+  "en": "“The baby died that night. With her.” Is Natsu “her”?",
+  "zh": "「那孩子当晚就死了。和她一起。」夏就是「她」吗？"
+ },
+ "story.s11.pre.9": {
+  "es": "¿Qué sos?",
+  "en": "What are you?",
+  "zh": "你是什么？"
+ },
+ "story.s11.pre.10": {
+  "es": "La que recuerda.",
+  "en": "The one who remembers.",
+  "zh": "记得的那个。"
+ },
+ "story.s11.pre.11": {
+  "es": "Entonces recordame algo. ¿Quién es Natsu?",
+  "en": "Then remind me of something. Who is Natsu?",
+  "zh": "那就让我记起一件事。夏是谁？"
+ },
+ "story.s11.pre.12": {
+  "es": "Una chica que bordaba mal y rodeaba bien.",
+  "en": "A girl who stitched badly and surrounded well.",
+  "zh": "一个绣得很差、却很会包围的姑娘。"
+ },
+ "story.s11.pre.13": {
+  "es": "Tu manta la empezó una mano vieja y la terminó una mano joven. Las dos temblaban.",
+  "en": "Your blanket was begun by an old hand and finished by a young one. Both were trembling.",
+  "zh": "你的毯子，是一只苍老的手起的针，一只年轻的手收的尾。两只手都在发抖。"
+ },
+ "story.s11.pre.14": {
+  "es": "¿Por qué temblaban?",
+  "en": "Why were they trembling?",
+  "zh": "为什么发抖？"
+ },
+ "story.s11.pre.15": {
+  "es": "Porque sabían adónde ibas a ir.",
+  "en": "Because they knew where you were going.",
+  "zh": "因为她们知道你要去哪里。"
+ },
+ "story.s11.pre.16": {
+  "es": "En la niebla se mueven formas. Una patrulla del clan, peinando el valle.",
+  "en": "Shapes move in the fog. A clan patrol, combing the valley.",
+  "zh": "雾中有影子在移动。一族的巡逻队，正在搜查山谷。"
+ },
+ "story.s11.pre.17": {
+  "es": "Primero salí del valle. Después preguntá.",
+  "en": "First get out of the valley. Then ask.",
+  "zh": "先出山谷。再问。"
+ },
+ "story.s11.post.5": {
+  "es": "La que vas a conocer viene del otro lado.",
+  "en": "The one you'll meet comes from the other side.",
+  "zh": "你要遇见的人，来自另一边。"
+ },
+ "story.s11.post.7": {
+  "es": "Del otro lado de la guerra.",
+  "en": "The other side of the war.",
+  "zh": "战争的另一边。"
+ },
+ "story.s11.post.8": {
+  "es": "No la lastimes. Es la única que puede contestarte.",
+  "en": "Don't hurt her. She's the only one who can answer you.",
+  "zh": "别伤她。只有她能回答你。"
+ },
+ "story.s11.post.9": {
+  "es": "¿Y si ella me lastima a mí?",
+  "en": "And what if she hurts me?",
+  "zh": "那要是她伤我呢？"
+ },
+ "story.s11.post.10": {
+  "es": "Entonces van a aprender rápido. Los dos.",
+  "en": "Then you'll both learn fast.",
+  "zh": "那你们俩都会学得很快。"
+ },
+ "story.s11.post.12": {
+  "es": "Una mano vieja y una mano joven.",
+  "en": "An old hand and a young hand.",
+  "zh": "一只苍老的手，一只年轻的手。"
+ },
+ "story.s11.post.13": {
+  "es": "Alguien me bordó una despedida.",
+  "en": "Someone stitched me a farewell.",
+  "zh": "有人给我绣了一份告别。"
+ },
+ "story.s12.pre.10": {
+  "es": "Busco a un ronin. Jubei. Me citó acá.",
+  "en": "I'm looking for a ronin. Jubei. He told me to meet him here.",
+  "zh": "我在找一个浪人。十兵卫。他约我在这儿见。"
+ },
+ "story.s12.pre.11": {
+  "es": "Yo también lo busco. A mí me citó la zorra.",
+  "en": "I'm looking for him too. The fox told me to come.",
+  "zh": "我也在找他。约我来的是狐狸。"
+ },
+ "story.s12.pre.12": {
+  "es": "No vino.",
+  "en": "He didn't show.",
+  "zh": "他没来。"
+ },
+ "story.s12.pre.13": {
+  "es": "No.",
+  "en": "No.",
+  "zh": "没来。"
+ },
+ "story.s12.pre.14": {
+  "es": "En el clan te dicen el chico de la manta. El Shogun te cuida como a un tesoro y no dice por qué.",
+  "en": "In the clan they call you the blanket boy. The Shogun guards you like a treasure and won't say why.",
+  "zh": "族里都叫你裹毯子的孩子。将军把你当宝贝一样护着，却不说为什么。"
+ },
+ "story.s12.pre.15": {
+  "es": "Mostrame esa manta.",
+  "en": "Show me that blanket.",
+  "zh": "让我看看那条毯子。"
+ },
+ "story.s12.pre.16": {
+  "es": "Todos quieren algo de mí y nadie me da nada. Primero ganame.",
+  "en": "Everyone wants something from me and no one gives me anything. Beat me first.",
+  "zh": "人人都想从我这儿要东西，却没人给我任何东西。先赢了我再说。"
+ },
+ "story.s12.pre.17": {
+  "es": "Igual te iba a ganar.",
+  "en": "I was going to beat you anyway.",
+  "zh": "反正我也会赢你。"
+ },
+ "story.s12.post.4": {
+  "es": "Seis puntos alrededor de uno, en hilo gris.",
+  "en": "Six dots around one, in grey thread.",
+  "zh": "六个点围着一个点，灰线绣的。"
+ },
+ "story.s12.post.6": {
+  "es": "Ese bordado lo conozco. Puntada por puntada.",
+  "en": "I know that stitching. Every single stitch.",
+  "zh": "这种绣法我认得。每一针都认得。"
+ },
+ "story.s12.post.8": {
+  "es": "Mi abuela Kiku lo bordaba. En el paño de su tablero. En la capa de mi primera misión.",
+  "en": "My grandmother Kiku stitched it. On the cloth of her board. On the cape for my first mission.",
+  "zh": "我奶奶菊就这么绣。绣在她的棋盘布上。绣在我第一次出任务的披风上。"
+ },
+ "story.s12.post.9": {
+  "es": "Y solo bordaba para la familia.",
+  "en": "And she only stitched for family.",
+  "zh": "而且她只给家里人绣。"
+ },
+ "story.s12.post.10": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.s12.post.11": {
+  "es": "Esa puntada torcida en la esquina… Esa no es de ella. Es de alguien que estaba aprendiendo.",
+  "en": "That crooked stitch in the corner… That one isn't hers. It's from someone who was learning.",
+  "zh": "角上那一针歪的……那不是她绣的。是一个正在学的人绣的。"
+ },
+ "story.s12.post.12": {
+  "es": "«La empezó una mano vieja y la terminó una mano joven.»",
+  "en": "“Begun by an old hand and finished by a young one.”",
+  "zh": "「一只苍老的手起的针，一只年轻的手收的尾。」"
+ },
+ "story.s12.post.13": {
+  "es": "¿Quién es Natsu?",
+  "en": "Who is Natsu?",
+  "zh": "夏是谁？"
+ },
+ "story.s12.post.14": {
+  "es": "Aya da un paso atrás, como si le hubieran pegado.",
+  "en": "Aya steps back, as if she'd been struck.",
+  "zh": "绫后退一步，像挨了一记。"
+ },
+ "story.s12.post.15": {
+  "es": "¿Dónde oíste ese nombre?",
+  "en": "Where did you hear that name?",
+  "zh": "你在哪儿听到这个名字的？"
+ },
+ "story.s12.post.17": {
+  "es": "Entre los árboles suenan cascabeles. Una patrulla del Templo sube por el sendero.",
+  "en": "Bells jingle among the trees. A Temple patrol is coming up the path.",
+  "zh": "林间响起铃声。一支寺院的巡逻队正沿小路上山。"
+ },
+ "story.s12.post.18": {
+  "es": "Monjes. Tuyos. Vienen a buscarte.",
+  "en": "Monks. Yours. They're coming for you.",
+  "zh": "和尚。你们的人。来找你了。"
+ },
+ "story.s12.post.19": {
+  "es": "¡Esperá! ¡Contestame!",
+  "en": "Wait! Answer me!",
+  "zh": "等等！回答我！"
+ },
+ "story.s12.post.20": {
+  "es": "La hermana de mi madre. La hija menor de mi abuela.",
+  "en": "My mother's sister. My grandmother's youngest daughter.",
+  "zh": "我母亲的妹妹。我奶奶最小的女儿。"
+ },
+ "story.s12.post.21": {
+  "es": "Murió hace dieciséis años. Eso dice su tumba.",
+  "en": "She died sixteen years ago. That's what her grave says.",
+  "zh": "她十六年前就死了。她的墓碑上是这么写的。"
+ },
+ "story.s12.post.23": {
+  "es": "Una bomba de humo. Aya ya no está.",
+  "en": "A smoke bomb. Aya is gone.",
+  "zh": "一颗烟雾弹。绫已经不见了。"
+ },
+ "story.s12.post.25": {
+  "es": "Solo bordaba para la familia.",
+  "en": "She only stitched for family.",
+  "zh": "她只给家里人绣。"
+ },
+ "story.s12.post.26": {
+  "es": "…¿La familia de quién soy yo?",
+  "en": "…Then whose family am I?",
+  "zh": "……那我是谁家的人？"
+ },
+ "story.n7.pre.9": {
+  "es": "Bajé hasta el fondo de la escalera. La piedra está tibia. Late como un corazón.",
+  "en": "I went down to the bottom of the stairs. The stone is warm. It beats like a heart.",
+  "zh": "我下到了阶梯最底层。那块石头是温的。像心脏一样跳动。"
+ },
+ "story.n7.pre.10": {
+  "es": "Supersticiones de monjes.",
+  "en": "Monks' superstitions.",
+  "zh": "和尚的迷信。"
+ },
+ "story.n7.pre.11": {
+  "es": "La toqué yo. Con esta mano.",
+  "en": "I touched it myself. With this hand.",
+  "zh": "是我亲手摸的。用这只手。"
+ },
+ "story.n7.pre.12": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.n7.pre.13": {
+  "es": "Por un instante, el Gran Shogun se mira la propia mano. Como si recordara algo.",
+  "en": "For an instant, the Great Shogun looks at his own hand. As if remembering something.",
+  "zh": "有那么一瞬间，大将军看着自己的手。仿佛想起了什么。"
+ },
+ "story.n7.pre.14": {
+  "es": "¿Y tu hermano? ¿Qué hacía en el ala norte con las manos negras de carbón?",
+  "en": "And your brother? What was he doing in the north wing with his hands black with charcoal?",
+  "zh": "还有你哥哥？他满手木炭黑，在北翼干什么？"
+ },
+ "story.n7.pre.15": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.n7.pre.16": {
+  "es": "No lo protejas. Ya me lo contó. Mensajes de una zorra. Marcas en los muros del enemigo.",
+  "en": "Don't protect him. He already told me. Messages from a fox. Marks on the enemy's walls.",
+  "zh": "别护着他。他已经招了。狐狸的口信。敌人墙上的印记。"
+ },
+ "story.n7.pre.17": {
+  "es": "Sora se queda encerrado en la torre hasta que yo diga.",
+  "en": "Sora stays locked in the tower until I say otherwise.",
+  "zh": "空关在塔里，直到我发话为止。"
+ },
+ "story.n7.pre.18": {
+  "es": "¡Él solo quería advertirles!",
+  "en": "He only wanted to warn them!",
+  "zh": "他只是想警告他们！"
+ },
+ "story.n7.pre.19": {
+  "es": "¿Advertirles qué? ¿Que los espíritus hablan? Las leyendas no se discuten, Aya. Se obedecen.",
+  "en": "Warn them of what? That spirits talk? Legends aren't debated, Aya. They're obeyed.",
+  "zh": "警告什么？说灵会说话？传说不容争辩，绫。只能服从。"
+ },
+ "story.n7.pre.20": {
+  "es": "Y la leyenda dice: cuando caiga ceniza, el Pergamino vuelve a casa antes de la luna nueva.",
+  "en": "And the legend says: when ash falls, the Scroll returns home before the new moon.",
+  "zh": "传说是这么说的：落灰之时，卷轴须在新月之前回家。"
+ },
+ "story.n7.pre.21": {
+  "es": "Hoy cayó ceniza sobre el Templo.",
+  "en": "Today ash fell on the Temple.",
+  "zh": "今天，寺院落了灰。"
+ },
+ "story.n7.pre.22": {
+  "es": "¿Cómo sabe eso?",
+  "en": "How do you know that?",
+  "zh": "您怎么知道的？"
+ },
+ "story.n7.pre.23": {
+  "es": "Kuro. Entrenala. Está distraída.",
+  "en": "Kuro. Train her. She's distracted.",
+  "zh": "黑。训练她。她心不在焉。"
+ },
+ "story.n7.pre.24": {
+  "es": "Sí, mi señor.",
+  "en": "Yes, my lord.",
+  "zh": "是，主上。"
+ },
+ "story.n7.pre.25": {
+  "es": "Kuro tiene un golpe nuevo en la mejilla. Kuro no pierde nunca.",
+  "en": "Kuro has a fresh bruise on his cheek. Kuro never loses.",
+  "zh": "黑的脸颊上有一道新伤。黑从来不输。"
+ },
+ "story.n7.post.2": {
+  "es": "¿Quién te hizo ese golpe, Kuro?",
+  "en": "Who gave you that bruise, Kuro?",
+  "zh": "谁把你打伤的，黑？"
+ },
+ "story.n7.post.5": {
+  "es": "El chico de la manta.",
+  "en": "The blanket boy.",
+  "zh": "裹毯子的孩子。"
+ },
+ "story.n7.post.6": {
+  "es": "El que el Shogun cuida. ¿Quién es, Kuro? ¿Por qué el clan le debe algo?",
+  "en": "The one the Shogun protects. Who is he, Kuro? Why does the clan owe him something?",
+  "zh": "将军护着的那个。他到底是谁，黑？一族为什么欠他东西？"
+ },
+ "story.n7.post.8": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.n7.post.9": {
+  "es": "Tu abuela tenía dos hijas.",
+  "en": "Your grandmother had two daughters.",
+  "zh": "你奶奶有两个女儿。"
+ },
+ "story.n7.post.10": {
+  "es": "Una era mi madre. La otra se murió antes de que yo naciera. La tía Natsu.",
+  "en": "One was my mother. The other died before I was born. Aunt Natsu.",
+  "zh": "一个是我母亲。另一个在我出生前就死了。夏姨。"
+ },
+ "story.n7.post.11": {
+  "es": "Eso dice la tumba.",
+  "en": "That's what the grave says.",
+  "zh": "墓碑上是这么写的。"
+ },
+ "story.n7.post.12": {
+  "es": "¿Qué querés decir?",
+  "en": "What do you mean?",
+  "zh": "什么意思？"
+ },
+ "story.n7.post.13": {
+  "es": "Que hace dieciséis años juré no contar lo que vi una noche de lluvia gris. Y ya te dije demasiado.",
+  "en": "That sixteen years ago I swore not to tell what I saw one night of grey rain. And I've already said too much.",
+  "zh": "意思是，十六年前我发过誓，绝不说出那个灰雨之夜我看到的事。我已经说得太多了。"
+ },
+ "story.n7.post.14": {
+  "es": "Las preguntas no ganan batallas, Aya.",
+  "en": "Questions don't win battles, Aya.",
+  "zh": "疑问打不赢仗，绫。"
+ },
+ "story.n7.post.15": {
+  "es": "Todavía.",
+  "en": "Not yet.",
+  "zh": "还打不赢。"
+ },
+ "story.n7.post.17": {
+  "es": "La tumba de la tía Natsu. Siempre me pareció chica.",
+  "en": "Aunt Natsu's grave. It always seemed small to me.",
+  "zh": "夏姨的墓。我一直觉得它很小。"
+ },
+ "story.n7.post.18": {
+  "es": "Demasiado chica para un cuerpo.",
+  "en": "Too small for a body.",
+  "zh": "小得装不下一个人。"
+ },
+ "story.n8.pre.1": {
+  "es": "Sora está encerrado arriba. Aya trepa por afuera, como cuando eran chicos.",
+  "en": "Sora is locked up at the top. Aya climbs the outside, like when they were kids.",
+  "zh": "空被关在顶上。绫从外面爬上去，就像小时候那样。"
+ },
+ "story.n8.pre.4": {
+  "es": "Que mires las piedras del jardín. El de abajo del Templo, fuera de los muros.",
+  "en": "To look at the stones in the garden. The one below the Temple, outside the walls.",
+  "zh": "让你去看庭院里的石头。寺院下面那个，墙外的。"
+ },
+ "story.n8.pre.6": {
+  "es": "¿La abuela sabía algo?",
+  "en": "Grandma knew something?",
+  "zh": "奶奶知道些什么？"
+ },
+ "story.n8.pre.7": {
+  "es": "Hermanita, la abuela sabía todo. Lo que no sabía era cómo decirlo.",
+  "en": "Little sister, Grandma knew everything. What she didn't know was how to say it.",
+  "zh": "妹妹，奶奶什么都知道。她只是不知道该怎么说。"
+ },
+ "story.n8.pre.8": {
+  "es": "Una vez la vi llorar sobre una tumba vacía. La de la tía Natsu.",
+  "en": "Once I saw her crying over an empty grave. Aunt Natsu's.",
+  "zh": "有一次我看见她对着一座空坟哭。是夏姨的坟。"
+ },
+ "story.n8.pre.9": {
+  "es": "…¿Vacía?",
+  "en": "…Empty?",
+  "zh": "……空的？"
+ },
+ "story.n8.pre.10": {
+  "es": "Yo tenía siete años. Pensé que lo había soñado.",
+  "en": "I was seven. I thought I'd dreamed it.",
+  "zh": "那时我七岁。还以为是做梦。"
+ },
+ "story.n8.pre.11": {
+  "es": "El jardín zen, al pie del Templo.",
+  "en": "The zen garden, at the foot of the Temple.",
+  "zh": "寺院山脚下的枯山水庭院。"
+ },
+ "story.n8.pre.13": {
+  "es": "Arena rastrillada en círculos perfectos. Nadie la pisa nunca.",
+  "en": "Sand raked in perfect circles. No one ever steps on it.",
+  "zh": "沙子被耙成完美的圆圈。从来没人踩过。"
+ },
+ "story.n8.pre.14": {
+  "es": "Hasta hoy.",
+  "en": "Until today.",
+  "zh": "直到今天。"
+ },
+ "story.n8.pre.16": {
+  "es": "Los monjes jardineros la vieron. Cierran el jardín con rastrillos y bastones.",
+  "en": "The gardener monks have seen her. They close off the garden with rakes and staffs.",
+  "zh": "园丁和尚们发现了她。他们拿着耙子和棍子把庭院围了起来。"
+ },
+ "story.n8.post.7": {
+  "es": "En la base de la piedra del centro hay dos nombres tallados, muy chiquitos. Uno con letra de monje, otro con letra del clan.",
+  "en": "At the base of the center stone, two names are carved, very small. One in a monk's hand, the other in the clan's.",
+  "zh": "中央那块石头的底部，刻着两个很小的名字。一个是和尚的笔迹，一个是一族的笔迹。"
+ },
+ "story.n8.post.8": {
+  "es": "*(leyendo)* «Natsu.»",
+  "en": "*(reading)* “Natsu.”",
+  "zh": "*（读着）*「夏。」"
+ },
+ "story.n8.post.9": {
+  "es": "*(leyendo)* «Jubei.»",
+  "en": "*(reading)* “Jubei.”",
+  "zh": "*（读着）*「十兵卫。」"
+ },
+ "story.n8.post.10": {
+  "es": "¿Quién es Jubei?",
+  "en": "Who is Jubei?",
+  "zh": "十兵卫是谁？"
+ },
+ "story.n8.post.11": {
+  "es": "¿Y qué hacía el nombre de mi tía en un jardín de monjes?",
+  "en": "And what was my aunt's name doing in a monks' garden?",
+  "zh": "我姨母的名字，怎么会出现在和尚的庭院里？"
+ },
+ "story.n9.pre.5": {
+  "es": "Si me atrapan acá, nadie en el clan va a saber lo de las piedras. Ni lo de los nombres.",
+  "en": "If they catch me here, no one in the clan will know about the stones. Or the names.",
+  "zh": "要是在这儿被抓住，族里就没人知道那些石头的事了。还有那些名字。"
+ },
+ "story.n9.post.4": {
+  "es": "¿Qué canción?",
+  "en": "What song?",
+  "zh": "什么歌？"
+ },
+ "story.n9.post.6": {
+  "es": "…No tenía letra. Era solo una melodía.",
+  "en": "…It had no words. It was just a melody.",
+  "zh": "……那首歌没有词。只有曲调。"
+ },
+ "story.n9.post.7": {
+  "es": "Tenía letra. Tu clan la dejó de cantar el día que dejó de preguntar.",
+  "en": "It had words. Your clan stopped singing them the day it stopped asking.",
+  "zh": "有词的。你们一族不再发问的那天，也就不再唱了。"
+ },
+ "story.n9.post.8": {
+  "es": "*(cantando)* «Una mano del monte, una mano de la sombra. Seis piedras alrededor, y el fuego se duerme.»",
+  "en": "*(singing)* “One hand from the mountain, one hand from the shadow. Six stones around, and the fire falls asleep.”",
+  "zh": "*（唱着）*「一只手来自山，一只手来自影。六石相围，火便沉睡。」"
+ },
+ "story.n9.post.9": {
+  "es": "«Y el fuego se duerme…»",
+  "en": "“And the fire falls asleep…”",
+  "zh": "「火便沉睡……」"
+ },
+ "story.n9.post.10": {
+  "es": "¿Natsu la sabía?",
+  "en": "Did Natsu know it?",
+  "zh": "夏会唱吗？"
+ },
+ "story.n9.post.11": {
+  "es": "Natsu la cantó entera. Una sola vez. Con la voz equivocada a su lado.",
+  "en": "Natsu sang it all the way through. Just once. With the wrong voice beside her.",
+  "zh": "夏完整地唱过一遍。只有一次。身边却是错的声音。"
+ },
+ "story.n9.post.12": {
+  "es": "¿Qué voz? ¿La de Jubei?",
+  "en": "What voice? Jubei's?",
+  "zh": "什么声音？十兵卫的吗？"
+ },
+ "story.n9.post.13": {
+  "es": "Preguntale a él. Mañana baja por el camino de la montaña.",
+  "en": "Ask him. Tomorrow he comes down the mountain road.",
+  "zh": "去问他。明天他会从山路下来。"
+ },
+ "story.n10.pre.6": {
+  "es": "¿Jubei?",
+  "en": "Jubei?",
+  "zh": "十兵卫？"
+ },
+ "story.n10.pre.7": {
+  "es": "El ronin se queda quieto. La mano va sola a la empuñadura.",
+  "en": "The ronin goes still. His hand moves to the hilt on its own.",
+  "zh": "浪人一动不动。手不由自主地摸向刀柄。"
+ },
+ "story.n10.pre.8": {
+  "es": "¿Quién te dijo ese nombre?",
+  "en": "Who told you that name?",
+  "zh": "谁告诉你这个名字的？"
+ },
+ "story.n10.pre.9": {
+  "es": "Una piedra. En el jardín del Templo. Al lado del nombre de mi tía. Natsu.",
+  "en": "A stone. In the Temple garden. Next to my aunt's name. Natsu.",
+  "zh": "一块石头。在寺院的庭院里。就在我姨母的名字旁边。夏。"
+ },
+ "story.n10.pre.10": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.n10.pre.11": {
+  "es": "Tenés sus ojos. Los vi apenas te vi, y no quise creerlo.",
+  "en": "You have her eyes. I saw it the moment I saw you, and I didn't want to believe it.",
+  "zh": "你有她的眼睛。我一看见你就认出来了，却不愿相信。"
+ },
+ "story.n10.pre.12": {
+  "es": "¿La conociste?",
+  "en": "You knew her?",
+  "zh": "你认识她？"
+ },
+ "story.n10.pre.13": {
+  "es": "Fui monje del Templo. Ella era del clan. Eso tendría que alcanzar como respuesta.",
+  "en": "I was a monk of the Temple. She was of the clan. That should be answer enough.",
+  "zh": "我曾是寺里的和尚。她是一族的人。这个回答应该够了。"
+ },
+ "story.n10.pre.14": {
+  "es": "No alcanza.",
+  "en": "It isn't enough.",
+  "zh": "不够。"
+ },
+ "story.n10.pre.15": {
+  "es": "No. Nunca alcanzó.",
+  "en": "No. It never was.",
+  "zh": "是啊。从来都不够。"
+ },
+ "story.n10.pre.16": {
+  "es": "Ganame. Y te cuento lo que el Templo calla y lo que el clan olvidó.",
+  "en": "Beat me. And I'll tell you what the Temple keeps quiet and what the clan forgot.",
+  "zh": "赢了我。我就告诉你寺院不肯说的，和一族忘掉的。"
+ },
+ "story.n10.post.4": {
+  "es": "Eso solo lo sabe quien lo leyó. Y en el Templo, solo lo lee el Abad.",
+  "en": "Only someone who's read it knows. And in the Temple, only the Abbot reads it.",
+  "zh": "只有读过的人才知道。而在寺里，只有方丈能读。"
+ },
+ "story.n10.post.6": {
+  "es": "¿Está viva?",
+  "en": "Is she alive?",
+  "zh": "她还活着吗？"
+ },
+ "story.n10.post.7": {
+  "es": "Hace dieciséis años que me hago esa pregunta.",
+  "en": "I've been asking myself that for sixteen years.",
+  "zh": "这个问题，我已经问了自己十六年。"
+ },
+ "story.n10.post.8": {
+  "es": "El Abad me dijo que había muerto esa noche. Ella y…",
+  "en": "The Abbot told me she died that night. She and…",
+  "zh": "方丈跟我说，她当晚就死了。她和……"
+ },
+ "story.n10.post.9": {
+  "es": "¿Y quién?",
+  "en": "And who?",
+  "zh": "和谁？"
+ },
+ "story.n10.post.10": {
+  "es": "Nadie. Un error.",
+  "en": "No one. A mistake.",
+  "zh": "没有谁。说错了。"
+ },
+ "story.n10.post.12": {
+  "es": "Jubei sigue camino hacia el este, hacia el santuario viejo. No se da vuelta.",
+  "en": "Jubei continues east, toward the old shrine. He doesn't look back.",
+  "zh": "十兵卫继续往东走，朝老神社而去。他没有回头。"
+ },
+ "story.n10.post.13": {
+  "es": "«Ella y…» ¿Y quién?",
+  "en": "“She and…” And who?",
+  "zh": "「她和……」和谁？"
+ },
+ "story.n10.post.14": {
+  "es": "Una tumba vacía. Demasiado chica para un cuerpo.",
+  "en": "An empty grave. Too small for a body.",
+  "zh": "一座空坟。小得装不下一个人。"
+ },
+ "story.n11.pre.2": {
+  "es": "¡Abran bien los ojos! ¡Tiene que estar cerca!",
+  "en": "Keep your eyes open! He has to be close!",
+  "zh": "都睁大眼睛！他肯定就在附近！"
+ },
+ "story.n11.pre.4": {
+  "es": "El Abad fue claro: traerlo de vuelta antes de que hable con el ronin.",
+  "en": "The Abbot was clear: bring him back before he talks to the ronin.",
+  "zh": "方丈说得很清楚：在他跟浪人说上话之前，把他带回来。"
+ },
+ "story.n11.pre.6": {
+  "es": "Y si encuentran al ronin… no lo dejen acercarse a Ren.",
+  "en": "And if you find the ronin… don't let him near Ren.",
+  "zh": "要是找到那个浪人……别让他靠近仁。"
+ },
+ "story.n11.pre.7": {
+  "es": "Ren. El chico de la manta se llama Ren.",
+  "en": "Ren. The blanket boy's name is Ren.",
+  "zh": "仁。裹毯子的孩子叫仁。"
+ },
+ "story.n11.pre.8": {
+  "es": "Y el Abad le tiene más miedo a Jubei que a nosotros.",
+  "en": "And the Abbot fears Jubei more than he fears us.",
+  "zh": "而方丈怕十兵卫，比怕我们还厉害。"
+ },
+ "story.n11.pre.10": {
+  "es": "¡Ahí! ¡Una sombra!",
+  "en": "There! A shadow!",
+  "zh": "那儿！有影子！"
+ },
+ "story.n11.pre.12": {
+  "es": "Humo y espejos. Que ningún monje sepa dónde estoy.",
+  "en": "Smoke and mirrors. No monk will know where I am.",
+  "zh": "烟雾与幻影。别让任何和尚知道我在哪。"
+ },
+ "story.n11.post.4": {
+  "es": "El chico de la manta. Ren.",
+  "en": "The blanket boy. Ren.",
+  "zh": "裹毯子的孩子。仁。"
+ },
+ "story.n11.post.5": {
+  "es": "Aprendés rápido.",
+  "en": "You learn fast.",
+  "zh": "你学得很快。"
+ },
+ "story.n11.post.6": {
+  "es": "¿Jubei va a estar?",
+  "en": "Will Jubei be there?",
+  "zh": "十兵卫会在吗？"
+ },
+ "story.n11.post.7": {
+  "es": "Jubei fue a buscar a un viejo que no quiere ser encontrado.",
+  "en": "Jubei went looking for an old man who doesn't want to be found.",
+  "zh": "十兵卫去找一个不想被找到的老人了。"
+ },
+ "story.n11.post.8": {
+  "es": "No lastimes al chico. Es el único que puede contestarte.",
+  "en": "Don't hurt the boy. He's the only one who can answer you.",
+  "zh": "别伤那孩子。只有他能回答你。"
+ },
+ "story.n11.post.9": {
+  "es": "¿Y si me lastima él?",
+  "en": "And what if he hurts me?",
+  "zh": "那要是他伤我呢？"
+ },
+ "story.n11.post.10": {
+  "es": "Entonces van a aprender rápido. Los dos.",
+  "en": "Then you'll both learn fast.",
+  "zh": "那你们俩都会学得很快。"
+ },
+ "story.n11.post.11": {
+  "es": "Zorra… ¿quién sos?",
+  "en": "Fox… who are you?",
+  "zh": "狐狸……你是谁？"
+ },
+ "story.n11.post.13": {
+  "es": "La que recuerda lo que ustedes olvidaron.",
+  "en": "The one who remembers what all of you forgot.",
+  "zh": "记得你们所遗忘之事的那个。"
+ },
+ "story.n11.post.15": {
+  "es": "El Shogun lo cuida. El Abad lo esconde. Jubei llora por él sin conocerlo.",
+  "en": "The Shogun protects him. The Abbot hides him. Jubei weeps for him without knowing him.",
+  "zh": "将军护着他。方丈藏着他。十兵卫不认识他，却为他落泪。"
+ },
+ "story.n11.post.16": {
+  "es": "¿Quién sos, Ren?",
+  "en": "Who are you, Ren?",
+  "zh": "你到底是谁，仁？"
+ },
+ "story.n12.pre.10": {
+  "es": "Busco a un ronin. Jubei. Me citó acá.",
+  "en": "I'm looking for a ronin. Jubei. He told me to meet him here.",
+  "zh": "我在找一个浪人。十兵卫。他约我在这儿见。"
+ },
+ "story.n12.pre.11": {
+  "es": "Yo también lo busco. A mí me citó la zorra.",
+  "en": "I'm looking for him too. The fox told me to come.",
+  "zh": "我也在找他。约我来的是狐狸。"
+ },
+ "story.n12.pre.12": {
+  "es": "No vino.",
+  "en": "He didn't show.",
+  "zh": "他没来。"
+ },
+ "story.n12.pre.13": {
+  "es": "No.",
+  "en": "No.",
+  "zh": "没来。"
+ },
+ "story.n12.pre.14": {
+  "es": "En el clan te dicen el chico de la manta. El Shogun te cuida como a un tesoro y no dice por qué.",
+  "en": "In the clan they call you the blanket boy. The Shogun guards you like a treasure and won't say why.",
+  "zh": "族里都叫你裹毯子的孩子。将军把你当宝贝一样护着，却不说为什么。"
+ },
+ "story.n12.pre.15": {
+  "es": "Mostrame esa manta.",
+  "en": "Show me that blanket.",
+  "zh": "让我看看那条毯子。"
+ },
+ "story.n12.pre.16": {
+  "es": "Todos quieren algo de mí y nadie me da nada. Primero ganame.",
+  "en": "Everyone wants something from me and no one gives me anything. Beat me first.",
+  "zh": "人人都想从我这儿要东西，却没人给我任何东西。先赢了我再说。"
+ },
+ "story.n12.pre.17": {
+  "es": "Igual te iba a ganar.",
+  "en": "I was going to beat you anyway.",
+  "zh": "反正我也会赢你。"
+ },
+ "story.n12.post.5": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.n12.post.7": {
+  "es": "¿De dónde?",
+  "en": "From where?",
+  "zh": "在哪儿见过？"
+ },
+ "story.n12.post.8": {
+  "es": "Mi abuela Kiku lo bordaba. En el paño de su tablero. En la capa de mi primera misión.",
+  "en": "My grandmother Kiku stitched it. On the cloth of her board. On the cape for my first mission.",
+  "zh": "我奶奶菊就这么绣。绣在她的棋盘布上。绣在我第一次出任务的披风上。"
+ },
+ "story.n12.post.9": {
+  "es": "Y solo bordaba para la familia.",
+  "en": "And she only stitched for family.",
+  "zh": "而且她只给家里人绣。"
+ },
+ "story.n12.post.10": {
+  "es": "…",
+  "en": "…",
+  "zh": "……"
+ },
+ "story.n12.post.11": {
+  "es": "Esa puntada torcida en la esquina… Esa no es de ella. Es de alguien que estaba aprendiendo.",
+  "en": "That crooked stitch in the corner… That one isn't hers. It's from someone who was learning.",
+  "zh": "角上那一针歪的……那不是她绣的。是一个正在学的人绣的。"
+ },
+ "story.n12.post.12": {
+  "es": "Una zorra me dijo que la empezó una mano vieja y la terminó una mano joven.",
+  "en": "A fox told me it was begun by an old hand and finished by a young one.",
+  "zh": "一只狐狸跟我说，这是一只苍老的手起的针，一只年轻的手收的尾。"
+ },
+ "story.n12.post.13": {
+  "es": "¿Quién es Natsu?",
+  "en": "Who is Natsu?",
+  "zh": "夏是谁？"
+ },
+ "story.n12.post.14": {
+  "es": "Aya da un paso atrás, como si le hubieran pegado.",
+  "en": "Aya steps back, as if she'd been struck.",
+  "zh": "绫后退一步，像挨了一记。"
+ },
+ "story.n12.post.15": {
+  "es": "¿Dónde oíste ese nombre?",
+  "en": "Where did you hear that name?",
+  "zh": "你在哪儿听到这个名字的？"
+ },
+ "story.n12.post.17": {
+  "es": "Entre los árboles suenan cascabeles. Una patrulla del Templo sube por el sendero.",
+  "en": "Bells jingle among the trees. A Temple patrol is coming up the path.",
+  "zh": "林间响起铃声。一支寺院的巡逻队正沿小路上山。"
+ },
+ "story.n12.post.18": {
+  "es": "Monjes. Tuyos. Vienen a buscarte.",
+  "en": "Monks. Yours. They're coming for you.",
+  "zh": "和尚。你们的人。来找你了。"
+ },
+ "story.n12.post.19": {
+  "es": "¡Esperá! ¡Contestame!",
+  "en": "Wait! Answer me!",
+  "zh": "等等！回答我！"
+ },
+ "story.n12.post.20": {
+  "es": "La hermana de mi madre. La hija menor de mi abuela.",
+  "en": "My mother's sister. My grandmother's youngest daughter.",
+  "zh": "我母亲的妹妹。我奶奶最小的女儿。"
+ },
+ "story.n12.post.21": {
+  "es": "Murió hace dieciséis años. Eso dice su tumba.",
+  "en": "She died sixteen years ago. That's what her grave says.",
+  "zh": "她十六年前就死了。她的墓碑上是这么写的。"
+ },
+ "story.n12.post.23": {
+  "es": "El bosque, lejos del santuario.",
+  "en": "The forest, far from the shrine.",
+  "zh": "森林，远离神社的地方。"
+ },
+ "story.n12.post.24": {
+  "es": "Una tumba vacía. Una manta bordada por la abuela. Un chico que el clan no puede tocar.",
+  "en": "An empty grave. A blanket stitched by Grandma. A boy the clan can't touch.",
+  "zh": "一座空坟。一条奶奶绣的毯子。一个一族碰不得的孩子。"
+ },
+ "story.n12.post.25": {
+  "es": "Ren tiene dieciséis años.",
+  "en": "Ren is sixteen.",
+  "zh": "仁今年十六岁。"
+ },
+ "story.n12.post.26": {
+  "es": "…Tía Natsu. ¿Qué hiciste?",
+  "en": "…Aunt Natsu. What did you do?",
+  "zh": "……夏姨。你做了什么？"
  }
 }

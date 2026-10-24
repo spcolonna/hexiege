@@ -56,6 +56,15 @@ dos llevan a sus bandos a una guerra que despierta al Oni.
 
 **Cronología del Acto I (las dos campañas se cruzan):** noche 1, s1 y n1-n5 (Aya duda antes de saltar el muro; Sora deja la marca; Aya vence a Gon en la escalera) · alba, Gon atrapa a Sora · día 2, s2 y s3 (la emboscada es de ninjas que desobedecen al Shogun) · noche 2, s4 y n6 al mismo tiempo (los golpes en el techo son la distracción; Aya pelea con Mei mientras la Zorra saca a Sora) · alba 3, s5 (cubren la huida de Aya y Sora) y s6.
 
+**Hilos del Acto II (resolver en III–IV):**
+- **Natsu**, hija menor de Kiku y tía de Aya, «murió» hace dieciséis años; su tumba está vacía. Es la madre de Ren: terminó de bordar la manta que empezó Kiku. Con **Jubei** (entonces monje) bajó a la cripta en luna nueva a renovar el sello «sola», sin el ritual completo; esa noche cayó la lluvia gris. Le puso el bebé en brazos al Abad.
+- **Jubei** es el padre de Ren y no lo sabe del todo: el Abad le dijo que el bebé había muerto con ella y lo echó esa noche. Sus nombres están tallados en la piedra central del jardín de piedra. Tras ver la manta (s9) se va a buscar «a un viejo que no quiere ser encontrado» y no llega al santuario.
+- **Tao y el Abad** juraron esa noche: el Abad, no hablar nunca de ella; Tao, no cruzar el río. Tao le manda a Jubei: «no fue culpa suya».
+- **Kage** sabe más de lo que dice: se mira la mano cuando Aya cuenta que la piedra late. Llama a Ren «una deuda del clan». Encierra a Sora en la torre por los mensajes de la Zorra.
+- La canción de Kiku: «Una mano del monte, una mano de la sombra. Seis piedras alrededor, y el fuego se duerme.»
+
+**Cronología del Acto II:** día 3, n7 (castigo y entrenamiento) · noche 4, n8-n9 (jardín de piedra) · día 5, s7-s8 (Ren sale con Tao; los ninjas castigados cuidan el puente), n10 a la mañana y s9 a la tarde (Jubei encuentra a los dos) · noche 5, s10 (Jubei se va) · día 6, s11 · noche 6, n11 (Gon busca a Ren por orden del Abad) · alba 7, s12/n12.
+
 **Retratos nuevos a generar:** Abad Hōshin, Gran Shogun Kage y el Oni de Ceniza (el avatar `oni` actual es un ninja con máscara, no el demonio).
 Opcional: versiones con otra expresión de Ren y Aya.
 
@@ -398,44 +407,89 @@ Rival: Kuro · IA: fácil (jefe) · Regla: Kuro tiene un Shinobi de más
 #### s7 · Huellas
 Rival: exploradores · IA: fácil · Regla: normal
 **Antes**
-- *Días después. Fuera del Templo, sin permiso.* [plano .8,.45 x1.4]
+- *Dos días después. La escalera de la montaña, antes del alba.* [plano .8,.45 x1.4]
 - [plano .55,.55 x1.1 lento]
-- Narración: Ren baja por la escalera de la montaña antes del alba. Nadie lo vio salir.
-- Ren [entra izq] *(pensando)*: Si el Abad no me lo dice, lo voy a averiguar.
-- [plano .85,.35 x1.5]
-- Tao [entra der]: ¿Saliendo a escondidas, chico? *hip*
-- Ren: ¡Maestro Tao! No le diga a nadie.
-- Tao: ¿Yo? Yo no vi nada. Nunca veo nada. *hip*
-- Tao: Te acompaño.
+- Narración: Desde la noche de la ceniza, el Abad no le habla. Mei tampoco. A Gon lo mandaron a cuidar la cripta día y noche.
+- Narración: Ren baja la escalera con un atado al hombro. Adentro, la manta.
+- Ren [entra izq] *(pensando)*: «Preguntale al viejo qué guarda abajo.» Le pregunté. Me gritó.
+- Ren *(pensando)*: Si nadie en el Templo me contesta, voy a buscar a alguien de afuera.
+- Tao [off]: ¿Saliendo a escondidas, chico? *hip*
+- Ren: ¡Maestro Tao!
+- Tao [entra der]: Yo no vi nada. Nunca veo nada. Es mi mayor talento. *hip*
+- Ren: ¿Le va a decir al Abad?
+- Tao: ¿Al Abad? Hace dieciséis años que el Abad y yo no nos decimos nada importante.
+- Ren *(pensando)*: Dieciséis años. Otra vez ese número.
+- Tao: ¿Qué llevás en ese atado?
+- Ren: …Mi manta.
+- Narración: Tao deja de sonreír. Por un momento, parece que no tomó nada en toda su vida.
+- Tao: Guardala bien. Y no se la muestres a cualquiera.
+- Tao: Te acompaño hasta el río. Más allá no.
+- Ren: ¿Por qué no más allá?
+- Tao: Porque estoy viejo. Y porque lo juré. *hip*
+- [plano .2,.4 x1.4]
+- Narración: Entre los pinos, alguien los mira. Exploradores del clan, vigilando el Templo desde la noche del muro.
+- Tao: Ah. Tenemos público. Andá, chico. Yo aplaudo.
 
 **Después**
 - *El sendero, más adelante.* [lugar mountainPath · plano .3,.6 x1.5]
 - [plano .25,.65 x1.8 lento]
-- Narración: Huellas en el barro. Pies livianos, de los que no quieren ser vistos.
-- Tao [entra der]: Van al este. Al viejo santuario.
-- Ren [entra izq]: ¿Usted sabe algo?
-- Tao: Sé tomar.
-- Tao: Lo demás lo olvidé. *hip*
-- Ren *(pensando)*: Para alguien que olvidó todo, lee muy bien las huellas.
+- Narración: Los exploradores huyen. Dejan huellas en el barro: pies livianos, de los que no quieren ser vistos.
+- Tao [entra der]: Van al este. Al santuario viejo.
+- Ren [entra izq]: ¿Hay un santuario al este? Nunca lo oí nombrar.
+- Tao: Porque al Templo no le gusta nombrarlo. Ahí hay piedras que cuentan lo que el Templo calla.
+- Ren: ¿Usted las vio?
+- Tao: Yo veo poco. Tomo mucho. *hip*
+- Tao: Pero la última vez que alguien siguió estas huellas fue hace dieciséis años.
+- Tao: Un monje joven, el mejor de su generación. Bajó la montaña con preguntas.
+- Ren: ¿Y qué le pasó?
+- Tao: Volvió sin el hábito. El Abad lo echó esa misma noche.
+- Tao: La misma noche en que vos llegaste al escalón.
+- Ren *(pensando)*: …
+- Ren *(pensando)*: Para alguien que olvidó todo, lee muy bien las huellas. Y las fechas.
 
 #### s8 · El puente de piedra
 Rival: guardia del puente · IA: normal · Regla: el Asedio empieza en la ronda 15
 **Antes**
 - *El único puente sobre el río.* [plano .5,.35 x1.4]
 - [plano .5,.6 x1.15 lento]
-- Narración: El río ruge abajo. Los ninjas bloquean el puente de punta a punta.
-- [entra Ninja der sombra]
-- Narración: La batalla va a ser larga, y no hay por dónde retirarse.
+- Narración: El río ruge abajo. Del otro lado empieza la tierra del clan.
+- Narración: Los ninjas bloquean el puente de punta a punta.
 - Ren [entra izq]: Maestro, ¿me ayuda?
-- Tao [entra centro]: Yo te espero de este lado. Tengo… cosas que hacer. *hip*
+- Tao [entra centro]: Yo de acá no paso. Este río es mi frontera.
+- Ren: ¿La de quién?
+- Tao: La mía y la del Abad. La juramos juntos, una noche en que llovía gris.
+- Tao: Él juró no hablar nunca más de esa noche. Yo juré no cruzar este puente nunca más.
+- Tao: Él cumplió. Yo también. Y mirá cómo nos fue. *hip*
+- [entra Kunoichi der sombra]
+- Kunoichi: …No puede ser.
+- Kunoichi: ¡El chico de la manta! ¡Otra vez vos!
+- Ren *(pensando)*: Es la del camino. La que quería cambiarme por Sora.
+- Ren: ¿Qué hacés acá?
+- Kunoichi: El Shogun nos castigó por desobedecer. Un mes cuidando este puente, comiendo pescado crudo.
+- Kunoichi: Todo por tu culpa.
+- Ren: ¿Mi culpa? ¡Me emboscaron ustedes!
+- Kunoichi: Detalles. Esta vez no hay órdenes de cuidarte. Bueno, sí hay. Pero no de dejarte pasar.
+- Tao [off]: ¡La batalla va a ser larga, chico! ¡Y no hay por dónde retirarse!
+- Ren: ¡Gracias, maestro!
+- Tao [off]: ¡De nada! *hip*
 
 **Después**
 - *La otra orilla.* [lugar bridge · plano .85,.55 x1.4]
 - Ren [entra izq corre]: ¡Pasé!
-- [plano .2,.55 x1.4 lento]
+- [entra Kunoichi der sombra]
+- Kunoichi: Pasaste. Ahora el Shogun me va a dar otro mes.
+- Ren: ¿Por qué tu Shogun me cuida? Decímelo y te dejo tranquila.
+- Kunoichi: Porque sos una deuda.
+- Kunoichi: Es lo único que sé. Lo dijo él mismo, la noche que llegaste al Templo. Yo era una nena.
+- Kunoichi: «El clan le debe una vida a ese chico. Y el clan paga lo que debe.»
+- [sale Kunoichi corre · plano .2,.55 x1.4 lento]
 - Narración: Del otro lado del río, Tao levanta la calabaza en un brindis.
 - Tao [entra der]: ¡Nunca dudé!
 - Tao: Bueno. Un poco.
+- Tao: ¡Chico! Si encontrás a un ronin con una cicatriz en la ceja, decile una cosa de mi parte.
+- Ren: ¿Qué cosa?
+- Tao: Que Tao todavía le guarda el cuenco. Y que no fue culpa suya.
+- Ren *(pensando)*: ¿Qué no fue culpa suya?
 
 #### s9 · Las tallas
 Rival: Jubei, el ronin · IA: normal · Regla: normal
@@ -444,65 +498,120 @@ Rival: Jubei, el ronin · IA: normal · Regla: normal
 - [plano .55,.55 x1.1 lento]
 - Narración: Musgo, piedras caídas, un torii que nadie cuida. Y algo tallado en la roca.
 - [arte art_carvings · plano .45,.3 x1.6]
-- Narración [plano .45,.4 x1.2 lento]: Seis piedras en hexágono, alrededor de una figura con cuernos.
+- Narración [plano .45,.4 x1.2 lento]: Seis piedras en hexágono, alrededor de una figura con cuernos. De un lado, una mano con cuentas de monje. Del otro, una mano con un tantō.
 - Ren: Ese es el símbolo del Templo…
-- Ren: …y ese es el del clan. ¿Juntos?
+- Ren: …y ese es el del clan. Las dos manos cierran el mismo círculo.
+- Ren *(pensando)*: Seis puntos alrededor de uno. Como mi manta.
 - [lugar shrine · entra Ren izq ya · plano .7,.5 x1.25]
 - Jubei [entra der sombra]: Nadie mira esas piedras hace siglos. ¿Qué hace un monje acá?
-- Ren: ¿Y vos quién sos?
-- Jubei: Uno que preguntó lo mismo que vos.
-- Jubei [plano .72,.45 x1.45]: Mostrame cómo peleás y te contesto.
+- Ren: Busco a alguien que me diga la verdad.
+- Jubei: Mal lugar. Acá solo hay piedras y un ronin que perdió las ganas de hablar.
+- Ren: ¿Tenés una cicatriz en la ceja?
+- Jubei: …
+- Jubei: ¿Quién te mandó?
+- Ren: Tao. Dijo que te guarda el cuenco.
+- Narración: El ronin se ríe sin ganas, como quien recibe una carta muy vieja.
+- Jubei: Ese borracho. Sigue vivo.
+- Jubei: Esta mañana me crucé con una ninja que me dijo un nombre que no oía hace dieciséis años. Y ahora vos me traés a Tao.
+- Jubei: Hoy los muertos tienen ganas de hablar.
+- Jubei: Mostrame cómo peleás. Si rodeás como te enseñó Hōshin, no tenemos nada que decirnos.
 
 **Después**
 - [entra Jubei der · entra Ren izq]
-- Jubei: Fui monje, ¿sabés?
-- Jubei: Me echaron por preguntar qué dice el Pergamino de Jade.
-- Ren: El Pergamino es sagrado. Solo el Abad lo lee.
-- [plano .7,.45 x1.5 lento]
-- Jubei: Exacto.
-- Jubei: ¿Y nunca te preguntaste por qué?
+- Jubei: No rodeás como Hōshin. Rodeás como alguien que espera.
+- Jubei: Fui monje, ¿sabés? Me echaron por preguntar qué dice el Pergamino de Jade.
+- Ren: Tao dijo que te echaron la noche en que yo llegué.
+- Jubei: …
+- Ren: Me dejaron en el escalón del Templo, envuelto en esto.
+- Narración: Ren desata el atado y abre la manta sobre la piedra.
+- [plano .45,.6 x1.6 lento]
+- Narración: Seis puntos alrededor de uno, en hilo gris.
+- Jubei: …
+- Jubei: ¿De dónde sacaste esto?
+- Ren: Ya te dije. Llegué envuelto en ella.
+- Jubei: No. No puede ser.
+- Jubei: Hōshin me dijo que el bebé había muerto esa noche. Con ella.
+- Ren: ¿Con quién?
+- Narración: Jubei no contesta. Mira la manta como si quemara.
+- Jubei: Esta noche no. No puedo.
+- Jubei: Mañana te cuento todo. Te lo juro, chico.
+- Ren *(pensando)*: Todos juran algo. Nadie me cuenta nada.
 
 #### s10 · Cuatro sombras
 Rival: refuerzos del clan · IA: normal · Regla: el rival tiene 4 Shinobi
 **Antes**
 - *El bosque, de noche.* [plano .65,.3 x1.4 · niebla]
 - [plano .3,.55 x1.15 lento]
-- Jubei [entra der]: Te siguieron desde el santuario. Son muchos.
-- Ren [entra izq]: ¿Cuántos?
+- Narración: Jubei hizo un fuego y no habló en horas. Ahora lo mira a Ren como si buscara algo en su cara.
+- Jubei [entra der]: ¿Hōshin te trató bien?
+- Ren [entra izq]: Como a un hijo. Me enseñó a leer, a rodear, a no tener miedo.
+- Jubei: …Bien. Eso es bueno.
+- Jubei: Siempre fue mejor maestro que persona.
+- Ren: ¿Por qué te importa tanto cómo me trató?
+- Jubei: Porque…
 - [plano .12,.5 x1.5]
 - Narración: Entre los bambúes, una sombra. Dos. Cuatro.
+- Jubei: Te siguieron desde el santuario. No son exploradores: son shinobi del Shogun.
 - Ren: Los Shinobi se meten por cualquier rendija.
-- Jubei: Entonces no dejes rendijas.
+- Jubei: Entonces no dejes rendijas. Y no te alejes del fuego.
 
 **Después**
 - [plano .5,.65 x1.5 lento]
 - Narración: Un shinobi caído suelta algo al huir: un pergamino pequeño, atado con hilo rojo.
 - Ren [entra izq]: Tiene el sello del Shogun.
 - Jubei [entra der]: Leelo.
-- Ren [plano .5,.5 x1.3] *(leyendo)*: «Traigan el Pergamino de Jade antes de la luna nueva.»
+- Ren *(leyendo)*: «Traigan el Pergamino de Jade antes de la luna nueva. Si cae ceniza, ya no hay tiempo de pedirlo.»
 - Jubei: La luna nueva es en diez días.
+- Ren: ¿Por qué la luna nueva?
+- Jubei: Porque es la noche más oscura. Las cosas que duermen bajo tierra la sienten.
+- Jubei: Hace dieciséis años también cayó ceniza. Y también faltaban diez días para la luna nueva.
+- Ren: ¿Qué pasó esa luna nueva?
+- Jubei: Alguien bajó a la cripta a hacer algo que no sabía hacer sola.
+- Jubei: Y yo llegué tarde.
+- *Más tarde. El fuego, casi apagado.* [lugar forest · plano .5,.6 x1.3 lento]
+- Narración: Ren se duerme envuelto en la manta. Jubei vela hasta el alba.
+- Narración: Cuando Ren despierta, el ronin no está. En su lugar quedó un cuenco de madera y una nota.
+- Ren [entra izq] *(leyendo)*: «Perdón. Antes de contarte, tengo que hablar con alguien. Esperame en el santuario pasado mañana, al alba.»
+- Ren *(pensando)*: ¿Con quién? ¿Con el Abad?
+- Ren *(pensando)*: El cuenco tiene algo tallado abajo. Un nombre: Natsu.
 
 #### s11 · Niebla en el valle
 Rival: patrulla en la niebla · IA: normal · Regla: habilidades con 5 usos y 1 turno de recarga
 **Antes**
 - *El valle. Niebla espesa.* [plano .5,.5 x1.3 · niebla]
 - [plano .25,.6 x1.15 lento]
-- Narración: En la niebla nada se queda quieto. Ren perdió a Jubei hace una hora.
-- Ren [entra izq]: ¿Jubei? ¡Jubei!
+- Narración: En la niebla nada se queda quieto. Ren camina hacia el santuario sin saber si va bien.
+- Ren [entra izq] *(pensando)*: Natsu. ¿Quién es Natsu?
+- Ren *(pensando)*: «El bebé murió esa noche. Con ella.» ¿Natsu es «ella»?
 - [plano .75,.55 x1.3 · latido]
-- Zorra Blanca [entra der humo]: Seguime, pequeño monje.
-- Ren: ¡Vos! ¿Qué sos?
+- Zorra Blanca [entra der humo]: Si seguís por ahí, caés al río, pequeño monje.
+- Ren: ¡Vos! La de la celda.
+- Zorra Blanca: La de la celda, la del muro, la del bosque. Siempre la misma. Pocos me miran dos veces.
+- Ren: ¿Qué sos?
 - Zorra Blanca: La que recuerda.
-- Zorra Blanca [sale Zorra Blanca humo]: Seguime y no te pierdas.
+- Ren: Entonces recordame algo. ¿Quién es Natsu?
+- Zorra Blanca: Una chica que bordaba mal y rodeaba bien.
+- Zorra Blanca: Tu manta la empezó una mano vieja y la terminó una mano joven. Las dos temblaban.
+- Ren: ¿Por qué temblaban?
+- Zorra Blanca: Porque sabían adónde ibas a ir.
+- Narración: En la niebla se mueven formas. Una patrulla del clan, peinando el valle.
+- Zorra Blanca [sale Zorra Blanca humo]: Primero salí del valle. Después preguntá.
 
 **Después**
 - *La salida del valle.* [lugar valley · plano .8,.4 x1.35]
 - [entra Ren izq · entra Zorra Blanca der]
-- Zorra Blanca: Mañana vas a conocer a alguien que hace tus mismas preguntas.
-- Ren: ¿Quién?
-- Zorra Blanca: Alguien del otro lado.
+- Zorra Blanca: Mañana, en el santuario, vas a conocer a alguien que hace tus mismas preguntas.
+- Ren: ¿El ronin? Dijo que me esperaba ahí.
+- Zorra Blanca: El ronin fue a buscar a un viejo que no quiere ser encontrado.
+- Zorra Blanca: La que vas a conocer viene del otro lado.
+- Ren: ¿Del otro lado del valle?
+- Zorra Blanca: Del otro lado de la guerra.
+- Zorra Blanca: No la lastimes. Es la única que puede contestarte.
+- Ren: ¿Y si ella me lastima a mí?
+- Zorra Blanca: Entonces van a aprender rápido. Los dos.
 - [sale Zorra Blanca humo · plano .85,.35 x1.5 lento]
-- Ren *(pensando)*: Del otro lado… ¿del valle? ¿O de la guerra?
+- Ren *(pensando)*: Una mano vieja y una mano joven.
+- Ren *(pensando)*: Alguien me bordó una despedida.
 
 #### s12 · JEFE — Aya *(duelo cruzado)*
 Rival: Aya · IA: normal (jefe) · Regla: normal
@@ -511,22 +620,49 @@ Rival: Aya · IA: normal (jefe) · Regla: normal
 - [arte art_duel_shrine · plano .5,.45 x1.6]
 - Narración [plano .5,.5 x1.05 lento]: Dos sombras en el mismo claro. Ninguna se mueve primero.
 - Aya [lugar shrine · entra der sombra · plano .65,.5 x1.25]: Un monje. Solo. En mi bosque.
-- Ren [entra izq]: No es tu bosque.
-- Aya: …
-- Aya: ¿Vos también la ves? A la zorra blanca.
-- Ren *(sorprendido)*: Sí.
-- Aya [plano .7,.45 x1.4]: Entonces sabés que algo anda mal.
-- Aya: Igual te voy a ganar.
+- Ren [entra izq]: No es tu bosque. Y no vine solo: me mandó una zorra.
+- Aya: …A mí también.
+- Ren: Sos la del abanico. La que le ganó a Gon en la escalera y le pidió perdón.
+- Aya: Y vos sos el que le llevó arroz a mi hermano.
+- Ren: ¿Sora es tu hermano? Me dijo que tenía una hermana que preguntaba demasiado.
+- Aya: Y él dijo que el arroz tenía tierra. Y que fue lo más rico que comió en una semana.
+- Ren: Busco a un ronin. Jubei. Me citó acá.
+- Aya: Yo también lo busco. A mí me citó la zorra.
+- Ren: No vino.
+- Aya: No.
+- Aya: En el clan te dicen el chico de la manta. El Shogun te cuida como a un tesoro y no dice por qué.
+- Aya: Mostrame esa manta.
+- Ren: Todos quieren algo de mí y nadie me da nada. Primero ganame.
+- Aya: Igual te iba a ganar.
 
 **Después**
 - Aya [entra der]: Ganaste. Esta vez.
-- Ren [entra izq]: El tuyo dijo que venían a advertir. ¿De qué?
-- Aya: No sé. Mi Shogun tampoco.
-- Aya [plano .7,.45 x1.45]: Pero preguntale a tu Abad **qué hay debajo del Templo**.
+- Ren [entra izq]: Igual te la voy a mostrar. Quiero ver qué cara ponés.
+- Narración: Ren abre la manta sobre la piedra del santuario.
+- [plano .5,.6 x1.6 lento]
+- Narración: Seis puntos alrededor de uno, en hilo gris.
+- Aya: …
+- Aya: Ese bordado lo conozco. Puntada por puntada.
+- Ren: ¿De dónde?
+- Aya: Mi abuela Kiku lo bordaba. En el paño de su tablero. En la capa de mi primera misión.
+- Aya: Y solo bordaba para la familia.
+- Ren: …
+- Aya: Esa puntada torcida en la esquina… Esa no es de ella. Es de alguien que estaba aprendiendo.
+- Ren *(pensando)*: «La empezó una mano vieja y la terminó una mano joven.»
+- Ren: ¿Quién es Natsu?
+- Narración: Aya da un paso atrás, como si le hubieran pegado.
+- Aya: ¿Dónde oíste ese nombre?
+- [onom campana · plano .15,.4 x1.4]
+- Narración: Entre los árboles suenan cascabeles. Una patrulla del Templo sube por el sendero.
+- Aya: Monjes. Tuyos. Vienen a buscarte.
+- Ren: ¡Esperá! ¡Contestame!
+- Aya: La hermana de mi madre. La hija menor de mi abuela.
+- Aya: Murió hace dieciséis años. Eso dice su tumba.
 - [sale Aya humo · humo · destello]
 - Narración: Una bomba de humo. Aya ya no está.
-- [plano .5,.5 x1.1 lento]
-- Ren *(pensando)*: Debajo del Templo. Otra vez.
+- [plano .5,.6 x1.4 lento]
+- Ren *(pensando)*: Solo bordaba para la familia.
+- Ren *(pensando)*: …¿La familia de quién soy yo?
 - **→ Fin del Acto II**
 
 ### Acto III · La biblioteca cerrada
@@ -1025,93 +1161,189 @@ Rival: Mei · IA: fácil (jefe) · Regla: Mei tiene un Tigre de más
 #### n7 · El informe
 Rival: Kuro (entrenamiento) · IA: fácil · Regla: normal
 **Antes**
-- *La pagoda.* [plano .82,.35 x1.4]
+- *La pagoda. Ese mismo día.* [plano .82,.35 x1.4]
 - [plano .6,.55 x1.15 lento]
-- Aya [entra izq]: Mi señor, la puerta de la cripta late.
-- Aya: Hay algo vivo debajo del Templo.
-- Kage [entra der sombra]: Supersticiones de monjes.
-- Aya: La toqué yo.
-- Kage [plano .7,.45 x1.45]: …
+- Narración: En la sala del Shogun, tres ninjas esperan de rodillas desde el alba. Son los que emboscaron al discípulo del Abad sin permiso.
+- Kage [entra der sombra]: Desobedecieron. Pusieron en peligro al chico que les ordené no tocar.
+- Kunoichi [entra centro sombra]: Mi señor, solo queríamos traer a Sora de vuelta…
+- Kage: Sora volvió solo. Ustedes volvieron sin honor.
+- Kage: Un mes en el puente del río. Comiendo lo que pesquen.
+- [sale Kunoichi]
+- Aya [entra izq]: Mi señor. La puerta de la cripta late.
+- Aya: Bajé hasta el fondo de la escalera. La piedra está tibia. Late como un corazón.
+- Kage: Supersticiones de monjes.
+- Aya: La toqué yo. Con esta mano.
+- Kage: …
+- Narración: Por un instante, el Gran Shogun se mira la propia mano. Como si recordara algo.
+- Kage: ¿Y tu hermano? ¿Qué hacía en el ala norte con las manos negras de carbón?
+- Aya: …
+- Kage: No lo protejas. Ya me lo contó. Mensajes de una zorra. Marcas en los muros del enemigo.
+- Kage: Sora se queda encerrado en la torre hasta que yo diga.
+- Aya: ¡Él solo quería advertirles!
+- Kage: ¿Advertirles qué? ¿Que los espíritus hablan? Las leyendas no se discuten, Aya. Se obedecen.
+- Kage: Y la leyenda dice: cuando caiga ceniza, el Pergamino vuelve a casa antes de la luna nueva.
+- Kage: Hoy cayó ceniza sobre el Templo.
+- Aya *(pensando)*: ¿Cómo sabe eso?
 - Kage: Kuro. Entrenala. Está distraída.
 - Kuro [entra centro sombra]: Sí, mi señor.
+- Narración: Kuro tiene un golpe nuevo en la mejilla. Kuro no pierde nunca.
 
 **Después**
 - Kuro [entra der]: Peleás con rabia.
 - Aya [entra izq]: Peleo con preguntas.
+- Aya: ¿Quién te hizo ese golpe, Kuro?
+- Kuro: Un novicio. En el portón del Templo, al alba. Cubrí la huida de ustedes.
+- Aya: ¿Un novicio te ganó a vos?
+- Kuro: El chico de la manta.
+- Aya: El que el Shogun cuida. ¿Quién es, Kuro? ¿Por qué el clan le debe algo?
 - [plano .7,.45 x1.45 lento]
-- Kuro: Las preguntas no ganan batallas.
+- Kuro: …
+- Kuro: Tu abuela tenía dos hijas.
+- Aya: Una era mi madre. La otra se murió antes de que yo naciera. La tía Natsu.
+- Kuro: Eso dice la tumba.
+- Aya: ¿Qué querés decir?
+- Kuro: Que hace dieciséis años juré no contar lo que vi una noche de lluvia gris. Y ya te dije demasiado.
+- Kuro: Las preguntas no ganan batallas, Aya.
 - Aya: Todavía.
+- [sale Kuro humo]
+- Aya *(pensando)*: La tumba de la tía Natsu. Siempre me pareció chica.
+- Aya *(pensando)*: Demasiado chica para un cuerpo.
 
 #### n8 · El jardín de piedra
 Rival: jardineros del Templo · IA: normal · Regla: el Asedio empieza en la ronda 15
 **Antes**
-- *El jardín zen del Templo.* [plano .15,.4 x1.4]
+- *La noche siguiente. La torre de la pagoda.* [lugar pagoda · plano .8,.3 x1.4]
+- Narración: Sora está encerrado arriba. Aya trepa por afuera, como cuando eran chicos.
+- Explorador [entra der sombra]: Si te ve el Shogun, nos encierra a los dos.
+- Aya [entra izq]: Entonces hablá rápido. La zorra. ¿Qué te dijo?
+- Explorador: Que mires las piedras del jardín. El de abajo del Templo, fuera de los muros.
+- Explorador: Dijo que ahí está escrito lo que la abuela no se animó a contarnos.
+- Aya: ¿La abuela sabía algo?
+- Explorador: Hermanita, la abuela sabía todo. Lo que no sabía era cómo decirlo.
+- Explorador: Una vez la vi llorar sobre una tumba vacía. La de la tía Natsu.
+- Aya: …¿Vacía?
+- Explorador: Yo tenía siete años. Pensé que lo había soñado.
+- *El jardín zen, al pie del Templo.* [lugar garden · plano .15,.4 x1.4]
 - [plano .55,.6 x1.1 lento]
 - Narración: Arena rastrillada en círculos perfectos. Nadie la pisa nunca.
 - Aya [entra izq]: Hasta hoy.
 - [onom campana]
-- Narración: Los monjes cerraron el jardín. Hay que abrirse paso antes de que lleguen más.
+- Narración: Los monjes jardineros la vieron. Cierran el jardín con rastrillos y bastones.
 
 **Después**
 - [plano .5,.6 x1.5 lento]
-- Narración: En el centro del jardín, seis piedras forman un hexágono.
+- Narración: En el centro del jardín, seis piedras forman un hexágono alrededor de una séptima, más chica.
 - [plano .52,.65 x1.8 · latido]
-- Narración: Una tiene una grieta.
-- Aya [entra izq] *(pensando)*: Seis piedras…
-- Aya *(pensando)*: Como el tablero.
+- Narración: Una de las seis tiene una grieta. Fresca, del mismo día en que cayó ceniza.
+- Aya [entra izq] *(pensando)*: Seis piedras alrededor de una. Como la marca de Sora.
+- Aya *(pensando)*: Como el bordado de la abuela.
+- [plano .5,.72 x1.9 lento]
+- Narración: En la base de la piedra del centro hay dos nombres tallados, muy chiquitos. Uno con letra de monje, otro con letra del clan.
+- Aya *(leyendo)*: «Natsu.»
+- Aya *(leyendo)*: «Jubei.»
+- Aya *(pensando)*: ¿Quién es Jubei?
+- Aya *(pensando)*: ¿Y qué hacía el nombre de mi tía en un jardín de monjes?
 
 #### n9 · Los guardianes
 Rival: Tigres de mármol · IA: normal · Regla: el rival tiene 3 Tigres
 **Antes**
 - *El paso del jardín.* [lugar garden · plano .85,.55 x1.4]
-- Narración: Los Tigres de Mármol custodian el paso. Empujan todo lo que encuentran.
+- Narración: Por el único paso de salida bajan los Tigres de Mármol, los guardianes del Templo. Empujan todo lo que encuentran.
 - [temblor · onom golpe]
 - Aya [entra izq]: Grandes, lentos y tercos.
 - Aya: Como los monjes.
+- Aya *(pensando)*: Si me atrapan acá, nadie en el clan va a saber lo de las piedras. Ni lo de los nombres.
 
 **Después**
 - [niebla · plano .5,.6 x1.2 lento]
+- Narración: Aya escapa entre los Tigres. Afuera del jardín la espera la niebla. Y en la niebla, algo blanco.
 - Zorra Blanca [entra der humo]: Seis piedras, dos manos.
-- Zorra Blanca: ¿Recordás la canción, kunoichi?
+- Zorra Blanca: ¿Recordás la canción, nieta de Kiku?
 - Aya [entra izq]: ¿Qué canción?
-- [plano .7,.45 x1.45]
-- Zorra Blanca: La que tu clan dejó de cantar.
+- Zorra Blanca: La que tu abuela tarareaba mientras rodeaba.
+- Aya: …No tenía letra. Era solo una melodía.
+- Zorra Blanca: Tenía letra. Tu clan la dejó de cantar el día que dejó de preguntar.
+- Zorra Blanca *(cantando)*: «Una mano del monte, una mano de la sombra. Seis piedras alrededor, y el fuego se duerme.»
+- Aya: «Y el fuego se duerme…»
+- Aya: ¿Natsu la sabía?
+- Zorra Blanca: Natsu la cantó entera. Una sola vez. Con la voz equivocada a su lado.
+- Aya: ¿Qué voz? ¿La de Jubei?
+- Zorra Blanca: Preguntale a él. Mañana baja por el camino de la montaña.
 - [sale Zorra Blanca humo]
 
 #### n10 · La leyenda
 Rival: Jubei, el ronin · IA: normal · Regla: normal
 **Antes**
-- *Un camino de montaña.* [plano .85,.4 x1.4]
+- *A la mañana. Un camino de montaña.* [plano .85,.4 x1.4]
 - [plano .55,.6 x1.15 lento]
-- Jubei [entra der]: Una ninja que mira piedras viejas. Raro.
-- Aya [entra izq]: ¿Las conocés?
-- Jubei: Fui monje. Sé lo que el Templo calla.
-- Jubei [plano .7,.45 x1.45]: Ganame y te cuento lo que el clan olvidó.
+- Narración: Un ronin baja por el camino con un cuenco atado al cinto. Tiene una cicatriz en la ceja.
+- Jubei [entra der]: Una ninja sentada en mi camino. Mala señal.
+- Aya [entra izq]: ¿Cómo te llamás?
+- Jubei: Los ronin no tenemos nombre. Por eso somos ronin.
+- Aya: ¿Jubei?
+- Narración: El ronin se queda quieto. La mano va sola a la empuñadura.
+- Jubei: ¿Quién te dijo ese nombre?
+- Aya: Una piedra. En el jardín del Templo. Al lado del nombre de mi tía. Natsu.
+- Jubei: …
+- Jubei: Tenés sus ojos. Los vi apenas te vi, y no quise creerlo.
+- Aya: ¿La conociste?
+- Jubei: Fui monje del Templo. Ella era del clan. Eso tendría que alcanzar como respuesta.
+- Aya: No alcanza.
+- Jubei: No. Nunca alcanzó.
+- Jubei: Ganame. Y te cuento lo que el Templo calla y lo que el clan olvidó.
 
 **Después**
-- Jubei [entra der]: Tu clan dice que el Pergamino es suyo. No miente.
-- Jubei: Pero tampoco recuerda **por qué**.
-- Jubei: Preguntale a tu Shogun qué dice el Pergamino.
-- Aya [entra izq]: Ya le pregunté. No sabe.
+- Jubei [entra der]: Rodeás como ella. Primero esperás. Después cerrás sin piedad.
+- Jubei: Tu clan dice que el Pergamino es suyo. No miente.
+- Jubei: El Pergamino es un pacto. Lo firmaron un monje y una ninja hace trescientos años. Daishin y Kagerō.
+- Aya [entra izq]: ¿Un pacto para qué?
+- Jubei: Eso solo lo sabe quien lo leyó. Y en el Templo, solo lo lee el Abad.
+- Jubei: Natsu quería lo mismo que vos: saber. Lo supo. Y le costó todo.
+- Aya: ¿Está viva?
+- Jubei: Hace dieciséis años que me hago esa pregunta.
+- Jubei: El Abad me dijo que había muerto esa noche. Ella y…
+- Aya: ¿Y quién?
+- Jubei: Nadie. Un error.
 - [plano .5,.4 x1.1 lento]
-- Jubei: Entonces nadie en esta guerra sabe por qué pelea.
+- Narración: Jubei sigue camino hacia el este, hacia el santuario viejo. No se da vuelta.
+- Aya *(pensando)*: «Ella y…» ¿Y quién?
+- Aya *(pensando)*: Una tumba vacía. Demasiado chica para un cuerpo.
 
 #### n11 · Humo y espejos
 Rival: patrulla del Templo · IA: normal · Regla: habilidades con 5 usos y 1 turno de recarga
 **Antes**
-- *El bosque, de noche.* [lugar forest · plano .3,.5 x1.4 · niebla]
-- Narración: Bombas de humo por todas partes. Que ningún monje sepa dónde estás.
+- *Al día siguiente, de noche. El bosque.* [lugar forest · plano .3,.5 x1.4 · niebla]
+- Narración: Aya sigue el rastro de Jubei hacia el este. Pero el bosque está lleno de monjes con antorchas.
+- Gon [entra der corre]: ¡Abran bien los ojos! ¡Tiene que estar cerca!
+- Aya [entra izq] *(pensando)*: El de la escalera. El del brazo vendado. Ya se le está curando.
+- Gon: El Abad fue claro: traerlo de vuelta antes de que hable con el ronin.
+- Aya *(pensando)*: ¿Traer a quién?
+- Gon: Y si encuentran al ronin… no lo dejen acercarse a Ren.
+- Aya *(pensando)*: Ren. El chico de la manta se llama Ren.
+- Aya *(pensando)*: Y el Abad le tiene más miedo a Jubei que a nosotros.
+- [plano .7,.3 x1.5]
+- Gon: ¡Ahí! ¡Una sombra!
 - [humo · destello]
-- Aya [entra izq corre]: Ahora.
-- [plano .7,.3 x1.5 · latido]
-- Zorra Blanca [entra der humo]: Mañana vas a conocer a alguien que hace tus mismas preguntas.
+- Aya [entra izq corre]: Humo y espejos. Que ningún monje sepa dónde estoy.
 
 **Después**
-- [entra Aya izq · entra Zorra Blanca der · niebla]
+- [entra Aya izq · niebla]
+- Narración: Los monjes se pierden en el humo. Gon grita órdenes a nadie.
+- [plano .7,.3 x1.5 · latido]
+- Zorra Blanca [entra der humo]: Mañana, en el santuario, vas a conocer a alguien que hace tus mismas preguntas.
+- Aya: El chico de la manta. Ren.
+- Zorra Blanca: Aprendés rápido.
+- Aya: ¿Jubei va a estar?
+- Zorra Blanca: Jubei fue a buscar a un viejo que no quiere ser encontrado.
+- Zorra Blanca: No lastimes al chico. Es el único que puede contestarte.
+- Aya: ¿Y si me lastima él?
+- Zorra Blanca: Entonces van a aprender rápido. Los dos.
 - Aya: Zorra… ¿quién sos?
 - [plano .7,.45 x1.45 lento]
 - Zorra Blanca: La que recuerda lo que ustedes olvidaron.
 - [sale Zorra Blanca humo]
+- Aya *(pensando)*: El Shogun lo cuida. El Abad lo esconde. Jubei llora por él sin conocerlo.
+- Aya *(pensando)*: ¿Quién sos, Ren?
 
 #### n12 · JEFE — Ren *(duelo cruzado)*
 Rival: Ren · IA: normal (jefe) · Regla: normal
@@ -1120,21 +1352,49 @@ Rival: Ren · IA: normal (jefe) · Regla: normal
 - [arte art_duel_shrine · plano .5,.45 x1.6]
 - Narración [plano .5,.5 x1.05 lento]: Dos sombras en el mismo claro. Ninguna se mueve primero.
 - Aya [lugar shrine · entra izq · plano .35,.5 x1.25]: Un monje. Solo. En mi bosque.
-- Ren [entra der]: No es tu bosque.
-- Aya: …
-- Aya: ¿Vos también la ves? A la zorra blanca.
-- Ren *(sorprendido)*: Sí.
-- Aya [plano .3,.45 x1.4]: Entonces sabés que algo anda mal.
-- Aya: Igual te voy a ganar.
+- Ren [entra der]: No es tu bosque. Y no vine solo: me mandó una zorra.
+- Aya: …A mí también.
+- Ren: Sos la del abanico. La que le ganó a Gon en la escalera y le pidió perdón.
+- Aya: Y vos sos el que le llevó arroz a mi hermano.
+- Ren: ¿Sora es tu hermano? Me dijo que tenía una hermana que preguntaba demasiado.
+- Aya: Y él dijo que el arroz tenía tierra. Y que fue lo más rico que comió en una semana.
+- Ren: Busco a un ronin. Jubei. Me citó acá.
+- Aya: Yo también lo busco. A mí me citó la zorra.
+- Ren: No vino.
+- Aya: No.
+- Aya: En el clan te dicen el chico de la manta. El Shogun te cuida como a un tesoro y no dice por qué.
+- Aya: Mostrame esa manta.
+- Ren: Todos quieren algo de mí y nadie me da nada. Primero ganame.
+- Aya: Igual te iba a ganar.
 
 **Después**
 - Ren [entra der]: Ganaste. Esta vez.
-- Ren: Tu compañero dijo que venían a advertir. ¿De qué?
-- Aya [entra izq]: No sé. Mi Shogun tampoco.
-- Aya: Pero preguntale a tu Abad **qué hay debajo del Templo**.
-- Ren: Mi maestro nunca miente.
-- [plano .3,.45 x1.45]
-- Aya: Entonces no te va a costar preguntarle.
+- Aya [entra izq]: La manta. Prometiste.
+- Narración: Ren abre la manta sobre la piedra del santuario.
+- [plano .5,.6 x1.6 lento]
+- Narración: Seis puntos alrededor de uno, en hilo gris.
+- Aya: …
+- Aya: Ese bordado lo conozco. Puntada por puntada.
+- Ren: ¿De dónde?
+- Aya: Mi abuela Kiku lo bordaba. En el paño de su tablero. En la capa de mi primera misión.
+- Aya: Y solo bordaba para la familia.
+- Ren: …
+- Aya: Esa puntada torcida en la esquina… Esa no es de ella. Es de alguien que estaba aprendiendo.
+- Ren: Una zorra me dijo que la empezó una mano vieja y la terminó una mano joven.
+- Ren: ¿Quién es Natsu?
+- Narración: Aya da un paso atrás, como si le hubieran pegado.
+- Aya: ¿Dónde oíste ese nombre?
+- [onom campana · plano .85,.4 x1.4]
+- Narración: Entre los árboles suenan cascabeles. Una patrulla del Templo sube por el sendero.
+- Aya: Monjes. Tuyos. Vienen a buscarte.
+- Ren: ¡Esperá! ¡Contestame!
+- Aya: La hermana de mi madre. La hija menor de mi abuela.
+- Aya: Murió hace dieciséis años. Eso dice su tumba.
+- [sale Aya humo · humo · destello]
+- *El bosque, lejos del santuario.* [lugar forest · plano .3,.5 x1.3]
+- Aya [entra izq] *(pensando)*: Una tumba vacía. Una manta bordada por la abuela. Un chico que el clan no puede tocar.
+- Aya *(pensando)*: Ren tiene dieciséis años.
+- Aya *(pensando)*: …Tía Natsu. ¿Qué hiciste?
 - *(Las dos versiones del duelo son la misma charla; en el final se revela que ninguno ganó: la Zorra los separó.)*
 - **→ Fin del Acto II**
 
