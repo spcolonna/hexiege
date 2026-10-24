@@ -65,6 +65,19 @@ dos llevan a sus bandos a una guerra que despierta al Oni.
 
 **Cronología del Acto II:** día 3, n7 (castigo y entrenamiento) · noche 4, n8-n9 (jardín de piedra) · día 5, s7-s8 (Ren sale con Tao; los ninjas castigados cuidan el puente), n10 a la mañana y s9 a la tarde (Jubei encuentra a los dos) · noche 5, s10 (Jubei se va) · día 6, s11 · noche 6, n11 (Gon busca a Ren por orden del Abad) · alba 7, s12/n12.
 
+**Hilos del Acto III (resolver en IV y el final):**
+- **Natsu** esperó a Jubei al pie de la escalera; el Abad lo había hecho encerrar por Tao. Le dio el bebé al Abad («Si no bajan dos, bajo sola. Cuidalo. Que no baje nunca.») y bajó sola. Desde entonces «le tiene la mano» al Oni: su sacrificio sostuvo el sello dieciséis años y se está cansando. Su abanico quemado quedó junto a la grieta (Aya se lo lleva) y su mano está marcada en la pared de la escalera.
+- **El Abad** se quema las manos sosteniendo las piedras rajadas cada noche y piensa bajar solo en luna nueva, como ella. Manda a Ren a la pagoda para alejarlo de la cripta. Le habla a una piedra sin nombre en el patio de atrás, con un hilo gris atado.
+- **Mei** arrancó y quemó la página de la crónica de ese año; le revela a Ren que Natsu era su madre.
+- **Tao** encerró a Jubei esa noche. Jubei bajó a la cripta la noche 7 y le pidió perdón; después fue a la pagoda a pedirle a Kage una mano del clan. Tao le dice a Ren que Jubei es su padre y a Aya le confirma todo: Ren es su primo.
+- **Kage** le negó a Natsu una mano del clan hace dieciséis años («el clan no le da la mano a ladrones»). Ahora quiere hacer el ritual solo con manos del clan: el mismo error del Abad, del otro lado. Tiene a Jubei encerrado en la torre con Sora.
+- **Kuro** llevó a Natsu hasta el muro la noche de la lluvia gris; ella le pidió que el clan le debiera una vida al chico. Le dice a Aya que lleve el Pergamino «a quien tenga la otra mano».
+- **Las castigadas del puente** (la kunoichi de s3/s8) entran al Templo al alba 9 sin orden, para sacar a Ren antes de la luna nueva: Natsu les enseñó a tirar estrellas.
+- **El Oni** llama a Daishin en los sueños de los novicios y a Kagerō frente a Aya («sos de su sangre»). Sus «dedos» de ceniza escapan por las grietas. En el pueblo los chicos tosen gris, también Hana.
+- Una figura de ceniza con forma de mujer dibuja la marca y señala hacia arriba: hacia la otra mano.
+
+**Cronología del Acto III:** día 7, s13 (Ren vuelve con la patrulla de Gon) · noche 7, s14 (sueños; el Abad en la piedra sin nombre, dieciséis años de la lluvia gris); Jubei baja a ver a Tao · día 8, n13 en la torre (Sora); Jubei llega a la pagoda · noche 8, s15 (Ren en la biblioteca con Mei) y al mismo tiempo n13-n17 (Aya en la cripta; el ruido de la biblioteca la cubre; el Abad baja antes del alba) · alba 9, s16 (las castigadas entran por el muro; Aya las ve al salir) · día 9, s17 y n18 · noche 9, s18 (Ren sale hacia la pagoda); Kuro, vencido, deja ir a Aya al Templo · noche 10: luna nueva.
+
 **Retratos nuevos a generar:** Abad Hōshin, Gran Shogun Kage y el Oni de Ceniza (el avatar `oni` actual es un ninja con máscara, no el demonio).
 Opcional: versiones con otra expresión de Ren y Aya.
 
@@ -670,23 +683,34 @@ Rival: Aya · IA: normal (jefe) · Regla: normal
 #### s13 · El regreso
 Rival: Gon (entrenamiento) · IA: normal · Regla: normal
 **Antes**
-- *El Templo. Ren vuelve después de una semana.* [plano .5,.6 x1.4]
+- *El Templo. Ren vuelve con la patrulla.* [plano .5,.6 x1.4]
 - [plano .3,.5 x1.15 lento]
-- Narración: El incienso sigue ardiendo, como siempre. Pero hay guardias donde nunca hubo.
-- Gon [entra der corre]: ¡Ren! ¿Dónde te habías metido?
-- Ren [entra izq]: Afuera. Aprendiendo cosas.
-- Gon: El Abad estuvo furioso. Cerró la biblioteca con llave.
-- Ren: ¿Cerró la biblioteca?
-- Gon [plano .8,.5 x1.35]: Y puso guardias en la cripta. Algo pasa.
-- Gon: Peleemos, como antes. Te extrañé.
+- Narración: El incienso sigue ardiendo, como siempre. Pero hay guardias donde nunca hubo, y nadie lo mira a los ojos.
+- Gon [entra der]: Dos días, Ren. Dos días sin decir nada.
+- Ren [entra izq]: ¿Te mandó el Abad a buscarme?
+- Gon: Me mandó a traerte antes de que hablaras con el ronin.
+- Gon: ¿Hablaste con el ronin?
+- Ren: …
+- Gon: Lo sabía.
+- Ren: ¿Por qué el Abad le tiene miedo a un hombre que vive solo en el bosque?
+- Gon: No sé. No me lo explica. Me da órdenes y yo las cumplo. Como vos antes.
+- Ren: ¿Y la biblioteca? Vi el candado desde el portón.
+- Gon: La cerró la noche que te fuiste. Y puso guardias en la cripta. Algo pasa abajo, Ren.
+- Gon: Peleemos, como antes. Así me olvido un rato.
 
 **Después**
 - Gon [entra der]: Peleás distinto.
-- Gon: Más… como ellos.
-- Ren [entra izq]: Gon, ¿vos sabés qué hay en la cripta?
-- Gon: Nadie baja ahí.
+- Gon: Más… como ellos. Rodeás antes de atacar.
+- Ren [entra izq]: Me lo enseñó una kunoichi. Sin querer.
+- Gon: ¿La de la escalera? A mí también me enseñó algo. Que no sé perder.
+- Ren: Gon, ¿vos sabés qué hay en la cripta?
+- Gon: Sé que el Abad baja todas las noches. Y que sube con las manos grises, como si las hubiera metido en el fuego.
+- Gon: Y sé otra cosa. En el pueblo los chicos tosen gris. Hana también.
+- Ren: ¿Tu hermana?
+- Gon: Tiene ocho años y tose ceniza, Ren. Por eso cumplo órdenes. Para que alguien arregle lo que está roto.
 - [plano .85,.55 x1.5 lento]
-- Gon: Solo Tao.
+- Gon: Si vos sabés algo, decímelo. Por Hana.
+- Ren *(pensando)*: Sé un nombre. Natsu. Y no sé qué hacer con él.
 
 #### s14 · Los novicios que sueñan
 Rival: novicios inquietos · IA: normal · Regla: el rival no usa habilidad
@@ -696,41 +720,79 @@ Rival: novicios inquietos · IA: normal · Regla: el rival no usa habilidad
 - Narración: Es de noche y los más chicos no duermen. Se sientan juntos, con los ojos muy abiertos.
 - Novicio [entra der]: Hermano Ren… soñamos con fuego.
 - Ren [entra izq]: ¿Todos?
-- Novicio: Todos. El mismo sueño.
-- [latido · plano .5,.8 x1.5]
-- Novicio: Una cosa con cuernos debajo de nuestros pies.
-- Ren: Son solo sueños. Vamos, a entrenar.
+- Novicio: Todos. El mismo sueño. Desde que cayó la ceniza.
+- [latido]
+- Novicio: Una cosa con cuernos debajo de nuestros pies. Llama a alguien.
+- Ren: ¿A quién?
+- Novicio: Dice «Daishin». Una y otra vez. Como si lo extrañara.
+- Ren: No conozco a ningún Daishin.
+- Novicio: Y hay una señora que le tiene la mano. Para que no suba.
+- Novicio: Tiene la cara de ceniza. Pero canta.
+- Ren: …¿Qué canta?
+- Novicio: No me acuerdo. Me despierto siempre antes del final.
+- Narración: El más chico de todos dibuja algo en el polvo del piso, sin mirar. Seis puntos alrededor de uno.
+- Ren *(pensando)*: El bordado de mi manta.
+- Ren: Vamos. A entrenar, hasta que se cansen. Los cansados no sueñan.
 
 **Después**
 - [plano .5,.5 x1.2 lento · oscuro]
-- Narración: Los novicios se duermen al fin, agotados.
-- Ren [entra izq] *(pensando)*: Una figura con cuernos.
-- [arte art_carvings · plano .45,.3 x1.5]
-- Ren *(pensando)*: Como en las tallas del santuario.
+- Narración: Los novicios se duermen al fin, agotados. Ren no.
+- *El patio de atrás, después de medianoche.* [lugar yard · plano .8,.5 x1.4 · oscuro]
+- Narración: Detrás del pozo hay una piedra sin nombre. Ren pasó al lado mil veces y nunca la miró.
+- Narración: Hoy tiene incienso fresco. Y un hilo gris atado alrededor.
+- [plano .2,.5 x1.4]
+- Narración: Alguien viene. Ren se esconde detrás del pozo.
+- Abad [entra der sombra] *(en voz baja)*: Dieciséis años esta noche.
+- Abad: Lo cuidé, como te prometí. Come bien. Pelea mejor que todos. Pregunta demasiado.
+- Abad: Igual que vos.
+- Ren *(pensando)*: ¿Esta noche? Esta noche… es la noche en que llegué al Templo.
+- Abad: Ya no aguantás, ¿no? Lo siento en las manos.
+- Abad: No te preocupes. Esta vez bajo yo.
+- [plano .5,.5 x1.5 lento · latido]
+- Abad: Y a él no lo voy a dejar bajar nunca. Nunca, Natsu.
+- [sale Abad]
+- Ren *(pensando)*: Natsu.
+- Ren *(pensando)*: El maestro le habla a una piedra. Y la piedra sabe mi nombre.
 
 #### s15 · La biblioteca
 Rival: Maestra Mei · IA: normal · Regla: normal
 **Antes**
-- *Medianoche. La biblioteca.* [plano .1,.5 x1.4 · oscuro]
+- *La noche siguiente. La biblioteca.* [plano .1,.5 x1.4 · oscuro]
 - [plano .55,.55 x1.2 lento]
 - Narración: Ren fuerza la puerta. Los estantes huelen a polvo y a cera.
-- [plano .55,.45 x1.5]
-- Narración: Junto al altar hay alguien. Lo estaba esperando.
-- Mei [entra der sombra]: Sabía que vendrías.
-- Ren [entra izq]: Quiero leer el Pergamino.
-- Mei: No está acá.
-- Mei [plano .65,.45 x1.45]: Y si estuviera, primero tendrías que pasar por mí.
+- Narración: No busca el Pergamino. Busca la crónica del Templo. El año en que él llegó.
+- Ren [entra izq] *(pensando)*: Año del Buey de Agua. Otoño. La noche de la lluvia gris…
+- [plano .45,.6 x1.5]
+- Narración: La página no está. Alguien la arrancó con cuidado, a ras del lomo.
+- Mei [entra der sombra]: La arranqué yo.
+- Ren: ¡Maestra!
+- Mei: Por orden del Abad. Hace dieciséis años. La quemé en este mismo brasero.
+- Ren: ¿Qué decía?
+- Mei: Lo que vos estás a punto de saber, si me ganás.
+- Ren: ¿Y si pierdo?
+- Mei: Vuelvo a cerrar con llave. Y mañana te olvidás de esta noche, como yo me olvidé de aquella.
+- Mei: Nunca me olvidé.
 
 **Después**
 - Mei [entra der]: …
-- Mei: Hay un sello, Ren. Abajo del Templo.
+- Mei: Hay un sello, Ren. Abajo del Templo. Encierra algo que quemó estos valles hace trescientos años.
 - [latido]
-- Mei: Se está rompiendo.
-- Ren [entra izq]: ¿Y el Abad?
-- Mei: Dice que puede renovarlo solo. Que nadie más tiene que saberlo.
-- Ren: ¿Usted le cree?
+- Mei: Se está rompiendo. Ya se rompió una vez.
+- Ren [entra izq]: Hace dieciséis años.
+- Mei: Un monje joven y una chica del clan intentaron renovarlo. Sabían algo que el Templo olvidó a propósito: que hacen falta dos.
+- Mei: El Abad se enteró. Hizo encerrar al monje esa noche.
+- Ren: ¿Y la chica?
+- Mei: Lo esperó al pie de la escalera hasta que la luna se fue.
+- Mei: Después subió al patio. Me encontró a mí y al Abad. Tenía un bebé envuelto en una manta.
 - [plano .7,.45 x1.6 lento]
-- Mei: …
+- Mei: Te puso en los brazos de él. Le dijo: «Si no bajan dos, bajo sola. Cuidalo. Que no baje nunca.»
+- Ren: …
+- Mei: Esa noche llovió gris. Y el sello aguantó dieciséis años con una sola mano adentro.
+- Ren: Se llamaba Natsu.
+- Mei: Se llamaba Natsu. Era tu madre.
+- Ren: ¿Y el monje? ¿Quién era?
+- Mei: El Abad lo borró de todos los registros. Y yo juré no decir su nombre.
+- Mei: Pero vos ya lo conociste, Ren. Te dio un cuenco.
 
 #### s16 · Ceniza en el patio
 Rival: incursión ninja · IA: difícil · Regla: el Asedio empieza en la ronda 15
@@ -738,62 +800,101 @@ Rival: incursión ninja · IA: difícil · Regla: el Asedio empieza en la ronda 
 - *Amanecer. El patio cubierto de ceniza.* [plano .5,.7 x1.5]
 - [plano .5,.5 x1.05 lento]
 - Narración: El temblor de la noche abrió una grieta en el patio. De ella sale humo gris.
+- Ren [entra izq] *(pensando)*: Un cuenco tallado. «Natsu.»
+- Ren *(pensando)*: Jubei lloró al ver la manta. Dijo que el bebé había muerto.
+- Ren *(pensando)*: No murió. Está acá. Soy yo.
 - [onom campana · temblor]
 - Gon [entra der corre]: ¡Ninjas en el muro! ¡Aprovechan el caos!
-- Ren [entra izq corre]: ¡No es su culpa!
-- Ren [plano .5,.8 x1.5]: ¡Viene de abajo!
+- Narración: Cuatro sombras bajan por el muro norte. Pero no van hacia la biblioteca.
+- Narración: Vienen derecho hacia Ren.
+- Kunoichi [entra centro sombra]: ¡Ahí está! ¡El de la manta! ¡Llévenselo!
+- Ren: ¿A mí?
+- Kunoichi: Antes de la luna nueva la montaña se cobra lo que le deben. ¡No te vamos a dejar acá!
 
 **Después**
 - [plano .5,.6 x1.2 lento · humo]
-- Narración: Los ninjas se retiran. La ceniza sigue cayendo, como nieve sucia.
+- Narración: Los ninjas se retiran por el muro. La kunoichi se queda la última.
+- Kunoichi [entra der sombra]: Sos testarudo. Igual que ella.
+- Ren [entra izq]: ¿Conociste a mi madre?
+- Kunoichi: Me enseñó a tirar estrellas. Yo tenía diez años.
+- Kunoichi: Le debemos una vida, chico. No la tuya. La de ella.
+- Kunoichi: El Shogun no nos mandó. Nadie nos mandó. Vinimos igual.
+- [sale Kunoichi humo]
 - [plano .5,.72 x1.8 · latido · oscuro]
-- Narración: Entre la ceniza, por un momento, Ren ve dos ojos rojos.
-- Ren [entra izq]: …¿Lo vieron?
-- Gon [entra der]: ¿Ver qué?
+- Narración: La ceniza sigue cayendo, como nieve sucia. Entre la ceniza, por un momento, Ren ve dos ojos rojos.
+- Narración: Y al lado, una mano gris que los tapa.
+- Ren: …¿Lo viste?
+- Gon [entra der]: ¿Ver qué? Ren, estás pálido.
+- Ren *(pensando)*: Le tiene la mano. Para que no suba.
 
 #### s17 · La orden del Abad
-Rival: guardias del clan · IA: difícil · Regla: el rival tiene 3 Kunoichi
+Rival: kunoichi capturadas · IA: difícil · Regla: el rival tiene 3 Kunoichi
 **Antes**
 - *La sala del Abad.* [plano .6,.5 x1.3]
-- Abad [entra der]: El temblor es culpa del clan.
-- Abad: Kage quiere el Pergamino para liberar algo que no entiende.
-- Ren [entra izq]: Maestro, Mei dijo que…
-- Abad [plano .65,.45 x1.45]: Mei habla de más.
-- [plano .55,.5 x1.2 lento]
-- Abad: Ren, vas a ir a la pagoda del clan. Vas a vencer a Kage.
-- Abad: Es la única forma de proteger el Templo.
-- Ren: ¿Yo?
-- Abad: Sos el mejor que tengo.
+- Abad [entra der]: Tres kunoichi cayeron en el muro al alba. El temblor es culpa del clan.
+- Ren [entra izq]: El temblor viene de abajo, maestro. Y usted lo sabe.
+- Abad: …
+- Ren: Anoche lo escuché. En la piedra sin nombre. Le habló a Natsu.
+- Narración: El Abad no se da vuelta. Pero sus manos, grises hasta la muñeca, se cierran.
+- Ren: Era mi madre. Mei me lo contó. ¿Por qué usted no?
+- Abad: Porque tu madre me pidió una sola cosa. Que no bajaras nunca.
+- Abad: El sello se cobra a quien lo cierra mal, Ren. Se la cobró a ella. No te va a cobrar a vos.
+- Ren: ¡Y por eso encerró a mi padre!
+- Abad [plano .65,.45 x1.45]: Tu padre quería bajar con ella. Yo quería que vivieran los dos.
+- Abad: No vivió ninguno de los dos como debía. Esa culpa es mía. Y la voy a pagar yo.
+- Abad: Vas a ir a la pagoda del clan. Vas a vencer a Kage.
+- Ren: ¿Ahora? ¿Con el patio partido?
+- Abad: Kage quiere el Pergamino. Si lo detenés, el Templo tiene tiempo.
+- Abad: Las tres kunoichi esperan en el patio. Vencelas, y te doy la orden por escrito.
 
 **Después**
 - *El pasillo, al salir.* [lugar abbotHall · plano .15,.5 x1.4 · oscuro]
 - Mei [entra der sombra] *(en voz baja)*: Ren. No vayas.
 - Ren [entra izq]: Es una orden del Abad.
+- Mei: Es una mentira con forma de orden.
+- Mei: La luna nueva es mañana a la noche. Te manda lejos para que no estés cerca de la cripta.
+- Ren: ¿Y él?
+- Mei: Va a bajar solo. Como bajó tu madre.
 - [plano .2,.45 x1.6 lento]
-- Mei: Las órdenes también se equivocan.
+- Mei: Y no va a subir.
 
 #### s18 · JEFE — Tao, el monje borracho
 Rival: Tao · IA: difícil (jefe) · Regla: habilidades con 5 usos y 1 turno de recarga
 **Antes**
 - *El portón, de noche.* [plano .5,.4 x1.3 · oscuro]
 - [plano .5,.6 x1.15 lento]
-- Narración: Ren sale con lo puesto. En el último escalón, alguien le bloquea el paso.
-- Tao [entra der]: ¿A la pagoda, chico? *hip*
-- Ren [entra izq]: Déjeme pasar, maestro.
-- Tao: El viejo te está usando.
-- Tao [plano .62,.45 x1.5]: Si peleás con Kage, nadie va a quedar para lo que viene.
-- Ren: ¿Qué viene?
-- Narración: Por una vez, Tao no parece borracho.
-- Tao: Ganame y te dejo ir. Perdé y te quedás.
+- Narración: Ren sale con la manta y el cuenco. No sabe si va a la pagoda o a la cripta. Solo sabe que no puede quedarse quieto.
+- Narración: En el último escalón, alguien le bloquea el paso.
+- Tao [entra der]: ¿Adónde, chico? *hip*
+- Ren [entra izq]: No sé. Lejos de las mentiras.
+- Tao: Entonces vas a caminar mucho.
+- Ren: Usted también sabía. Todos sabían menos yo.
+- Tao: Yo sé más que todos. Por eso tomo.
+- Tao [plano .62,.45 x1.5]: Esa noche el Abad me dio una llave. «Encerralo hasta que pase la luna.»
+- Tao: Y yo lo encerré. Al monje más bueno que tuvo este Templo.
+- Ren: …
+- Tao: Natsu esperó a tu padre al pie de mi escalera. Tu padre golpeaba la puerta de mi celda. Y yo, del otro lado, tomando para no oírlo.
+- Narración: Por una vez, Tao no parece borracho. Parece muy viejo.
+- Ren: Dígame su nombre. Quiero oírselo decir a alguien.
+- Tao: Ganame y te lo digo. Perdé y te quedás, y bajamos juntos mañana a morir con el viejo.
 
 **Después**
 - Tao [entra der]: Bah.
 - Tao: Sos terco como Daishin.
-- Ren [entra izq]: ¿Quién es Daishin?
+- Ren [entra izq]: El nombre, maestro.
 - [plano .65,.4 x1.5 lento]
-- Tao: Preguntáselo a Kage. Si te deja hablar. *hip*
+- Tao: Jubei.
+- Tao: Tu padre se llama Jubei. Hace dos noches bajó a mi cripta por primera vez en dieciséis años.
+- Tao: No me pegó. Me pidió perdón a mí. ¿Te das cuenta? A mí.
+- Ren: ¿Dónde está?
+- Tao: Se fue a la pagoda. A pedirle a Kage la mano que el clan no le dio a tu madre.
+- Tao: Y Kage no presta su mano. La corta.
+- Ren: Entonces voy a la pagoda. Pero no por el Abad.
+- Tao: Por tu padre.
+- Ren: Por los dos. Por los tres.
 - [sale Tao · plano .5,.4 x1.1 lento]
 - Narración: Ren baja la montaña. A su espalda, la campana del Templo no suena.
+- Tao [off] *(desde el portón)*: ¡Ren! ¡Preguntale a Kage quién es Daishin! ¡Que te lo cuente entero!
 - **→ Fin del Acto III**
 
 ### Acto IV · La pagoda
@@ -1403,18 +1504,36 @@ Rival: Ren · IA: normal (jefe) · Regla: normal
 #### n13 · Descenso
 Rival: guardias de la cripta · IA: normal · Regla: normal
 **Antes**
-- *Noche. El Templo, por dentro.* [plano .82,.3 x1.4 · oscuro]
+- *La torre de la pagoda. Un día después del duelo.* [lugar pagoda · plano .8,.3 x1.4]
+- Narración: Aya trepa otra vez hasta la ventana de Sora. Esta vez no viene a escuchar. Viene a preguntar.
+- Aya [entra izq]: La tía Natsu. ¿Dónde murió?
+- Explorador [entra der sombra]: Nadie lo dice. Ni el Shogun, ni Kuro. Ni la abuela, en vida.
+- Aya: La abuela algo dijo. Siempre dice algo.
+- Explorador: Una noche, ya enferma, tosiendo gris… dijo: «Natsu bajó por la escalera de ellos. Y no subió.»
+- Aya: La escalera de ellos.
+- Explorador: Pensé que deliraba.
+- Aya: Yo bajé esa escalera, Sora. La noche que le gané a Gon. La piedra del fondo late.
+- Explorador: Aya… no vayas sola.
+- Aya: Vos estás encerrado y Kuro le obedece al Shogun. ¿Con quién querés que vaya?
+- *Esa noche. El Templo, por dentro.* [lugar courtyard · plano .82,.3 x1.4 · oscuro]
 - [plano .4,.55 x1.15 lento]
-- Narración: Aya se cuela otra vez.
-- Narración: Esta vez no busca la biblioteca. Busca la escalera.
-- Aya [entra izq] *(pensando)*: Guardias nuevos. Muchos.
+- Narración: Aya se cuela otra vez. Esta vez no busca la biblioteca. Busca la escalera.
+- Aya [entra izq] *(pensando)*: Guardias nuevos. Muchos. Y un candado en la biblioteca.
+- [onom golpe · plano .2,.4 x1.4]
+- Narración: Del lado de la biblioteca llega un ruido seco. Una puerta forzada.
+- Aya *(pensando)*: Alguien más está rompiendo reglas esta noche.
+- Aya *(pensando)*: Mejor. Que los guardias miren para allá.
 
 **Después**
 - *La escalera de la cripta.* [lugar cryptStairs · oscuro · plano .5,.55 x1.3]
 - [plano .5,.75 x1.7 lento]
-- Narración: Escalones que bajan, y bajan.
-- Aya [entra izq]: …Hace calor.
-- Narración: A cada paso, el aire se pone más caliente.
+- Narración: Escalones que bajan, y bajan. A cada paso, el aire se pone más caliente.
+- Aya [entra izq]: …
+- [plano .3,.6 x1.6 · latido]
+- Narración: En la pared hay una mano marcada en la piedra, quemada en negro. Una mano chica, de mujer.
+- Narración: Aya apoya la suya encima.
+- Aya *(pensando)*: Mismo tamaño.
+- Aya *(pensando)*: Alguien bajó por acá tocando la pared, como yo. Y apretó tan fuerte que la piedra se acuerda.
 
 #### n14 · Las seis piedras
 Rival: guardianes de la cripta · IA: normal · Regla: el rival no usa habilidad
@@ -1424,7 +1543,13 @@ Rival: guardianes de la cripta · IA: normal · Regla: el rival no usa habilidad
 - Narración [plano .55,.55 x1.1 lento]: Una sala enorme. En el piso, seis piedras en hexágono alrededor de una grieta.
 - [plano .5,.6 x1.45 · latido]
 - Narración: Tres piedras tienen grietas. Por ellas sale ceniza.
-- Aya: Esto es un sello.
+- Aya [lugar crypt · entra izq]: Esto es un sello. Como el jardín. Como el bordado.
+- Narración: Junto a la grieta del centro hay algo que no es piedra. Un abanico de kunoichi, quemado hasta las varillas.
+- [plano .5,.7 x1.7 lento]
+- Narración: En la tela que queda hay seis puntos alrededor de uno. Bordados en hilo gris.
+- Aya: …La puntada de la abuela.
+- Aya: Tía Natsu. No te caíste de ningún lado. No te enfermaste. Moriste acá.
+- Narración: Las sombras de la cripta se despegan de las paredes. Guardianes de piedra, que no dejan tocar nada.
 
 **Después**
 - [lugar crypt · entra Aya izq ya · plano .5,.6 x1.3 · oscuro]
@@ -1432,6 +1557,14 @@ Rival: guardianes de la cripta · IA: normal · Regla: el rival no usa habilidad
 - Narración: Desde la grieta sube una voz, como brasas.
 - Oni [off]: …Kagerō…
 - Aya: ¿Quién es Kagerō?
+- Oni [off]: No. No sos ella. Sos de su sangre. Olés igual que la otra.
+- Aya: ¿Qué otra?
+- Oni [off]: La que se quedó. La que me tiene la mano hace dieciséis inviernos.
+- [plano .5,.7 x1.8 lento · latido]
+- Oni [off]: Se le está cansando, pequeña sombra. La siento temblar.
+- Oni [off]: Cuando me suelte, subo. Y vos vas a ser la próxima en darme la mano.
+- Aya *(pensando)*: Le tiene la mano. Dieciséis años.
+- Aya *(pensando)*: Tía Natsu… ¿todavía estás acá?
 
 #### n15 · Ceniza
 Rival: sombras de ceniza · IA: difícil · Regla: el rival tiene 4 Shinobi
@@ -1440,23 +1573,35 @@ Rival: sombras de ceniza · IA: difícil · Regla: el rival tiene 4 Shinobi
 - Narración: La ceniza toma forma. Fichas grises, sin dueño, se mueven solas.
 - [temblor · onom temblor]
 - Aya [entra izq]: ¡¿Qué es esto?!
+- Oni [off]: Mis dedos. Los que se escapan por las grietas.
+- Oni [off]: Rodeame, si podés. Ya me rodearon antes. Nunca alcanza.
 
 **Después**
 - [plano .5,.6 x1.4 lento · humo · oscuro]
-- Narración: Las fichas de ceniza se deshacen.
-- [latido]
-- Narración: Pero vuelven a juntarse. Más despacio.
+- Narración: Las fichas de ceniza se deshacen. Pero vuelven a juntarse, más despacio.
 - Aya [entra izq] *(pensando)*: No se pueden vencer. Solo frenar.
+- [plano .5,.7 x1.6 · latido]
+- Narración: Una sola figura de ceniza no ataca. Se queda quieta, al lado del abanico quemado.
+- Narración: Tiene forma de mujer. Levanta un dedo gris y dibuja en el polvo seis puntos alrededor de uno.
+- Narración: Después señala la escalera. Arriba. Hacia el Templo.
+- Aya: …¿Tía?
+- [humo · plano .5,.6 x1.5 lento]
+- Narración: La figura se deshace sin ruido.
+- Aya *(pensando)*: Señaló arriba. ¿Quiere que me vaya?
+- Aya *(pensando)*: ¿O me está diciendo dónde está la otra mano?
 
 #### n16 · El monje borracho
 Rival: Tao · IA: difícil · Regla: normal
 **Antes**
 - [plano .2,.5 x1.4 · oscuro]
 - Tao [entra der]: Una ninja en mi cripta. *hip*
-- Tao: Hace trescientos años que no pasaba.
-- Aya [entra izq]: ¿Vas a llamar a los guardias?
-- Tao [plano .7,.45 x1.45]: No. Vamos a jugar.
-- Tao: Si me ganás, te cuento un cuento.
+- Tao: Anoche, un ronin. Hoy, una kunoichi. Mi cripta se puso de moda.
+- Aya [entra izq]: ¿Un ronin? ¿Jubei estuvo acá?
+- Tao: ¿Lo conocés? Mirá vos. El mundo es chico y la montaña es hueca.
+- Aya: ¿Vas a llamar a los guardias?
+- Tao [plano .7,.45 x1.45]: No. Peleás con abanico, tirando a la izquierda. Como ella.
+- Aya: ¿Como quién?
+- Tao: Ganame y te cuento un cuento. Dos cuentos. Uno viejo y uno que me da vergüenza.
 
 **Después**
 - [arte art_drunken_tale · plano .3,.75 x1.4]
@@ -1465,42 +1610,85 @@ Rival: Tao · IA: difícil · Regla: normal
 - Tao [plano .5,.25 x1.3 lento]: Rodearon a un demonio con seis piedras. Juntos. Las dos manos.
 - Aya [plano .65,.75 x1.4]: ¿Un monje y una ninja… juntos?
 - Tao: Eso es lo que el Templo borró. Y lo que tu clan olvidó. *hip*
+- *El cuento que le da vergüenza.* [lugar crypt · plano .5,.6 x1.3 · oscuro]
+- [entra Aya izq · entra Tao der]
+- Tao: Hace dieciséis años, una chica del clan y un monje joven quisieron hacer lo mismo. Eran dos manos. Alcanzaba.
+- Tao: El Abad me dio una llave y yo encerré al monje. La chica bajó sola.
+- Aya: Natsu. Y el monje…
+- Aya: Jubei.
+- Tao: Mirá qué rápido. La sangre de Kiku pregunta y contesta sola.
+- Aya: Dejó un bebé. Envuelto en una manta que bordó mi abuela.
+- Tao: Lo crió el Abad como si fuera suyo. Lo crió bien, eso hay que dárselo.
+- Aya: Ren.
+- [plano .7,.45 x1.5 lento · latido]
+- Aya *(pensando)*: El chico de la manta es hijo de mi tía.
+- Aya *(pensando)*: Ren es mi primo. Y le pegué con un abanico.
 
 #### n17 · La huida
 Rival: monjes de la cripta · IA: difícil · Regla: el Asedio empieza en la ronda 15
 **Antes**
 - *La cripta, antes del alba.* [lugar crypt · oscuro · plano .3,.55 x1.3]
 - [entra Tao der · entra Aya izq]
-- Tao: Y ahora corré.
-- Tao [plano .7,.45 x1.45]: Que el Abad baja todas las noches a mirar las grietas.
-- [onom campana · temblor]
-- Narración: Pasos en la escalera.
+- Tao: Escondete. Atrás de la piedra rota. Y no respires.
+- [onom campana]
+- Narración: Pasos en la escalera. Lentos. Una sola persona.
+- [plano .6,.5 x1.5 lento]
+- Abad [entra der sombra]: …
+- Narración: El Abad se arrodilla junto a la piedra más rajada. Apoya las dos manos encima.
+- [latido · humo]
+- Narración: Las manos le humean. No las saca.
+- Abad: Una noche más. Aguantá una noche más, Natsu. Después bajo yo.
+- Aya *(pensando)*: Está haciendo lo mismo que ella. Solo. Quemándose de a poco.
+- [temblor · onom temblor]
+- Narración: La piedra cruje. El Abad se levanta de golpe y mira hacia donde está Aya.
+- Abad: ¿Quién anda ahí? ¡Guardias!
 
 **Después**
 - *Afuera. La primera luz.* [lugar mountainPath · plano .85,.3 x1.3]
-- Narración: Aya sale del Templo con la primera luz.
+- Narración: Aya sale del Templo con la primera luz. Lleva el abanico quemado contra el pecho.
 - Aya [entra izq]: …
 - [plano .3,.6 x1.6 lento]
-- Narración: Le tiemblan las manos.
+- Narración: Le tiemblan las manos. No sabe si de miedo o de calor.
+- [plano .7,.3 x1.5]
+- Narración: Sobre el muro del Templo bajan cuatro sombras del clan. Van hacia el patio, derecho a los dormitorios.
+- Aya *(pensando)*: Esas son las del puente. Las castigadas.
+- Aya *(pensando)*: Nadie del clan ataca de día sin orden. ¿Quién las mandó?
+- Aya *(pensando)*: …Van a buscar a Ren.
 
 #### n18 · JEFE — Kuro
 Rival: Kuro · IA: difícil (jefe) · Regla: habilidades con 5 usos y 1 turno de recarga
 **Antes**
 - *La pagoda.* [plano .82,.35 x1.4]
-- Aya [entra izq corre]: Mi señor, el Pergamino no es un tesoro. Es un ritual.
-- Aya: Un sello. Necesita al Templo y al clan.
-- Kage [entra der sombra]: Cuentos de un monje borracho.
-- Kage [plano .7,.45 x1.45]: Kuro irá al Templo esta noche a tomar el Pergamino por la fuerza.
-- Aya: Si lo hacen, rompen el sello.
-- Kuro [entra centro sombra]: Entonces apartate, Aya.
+- Aya [entra izq corre]: Mi señor. El Pergamino no es un tesoro. Es un ritual. Un sello, y necesita al Templo y al clan.
+- Aya: La tía Natsu no murió de fiebre. Murió en la cripta del Templo, sosteniendo ese sello sola.
+- Kage [entra der sombra]: Lo sé.
+- Aya: …¿Lo sabe?
+- Kage: Hace dieciséis años, Natsu se arrodilló en esta misma sala. Me pidió una mano del clan para bajar con un monje.
+- Kage: Le dije que el clan no le da la mano a ladrones.
+- Narración: El Gran Shogun se mira la mano otra vez. Esta vez no la esconde.
+- Kage: Fue igual. Y la lluvia gris me la devolvió en ceniza.
+- Aya: Entonces ayúdelos ahora. Al Templo, al Abad, a Ren.
+- Kage [plano .7,.45 x1.45]: No. Esta vez la mano del clan va a estar. La mía. Pero sin monjes que se equivoquen.
+- Kage: Mañana es luna nueva. Kuro irá al Templo esta noche a tomar el Pergamino por la fuerza.
+- Aya: ¡Con una sola mano no cierra! ¡Eso mató a mi tía!
+- Kage: Y un ronin vino ayer a decirme lo mismo. Está en la torre, con tu hermano.
+- Aya: …¿Jubei?
+- Kuro [entra centro sombra]: Apartate, Aya. No me hagas pasar por encima tuyo.
 
 **Después**
 - Kuro [entra der]: …Me ganaste.
-- Kuro: Andá vos, entonces. Pero traelo.
-- Aya [entra izq]: …
+- Aya [entra izq]: Vos estabas esa noche. Lo dijiste.
+- Kuro: Yo la llevé hasta el muro del Templo. Llovía. Ella tenía al bebé en brazos.
+- Kuro: Me dijo: «Si no vuelvo, que el clan le deba una vida a este chico.» Y juré callar.
+- Kuro: Dieciséis años callado. Ya está bien.
+- Kuro: Andá vos al Templo, entonces. Pero no le traigas el Pergamino al Shogun.
+- Aya: ¿Entonces a quién?
+- Kuro: A quien tenga la otra mano.
 - [sale Kuro humo · humo]
 - [plano .85,.3 x1.5 lento · oscuro]
 - Kage [off] *(desde las sombras)*: Traeme el Pergamino, Aya. O no vuelvas.
+- Aya *(pensando)*: Jubei en la torre. Ren en el Templo. El Abad quemándose las manos.
+- Aya *(pensando)*: Y mañana, luna nueva.
 - **→ Fin del Acto III**
 
 ### Acto IV · La biblioteca

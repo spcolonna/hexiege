@@ -74,7 +74,7 @@ const _momentPlaces = <String, Place>{
   'n8.pre.0': Place.garden,
   'n10.pre.0': Place.mountainPath,
   'n12.pre.0': Place.shrine,
-  'n13.pre.0': Place.courtyard,
+  'n13.pre.0': Place.pagoda,
   'n14.pre.0': Place.crypt,
   'n18.pre.0': Place.pagoda,
   'n19.pre.0': Place.courtyard,
