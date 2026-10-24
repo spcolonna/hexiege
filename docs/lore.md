@@ -49,7 +49,12 @@ dos llevan a sus bandos a una guerra que despierta al Oni.
 
 **Hilos abiertos del Acto I (resolver en los actos II–IV):**
 - **El chico de la manta.** Ren llegó al Templo de bebé, envuelto en una manta, una noche de lluvia gris (ceniza: la primera grieta del sello). El clan lo conoce por ese nombre y el Shogun ordena no hacerle daño. Propuesta: la manta es del clan; Ren es hijo de una kunoichi y un monje, las "dos manos" del ritual en una sola persona.
-- **Sora y la Zorra.** Sora cruza el muro para dejar la marca de los seis puntos y advertir al Templo, por encargo de la Zorra, sin que el clan lo sepa.
+- **Sora y la Zorra.** Sora cruza el muro para dejar la marca de los seis puntos y advertir al Templo, por encargo de la Zorra, sin que el clan lo sepa. Aya lo descubre al final del Acto I (n6).
+- **La marca bordada.** La manta de Ren tiene bordados los seis puntos alrededor de uno, en hilo gris (s1). El Abad no lo encontró en el escalón: «ella» se lo puso en los brazos (s6). Kuro juró callar hace dieciséis años.
+- **Kiku**, la abuela de Aya y Sora, rezaba con el tablero, decía que «le faltaba una mano» y murió tosiendo gris. Sus últimas palabras: «Cuando la piedra lata, volvé a rodear.» La Zorra le llevó mensajes durante cuarenta años.
+- **Gon** cuidó en secreto la escalera de la cripta por orden del Abad («ni a Ren»), perdió contra Aya y atrapó a Sora para no volver con las manos vacías. Su hermana **Hana**, de ocho años, vive en el pueblo.
+
+**Cronología del Acto I (las dos campañas se cruzan):** noche 1, s1 y n1-n5 (Aya duda antes de saltar el muro; Sora deja la marca; Aya vence a Gon en la escalera) · alba, Gon atrapa a Sora · día 2, s2 y s3 (la emboscada es de ninjas que desobedecen al Shogun) · noche 2, s4 y n6 al mismo tiempo (los golpes en el techo son la distracción; Aya pelea con Mei mientras la Zorra saca a Sora) · alba 3, s5 (cubren la huida de Aya y Sora) y s6.
 
 **Retratos nuevos a generar:** Abad Hōshin, Gran Shogun Kage y el Oni de Ceniza (el avatar `oni` actual es un ninja con máscara, no el demonio).
 Opcional: versiones con otra expresión de Ren y Aya.
@@ -81,63 +86,91 @@ Rival: explorador ninja · IA: novato · Regla: normal
 - *Medianoche. El muro del Templo.* [plano .82,.3 x1.4]
 - [plano .4,.55 x1.15 lento]
 - [arte art_wall · plano .2,.3 x1.5]
-- Narración [plano .45,.5 x1.05 lento]: Una sombra cruza el muro. Nadie la ve entrar.
+- Narración [plano .45,.5 x1.05 lento]: Una sombra cruza el muro. Después, otra. Y una tercera, más chica, que duda antes de saltar.
 - *Dentro, el dormitorio de los discípulos.* [lugar dormitory · plano .5,.5 x1.25]
 - Narración: Veinte esteras en fila. Diecinueve discípulos duermen.
 - Ren [entra izq] *(pensando)*: Rodear. Esperar. Cerrar. Rodear. Esperar. Cerrar…
+- Ren *(pensando)*: En tres días es la prueba de los novicios. Si la paso, me dan el bastón.
+- Gon [off] *(dormido)*: Ren… apagá esa cabeza. Se te oye pensar desde acá.
+- Ren *(pensando)*: Gon duerme como una piedra. Yo nunca duermo la noche antes de algo.
+- [plano .78,.45 x1.35]
+- Narración: La puerta corrediza se abre sin un ruido.
 - Abad [entra der sombra]: ¿Otra vez jugando de memoria?
 - Ren: ¡Maestro! No… no podía dormir.
 - Abad: Mejor. Esta noche te necesito despierto.
-- Abad: Alguien entró al Templo. Andá a ver quién se atreve.
-- Ren: ¿Solo yo?
+- Narración: El Abad Hōshin tiene setenta inviernos y nunca le tembló la voz. Esta noche le tiemblan las manos.
+- Ren *(pensando)*: Y tiene polvo gris en las mangas. ¿De dónde viene a esta hora?
+- Abad: Alguien saltó el muro. Andá a ver quién se atreve.
+- Ren: ¿Yo? ¿No despertamos a la Maestra Mei?
+- Abad: Mei tiene otra guardia esta noche. Y nadie más tiene que despertarse.
+- Ren: ¿Por qué?
+- Abad: Porque un Templo que grita de noche es un Templo que tiene miedo. Y nosotros no tenemos miedo.
 - Abad: Si es uno, alcanza con vos.
-- [plano .62,.42 x1.45]
-- Abad: Si son más… gritá.
+- Abad: Si son más… no grites. Volvé a buscarme.
 - Ren: Sí, maestro.
-- [sale Abad · plano .35,.5 x1.3 lento]
+- [sale Abad sombra · plano .35,.5 x1.3 lento]
 - Narración: Ren llegó al Templo envuelto en una manta, una noche de lluvia gris. Fue el Abad quien lo levantó del escalón.
-- Ren *(pensando)*: Dieciséis años me cuidó. Esta noche me toca a mí.
+- Narración: Dieciséis años después, la manta sigue doblada en el fondo de su baúl. Nunca supo quién la tejió.
+- Ren *(pensando)*: Me cuidó toda la vida. Esta noche me toca a mí.
 
 **Después**
 - *El muro, un instante después.* [lugar wall · plano .35,.5 x1.3]
-- Ren [entra izq corre]: ¡Se escapa por el muro!
-- [entra Ninja der · plano .62,.4 x1.45]
-- [sale Ninja corre · plano .85,.28 x1.3 lento]
-- Narración: El ninja salta y la noche se lo traga. No se llevó nada.
-- Ren *(pensando)*: Nada robado. Nada roto.
+- Ren [entra izq corre]: ¡Alto! ¡No te escapes!
+- [entra Explorador der sombra · plano .62,.4 x1.45]
+- Explorador: Peleás bien para estar descalzo, monjecito.
+- Ren: ¿Qué viniste a robar?
+- Explorador: Nada. Vine a dejar algo.
+- [sale Explorador corre · plano .85,.28 x1.3 lento]
+- Narración: El ninja salta y la noche se lo traga.
+- Ren *(pensando)*: ¿Dejar algo?
 - [plano .7,.45 x1.5 lento]
-- Narración: En la piedra del muro quedó una marca fresca: seis puntos alrededor de uno.
-- Ren *(pensando)*: Como un Líder rodeado en el tablero.
-- [plano .5,.5 x1.1 lento]
-- Ren *(pensando)*: ¿A qué vino?
+- Narración: En la piedra del muro hay una marca fresca, hecha con carbón: seis puntos alrededor de uno.
+- Ren *(pensando)*: Como un Líder rodeado en el tablero…
+- Ren *(pensando)*: No. Esto ya lo vi en otro lado.
+- *Más tarde. El dormitorio.* [lugar dormitory · plano .5,.6 x1.35]
+- Narración: Diecinueve discípulos duermen. Ren abre su baúl sin hacer ruido.
+- [plano .45,.7 x1.6 lento]
+- Narración: En una esquina de la manta, bordado con hilo gris, hay un dibujo que vio mil veces sin mirarlo.
+- Narración: Seis puntos alrededor de uno.
+- Ren [entra izq] *(pensando)*: …¿Quién la bordó?
+- Ren *(pensando)*: ¿Y por qué un ninja deja el mismo dibujo en nuestro muro?
 
 #### s2 · Patio de entrenamiento
 Rival: el explorador capturado · IA: fácil · Regla: el rival no usa habilidad
 **Antes**
 - *A la mañana. Patio de entrenamiento.* [plano .2,.55 x1.3]
 - [plano .75,.5 x1.15 lento]
-- Narración: El sol pega sobre los postes de madera. Los discípulos entrenan desde el alba.
+- Narración: El sol pega sobre los postes de madera. En el patio nadie habla de otra cosa: anoche entraron ninjas al Templo.
 - Gon [entra der corre]: ¡Ren! ¿Te enteraste?
 - Ren [entra izq]: ¿De qué?
-- Gon: Atrapé a un explorador en el bosque. Yo solo.
-- Ren: …Yo dejé escapar al mío.
+- Gon: Atrapé a un explorador en el bosque, al alba. Yo solo.
+- Ren: ¿Vos solo? ¿Y ese brazo vendado?
+- Gon: …Me caí. Persiguiéndolo.
+- Ren *(pensando)*: Gon no se cae nunca.
+- Gon: El tuyo se escapó, me dijeron.
+- Ren: Saltó el muro. No llegué.
 - Gon: Ya sé. Lo sabe todo el Templo.
 - Gon: Esta vez el Abad me felicitó a mí.
 - Ren: Te lo ganaste, Gon. De verdad.
-- Gon *(pensando)*: Dos palabras me dijo. «Bien hecho.» A Ren le habría dado diez.
+- Gon *(pensando)*: Dos palabras me dijo. «Bien hecho.» A Ren le habría dicho diez.
+- Gon *(pensando)*: Y nadie puede saber dónde estaba yo antes del alba.
 - Mei [entra centro]: Basta de charla.
 - Mei: Antes de interrogarlo, el Abad quiere ver cómo pelea Ren contra él.
 - Gon: ¿Ren? ¡Lo atrapé yo!
-- Mei: Por eso hoy descansás vos.
+- Mei: Por eso hoy descansás vos. Con ese brazo, además.
+- Gon: …
 - [sale Gon · entra Explorador der sombra]
-- Mei: Tiene las manos atadas: no podrá usar el Kawarimi.
+- Narración: Traen al preso con las muñecas atadas. Tiene la edad de un hermano mayor y la sonrisa de alguien que no tiene miedo.
+- Ren *(pensando)*: Es el del muro. El que dejó la marca.
+- Mei: Con las manos atadas no puede usar el Kawarimi. Jugá limpio igual, Ren.
 - Explorador: Atado y todo, te gano, monjecito.
+- Explorador: ¿Dormiste bien? Yo no. Las celdas de ustedes tienen goteras.
 
 **Después**
 - *El patio, al mediodía.* [lugar yard · plano .5,.55 x1.2]
 - Mei [entra der]: Bien. Rodeás con paciencia. Eso es lo importante.
 - Ren [entra izq]: Maestra, ¿por qué siempre rodeamos?
-- Ren: ¿Por qué no golpeamos y ya?
+- Ren: ¿Por qué no golpeamos y ya? Sería más rápido.
 - [plano .72,.45 x1.45 lento]
 - Mei: …
 - Mei: Yo le hice la misma pregunta a mi maestra. Tenía tu edad.
@@ -145,12 +178,23 @@ Rival: el explorador capturado · IA: fácil · Regla: el rival no usa habilidad
 - Mei: «Porque así nos enseñaron.»
 - Ren: Eso no es una respuesta.
 - Mei: No. No lo es.
+- Mei: Ella se murió sin contestarla. Yo me prometí que no iba a hacer lo mismo.
+- Mei: Y acá estoy. Haciendo lo mismo.
 - [sale Mei · plano .4,.5 x1.2 lento]
 - Ren *(pensando)*: Nunca la había visto bajar la vista.
 - Explorador [entra der sombra]: En el clan también rodeamos, ¿sabés?
 - Ren: ¿Ustedes?
-- Explorador: Mi abuela decía que no es una pelea.
-- Explorador [plano .7,.45 x1.5]: Que es una oración.
+- Explorador: Mi abuela decía que no es una pelea. Que es una oración.
+- Ren: ¿Una oración a quién?
+- Explorador: Eso nunca lo dijo. Se murió el invierno pasado, tosiendo.
+- Explorador: Tosía gris, monjecito. Como ceniza.
+- Ren: La marca del muro. Seis puntos alrededor de uno. ¿Qué significa?
+- Explorador: …
+- Explorador: ¿Dónde más la viste?
+- Ren *(pensando)*: Lo preguntó demasiado rápido.
+- Explorador: Te propongo un cambio. Vos me decís dónde la viste y yo te digo a qué vine.
+- Mei [off]: Ren. Con el preso no se negocia.
+- Explorador: Pensalo. Esta noche me traen arroz frío. Si querés, traelo vos.
 
 #### s3 · Emboscada en el bosque
 Rival: tres ninjas · IA: fácil · Regla: tu Monje empieza con 3 fichas enemigas al lado
@@ -158,29 +202,39 @@ Rival: tres ninjas · IA: fácil · Regla: tu Monje empieza con 3 fichas enemiga
 - *Esa tarde. El camino al pueblo.* [plano .2,.45 x1.35]
 - [plano .6,.5 x1.1 lento]
 - Narración: Ren baja al pueblo a buscar arroz. El canasto vacío le golpea la espalda.
-- Ren [entra izq] *(pensando)*: «Una oración.» ¿Una oración a quién?
+- Ren [entra izq] *(pensando)*: «¿Dónde más la viste?» Lo preguntó como si le fuera la vida.
+- Ren *(pensando)*: Una abuela que tosía ceniza. Polvo gris en las mangas del maestro. Una marca en el muro y en mi manta.
+- Ren *(pensando)*: Nada de esto tiene sentido. Y todo se parece.
 - Ren: Qué silencio…
 - [plano .22,.3 x1.5]
-- Narración: Ni un pájaro. Ni el viento.
-- [entra Ninja der sombra · entra Explorador centro sombra · temblor · destello]
-- Narración: Tres sombras caen de los árboles.
-- Ninja: Es el discípulo del Abad.
+- Narración: Ni un pájaro. Ni el viento. El bosque contiene la respiración.
+- [entra Ninja der sombra · entra Kunoichi centro sombra · temblor · destello]
+- Narración: Tres sombras caen de los árboles. Antes de tocar el suelo, ya lo rodearon.
+- Ninja: Es él. El discípulo del Abad.
 - Ren: ¿Me conocen?
-- Ninja [plano .7,.42 x1.5]: Todo el clan conoce al chico de la manta.
-- Ninja: ¡Rodéenlo!
+- Kunoichi: Todo el clan conoce al chico de la manta.
+- Ren *(pensando)*: …La manta.
+- Ren: ¿Qué saben de mi manta?
+- Ninja: Que vale lo mismo que un explorador preso.
+- Kunoichi: Te llevamos a la pagoda. Mañana el Templo nos devuelve a Sora y vos volvés a casa.
+- Ren: ¿Sora? ¿Así se llama?
+- Ninja: Sin lastimarlo. El Shogun fue claro.
+- Kunoichi: El Shogun no sabe que estamos acá. ¡Rodéenlo!
 
 **Después**
 - *El camino, al caer el sol.* [lugar road · plano .55,.5 x1.2]
 - [entra Ren izq · entra Ninja der]
-- Ren: ¿Por qué me esperaban a mí?
+- Ren: ¿Por qué tu Shogun no quiere que me lastimen?
 - Ninja: …
-- Ren: ¿Qué es eso del chico de la manta?
-- Ninja [sale Ninja corre]: ¡Preguntale al viejo qué guarda abajo!
-- [plano .85,.4 x1.3 lento]
+- Ren: ¿Qué es eso del chico de la manta? ¡Contestame!
+- Ninja: No es a mí a quien tenés que preguntarle.
+- Ninja: Preguntale al viejo qué guarda abajo. Y qué encontró en el escalón hace dieciséis años.
+- [sale Ninja corre · plano .85,.4 x1.3 lento]
 - Ren *(pensando)*: ¿Abajo?
 - [plano .4,.65 x1.4 lento]
 - Narración: El canasto quedó volcado. El arroz, desparramado en el camino.
-- Ren *(pensando)*: Lo junto igual. En el Templo hay un preso que no come desde ayer.
+- Ren *(pensando)*: Tres ninjas desobedecen a su Shogun por un explorador.
+- Ren *(pensando)*: Lo junto igual. Si nadie le lleva la cena, se la llevo yo.
 
 #### s4 · La celda
 Rival: rescatistas ninja · IA: fácil · Regla: normal
@@ -191,27 +245,42 @@ Rival: rescatistas ninja · IA: fácil · Regla: normal
 - [entra Explorador der sombra · plano .72,.55 x1.4]
 - Ren [entra izq]: Te traje arroz.
 - Explorador: …¿Envenenado?
-- Ren: Con tierra, nada más. Se me cayó en el camino.
+- Ren: Con tierra, nada más. Tus amigos me lo tiraron en el camino.
+- Explorador: ¿Mis amigos?
+- Ren: Tres. Querían cambiarme por vos.
+- Explorador: …Idiotas. El Shogun los va a colgar de los pulgares.
+- Explorador: ¿Te lastimaron?
+- Ren: No. Tenían órdenes de no hacerlo.
 - Explorador: …
-- Explorador: Gracias.
-- Ren: Tus amigos me emboscaron. Me llamaron «el chico de la manta». ¿Qué buscan?
-- Explorador: No te voy a decir nada, monje.
-- Ren: Entonces esperamos. Tengo toda la noche.
-- Explorador: Mi hermana menor es igual que vos. Pregunta y pregunta.
+- Explorador: Gracias por el arroz. Me llamo Sora.
+- Ren: Ya sé. Lo gritaron ellos.
+- Ren: A mí me llamaron «el chico de la manta». ¿Qué saben de mí?
+- Explorador: Menos de lo que creés. Más de lo que deberíamos.
+- Ren: Mi manta tiene bordada la marca que dejaste en el muro.
+- Narración: Sora deja de comer.
+- Explorador: …¿Seis puntos alrededor de uno?
+- Ren: En hilo gris. En una esquina.
+- Explorador: Entonces era verdad. Ella tenía razón.
+- Ren: ¿Quién?
+- Explorador: No, chico. Si te lo digo yo, no me vas a creer. Lo tenés que ver.
+- Explorador: Mi hermana menor es igual que vos. Pregunta y pregunta. Algún día se van a conocer.
 - [plano .5,.15 x1.4 · onom golpe · temblor]
 - Narración: Un golpe seco en el techo. Después, otro.
+- Explorador: …No. Le dije que no viniera.
 - [humo · destello]
-- Gon [entra centro corre]: ¡Ren! ¡Vinieron a sacarlo!
+- Gon [entra centro corre]: ¡Ren! ¡Vinieron a sacarlo! ¡Están en el techo!
 
 **Después**
 - *El humo se disipa. Las celdas.* [plano .25,.5 x1.45]
 - [plano .68,.5 x1.25 lento]
-- Narración: Los rescatistas huyeron. Al explorador lo dejaron atrás.
+- Narración: Los rescatistas huyeron por el techo. Al preso lo dejaron atrás.
 - [entra Explorador der sombra]
 - Ren [entra izq]: Tus amigos te abandonaron.
-- Explorador: No me abandonaron. Me dejaron para que hable con vos.
-- Explorador: Escuchame, chico. No venimos a robar.
-- Explorador [plano .7,.45 x1.6]: **Venimos a advertir.**
+- Explorador: No venían a sacarme. Venían a distraerte.
+- Ren: ¿Distraerme de qué?
+- Explorador: De la que vino de verdad. Ahora mismo está peleando con tu Maestra Mei en el pasillo de arriba.
+- Explorador: Escuchame, que no hay tiempo. No venimos a robar.
+- Explorador: **Venimos a advertir.**
 - Ren: ¿Advertir qué?
 - Explorador: Lo que tu Abad guarda abajo…
 - [niebla · plano .5,.5 x1.1 lento]
@@ -221,37 +290,53 @@ Rival: rescatistas ninja · IA: fácil · Regla: normal
 - Zorra Blanca: Todavía no es momento de que lo sepa.
 - [lugar cells · entra Ren izq ya · entra Explorador der ya · entra Zorra Blanca centro humo · niebla · plano .55,.5 x1.2]
 - Explorador: …Sí, señora.
-- Ren: ¿Señora? ¿Quién…?
+- Ren: ¿Señora? ¿Le hablás a una zorra?
+- Zorra Blanca: Él me escucha. Es más de lo que hace la mayoría de los hombres.
 - Zorra Blanca: Comé vos el arroz, chico de la manta. Lo vas a necesitar.
+- Ren: ¡Esperá! ¿Sabés quién bordó mi manta?
+- Zorra Blanca: Cuando la piedra lata, lo vas a saber.
 - [sale Zorra Blanca humo · sale Explorador humo · destello · niebla]
-- Narración: La zorra y el explorador desaparecen en la niebla.
+- Narración: La zorra y el preso desaparecen en la niebla.
 - [plano .72,.5 x1.55 lento]
 - Ren *(pensando)*: La celda sigue cerrada. Con llave. Desde afuera.
+- Ren *(pensando)*: ¿Qué piedra?
 
 #### s5 · El muro norte
 Rival: el clan cubre la huida · IA: fácil · Regla: el Asedio empieza en la ronda 15
 **Antes**
 - *Minutos después. El muro norte.* [plano .6,.45 x1.4 · humo]
-- Gon [entra der corre]: ¡Están por todo el muro! Quieren cubrir la huida.
-- Ren [entra izq corre]: Gon, ¿vos viste a la zorra?
-- Gon: ¿Qué zorra?
+- Gon [entra der corre]: ¡Están por todo el muro! Cubren la huida de alguien.
+- Ren [entra izq corre]: Gon, ¿viste a una zorra? ¿O al preso?
+- Gon: ¿Qué zorra? ¡El preso no está! ¡Y la celda seguía cerrada!
 - Gon: Ren, si cruzan el muro norte, bajan derecho al pueblo.
-- Ren: …Tu hermana.
+- Ren: …Hana.
+- Gon: Mi hermana tiene ocho años. Duerme al lado del camino.
 - [plano .72,.42 x1.45]
 - Gon: Por eso no pasa ninguno. Ninguno.
-- [plano .2,.4 x1.3]
-- Gon: ¡Concentrate, Ren! ¡Ahora!
+- Ren: Gon. Lo del brazo. No te caíste.
+- Gon: …
+- Gon: Después. Si salimos de esta, te cuento.
+- Gon: ¡Concentrate, Ren! Son muchos, y la noche es larga.
 
 **Después**
 - [plano .5,.5 x1.1 lento]
 - Narración: Los ninjas se retiran al bosque. El muro queda en silencio.
 - Gon [entra der]: ¡Corren como conejos!
-- Ren [entra izq]: …
-- Gon: Peleaste bien. No se lo cuentes a nadie.
-- Ren: ¿Que peleé bien?
-- Gon: Que te lo dije yo.
+- Ren [entra izq]: El brazo, Gon.
+- Gon: …
+- Gon: La otra noche el Abad me despertó. A mí solo. Me mandó a cuidar la escalera de la cripta.
+- Gon: Me dijo: «Nadie baja. Y no se lo cuentes a nadie. Ni a Ren.»
+- Ren *(pensando)*: Ni a mí.
+- Gon: Vino una ninja. Chiquita, con un abanico. Me ganó en tres movimientos.
+- Gon: Y antes de bajar me pidió perdón.
+- Ren: ¿Bajó?
+- Gon: Hasta la puerta de piedra. Después sonaron las campanas y se fue.
+- Gon: Por eso salí a cazar al explorador. No podía volver con las manos vacías.
+- Gon: No se lo cuentes a nadie, Ren.
+- Ren: ¿Que perdiste?
+- Gon: Que tengo miedo de lo que hay ahí abajo.
 - [sale Gon · plano .4,.5 x1.2 lento]
-- Ren *(pensando)*: «Venimos a advertir.» «El chico de la manta.» «Lo que guarda abajo.»
+- Ren *(pensando)*: «Venimos a advertir.» «Lo que guarda abajo.» Una escalera que yo no puedo conocer.
 - [plano .9,.3 x1.5 lento]
 - Ren *(pensando)*: Mañana le pregunto al Abad. Aunque se enoje.
 
@@ -260,32 +345,42 @@ Rival: Kuro · IA: fácil (jefe) · Regla: Kuro tiene un Shinobi de más
 **Antes**
 - *Amanecer. El portón principal.* [plano .3,.55 x1.3]
 - [plano .55,.5 x1.15 lento]
-- Narración: La niebla del alba cubre los escalones. Alguien espera en la puerta, solo.
+- Narración: La niebla del alba cubre los escalones. Alguien espera en la puerta, solo. No se esconde.
 - [entra Kuro der sombra · humo]
 - Kuro: El chico de la manta.
 - Ren [entra izq]: ¿Por qué todos me llaman así? ¿Quién sos?
+- Kuro: Kuro. El que se queda atrás para que los demás lleguen a casa.
 - Kuro: Me contaron que rodeás bien. Que le llevaste arroz a un preso.
 - Kuro: Un monje que le da de comer a un ninja… Eso no se ve seguido.
-- Ren: ¿Qué quieren del Templo?
-- Kuro [plano .62,.45 x1.45]: Lo que es nuestro. Hoy, o la próxima.
+- Ren: ¿Llegaron? Sora y la del abanico.
+- Kuro: …Sabés demasiado para ser un novicio.
+- Ren: Y no entiendo nada. ¿Qué quieren del Templo?
+- Kuro: Lo que es nuestro. El Pergamino de Jade. Hoy, o la próxima vez.
+- Ren: El Pergamino es sagrado. Nadie lo saca de la biblioteca.
+- Kuro: ¿Lo viste alguna vez?
+- Ren: …
+- Kuro: Yo tampoco. Ninguno de los dos defiende algo que haya visto.
+- Kuro: Hagamos que al menos la pelea valga la pena.
 
 **Después**
-- Kuro [entra der]: Bien peleado.
+- Kuro [entra der]: Bien peleado. Mejor que cualquiera de los míos a tu edad.
 - Kuro: Pero no entendés nada de lo que defendés.
 - Ren [entra izq]: ¡Entonces explicame!
-- Kuro: Preguntale a tu maestro de qué manta hablamos. Y mirale los ojos cuando conteste.
+- Kuro: No me toca. Hace dieciséis años juré no contarlo.
+- Ren: ¿Dieciséis años? ¿Vos estabas…?
+- Kuro: Preguntale a tu maestro quién te dejó en el escalón. Y mirale los ojos cuando conteste.
 - [sale Kuro humo · humo]
 - Ren: ¡Esperá!
 - *Más tarde. La sala del Abad.* [lugar abbotHall · plano .7,.5 x1.3]
-- Ren [entra izq]: Maestro, el ninja dijo que venían a advertir.
+- Ren [entra izq]: Maestro, los ninjas dicen que vienen a advertir.
 - Abad [entra der]: …
-- Ren: Habló de algo que guardamos abajo. Y me llaman «el chico de la manta».
-- [plano .62,.45 x1.45 lento]
-- Abad: ¿Quién te dijo eso?
-- Ren: Kuro. El jonin del humo.
-- Abad: Nadie habló con nadie, Ren.
-- Ren: Pero yo llegué en una manta. Usted me lo contó. ¿Qué tiene que ver el clan con…?
-- Abad [plano .6,.4 x1.5 · temblor]: **Olvidalo.** Es una orden.
+- Ren: Hablan de algo que guardamos abajo. Usted puso a Gon a cuidar la cripta y le prohibió decírmelo.
+- Abad: Gon habla de más.
+- Ren: Y mi manta tiene bordada la marca del muro. Seis puntos alrededor de uno.
+- Narración: El Abad no contesta. Por primera vez en dieciséis años, no mira a Ren a los ojos.
+- Ren *(pensando)*: «Mirale los ojos cuando conteste.»
+- Ren: Maestro. ¿Quién me dejó en el escalón?
+- Abad [temblor]: **Olvidalo.** Es una orden.
 - Ren *(pensando)*: Nunca me había gritado.
 - [temblor · onom temblor]
 - Narración: El suelo tiembla, apenas.
@@ -293,8 +388,9 @@ Rival: Kuro · IA: fácil (jefe) · Regla: Kuro tiene un Shinobi de más
 - Narración [plano .55,.25 x1.15 lento]: Del techo cae un polvo gris.
 - Ren: ¿Maestro…?
 - Narración: No es polvo. Es **ceniza**.
+- Ren *(pensando)*: Lo mismo que tenía en las mangas aquella noche.
 - Abad *(pensando)*: Ya empezó.
-- Abad *(pensando)*: Igual que la noche en que lo encontré.
+- Abad *(pensando)*: Igual que la noche en que ella me lo puso en los brazos.
 - **→ Fin del Acto I · desbloqueo**
 
 ### Acto II · El bosque de los susurros
@@ -691,104 +787,150 @@ Rival: guardia del muro · IA: novato · Regla: normal
 - *La pagoda del clan. Noche.* [plano .82,.3 x1.4]
 - [plano .6,.5 x1.1 lento]
 - Narración: En lo alto de la montaña, las linternas rojas del clan no se apagan nunca.
+- Narración: Esta noche, una chica de quince años espera de rodillas frente al Shogun. Es su primera misión.
 - Kage [entra der sombra]: El Pergamino de Jade nos pertenece.
 - Kage: Los monjes lo robaron hace siglos.
 - Aya [entra izq]: ¿Qué dice el Pergamino, mi señor?
 - Kage: …
-- Kage [plano .7,.4 x1.4]: Eso no importa. Importa que vuelva a casa.
+- Kage: Eso no importa. Importa que vuelva a casa.
 - Aya *(pensando)*: Siempre la misma respuesta.
-- Kage: Esta noche subís al muro por primera vez. Kuro te guía.
-- Kage: Si ves a un discípulo joven con un bastón, no le hagas daño.
+- Kage: Esta noche subís al muro por primera vez. Kuro te guía. Tu hermano va con ustedes.
+- Kage: No es para robar. Todavía no. Quiero saber cuántos guardias tienen y dónde.
+- Kage: Una cosa más.
+- Kage: Si ves a un discípulo joven, de pelo corto, que juega al tablero solo… no le hagas daño.
 - Aya: ¿Por qué, mi señor?
 - Kage: Porque lo digo yo.
-- [sale Kage · plano .3,.5 x1.2 lento]
-- Narración: Aya creció en la pagoda. Su abuela le enseñó el tablero antes que a caminar.
-- Aya *(pensando)*: «No es una pelea, Aya. Es una oración.» Nunca me dijo a quién.
+- Aya: ¿Quién es?
+- Kage: Una deuda vieja. Del clan, no mía.
+- [sale Kage sombra · plano .3,.5 x1.2 lento]
+- Narración: Aya creció en la pagoda. Su abuela Kiku le enseñó el tablero antes que a caminar.
+- Narración: Kiku murió el invierno pasado. Lo último que dijo fue una frase que nadie entendió.
+- Aya *(pensando)*: «Cuando la piedra lata, volvé a rodear.»
+- Aya *(pensando)*: ¿Qué piedra, abuela?
 - *Más tarde. El muro del Templo.* [lugar wall · plano .5,.5 x1.3]
 - Explorador [entra centro sombra]: ¿Nerviosa, hermanita?
 - Aya [entra izq]: Callate, Sora.
-- Kuro [entra der sombra]: Los dos. El guardia del muro.
+- Explorador: Te tiemblan las rodillas. A mí también me temblaban.
+- Aya: A vos todavía te tiemblan.
+- Kuro [entra der sombra]: Los dos. Silencio. El guardia del muro.
 - [plano .14,.45 x1.6]
-- Kuro: Pasalo sin hacer ruido.
+- Kuro: Pasalo sin hacer ruido. Si grita, se terminó la misión.
 - Aya: Como una sombra.
 
 **Después**
 - [plano .75,.5 x1.25 lento]
-- Narración: El guardia duerme contra el muro. Ni se enteró.
+- Narración: El guardia duerme contra el muro. Ni se enteró de que perdió.
 - Aya [entra izq corre]: Adentro.
-- Kuro [entra der sombra]: Bien. Ahora, lo difícil.
+- Kuro [entra der sombra]: Bien. Primera prueba, pasada.
 - Explorador [entra centro sombra]: Yo voy por el ala norte. Tengo algo que hacer.
 - Aya: ¿Qué cosa? Kuro no dijo nada de…
-- Explorador [sale Explorador corre]: Cosas de hermano mayor.
+- Kuro: Sora.
+- Explorador: Cosas de hermano mayor. Vuelvo antes de que canten los gallos.
+- [sale Explorador corre]
+- Aya: ¿No lo vas a frenar?
+- Kuro: Hace tres lunas que tu hermano sale de noche sin permiso. Si lo freno, nunca voy a saber adónde va.
+- Kuro: Si lo dejo, algún día me lo va a contar.
 - [plano .4,.5 x1.3 lento]
-- Aya *(pensando)*: Cada vez que dice eso, miente.
+- Aya *(pensando)*: Cada vez que dice «cosas de hermano mayor», miente.
+- Aya *(pensando)*: Y lleva carbón en el bolsillo. ¿Para qué quiere carbón un explorador?
 
 #### n2 · Los novicios
 Rival: novicios · IA: fácil · Regla: el rival no usa habilidad
 **Antes**
 - *El patio de novicios.* [plano .2,.5 x1.35]
 - [plano .75,.5 x1.2 lento]
+- Narración: Un pabellón bajo, lleno de esteras chicas. Alguien dejó una linterna prendida.
 - Novicio [entra der corre]: ¡Una sombra! ¡Alarma!
 - Aya [entra izq]: Son chicos.
 - Aya *(pensando)*: Tienen la edad que yo tenía cuando me pusieron un tantō en la mano.
 - Kuro [entra centro sombra]: Que no griten más fuerte. Sin lastimar a nadie.
 - Aya *(pensando)*: Eso lo dijo rápido. Como si le importara.
+- Novicio: ¡Todavía no sabemos la Meditación de Jade, pero no les tenemos miedo!
+- Aya: Entonces jugamos sin trucos. Si gano, se vuelven a dormir.
+- Novicio: ¿Y si ganamos nosotros?
+- Aya: Grito yo la alarma. Por ustedes.
 
 **Después**
+- Narración: Los novicios vuelven a las esteras. Uno se duerme abrazado a una ficha de madera.
 - Aya [entra izq]: Kuro… ¿por qué rodeamos?
-- Aya: En el clan también nos enseñan a rodear.
+- Aya: Ellos también rodean. Los monjes, los chicos, nosotros. Todos igual.
 - Kuro [entra der]: Porque así se gana.
-- Aya: Pero ¿por qué **así**?
+- Aya: Pero ¿por qué **así**? Hay mil maneras de ganar una pelea.
 - [plano .7,.45 x1.45 lento]
 - Kuro: …
 - Kuro: La vez que le pregunté eso a mi maestro, me pegó con una vara.
 - Aya: ¿Y vos me vas a pegar?
 - Kuro: No. Pero tampoco te voy a contestar.
 - Kuro: Preguntás demasiado, Aya. Igual que tu abuela.
+- Aya: ¿Conociste a Kiku de joven?
+- Kuro: Ella me enseñó a rodear. Y una vez, en medio de una partida, se puso a llorar.
+- Aya: ¿Por qué?
+- Kuro: Dijo que el tablero estaba incompleto. Que le faltaba una mano.
+- Aya *(pensando)*: ¿Una mano?
 
 #### n3 · Golpe por sorpresa
 Rival: maestro de guardia · IA: fácil · Regla: el Monje rival empieza con 3 de tus fichas al lado
 **Antes**
 - *El patio interior.* [plano .45,.6 x1.4]
 - [plano .25,.5 x1.2 lento]
-- Narración: Un maestro hace la ronda junto al incensario. No mira hacia arriba.
+- Narración: Un maestro hace la ronda junto al incensario. Tose. No mira hacia arriba.
 - [plano .7,.25 x1.45]
-- Aya *(pensando)*: Nunca miran hacia arriba.
-- Aya *(pensando)*: Sora ya debería haber vuelto.
+- Aya [entra izq] *(pensando)*: Nunca miran hacia arriba.
+- Kuro [entra der sombra]: Ese no es un guardia cualquiera. Es un maestro del Templo.
+- Kuro: En la próxima vuelta nos ve. Hay que caerle encima, ahora.
+- Aya: ¿Y Sora? Ya debería haber vuelto.
+- Kuro: Tu hermano sabe cuidarse. Vos ocupate de no caerte del tejado.
 - [temblor · destello]
-- Narración: Aya cae sobre el maestro de guardia antes de que reaccione.
+- Narración: Aya cae sobre el maestro de guardia antes de que reaccione. Tres sombras lo rodean.
 
 **Después**
 - [arte art_stairs · plano .2,.4 x1.3]
-- Narración [plano .55,.6 x1.15 lento]: Desde el tejado, Aya ve algo raro: los monjes no custodian la biblioteca.
-- Narración: Custodian una **escalera** que baja bajo el Templo.
+- Narración [plano .55,.6 x1.15 lento]: Desde el tejado, Aya ve algo raro: nadie custodia la biblioteca.
+- Narración: Todas las antorchas rodean una **escalera** que baja bajo el Templo. Y la cuida un solo guardia, con un bastón.
 - Aya *(pensando)*: El Shogun dijo que el Pergamino está en la biblioteca.
-- Aya *(pensando)*: Entonces… ¿qué guardan ahí abajo?
+- Aya *(pensando)*: Entonces… ¿qué cuidan ahí abajo, con tanto miedo?
+- [lugar courtyard · entra Aya izq ya · entra Kuro der sombra · plano .5,.5 x1.25]
+- Kuro: No. Ni lo pienses. La misión es contar guardias, no bajar escaleras.
+- Aya: Vos también lo viste. Ponen más guardias en un agujero que en el Pergamino.
+- Kuro: …
+- Kuro: Diez minutos. Yo cuento los guardias del ala oeste. Si no volvés, te voy a buscar.
+- Aya *(pensando)*: No me dijo que no.
 
 #### n4 · La escalera
 Rival: Gon · IA: fácil · Regla: normal
 **Antes**
 - *La entrada de la cripta.* [plano .5,.65 x1.5]
 - [plano .5,.5 x1.1 lento]
-- Narración: Una boca de piedra en el suelo. Abajo, las antorchas arden sin temblar.
+- Narración: Una boca de piedra en el suelo. Abajo, las antorchas arden sin temblar. Sube un calor de verano.
 - Gon [entra der corre]: ¡Alto! Nadie baja.
 - Aya [entra izq]: ¿Qué hay abajo?
 - Gon: No lo sé.
-- Gon: Y no lo vas a saber vos tampoco.
+- Gon: El Abad me despertó a mí solo y me dijo que nadie baja. Con eso me alcanza.
 - Aya: ¿Defendés algo que ni sabés qué es?
-- Gon: Mi hermana duerme en el pueblo de abajo. Si ustedes pasan, pasan por ella.
+- Gon: ¿Y vos? ¿Sabés qué venís a robar?
 - Aya: …
-- [plano .3,.45 x1.4]
+- Gon: Ya me parecía.
+- Gon: Mi hermana duerme en el pueblo de abajo. Tiene ocho años. Si ustedes pasan, pasan por ella.
+- Aya: No vinimos por ningún pueblo.
+- Gon: Eso dicen todos los que vienen de noche.
+- Aya *(pensando)*: Tiene miedo. No de mí. De lo que tiene a la espalda.
 - Aya: Yo también tengo a alguien. Y no pienso volver sin saber.
 
 **Después**
 - [plano .5,.65 x1.45 lento]
-- Narración: Gon queda tendido en los escalones. Aya baja hasta la puerta de piedra.
-- Aya [entra izq]: …
+- Narración: Gon cae sentado en los escalones. No está herido. Está furioso.
+- Aya [entra izq]: Perdón.
+- Gon [entra der]: ¿Perdón? ¿Me ganás y me pedís perdón?
+- Aya: Te torcí el brazo. No quería.
+- [vacía · plano .5,.6 x1.3 lento]
+- Narración: Aya baja hasta el fondo de la escalera. Hay una puerta de piedra, cerrada con seis cerrojos.
 - [plano .5,.72 x1.7 lento · latido]
 - Narración: La piedra está **tibia**. Y late, despacio.
-- Aya: …Como un corazón.
+- Aya [entra izq]: …Como un corazón.
+- Aya *(pensando)*: «Cuando la piedra lata, volvé a rodear.»
 - Aya *(pensando)*: Abuela… ¿a esto le rezábamos?
+- [onom campana · temblor]
+- Narración: Arriba empiezan a sonar las campanas.
 
 #### n5 · Alarma
 Rival: monjes de guardia · IA: fácil · Regla: el Asedio empieza en la ronda 15
@@ -796,54 +938,86 @@ Rival: monjes de guardia · IA: fácil · Regla: el Asedio empieza en la ronda 1
 - *Campanas. Todo el Templo despierta.* [plano .82,.55 x1.6]
 - [onom campana · temblor]
 - Kuro [entra der corre]: ¡Nos vieron! Nos vamos.
-- Aya [entra izq]: Pero la escalera… ¡y Sora!
-- [plano .3,.5 x1.25]
-- Kuro: ¡Ahora, Aya!
+- Aya [entra izq corre]: Kuro, abajo hay una puerta de piedra. Está caliente. ¡Late!
+- Kuro: Después.
+- Aya: ¡Late, Kuro! Como algo vivo.
+- Narración: Por un instante, el jonin del humo parece asustado.
+- Kuro: Dije después. ¿Dónde está tu hermano?
+- Aya: No volvió. ¡No podemos irnos sin Sora!
+- Kuro: Sora conoce el camino. Nosotros tenemos que llegar al muro norte antes que los monjes.
+- Kuro: ¡Ahora, Aya! Son muchos y nos van a perseguir hasta el alba.
 
 **Después**
-- *El muro norte.* [lugar wall · plano .7,.4 x1.3]
-- Narración: Escapan por el muro norte. Uno de los suyos no llegó.
-- Aya [entra izq]: ¿Dónde está Sora?
-- Kuro [entra der]: Lo atraparon en el bosque, al alba. Está en las celdas.
+- *El bosque, al alba.* [lugar forest · plano .7,.4 x1.3]
+- Narración: Escaparon. Esperan entre los bambúes hasta que sale el sol. Sora no aparece.
+- Aya [entra izq]: Algo le pasó.
+- Kuro [entra der]: …
+- Kunoichi [entra centro sombra]: Kuro. Lo atraparon. Un monje grandote, con un brazo vendado.
+- Aya *(pensando)*: El de la escalera. El que yo dejé así.
+- Kunoichi: Volvía del ala norte. Tenía las manos negras de carbón.
 - Aya: Vamos a volver por él.
 - Kuro: …
-- Kuro: El Shogun dijo que no. Un explorador no vale una misión.
+- Kuro: El Shogun va a decir que no. Un explorador no vale una misión.
 - Aya: No es un explorador. Es mi hermano.
-- [plano .7,.45 x1.45 lento]
 - Kuro: Ya sé.
 - Kuro: Por eso te lo digo a vos y no al Shogun: el techo de las celdas está flojo.
+- Kunoichi: Algunos de los nuestros piensan otra cosa. Un cambio.
+- Kuro: ¿Qué cambio?
+- Kunoichi: El discípulo del Abad baja solo al pueblo todas las tardes.
+- Kuro: **No.** El Shogun fue claro.
+- Aya *(pensando)*: El discípulo al que no hay que lastimar…
+- Aya *(pensando)*: ¿Quién es ese chico, que hasta el Shogun lo cuida?
 
 #### n6 · JEFE — Maestra Mei
 Rival: Mei · IA: fácil (jefe) · Regla: Mei tiene un Tigre de más
 **Antes**
 - *Noche siguiente. Las celdas.* [plano .2,.5 x1.4]
 - [plano .55,.5 x1.2 lento]
-- Narración: Aya vuelve sola, por el techo flojo, a rescatar a su hermano.
-- Aya [entra izq]: Sora…
+- Narración: Dos de los suyos golpean el techo del ala vieja para distraer a los monjes. Aya entra sola, por otro lado.
+- Aya [entra izq] *(pensando)*: Mientras pelean arriba, yo bajo. Aguantá, Sora.
 - [entra Mei der sombra]
-- Narración: Mei la está esperando.
+- Narración: En el pasillo de las celdas, alguien la espera sentada en el suelo, con los ojos cerrados.
 - Mei: Volviste por tu hermano. Eso dice algo bueno de vos.
 - Aya: ¿Cómo sabe que es mi hermano?
 - Mei: Habla de vos todo el tiempo. De la hermana que pregunta y pregunta.
-- Aya: No necesito su aprobación.
-- Mei [plano .7,.45 x1.45]: No. Necesitás pasar por mí.
+- Mei: También habla dormido. Dice «abuela» y dice «piedra».
+- Aya: …
+- Mei: Anoche bajaste, ¿verdad? Hasta la puerta.
+- Aya: ¿Usted sabe qué hay ahí?
+- Mei: Sé que no debería saberlo. Y que quien lo sabe todo no quiere compartirlo.
+- Aya: No necesito su permiso. Necesito a mi hermano.
+- Mei: No. Necesitás pasar por mí.
 
 **Después**
-- Mei [entra der]: …Andate.
-- Mei: Llevalo con vos.
-- Aya [entra izq]: ¿Nos deja ir?
-- Mei: Algo más grande que esta guerra viene.
-- Mei: Cuanto menos sangre, mejor.
-- Explorador [entra centro sombra]: Aya. Hay algo que tengo que contarte.
-- Aya: Después. Primero salimos.
+- Mei [entra der]: …Basta.
+- Aya [entra izq]: ¿Se rinde?
+- Mei: Me canso. No es lo mismo.
+- Mei: Andate. Y llevate a tu hermano, si lo encontrás.
+- Aya: ¿Por qué me deja ir?
+- Mei: Porque viene algo más grande que esta guerra. Y cuanta menos sangre haya entre nosotros, mejor.
+- Mei: Decile a tu Shogun que en el Templo no todos estamos ciegos.
+- [sale Mei]
+- *La celda.* [lugar cells · plano .6,.5 x1.3]
+- Narración: La celda de Sora está cerrada con llave. Y vacía.
+- Aya [entra izq]: ¿Sora…?
+- Narración: En la paja quedó un plato de arroz a medio comer. Con tierra.
+- Aya *(pensando)*: Alguien le trajo de comer. Un monje.
 - *La escalera de la cripta.* [lugar cryptStairs · oscuro · niebla · plano .5,.55 x1.3]
+- Explorador [entra der sombra]: Aya. Por acá.
+- Aya [entra izq]: ¡Sora! ¿Cómo saliste?
+- Explorador: No salí. Me sacaron.
 - [plano .5,.6 x1.55 lento]
-- Zorra Blanca [entra der humo]: Lo que viniste a buscar no es lo que pensás.
-- Aya [entra izq]: ¿Quién sos?
-- Zorra Blanca: Preguntale a tu hermano para quién lleva mensajes.
+- Zorra Blanca [entra centro humo]: Lo que viniste a buscar no es lo que pensás, nieta de Kiku.
+- Aya: ¿Conocías a mi abuela?
+- Zorra Blanca: Le llevé mensajes durante cuarenta años. Ahora se los llevo a tu hermano.
+- Aya: ¿Sora…?
+- Explorador: Te lo iba a contar. La marca en el muro, las salidas de noche… Es ella. Me pide que avise al Templo.
+- Aya: ¿Que avises qué?
+- Zorra Blanca: Que la piedra late. Y que nadie quiere escucharla.
 - [sale Zorra Blanca humo]
 - [latido · temblor]
-- Narración: Bajo los pies de Aya, la piedra **late** una vez más. Más fuerte.
+- Narración: Bajo los pies de Aya, la piedra **late** una vez más. Más fuerte. Del techo cae un polvo gris.
+- Aya *(pensando)*: Gris. Como la tos de la abuela.
 - **→ Fin del Acto I · desbloqueo**
 
 ### Acto II · El jardín de piedra
