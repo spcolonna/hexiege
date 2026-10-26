@@ -2,7 +2,7 @@
 """Genera el guion de las viñetas desde docs/lore.md.
 
 docs/lore.md es la fuente del texto en español; tool/story_tr.json tiene las
-traducciones de las líneas con texto, en el mismo orden ({"s1.pre": {"en": [...], "zh": [...]}}).
+traducciones de las líneas con texto, en el mismo orden ({"s1.pre": {"en": [...], "zh": [...], "ja": [...]}}).
 
 Puesta en escena, entre corchetes y separada por "·":
   - [plano .8,.4 x1.6 lento]        pausa muda: la cámara va a ese punto del fondo
@@ -206,7 +206,7 @@ def main():
         t = tr.get(sid, {})
         said = [i for i, b in enumerate(beats) if b[0] != 'pause']
         ok = {}
-        for lang in ('en', 'zh'):
+        for lang in ('en', 'zh', 'ja'):
             ok[lang] = len(t.get(lang, [])) == len(said)
             if not ok[lang]:
                 missing.append(f'{sid}.{lang}: {len(t.get(lang, []))}/{len(said)}')
@@ -216,6 +216,7 @@ def main():
                 'es': text,
                 'en': t['en'][n] if ok['en'] else text,
                 'zh': t['zh'][n] if ok['zh'] else text,
+                'ja': t['ja'][n] if ok['ja'] else text,
             }
     if missing:
         print('Faltan traducciones (se usa el español):\n  ' + '\n  '.join(missing))

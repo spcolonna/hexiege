@@ -324,7 +324,7 @@ class AppSettings extends ChangeNotifier {
     }
     final p = _prefs!;
     _language = p.getString('language');
-    setLanguage(_language ?? systemLanguage(PlatformDispatcher.instance.locale.languageCode));
+    setLanguage(_language ?? systemLanguage(PlatformDispatcher.instance.locales.map((l) => l.languageCode)));
     _pieceStyle = PieceStyle.values.asNameMap()[p.getString('pieceStyle')] ?? PieceStyle.images;
     _faction = Faction.values.asNameMap()[p.getString('faction')] ?? Faction.shaolin;
     final mode = p.getInt('themeMode');
@@ -394,7 +394,7 @@ class AppSettings extends ChangeNotifier {
 
   set language(String? code) {
     _language = code;
-    setLanguage(code ?? systemLanguage(PlatformDispatcher.instance.locale.languageCode));
+    setLanguage(code ?? systemLanguage(PlatformDispatcher.instance.locales.map((l) => l.languageCode)));
     if (code == null) {
       _prefs?.remove('language');
     } else {

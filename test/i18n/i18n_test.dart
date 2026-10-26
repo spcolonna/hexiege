@@ -10,7 +10,7 @@ final _placeholder = RegExp(r'\{(\w+)\}');
 void main() {
   tearDown(() => setLanguage('es'));
 
-  test('los tres idiomas tienen las mismas claves y marcadores', () {
+  test('todos los idiomas tienen las mismas claves y marcadores', () {
     final keys = es.keys.toSet();
     for (final MapEntry(key: lang, value: cat) in catalogs.entries) {
       expect(cat.keys.toSet(), keys, reason: lang);
@@ -60,5 +60,12 @@ void main() {
     expect(trN('stage.closedIn', 2), 'Cerco cerrado en 2 turnos.');
     setLanguage('fr');
     expect(currentLanguage, 'en');
+  });
+
+  test('idioma del sistema: el primero soportado, si no inglés', () {
+    expect(systemLanguage(['ja']), 'ja');
+    expect(systemLanguage(['fr', 'es', 'en']), 'es');
+    expect(systemLanguage(['fr', 'de']), 'en');
+    expect(systemLanguage([]), 'en');
   });
 }

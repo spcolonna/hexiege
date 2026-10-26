@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Genera lib/i18n/{es,en,zh}.dart desde tool/i18n_strings.json.
+"""Genera lib/i18n/{es,en,zh,ja}.dart desde tool/i18n_strings.json.
 
-El JSON es la fuente de verdad: {"clave": {"es": "...", "en": "...", "zh": "..."}}.
+El JSON es la fuente de verdad: {"clave": {"es": "...", "en": "...", "zh": "...", "ja": "..."}}.
 Uso:
   python3 tool/gen_i18n.py                 # regenera los .dart
   python3 tool/gen_i18n.py --add lote.json # suma/actualiza claves y regenera
@@ -13,7 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / 'tool' / 'i18n_strings.json'
-LANGS = ['es', 'en', 'zh']
+LANGS = ['es', 'en', 'zh', 'ja']
 
 
 def load():

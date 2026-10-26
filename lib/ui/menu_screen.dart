@@ -15,6 +15,7 @@ import '../match/rivals.dart';
 import '../match/saved_game.dart';
 import '../solo/catalog.dart';
 import '../store/purchases.dart';
+import '../store/paywall.dart';
 import 'codex_screen.dart';
 import 'gallery_screen.dart';
 import 'fx/sfx.dart';
@@ -282,6 +283,7 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                   const SkinOption('es', 'Español'),
                   const SkinOption('en', 'English'),
                   const SkinOption('zh', '中文'),
+                  const SkinOption('ja', '日本語'),
                 ],
                 selected: s.language,
                 onChanged: (v) => s.language = v,
@@ -326,13 +328,26 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
                   },
                 ),
               const SizedBox(height: 12),
-              // Restaurar compras (lo exige Apple) y estado de la historia.
+              // Comprar y restaurar (lo exige Apple) y estado de la historia. La
+              // compra queda a mano acá para no depender de llegar a la batalla 7.
               ListenableBuilder(
                 listenable: Purchases.instance,
-                builder: (context, _) => SkinButton(
-                  label: s.storyUnlocked ? tr('store.owned') : tr('store.restore'),
-                  glyph: '巻',
-                  onPressed: s.storyUnlocked || Purchases.instance.busy ? null : Purchases.instance.restore,
+                builder: (context, _) => Column(
+                  children: [
+                    if (!s.storyUnlocked) ...[
+                      SkinButton(
+                        label: tr('store.locked', {'price': Purchases.instance.price}),
+                        glyph: '物',
+                        onPressed: () => showPaywall(context),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                    SkinButton(
+                      label: s.storyUnlocked ? tr('store.owned') : tr('store.restore'),
+                      glyph: '巻',
+                      onPressed: s.storyUnlocked || Purchases.instance.busy ? null : Purchases.instance.restore,
+                    ),
+                  ],
                 ),
               ),
               if (kStoryResetButton) ...[

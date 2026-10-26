@@ -19,9 +19,9 @@ def dump(tr):
     TR.write_text('\n'.join(out) + '\n')
 
 
-def set_scene(sid, en, zh):
+def set_scene(sid, en, zh, ja):
     tr = json.loads(TR.read_text())
-    tr[sid] = {'en': en, 'zh': zh}
+    tr[sid] = {'en': en, 'zh': zh, 'ja': ja}
     dump(tr)
 
 
