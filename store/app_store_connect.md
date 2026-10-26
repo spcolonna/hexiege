@@ -84,8 +84,7 @@ abstractas, pero el cómic tiene combates.)
 
 | Campo | Valor |
 |---|---|
-| Capturas iPhone 6,9" | `store/screenshots/en/` (1320×2868), las 5 en orden. Sirven para todos los idiomas. |
-| Capturas iPad 13" | `store/screenshots/en_ipad/` (2064×2752), las 5 en orden. **Obligatorias** porque la app corre en iPad. |
+| Capturas | **Subidas** (en inglés, sirven para todos los idiomas): iPhone 1206×2622 e iPad 13" 2064×2752. Para rehacerlas: `tool/compose_screenshots.py` (no se commitean). |
 | URL de soporte | `https://spcolonna.github.io/hexiege/privacidad.html` (tiene el correo de contacto) |
 | URL de marketing | vacío |
 | Copyright | `2026 Oraki Games` |
@@ -116,9 +115,8 @@ winning battle 6 of a campaign. Game Center is optional (achievements and leader
 
 ### Palabras clave (máx. 100 caracteres, separadas por coma, sin espacios)
 
-- **en:** `strategy,board game,hex,hive,ninja,shaolin,kung fu,puzzle,abstract,tactics,turn based,offline,2 player`
-  → si pasa de 100, quitar `2 player`.
-- **es:** `estrategia,juego de mesa,hexágono,ninja,shaolin,kung fu,puzle,táctica,por turnos,sin conexión,2 jugadores`
+- **en:** `strategy,board game,hex,hive,ninja,shaolin,kung fu,puzzle,abstract,tactics,turn based,offline`
+- **es:** `estrategia,juego de mesa,hexágono,ninja,shaolin,kung fu,puzle,táctica,por turnos,sin conexión`
 - **zh-Hans:** `策略,棋类,六角,忍者,少林,功夫,解谜,战术,回合制,离线,双人,桌游`
 - **ja:** `戦略,ボードゲーム,六角形,忍者,少林寺,カンフー,パズル,詰め,戦術,ターン制,オフライン,二人対戦`
 
