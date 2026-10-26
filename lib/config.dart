@@ -17,7 +17,8 @@ const kPrivacyUrl = 'https://spcolonna.github.io/hexiege/privacidad.html';
 
 /// Reporte de errores (Sentry). Vacío = apagado. El DSN no es secreto: viaja
 /// dentro de la app. Se copia de sentry.io → Project Settings → Client Keys.
-const kSentryDsn = '';
+const kSentryDsn =
+    'https://7ad9eef1fd958471634aaa071e405ca7@o4512322907668480.ingest.us.sentry.io/4512322924249088';
 
 /// Play Juegos en Android. Apagado hasta crear el juego en Play Console y poner
 /// su id en android/app/src/main/res/values/games.xml (sin eso, el inicio de
