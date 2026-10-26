@@ -63,6 +63,8 @@ Nombre y subtítulo (máx. 30 caracteres cada uno):
 | ja | `完全版ストーリー` | `両陣営の第二幕〜第四幕と、真の結末「封印」。` |
 
 - Captura de revisión: la hoja de desbloqueo (Ajustes → «Full story · $1.99»).
+- **Imagen (opcional, PENDIENTE de subir)**: `store/iap_story.png`, 1024×1024 sin transparencia (prompt en
+  `docs/prompts.md`, bloque F). Sale en códigos de oferta y, si se activa App Store Promotion, en la página.
 - Nota de revisión: `Unlocks battles 7–24 of both campaigns and the finale. Open it from Settings → "Full story". Restore purchases is right below.`
 - **Acuerdos, impuestos y banca**: el acuerdo de Apps de pago tiene que estar activo, si no
   StoreKit no devuelve el producto.
@@ -244,7 +246,7 @@ Los puntos suman 1000, el máximo.
 ## 7. Enviar
 
 1. Build 17 procesado → elegirlo en la versión.
-2. En «Compras dentro de la app», agregar `hexiege_story`.
+2. En «Compras dentro de la app», agregar `hexiege_story` (¿ya tiene la imagen `store/iap_story.png`?).
 3. Agregar para revisión → Enviar a revisión. Suele tardar 1–2 días.
 
 ## Después del lanzamiento

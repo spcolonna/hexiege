@@ -133,6 +133,26 @@ COMPOSITION: The subject is centered, bold and simple, filling about 65% of the 
 DO NOT INCLUDE: any text, letters, numbers, signature, seal stamp or Chinese/Japanese characters; a frame, border or ribbon; a transparent or checkerboard background; photographic realism; cartoon, anime or flat vector style; blood or gore; people.
 ```
 
+## Bloque F — Imagen de la compra «Historia completa» (1) ⬜
+
+Archivo: `store/iap_story.png` (no se commitea: se sube en App Store Connect → Compras dentro de la app →
+`hexiege_story` → Imagen, y se borra). 1024×1024, **sin transparencia ni esquinas redondeadas**; no puede ser el
+ícono ni una captura.
+
+```
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), fully opaque, with NO transparency and NO rounded corners. Start generating immediately, without asking questions or requesting confirmation.
+
+PURPOSE: This is the promotional image for an in-app purchase called "Full story" in a hexagonal strategy board game about Shaolin monks and ninjas. Buying it unlocks the rest of the story campaign. It appears on the App Store next to the purchase, so it must read clearly at small sizes and feel like a precious reward.
+
+SUBJECT: The Jade Scroll: an ancient silk scroll half unrolled on a low dark lacquered table, its wooden rollers capped with green jade. The visible part of the scroll shows a faint ink painting of a mountain temple and a hexagonal board, suggesting the story still to come. A red silk cord lies untied beside it, and a single thin curl of incense smoke rises behind. Soft warm light falls on the scroll, as if it has just been opened.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with soft watercolor accents in jade green (#2E8B57), lacquer red (#B8322A) and warm ochre. Expressive black ink brush strokes, visible paper grain. The whole image is painted on warm aged washi paper (#EFE3C8) that fills the entire square edge to edge.
+
+COMPOSITION: The scroll is centered and seen slightly from above, filling about 75% of the canvas width, with calm empty paper around it. Bold, simple silhouette.
+
+DO NOT INCLUDE: any text, letters, numbers, signature, seal stamp, price or Chinese/Japanese characters (the painting on the scroll has no writing); a frame or border; a transparent or checkerboard background; rounded corners; photographic realism; cartoon, anime or flat vector style; people.
+```
+
 ## Bloque D — Figuras cortadas en los costados (10) ⬜
 
 Estas figuras tocan el borde izquierdo o derecho del dibujo: un brazo, un hombro o el bastón terminan en un corte
