@@ -17,6 +17,122 @@ Prompts para **ChatGPT** (generador de imágenes), en inglés porque así sigue 
 
 # Para generar ahora
 
+## Bloque E — Logros de Game Center (8) ⬜
+
+Archivos, en orden: `ach_initiation.png`, `ach_firstWin.png`, `ach_firstBoss.png`, `ach_shaolinDone.png`,
+`ach_ninjaDone.png`, `ach_seal.png`, `ach_streak7.png`, `ach_streak30.png`. Carpeta: `store/gamecenter/` (no se
+commitea: se suben a App Store Connect → Game Center, una por logro, y se borran).
+Apple pide 1024×1024, PNG o JPG, **sin transparencia**. Game Center la recorta en círculo, por eso el motivo va
+centrado y las esquinas son solo fondo.
+
+```
+Generate exactly 8 separate images. Start generating immediately, without asking questions or requesting confirmation. Each image has its own complete instructions below; follow them separately. Each image is its own file: do NOT combine them into a grid, collage or contact sheet.
+
+Image 1 — ach_initiation:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), fully opaque, with NO transparency.
+
+PURPOSE: This is an achievement badge for Apple Game Center in a hexagonal strategy board game about Shaolin monks and ninjas. Game Center crops it into a CIRCLE and shows it small (about 80×80 pixels), so the subject must sit inside the central circle and read instantly at that size.
+
+SUBJECT: Two weathered open hands of an old martial-arts master, seen from above, gently offering a single hexagonal game tile made of white marble with a green jade rim. A thin curl of incense smoke rises past the tile. Calm, welcoming: the first lesson.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with a few soft watercolor accents in jade green (#2E8B57), lacquer red (#B8322A) and warm ochre. Expressive black ink brush strokes, visible paper grain. The whole badge is painted on warm aged washi paper (#EFE3C8) that fills the entire square edge to edge. A loose circular brush stroke in faded ink surrounds the subject, like an ensō circle, about 90% of the canvas width.
+
+COMPOSITION: The subject is centered, bold and simple, filling about 65% of the canvas width, with clear empty paper around it. The four corners contain only plain washi paper, so nothing important is lost when the image is cropped to a circle.
+
+DO NOT INCLUDE: any text, letters, numbers, signature, seal stamp or Chinese/Japanese characters; a frame, border or ribbon; a transparent or checkerboard background; photographic realism; cartoon, anime or flat vector style; blood or gore.
+
+Image 2 — ach_firstWin:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), fully opaque, with NO transparency.
+
+PURPOSE: This is an achievement badge for Apple Game Center in a hexagonal strategy board game about Shaolin monks and ninjas. Game Center crops it into a CIRCLE and shows it small (about 80×80 pixels), so the subject must sit inside the central circle and read instantly at that size.
+
+SUBJECT: Seen from straight above: one dark hexagonal game tile with a crimson rim in the center, completely surrounded on all six sides by six white marble hexagonal tiles with green jade rims, forming a perfect flower of seven hexagons. A single bold red ink brush stroke sweeps around the ring, like a victory mark. The moment of the first win.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with a few soft watercolor accents in jade green (#2E8B57), lacquer red (#B8322A) and warm ochre. Expressive black ink brush strokes, visible paper grain. The whole badge is painted on warm aged washi paper (#EFE3C8) that fills the entire square edge to edge. A loose circular brush stroke in faded ink surrounds the subject, like an ensō circle, about 90% of the canvas width.
+
+COMPOSITION: The subject is centered, bold and simple, filling about 65% of the canvas width, with clear empty paper around it. The four corners contain only plain washi paper, so nothing important is lost when the image is cropped to a circle.
+
+DO NOT INCLUDE: any text, letters, numbers, signature, seal stamp or Chinese/Japanese characters; a frame, border or ribbon; a transparent or checkerboard background; photographic realism; cartoon, anime or flat vector style; blood or gore.
+
+Image 3 — ach_firstBoss:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), fully opaque, with NO transparency.
+
+PURPOSE: This is an achievement badge for Apple Game Center in a hexagonal strategy board game about Shaolin monks and ninjas. Game Center crops it into a CIRCLE and shows it small (about 80×80 pixels), so the subject must sit inside the central circle and read instantly at that size.
+
+SUBJECT: A black ninja face mask lying on the ground, split in two by a clean crack, with thick dark smoke curling up and away from it into the air. A worthy enemy has fallen.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with a few soft watercolor accents in jade green (#2E8B57), lacquer red (#B8322A) and warm ochre. Expressive black ink brush strokes, visible paper grain. The whole badge is painted on warm aged washi paper (#EFE3C8) that fills the entire square edge to edge. A loose circular brush stroke in faded ink surrounds the subject, like an ensō circle, about 90% of the canvas width.
+
+COMPOSITION: The subject is centered, bold and simple, filling about 65% of the canvas width, with clear empty paper around it. The four corners contain only plain washi paper, so nothing important is lost when the image is cropped to a circle.
+
+DO NOT INCLUDE: any text, letters, numbers, signature, seal stamp or Chinese/Japanese characters; a frame, border or ribbon; a transparent or checkerboard background; photographic realism; cartoon, anime or flat vector style; blood or gore; a face or eyes inside the mask.
+
+Image 4 — ach_shaolinDone:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), fully opaque, with NO transparency.
+
+PURPOSE: This is an achievement badge for Apple Game Center in a hexagonal strategy board game about Shaolin monks and ninjas. Game Center crops it into a CIRCLE and shows it small (about 80×80 pixels), so the subject must sit inside the central circle and read instantly at that size.
+
+SUBJECT: The great wooden gate of a Shaolin temple on a misty mountain at dawn, with sweeping curved roofs, and a jade-green dragon coiling once around the gate's pillars. A pale rising sun behind the roof. The monks' path is complete.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with a few soft watercolor accents in jade green (#2E8B57), lacquer red (#B8322A) and warm ochre. Expressive black ink brush strokes, visible paper grain. The whole badge is painted on warm aged washi paper (#EFE3C8) that fills the entire square edge to edge. A loose circular brush stroke in faded ink surrounds the subject, like an ensō circle, about 90% of the canvas width.
+
+COMPOSITION: The subject is centered, bold and simple, filling about 65% of the canvas width, with clear empty paper around it. The four corners contain only plain washi paper, so nothing important is lost when the image is cropped to a circle.
+
+DO NOT INCLUDE: any text, letters, numbers, signature, seal stamp or Chinese/Japanese characters (no plaque on the gate); a frame, border or ribbon; a transparent or checkerboard background; photographic realism; cartoon, anime or flat vector style; blood or gore; people.
+
+Image 5 — ach_ninjaDone:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), fully opaque, with NO transparency.
+
+PURPOSE: This is an achievement badge for Apple Game Center in a hexagonal strategy board game about Shaolin monks and ninjas. Game Center crops it into a CIRCLE and shows it small (about 80×80 pixels), so the subject must sit inside the central circle and read instantly at that size.
+
+SUBJECT: A lone kunoichi (female ninja) in a dark outfit with a long crimson scarf blowing in the wind, crouched on the curved tip of a temple roof, seen in silhouette against a huge pale crescent moon. The shadows' mission is complete.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with a few soft watercolor accents in jade green (#2E8B57), lacquer red (#B8322A) and warm ochre. Expressive black ink brush strokes, visible paper grain. The whole badge is painted on warm aged washi paper (#EFE3C8) that fills the entire square edge to edge. A loose circular brush stroke in faded ink surrounds the subject, like an ensō circle, about 90% of the canvas width.
+
+COMPOSITION: The subject is centered, bold and simple, filling about 65% of the canvas width, with clear empty paper around it. The four corners contain only plain washi paper, so nothing important is lost when the image is cropped to a circle.
+
+DO NOT INCLUDE: any text, letters, numbers, signature, seal stamp or Chinese/Japanese characters; a frame, border or ribbon; a transparent or checkerboard background; photographic realism; cartoon, anime or flat vector style; blood or gore; weapons.
+
+Image 6 — ach_seal:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), fully opaque, with NO transparency.
+
+PURPOSE: This is an achievement badge for Apple Game Center in a hexagonal strategy board game about Shaolin monks and ninjas. Game Center crops it into a CIRCLE and shows it small (about 80×80 pixels), so the subject must sit inside the central circle and read instantly at that size.
+
+SUBJECT: An ancient jade scroll, rolled and bound tightly with a red silk cord tied in a knot, glowing softly from within with green light. Around it, gray ash flakes and thin ember-orange sparks (#E0702A) drift away and fade, as if a great demon has just been sealed inside. The true ending.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with a few soft watercolor accents in jade green (#2E8B57), lacquer red (#B8322A) and warm ochre. Expressive black ink brush strokes, visible paper grain. The whole badge is painted on warm aged washi paper (#EFE3C8) that fills the entire square edge to edge. A loose circular brush stroke in faded ink surrounds the subject, like an ensō circle, about 90% of the canvas width.
+
+COMPOSITION: The subject is centered, bold and simple, filling about 65% of the canvas width, with clear empty paper around it. The four corners contain only plain washi paper, so nothing important is lost when the image is cropped to a circle.
+
+DO NOT INCLUDE: any text, letters, numbers, signature, seal stamp or Chinese/Japanese characters (the scroll is closed, no writing visible); a frame, border or ribbon; a transparent or checkerboard background; photographic realism; cartoon, anime or flat vector style; blood or gore; a demon face.
+
+Image 7 — ach_streak7:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), fully opaque, with NO transparency.
+
+PURPOSE: This is an achievement badge for Apple Game Center in a hexagonal strategy board game about Shaolin monks and ninjas. Game Center crops it into a CIRCLE and shows it small (about 80×80 pixels), so the subject must sit inside the central circle and read instantly at that size.
+
+SUBJECT: Seven flat stepping stones crossing a still pond in a gentle curve toward the viewer, each stone a little brighter than the one before, the nearest one glowing warm ochre. A small red sun rises above the far bank. One week of daily discipline.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with a few soft watercolor accents in jade green (#2E8B57), lacquer red (#B8322A) and warm ochre. Expressive black ink brush strokes, visible paper grain. The whole badge is painted on warm aged washi paper (#EFE3C8) that fills the entire square edge to edge. A loose circular brush stroke in faded ink surrounds the subject, like an ensō circle, about 90% of the canvas width.
+
+COMPOSITION: The subject is centered, bold and simple, filling about 65% of the canvas width, with clear empty paper around it. Exactly seven stones, clearly countable. The four corners contain only plain washi paper, so nothing important is lost when the image is cropped to a circle.
+
+DO NOT INCLUDE: any text, letters, numbers, signature, seal stamp or Chinese/Japanese characters; a frame, border or ribbon; a transparent or checkerboard background; photographic realism; cartoon, anime or flat vector style; blood or gore; people.
+
+Image 8 — ach_streak30:
+Create a SQUARE image (1:1 aspect ratio, 1024×1024, not landscape, not portrait), fully opaque, with NO transparency.
+
+PURPOSE: This is an achievement badge for Apple Game Center in a hexagonal strategy board game about Shaolin monks and ninjas. Game Center crops it into a CIRCLE and shows it small (about 80×80 pixels), so the subject must sit inside the central circle and read instantly at that size.
+
+SUBJECT: A tall green bamboo stalk with many joints growing straight up, and a white crane standing on one leg beside it, both in front of a huge pale full moon. A month of unbroken discipline: patience and strength.
+
+STYLE: Traditional East Asian ink-wash painting (sumi-e) with a few soft watercolor accents in jade green (#2E8B57), lacquer red (#B8322A) and warm ochre. Expressive black ink brush strokes, visible paper grain. The whole badge is painted on warm aged washi paper (#EFE3C8) that fills the entire square edge to edge. A loose circular brush stroke in faded ink surrounds the subject, like an ensō circle, about 90% of the canvas width.
+
+COMPOSITION: The subject is centered, bold and simple, filling about 65% of the canvas width, with clear empty paper around it. The four corners contain only plain washi paper, so nothing important is lost when the image is cropped to a circle.
+
+DO NOT INCLUDE: any text, letters, numbers, signature, seal stamp or Chinese/Japanese characters; a frame, border or ribbon; a transparent or checkerboard background; photographic realism; cartoon, anime or flat vector style; blood or gore; people.
+```
+
 ## Bloque D — Figuras cortadas en los costados (10) ⬜
 
 Estas figuras tocan el borde izquierdo o derecho del dibujo: un brazo, un hombro o el bastón terminan en un corte

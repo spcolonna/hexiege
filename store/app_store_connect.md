@@ -215,7 +215,7 @@ Hexiege は六角形の盤で遊ぶターン制の戦略ゲームです。運も
 ## 6b. Game Center (Funciones → Game Center)
 
 **Logros** (Achievements → +). Para todos: «Hidden» No, «Achievable more than once» No.
-Imagen obligatoria, 1024×1024 PNG. La descripción vale para «Pre-earned» y «Earned».
+Imagen obligatoria, 1024×1024 sin transparencia: `store/gamecenter/ach_<nombre>.png` (prompts en `docs/prompts.md`, bloque E). La descripción vale para «Pre-earned» y «Earned».
 Los puntos suman 1000, el máximo.
 
 | ID (= Reference name) | Pts | en | es | zh-Hans | ja |
