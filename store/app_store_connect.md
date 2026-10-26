@@ -83,7 +83,7 @@ abstractas, pero el cómic tiene combates.)
 | Campo | Valor |
 |---|---|
 | Capturas iPhone 6,9" | `store/screenshots/en/` (1320×2868), las 5 en orden. Sirven para todos los idiomas. |
-| Capturas iPad 13" | **Obligatorias** porque la app corre en iPad: 2064×2752, sacarlas del simulador iPad Pro 13". |
+| Capturas iPad 13" | `store/screenshots/en_ipad/` (2064×2752), las 5 en orden. **Obligatorias** porque la app corre en iPad. |
 | URL de soporte | `https://spcolonna.github.io/hexiege/privacidad.html` (tiene el correo de contacto) |
 | URL de marketing | vacío |
 | Copyright | `2026 Oraki Games` |
@@ -93,10 +93,7 @@ abstractas, pero el cómic tiene combates.)
 | Lanzamiento | Manual (lo publicás vos cuando Apple lo aprueba) |
 
 Game Center: en la página de la versión, activar **Game Center** y agregar los 8 logros y
-las 2 clasificaciones (tienen que existir antes en Funciones → Game Center):
-logros `hexiege.initiation`, `hexiege.firstWin`, `hexiege.firstBoss`, `hexiege.shaolinDone`,
-`hexiege.ninjaDone`, `hexiege.seal`, `hexiege.streak7`, `hexiege.streak30`; clasificaciones
-`hexiege.daily_best` y `hexiege.wins`.
+las 2 clasificaciones de §6b (tienen que existir antes en Funciones → Game Center).
 
 **Notas para el revisor** (App Review Information → Notes):
 
@@ -214,6 +211,35 @@ Hexiege は六角形の盤で遊ぶターン制の戦略ゲームです。運も
 フェアで静か
 両陣営の第一幕は無料。一度の購入で残りの物語がずっと遊べます。広告なし、アカウント不要、オフラインで遊べます。
 ```
+
+## 6b. Game Center (Funciones → Game Center)
+
+**Logros** (Achievements → +). Para todos: «Hidden» No, «Achievable more than once» No.
+Imagen obligatoria, 1024×1024 PNG. La descripción vale para «Pre-earned» y «Earned».
+Los puntos suman 1000, el máximo.
+
+| ID (= Reference name) | Pts | en | es | zh-Hans | ja |
+|---|---|---|---|---|---|
+| `hexiege.initiation` | 10 | Initiation · Finish the guided match with the Sensei. | Iniciación · Termina la partida guiada con el Sensei. | 入门 · 完成与师父的引导对局。 | 手ほどき · 師範との最初の一局を終える。 |
+| `hexiege.firstWin` | 20 | First victory · Win your first battle. | Primera victoria · Gana tu primera batalla. | 初次胜利 · 赢得你的第一场战斗。 | 初勝利 · 初めての戦いに勝つ。 |
+| `hexiege.firstBoss` | 50 | Worthy rival · Defeat the first master of a campaign. | Rival digno · Derrota al primer maestro de una campaña. | 势均力敌 · 击败战役中的第一位强敌。 | 好敵手 · 物語で最初の強敵を倒す。 |
+| `hexiege.shaolinDone` | 150 | The Temple's path · Finish the Shaolin Temple campaign. | El camino del Templo · Termina la campaña del Templo Shaolin. | 少林之路 · 完成少林寺战役。 | 寺の道 · 少林寺の物語をクリアする。 |
+| `hexiege.ninjaDone` | 150 | Shadows over the Temple · Finish the Ninja Shadows campaign. | Sombras sobre el Templo · Termina la campaña de las Sombras Ninja. | 寺上暗影 · 完成忍者暗影战役。 | 寺に落ちる影 · 忍びの影の物語をクリアする。 |
+| `hexiege.seal` | 300 | The Seal · Reach the true ending. | El Sello · Llega al verdadero final. | 封印 · 抵达真正的结局。 | 封印 · 真の結末にたどり着く。 |
+| `hexiege.streak7` | 70 | Weekly discipline · Solve the daily challenge 7 days in a row. | Disciplina semanal · Resuelve el desafío diario 7 días seguidos. | 七日修行 · 连续 7 天完成每日挑战。 | 七日の修行 · 今日の挑戦を7日連続でクリアする。 |
+| `hexiege.streak30` | 250 | Monthly discipline · Solve the daily challenge 30 days in a row. | Disciplina de un mes · Resuelve el desafío diario 30 días seguidos. | 三十日修行 · 连续 30 天完成每日挑战。 | 三十日の修行 · 今日の挑戦を30日連続でクリアする。 |
+
+(En cada celda: título · descripción.)
+
+**Clasificaciones** (Leaderboards → + → Classic). Score format **Integer**, submission
+**Best Score**, sort **High to Low**, sin rango.
+
+| ID (= Reference name) | en | es | zh-Hans | ja |
+|---|---|---|---|---|
+| `hexiege.daily_best` | Best daily streak · ` days` | Mejor racha diaria · ` días` | 最佳每日连胜 · ` 天` | 今日の挑戦・最高連勝 · `日` |
+| `hexiege.wins` | Victories · ` wins` | Victorias · ` victorias` | 胜场 · ` 胜` | 勝利数 · `勝` |
+
+(Nombre · sufijo del puntaje. Formato del sufijo: «Integer», singular y plural iguales.)
 
 ## 7. Enviar
 
