@@ -14,6 +14,8 @@ import '../match/ladder.dart';
 import '../match/matchmaker.dart';
 import '../match/rivals.dart';
 import '../match/saved_game.dart';
+import '../services/reminders.dart';
+import '../services/social.dart';
 import '../solo/catalog.dart';
 import '../solo/daily.dart';
 import '../solo/solver.dart';
@@ -879,6 +881,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     final daily = _stage!.id == Daily.id;
     if (ok && daily) {
       AppSettings.instance.solveDaily(Daily.today);
+      DailyReminder.reschedule(); // el de hoy ya no hace falta; actualiza la racha
     } else if (ok) {
       AppSettings.instance.markCleared(_stage!.id);
     }
@@ -905,9 +908,51 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           if (!mounted) return;
         }
       }
+      // Primer desafío resuelto: se ofrece el aviso diario (una sola vez).
+      if (ok && daily && !AppSettings.instance.reminderAsked) {
+        await _offerReminder();
+        if (!mounted) return;
+      }
       _showStageResult(ok, goals: goals, previous: previous);
+      // Primer jefe vencido: buen momento para pedir una reseña.
+      if (ok && _isBoss(_stage!.id)) {
+        Future.delayed(const Duration(milliseconds: 1500), StoreReview.maybeAsk);
+      }
     });
   }
+
+  /// Jefes de campaña: la última batalla de cada acto (6, 12, 18 y 24).
+  static bool _isBoss(String id) => campaigns.any((c) {
+    final i = c.stages.indexWhere((x) => x.id == id);
+    return !c.isFinale && i >= 0 && i % 6 == 5;
+  });
+
+  /// Pregunta si quiere un aviso cuando haya desafío nuevo y pide el permiso.
+  Future<void> _offerReminder() {
+    AppSettings.instance.reminderAsked = true;
+    return showSkinDialog<void>(
+      context,
+      dismissible: false,
+      builder: (ctx) => SkinDialog(
+        glyph: '鐘',
+        glyphColor: HexTheme.of(ctx).gold,
+        title: tr('reminder.offerTitle'),
+        message: tr('reminder.offerText', {'hour': _hourLabel(AppSettings.instance.reminderHour)}),
+        actions: [
+          SkinAction(tr('reminder.notNow'), () => Navigator.pop(ctx)),
+          SkinAction(tr('reminder.yes'), () async {
+            await DailyReminder.enable();
+            if (ctx.mounted) Navigator.pop(ctx);
+          }, primary: true),
+        ],
+      ),
+    );
+  }
+
+  static String _hourLabel(int h) => '${h.toString().padLeft(2, '0')}:00';
+
+  /// Turnos que usó para cerrar un problema (1 = a la primera).
+  int get _turnsUsed => _stage!.puzzleTurns! - _stage!.turnsLeft(_stageStart, _game)! + 1;
 
   /// La batalla siguiente es de la historia paga y todavía no se compró.
   bool get _nextLocked {
@@ -976,8 +1021,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       return trN('daily.won', AppSettings.instance.dailyStreakOn(Daily.today));
     }
     if (!s.isPuzzle) return tr(_game.inSiege ? 'stage.won.siege' : 'stage.won', {'title': s.title});
-    final used = s.puzzleTurns! - s.turnsLeft(_stageStart, _game)! + 1;
-    return trN('stage.closedIn', used);
+    return trN('stage.closedIn', _turnsUsed);
   }
 
   String _stageFailText() {
@@ -1009,6 +1053,21 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             }),
             if (end != null && end.action.isNotEmpty)
               SkinAction(end.action, end.go, primary: true)
+            else if (ok && _stage!.id == Daily.id)
+              SkinAction(
+                tr('share.button'),
+                () {
+                  final text = DailyShare.text(
+                    day: Daily.today,
+                    used: _turnsUsed,
+                    turns: Daily.turns,
+                    streak: AppSettings.instance.dailyStreakOn(Daily.today),
+                  );
+                  DailyShare.share(ctx, text);
+                },
+                primary: true,
+                glyph: '傳',
+              )
             else if (ok && next != null)
               SkinAction(tr(_nextLocked ? 'store.unlock' : 'common.next'), () async {
                 if (_nextLocked && !await showPaywall(ctx)) return;

@@ -54,6 +54,10 @@ class AppSettings extends ChangeNotifier {
   int _dailyLast = -1;
   int _dailyStreak = 0;
   int _dailyBest = 0;
+  bool _reminder = false;
+  int _reminderHour = 19;
+  bool _reminderAsked = false;
+  bool _reviewAsked = false;
   UiStyle _uiStyle = StyleUnlocks.base;
   Set<String> _ownedStyles = {};
 
@@ -248,6 +252,38 @@ class AppSettings extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Aviso diario del desafío (notificación local) y a qué hora sale.
+  bool get reminder => _reminder;
+  int get reminderHour => _reminderHour;
+
+  set reminder(bool v) {
+    if (_reminder == v) return;
+    _reminder = v;
+    _prefs?.setBool('reminder', v);
+    notifyListeners();
+  }
+
+  set reminderHour(int h) {
+    if (_reminderHour == h || h < 0 || h > 23) return;
+    _reminderHour = h;
+    _prefs?.setInt('reminderHour', h);
+    notifyListeners();
+  }
+
+  /// Ya se le ofreció el aviso diario (se ofrece una sola vez).
+  bool get reminderAsked => _reminderAsked;
+  set reminderAsked(bool v) {
+    _reminderAsked = v;
+    _prefs?.setBool('reminderAsked', v);
+  }
+
+  /// Ya se le pidió una reseña en la tienda (se pide una sola vez).
+  bool get reviewAsked => _reviewAsked;
+  set reviewAsked(bool v) {
+    _reviewAsked = v;
+    _prefs?.setBool('reviewAsked', v);
+  }
+
   /// Victorias fuera de las partidas por puntos (contra la IA).
   int get wins => _wins;
 
@@ -327,6 +363,10 @@ class AppSettings extends ChangeNotifier {
     _dailyLast = p.getInt('dailyLast') ?? -1;
     _dailyStreak = p.getInt('dailyStreak') ?? 0;
     _dailyBest = p.getInt('dailyBest') ?? 0;
+    _reminder = p.getBool('reminder') ?? false;
+    _reminderHour = p.getInt('reminderHour') ?? 19;
+    _reminderAsked = p.getBool('reminderAsked') ?? false;
+    _reviewAsked = p.getBool('reviewAsked') ?? false;
     _ownedStyles = (p.getStringList('ownedStyles') ?? const []).toSet();
     final style = UiStyle.values.asNameMap()[p.getString('uiStyle')];
     _uiStyle = style != null && isStyleUnlocked(style) ? style : StyleUnlocks.base;

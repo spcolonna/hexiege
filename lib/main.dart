@@ -1,11 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+
+import 'config.dart';
 
 import 'i18n/i18n.dart';
 
 import 'store/purchases.dart';
 import 'engine/pieces.dart';
+import 'services/games.dart';
+import 'services/reminders.dart';
 import 'story/script.dart';
 import 'story/story_screen.dart';
 import 'ui/brand_intro.dart';
@@ -26,7 +32,17 @@ Future<void> main() async {
   Purchases.instance.init(); // compras pendientes y precio de la tienda
   StoryArt.load(); // qué arte de las viñetas ya está en el paquete
   await PieceArt.load();
-  runApp(HexiegeApp(onboarding: !AppSettings.instance.onboarded));
+  DailyReminder.init(); // reprograma los avisos del desafío
+  // Game Center puede mostrar su pantalla de inicio de sesión: después de la intro.
+  Future.delayed(const Duration(seconds: 4), Games.instance.init);
+  final app = HexiegeApp(onboarding: !AppSettings.instance.onboarded);
+  // Reporte de errores solo en builds de la tienda y con el DSN configurado.
+  if (!kReleaseMode || kSentryDsn.isEmpty) return runApp(app);
+  await SentryFlutter.init((o) {
+    o.dsn = kSentryDsn;
+    o.sendDefaultPii = false;
+    o.tracesSampleRate = 0;
+  }, appRunner: () => runApp(app));
 }
 
 const _storyDemo = String.fromEnvironment('STORY');

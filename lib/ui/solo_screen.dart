@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../services/games.dart';
 import '../i18n/i18n.dart';
 import '../solo/catalog.dart';
 import '../solo/daily.dart';
@@ -88,6 +89,20 @@ class SoloScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        // Game Center / Play Juegos: solo con sesión iniciada.
+                        ListenableBuilder(
+                          listenable: Games.instance,
+                          builder: (context, _) => !Games.instance.signedIn
+                              ? const SizedBox.shrink()
+                              : _mode(
+                                  glyph: '榜',
+                                  title: tr('games.title'),
+                                  text: tr('games.text'),
+                                  done: Games.earned(s).length,
+                                  total: Feat.values.length,
+                                  open: () => _openGames(context),
+                                ),
+                        ),
                         _mode(
                           glyph: '詰',
                           title: tr('solo.puzzles'),
@@ -113,6 +128,29 @@ class SoloScreen extends StatelessWidget {
             },
           ),
         ),
+      ),
+    );
+  }
+
+  /// Logros o clasificaciones del servicio de juegos del sistema.
+  void _openGames(BuildContext context) {
+    Haptics.select();
+    showSkinDialog<void>(
+      context,
+      builder: (ctx) => SkinDialog(
+        glyph: '榜',
+        title: tr('games.title'),
+        message: tr('games.text'),
+        actions: [
+          SkinAction(tr('games.achievements'), () {
+            Navigator.pop(ctx);
+            Games.instance.showAchievements();
+          }),
+          SkinAction(tr('games.leaderboards'), () {
+            Navigator.pop(ctx);
+            Games.instance.showLeaderboards();
+          }, primary: true),
+        ],
       ),
     );
   }

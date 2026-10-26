@@ -14,3 +14,16 @@ const kStoryResetButton = true;
 
 /// Política de privacidad publicada (la misma que figura en las tiendas).
 const kPrivacyUrl = 'https://spcolonna.github.io/hexiege/privacidad.html';
+
+/// Reporte de errores (Sentry). Vacío = apagado. El DSN no es secreto: viaja
+/// dentro de la app. Se copia de sentry.io → Project Settings → Client Keys.
+const kSentryDsn = '';
+
+/// Play Juegos en Android. Apagado hasta crear el juego en Play Console y poner
+/// su id en android/app/src/main/res/values/games.xml (sin eso, el inicio de
+/// sesión falla). En iOS Game Center va siempre.
+const kPlayGames = false;
+
+/// Enlace que acompaña el resultado compartido del desafío. Vacío = sin enlace
+/// (completar con la página de la App Store cuando esté publicada).
+const kShareUrl = '';

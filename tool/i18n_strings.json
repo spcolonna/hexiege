@@ -10648,5 +10648,80 @@
   "es": "Hasta la próxima grieta.",
   "en": "Until the next crack.",
   "zh": "直到下一道裂缝。"
+ },
+ "reminder.channel": {
+  "es": "Desafío del día",
+  "en": "Daily challenge",
+  "zh": "每日挑战"
+ },
+ "reminder.body": {
+  "es": "Hay un cerco nuevo esperándote. ¿Lo cerrás en 2 turnos?",
+  "en": "A new siege is waiting. Can you close it in 2 turns?",
+  "zh": "新的围局在等你。能在2回合内围住吗？"
+ },
+ "reminder.streak": {
+  "es": "🔥 Racha de {n} días. Que no se apague hoy.",
+  "en": "🔥 {n}-day streak. Don't let it go out today.",
+  "zh": "🔥 已连续{n}天。今天别断了。"
+ },
+ "reminder.offerTitle": {
+  "es": "¿Te aviso mañana?",
+  "en": "Remind you tomorrow?",
+  "zh": "明天提醒你？"
+ },
+ "reminder.offerText": {
+  "es": "Cada día hay un desafío nuevo. Te mando un aviso a las {hour} para que no se corte la racha. Podés cambiar la hora o apagarlo en Ajustes.",
+  "en": "There's a new challenge every day. I'll send you a reminder at {hour} so your streak doesn't break. You can change the time or turn it off in Settings.",
+  "zh": "每天都有新挑战。我会在{hour}提醒你，别让连胜中断。可以在设置里改时间或关闭。"
+ },
+ "reminder.yes": {
+  "es": "Avisame",
+  "en": "Remind me",
+  "zh": "提醒我"
+ },
+ "reminder.notNow": {
+  "es": "Ahora no",
+  "en": "Not now",
+  "zh": "以后再说"
+ },
+ "settings.reminder": {
+  "es": "Aviso del desafío del día",
+  "en": "Daily challenge reminder",
+  "zh": "每日挑战提醒"
+ },
+ "share.button": {
+  "es": "Compartir",
+  "en": "Share",
+  "zh": "分享"
+ },
+ "share.daily": {
+  "es": "Hexiege · Desafío #{n}",
+  "en": "Hexiege · Challenge #{n}",
+  "zh": "Hexiege · 挑战 #{n}"
+ },
+ "share.closedIn": {
+  "es": "cerrado en {used} de {turns} turnos",
+  "en": "closed in {used} of {turns} turns",
+  "zh": "{used}/{turns}回合围住"
+ },
+ "games.title": {
+  "es": "Logros y clasificación",
+  "en": "Achievements & rankings",
+  "zh": "成就与排行"
+ },
+ "games.text": {
+  "es": "Tus logros y tu mejor racha contra el mundo.",
+  "en": "Your achievements and your best streak against the world.",
+  "zh": "你的成就，以及你与全世界比拼的最佳连胜。"
+ },
+ "games.achievements": {
+  "es": "Logros",
+  "en": "Achievements",
+  "zh": "成就"
+ },
+ "games.leaderboards": {
+  "es": "Clasificación",
+  "en": "Rankings",
+  "zh": "排行榜"
  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../services/reminders.dart';
 import '../i18n/i18n.dart';
 import '../codex/avatars.dart';
 import '../codex/cosmetics.dart';
@@ -301,6 +302,29 @@ class _MenuScreenState extends State<MenuScreen> with SingleTickerProviderStateM
               SkinToggle(label: tr('common.sound'), value: s.sound, onChanged: (v) => s.sound = v),
               SkinToggle(label: tr('settings.music'), value: s.music, onChanged: (v) => s.music = v),
               SkinToggle(label: tr('settings.haptics'), value: s.haptics, onChanged: (v) => s.haptics = v),
+              SkinToggle(
+                label: tr('settings.reminder'),
+                value: s.reminder,
+                onChanged: (v) {
+                  if (v) {
+                    DailyReminder.enable(); // si el sistema no lo permite, queda apagado
+                  } else {
+                    s.reminder = false;
+                    DailyReminder.reschedule();
+                  }
+                },
+              ),
+              if (s.reminder)
+                SkinChoice<int>(
+                  options: [
+                    for (final h in const [8, 13, 19, 21]) SkinOption(h, '${h.toString().padLeft(2, '0')}:00'),
+                  ],
+                  selected: s.reminderHour,
+                  onChanged: (h) {
+                    s.reminderHour = h;
+                    DailyReminder.reschedule();
+                  },
+                ),
               const SizedBox(height: 12),
               // Restaurar compras (lo exige Apple) y estado de la historia.
               ListenableBuilder(
