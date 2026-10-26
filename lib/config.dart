@@ -10,7 +10,7 @@ const kSimulatedPurchase = false;
 
 /// "Reiniciar historia" en el menú. Visible mientras se prueba la historia;
 /// apagar antes de publicar.
-const kStoryResetButton = true;
+const kStoryResetButton = false;
 
 /// Política de privacidad publicada (la misma que figura en las tiendas).
 const kPrivacyUrl = 'https://spcolonna.github.io/hexiege/privacidad.html';
