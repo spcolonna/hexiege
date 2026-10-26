@@ -15,6 +15,8 @@ for fw in build/ios/archive/Runner.xcarchive/Products/Applications/Runner.app/Fr
   bin="$fw/$(basename "$fw" .framework)"
   archs=$(lipo -archs "$bin")
   platforms=$(otool -l "$bin" | awk '/LC_BUILD_VERSION/{f=1} f&&/platform/{print $2; f=0}' | sort -u | tr '\n' ' ')
+  # Binarios con el formato viejo (p. ej. Sentry): LC_VERSION_MIN_IPHONEOS es dispositivo.
+  if [ -z "$platforms" ] && otool -l "$bin" | grep -q LC_VERSION_MIN_IPHONEOS; then platforms="2 "; fi
   echo "$(basename "$fw"): $archs / platform $platforms"
   if [ "$archs" != "arm64" ] || [ "$platforms" != "2 " ]; then ok=0; fi
 done
