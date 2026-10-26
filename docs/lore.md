@@ -2023,8 +2023,19 @@ El Oni no tiene habilidad de facción: su poder está en las fichas.
 
 ## 8. Cómo se ven las viñetas
 
-La viñeta es un libro de tinta: una hoja alta con un solo cuadro grande, el escenario detrás y una cámara
-que lo recorre. Cada línea con texto espera un toque, y un sello rojo que late abajo avisa cuándo tocar.
+La viñeta es un libro de tinta con dos maneras de armar la página (las elige el director, no el guion):
+
+- **Paneo** (recurso, no regla): un solo cuadro grande y una cámara que recorre el escenario. Queda para
+  las ilustraciones (`arte`) y para la página que abre la escena con un `plano … lento` antes de que
+  nadie hable (la intro de la muralla).
+- **Viñetas** (el resto): la página se divide en hasta 3 filas que arrancan en blanco, y cada toque suma
+  una viñeta con su entrada: el lugar se descubre con un barrido de tinta, el primer plano llega desde el
+  lado de quien habla y el plano de grupo se acerca. Cada momento o narración es una viñeta ancha con su
+  cartel; quien habla va en primer plano, salvo la primera línea o cuando cambia quién está (plano con
+  todos). Dos líneas cortas seguidas de distinta gente comparten fila. Un `plano` mudo es una viñeta
+  del lugar; un efecto mudo sacude la última viñeta.
+
+Cada línea con texto espera un toque, y un sello rojo que late abajo avisa cuándo tocar.
 Los **golpes mudos** (solo cámara, entradas o salidas) siguen solos al terminar: sin nada que leer, no se
 pide un toque. Si el golpe todavía está entrando, el toque lo completa; mantener apretado lee de corrido.
 

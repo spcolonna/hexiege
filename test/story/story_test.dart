@@ -96,6 +96,41 @@ void main() {
       expect(sc.beats.last.kind, BeatKind.think);
     });
 
+    test('el paneo es un recurso: las demás páginas se arman en viñetas', () {
+      setLanguage('es');
+      var cinema = 0, panels = 0;
+      for (final id in Scene.ids) {
+        final sc = Scene.of(id.split('.').first, post: id.endsWith('post'))!;
+        final frames = Director.run(sc, hero: Who.ren);
+        final pages = <int, bool>{};
+        for (final f in frames) {
+          pages[f.page] = f.panels;
+          if (!f.panels) continue;
+          expect(f.rows.length, inInclusiveRange(1, Director.maxRows), reason: '$id.${f.beat}');
+          // Las viñetas se suman en orden y cada una cabe en su fila.
+          for (final p in f.sheet) {
+            expect(p.col, lessThan(f.rows[p.row]), reason: '$id.${f.beat}');
+            expect(p.opened, lessThanOrEqualTo(f.beat));
+          }
+          final b = sc.beats[f.beat];
+          if (b.hasText) expect(f.sheet.last.opened, f.beat, reason: '$id.${f.beat}: cada texto abre su viñeta');
+          for (final p in f.sheet.where((p) => p.frame.closeUp)) {
+            expect(p.frame.cast, hasLength(1));
+            expect(p.frame.lines, hasLength(1));
+          }
+        }
+        cinema += pages.values.where((p) => !p).length;
+        panels += pages.values.where((p) => p).length;
+      }
+      expect(cinema, greaterThan(0));
+      expect(panels, greaterThan(cinema * 2));
+      // La intro abre con el paseo por la muralla y la ilustración; el dormitorio, en viñetas.
+      final intro = Director.run(Scene.of('s1', post: false)!, hero: Who.ren);
+      expect(intro.first.panels, isFalse);
+      expect(intro.firstWhere((f) => f.art != null).panels, isFalse);
+      expect(intro.last.panels, isTrue);
+    });
+
     test('el cruce de la batalla 12 es la misma charla desde los dos lados', () {
       final s = Scene.of('s12', post: false)!, n = Scene.of('n12', post: false)!;
       expect([for (final i in s.lines) s.text(i)], [for (final i in n.lines) n.text(i)]);

@@ -109,7 +109,16 @@ class _StoryScreenState extends State<StoryScreen> with TickerProviderStateMixin
   Duration _length(Frame f) {
     final b = widget.scene.beats[f.beat];
     final moves = f.from != f.shot;
-    final ms = f.slow
+    final opens = f.sheet.isNotEmpty && f.sheet.last.opened == f.beat;
+    final ms = f.panels
+        ? (opens && f.sheet.last.frame.slow
+              ? 2200
+              : f.fx.contains(Fx.flash) || f.fx.contains(Fx.smoke)
+              ? 1100
+              : opens
+              ? 800
+              : 600)
+        : f.slow
         ? 2600
         : f.fx.contains(Fx.flash) || f.fx.contains(Fx.smoke) || f.leaving.isNotEmpty || moves
         ? 1100
@@ -403,14 +412,16 @@ class _Sheet extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: CustomPaint(
-              painter: _FrameInk(seed, shadow: true),
-              foregroundPainter: _FrameInk(seed),
-              child: ClipPath(
-                clipper: _FrameClip(seed),
-                child: _Stage(scene: scene, frame: frame, prev: prev, t: t, idle: idle, hero: hero),
-              ),
-            ),
+            child: frame.panels
+                ? _PanelPage(scene: scene, frame: frame, t: t, idle: idle, hero: hero)
+                : CustomPaint(
+                    painter: _FrameInk(seed, shadow: true),
+                    foregroundPainter: _FrameInk(seed),
+                    child: ClipPath(
+                      clipper: _FrameClip(seed),
+                      child: _Stage(scene: scene, frame: frame, prev: prev, t: t, idle: idle, hero: hero),
+                    ),
+                  ),
           ),
           SizedBox(
             height: 34,
@@ -435,6 +446,108 @@ class _Sheet extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Página de viñetas: las filas quedan marcadas desde el principio (papel en
+/// blanco) y cada toque suma la viñeta siguiente con su entrada.
+class _PanelPage extends StatelessWidget {
+  final Scene scene;
+  final Frame frame;
+  final double t, idle;
+  final Who hero;
+  const _PanelPage({required this.scene, required this.frame, required this.t, required this.idle, required this.hero});
+
+  static const gutter = 9.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final rows = frame.rows;
+    return Column(
+      children: [
+        for (var r = 0; r < rows.length; r++) ...[
+          if (r > 0) const SizedBox(height: gutter),
+          Expanded(
+            child: Row(
+              children: [
+                for (var c = 0; c < rows[r]; c++) ...[
+                  if (c > 0) const SizedBox(width: gutter),
+                  Expanded(child: _slot(r, c)),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _slot(int r, int c) {
+    final p = frame.sheet.where((p) => p.row == r && p.col == c).firstOrNull;
+    if (p == null) return const SizedBox.expand();
+    final seed = scene.id.hashCode ^ p.opened * 7919;
+    final panel = CustomPaint(
+      painter: _FrameInk(seed, shadow: true),
+      foregroundPainter: _FrameInk(seed),
+      child: ClipPath(
+        clipper: _FrameClip(seed),
+        child: _Stage(
+          scene: scene,
+          frame: p.frame,
+          prev: null,
+          t: p.frame.beat == frame.beat ? t : 1,
+          idle: idle,
+          hero: hero,
+        ),
+      ),
+    );
+    if (p.opened != frame.beat) return panel;
+    return _PanelEntry(v: t, frame: p.frame, child: panel);
+  }
+}
+
+/// Cómo entra una viñeta: el lugar se descubre de un trazo (barrido), el
+/// primer plano llega desde el lado de quien habla y el grupo se acerca.
+class _PanelEntry extends StatelessWidget {
+  final double v;
+  final Frame frame;
+  final Widget child;
+  const _PanelEntry({required this.v, required this.frame, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    final e = Curves.easeOutCubic.transform((v * 1.5).clamp(0.0, 1.0));
+    if (e >= 1) return child;
+    final fade = (v * 3).clamp(0.0, 1.0);
+    if (frame.closeUp) {
+      final side = (frame.cast.firstOrNull?.x ?? 0.5) <= 0.5 ? -1 : 1;
+      return Opacity(
+        opacity: fade,
+        child: Transform.translate(offset: Offset(side * 36 * (1 - e), 0), child: child),
+      );
+    }
+    if (frame.cast.isEmpty) {
+      return ClipRect(
+        clipper: _Wipe(e),
+        child: Opacity(opacity: fade, child: child),
+      );
+    }
+    return Opacity(
+      opacity: fade,
+      child: Transform.scale(scale: 0.9 + 0.1 * e, child: child),
+    );
+  }
+}
+
+/// Barrido de izquierda a derecha, con el borde un poco por delante de la tinta.
+class _Wipe extends CustomClipper<Rect> {
+  final double e;
+  _Wipe(this.e);
+
+  @override
+  Rect getClip(Size size) => Rect.fromLTWH(-8, -8, (size.width + 16) * e, size.height + 16);
+
+  @override
+  bool shouldReclip(_Wipe old) => old.e != e;
 }
 
 /// Sello de tinta que late: "tocá para seguir".
@@ -574,7 +687,7 @@ class _Stage extends StatelessWidget {
       }
       return Positioned(
         left: a.x * size.width - w / 2 + dx * (1 - v),
-        bottom: -h * 0.03,
+        bottom: f.closeUp ? -h * (size.width < size.height * 1.2 ? 0.46 : 0.4) : -h * 0.03,
         width: w,
         height: h,
         child: Opacity(
@@ -601,6 +714,11 @@ class _Stage extends StatelessWidget {
   /// superponen apenas, como en una viñeta).
   (double, double) _figureSize(Size size) {
     final f = frame;
+    if (f.closeUp) {
+      // Primer plano: más grande que la viñeta, recortado abajo.
+      final h = size.height * (size.width < size.height * 1.2 ? 1.25 : 1.5);
+      return (h / 1.5, h);
+    }
     final crowd = f.cast.length + (prev?.page == f.page ? f.leaving.length : 0);
     final w = min(size.height * 0.6 * 2 / 3, size.width * (crowd > 2 ? 0.44 : (crowd > 1 ? 0.58 : 0.64)));
     return (w, w * 1.5);
@@ -621,6 +739,32 @@ class _Stage extends StatelessWidget {
     }
 
     final figures = f.art == null && f.cast.isNotEmpty;
+    if (f.closeUp) {
+      final a = f.cast.first;
+      final b = scene.beats[f.lines.first];
+      final side = (a.x - 0.5).abs() < 0.1 ? 0.0 : (a.x < 0.5 ? -1.0 : 1.0);
+      return [
+        Positioned(
+          top: 4,
+          left: side < 0 ? size.width * 0.4 : 8,
+          right: side > 0 ? size.width * 0.4 : 8,
+          child: Align(
+            alignment: side < 0 ? Alignment.topRight : (side > 0 ? Alignment.topLeft : Alignment.topCenter),
+            child: pop(
+              f.lines.first,
+              _Balloon(
+                text: scene.text(f.lines.first),
+                who: b.who!,
+                left: side >= 0,
+                tail: side,
+                thought: b.kind == BeatKind.think,
+              ),
+              side < 0 ? Alignment.bottomLeft : Alignment.bottomRight,
+            ),
+          ),
+        ),
+      ];
+    }
     return [
       if (cap != null)
         Positioned(
