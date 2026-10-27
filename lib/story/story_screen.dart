@@ -599,12 +599,14 @@ class _Stage extends StatelessWidget {
     final f = frame;
     final camT = (f.slow ? Curves.easeInOutSine : Curves.easeOutCubic).transform(t);
     final drift = idle * 2 * pi;
-    final cam = f.from.lerp(f.shot, camT);
-    final shot = Shot(
-      cam.x + 0.004 * sin(drift),
-      cam.y + 0.003 * sin(drift * 2),
-      cam.zoom + 0.006 * (1 + sin(drift + 1)),
+    // Un respiro leve de la cámara mientras nadie toca.
+    Shot sway(Shot s) => Shot(
+      s.x + 0.004 * sin(drift),
+      s.y + 0.003 * sin(drift * 2),
+      s.zoom + 0.006 * (1 + sin(drift + 1)),
+      s.span,
     );
+    final cam = (from: sway(f.from), to: sway(f.shot), t: camT);
     final shake = f.fx.contains(Fx.shake) ? Offset(sin(t * 46) * 9 * (1 - t), cos(t * 39) * 5 * (1 - t)) : Offset.zero;
     final sameArt = prev != null && prev!.page == f.page && prev!.art == f.art && prev!.place == f.place;
     return LayoutBuilder(
@@ -617,10 +619,10 @@ class _Stage extends StatelessWidget {
             clipBehavior: Clip.hardEdge,
             children: [
               if (!sameArt && prev != null && prev!.page == f.page)
-                _Backdrop(art: prev!.art, place: prev!.place, shot: shot, size: size),
+                _Backdrop(art: prev!.art, place: prev!.place, cam: cam, size: size),
               Opacity(
                 opacity: sameArt || prev == null || prev!.page != f.page ? 1 : Curves.easeOut.transform(t),
-                child: _Backdrop(art: f.art, place: f.place, shot: shot, size: size),
+                child: _Backdrop(art: f.art, place: f.place, cam: cam, size: size),
               ),
               if (f.fx.contains(Fx.dark) || f.place.night) _Vignette(strength: f.fx.contains(Fx.dark) ? 0.85 : 0.5),
               if (f.fx.contains(Fx.fog)) _Fog(idle: idle),
@@ -844,33 +846,73 @@ class _Stage extends StatelessWidget {
 class _Backdrop extends StatelessWidget {
   final String? art;
   final Place place;
-  final Shot shot;
+
+  /// La cámara va de `from` a `to`; `t` es cuánto avanzó.
+  final ({Shot from, Shot to, double t}) cam;
   final Size size;
-  const _Backdrop({required this.art, required this.place, required this.shot, required this.size});
+  const _Backdrop({required this.art, required this.place, required this.cam, required this.size});
 
   /// Todo el arte de las viñetas es 3:2.
   static const aspect = 1.5;
 
+  /// Dónde queda el arte en el cuadro con el encuadre [s]: el punto de [s] al
+  /// centro, sin dejar ver los bordes del arte salvo que [Shot.span] lo achique
+  /// para que entre lo pedido; entonces queda centrado.
+  static Rect frame(Shot s, Size size) {
+    final base = max(size.width / aspect, size.height);
+    var h = base * max(s.zoom, 1.0), w = h * aspect;
+    if (s.span > 0 && w * s.span > size.width) {
+      w = size.width / s.span;
+      h = w / aspect;
+    }
+    final left = w <= size.width ? (size.width - w) / 2 : (size.width / 2 - s.x * w).clamp(size.width - w, 0.0);
+    final top = h <= size.height ? (size.height - h) / 2 : (size.height / 2 - s.y * h).clamp(size.height - h, 0.0);
+    return Rect.fromLTWH(left, top, w, h);
+  }
+
+  /// Los bordes de arriba y abajo se funden con el relleno difuso, más cuanto más sobra.
+  static Widget _fadeEdges(Widget child, double gap) {
+    final edge = 0.08 * min(1.0, gap * 4);
+    return ShaderMask(
+      blendMode: BlendMode.dstIn,
+      shaderCallback: (r) => LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: const [Color(0x00000000), Color(0xFF000000), Color(0xFF000000), Color(0x00000000)],
+        stops: [0, edge, 1 - edge, 1],
+      ).createShader(r),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final asset = art != null && StoryArt.has('assets/story/$art.webp') ? 'assets/story/$art.webp' : place.asset;
-    // Tamaño con el que el arte cubre el cuadro, por el acercamiento.
-    final base = max(size.width / aspect, size.height);
-    final h = base * max(shot.zoom, 1.0), w = h * aspect;
-    // El punto [shot] queda en el centro, sin dejar ver los bordes del arte.
-    final left = (size.width / 2 - shot.x * w).clamp(size.width - w, 0.0);
-    final top = (size.height / 2 - shot.y * h).clamp(size.height - h, 0.0);
-    final child = StoryArt.has(asset)
+    final r = Rect.lerp(frame(cam.from, size), frame(cam.to, size), cam.t)!;
+    final has = StoryArt.has(asset);
+    final gap = ((size.height - r.height) / size.height).clamp(0.0, 1.0);
+    final child = has
         ? Image.asset(asset, fit: BoxFit.fill, filterQuality: FilterQuality.medium, gaplessPlayback: true)
         : CustomPaint(
-            painter: _InkLandscape(place, (shot.x - 0.5) * 2),
+            painter: _InkLandscape(place, (cam.from.x + (cam.to.x - cam.from.x) * cam.t - 0.5) * 2),
             child: Center(
               child: Text(place.glyph, style: Skin.of(context).glyph(96, color: Colors.white.withValues(alpha: 0.09))),
             ),
           );
     return Stack(
       fit: StackFit.expand,
-      children: [Positioned(left: left, top: top, width: w, height: h, child: child)],
+      children: [
+        // Si el arte se achicó para que entren todos, lo que sobra del alto es
+        // el mismo arte, difuso y en penumbra.
+        if (has && gap > 0.001) ...[
+          ImageFiltered(
+            imageFilter: ImageFilter.blur(sigmaX: 22, sigmaY: 22, tileMode: TileMode.mirror),
+            child: Image.asset(asset, fit: BoxFit.cover, filterQuality: FilterQuality.low, gaplessPlayback: true),
+          ),
+          ColoredBox(color: _ink.withValues(alpha: 0.45)),
+        ],
+        Positioned.fromRect(rect: r, child: gap > 0 ? _fadeEdges(child, gap) : child),
+      ],
     );
   }
 }

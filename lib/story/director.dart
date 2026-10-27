@@ -5,23 +5,30 @@ import 'package:flutter/foundation.dart' show setEquals;
 import 'script.dart';
 
 /// Encuadre de la cámara sobre el fondo: centro (0..1) y acercamiento
-/// (1 = el fondo justo cubre el cuadro).
+/// (1 = el fondo justo cubre el cuadro). [span] (0..1) es cuánto del ancho
+/// del fondo tiene que verse sí o sí: en un cuadro angosto el arte se achica
+/// para mostrar a todos los personajes, aunque no llene el alto.
 class Shot {
-  final double x, y, zoom;
-  const Shot(this.x, this.y, this.zoom);
+  final double x, y, zoom, span;
+  const Shot(this.x, this.y, this.zoom, [this.span = 0]);
 
   static const wide = Shot(0.5, 0.5, 1);
 
-  Shot lerp(Shot o, double t) => Shot(x + (o.x - x) * t, y + (o.y - y) * t, zoom + (o.zoom - zoom) * t);
+  Shot lerp(Shot o, double t) =>
+      Shot(x + (o.x - x) * t, y + (o.y - y) * t, zoom + (o.zoom - zoom) * t, span + (o.span - span) * t);
+
+  /// El mismo encuadre, más cerca.
+  Shot closer(double dz) => Shot(x, y, zoom + dz, span);
 
   @override
-  bool operator ==(Object other) => other is Shot && other.x == x && other.y == y && other.zoom == zoom;
+  bool operator ==(Object other) =>
+      other is Shot && other.x == x && other.y == y && other.zoom == zoom && other.span == span;
 
   @override
-  int get hashCode => Object.hash(x, y, zoom);
+  int get hashCode => Object.hash(x, y, zoom, span);
 
   @override
-  String toString() => 'Shot($x, $y, ×$zoom)';
+  String toString() => 'Shot($x, $y, ×$zoom${span > 0 ? ', ancho $span' : ''})';
 }
 
 /// Un personaje en escena: dónde se para (0..1 del cuadro), desde qué golpe y cómo entró.
@@ -200,7 +207,7 @@ abstract final class Director {
       for (final c in cues) {
         switch (c.kind) {
           case CueKind.cam:
-            framed = Shot(c.x, c.y, c.zoom);
+            framed = Shot(c.x, c.y, c.zoom, c.span);
             slow = c.slow;
           case CueKind.enter:
             cast = [
@@ -257,9 +264,9 @@ abstract final class Director {
       } else if (b.talks) {
         // Mientras hablan, la cámara queda quieta: moverla marea más de lo que suma.
       } else if (b.kind == BeatKind.narrate) {
-        shot = Shot(shot.x, shot.y, shot.zoom + 0.06);
+        shot = shot.closer(0.06);
       }
-      if ((i == 0 || turn) && framed != null) from = Shot(framed.x, framed.y, framed.zoom + 0.25);
+      if ((i == 0 || turn) && framed != null) from = framed.closer(0.25);
 
       frames.add(
         Frame(
@@ -413,7 +420,7 @@ abstract final class Director {
   /// alguien, su figura (sola en primer plano o con todos los presentes).
   static Frame _panel(Scene scene, Frame f, Beat b, bool closeUp, bool half, Who hero, Random rnd) {
     final cam = b.cues.where((c) => c.kind == CueKind.cam).firstOrNull;
-    final framed = cam == null ? null : Shot(cam.x, cam.y, cam.zoom);
+    final framed = cam == null ? null : Shot(cam.x, cam.y, cam.zoom, cam.span);
     Frame make(Shot from, Shot to, {bool slow = false, List<Actor> cast = const [], bool close = false}) => f.copyWith(
       from: from,
       shot: to,

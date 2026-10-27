@@ -101,6 +101,9 @@ class Cue {
   /// cubre el cuadro). Entrada: [x] es dónde se para (0..1 del cuadro).
   final double x, y, zoom;
 
+  /// Cámara: cuánto del ancho del fondo se ve como mínimo (0 = sin mínimo).
+  final double span;
+
   /// Cámara lenta (un paneo largo).
   final bool slow;
 
@@ -109,7 +112,7 @@ class Cue {
   final Fx? fx;
   final Place? place;
 
-  const Cue.cam(this.x, this.y, this.zoom, {this.slow = false})
+  const Cue.cam(this.x, this.y, this.zoom, {this.slow = false, this.span = 0})
     : kind = CueKind.cam,
       who = null,
       name = null,
@@ -119,6 +122,7 @@ class Cue {
     : kind = CueKind.enter,
       y = 0,
       zoom = 0,
+      span = 0,
       slow = false,
       fx = null,
       place = null;
@@ -127,6 +131,7 @@ class Cue {
       x = 0,
       y = 0,
       zoom = 0,
+      span = 0,
       slow = false,
       fx = null,
       place = null;
@@ -136,6 +141,7 @@ class Cue {
       x = 0,
       y = 0,
       zoom = 0,
+      span = 0,
       slow = false,
       name = null,
       fx = null,
@@ -146,6 +152,7 @@ class Cue {
       x = 0,
       y = 0,
       zoom = 0,
+      span = 0,
       slow = false,
       name = null,
       place = null;
@@ -155,6 +162,7 @@ class Cue {
       x = 0,
       y = 0,
       zoom = 0,
+      span = 0,
       slow = false,
       fx = null,
       place = null;
@@ -164,6 +172,7 @@ class Cue {
       x = 0,
       y = 0,
       zoom = 0,
+      span = 0,
       slow = false,
       fx = null,
       place = null;
@@ -173,6 +182,7 @@ class Cue {
       x = 0,
       y = 0,
       zoom = 0,
+      span = 0,
       slow = false,
       name = null,
       fx = null;
@@ -182,6 +192,7 @@ class Cue {
       x = 0,
       y = 0,
       zoom = 0,
+      span = 0,
       slow = false,
       name = null,
       fx = null,
@@ -192,6 +203,7 @@ class Cue {
       x = 0,
       y = 0,
       zoom = 0,
+      span = 0,
       slow = false,
       name = null,
       fx = null,

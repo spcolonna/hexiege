@@ -8,7 +8,7 @@ Puesta en escena, entre corchetes y separada por "·":
   - [plano .8,.4 x1.6 lento]        pausa muda: la cámara va a ese punto del fondo
   - Ren [entra izq · temblor]: …   la indicación acompaña la línea
   - *Noche. Las celdas.* [plano …]
-Indicaciones: plano X,Y [xZOOM] [lento] · entra QUIÉN [izq|der|centro|0..1] [humo|sombra|corre]
+Indicaciones: plano X,Y [xZOOM] [ancho F|entero] [lento] · entra QUIÉN [izq|der|centro|0..1] [humo|sombra|corre]
 · sale QUIÉN [humo] · vacía · temblor · destello · humo · latido · oscuro · niebla
 · onom CLAVE (texto en onom.CLAVE) · arte NOMBRE · lugar PLACE · página · off (habla fuera de cuadro)
 Produce lib/story/script.g.dart (quién habla y de qué tipo es cada mensaje) y
@@ -96,7 +96,9 @@ def cues(src, ctx, speaker=None):
             x, y = (num(v) for v in rest[0].split(','))
             zoom = next((num(v[1:]) for v in rest[1:] if v.startswith('x')), 1.0)
             slow = ', slow: true' if 'lento' in rest else ''
-            out.append(f'Cue.cam({x}, {y}, {zoom}{slow})')
+            span = 1.0 if 'entero' in rest else next((num(rest[i + 1]) for i, v in enumerate(rest[:-1]) if v == 'ancho'), 0)
+            span = f', span: {span}' if span else ''
+            out.append(f'Cue.cam({x}, {y}, {zoom}{slow}{span})')
         elif head in ('entra', 'sale'):
             who, more = who_of(rest, ctx, speaker)
             style = next((m for m in more if m in STYLES), None)

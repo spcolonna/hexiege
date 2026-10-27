@@ -4674,10 +4674,10 @@
   "ja": "くノ一が道に座っている。悪い兆しだ。"
  },
  "story.n10.post.0": {
-  "es": "Rodeás como ella. Primero esperás. Después cerrás sin piedad.",
-  "en": "You surround like her. First you wait. Then you close without mercy.",
-  "zh": "你包围的方式和她一样。先等待。再毫不留情地合拢。",
-  "ja": "包囲の仕方が彼女と同じだ。まず待つ。そして容赦なく閉じる。"
+  "es": "Rodeás como Natsu. Primero esperás. Después cerrás sin piedad.",
+  "en": "You surround like Natsu. First you wait. Then you close without mercy.",
+  "zh": "你包围的方式和夏一样。先等待。再毫不留情地合拢。",
+  "ja": "包囲の仕方がナツと同じだ。まず待つ。そして容赦なく閉じる。"
  },
  "story.n10.post.1": {
   "es": "Tu clan dice que el Pergamino es suyo. No miente.",
@@ -6222,10 +6222,10 @@
   "ja": "何から逸らすんだ？"
  },
  "story.s4.post.7": {
-  "es": "De la que vino de verdad. Ahora mismo está peleando con tu Maestra Mei en el pasillo de arriba.",
-  "en": "From the one who really came. Right now she's fighting your Master Mei in the hallway upstairs.",
-  "zh": "为了真正要来的那个人。她这会儿正在楼上走廊里跟你们梅师父交手。",
-  "ja": "本当に来た奴からさ。今ごろ上の廊下で、お前らのメイ師父とやり合ってる。"
+  "es": "De la que vino de verdad: mi hermana. Ahora mismo está peleando con tu Maestra Mei en el pasillo de arriba.",
+  "en": "From the one who really came: my sister. Right now she's fighting your Master Mei in the hallway upstairs.",
+  "zh": "为了真正要来的那个人：我妹妹。她这会儿正在楼上走廊里跟你们梅师父交手。",
+  "ja": "本当に来た奴からさ。俺の妹だ。今ごろ上の廊下で、お前らのメイ師父とやり合ってる。"
  },
  "story.s4.post.8": {
   "es": "Escuchame, que no hay tiempo. No venimos a robar.",
@@ -6252,10 +6252,10 @@
   "ja": "松明がひとりでに消える。冷たい霧が戸の下から忍び込む。"
  },
  "story.s4.post.16": {
-  "es": "Todavía no es momento de que lo sepa.",
-  "en": "It is not yet time for him to know.",
-  "zh": "还不是让他知道的时候。",
-  "ja": "まだ、この子が知る時ではない。"
+  "es": "Todavía no es momento de que el chico sepa lo que hay abajo.",
+  "en": "It is not yet time for the boy to know what lies below.",
+  "zh": "还不是让这孩子知道下面有什么的时候。",
+  "ja": "まだ、この子が下にあるものを知る時ではない。"
  },
  "onom.golpe": {
   "es": "¡PUM!",
@@ -6324,10 +6324,10 @@
   "ja": "……転んだ。追いかけてて。"
  },
  "story.s2.pre.9": {
-  "es": "El tuyo se escapó, me dijeron.",
-  "en": "Heard yours got away.",
-  "zh": "听说你那个跑了。",
-  "ja": "お前のほうは逃げられたってな。"
+  "es": "El ninja que perseguiste vos se escapó, me dijeron.",
+  "en": "Heard the ninja you chased got away.",
+  "zh": "听说你追的那个忍者跑了。",
+  "ja": "お前が追ってた忍者は逃げられたってな。"
  },
  "story.s2.pre.10": {
   "es": "Saltó el muro. No llegué.",
@@ -6384,10 +6384,10 @@
   "ja": "「毛布の小僧」ってどういうことだ？答えろ！"
  },
  "story.s5.pre.5": {
-  "es": "…Hana.",
-  "en": "…Hana.",
-  "zh": "……花。",
-  "ja": "……ハナ。"
+  "es": "…Tu hermana. Hana.",
+  "en": "…Your sister. Hana.",
+  "zh": "……你妹妹。花。",
+  "ja": "……ゴンの妹。ハナだ。"
  },
  "story.s5.post.2": {
   "es": "¡Corren como conejos!",
@@ -6606,10 +6606,10 @@
   "ja": "……"
  },
  "story.n5.post.4": {
-  "es": "Kuro. Lo atraparon. Un monje grandote, con un brazo vendado.",
-  "en": "Kuro. They caught him. A big monk, with a bandaged arm.",
-  "zh": "黑。他被抓了。是个大块头和尚，胳膊上缠着绷带。",
-  "ja": "クロ。捕まったのよ。腕に包帯を巻いた大柄な坊主に。"
+  "es": "Kuro. Atraparon a Sora. Un monje grandote, con un brazo vendado.",
+  "en": "Kuro. They caught Sora. A big monk, with a bandaged arm.",
+  "zh": "黑。空被抓了。是个大块头和尚，胳膊上缠着绷带。",
+  "ja": "クロ。ソラが捕まった。腕に包帯を巻いた大柄な坊主に。"
  },
  "story.n5.post.5": {
   "es": "El de la escalera. El que yo dejé así.",
@@ -6852,10 +6852,10 @@
   "ja": "浪人に？そこで待っていると言っていた。"
  },
  "story.s11.post.4": {
-  "es": "El ronin fue a buscar a un viejo que no quiere ser encontrado.",
-  "en": "The ronin went looking for an old man who doesn't want to be found.",
-  "zh": "浪人去找一个不想被找到的老人了。",
-  "ja": "浪人は、見つかりたくない老人を探しに行った。"
+  "es": "El ronin fue a buscar a un viejo amigo del Templo. Hace dieciséis años que no se miran a la cara.",
+  "en": "The ronin went to find an old friend from the Temple. They haven't looked each other in the eye for sixteen years.",
+  "zh": "浪人去找寺里的一位老朋友了。他们已经十六年没正眼看过对方。",
+  "ja": "浪人は寺の古い友を訪ねに行った。十六年、互いの顔を見ておらぬ相手だ。"
  },
  "story.s11.post.6": {
   "es": "¿Del otro lado del valle?",
@@ -7014,10 +7014,10 @@
   "ja": "方丈様はそれを知った。そしてその夜、僧を閉じ込めさせた。"
  },
  "story.s15.post.8": {
-  "es": "Lo esperó al pie de la escalera hasta que la luna se fue.",
-  "en": "She waited for him at the foot of the stairs until the moon was gone.",
-  "zh": "她在楼梯脚下等他，一直等到月亮落下。",
-  "ja": "階段の下で彼を待ったわ。月が沈むまで。"
+  "es": "La chica esperó al monje al pie de la escalera hasta que la luna se fue.",
+  "en": "The girl waited for the monk at the foot of the stairs until the moon was gone.",
+  "zh": "那姑娘在楼梯脚下等那个和尚，一直等到月亮落下。",
+  "ja": "娘は階段の下で、その僧を待ったわ。月が沈むまで。"
  },
  "story.s16.pre.4": {
   "es": "Jubei lloró al ver la manta. Dijo que el bebé había muerto.",
@@ -7044,10 +7044,10 @@
   "ja": "手裏剣の投げ方を教わったよ。十のときに。"
  },
  "story.s16.post.5": {
-  "es": "Le debemos una vida, chico. No la tuya. La de ella.",
-  "en": "We owe a life, kid. Not yours. Hers.",
-  "zh": "我们欠一条命，小子。不是你的。是她的。",
-  "ja": "借りがあるんだよ、坊や。お前のじゃない。あの人の命のね。"
+  "es": "El clan le debe una vida, chico. No a vos: a tu madre.",
+  "en": "The clan owes a life, kid. Not to you: to your mother.",
+  "zh": "族里欠一条命，小子。不是欠你的，是欠你母亲的。",
+  "ja": "一族には借りがあるんだよ、坊や。お前にじゃない。お前の母親にね。"
  },
  "story.s17.pre.6": {
   "es": "Era mi madre. Mei me lo contó. ¿Por qué usted no?",
@@ -7098,10 +7098,10 @@
   "ja": "わしは誰よりも知っとる。だから飲むんだ。"
  },
  "story.s18.pre.9": {
-  "es": "Esa noche el Abad me dio una llave. «Encerralo hasta que pase la luna.»",
-  "en": "That night the Abbot gave me a key. “Lock him up until the moon has passed.”",
-  "zh": "那一夜方丈给了我一把钥匙。“把他关起来，等月亮过去。”",
-  "ja": "あの夜、方丈はわしに鍵を渡した。「月が過ぎるまで、あやつを閉じ込めておけ」とな。"
+  "es": "Esa noche el Abad me dio una llave. «Encerrá al monje hasta que pase la luna.»",
+  "en": "That night the Abbot gave me a key. “Lock the monk up until the moon has passed.”",
+  "zh": "那一夜方丈给了我一把钥匙。“把那和尚关起来，等月亮过去。”",
+  "ja": "あの夜、方丈はわしに鍵を渡した。「月が過ぎるまで、あの僧を閉じ込めておけ」とな。"
  },
  "story.s18.post.4": {
   "es": "Jubei.",
@@ -7176,10 +7176,10 @@
   "ja": "誰にも。"
  },
  "story.s20.post.3": {
-  "es": "*(en voz baja)* Tu padre está en el cuarto piso, con el hermano de Aya. El Shogun, en el quinto.",
-  "en": "*(quietly)* Your father is on the fourth floor, with Aya's brother. The Shogun, on the fifth.",
-  "zh": "*（低声）*你父亲在第四层，和绫的哥哥关在一起。将军在第五层。",
-  "ja": "*（静かに）*お前の父親は四階、綾の兄と一緒だ。将軍は五階。"
+  "es": "*(en voz baja)* Tu padre está encerrado en el cuarto piso, con Sora, el hermano de Aya. El Shogun espera en el quinto.",
+  "en": "*(quietly)* Your father is locked up on the fourth floor, with Sora, Aya's brother. The Shogun waits on the fifth.",
+  "zh": "*（低声）*你父亲被关在第四层，和绫的哥哥空关在一起。将军在第五层等着。",
+  "ja": "*（静かに）*お前の父親は四階に閉じ込められてる。綾の兄、ソラと一緒だ。将軍は五階で待ってる。"
  },
  "story.s21.pre.2": {
   "es": "Los Tengu saltan de viga en viga. Nunca tocan el suelo.",
@@ -7224,10 +7224,10 @@
   "ja": "あの牢にいる男を迎えに来たんだ。"
  },
  "story.s22.post.1": {
-  "es": "La última vez que alguien de tu sangre me ganó, la llevé hasta el muro bajo la lluvia.",
-  "en": "The last time someone of your blood beat me, I carried her to the wall in the rain.",
-  "zh": "上一次有你这血脉的人赢了我，我冒着雨把她送到了墙下。",
-  "ja": "前にお前の血筋の者に負けたとき、俺は雨の中、あの女を塀まで送っていった。"
+  "es": "La última vez que alguien de tu sangre me ganó fue tu madre. Después la llevé hasta el muro del Templo, bajo la lluvia gris.",
+  "en": "The last time someone of your blood beat me, it was your mother. Afterward I carried her to the Temple wall, in the grey rain.",
+  "zh": "上一次有你这血脉的人赢了我，是你母亲。后来我冒着灰雨把她送到了寺墙下。",
+  "ja": "前にお前の血筋の者に負けたのは、お前の母親だった。そのあと俺は灰色の雨の中、あいつを寺の塀まで送っていった。"
  },
  "story.s23.pre.2": {
   "es": "Detrás de la puerta, una sola respiración. Lenta.",
@@ -7236,16 +7236,16 @@
   "ja": "扉の向こうに、ただひとつの息遣い。ゆっくりと。"
  },
  "story.s23.pre.3": {
-  "es": "El Abad me mandó a vencerlo.",
-  "en": "The Abbot sent me to defeat him.",
-  "zh": "方丈派我来打败他。",
-  "ja": "方丈様は、彼を倒せと俺を送った。"
+  "es": "El Abad me mandó a vencer a Kage.",
+  "en": "The Abbot sent me to defeat Kage.",
+  "zh": "方丈派我来打败影。",
+  "ja": "方丈様は、影を倒せと俺を送った。"
  },
  "story.s23.pre.4": {
-  "es": "Tao, a preguntarle. Mi padre, a no bajar solo.",
-  "en": "Tao, to ask him. My father, not to go down alone.",
-  "zh": "陶要我问他。父亲要我别一个人下去。",
-  "ja": "タオは、彼に問えと。父は、ひとりで下りるなと。"
+  "es": "Tao, a preguntarle quién es Daishin. Mi padre, a no bajar solo.",
+  "en": "Tao, to ask him who Daishin is. My father, not to go down alone.",
+  "zh": "陶要我问他大心是谁。父亲要我别一个人下去。",
+  "ja": "タオは、大心とは誰か彼に問えと。父は、ひとりで下りるなと。"
  },
  "story.s23.pre.5": {
   "es": "Y mi madre no me pudo decir nada.",
@@ -7476,10 +7476,10 @@
   "ja": "誰も言わない。大将軍も、クロも。生きていた頃の婆様も。"
  },
  "story.n13.pre.4": {
-  "es": "La abuela algo dijo. Siempre dice algo.",
-  "en": "Grandma said something. She always says something.",
-  "zh": "奶奶说过什么的。她总会说点什么。",
-  "ja": "婆様は何か言ってた。あの人はいつも何か言う。"
+  "es": "La abuela algo habrá dicho. Siempre decía algo.",
+  "en": "Grandma must have said something. She always said something.",
+  "zh": "奶奶总说过些什么。她向来都会说点什么。",
+  "ja": "婆様は何か言ってたはず。あの人はいつも何か言ってた。"
  },
  "story.n13.post.2": {
   "es": "Escalones que bajan, y bajan. A cada paso, el aire se pone más caliente.",
@@ -7596,10 +7596,10 @@
   "ja": "私は言った。一族は盗人に手を貸さぬと。"
  },
  "story.n18.post.2": {
-  "es": "Yo la llevé hasta el muro del Templo. Llovía. Ella tenía al bebé en brazos.",
-  "en": "I took her as far as the Temple wall. It was raining. She had the baby in her arms.",
-  "zh": "我把她送到寺院的墙下。下着雨。她怀里抱着那个婴儿。",
-  "ja": "寺の壁まで送った。雨が降っていた。あいつは赤子を抱いていた。"
+  "es": "Yo llevé a Natsu hasta el muro del Templo. Llovía. Ella tenía al bebé en brazos.",
+  "en": "I took Natsu as far as the Temple wall. It was raining. She had the baby in her arms.",
+  "zh": "我把夏送到寺院的墙下。下着雨。她怀里抱着那个婴儿。",
+  "ja": "ナツを寺の壁まで送った。雨が降っていた。あいつは赤子を抱いていた。"
  },
  "story.n18.post.5": {
   "es": "Andá vos al Templo, entonces. Pero no le traigas el Pergamino al Shogun.",
@@ -7668,10 +7668,10 @@
   "ja": "レンが出してくれた。あいつは大将軍に会いに上っていった。"
  },
  "story.n21.post.1": {
-  "es": "Ella también le hubiera ganado.",
-  "en": "She would have beaten you too.",
-  "zh": "她也会赢您的。",
-  "ja": "あいつにもお前は負けてただろうな。"
+  "es": "La tía Natsu también le hubiera ganado.",
+  "en": "Aunt Natsu would have beaten you too.",
+  "zh": "夏姨也会赢您的。",
+  "ja": "ナツ叔母さんにも、あなたは負けていたでしょうね。"
  },
  "story.n22.pre.3": {
   "es": "El Abad dijo que nadie pasa. Esta noche menos que nunca.",
@@ -7704,10 +7704,10 @@
   "ja": "巻物に何が書いてあるか知ってる？"
  },
  "story.n23.post.1": {
-  "es": "Peleás como ella. Como alguien que no vino a robar.",
-  "en": "You fight like her. Like someone who didn't come to steal.",
-  "zh": "你打起来像她。像一个不是来偷东西的人。",
-  "ja": "あの人のように戦う。盗みに来たのではない者のように。"
+  "es": "Peleás como Natsu. Como alguien que no vino a robar.",
+  "en": "You fight like Natsu. Like someone who didn't come to steal.",
+  "zh": "你打起来像夏。像一个不是来偷东西的人。",
+  "ja": "ナツのように戦う。盗みに来たのではない者のように。"
  },
  "story.n24.pre.4": {
   "es": "¿Me conoce?",
@@ -7722,10 +7722,10 @@
   "ja": "断りもなく入ってくるところが、あれにそっくりだ。"
  },
  "story.n24.post.6": {
-  "es": "Ella me pidió a su monje, y le dije que no. Así la maté.",
-  "en": "She asked me for her monk, and I told her no. That's how I killed her.",
-  "zh": "她向我要她的和尚，我拒绝了。我就是这样害死了她。",
-  "ja": "あれは自分の僧を求め、私は否と言った。そうして私があれを殺したのだ。"
+  "es": "Natsu me pidió que la dejara bajar con su monje, y le dije que no. Así la maté.",
+  "en": "Natsu asked me to let her go down with her monk, and I told her no. That's how I killed her.",
+  "zh": "夏求我让她和她的和尚一起下去，我拒绝了。我就是这样害死了她。",
+  "ja": "ナツは自分の僧と共に下りたいと願い、私は否と言った。そうして私があれを殺したのだ。"
  },
  "story.n24.post.9": {
   "es": "El suelo se abre bajo el patio. Una columna de ceniza sube al cielo.",
@@ -7926,10 +7926,10 @@
   "ja": "おしゃべりはそこまで。"
  },
  "story.s2.pre.17": {
-  "es": "Antes de interrogarlo, el Abad quiere ver cómo pelea Ren contra él.",
-  "en": "Before he's questioned, the Abbot wants to see how Ren fights him.",
-  "zh": "审问之前，方丈想看看仁跟他交手如何。",
-  "ja": "尋問の前に、方丈様はレンがこの者とどう戦うか見たいそうだ。"
+  "es": "Antes de interrogar al explorador que atrapó Gon, el Abad quiere ver cómo pelea Ren contra él.",
+  "en": "Before the scout Gon caught is questioned, the Abbot wants to see how Ren fights him.",
+  "zh": "审问刚抓到的那个探子之前，方丈想看看仁跟他交手如何。",
+  "ja": "ゴンが捕まえた斥候を尋問する前に、方丈様はレンがその者とどう戦うか見たいそうだ。"
  },
  "story.s2.post.8": {
   "es": "«Porque así nos enseñaron.»",
@@ -7956,10 +7956,10 @@
   "ja": "なのに今、同じことをしている。"
  },
  "story.s2.post.14": {
-  "es": "Nunca la había visto bajar la vista.",
-  "en": "I'd never seen her lower her eyes.",
-  "zh": "我从没见过她垂下眼睛。",
-  "ja": "師父が目を伏せるのを、初めて見た。"
+  "es": "Nunca había visto a la Maestra Mei bajar la vista.",
+  "en": "I'd never seen Master Mei lower her eyes.",
+  "zh": "我从没见过梅师父垂下眼睛。",
+  "ja": "メイ師父が目を伏せるのを、初めて見た。"
  },
  "story.s2.post.15": {
   "es": "En el clan también rodeamos, ¿sabés?",
@@ -8052,10 +8052,10 @@
   "ja": "……はい、御方様。"
  },
  "story.s4.post.20": {
-  "es": "Él me escucha. Es más de lo que hace la mayoría de los hombres.",
-  "en": "He listens to me. That's more than most men do.",
-  "zh": "他肯听我说话。大多数人可做不到。",
-  "ja": "この方は俺の話を聞いてくれる。たいていの人間よりましさ。"
+  "es": "Sora me escucha. Es más de lo que hace la mayoría de los hombres.",
+  "en": "Sora listens to me. That's more than most men do.",
+  "zh": "空肯听我说话。大多数人可做不到。",
+  "ja": "ソラはわたしの声を聞く。たいていの人間よりましだ。"
  },
  "story.s4.post.22": {
   "es": "¡Esperá! ¿Sabés quién bordó mi manta?",
@@ -8292,10 +8292,10 @@
   "ja": "綾は階段の底まで降りる。六本の閂で閉ざされた石の扉がある。"
  },
  "story.n5.post.6": {
-  "es": "Volvía del ala norte. Tenía las manos negras de carbón.",
-  "en": "He was coming back from the north wing. His hands were black with charcoal.",
-  "zh": "他是从北翼回来的。两手都被木炭染黑了。",
-  "ja": "北棟から戻るところだった。両手が炭で真っ黒だった。"
+  "es": "Sora volvía del ala norte. Tenía las manos negras de carbón.",
+  "en": "Sora was coming back from the north wing. His hands were black with charcoal.",
+  "zh": "空是从北翼回来的。两手都被木炭染黑了。",
+  "ja": "ソラは北棟から戻るところだった。両手が炭で真っ黒だった。"
  },
  "story.n5.post.7": {
   "es": "Vamos a volver por él.",
@@ -8664,10 +8664,10 @@
   "ja": "大将軍は俺たちがここにいることを知らない。包囲しろ！"
  },
  "story.s3.post.6": {
-  "es": "Preguntale al viejo qué guarda abajo. Y qué encontró en el escalón hace dieciséis años.",
-  "en": "Ask the old man what he keeps down below. And what he found on the step sixteen years ago.",
-  "zh": "去问那个老头，他在下面藏了什么。还有十六年前，他在台阶上捡到了什么。",
-  "ja": "爺さんに訊け。下に何を隠してるのか。十六年前、石段で何を拾ったのか。"
+  "es": "Preguntale a tu Abad qué guarda abajo. Y qué encontró en el escalón hace dieciséis años.",
+  "en": "Ask your Abbot what he keeps down below. And what he found on the step sixteen years ago.",
+  "zh": "去问你们的方丈，他在下面藏了什么。还有十六年前，他在台阶上捡到了什么。",
+  "ja": "お前の方丈に訊け。下に何を隠してるのか。十六年前、石段で何を拾ったのか。"
  },
  "story.s3.post.8": {
   "es": "¿Abajo?",
@@ -8682,10 +8682,10 @@
   "ja": "斥候ひとりのために、三人の忍びが大将軍に背いた。"
  },
  "story.s3.post.12": {
-  "es": "Lo junto igual. Si nadie le lleva la cena, se la llevo yo.",
-  "en": "I'll gather it anyway. If no one brings him dinner, I will.",
-  "zh": "还是捡起来吧。要是没人给他送晚饭，我来送。",
-  "ja": "それでも拾おう。誰もあいつに夕飯を運ばないなら、僕が運ぶ。"
+  "es": "Junto el arroz igual. Si nadie le lleva la cena a Sora, se la llevo yo.",
+  "en": "I'll gather the rice anyway. If no one brings Sora dinner, I will.",
+  "zh": "米还是捡起来吧。要是没人给空送晚饭，我来送。",
+  "ja": "それでも米は拾おう。誰もソラに夕飯を運ばないなら、僕が運ぶ。"
  },
  "story.s4.pre.13": {
   "es": "Gracias por el arroz. Me llamo Sora.",
@@ -8754,10 +8754,10 @@
   "ja": "屋根で鈍い音。もうひとつ。"
  },
  "story.s4.pre.27": {
-  "es": "…No. Le dije que no viniera.",
-  "en": "…No. I told her not to come.",
-  "zh": "……不。我跟她说了别来。",
-  "ja": "……まさか。来るなと言ったのに。"
+  "es": "…No. Le dije a mi hermana que no viniera.",
+  "en": "…No. I told my sister not to come.",
+  "zh": "……不。我跟我妹妹说了别来。",
+  "ja": "……まさか。妹には来るなと言ったのに。"
  },
  "story.s4.pre.29": {
   "es": "¡Ren! ¡Vinieron a sacarlo! ¡Están en el techo!",
@@ -8964,10 +8964,10 @@
   "ja": "**忘れよ。**これは命令だ。"
  },
  "story.s6.post.25": {
-  "es": "Lo mismo que tenía en las mangas aquella noche.",
-  "en": "The same thing he had on his sleeves that night.",
-  "zh": "跟那天夜里他袖子上的一样。",
-  "ja": "あの夜、師父の袖についていたのと同じものだ。"
+  "es": "Lo mismo que el Maestro tenía en las mangas la noche del muro.",
+  "en": "The same thing the Master had on his sleeves the night of the wall.",
+  "zh": "跟翻墙那晚师父袖子上的一样。",
+  "ja": "塀の夜、師父の袖についていたのと同じものだ。"
  },
  "story.s6.post.26": {
   "es": "Ya empezó.",
@@ -8976,9 +8976,9 @@
   "ja": "始まったか。"
  },
  "story.s6.post.27": {
-  "es": "Igual que la noche en que ella me lo puso en los brazos.",
-  "en": "Just like the night she placed him in my arms.",
-  "zh": "就像她把他放进我怀里的那一夜。",
+  "es": "Igual que la noche en que ella me puso a este chico en los brazos.",
+  "en": "Just like the night she placed this boy in my arms.",
+  "zh": "就像她把这孩子放进我怀里的那一夜。",
   "ja": "あの女がこの子をわしの腕に託した、あの夜と同じだ。"
  },
  "story.n1.pre.13": {
@@ -9078,10 +9078,10 @@
   "ja": "それに懐に炭を入れてた。斥候が炭なんて何に使うの？"
  },
  "story.n2.pre.7": {
-  "es": "Eso lo dijo rápido. Como si le importara.",
-  "en": "He said that fast. Like he cared.",
-  "zh": "他说得很快。像是很在乎。",
-  "ja": "早口だった。まるで気にかけてるみたいに。"
+  "es": "Kuro dijo eso muy rápido. Como si le importaran los chicos.",
+  "en": "Kuro said that fast. Like he cared about the kids.",
+  "zh": "黑说得很快。像是很在乎这些孩子。",
+  "ja": "クロは早口だった。まるで子どもたちを気にかけてるみたいに。"
  },
  "story.n2.pre.8": {
   "es": "¡Todavía no sabemos la Meditación de Jade, pero no les tenemos miedo!",
@@ -9192,10 +9192,10 @@
   "ja": "十分だ。わしは西棟の衛兵を数える。戻らなければ迎えに行く。"
  },
  "story.n3.post.10": {
-  "es": "No me dijo que no.",
-  "en": "He didn't say no.",
-  "zh": "他没说不行。",
-  "ja": "だめとは言わなかった。"
+  "es": "Kuro no me dijo que no.",
+  "en": "Kuro didn't say no.",
+  "zh": "黑没说不行。",
+  "ja": "クロは、だめとは言わなかった。"
  },
  "story.n4.pre.10": {
   "es": "Ya me parecía.",
@@ -9216,16 +9216,16 @@
   "ja": "夜に来る奴はみんなそう言う。"
  },
  "story.n4.pre.14": {
-  "es": "Tiene miedo. No de mí. De lo que tiene a la espalda.",
-  "en": "He's scared. Not of me. Of what's behind him.",
-  "zh": "他在害怕。不是怕我。是怕他身后的东西。",
-  "ja": "怯えてる。私にじゃない。背後にあるものに。"
+  "es": "Este monje tiene miedo. No de mí: de lo que hay al fondo de la escalera, a su espalda.",
+  "en": "This monk is scared. Not of me: of what's at the bottom of the stairs behind him.",
+  "zh": "这个和尚在害怕。不是怕我，是怕他身后楼梯下的东西。",
+  "ja": "この坊主は怯えてる。私にじゃない。背後の階段の底にあるものに。"
  },
  "story.n4.pre.15": {
-  "es": "Yo también tengo a alguien. Y no pienso volver sin saber.",
-  "en": "I have someone too. And I'm not going back without knowing.",
-  "zh": "我也有要守护的人。不弄清楚，我不回去。",
-  "ja": "私にも守りたい人がいる。知らずに帰るつもりはない。"
+  "es": "Yo también tengo a alguien que cuidar: mi hermano Sora. Y no pienso volver sin saber qué hay abajo.",
+  "en": "I have someone to protect too: my brother Sora. And I'm not going back without knowing what's down there.",
+  "zh": "我也有要守护的人：我哥哥空。不弄清楚下面有什么，我不回去。",
+  "ja": "私にも守りたい人がいる。兄のソラ。下に何があるか知らずに帰るつもりはない。"
  },
  "story.n4.post.3": {
   "es": "¿Perdón? ¿Me ganás y me pedís perdón?",
@@ -9366,10 +9366,10 @@
   "ja": "そこに何があるか、ご存じなのですか？"
  },
  "story.n6.pre.13": {
-  "es": "Sé que no debería saberlo. Y que quien lo sabe todo no quiere compartirlo.",
-  "en": "I know I shouldn't. And that the one who knows everything won't share it.",
-  "zh": "我知道我不该知道。也知道那个什么都知道的人，不肯说出来。",
-  "ja": "知るべきではないことは知っている。そして、すべてを知る者が語らぬことも。"
+  "es": "Sé que no debería saberlo. Y que el único que lo sabe todo, el Abad, no quiere compartirlo.",
+  "en": "I know I shouldn't. And that the only one who knows everything, the Abbot, won't share it.",
+  "zh": "我知道我不该知道。也知道唯一什么都知道的人——方丈——不肯说出来。",
+  "ja": "知るべきではないことは知っている。そして、すべてを知る唯一の方、方丈様が語らぬことも。"
  },
  "story.n6.pre.14": {
   "es": "No necesito su permiso. Necesito a mi hermano.",
@@ -9438,10 +9438,10 @@
   "ja": "ソラ……？"
  },
  "story.n6.post.22": {
-  "es": "Te lo iba a contar. La marca en el muro, las salidas de noche… Es ella. Me pide que avise al Templo.",
-  "en": "I was going to tell you. The mark on the wall, the nights out… It's her. She asks me to warn the Temple.",
-  "zh": "我本来要告诉你的。墙上的印记，夜里偷偷外出……都是她。她让我去警告寺院。",
-  "ja": "話すつもりだったんだ。壁の印も、夜の外出も……全部この方だ。寺に警告しろって頼まれてる。"
+  "es": "Te lo iba a contar. La marca en el muro, las salidas de noche… Es la zorra. Ella me pide que avise al Templo.",
+  "en": "I was going to tell you. The mark on the wall, the nights out… It's the fox. She asks me to warn the Temple.",
+  "zh": "我本来要告诉你的。墙上的印记，夜里偷偷外出……都是这只狐狸。是她让我去警告寺院。",
+  "ja": "話すつもりだったんだ。壁の印も、夜の外出も……全部この狐の方だ。寺に警告しろって頼まれてる。"
  },
  "story.n6.post.23": {
   "es": "¿Que avises qué?",
@@ -9468,10 +9468,10 @@
   "ja": "灰色。おばあ様の咳みたいに。"
  },
  "story.s7.pre.4": {
-  "es": "«Preguntale al viejo qué guarda abajo.» Le pregunté. Me gritó.",
-  "en": "“Ask the old man what he keeps down below.” I asked. He shouted at me.",
-  "zh": "「去问那个老头，他在下面藏了什么。」我问了。他冲我吼。",
-  "ja": "「爺さんに訊け。下に何を隠してるのか」。訊いた。怒鳴られた。"
+  "es": "«Preguntale a tu Abad qué guarda abajo.» Le pregunté. Me gritó.",
+  "en": "“Ask your Abbot what he keeps down below.” I asked. He shouted at me.",
+  "zh": "「去问你们的方丈，他在下面藏了什么。」我问了。他冲我吼。",
+  "ja": "「お前の方丈に訊け。下に何を隠してるのか」。訊いた。怒鳴られた。"
  },
  "story.s7.pre.9": {
   "es": "¿Le va a decir al Abad?",
@@ -10200,10 +10200,10 @@
   "ja": "待て！答えてくれ！"
  },
  "story.s12.post.20": {
-  "es": "La hermana de mi madre. La hija menor de mi abuela.",
-  "en": "My mother's sister. My grandmother's youngest daughter.",
-  "zh": "我母亲的妹妹。我奶奶最小的女儿。",
-  "ja": "母の妹。婆さまの末娘。"
+  "es": "Natsu era la hermana de mi madre. La hija menor de mi abuela Kiku.",
+  "en": "Natsu was my mother's sister. My grandmother Kiku's youngest daughter.",
+  "zh": "夏是我母亲的妹妹。我奶奶菊最小的女儿。",
+  "ja": "ナツは母の妹。婆さま、キクの末娘。"
  },
  "story.s12.post.21": {
   "es": "Murió hace dieciséis años. Eso dice su tumba.",
@@ -10596,10 +10596,10 @@
   "ja": "……"
  },
  "story.n10.pre.11": {
-  "es": "Tenés sus ojos. Los vi apenas te vi, y no quise creerlo.",
-  "en": "You have her eyes. I saw it the moment I saw you, and I didn't want to believe it.",
-  "zh": "你有她的眼睛。我一看见你就认出来了，却不愿相信。",
-  "ja": "お前は彼女の目をしている。ひと目でわかった。信じたくはなかったが。"
+  "es": "Tenés los ojos de Natsu. Los vi apenas te vi, y no quise creerlo.",
+  "en": "You have Natsu's eyes. I saw it the moment I saw you, and I didn't want to believe it.",
+  "zh": "你有夏的眼睛。我一看见你就认出来了，却不愿相信。",
+  "ja": "お前はナツの目をしている。ひと目でわかった。信じたくはなかったが。"
  },
  "story.n10.pre.12": {
   "es": "¿La conociste?",
@@ -10746,10 +10746,10 @@
   "ja": "十兵衛も来る？"
  },
  "story.n11.post.7": {
-  "es": "Jubei fue a buscar a un viejo que no quiere ser encontrado.",
-  "en": "Jubei went looking for an old man who doesn't want to be found.",
-  "zh": "十兵卫去找一个不想被找到的老人了。",
-  "ja": "十兵衛は、見つかりたがらぬ老人を探しに行った。"
+  "es": "Jubei fue a buscar a un viejo amigo del Templo. Hace dieciséis años que no se miran a la cara.",
+  "en": "Jubei went to find an old friend from the Temple. They haven't looked each other in the eye for sixteen years.",
+  "zh": "十兵卫去找寺里的一位老朋友了。他们已经十六年没正眼看过对方。",
+  "ja": "十兵衛は寺の古い友を訪ねに行った。十六年、互いの顔を見ておらぬ相手だ。"
  },
  "story.n11.post.8": {
   "es": "No lastimes al chico. Es el único que puede contestarte.",
@@ -10920,10 +10920,10 @@
   "ja": "待って！ 答えてよ！"
  },
  "story.n12.post.20": {
-  "es": "La hermana de mi madre. La hija menor de mi abuela.",
-  "en": "My mother's sister. My grandmother's youngest daughter.",
-  "zh": "我母亲的妹妹。我奶奶最小的女儿。",
-  "ja": "母の妹。おばあ様の末娘。"
+  "es": "Natsu era la hermana de mi madre. La hija menor de mi abuela Kiku.",
+  "en": "Natsu was my mother's sister. My grandmother Kiku's youngest daughter.",
+  "zh": "夏是我母亲的妹妹。我奶奶菊最小的女儿。",
+  "ja": "ナツは母の妹。おばあ様、キクの末娘。"
  },
  "story.n12.post.21": {
   "es": "Murió hace dieciséis años. Eso dice su tumba.",
@@ -10974,10 +10974,10 @@
   "ja": "書庫は？門のところから錠前が見えた。"
  },
  "story.s13.pre.12": {
-  "es": "La cerró la noche que te fuiste. Y puso guardias en la cripta. Algo pasa abajo, Ren.",
-  "en": "He locked it the night you left. And put guards on the crypt. Something's happening down there, Ren.",
-  "zh": "你走的那天夜里他就锁上了。还在地穴派了守卫。下面出事了，仁。",
-  "ja": "お前が出ていった夜に閉めたんだ。地下墓所にも衛兵を置いた。下で何か起きてるんだよ、レン。"
+  "es": "El Abad le puso candado la noche que te fuiste. Y puso guardias en la cripta. Algo pasa abajo, Ren.",
+  "en": "The Abbot padlocked it the night you left. And put guards on the crypt. Something's happening down there, Ren.",
+  "zh": "你走的那天夜里，方丈就把它锁上了。还在地穴派了守卫。下面出事了，仁。",
+  "ja": "お前が出ていった夜、方丈様が錠を下ろした。地下墓所にも衛兵を置いた。下で何か起きてるんだよ、レン。"
  },
  "story.s13.pre.13": {
   "es": "Peleemos, como antes. Así me olvido un rato.",
@@ -11196,9 +11196,9 @@
   "ja": "それから中庭に上がってきて、私と方丈様を見つけた。毛布にくるんだ赤子を抱いていたわ。"
  },
  "story.s15.post.11": {
-  "es": "Te puso en los brazos de él. Le dijo: «Si no bajan dos, bajo sola. Cuidalo. Que no baje nunca.»",
-  "en": "She put you in his arms. She told him: “If two don't go down, I'll go alone. Look after him. Never let him go down.”",
-  "zh": "她把你放进他怀里。她对他说：“两个人下不去，我就一个人下去。照顾好他。永远别让他下去。”",
+  "es": "Te puso en los brazos del Abad y le dijo: «Si no bajan dos, bajo sola. Cuidalo. Que no baje nunca.»",
+  "en": "She put you in the Abbot's arms and told him: “If two don't go down, I'll go alone. Look after him. Never let him go down.”",
+  "zh": "她把你放进方丈怀里，对他说：“两个人下不去，我就一个人下去。照顾好他。永远别让他下去。”",
   "ja": "あなたを方丈様の腕に預けて、こう言ったの。「二人で下りられないなら、私ひとりで行く。この子をお願い。決して下ろさないで」"
  },
  "story.s15.post.12": {
@@ -11286,10 +11286,10 @@
   "ja": "新月の前に、山は貸しを取り立てる。お前をここに置いてはいけない！"
  },
  "story.s16.post.2": {
-  "es": "Sos testarudo. Igual que ella.",
-  "en": "You're stubborn. Just like her.",
-  "zh": "你真倔。跟她一模一样。",
-  "ja": "強情だね。あの人にそっくり。"
+  "es": "Sos testarudo. Igual que tu madre.",
+  "en": "You're stubborn. Just like your mother.",
+  "zh": "你真倔。跟你母亲一模一样。",
+  "ja": "強情だね。お前の母親にそっくり。"
  },
  "story.s16.post.6": {
   "es": "El Shogun no nos mandó. Nadie nos mandó. Vinimos igual.",
@@ -11322,10 +11322,10 @@
   "ja": "何をだよ？レン、顔が真っ青だぞ。"
  },
  "story.s16.post.13": {
-  "es": "Le tiene la mano. Para que no suba.",
-  "en": "She's holding its hand. So it can't come up.",
-  "zh": "她拉着它的手。不让它上来。",
-  "ja": "あの人が手を握ってる。上がってこられないように。"
+  "es": "Como en el sueño de los novicios: una mujer le tiene la mano al demonio, para que no suba.",
+  "en": "Like in the novices' dream: a woman holds the demon's hand so it can't come up.",
+  "zh": "就像小沙弥们梦见的那样：一个女人拉着那恶鬼的手，不让它上来。",
+  "ja": "見習いたちの夢と同じだ。女の人が鬼の手を握ってる。上がってこられないように。"
  },
  "story.s17.pre.5": {
   "es": "El Abad no se da vuelta. Pero sus manos, grises hasta la muñeca, se cierran.",
@@ -11376,9 +11376,9 @@
   "ja": "命令の形をした嘘よ。"
  },
  "story.s17.post.5": {
-  "es": "¿Y él?",
-  "en": "And him?",
-  "zh": "那他呢？",
+  "es": "¿Y el Abad?",
+  "en": "And the Abbot?",
+  "zh": "那方丈呢？",
   "ja": "では、方丈様は？"
  },
  "story.s17.post.6": {
@@ -11418,16 +11418,16 @@
   "ja": "このときばかりは、タオは酔って見えない。ひどく老いて見える。"
  },
  "story.s18.pre.14": {
-  "es": "Dígame su nombre. Quiero oírselo decir a alguien.",
-  "en": "Tell me his name. I want to hear someone say it.",
-  "zh": "告诉我他的名字。我想听别人亲口说出来。",
-  "ja": "その名を教えてください。誰かの口から聞きたいんです。"
+  "es": "Dígame el nombre de mi padre. Quiero oírselo decir a alguien.",
+  "en": "Tell me my father's name. I want to hear someone say it.",
+  "zh": "告诉我我父亲的名字。我想听别人亲口说出来。",
+  "ja": "父の名を教えてください。誰かの口から聞きたいんです。"
  },
  "story.s18.pre.15": {
-  "es": "Ganame y te lo digo. Perdé y te quedás, y bajamos juntos mañana a morir con el viejo.",
-  "en": "Beat me and I'll tell you. Lose and you stay, and tomorrow we go down together to die with the old man.",
-  "zh": "赢了我，我就告诉你。输了你就留下，明天我们一起下去，陪那个老头送死。",
-  "ja": "わしに勝てば教えてやる。負けたら残れ。明日、二人で下りて、あの爺さんと一緒にくたばろう。"
+  "es": "Ganame y te lo digo. Perdé y te quedás, y mañana bajamos juntos a morir con el Abad.",
+  "en": "Beat me and I'll tell you. Lose and you stay, and tomorrow we go down together to die with the Abbot.",
+  "zh": "赢了我，我就告诉你。输了你就留下，明天我们一起下去，陪方丈送死。",
+  "ja": "わしに勝てば教えてやる。負けたら残れ。明日、二人で下りて、方丈と一緒にくたばろう。"
  },
  "story.s18.post.5": {
   "es": "Tu padre se llama Jubei. Hace dos noches bajó a mi cripta por primera vez en dieciséis años.",
@@ -11646,10 +11646,10 @@
   "ja": "あの女が手を放せば、我は蘇る。そして次に手を差し出すのは、お前だ。"
  },
  "story.n14.post.11": {
-  "es": "Le tiene la mano. Dieciséis años.",
-  "en": "She's holding its hand. Sixteen years.",
-  "zh": "她拉着它的手。十六年。",
-  "ja": "あの手を握ってる。十六年も。"
+  "es": "Alguien le tiene la mano a esta cosa. Hace dieciséis años.",
+  "en": "Someone has been holding this thing's hand. For sixteen years.",
+  "zh": "有人一直拉着这东西的手。拉了十六年。",
+  "ja": "誰かがこいつの手を握ってる。十六年も。"
  },
  "story.n14.post.12": {
   "es": "Tía Natsu… ¿todavía estás acá?",
@@ -11826,10 +11826,10 @@
   "ja": "もう一晩。もう一晩だけ持ちこたえてくれ、ナツ。そうしたら私が下りる。"
  },
  "story.n17.pre.11": {
-  "es": "Está haciendo lo mismo que ella. Solo. Quemándose de a poco.",
-  "en": "He's doing the same thing she did. Alone. Burning a little at a time.",
-  "zh": "他在做和她一样的事。一个人。一点一点地烧掉自己。",
-  "ja": "あの人と同じことをしてる。一人で。少しずつ焼かれながら。"
+  "es": "El Abad está haciendo lo mismo que hizo la tía Natsu. Solo. Quemándose de a poco.",
+  "en": "The Abbot is doing what Aunt Natsu did. Alone. Burning a little at a time.",
+  "zh": "方丈在做夏姨做过的事。一个人。一点一点地烧掉自己。",
+  "ja": "方丈は、ナツ叔母さんと同じことをしてる。一人で。少しずつ焼かれながら。"
  },
  "story.n17.pre.13": {
   "es": "La piedra cruje. El Abad se levanta de golpe y mira hacia donde está Aya.",
@@ -11850,10 +11850,10 @@
   "ja": "一族の影が四つ、寺の壁を滑り下りる。中庭を抜け、まっすぐ僧房へ向かう。"
  },
  "story.n17.post.7": {
-  "es": "Esas son las del puente. Las castigadas.",
-  "en": "Those are the ones from the bridge. The punished ones.",
-  "zh": "是桥上那几个。受罚的那几个。",
-  "ja": "橋の連中だ。罰を受けた者たち。"
+  "es": "Son las kunoichi del puente. Las que el Shogun castigó.",
+  "en": "Those are the kunoichi from the bridge. The ones the Shogun punished.",
+  "zh": "是桥上那几个女忍。被将军罚的那几个。",
+  "ja": "橋のくノ一たちだ。将軍に罰を受けた者たち。"
  },
  "story.n17.post.8": {
   "es": "Nadie del clan ataca de día sin orden. ¿Quién las mandó?",
@@ -11874,10 +11874,10 @@
   "ja": "大将軍は再び己の手を見る。今度は隠さない。"
  },
  "story.n18.pre.8": {
-  "es": "Fue igual. Y la lluvia gris me la devolvió en ceniza.",
-  "en": "She went anyway. And the grey rain gave her back to me as ash.",
-  "zh": "她还是去了。灰雨把她化成灰还给了我。",
-  "ja": "それでもあれは行った。そして灰色の雨が、灰にしてあれを返してよこした。"
+  "es": "Natsu bajó igual. Y la lluvia gris me la devolvió en ceniza.",
+  "en": "Natsu went down anyway. And the grey rain gave her back to me as ash.",
+  "zh": "夏还是下去了。灰雨把她化成灰还给了我。",
+  "ja": "それでもナツは下りた。そして灰色の雨が、灰にしてあれを返してよこした。"
  },
  "story.n18.pre.9": {
   "es": "Entonces ayúdelos ahora. Al Templo, al Abad, a Ren.",
@@ -12150,34 +12150,34 @@
   "ja": "……"
  },
  "story.s22.post.6": {
-  "es": "Ninguno de los dos sabe qué decir. Jubei mira la manta. Después lo mira a él.",
-  "en": "Neither of them knows what to say. Jubei looks at the blanket. Then at him.",
-  "zh": "两人谁都不知道该说什么。十兵卫看着那条襁褓。然后看着他。",
-  "ja": "二人とも、何を言えばいいか分からない。十兵衛は毛布を見る。それから、彼を。"
+  "es": "Ninguno de los dos sabe qué decir. Jubei mira la manta. Después mira a Ren.",
+  "en": "Neither of them knows what to say. Jubei looks at the blanket. Then at Ren.",
+  "zh": "两人谁都不知道该说什么。十兵卫看着那条襁褓。然后看着仁。",
+  "ja": "二人とも、何を言えばいいか分からない。十兵衛は毛布を見る。それから、レンを。"
  },
  "story.s22.post.7": {
-  "es": "Tenés sus ojos.",
-  "en": "You have her eyes.",
-  "zh": "你有她的眼睛。",
-  "ja": "彼女の目をしている。"
+  "es": "Tenés los ojos de tu madre.",
+  "en": "You have your mother's eyes.",
+  "zh": "你有你母亲的眼睛。",
+  "ja": "母親の目をしている。"
  },
  "story.s22.post.8": {
-  "es": "Me dijeron que tenía los suyos.",
-  "en": "I was told I had yours.",
-  "zh": "有人说我有您的眼睛。",
+  "es": "Y a mí me dijeron que tenía los de usted.",
+  "en": "And I was told I had yours.",
+  "zh": "可有人说我有您的眼睛。",
   "ja": "俺はあなたの目だと言われました。"
  },
  "story.s22.post.9": {
-  "es": "Ella quería que te llamaras Ren. El viejo te dejó el nombre.",
-  "en": "She wanted you to be called Ren. The old man let you keep the name.",
-  "zh": "她想给你取名叫仁。那老头把这个名字留给了你。",
-  "ja": "あいつはお前をレンと名づけたがった。あの爺さんは、その名だけは残してくれた。"
+  "es": "Natsu quería que te llamaras Ren. Hōshin te dejó ese nombre.",
+  "en": "Natsu wanted you to be called Ren. Hōshin let you keep the name.",
+  "zh": "夏想给你取名叫仁。法真把这个名字留给了你。",
+  "ja": "ナツはお前をレンと名づけたがった。法真は、その名だけは残してくれた。"
  },
  "story.s22.post.10": {
-  "es": "Es lo único que no me quitó.",
-  "en": "It's the only thing he didn't take from me.",
-  "zh": "这是他唯一没从我这里夺走的东西。",
-  "ja": "俺から奪わなかった、たったひとつのものだ。"
+  "es": "Es lo único que Hōshin no me quitó.",
+  "en": "It's the only thing Hōshin didn't take from me.",
+  "zh": "这是法真唯一没从我这里夺走的东西。",
+  "ja": "法真が俺から奪わなかった、たったひとつのものだ。"
  },
  "story.s22.post.11": {
   "es": "Váyanse al Templo. Antes de que el Abad baje.",
@@ -12198,16 +12198,16 @@
   "ja": "俺は上へ行く。誰かが一族に手を求めねばならん。"
  },
  "story.s22.post.14": {
-  "es": "Ya se la pedí yo. Me encerró.",
-  "en": "I already asked. He locked me up.",
-  "zh": "我已经讨过了。他把我关了起来。",
-  "ja": "俺はもう頼んだ。閉じ込められただけだ。"
+  "es": "Yo ya le pedí la mano a Kage. Me encerró.",
+  "en": "I already asked Kage for it. He locked me up.",
+  "zh": "我已经向影讨过了。他把我关了起来。",
+  "ja": "俺はもう影に頼んだ。閉じ込められただけだ。"
  },
  "story.s22.post.15": {
-  "es": "A usted le dijo que no. A mí me debe una vida.",
-  "en": "He told you no. He owes me a life.",
-  "zh": "他对您说了不。可他欠我一条命。",
-  "ja": "あんたには断った。だが俺には命の借りがある。"
+  "es": "A usted Kage le dijo que no. Pero el clan me debe una vida a mí.",
+  "en": "Kage told you no. But the clan owes me a life.",
+  "zh": "影对您说了不。可族里欠我一条命。",
+  "ja": "影はあんたには断った。だが一族は俺に命の借りがある。"
  },
  "story.s22.post.16": {
   "es": "Por los tejados del valle llegamos en dos horas. Vamos, ronin. Mi hermana está allá.",
@@ -12306,10 +12306,10 @@
   "ja": "ナツは知っていた。そしてお前は、三百年で初めて、両方の血を引いて生まれた者だ。"
  },
  "story.s24.post.13": {
-  "es": "Kage se mira la mano. Después se la tiende.",
-  "en": "Kage looks at his hand. Then he holds it out.",
-  "zh": "影看着自己的手。然后把它伸了出来。",
-  "ja": "影は自らの手を見つめる。そして、それを差し出す。"
+  "es": "Kage se mira la mano. Después se la tiende a Ren.",
+  "en": "Kage looks at his hand. Then he holds it out to Ren.",
+  "zh": "影看着自己的手。然后把它伸向仁。",
+  "ja": "影は自らの手を見つめる。そして、それをレンに差し出す。"
  },
  "story.s24.post.16": {
   "es": "A lo lejos, sobre el Templo, sube una columna de ceniza.",
@@ -12384,10 +12384,10 @@
   "ja": "ナツの子を逃がしに来たの。遅かった。もう出ていった後だった。"
  },
  "story.n19.post.7": {
-  "es": "Aya… el viejo baja esta noche. Lo oímos decirlo. «Antes de la medianoche.»",
-  "en": "Aya… the old man goes down tonight. We heard him say it. \"Before midnight.\"",
-  "zh": "绫……那老头今夜要下去。我们听见他说的。“午夜之前。”",
-  "ja": "綾……爺さんは今夜下りる。そう言うのを聞いた。「真夜中までに」って。"
+  "es": "Aya… el Abad baja a la cripta esta noche. Lo oímos decirlo. «Antes de la medianoche.»",
+  "en": "Aya… the Abbot goes down to the crypt tonight. We heard him say it. \"Before midnight.\"",
+  "zh": "绫……方丈今夜要下地穴。我们听见他说的。“午夜之前。”",
+  "ja": "綾……方丈が今夜、地下墓所に下りる。そう言うのを聞いた。「真夜中までに」って。"
  },
  "story.n19.post.8": {
   "es": "Entonces tengo hasta la medianoche.",
@@ -12402,10 +12402,10 @@
   "ja": "方丈様は、今夜は誰も巻物に触れるなと仰せだ。我らでさえも。"
  },
  "story.n20.pre.5": {
-  "es": "¿Para qué lo quiere?",
-  "en": "What does he want it for?",
-  "zh": "他要卷轴做什么？",
-  "ja": "何に使うつもり？"
+  "es": "¿Para qué quiere el Abad el Pergamino?",
+  "en": "What does the Abbot want the Scroll for?",
+  "zh": "方丈要卷轴做什么？",
+  "ja": "方丈は巻物を何に使うつもり？"
  },
  "story.n20.pre.6": {
   "es": "Para llevarlo abajo.",
@@ -12426,10 +12426,10 @@
   "ja": "中庭。真夜中近く。"
  },
  "story.n21.pre.5": {
-  "es": "Voy por las del puente. Él te quiere hablar.",
-  "en": "I'm going for the ones from the bridge. He wants to talk to you.",
-  "zh": "我去救桥上那几个。他有话跟你说。",
-  "ja": "俺は橋の連中を迎えに行く。こいつがお前と話したいそうだ。"
+  "es": "Voy a sacar de las celdas a las kunoichi del puente. Jubei te quiere hablar.",
+  "en": "I'm going to get the bridge kunoichi out of the cells. Jubei wants to talk to you.",
+  "zh": "我去把桥上那几个女忍从牢里救出来。十兵卫有话跟你说。",
+  "ja": "俺は橋のくノ一たちを牢から出してくる。十兵衛がお前と話したいそうだ。"
  },
  "story.n21.pre.7": {
   "es": "Dame el Pergamino, Aya.",
@@ -12498,10 +12498,10 @@
   "ja": "いつも俺が負けた。だから惚れたんだ。"
  },
  "story.n21.post.4": {
-  "es": "Dieciséis años odiando al viejo por encerrarme, y esta noche iba a hacer lo mismo con vos.",
-  "en": "Sixteen years hating the old man for locking me up, and tonight I was about to do the same to you.",
-  "zh": "恨了那老头十六年，恨他把我关起来，今夜我却要对你做同样的事。",
-  "ja": "十六年、閉じ込めた爺さんを憎んできた。なのに今夜、お前に同じことをするところだった。"
+  "es": "Dieciséis años odiando a Hōshin por encerrarme, y esta noche iba a hacer lo mismo con vos.",
+  "en": "Sixteen years hating Hōshin for locking me up, and tonight I was about to do the same to you.",
+  "zh": "恨了法真十六年，恨他把我关起来，今夜我却要对你做同样的事。",
+  "ja": "十六年、閉じ込めた法真を憎んできた。なのに今夜、お前に同じことをするところだった。"
  },
  "story.n21.post.5": {
   "es": "Bajamos juntos. Vos, yo y el Pergamino.",
@@ -12534,10 +12534,10 @@
   "ja": "書庫の広間。"
  },
  "story.n22.pre.4": {
-  "es": "¿Sabés qué pasa si baja solo?",
-  "en": "Do you know what happens if he goes down alone?",
-  "zh": "你知道他一个人下去会怎样吗？",
-  "ja": "あの人が一人で下りたら、どうなるか知ってる？"
+  "es": "¿Sabés qué pasa si el Abad baja solo?",
+  "en": "Do you know what happens if the Abbot goes down alone?",
+  "zh": "你知道方丈一个人下去会怎样吗？",
+  "ja": "方丈が一人で下りたら、どうなるか知ってる？"
  },
  "story.n22.pre.5": {
   "es": "Lo arregla. Como siempre.",
@@ -12600,10 +12600,10 @@
   "ja": "お前を通して、それが間違いなら、空の墓が二つになる。"
  },
  "story.n23.post.2": {
-  "es": "Vine a terminar lo que ella empezó.",
-  "en": "I came to finish what she started.",
-  "zh": "我是来完成她开始的事。",
-  "ja": "あの人が始めたことを終わらせに来た。"
+  "es": "Vine a terminar lo que mi tía empezó.",
+  "en": "I came to finish what my aunt started.",
+  "zh": "我是来完成我姨开始的事。",
+  "ja": "叔母が始めたことを終わらせに来た。"
  },
  "story.n23.post.3": {
   "es": "*(apartándose)* Que lo lea alguien. Por fin.",
