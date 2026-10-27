@@ -32,9 +32,9 @@ class StarRow extends StatelessWidget {
 }
 
 /// Los tres objetivos de estrella en una línea (presentación de la batalla).
-String starGoalsLine() => [
+String starGoalsLine({int par = Stars.parRounds}) => [
   tr('stars.win'),
-  tr('stars.fast', {'n': Stars.parRounds}),
+  tr('stars.fast', {'n': par}),
   tr('stars.safe', {'n': Stars.safeSides}),
 ].join('  ·  ');
 
@@ -44,7 +44,10 @@ class StarsReveal extends StatefulWidget {
 
   /// Estrellas que ya tenía antes de esta partida (para marcar el récord).
   final int previous;
-  const StarsReveal({super.key, required this.goals, this.previous = 0});
+
+  /// Rondas de la estrella de rapidez en esta batalla.
+  final int par;
+  const StarsReveal({super.key, required this.goals, this.previous = 0, this.par = Stars.parRounds});
 
   @override
   State<StarsReveal> createState() => _StarsRevealState();
@@ -83,7 +86,7 @@ class _StarsRevealState extends State<StarsReveal> with SingleTickerProviderStat
     final t = HexTheme.of(context);
     final labels = [
       tr('stars.win'),
-      tr('stars.fast', {'n': Stars.parRounds}),
+      tr('stars.fast', {'n': widget.par}),
       tr('stars.safe', {'n': Stars.safeSides}),
     ];
     final best = Stars.count(widget.goals) > widget.previous && widget.previous > 0;

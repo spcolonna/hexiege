@@ -8,6 +8,7 @@ import '../ui/theme/settings.dart';
 import '../ui/theme/ui_style.dart';
 import '../ui/widgets/arena_backdrop.dart';
 import '../ui/widgets/skin_kit.dart';
+import 'credits_screen.dart';
 import 'script.dart';
 import 'story_screen.dart';
 
@@ -77,13 +78,18 @@ class ScrollScreen extends StatelessWidget {
             title: st.title,
             text: tr(sc.isPost ? 'story.after' : 'story.before'),
             trailing: Icon(Icons.menu_book_rounded, color: t.textMuted),
-            onTap: () => playScene(
-              context,
-              sc,
-              title: st.title,
-              replay: true,
-              mine: st.id == finale.last.id ? const {Faction.shaolin, Faction.ninja} : {st.you},
-            ),
+            onTap: () async {
+              final last = st.id == finale.last.id;
+              await playScene(
+                context,
+                sc,
+                title: st.title,
+                replay: true,
+                mine: last ? const {Faction.shaolin, Faction.ninja} : {st.you},
+              );
+              // El epílogo de El Sello sigue con los créditos, como la primera vez.
+              if (last && sc.isPost && context.mounted) await showCredits(context);
+            },
           ),
         ),
     ];

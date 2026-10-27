@@ -5106,34 +5106,34 @@
   "ja": "*（傷を負い、駆けつけて）* レン……許せ。"
  },
  "story.f3.post.1": {
-  "es": "Seis piedras se encienden de verde y de rojo.",
-  "en": "Six stones light up green and red.",
-  "zh": "六块石头亮起绿光与红光。",
-  "ja": "六つの石が緑と赤に輝く。"
+  "es": "**¿Dos manos? Hace trescientos años también eran dos.**",
+  "en": "**Two hands? Three hundred years ago there were two as well.**",
+  "zh": "**两只手？三百年前也是两只。**",
+  "ja": "**二つの手だと？三百年前も二つだった。**"
  },
  "story.f3.post.2": {
+  "es": "**Y después se olvidaron. Siempre se olvidan.**",
+  "en": "**And then they forgot. They always forget.**",
+  "zh": "**后来他们忘了。他们总会忘。**",
+  "ja": "**そして忘れた。人はいつも忘れる。**"
+ },
+ "story.f3.post.3": {
+  "es": "Esta vez no.",
+  "en": "Not this time.",
+  "zh": "这次不会。",
+  "ja": "今度は忘れない。"
+ },
+ "story.f3.post.6": {
   "es": "La grieta se cierra.",
   "en": "The crack closes.",
   "zh": "裂缝合上了。",
   "ja": "裂け目が閉じる。"
  },
- "story.f3.post.3": {
-  "es": "El Oni se apaga como una brasa en la lluvia.",
-  "en": "The Oni dies out like an ember in the rain.",
-  "zh": "灰烬鬼如雨中的余烬般熄灭。",
-  "ja": "鬼は雨に打たれた熾火のように消えていく。"
- },
- "story.f3.post.6": {
-  "es": "*(en voz baja)* Mamá.",
-  "en": "*(quietly)* Mom.",
-  "zh": "*（低声）*娘。",
-  "ja": "*（静かに）* 母さん。"
- },
  "story.f3.post.7": {
-  "es": "Natsu.",
-  "en": "Natsu.",
-  "zh": "夏。",
-  "ja": "ナツ。"
+  "es": "**Ríanse. Yo solo era la ceniza.**",
+  "en": "**Laugh, then. I was only the ash.**",
+  "zh": "**笑吧。我不过是灰烬。**",
+  "ja": "**笑うがいい。わしはただの灰だ。**"
  },
  "who.narrator": {
   "es": "Narración",
@@ -7817,35 +7817,23 @@
   "zh": "*（化为人形）*就像大心和阳炎。",
   "ja": "*（人の姿になって）* 大心とカゲロウのように。"
  },
- "story.f3.pre.4": {
-  "es": "*(llegando por el muro)* Aya. Hacé lo que dice el Pergamino.",
-  "en": "*(arriving over the wall)* Aya. Do what the Scroll says.",
-  "zh": "*（翻墙而来）*绫。照卷轴说的做。",
-  "ja": "*（壁を越えて現れ）* 綾。巻物の言う通りにしろ。"
- },
- "story.f3.pre.7": {
-  "es": "Seis piedras. Dos manos.",
-  "en": "Six stones. Two hands.",
-  "zh": "六块石。两只手。",
-  "ja": "六つの石。二つの手。"
- },
  "story.f3.post.9": {
-  "es": "Una semana después.",
-  "en": "A week later.",
-  "zh": "一周后。",
-  "ja": "一週間後。"
+  "es": "El Oni se apaga como una brasa en la lluvia.",
+  "en": "The Oni dies out like an ember in the rain.",
+  "zh": "灰烬鬼如雨中的余烬般熄灭。",
+  "ja": "鬼は雨に打たれた熾火のように消えていく。"
  },
  "story.f3.post.11": {
-  "es": "En el patio de atrás, la piedra sin nombre ya tiene uno. Al lado, un cuenco y un abanico quemado.",
-  "en": "In the back courtyard, the nameless stone has a name now. Beside it, a bowl and a burned fan.",
-  "zh": "后院里，那块无名的石头如今有了名字。旁边放着一只钵，和一把烧焦的扇子。",
-  "ja": "裏庭の名もなき石に、今は名が刻まれている。傍らには椀と、焼けた扇。"
+  "es": "Sobre la grieta cerrada queda una figura de ceniza. Una mujer chica, con un abanico.",
+  "en": "Over the closed crack, a figure of ash remains. A small woman, with a fan.",
+  "zh": "合上的裂缝上方，留下一个灰烬的身影。一个小个子的女人，拿着一把扇子。",
+  "ja": "閉じた裂け目の上に、灰の姿が一つ残る。扇を持った、小柄な女。"
  },
  "story.f3.post.13": {
-  "es": "Si no volvemos a olvidarnos.",
-  "en": "If we don't forget again.",
-  "zh": "只要我们别再遗忘。",
-  "ja": "また忘れなければな。"
+  "es": "Natsu.",
+  "en": "Natsu.",
+  "zh": "夏。",
+  "ja": "ナツ。"
  },
  "story.s1.pre.12": {
   "es": "¿Otra vez jugando de memoria?",
@@ -12714,64 +12702,58 @@
   "ja": "そして、消えかけていた。"
  },
  "story.f3.pre.5": {
-  "es": "Esta vez el clan no llega tarde.",
-  "en": "This time the clan isn't late.",
-  "zh": "这一次，忍者没有来迟。",
-  "ja": "今度こそ、一族は遅れぬ。"
+  "es": "*(llegando por el muro)* Aya. Hacé lo que dice el Pergamino.",
+  "en": "*(arriving over the wall)* Aya. Do what the Scroll says.",
+  "zh": "*（翻墙而来）*绫。照卷轴说的做。",
+  "ja": "*（壁を越えて現れ）* 綾。巻物の言う通りにしろ。"
  },
  "story.f3.pre.8": {
-  "es": "Ahora.",
-  "en": "Now.",
-  "zh": "就是现在。",
-  "ja": "今だ。"
+  "es": "**El hijo de Natsu. Y la sobrina de Natsu.**",
+  "en": "**Natsu's son. And Natsu's niece.**",
+  "zh": "**夏的儿子。还有夏的侄女。**",
+  "ja": "**ナツの息子。そしてナツの姪。**"
  },
  "story.f3.post.5": {
-  "es": "Sobre la grieta cerrada queda una figura de ceniza. Una mujer chica, con un abanico.",
-  "en": "Over the closed crack, a figure of ash remains. A small woman, with a fan.",
-  "zh": "合上的裂缝上方，留下一个灰烬的身影。一个小个子的女人，拿着一把扇子。",
-  "ja": "閉じた裂け目の上に、灰の姿が一つ残る。扇を持った、小柄な女。"
+  "es": "Seis piedras se encienden de verde y de rojo.",
+  "en": "Six stones light up green and red.",
+  "zh": "六块石头亮起绿光与红光。",
+  "ja": "六つの石が緑と赤に輝く。"
  },
  "story.f3.post.8": {
-  "es": "La figura levanta la mano, como quien saluda desde lejos. Y el viento se la lleva.",
-  "en": "The figure raises her hand, like someone waving from far away. And the wind carries her off.",
-  "zh": "那身影抬起手，像是在远处挥手道别。然后被风带走了。",
-  "ja": "その姿は、遠くから手を振るように手を上げる。そして風がさらっていく。"
+  "es": "**Todavía falta el fuego.**",
+  "en": "**The fire is still to come.**",
+  "zh": "**火，还没来。**",
+  "ja": "**火は、まだこれからだ。**"
  },
  "story.f3.post.12": {
+  "es": "*(en voz baja)* Mamá.",
+  "en": "*(quietly)* Mom.",
+  "zh": "*（低声）*娘。",
+  "ja": "*（静かに）* 母さん。"
+ },
+ "story.f3.post.15": {
+  "es": "Una semana después.",
+  "en": "A week later.",
+  "zh": "一周后。",
+  "ja": "一週間後。"
+ },
+ "story.f3.post.17": {
+  "es": "En el patio de atrás, la piedra sin nombre ya tiene uno: Natsu. Al lado, un cuenco y un abanico quemado.",
+  "en": "In the back courtyard, the nameless stone has a name now: Natsu. Beside it, a bowl and a burned fan.",
+  "zh": "后院里，那块无名的石头如今有了名字：夏。旁边放着一只钵，和一把烧焦的扇子。",
+  "ja": "裏庭の名もなき石に、今は名が刻まれている。ナツ。傍らには椀と、焼けた扇。"
+ },
+ "story.f3.post.19": {
   "es": "El sello aguantará otros trescientos años.",
   "en": "The seal will hold for another three hundred years.",
   "zh": "封印还能再撑三百年。",
   "ja": "封印はあと三百年はもつだろう。"
  },
- "story.f3.post.15": {
-  "es": "Entonces no lo olvidemos.",
-  "en": "Then let's not forget.",
-  "zh": "那就别忘了。",
-  "ja": "なら、忘れずにいましょう。"
- },
- "story.f3.post.16": {
-  "es": "Un duelo por año. Templo contra clan.",
-  "en": "One duel a year. Temple against clan.",
-  "zh": "每年一场对决。寺院对忍者。",
-  "ja": "年に一度の決闘を。寺対一族で。"
- },
- "story.f3.post.17": {
-  "es": "En el tablero.",
-  "en": "On the board.",
-  "zh": "在棋盘上。",
-  "ja": "盤の上でな。"
- },
- "story.f3.post.19": {
-  "es": "Y así empezaron los **duelos de honor**: monjes y ninjas, enfrentados para no olvidar cómo se rodea a un demonio.",
-  "en": "And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.",
-  "zh": "**荣誉之战**就此开始：僧人与忍者彼此对弈，永远记得如何包围恶鬼。",
-  "ja": "こうして**誉れの決闘**が始まった。僧と忍びが向かい合う。鬼の包囲の仕方を、二度と忘れぬために。"
- },
  "story.f3.post.20": {
-  "es": "Hasta la próxima grieta.",
-  "en": "Until the next crack.",
-  "zh": "直到下一道裂缝。",
-  "ja": "次の裂け目が開くその日まで。"
+  "es": "Si no volvemos a olvidarnos.",
+  "en": "If we don't forget again.",
+  "zh": "只要我们别再遗忘。",
+  "ja": "また忘れなければな。"
  },
  "reminder.channel": {
   "es": "Desafío del día",
@@ -12886,5 +12868,287 @@
   "en": "From now on, 5 of a Leader's 6 sides are enough to capture it.",
   "zh": "从现在起，占据首领 6 面中的 5 面即可获胜。",
   "ja": "以後、首領の6辺のうち5辺を埋めれば討ち取れる。"
+ },
+ "story.f3.pre.3": {
+  "es": "Después, Maestro. Primero el Oni.",
+  "en": "Later, Master. The Oni first.",
+  "zh": "以后再说，师父。先对付灰烬鬼。",
+  "ja": "後にしてください、師匠。まずは鬼です。"
+ },
+ "story.f3.pre.6": {
+  "es": "Esta vez el clan no llega tarde.",
+  "en": "This time the clan isn't late.",
+  "zh": "这一次，忍者没有来迟。",
+  "ja": "今度こそ、一族は遅れぬ。"
+ },
+ "story.f3.pre.9": {
+  "es": "**Qué conveniente. Su sangre, de los dos lados del muro.**",
+  "en": "**How convenient. Her blood, on both sides of the wall.**",
+  "zh": "**真巧。她的血，在墙的两边。**",
+  "ja": "**都合のいいことだ。あの女の血が、壁の両側にある。**"
+ },
+ "story.f3.pre.10": {
+  "es": "Seis piedras. Dos manos.",
+  "en": "Six stones. Two hands.",
+  "zh": "六块石。两只手。",
+  "ja": "六つの石。二つの手。"
+ },
+ "story.f3.pre.11": {
+  "es": "Ahora.",
+  "en": "Now.",
+  "zh": "就是现在。",
+  "ja": "今だ。"
+ },
+ "story.f3.post.4": {
+  "es": "Esta vez somos dos los que se acuerdan.",
+  "en": "This time there are two of us who remember.",
+  "zh": "这次，我们两个都记得。",
+  "ja": "今度は、覚えている者が二人いる。"
+ },
+ "story.f3.post.14": {
+  "es": "Natsu levanta la mano, como quien saluda desde lejos. Y el viento se la lleva.",
+  "en": "Natsu raises her hand, like someone waving from far away. And the wind carries her off.",
+  "zh": "夏抬起手，像是在远处挥手道别。然后被风带走了。",
+  "ja": "ナツは、遠くから手を振るように手を上げる。そして風がさらっていく。"
+ },
+ "story.f3.post.18": {
+  "es": "En el pueblo, Hana y los otros chicos ya no tosen gris.",
+  "en": "In the village, Hana and the other children no longer cough gray.",
+  "zh": "村子里，花和其他孩子不再咳出灰来了。",
+  "ja": "村では、ハナも他の子どもたちも、もう灰色の咳をしない。"
+ },
+ "story.f3.post.21": {
+  "es": "Por eso el Pergamino ya no queda en una sola casa, Kage. Media copia en el Templo y media en el clan.",
+  "en": "That's why the Scroll no longer stays in one house, Kage. Half a copy in the Temple, half in the clan.",
+  "zh": "所以卷轴不再只留在一家，影。寺院一半，忍者一半。",
+  "ja": "だから巻物はもう一つの家には置かぬ、影。写しの半分は寺に、半分は一族に。"
+ },
+ "story.f3.post.22": {
+  "es": "Y el ritual, en la boca de los dos.",
+  "en": "And the ritual, in both our mouths.",
+  "zh": "仪式也记在两家人的嘴里。",
+  "ja": "そして儀式は、両家の口で伝える。"
+ },
+ "story.f3.post.24": {
+  "es": "Entonces no lo olvidemos.",
+  "en": "Then let's not forget.",
+  "zh": "那就别忘了。",
+  "ja": "なら、忘れずにいましょう。"
+ },
+ "story.f3.post.25": {
+  "es": "Un duelo por año. Templo contra clan.",
+  "en": "One duel a year. Temple against clan.",
+  "zh": "每年一场对决。寺院对忍者。",
+  "ja": "年に一度の決闘を。寺対一族で。"
+ },
+ "story.f3.post.26": {
+  "es": "En el tablero.",
+  "en": "On the board.",
+  "zh": "在棋盘上。",
+  "ja": "盤の上でね。"
+ },
+ "story.f3.post.27": {
+  "es": "Y esta vez gano yo.",
+  "en": "And this time I win.",
+  "zh": "这次我会赢。",
+  "ja": "今度は僕が勝つ。"
+ },
+ "story.f3.post.28": {
+  "es": "Eso decís todos los años.",
+  "en": "You say that every year.",
+  "zh": "你每年都这么说。",
+  "ja": "それ、毎年言ってるでしょ。"
+ },
+ "story.f3.post.30": {
+  "es": "Y así empezaron los **duelos de honor**: monjes y ninjas, enfrentados para no olvidar cómo se rodea a un demonio.",
+  "en": "And so began the **duels of honor**: monks and ninjas, facing each other so they never forget how to surround a demon.",
+  "zh": "**荣誉之战**就此开始：僧人与忍者彼此对弈，永远记得如何包围恶鬼。",
+  "ja": "こうして**誉れの決闘**が始まった。僧と忍びが向かい合う。鬼の包囲の仕方を、二度と忘れぬために。"
+ },
+ "story.f3.post.31": {
+  "es": "Pequeño monje. Pequeña sombra.",
+  "en": "Little monk. Little shadow.",
+  "zh": "小和尚。小影子。",
+  "ja": "小さな僧。小さな影。"
+ },
+ "story.f3.post.32": {
+  "es": "El Oni mintió toda su vida. Menos al final.",
+  "en": "The Oni lied its whole life. Except at the end.",
+  "zh": "灰烬鬼一辈子都在撒谎。只有最后那句不是。",
+  "ja": "鬼は一生嘘をついてきた。最後の一言を除いて。"
+ },
+ "story.f3.post.33": {
+  "es": "¿Qué es «el fuego»?",
+  "en": "What is «the fire»?",
+  "zh": "「火」是什么？",
+  "ja": "「火」って何？"
+ },
+ "story.f3.post.34": {
+  "es": "Lo que encendió la ceniza hace trescientos años. Daishin y Kagerō nunca lo encontraron.",
+  "en": "What lit the ash three hundred years ago. Daishin and Kagerō never found it.",
+  "zh": "三百年前点燃灰烬的东西。大心和阳炎始终没找到它。",
+  "ja": "三百年前、灰に火をつけたもの。大心と陽炎には、ついに見つけられなかった。"
+ },
+ "story.f3.post.35": {
+  "es": "La canción de la abuela Kiku: «seis piedras alrededor, y el fuego se duerme». ¿Dónde duerme?",
+  "en": "Grandma Kiku's song: «six stones around, and the fire falls asleep». Where does it sleep?",
+  "zh": "奶奶菊的歌：「六块石头围一圈，火就睡着了。」它睡在哪里？",
+  "ja": "キクおばあちゃんの歌。「六つの石で囲めば、火は眠る」。どこで眠ってるの？"
+ },
+ "story.f3.post.36": {
+  "es": "Hasta la próxima grieta.",
+  "en": "Until the next crack.",
+  "zh": "直到下一道裂缝。",
+  "ja": "次の裂け目が開くその日まで。"
+ },
+ "story.f3.post.38": {
+  "es": "Muy lejos, al norte, más allá de las montañas.",
+  "en": "Far away, to the north, beyond the mountains.",
+  "zh": "遥远的北方，群山的另一边。",
+  "ja": "遠く北、山々の向こう。"
+ },
+ "story.f3.post.40": {
+  "es": "En un claro de niebla que no figura en ningún mapa hay seis piedras en hexágono. Iguales a las del Templo.",
+  "en": "In a misty clearing that appears on no map, there are six stones in a hexagon. Just like the Temple's.",
+  "zh": "在一片地图上没有的雾中空地上，有六块排成六角形的石头。和寺院的一模一样。",
+  "ja": "どの地図にも載っていない霧の空き地に、六角に並んだ六つの石がある。寺のものとそっくりな。"
+ },
+ "story.f3.post.41": {
+  "es": "Una de ellas se parte.",
+  "en": "One of them splits.",
+  "zh": "其中一块裂开了。",
+  "ja": "その一つが割れる。"
+ },
+ "story.f3.post.42": {
+  "es": "Y debajo de la niebla, algo abre un ojo de fuego.",
+  "en": "And beneath the mist, something opens an eye of fire.",
+  "zh": "雾的下面，有什么东西睁开了一只火焰之眼。",
+  "ja": "そして霧の下で、何かが炎の目を開く。"
+ },
+ "onom.sello": {
+  "es": "¡SHIIING!",
+  "en": "SHIIING!",
+  "zh": "嗡——！",
+  "ja": "キィィン！"
+ },
+ "onom.grieta": {
+  "es": "¡CRAC!",
+  "en": "CRACK!",
+  "zh": "咔嚓！",
+  "ja": "ピシッ！"
+ },
+ "credits.sealed": {
+  "es": "El Oni de Ceniza está sellado",
+  "en": "The Ash Oni is sealed",
+  "zh": "灰烬鬼已被封印",
+  "ja": "灰の鬼は封じられた"
+ },
+ "credits.cast": {
+  "es": "Los que lo rodearon",
+  "en": "Those who surrounded it",
+  "zh": "包围它的人们",
+  "ja": "鬼を囲んだ者たち"
+ },
+ "credits.who.ren": {
+  "es": "Monje del Templo. Hijo de Natsu.",
+  "en": "Monk of the Temple. Natsu's son.",
+  "zh": "寺院的僧人。夏的儿子。",
+  "ja": "寺の僧。ナツの息子。"
+ },
+ "credits.who.aya": {
+  "es": "Kunoichi del clan. Sobrina de Natsu.",
+  "en": "Kunoichi of the clan. Natsu's niece.",
+  "zh": "忍者一族的女忍。夏的侄女。",
+  "ja": "一族のくノ一。ナツの姪。"
+ },
+ "credits.who.jubei": {
+  "es": "Rōnin. El padre de Ren.",
+  "en": "Rōnin. Ren's father.",
+  "zh": "浪人。仁的父亲。",
+  "ja": "浪人。レンの父。"
+ },
+ "credits.who.abbot": {
+  "es": "Guardó el secreto dieciséis años.",
+  "en": "Kept the secret for sixteen years.",
+  "zh": "守了十六年的秘密。",
+  "ja": "十六年、秘密を守った。"
+ },
+ "credits.who.kage": {
+  "es": "Recordó la otra mitad.",
+  "en": "Remembered the other half.",
+  "zh": "记起了另一半。",
+  "ja": "もう半分を思い出した。"
+ },
+ "credits.who.tao": {
+  "es": "Sabía todo. Se hacía el borracho.",
+  "en": "Knew everything. Played the drunk.",
+  "zh": "什么都知道。装成醉鬼。",
+  "ja": "全てを知り、酔いどれを演じた。"
+ },
+ "credits.who.mei": {
+  "es": "Quemó una página. Devolvió una verdad.",
+  "en": "Burned a page. Gave back a truth.",
+  "zh": "烧了一页纸，还回一个真相。",
+  "ja": "一頁を燃やし、一つの真実を返した。"
+ },
+ "credits.who.kuro": {
+  "es": "Cumplió una promesa de dieciséis años.",
+  "en": "Kept a sixteen-year promise.",
+  "zh": "守住了十六年的承诺。",
+  "ja": "十六年の約束を果たした。"
+ },
+ "credits.who.gon": {
+  "es": "Rival de Ren. Hermano de Hana.",
+  "en": "Ren's rival. Hana's brother.",
+  "zh": "仁的对手。花的哥哥。",
+  "ja": "レンの好敵手。ハナの兄。"
+ },
+ "credits.who.fox": {
+  "es": "La promesa de Daishin y Kagerō.",
+  "en": "The promise of Daishin and Kagerō.",
+  "zh": "大心与阳炎的约定。",
+  "ja": "大心と陽炎の約束。"
+ },
+ "credits.who.oni": {
+  "es": "Sellado. Por ahora.",
+  "en": "Sealed. For now.",
+  "zh": "已封印。暂时。",
+  "ja": "封印された。今のところは。"
+ },
+ "credits.natsu": {
+  "es": "Natsu",
+  "en": "Natsu",
+  "zh": "夏",
+  "ja": "ナツ"
+ },
+ "credits.natsuLine": {
+  "es": "Le tuvo la mano al Oni dieciséis años.",
+  "en": "Held the Oni's hand for sixteen years.",
+  "zh": "握住灰烬鬼的手，整整十六年。",
+  "ja": "十六年、鬼の手を握り続けた。"
+ },
+ "credits.thanks": {
+  "es": "Gracias por jugar",
+  "en": "Thank you for playing",
+  "zh": "感谢游玩",
+  "ja": "遊んでくれてありがとう"
+ },
+ "credits.tbc": {
+  "es": "Continuará…",
+  "en": "To be continued…",
+  "zh": "未完待续……",
+  "ja": "つづく……"
+ },
+ "credits.next": {
+  "es": "El fuego bajo la niebla",
+  "en": "The fire beneath the mist",
+  "zh": "雾下之火",
+  "ja": "霧の下の火"
+ },
+ "credits.tap": {
+  "es": "Tocá para seguir",
+  "en": "Tap to continue",
+  "zh": "点击继续",
+  "ja": "タップで続ける"
  }
 }

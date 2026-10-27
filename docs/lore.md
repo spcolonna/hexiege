@@ -1976,37 +1976,61 @@ Ren y Aya juntos: Monje y Shogun en la misma mano, fichas de las dos facciones �
 - [lugar ashCourtyard · plano .5,.3 x1.5 · niebla · temblor · onom temblor]
 - [plano .5,.6 x1.1 lento · entra Ren izq ya]
 - Abad [entra der corre · plano .65,.5 x1.3] *(herido, llegando)*: Ren… perdoname.
+- Ren: Después, Maestro. Primero el Oni.
 - [página · plano .5,.5 x1.25 · entra Aya izq ya]
 - Kage [entra der sombra] *(llegando por el muro)*: Aya. Hacé lo que dice el Pergamino.
 - Kage: Esta vez el clan no llega tarde.
 - [página · plano .5,.35 x1.5 lento · oscuro · latido]
-- Zorra Blanca [entra centro humo]: Seis piedras. Dos manos.
+- Oni [entra centro humo · temblor]: **El hijo de Natsu. Y la sobrina de Natsu.**
+- Oni [latido]: **Qué conveniente. Su sangre, de los dos lados del muro.**
+- Zorra Blanca [entra der humo]: Seis piedras. Dos manos.
 - Zorra Blanca [destello · plano .5,.45 x1.4]: Ahora.
 
 **Después — Epílogo**
-- [arte art_seal · plano .5,.5 x1.45 · destello]
-- Narración [plano .5,.55 ancho .8 lento]: Seis piedras se encienden de verde y de rojo.
-- Narración [latido · plano .5,.45 x1.3]: La grieta se cierra.
+- [arte art_seal · plano .5,.5 x1.45 · destello · temblor · onom sello]
+- Oni [off · latido · plano .5,.3 x1.5]: **¿Dos manos? Hace trescientos años también eran dos.**
+- Oni [off · temblor]: **Y después se olvidaron. Siempre se olvidan.**
+- Ren [off]: Esta vez no.
+- Aya [off]: Esta vez somos dos los que se acuerdan.
+- Narración [plano .5,.55 ancho .8 lento · destello]: Seis piedras se encienden de verde y de rojo.
+- Narración [latido · plano .5,.45 x1.3 · onom temblor]: La grieta se cierra.
+- Oni [off · oscuro · plano .5,.3 x1.6]: **Ríanse. Yo solo era la ceniza.**
+- Oni [off · latido]: **Todavía falta el fuego.**
 - Narración [plano .5,.3 x1.05 lento · humo]: El Oni se apaga como una brasa en la lluvia.
 - [plano .5,.5 x1.3 lento]
 - Narración: Sobre la grieta cerrada queda una figura de ceniza. Una mujer chica, con un abanico.
 - Ren [entra izq] *(en voz baja)*: Mamá.
 - Jubei [entra der]: Natsu.
-- Narración: La figura levanta la mano, como quien saluda desde lejos. Y el viento se la lleva.
+- Narración: Natsu levanta la mano, como quien saluda desde lejos. Y el viento se la lleva.
 - *Una semana después.* [lugar epilogue · plano .5,.4 x1.4]
 - [plano .5,.55 x1.1 lento]
-- Narración: En el patio de atrás, la piedra sin nombre ya tiene uno. Al lado, un cuenco y un abanico quemado.
+- Narración: En el patio de atrás, la piedra sin nombre ya tiene uno: Natsu. Al lado, un cuenco y un abanico quemado.
+- Narración: En el pueblo, Hana y los otros chicos ya no tosen gris.
 - Abad [entra der]: El sello aguantará otros trescientos años.
 - Kage [entra izq sombra]: Si no volvemos a olvidarnos.
+- Abad: Por eso el Pergamino ya no queda en una sola casa, Kage. Media copia en el Templo y media en el clan.
+- Kage: Y el ritual, en la boca de los dos.
 - [página · plano .5,.5 x1.2]
 - Ren [entra izq]: Entonces no lo olvidemos.
 - Aya [entra der]: Un duelo por año. Templo contra clan.
 - Aya [plano .7,.45 x1.35]: En el tablero.
+- Ren: Y esta vez gano yo.
+- Aya: Eso decís todos los años.
 - [plano .5,.4 x1.05 lento · vacía]
 - Narración: Y así empezaron los **duelos de honor**: monjes y ninjas, enfrentados para no olvidar cómo se rodea a un demonio.
-- Zorra Blanca [entra centro humo · plano .5,.45 x1.4]: Hasta la próxima grieta.
+- Zorra Blanca [entra centro humo · plano .5,.45 x1.4]: Pequeño monje. Pequeña sombra.
+- Zorra Blanca: El Oni mintió toda su vida. Menos al final.
+- Ren [entra izq]: ¿Qué es «el fuego»?
+- Zorra Blanca [latido]: Lo que encendió la ceniza hace trescientos años. Daishin y Kagerō nunca lo encontraron.
+- Aya [entra der]: La canción de la abuela Kiku: «seis piedras alrededor, y el fuego se duerme». ¿Dónde duerme?
+- Zorra Blanca [plano .5,.4 x1.5 lento]: Hasta la próxima grieta.
 - [sale Zorra Blanca humo · plano .5,.5 x1.0 lento]
-- **→ Fin. Desbloqueo:** mesa Pizarra del río y marco de obsidiana.
+- *Muy lejos, al norte, más allá de las montañas.* [lugar forest · página · plano .5,.7 x1.5 · niebla · oscuro]
+- [plano .5,.4 x1.1 lento · latido · oscuro]
+- Narración [oscuro]: En un claro de niebla que no figura en ningún mapa hay seis piedras en hexágono. Iguales a las del Templo.
+- Narración [temblor · oscuro · onom grieta · plano .5,.75 x1.6]: Una de ellas se parte.
+- Narración [destello · latido · oscuro · plano .5,.3 x1.6 lento]: Y debajo de la niebla, algo abre un ojo de fuego.
+- **→ Fin. Créditos y «Continuará…».** Desbloqueo: marco de obsidiana (la mesa Pizarra del río sale en F1 y el marco dorado en F2).
 
 ---
 

@@ -22,6 +22,7 @@ import '../solo/solver.dart';
 import '../solo/stars.dart';
 import '../store/paywall.dart';
 import '../story/script.dart';
+import '../story/credits_screen.dart';
 import '../story/story_screen.dart';
 import '../tutorial/guide.dart';
 import '../tutorial/lessons.dart';
@@ -893,7 +894,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       AppSettings.instance.markCleared(_stage!.id);
     }
     // Estrellas: se calculan sobre toda la partida y se guarda el récord.
-    final goals = ok && Stars.appliesTo(_stage!) ? Stars.goals(_stageStart, [..._history, _game], _game) : null;
+    final goals = ok && Stars.appliesTo(_stage!)
+        ? Stars.goals(_stageStart, [..._history, _game], _game, par: Stars.parOf(_stage!))
+        : null;
     final previous = AppSettings.instance.starsOf(_stage!.id);
     if (goals != null) AppSettings.instance.recordStars(_stage!.id, Stars.count(goals));
     final wait = Duration(milliseconds: (after * 1000).round() + 500);
@@ -909,6 +912,11 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
         if (!mounted) return;
         await playScene(context, post, mine: _storySides, title: _stage!.title);
         if (!mounted) return;
+        // Fin de la historia: créditos y lo que viene.
+        if (_stage!.id == finale.last.id) {
+          await showCredits(context);
+          if (!mounted) return;
+        }
         // Fin del Acto I: el cliffhanger recién visto lleva al desbloqueo.
         if (_nextLocked) {
           await showPaywall(context);
@@ -1052,7 +1060,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
           glyphColor: ok ? HexTheme.of(ctx).gold : null,
           title: tr(ok ? 'stage.cleared' : (tie ? 'common.draw' : 'stage.notThisTime')),
           message: end?.text ?? (ok ? _stageWinText() : _stageFailText()),
-          body: goals == null ? null : StarsReveal(goals: goals, previous: previous),
+          body: goals == null ? null : StarsReveal(goals: goals, previous: previous, par: Stars.parOf(_stage!)),
           actions: [
             SkinAction(tr('common.back'), () {
               Navigator.pop(ctx);
@@ -1834,6 +1842,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       onBack: first ? () => Navigator.maybePop(context) : _startStage,
       onStart: _startStage,
       stars: Stars.appliesTo(s) ? AppSettings.instance.starsOf(s.id) : null,
+      par: Stars.parOf(s),
     );
   }
 

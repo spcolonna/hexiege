@@ -50,7 +50,9 @@ void main() {
       expect(Scene.of('s21', post: true)!.placeAt(0), Place.pagodaTop);
       expect(Scene.of('f3', post: true)!.placeAt(0), Place.ashCourtyard);
       final epilogue = Scene.of('f3', post: true)!;
-      expect(epilogue.placeAt(epilogue.moments.last), Place.epilogue);
+      expect(epilogue.placeAt(epilogue.moments[epilogue.moments.length - 2]), Place.epilogue);
+      // El gancho final: lejos del Templo, en un bosque de noche.
+      expect(epilogue.placeAt(epilogue.moments.last), Place.forest);
     });
 
     test('el director arma un cuadro por golpe: páginas, elenco y globos coherentes', () {

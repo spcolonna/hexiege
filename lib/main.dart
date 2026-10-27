@@ -13,6 +13,7 @@ import 'engine/pieces.dart';
 import 'services/games.dart';
 import 'services/reminders.dart';
 import 'story/script.dart';
+import 'story/credits_screen.dart';
 import 'story/story_screen.dart';
 import 'ui/brand_intro.dart';
 import 'ui/game_intro.dart';
@@ -73,7 +74,10 @@ class HexiegeApp extends StatelessWidget {
         builder: (context, child) => _PhoneFrame(child: child!),
         // Estudio → juego → bienvenida o menú. Para probar una viñeta:
         // flutter run --dart-define=STORY=s4.post [--dart-define=STORY_AT=9]
-        home: _storyDemo.isNotEmpty
+        // (STORY=credits muestra los créditos del final).
+        home: _storyDemo == 'credits'
+            ? const CreditsScreen()
+            : _storyDemo.isNotEmpty
             ? StoryScreen(
                 scene: Scene.of(_storyDemo.split('.').first, post: _storyDemo.endsWith('post'))!,
                 mine: {_storyDemo.startsWith('n') ? Faction.ninja : Faction.shaolin},

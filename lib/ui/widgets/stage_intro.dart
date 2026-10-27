@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../i18n/i18n.dart';
+import '../../solo/stars.dart';
 import '../fx/sfx.dart';
 import '../theme/hex_theme.dart';
 import '../theme/ui_style.dart';
@@ -34,6 +35,9 @@ class StageIntro extends StatefulWidget {
   /// Estrellas ganadas en esta batalla, o null si no tiene (problemas).
   final int? stars;
 
+  /// Rondas de la estrella de rapidez.
+  final int par;
+
   /// Releer la viñeta de esta batalla, o null si no tiene.
   final VoidCallback? onReplay;
 
@@ -54,6 +58,7 @@ class StageIntro extends StatefulWidget {
     required this.onBack,
     required this.backTooltip,
     this.stars,
+    this.par = Stars.parRounds,
     this.onReplay,
     this.play = true,
   });
@@ -95,7 +100,10 @@ class _StageIntroState extends State<StageIntro> with SingleTickerProviderStateM
 
   /// Aparece en el tramo [from]..[to] de la entrada, corrido [dx], [dy] px.
   Widget _in(double from, double to, Widget child, {double dx = 0, double dy = 18, Curve curve = Curves.easeOutCubic}) {
-    final a = CurvedAnimation(parent: _c, curve: Interval(from, to, curve: curve));
+    final a = CurvedAnimation(
+      parent: _c,
+      curve: Interval(from, to, curve: curve),
+    );
     return AnimatedBuilder(
       animation: a,
       builder: (_, c) => Opacity(
@@ -192,40 +200,44 @@ class _StageIntroState extends State<StageIntro> with SingleTickerProviderStateM
                     ),
                   ),
                   const SizedBox(height: 22),
-                  _in(0.25, 0.6, Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    decoration: BoxDecoration(
-                      border: Border(
-                        top: BorderSide(color: rule),
-                        bottom: BorderSide(color: rule),
+                  _in(
+                    0.25,
+                    0.6,
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          top: BorderSide(color: rule),
+                          bottom: BorderSide(color: rule),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        Text(
-                          tr('stage.goal'),
-                          style: TextStyle(color: t.textMuted, fontSize: 12, fontWeight: FontWeight.w700),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          w.goal,
-                          textAlign: TextAlign.center,
-                          style: s.display(20, color: ink, height: 1.25),
-                        ),
-                        if (w.stars != null) ...[
-                          const SizedBox(height: 10),
-                          StarRow(stars: w.stars!, size: 20),
+                      child: Column(
+                        children: [
+                          Text(
+                            tr('stage.goal'),
+                            style: TextStyle(color: t.textMuted, fontSize: 12, fontWeight: FontWeight.w700),
+                          ),
                           const SizedBox(height: 4),
                           Text(
-                            starGoalsLine(),
+                            w.goal,
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: t.textMuted, fontSize: 11.5, fontWeight: FontWeight.w700),
+                            style: s.display(20, color: ink, height: 1.25),
                           ),
+                          if (w.stars != null) ...[
+                            const SizedBox(height: 10),
+                            StarRow(stars: w.stars!, size: 20),
+                            const SizedBox(height: 4),
+                            Text(
+                              starGoalsLine(par: w.par),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: t.textMuted, fontSize: 11.5, fontWeight: FontWeight.w700),
+                            ),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
-                  )),
+                  ),
                   const SizedBox(height: 22),
                   _duel(t, s),
                   if (w.rivalLine != null) ...[
@@ -257,33 +269,43 @@ class _StageIntroState extends State<StageIntro> with SingleTickerProviderStateM
     Widget who(PlayerProfile p, double dx) {
       final c = HexTheme.faction(p.faction);
       return Expanded(
-        child: _in(0.35, 0.72, dx: dx, dy: 0, curve: Curves.easeOutBack, Column(
-          children: [
-            AvatarFace(
-              avatar: p.avatar,
-              frame: p.frame,
-              size: 84,
-              color: c,
-              borderColor: c,
-              borderWidth: 2.5,
-              shadow: [BoxShadow(color: c.withValues(alpha: 0.35), blurRadius: 14, spreadRadius: 1)],
-            ),
-            const SizedBox(height: 8),
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                p.nickname,
-                maxLines: 1,
-                style: TextStyle(color: t.text, fontSize: 18, fontWeight: FontWeight.w900),
+        child: _in(
+          0.35,
+          0.72,
+          dx: dx,
+          dy: 0,
+          curve: Curves.easeOutBack,
+          Column(
+            children: [
+              AvatarFace(
+                avatar: p.avatar,
+                frame: p.frame,
+                size: 84,
+                color: c,
+                borderColor: c,
+                borderWidth: 2.5,
+                shadow: [BoxShadow(color: c.withValues(alpha: 0.35), blurRadius: 14, spreadRadius: 1)],
               ),
-            ),
-          ],
-        )),
+              const SizedBox(height: 8),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  p.nickname,
+                  maxLines: 1,
+                  style: TextStyle(color: t.text, fontSize: 18, fontWeight: FontWeight.w900),
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     }
 
     // El 対 cae como un sello: grande y transparente, se aplasta en su lugar.
-    final stamp = CurvedAnimation(parent: _c, curve: const Interval(0.6, 0.74, curve: Curves.easeInCubic));
+    final stamp = CurvedAnimation(
+      parent: _c,
+      curve: const Interval(0.6, 0.74, curve: Curves.easeInCubic),
+    );
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,

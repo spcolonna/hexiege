@@ -162,7 +162,20 @@ class _StoryScreenState extends State<StoryScreen> with TickerProviderStateMixin
     if (sfx != null) SoundBoard.instance.play(sfx, volume: 0.5);
     if (f.fx.contains(Fx.shake)) Haptics.medium();
     if (f.fx.contains(Fx.pulse)) Haptics.light();
+    // El epílogo respira con otra música; al salir de él vuelve la amenaza.
+    // (Al releer desde el Pergamino suena la del menú y no se toca.)
+    if (widget.replay) return;
+    if (f.place == Place.epilogue && !_calm) {
+      _calm = true;
+      MusicBoard.instance.play(MusicTrack.menu);
+    } else if (f.place != Place.epilogue && _calm) {
+      _calm = false;
+      MusicBoard.instance.play(MusicTrack.oni);
+    }
   }
+
+  /// Suena la música tranquila del epílogo.
+  bool _calm = false;
 
   void _settled(AnimationStatus s) {
     if (s != AnimationStatus.completed || !mounted) return;
@@ -600,12 +613,8 @@ class _Stage extends StatelessWidget {
     final camT = (f.slow ? Curves.easeInOutSine : Curves.easeOutCubic).transform(t);
     final drift = idle * 2 * pi;
     // Un respiro leve de la cámara mientras nadie toca.
-    Shot sway(Shot s) => Shot(
-      s.x + 0.004 * sin(drift),
-      s.y + 0.003 * sin(drift * 2),
-      s.zoom + 0.006 * (1 + sin(drift + 1)),
-      s.span,
-    );
+    Shot sway(Shot s) =>
+        Shot(s.x + 0.004 * sin(drift), s.y + 0.003 * sin(drift * 2), s.zoom + 0.006 * (1 + sin(drift + 1)), s.span);
     final cam = (from: sway(f.from), to: sway(f.shot), t: camT);
     final shake = f.fx.contains(Fx.shake) ? Offset(sin(t * 46) * 9 * (1 - t), cos(t * 39) * 5 * (1 - t)) : Offset.zero;
     final sameArt = prev != null && prev!.page == f.page && prev!.art == f.art && prev!.place == f.place;
