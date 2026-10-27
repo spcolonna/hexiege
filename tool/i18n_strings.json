@@ -569,12 +569,6 @@
   "zh": "放置一枚棋子，或移动场上的棋子",
   "ja": "駒を配置するか、盤上の駒を動かす"
  },
- "game.siegeStarts": {
-  "es": "¡Empieza el Asedio! Desde ahora alcanza con ocupar 5 lados del Líder.",
-  "en": "The Siege begins! From now on, 5 occupied sides capture a Leader.",
-  "zh": "围城开始！从现在起，占据首领 5 面即可获胜。",
-  "ja": "総攻め開始！ 以後、5辺を埋めれば首領を討ち取れる。"
- },
  "game.rivalLine": {
   "es": "Rival: {faction} · {level}",
   "en": "Opponent: {faction} · {level}",
@@ -1554,10 +1548,10 @@
   "ja": "北の塀"
  },
  "stage.s5.goal": {
-  "es": "El Asedio empieza en la ronda 15. Ganá.",
-  "en": "The Siege starts in round 15. Win.",
-  "zh": "围城从第 15 回合开始。获胜。",
-  "ja": "総攻めはラウンド15から。勝利せよ。"
+  "es": "El Asedio empieza en la ronda 30. Ganá.",
+  "en": "The Siege starts in round 30. Win.",
+  "zh": "围城从第 30 回合开始。获胜。",
+  "ja": "総攻めはラウンド30から。勝利せよ。"
  },
  "stage.s5.intro": {
   "es": "El clan cubre la huida desde el muro norte. No hay tiempo para rodeos.",
@@ -1608,10 +1602,10 @@
   "ja": "石橋"
  },
  "stage.s8.goal": {
-  "es": "El Asedio empieza en la ronda 15. Ganá.",
-  "en": "The Siege starts in round 15. Win.",
-  "zh": "围城从第 15 回合开始。获胜。",
-  "ja": "総攻めはラウンド15から。勝利せよ。"
+  "es": "El Asedio empieza en la ronda 30. Ganá.",
+  "en": "The Siege starts in round 30. Win.",
+  "zh": "围城从第 30 回合开始。获胜。",
+  "ja": "総攻めはラウンド30から。勝利せよ。"
  },
  "stage.s8.intro": {
   "es": "Los ninjas bloquean el único puente sobre el río. Sin retirada.",
@@ -1698,10 +1692,10 @@
   "ja": "警鐘"
  },
  "stage.n5.goal": {
-  "es": "El Asedio empieza en la ronda 15. Ganá.",
-  "en": "The Siege starts in round 15. Win.",
-  "zh": "围城从第 15 回合开始。获胜。",
-  "ja": "総攻めはラウンド15から。勝利せよ。"
+  "es": "El Asedio empieza en la ronda 30. Ganá.",
+  "en": "The Siege starts in round 30. Win.",
+  "zh": "围城从第 30 回合开始。获胜。",
+  "ja": "総攻めはラウンド30から。勝利せよ。"
  },
  "stage.n5.intro": {
   "es": "Suenan las campanas. Todo el Templo despierta. Hay que salir ya.",
@@ -1752,10 +1746,10 @@
   "ja": "石の庭"
  },
  "stage.n8.goal": {
-  "es": "El Asedio empieza en la ronda 15. Ganá.",
-  "en": "The Siege starts in round 15. Win.",
-  "zh": "围城从第 15 回合开始。获胜。",
-  "ja": "総攻めはラウンド15から。勝利せよ。"
+  "es": "El Asedio empieza en la ronda 30. Ganá.",
+  "en": "The Siege starts in round 30. Win.",
+  "zh": "围城从第 30 回合开始。获胜。",
+  "ja": "総攻めはラウンド30から。勝利せよ。"
  },
  "stage.n8.intro": {
   "es": "Los monjes cerraron el jardín. Abrite paso antes de que lleguen más.",
@@ -3126,10 +3120,10 @@
   "ja": "庭の灰"
  },
  "stage.s16.goal": {
-  "es": "El Asedio empieza en la ronda 15. Ganá.",
-  "en": "The Siege starts in round 15. Win.",
-  "zh": "围城从第 15 回合开始。获胜。",
-  "ja": "第15ラウンドから攻囲開始。勝利せよ。"
+  "es": "El Asedio empieza en la ronda 30. Ganá.",
+  "en": "The Siege starts in round 30. Win.",
+  "zh": "围城从第 30 回合开始。获胜。",
+  "ja": "第30ラウンドから攻囲開始。勝利せよ。"
  },
  "stage.s16.intro": {
   "es": "Una grieta abrió el patio y sale humo gris. El clan aprovecha el caos.",
@@ -3252,10 +3246,10 @@
   "ja": "上層の扉"
  },
  "stage.s23.goal": {
-  "es": "El Asedio empieza en la ronda 15. Ganá.",
-  "en": "The Siege starts in round 15. Win.",
-  "zh": "围城从第 15 回合开始。获胜。",
-  "ja": "第15ラウンドから攻囲開始。勝利せよ。"
+  "es": "El Asedio empieza en la ronda 30. Ganá.",
+  "en": "The Siege starts in round 30. Win.",
+  "zh": "围城从第 30 回合开始。获胜。",
+  "ja": "第30ラウンドから攻囲開始。勝利せよ。"
  },
  "stage.s23.intro": {
   "es": "La última puerta. Detrás, una sola respiración, lenta.",
@@ -3432,10 +3426,10 @@
   "ja": "脱出"
  },
  "stage.n17.goal": {
-  "es": "El Asedio empieza en la ronda 15. Ganá.",
-  "en": "The Siege starts in round 15. Win.",
-  "zh": "围城从第 15 回合开始。获胜。",
-  "ja": "第15ラウンドから攻囲開始。勝利せよ。"
+  "es": "El Asedio empieza en la ronda 30. Ganá.",
+  "en": "The Siege starts in round 30. Win.",
+  "zh": "围城从第 30 回合开始。获胜。",
+  "ja": "第30ラウンドから攻囲開始。勝利せよ。"
  },
  "stage.n17.intro": {
   "es": "El Abad baja todas las noches a mirar las grietas. Corré.",
@@ -3540,10 +3534,10 @@
   "ja": "書庫の扉"
  },
  "stage.n23.goal": {
-  "es": "El Asedio empieza en la ronda 15. Ganá.",
-  "en": "The Siege starts in round 15. Win.",
-  "zh": "围城从第 15 回合开始。获胜。",
-  "ja": "第15ラウンドから攻囲開始。勝利せよ。"
+  "es": "El Asedio empieza en la ronda 30. Ganá.",
+  "en": "The Siege starts in round 30. Win.",
+  "zh": "围城从第 30 回合开始。获胜。",
+  "ja": "第30ラウンドから攻囲開始。勝利せよ。"
  },
  "stage.n23.intro": {
   "es": "La Maestra Mei te dejó ir una vez. Ahora no puede: el Abad está adentro.",
@@ -12868,5 +12862,29 @@
   "en": "Rankings",
   "zh": "排行榜",
   "ja": "ランキング"
+ },
+ "game.siegeSoon": {
+  "es": "Asedio en {n} rondas",
+  "en": "Siege in {n} rounds",
+  "zh": "{n} 回合后围城",
+  "ja": "総攻めまであと{n}ラウンド"
+ },
+ "game.siegeSoon.body": {
+  "es": "Después alcanza con ocupar 5 de los 6 lados del Líder.",
+  "en": "Then 5 of a Leader's 6 sides are enough to capture it.",
+  "zh": "届时占据首领 6 面中的 5 面即可获胜。",
+  "ja": "以後、首領の6辺のうち5辺を埋めれば討ち取れる。"
+ },
+ "game.siegeOn": {
+  "es": "¡Empieza el Asedio!",
+  "en": "The Siege begins!",
+  "zh": "围城开始！",
+  "ja": "総攻め開始！"
+ },
+ "game.siegeOn.body": {
+  "es": "Desde ahora alcanza con ocupar 5 de los 6 lados del Líder.",
+  "en": "From now on, 5 of a Leader's 6 sides are enough to capture it.",
+  "zh": "从现在起，占据首领 6 面中的 5 面即可获胜。",
+  "ja": "以後、首領の6辺のうち5辺を埋めれば討ち取れる。"
  }
 }

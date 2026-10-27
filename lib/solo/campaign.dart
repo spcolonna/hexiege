@@ -67,7 +67,7 @@ Map<PieceType, int> _rest(Faction f, List<int> used) {
   return hand;
 }
 
-final _earlySiege = Rules.standard.copyWith(siegeRound: () => 15);
+final _earlySiege = Rules.standard.copyWith(siegeRound: () => 30);
 final _fastAbilities = Rules.standard.copyWith(abilityCharges: () => 5, abilityCooldown: 1);
 Rules _extra(Faction f, PieceType t, int n) => Rules.standard.copyWith(hands: handsWith(f, {t: n}));
 

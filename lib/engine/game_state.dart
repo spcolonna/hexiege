@@ -624,7 +624,13 @@ class GameState {
     _checkWin();
     if (isOver) return;
     turnsTaken[current]++;
+    final wasSiege = inSiege;
     ply++;
+    // Al empezar el Asedio cuentan los cercos de 5 que ya estaban armados.
+    if (!wasSiege && inSiege) {
+      _checkWin();
+      if (isOver) return;
+    }
     if (rules.roundLimit != null && ply >= rules.roundLimit! * 2) {
       endedByLimit = true;
       draw = true;

@@ -309,6 +309,25 @@ void main() {
       expect(g.winner, 0);
     });
 
+    test('Asedio: un cerco de 5 armado justo antes gana al empezar el Asedio', () {
+      final g = GameState(Faction.shaolin, Faction.ninja, rules: const Rules(siegeRound: 2, roundLimit: 9));
+      put(g, PieceType.monk, 0, h(-3, 0));
+      put(g, PieceType.shogun, 1, h(0, 0));
+      final ring = h(0, 0).neighbors;
+      for (var i = 0; i < 4; i++) {
+        put(g, PieceType.serpent, i.isEven ? 0 : 1, ring[i]);
+      }
+      put(g, PieceType.dragon, 0, h(-2, 0));
+      put(g, PieceType.tiger, 0, h(-2, 1));
+      // Ronda 1, jugada del Shaolin: quinto lado, todavía sin Asedio.
+      expect(g.move(h(-2, 1), ring[4]), isTrue);
+      expect(g.winner, isNull);
+      g.setupSkipTurn();
+      // Cierra la ronda 1 el Ninja; al abrir la 2 empieza el Asedio y el cerco cuenta.
+      expect(g.inSiege, isTrue);
+      expect(g.winner, 0);
+    });
+
     test('cerrar los dos cercos en la misma jugada es empate', () {
       final g = GameState(Faction.shaolin, Faction.ninja);
       put(g, PieceType.monk, 0, h(0, 0));

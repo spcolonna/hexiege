@@ -202,6 +202,9 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   int _noticeKey = 0;
   Timer? _noticeTimer;
 
+  /// Cartel del Asedio que entra desde la derecha (aviso previo o inicio).
+  ({int key, bool started})? _siegeBanner;
+
   // Emotes visibles por jugador (texto + clave para re-animar).
   final _emote = <Emote?>[null, null];
   final _emoteKey = [0, 0];
@@ -629,7 +632,14 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     } else if (_game.isOver) {
       _showGameOver(after: dur);
     }
-    if (!_tutorial && !_game.isOver && !before.inSiege && _game.inSiege) _announceSiege();
+    if (!_tutorial && !_game.isOver) {
+      final siege = _game.rules.siegeRound;
+      if (!before.inSiege && _game.inSiege) {
+        _announceSiege(started: true);
+      } else if (siege != null && before.round != _game.round && _game.round == siege - _siegeWarnRounds) {
+        _announceSiege(started: false);
+      }
+    }
     if (before.current != _game.current && !_game.isOver) {
       if (_isAiTurn) {
         WidgetsBinding.instance.addPostFrameCallback((_) => _maybeRunAi());
@@ -712,16 +722,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     return _history.removeLast();
   }
 
-  void _announceSiege() {
-    Haptics.heavy();
+  /// Rondas de anticipación del aviso de Asedio.
+  static const _siegeWarnRounds = 2;
+
+  void _announceSiege({required bool started}) {
+    started ? Haptics.heavy() : Haptics.medium();
     SoundBoard.instance.play(Sfx.ability);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        behavior: SnackBarBehavior.floating,
-        duration: const Duration(seconds: 4),
-        content: Text(tr('game.siegeStarts')),
-      ),
-    );
+    setState(() => _siegeBanner = (key: (_siegeBanner?.key ?? 0) + 1, started: started));
   }
 
   // ----------------------------------------------------------- tutorial
@@ -1735,6 +1742,20 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                       if (_tutorial) _coachCard() else if (_staged) _goalChip(t) else if (_init) _guideCard(),
                       _topBar(t),
                     ],
+                  ),
+                ),
+              if (_siegeBanner case final b?)
+                Positioned(
+                  top: MediaQuery.paddingOf(context).top + 120,
+                  right: 0,
+                  child: _SiegeBanner(
+                    key: ValueKey(b.key),
+                    title: b.started ? tr('game.siegeOn') : tr('game.siegeSoon', {'n': _siegeWarnRounds}),
+                    body: b.started ? tr('game.siegeOn.body') : tr('game.siegeSoon.body'),
+                    started: b.started,
+                    onDone: () {
+                      if (mounted && _siegeBanner?.key == b.key) setState(() => _siegeBanner = null);
+                    },
                   ),
                 ),
               // Presentación de la etapa, encima de todo hasta tocar Comenzar.
@@ -2760,6 +2781,89 @@ class _FadingHintState extends State<_FadingHint> {
                     ],
                   ),
                 ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Cartel que entra desde la derecha, se queda unos segundos y vuelve a salir.
+class _SiegeBanner extends StatefulWidget {
+  final String title;
+  final String body;
+
+  /// El Asedio ya empezó (rojo) o está por empezar (dorado).
+  final bool started;
+  final VoidCallback onDone;
+  const _SiegeBanner({super.key, required this.title, required this.body, required this.started, required this.onDone});
+
+  @override
+  State<_SiegeBanner> createState() => _SiegeBannerState();
+}
+
+class _SiegeBannerState extends State<_SiegeBanner> with SingleTickerProviderStateMixin {
+  late final _c = AnimationController(vsync: this, duration: const Duration(milliseconds: 5200))
+    ..forward().whenComplete(() => widget.onDone());
+
+  // Entra en 0,45 s, se queda y sale en 0,4 s; tocarlo lo despide antes.
+  late final _slide = TweenSequence<double>([
+    TweenSequenceItem(tween: Tween(begin: 1.1, end: 0.0).chain(CurveTween(curve: Curves.easeOutBack)), weight: 9),
+    TweenSequenceItem(tween: ConstantTween(0.0), weight: 83),
+    TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.1).chain(CurveTween(curve: Curves.easeIn)), weight: 8),
+  ]).animate(_c);
+
+  void _dismiss() {
+    if (_c.value < 0.92) _c.value = 0.92;
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = HexTheme.of(context);
+    final color = widget.started ? t.danger : t.gold;
+    final width = min(MediaQuery.sizeOf(context).width - 48, 340.0);
+    return AnimatedBuilder(
+      animation: _slide,
+      builder: (context, child) => FractionalTranslation(translation: Offset(_slide.value, 0), child: child),
+      child: GestureDetector(
+        onTap: _dismiss,
+        child: Container(
+          width: width,
+          padding: const EdgeInsets.fromLTRB(14, 12, 18, 12),
+          decoration: BoxDecoration(
+            color: t.surface.withValues(alpha: 0.96),
+            borderRadius: const BorderRadius.horizontal(left: Radius.circular(18)),
+            border: Border.all(color: color, width: 2),
+            boxShadow: [BoxShadow(color: color.withValues(alpha: 0.45), blurRadius: 22, spreadRadius: 1)],
+          ),
+          child: Row(
+            children: [
+              Text('囲', style: Skin.of(context).glyph(36, color: color)),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      widget.title,
+                      style: TextStyle(color: color, fontSize: 17, fontWeight: FontWeight.w900),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      widget.body,
+                      style: TextStyle(color: t.text, fontSize: 13, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
