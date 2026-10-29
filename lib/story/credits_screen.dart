@@ -90,39 +90,44 @@ class _CreditsScreenState extends State<CreditsScreen> with SingleTickerProvider
     final skin = Skin.of(context);
     return Scaffold(
       backgroundColor: _night,
-      body: GestureDetector(
-        behavior: HitTestBehavior.opaque,
+      body: Semantics(
+        button: true,
+        label: tr('common.next'),
         onTap: _tap,
-        child: AnimatedBuilder(
-          animation: _c,
-          builder: (context, _) {
-            final v = _c.value;
-            return LayoutBuilder(
-              builder: (context, box) => Stack(
-                fit: StackFit.expand,
-                children: [
-                  // El sello del final, casi apagado, detrás de todo.
-                  Opacity(
-                    opacity: 0.22 * (1 - _seg(v, _castEnd, _thanksEnd)),
-                    child: Image.asset('assets/story/art_seal.webp', fit: BoxFit.cover),
-                  ),
-                  const DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [_night, Color(0x0015120E), Color(0x0015120E), _night],
-                        stops: [0, 0.2, 0.8, 1],
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: _tap,
+          child: AnimatedBuilder(
+            animation: _c,
+            builder: (context, _) {
+              final v = _c.value;
+              return LayoutBuilder(
+                builder: (context, box) => Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    // El sello del final, casi apagado, detrás de todo.
+                    Opacity(
+                      opacity: 0.22 * (1 - _seg(v, _castEnd, _thanksEnd)),
+                      child: Image.asset('assets/story/art_seal.webp', fit: BoxFit.cover),
+                    ),
+                    const DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [_night, Color(0x0015120E), Color(0x0015120E), _night],
+                          stops: [0, 0.2, 0.8, 1],
+                        ),
                       ),
                     ),
-                  ),
-                  if (v < _castEnd + 0.02) _stamp(skin, v),
-                  if (v > _stampEnd - 0.02 && v < _castEnd + 0.02) _castRoll(skin, v, box.maxHeight),
-                  if (v > _castEnd) _ending(skin, v),
-                ],
-              ),
-            );
-          },
+                    if (v < _castEnd + 0.02) _stamp(skin, v),
+                    if (v > _stampEnd - 0.02 && v < _castEnd + 0.02) _castRoll(skin, v, box.maxHeight),
+                    if (v > _castEnd) _ending(skin, v),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

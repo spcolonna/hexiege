@@ -94,7 +94,12 @@ class _FactionLabel extends StatelessWidget {
           errorBuilder: (_, _, _) => const SizedBox(width: 36),
         ),
         const SizedBox(width: 10),
-        Text(f.displayName, style: Skin.of(context).display(20, color: HexTheme.faction(f))),
+        Flexible(
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(f.displayName, style: Skin.of(context).display(20, color: HexTheme.faction(f))),
+          ),
+        ),
       ],
     ),
   );
@@ -631,15 +636,18 @@ class _PieceViewerScreenState extends State<PieceViewerScreen> {
                             onTap: () => _go(i),
                             child: Opacity(
                               opacity: (1 - (_page - i).abs() * 0.55).clamp(0.4, 1.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(glyph, style: skin.glyph(22, color: Colors.white)),
-                                  Text(
-                                    tr(key),
-                                    style: const TextStyle(color: _muted, fontSize: 11, fontWeight: FontWeight.w700),
-                                  ),
-                                ],
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(glyph, style: skin.glyph(22, color: Colors.white)),
+                                    Text(
+                                      tr(key),
+                                      style: const TextStyle(color: _muted, fontSize: 11, fontWeight: FontWeight.w700),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

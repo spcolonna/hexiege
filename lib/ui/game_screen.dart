@@ -2345,23 +2345,25 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               // Cara a cara: quien toca en la mitad de arriba es el Jugador 2.
               by: _f2f && d.globalPosition.dy < MediaQuery.sizeOf(context).height / 2 ? 1 : 0,
             ),
-            child: CustomPaint(
-              size: const Size(_canvas, _canvas),
-              painter: BoardPainter(
-                game: _game,
-                layout: _layout,
-                theme: t,
-                grid: ArenaBackdrop.gridColor(t),
-                fx: _fx,
-                selected: _mode == _Mode.effect ? _effectTo : _selected,
-                targets: targets.difference(_swapTargets),
-                swapTargets: _swapTargets,
-                targetColor: _targetColor(t),
-                lastMove: _lastMove,
-                spotlight: _spotlight,
-                flipOwner: _f2f ? 1 : null,
-                viewer: widget.aiPlayer == null ? _game.current : _mySeat,
-                opportunities: !(_stage?.isPuzzle ?? false),
+            child: RepaintBoundary(
+              child: CustomPaint(
+                size: const Size(_canvas, _canvas),
+                painter: BoardPainter(
+                  game: _game,
+                  layout: _layout,
+                  theme: t,
+                  grid: ArenaBackdrop.gridColor(t),
+                  fx: _fx,
+                  selected: _mode == _Mode.effect ? _effectTo : _selected,
+                  targets: targets.difference(_swapTargets),
+                  swapTargets: _swapTargets,
+                  targetColor: _targetColor(t),
+                  lastMove: _lastMove,
+                  spotlight: _spotlight,
+                  flipOwner: _f2f ? 1 : null,
+                  viewer: widget.aiPlayer == null ? _game.current : _mySeat,
+                  opportunities: !(_stage?.isPuzzle ?? false),
+                ),
               ),
             ),
           ),
@@ -2695,9 +2697,11 @@ class _PulseState extends State<_Pulse> with SingleTickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) => ScaleTransition(
-    scale: Tween(begin: 1.0, end: 1.16).animate(CurvedAnimation(parent: _c, curve: Curves.easeInOut)),
-    child: widget.child,
+  Widget build(BuildContext context) => RepaintBoundary(
+    child: ScaleTransition(
+      scale: Tween(begin: 1.0, end: 1.16).animate(CurvedAnimation(parent: _c, curve: Curves.easeInOut)),
+      child: widget.child,
+    ),
   );
 }
 

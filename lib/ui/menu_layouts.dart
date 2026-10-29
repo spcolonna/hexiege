@@ -638,58 +638,78 @@ class _EmaPlaqueState extends State<EmaPlaque> with TickerProviderStateMixin {
         _swing.forward(from: 0);
         widget.onTap();
       },
-      child: AnimatedBuilder(
-        animation: Listenable.merge([_swing, _wind]),
-        builder: (_, child) {
-          final p = _swing.value;
-          final calm = MediaQuery.of(context).disableAnimations;
-          final a = widget.tilt + 0.16 * sin(p * 3 * pi) * (1 - p) + (calm ? 0 : _windAngle());
-          return Transform.rotate(angle: a, alignment: Alignment.topCenter, child: child);
-        },
-        child: Column(
-          children: [
-            Container(width: 2, height: 18, color: hankoRed),
-            Container(
-              width: 7,
-              height: 7,
-              decoration: const BoxDecoration(color: hankoRed, shape: BoxShape.circle),
-            ),
-            const SizedBox(height: 2),
-            PhysicalShape(
-              clipper: const _EmaClipper(),
-              clipBehavior: Clip.antiAlias,
-              color: fill.last,
-              shadowColor: Colors.black,
-              elevation: 5,
-              child: Container(
-                width: w,
-                height: h,
-                padding: EdgeInsets.fromLTRB(6, h * 0.24, 6, 8),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: fill),
-                ),
-                child: Column(
-                  children: [
-                    Text(widget.glyph, style: s.glyph(widget.main ? 34 : 28, color: ink)),
-                    const Spacer(),
-                    Text(
-                      widget.label,
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      style: TextStyle(
-                        fontSize: widget.main ? 14 : 12.5,
-                        height: 1.15,
-                        fontWeight: FontWeight.w900,
-                        color: ink,
+      child: RepaintBoundary(
+        child: AnimatedBuilder(
+          animation: Listenable.merge([_swing, _wind]),
+          builder: (_, child) {
+            final p = _swing.value;
+            final calm = MediaQuery.of(context).disableAnimations;
+            final a = widget.tilt + 0.16 * sin(p * 3 * pi) * (1 - p) + (calm ? 0 : _windAngle());
+            return Transform.rotate(angle: a, alignment: Alignment.topCenter, child: child);
+          },
+          child: Column(
+            children: [
+              Container(width: 2, height: 18, color: hankoRed),
+              Container(
+                width: 7,
+                height: 7,
+                decoration: const BoxDecoration(color: hankoRed, shape: BoxShape.circle),
+              ),
+              const SizedBox(height: 2),
+              PhysicalShape(
+                clipper: const _EmaClipper(),
+                clipBehavior: Clip.antiAlias,
+                color: fill.last,
+                shadowColor: Colors.black,
+                elevation: 5,
+                child: Container(
+                  width: w,
+                  height: h,
+                  padding: EdgeInsets.fromLTRB(6, h * 0.24, 6, 8),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: fill),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(widget.glyph, style: s.glyph(widget.main ? 34 : 28, color: ink)),
+                      // Con letra grande el rótulo se achica para caber en la tablilla.
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width: w - 12,
+                                  child: Text(
+                                    widget.label,
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                      fontSize: widget.main ? 14 : 12.5,
+                                      height: 1.15,
+                                      fontWeight: FontWeight.w900,
+                                      color: ink,
+                                    ),
+                                  ),
+                                ),
+                                if (widget.sub != null)
+                                  Text(
+                                    widget.sub!,
+                                    style: TextStyle(fontSize: 11.5, color: ink.withValues(alpha: 0.75)),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    if (widget.sub != null)
-                      Text(widget.sub!, style: TextStyle(fontSize: 11.5, color: ink.withValues(alpha: 0.75))),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

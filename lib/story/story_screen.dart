@@ -249,17 +249,22 @@ class _StoryScreenState extends State<StoryScreen> with TickerProviderStateMixin
               ),
             ),
             Expanded(
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
+              child: Semantics(
+                button: true,
+                label: tr('common.next'),
                 onTap: _tap,
-                onLongPressStart: (_) {
-                  _auto = true;
-                  _tap();
-                },
-                onLongPressEnd: (_) => _auto = false,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 6, 12, 8),
-                  child: _at < 0 ? const SizedBox.expand() : _book(),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: _tap,
+                  onLongPressStart: (_) {
+                    _auto = true;
+                    _tap();
+                  },
+                  onLongPressEnd: (_) => _auto = false,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 6, 12, 8),
+                    child: _at < 0 ? const SizedBox.expand() : _book(),
+                  ),
                 ),
               ),
             ),

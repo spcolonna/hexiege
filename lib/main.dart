@@ -17,6 +17,7 @@ import 'story/credits_screen.dart';
 import 'story/story_screen.dart';
 import 'ui/brand_intro.dart';
 import 'ui/game_intro.dart';
+import 'ui/widgets/phone_frame.dart';
 import 'ui/fx/piece_art.dart';
 import 'ui/fx/sfx.dart';
 import 'ui/menu_screen.dart';
@@ -71,7 +72,7 @@ class HexiegeApp extends StatelessWidget {
         // Fundido lento: el cambio de tema en plena partida se siente intencional.
         themeAnimationDuration: const Duration(milliseconds: 450),
         themeAnimationCurve: Curves.easeInOut,
-        builder: (context, child) => _PhoneFrame(child: child!),
+        builder: (context, child) => PhoneFrame(child: child!),
         // Estudio → juego → bienvenida o menú. Para probar una viñeta:
         // flutter run --dart-define=STORY=s4.post [--dart-define=STORY_AT=9]
         // (STORY=credits muestra los créditos del final).
@@ -85,41 +86,6 @@ class HexiegeApp extends StatelessWidget {
                 start: const int.fromEnvironment('STORY_AT'),
               )
             : BrandIntro(next: GameIntro(next: onboarding ? const OnboardingScreen() : const MenuScreen())),
-      ),
-    );
-  }
-}
-
-/// Límites globales de la interfaz, pensada para un teléfono en vertical:
-/// - La letra del sistema crece hasta 1,3×; más allá desborda los botones.
-/// - En tablet la app ocupa una columna centrada con proporción de teléfono.
-class _PhoneFrame extends StatelessWidget {
-  static const maxTextScale = 1.3;
-  static const maxAspect = 0.6; // ancho / alto
-
-  final Widget child;
-  const _PhoneFrame({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
-    final size = mq.size;
-    final tablet = size.shortestSide >= 600;
-    final width = tablet && size.width > size.height * maxAspect ? size.height * maxAspect : size.width;
-    final scaled = MediaQuery.withClampedTextScaling(maxScaleFactor: maxTextScale, child: child);
-    if (width >= size.width) return scaled;
-    return ColoredBox(
-      color: Colors.black,
-      child: Center(
-        child: SizedBox(
-          width: width,
-          child: ClipRect(
-            child: MediaQuery(
-              data: mq.copyWith(size: Size(width, size.height)),
-              child: scaled,
-            ),
-          ),
-        ),
       ),
     );
   }
